@@ -1,0 +1,41 @@
+﻿@using  CarProject.Areas.Admin.Models.Cars
+@model NewCar
+
+@{
+    ViewBag.Title = "ثبت اطلاعات خودرو";
+}
+
+
+@using (Html.BeginForm())
+{
+    <div class="wizardContainer">
+        <nav class="wizardNav">
+            <a href="#w1">صفحه 1</a>
+            <a href="#w2">صفحه 2</a>
+            <a href="#w3">صفحه 3</a>
+            <a href="#w4">صفحه 4</a>
+        </nav>
+
+        <div class="wizardPage" id="w1">
+            <section class="header">اطلاعات عمومی خودرو</section>
+                @Html.LabelFor(m => m.CarGeneral.CarsBrandName)
+                @Html.TextBoxFor(m => m.CarGeneral.CarsBrandName)<br />
+
+                @Html.LabelFor(m => m.CarGeneral.CarsClass)
+                @Html.TextBoxFor(m => m.CarGeneral.CarsClass)<br />
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w2">
+            <section class="header">مشخصات بوق</section>
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+        </div>
+    </div>
+}

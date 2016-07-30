@@ -1,0 +1,63 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>مدیریت وبسایت - @ViewBag.Title</title>
+
+    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/default.css" rel="stylesheet" />
+    
+    
+    <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
+
+</head>
+
+<body>
+	<div id="topBar">
+    	
+        <nav id="topBar_left">
+            <a href="javascript: void(0);" onClick="TogleHide(mainNavigation,'')" class="gia-menuIcon"></a>
+        	<a href="#" class="gia-logout"></a>
+        	<a href="#" class="gia-chat" data-count="99+"></a>
+            <a href="#" class="gia-message" data-count="99+"></a>
+            
+            <nav id="mainNavigation">
+                <h4 style="white-space:nowrap" class="gia-statistic">بازدیدها و اطلاعات آماری</h4>
+            </nav>
+        </nav>
+    
+    	<div id="topBar_userInfo">
+
+        	<a href="#" class="gia-help" ></a>
+            
+        	<a href="javascript: void(0);" onClick="TogleHide(userToolbar,'flex')" class="gia-user"></a>
+            
+            
+            
+            <div id="userToolbar">
+            	<img id="userAvatar" src="~/Areas/Admin/Files/Images/user.png" alt="User Avatar"/>
+                
+                <div>
+                	<h2>Username</h2>
+                    <p style="margin:-10px 0 0 0 ; font-size:79%;">نام و نام خانوادگی</p>
+                </div>
+                
+                <nav style="font-size:80%; display:flex; flex-wrap:wrap; justify-content:center; align-items:center;">
+                	<a href="#">تغییر کلمه عبور</a>|
+                    <a href="#">مدیریت پروفایل</a>
+                </nav>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <div id="content">
+          @RenderBody()
+    </div>
+    
+    
+</body>
+<script src="~/Areas/Admin/Files/StyleAndScripts/Default/d00.js"></script>
+</html>
