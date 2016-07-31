@@ -283,6 +283,7 @@
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\default.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Admin\Files\StyleAndScripts\Default\input1.css" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />
     <Content Include="Publics\Styles\fonts\Fonts.css" />

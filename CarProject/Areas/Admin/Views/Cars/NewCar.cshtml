@@ -18,11 +18,17 @@
 
         <div class="wizardPage" id="w1">
             <section class="header">اطلاعات عمومی خودرو</section>
-                @Html.LabelFor(m => m.CarGeneral.CarsBrandName)
-                @Html.TextBoxFor(m => m.CarGeneral.CarsBrandName)<br />
 
+            <section class="input">
+                @Html.LabelFor(m => m.CarGeneral.CarsBrandName)
+                @Html.TextBoxFor(m => m.CarGeneral.CarsBrandName, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.CarsBrandName) })
+            </section>
+
+            <section class="input">
                 @Html.LabelFor(m => m.CarGeneral.CarsClass)
-                @Html.TextBoxFor(m => m.CarGeneral.CarsClass)<br />
+                @Html.TextBoxFor(m => m.CarGeneral.CarsClass, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.CarsClass) })
+            </section>
+
 
             <div class="footer">
                 <button type="button" onclick="wizardNextPage(this)">ادامه</button>
