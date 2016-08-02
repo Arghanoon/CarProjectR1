@@ -15,6 +15,7 @@ namespace CarProject.DBSEF
     public partial class DetailedBrakeSystem
     {
         public int DetailedBrakeSystemId { get; set; }
+
         public string DetailedName { get; set; }
         public Nullable<bool> HaveDetailed { get; set; }
         public Nullable<int> CarId { get; set; }
