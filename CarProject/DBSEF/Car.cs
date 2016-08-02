@@ -53,14 +53,28 @@ namespace CarProject.DBSEF
         public string CarsClass { get; set; }
         [DisplayName("مدل")]
         public string CarsModel { get; set; }
+        [DisplayName("امتیاز کاربران")]
         public Nullable<int> CarsUserScore { get; set; }
+        [DisplayName("امتیاز وب سایت")]
         public Nullable<int> CarsClinicScore { get; set; }
+        [DisplayName("قیمت")]
         public string Price { get; set; }
+
         public Nullable<int> CarsPicsId { get; set; }
+        [DisplayName("آدرس ویدئو")]
+
         public string CarsVideoURL { get; set; }
+        [DisplayName("توضیحات")]
+
         public string CarsDescription { get; set; }
+        [DisplayName("کلاس خودرو")]
+
         public string CarClassType { get; set; }
+        [DisplayName("رده")]
+
         public string CarCategory { get; set; }
+        [DisplayName("کاربرد")]
+
         public string CarUsage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
