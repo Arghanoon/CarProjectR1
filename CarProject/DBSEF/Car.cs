@@ -76,6 +76,9 @@ namespace CarProject.DBSEF
         [DisplayName("کاربرد")]
 
         public string CarUsage { get; set; }
+
+        //autocomplete and combos
+        public string[] CarClassTypeItems { get { return new[] { "سدان" }; } }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AirConditioningSystem> AirConditioningSystems { get; set; }

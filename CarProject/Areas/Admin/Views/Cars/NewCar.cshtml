@@ -10,14 +10,14 @@
 {
     <div class="wizardContainer">
         <nav class="wizardNav">
-            <a href="#w1">صفحه 1</a>
-            <a href="#w2">صفحه 2</a>
+            <a href="#w1">اطلاعات عمومی خودرو</a>
+            <a href="#w2">نوع خودرو</a>
             <a href="#w3">صفحه 3</a>
             <a href="#w4">صفحه 4</a>
         </nav>
 
         <div class="wizardPage" id="w1">
-            <section class="header">اطلاعات عمومی خودرو</section>
+            <!--<section class="header">اطلاعات عمومی خودرو</section>-->
 
             <section class="input">
                 @Html.LabelFor(m => m.CarGeneral.CarsBrandName)
@@ -29,14 +29,59 @@
                 @Html.TextBoxFor(m => m.CarGeneral.CarsClass, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.CarsClass) })
             </section>
 
+            <section class="input">
+                @Html.LabelFor(m => m.CarGeneral.CarsModel)
+                @Html.TextBoxFor(m => m.CarGeneral.CarsModel, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.CarsModel) })
+            </section>
 
+             <section class="input">
+                @Html.LabelFor(m => m.CarGeneral.CarsClinicScore)
+                @Html.TextBoxFor(m => m.CarGeneral.CarsClinicScore, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.CarsClinicScore) })
+             </section>
+
+             <section class="input">
+                @Html.LabelFor(m => m.CarGeneral.Price)
+                @Html.TextBoxFor(m => m.CarGeneral.Price, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.Price) })
+             </section>
+
+             <section class="input">
+                @Html.LabelFor(m => m.CarGeneral.CarsVideoURL)
+                @Html.TextBoxFor(m => m.CarGeneral.CarsVideoURL, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.CarsVideoURL) })
+             </section>
+
+             <section class="input">
+                @Html.LabelFor(m => m.CarGeneral.CarsDescription)
+                @Html.TextAreaFor(m => m.CarGeneral.CarsDescription, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.CarsDescription) })
+             </section>
+
+            
             <div class="footer">
                 <button type="button" onclick="wizardNextPage(this)">ادامه</button>
             </div>
         </div>
 
         <div class="wizardPage" id="w2">
-            <section class="header">مشخصات بوق</section>
+
+            <section class="input">
+                @Html.LabelFor(m => m.CarGeneral.CarClassType)
+                <select id="@Html.IdFor(m => m.CarGeneral.CarClassType)">
+                    <option value="" >انتخاب کنید</option>
+                    @foreach (string item in Model.CarGeneral.CarClassTypeItems)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+            </section>
+
+            <section class="input">
+                @Html.LabelFor(m => m.CarGeneral.CarCategory)
+                @Html.TextBoxFor(m => m.CarGeneral.CarCategory, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.CarCategory) })
+            </section>
+
+            <section class="input">
+                @Html.LabelFor(m => m.CarGeneral.CarUsage)
+                @Html.TextBoxFor(m => m.CarGeneral.CarUsage, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.CarUsage) })
+             </section>
 
             <div class="footer">
                 <button type="button" onclick="wizardNextPage(this)">ادامه</button>
