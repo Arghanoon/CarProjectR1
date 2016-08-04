@@ -2,63 +2,94 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>مدیریت وبسایت - @ViewBag.Title</title>
+<title>کلینیک خودرو - @ViewBag.Title</title>
 
     <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
     <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
-    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/default.css" rel="stylesheet" />
 
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/default.css" rel="stylesheet" />
     <link href="~/Areas/Admin/Files/StyleAndScripts/Default/input1.css" rel="stylesheet" />
-    
+
     <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
 
 </head>
 
 <body>
-	<div id="topBar">
-    	
-        <nav id="topBar_left">
-            <a href="javascript: void(0);" onClick="TogleHide(mainNavigation,'')" class="gia-menuIcon"></a>
-        	<a href="#" class="gia-logout"></a>
-        	<a href="#" class="gia-chat" data-count="99+"></a>
-            <a href="#" class="gia-message" data-count="99+"></a>
-            
-            <nav id="mainNavigation">
-                <h4 style="white-space:nowrap" class="gia-statistic">بازدیدها و اطلاعات آماری</h4>
-            </nav>
-        </nav>
-    
-    	<div id="topBar_userInfo">
 
-        	<a href="#" class="gia-help" ></a>
+	<header>
+    	<div>
+        	<h1 style="font-family:f1;"><a href="#">خودروکلینیک</a></h1>
+        </div>
+        
+        <a href="javascript: void()" id="header_menuIcon"  class="gia-menuIcon" onClick="TogleClassShow(header_menu,'display');"></a>
+        <div id="header_menu">
+            <nav id="header_menu_nav">
+                <a href="#" class="gia-statistic">داشبور</a>
+                <a href="#" class="gia-setting">تنظیمات</a>
+                <a href="#" class="gia-user">پروفایل</a>
+                <a href="#" class="gia-help">راهنما</a>
+            </nav>
+        </div>
+    </header>
+    
+    
+    <div id="container">
+    
+    	
+        <div id="body">
+        	@RenderBody()
+        </div>
+        
+        <div id="menu">
+        	
+            <nav>
+            	<a href="#">قسمت 1 لینک 1</a>
+                <a href="#">قسمت 1 لینک 2</a>
+                <a href="#">قسمت 1 لینک 3</a>
+                <a href="#">قسمت 1 لینک 4</a>
+            </nav>
             
-        	<a href="javascript: void(0);" onClick="TogleHide(userToolbar,'flex')" class="gia-user"></a>
             
+            <nav>
+            	<a href="#">قسمت 1 لینک 1</a>
+                <a href="#">قسمت 1 لینک 2</a>
+                <a href="#">قسمت 1 لینک 3</a>
+                <a href="#">قسمت 1 لینک 4</a>
+            </nav>
             
+            <nav>
+            	<a href="#">قسمت 1 لینک 1</a>
+                <a href="#">قسمت 1 لینک 2</a>
+                <a href="#">قسمت 1 لینک 3</a>
+                <a href="#">قسمت 1 لینک 4</a>
+            </nav>
             
-            <div id="userToolbar">
-            	<img id="userAvatar" src="~/Areas/Admin/Files/Images/user.png" alt="User Avatar"/>
-                
-                <div>
-                	<h2>Username</h2>
-                    <p style="margin:-10px 0 0 0 ; font-size:79%;">نام و نام خانوادگی</p>
-                </div>
-                
-                <nav style="font-size:80%; display:flex; flex-wrap:wrap; justify-content:center; align-items:center;">
-                	<a href="#">تغییر کلمه عبور</a>|
-                    <a href="#">مدیریت پروفایل</a>
-                </nav>
-            </div>
+            <nav>
+            	<a href="#">قسمت 1 لینک 1</a>
+                <a href="#">قسمت 1 لینک 2</a>
+                <a href="#">قسمت 1 لینک 3</a>
+                <a href="#">قسمت 1 لینک 4</a>
+            </nav>
             
         </div>
         
+        
     </div>
-    
-    <div id="content">
-          @RenderBody()
-    </div>
-    
-    
+
 </body>
+
 <script src="~/Areas/Admin/Files/StyleAndScripts/Default/d00.js"></script>
+<script>
+    cn = document.getElementById('container');
+    hw = (document.getElementsByTagName('header')[0].clientHeight + 1);
+    cn.style.marginTop = hw + "px";
+    cn.style.minHeight = (window.innerHeight - hw) + "px";
+
+    function TogleClassShow(el, clname) {
+        if (el.classList.contains(clname))
+            el.classList.remove(clname);
+        else
+            el.classList.add(clname);
+    }
+</script>
 </html>

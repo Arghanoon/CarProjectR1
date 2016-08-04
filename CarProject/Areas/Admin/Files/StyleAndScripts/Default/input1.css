@@ -1,17 +1,24 @@
 ﻿
+.inputsContainer {
+    display:table;
+    width:100%;
+}
 .input
 {
-	display:flex;
-    flex-wrap:wrap;
-	justify-content:space-between;
+    display:table-row;
 }
+
+    .input > * {
+        display:table-cell;  
+        vertical-align:middle;
+    }
+
 	.input input:not([type=submit]):not([type=button]):not([type=reset]),
 		.input textarea,
         .input select
 	{
-        width:75%;
-
-		color:#373749;
+        width:100%;
+        color:#373749;
 		border:thin solid #b6b6c8;
 		border-radius:3px;
 		padding:3px;
@@ -37,3 +44,22 @@
         .input option:hover {
             background:#b6b6c8;
         }
+
+    .input .error {
+        box-shadow:0 0 3px 1px #f00;
+    }
+    .input span {
+        margin-top:auto;
+        color:#f00;
+        padding: 0 10px;
+        vertical-align:middle;
+    }
+
+
+
+
+@media (max-width:500px) {
+    .input > * {
+        display:block;      
+    }
+}
