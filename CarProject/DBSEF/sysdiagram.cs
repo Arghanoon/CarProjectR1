@@ -15,18 +15,18 @@ namespace CarProject.DBSEF
 using System;
     using System.Collections.Generic;
     
-public partial class ProductStore
+public partial class sysdiagram
 {
 
-    public int ProductStoreId { get; set; }
+    public string name { get; set; }
 
-    public Nullable<int> ProductId { get; set; }
+    public int principal_id { get; set; }
 
-    public Nullable<int> ProductEntity { get; set; }
+    public int diagram_id { get; set; }
 
+    public Nullable<int> version { get; set; }
 
-
-    public virtual Product Product { get; set; }
+    public byte[] definition { get; set; }
 
 }
 

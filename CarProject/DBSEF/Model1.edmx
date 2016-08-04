@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CarAutomationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CarAutomationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AirConditioningSystem">
           <Key>
             <PropertyRef Name="AirConditioningSystemId" />
@@ -18,7 +18,7 @@
           <Property Name="column3" Type="nvarchar" MaxLength="50" />
           <Property Name="column4" Type="nvarchar" MaxLength="50" />
           <Property Name="column5" Type="nvarchar" MaxLength="50" />
-          <Property Name="Details" Type="nvarchar" MaxLength="1" />
+          <Property Name="Details" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="AutoService">
           <Key>
@@ -84,7 +84,7 @@
           <Property Name="FrontAirBag" Type="bit" />
           <Property Name="AirBag" Type="bit" />
           <Property Name="AirBagEntity" Type="int" />
-          <Property Name="Details" Type="nvarchar" MaxLength="1" />
+          <Property Name="Details" Type="nvarchar(max)" />
           <Property Name="CarsId" Type="int" />
         </EntityType>
         <EntityType Name="CarAudioSystem">
@@ -119,7 +119,7 @@
           <Property Name="EnginePowerHpLitr" Type="int" />
           <Property Name="EngineMaxSpeed" Type="int" />
           <Property Name="EngineZeroToH" Type="int" />
-          <Property Name="EngineDescription" Type="nvarchar" MaxLength="1" />
+          <Property Name="EngineDescription" Type="nvarchar(max)" />
           <Property Name="CarsId" Type="int" />
         </EntityType>
         <EntityType Name="CarGearBox">
@@ -135,7 +135,7 @@
           <Property Name="HasTransferCase" Type="bit" />
           <Property Name="GearBoxDiffrentionalLock" Type="bit" />
           <Property Name="GearBoxWdType" Type="varchar" MaxLength="50" />
-          <Property Name="GearBoxDescription" Type="nvarchar" MaxLength="1" />
+          <Property Name="GearBoxDescription" Type="nvarchar(max)" />
           <Property Name="CarsId" Type="int" />
         </EntityType>
         <EntityType Name="CarLightingSystem">
@@ -152,6 +152,7 @@
           <Property Name="ReadingLamp" Type="bit" />
           <Property Name="Deailts" Type="nvarchar(max)" />
           <Property Name="CarsId" Type="int" />
+          <Property Name="ThirdLightStop" Type="bit" />
         </EntityType>
         <EntityType Name="CarPhysicalDetails">
           <Key>
@@ -165,7 +166,7 @@
           <Property Name="CarWheelBase" Type="int" />
           <Property Name="CarPureWeight" Type="int" />
           <Property Name="CarTankSize" Type="int" />
-          <Property Name="Details" Type="nvarchar" MaxLength="1" />
+          <Property Name="Details" Type="nvarchar(max)" />
           <Property Name="CarId" Type="int" />
         </EntityType>
         <EntityType Name="CarPrice">
@@ -190,7 +191,7 @@
           <Property Name="Price" Type="nvarchar" MaxLength="50" />
           <Property Name="CarsPicsId" Type="int" />
           <Property Name="CarsVideoURL" Type="varchar" MaxLength="50" />
-          <Property Name="CarsDescription" Type="nvarchar" MaxLength="1" />
+          <Property Name="CarsDescription" Type="nvarchar(max)" />
           <Property Name="CarClassType" Type="varchar" MaxLength="50" />
           <Property Name="CarCategory" Type="varchar" MaxLength="50" />
           <Property Name="CarUsage" Type="nvarchar" MaxLength="100" />
@@ -259,7 +260,7 @@
           <Property Name="Review" Type="nvarchar(max)" />
           <Property Name="column1" Type="nvarchar(max)" />
           <Property Name="column2" Type="nvarchar(max)" />
-          <Property Name="column3" Type="nvarchar" MaxLength="1" />
+          <Property Name="column3" Type="nvarchar(max)" />
           <Property Name="CarScore" Type="float" />
           <Property Name="Beauty" Type="float" />
           <Property Name="WorthBuying" Type="float" />
@@ -278,7 +279,7 @@
           <Property Name="RingType" Type="nvarchar" MaxLength="50" />
           <Property Name="RingModel" Type="nvarchar" MaxLength="50" />
           <Property Name="AutoInflated" Type="bit" />
-          <Property Name="Details" Type="nvarchar" MaxLength="1" />
+          <Property Name="Details" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -432,8 +433,18 @@
           <Property Name="SteeringType" Type="nvarchar" MaxLength="50" />
           <Property Name="SteeringHeightAdjustble" Type="bit" />
           <Property Name="SteeringControlKey" Type="bit" />
-          <Property Name="Details" Type="nvarchar" MaxLength="1" />
+          <Property Name="Details" Type="nvarchar(max)" />
           <Property Name="CarId" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TodaysSpecial">
           <Key>
@@ -1025,6 +1036,7 @@
           <EntitySet Name="ProductStore" EntityType="Self.ProductStore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
@@ -1205,8 +1217,7 @@
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CarAutomationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1223,7 +1234,7 @@
           <Property Name="column3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="column4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="column5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Details" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Car" Relationship="Self.FK_AirConditioningSystem_Cars" FromRole="AirConditioningSystem" ToRole="Cars" />
         </EntityType>
         <EntityType Name="AutoService">
@@ -1302,7 +1313,7 @@
           <Property Name="FrontAirBag" Type="Boolean" />
           <Property Name="AirBag" Type="Boolean" />
           <Property Name="AirBagEntity" Type="Int32" />
-          <Property Name="Details" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarsId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_CarAirbags_Cars" FromRole="CarAirbags" ToRole="Cars" />
         </EntityType>
@@ -1339,7 +1350,7 @@
           <Property Name="EnginePowerHpLitr" Type="Int32" />
           <Property Name="EngineMaxSpeed" Type="Int32" />
           <Property Name="EngineZeroToH" Type="Int32" />
-          <Property Name="EngineDescription" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="EngineDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarsId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_CarEngine_Cars" FromRole="CarEngine" ToRole="Cars" />
         </EntityType>
@@ -1356,7 +1367,7 @@
           <Property Name="HasTransferCase" Type="Boolean" />
           <Property Name="GearBoxDiffrentionalLock" Type="Boolean" />
           <Property Name="GearBoxWdType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="GearBoxDescription" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="GearBoxDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarsId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_CarGearBox_Cars" FromRole="CarGearBox" ToRole="Cars" />
         </EntityType>
@@ -1375,6 +1386,7 @@
           <Property Name="Deailts" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarsId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_CarLightingSystem_Cars" FromRole="CarLightingSystem" ToRole="Cars" />
+          <Property Name="ThirdLightStop" Type="Boolean" />
         </EntityType>
         <EntityType Name="CarPhysicalDetail">
           <Key>
@@ -1388,7 +1400,7 @@
           <Property Name="CarWheelBase" Type="Int32" />
           <Property Name="CarPureWeight" Type="Int32" />
           <Property Name="CarTankSize" Type="Int32" />
-          <Property Name="Details" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_CarPhysicalDetails_Cars" FromRole="CarPhysicalDetails" ToRole="Cars" />
         </EntityType>
@@ -1415,7 +1427,7 @@
           <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CarsPicsId" Type="Int32" />
           <Property Name="CarsVideoURL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CarsDescription" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="CarsDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarClassType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CarCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CarUsage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -1515,7 +1527,7 @@
           <Property Name="Review" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="column1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="column2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="column3" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="column3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarScore" Type="Double" />
           <Property Name="Beauty" Type="Double" />
           <Property Name="WorthBuying" Type="Double" />
@@ -1535,7 +1547,7 @@
           <Property Name="RingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RingModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AutoInflated" Type="Boolean" />
-          <Property Name="Details" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Car" Relationship="Self.FK_CarWheels_Cars" FromRole="CarWheels" ToRole="Cars" />
         </EntityType>
         <EntityType Name="Category">
@@ -1717,7 +1729,7 @@
           <Property Name="SteeringType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SteeringHeightAdjustble" Type="Boolean" />
           <Property Name="SteeringControlKey" Type="Boolean" />
-          <Property Name="Details" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_SteeringSystem_Cars" FromRole="SteeringSystem" ToRole="Cars" />
         </EntityType>
@@ -2497,7 +2509,18 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="CarAutomationModel.sysdiagram" />
         </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2650,6 +2673,7 @@
           <EntitySetMapping Name="CarLightingSystems">
             <EntityTypeMapping TypeName="CarAutomationModel.CarLightingSystem">
               <MappingFragment StoreEntitySet="CarLightingSystem">
+                <ScalarProperty Name="ThirdLightStop" ColumnName="ThirdLightStop" />
                 <ScalarProperty Name="CarLightingSystemId" ColumnName="CarLightingSystemId" />
                 <ScalarProperty Name="FrontLights" ColumnName="FrontLights" />
                 <ScalarProperty Name="RearLights" ColumnName="RearLights" />
@@ -2995,6 +3019,17 @@
                 <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserRole1" ColumnName="UserRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CarAutomationModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

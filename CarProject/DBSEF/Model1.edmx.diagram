@@ -87,6 +87,7 @@
         <AssociationConnector Association="CarAutomationModel.FK_ProductStore_Product" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_TodaysSpecial_Product" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_UserRole_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CarAutomationModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
