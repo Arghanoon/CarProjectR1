@@ -6,7 +6,8 @@
 	justify-content:space-between;
 }
 	.input input:not([type=submit]):not([type=button]):not([type=reset]),
-		.input textarea
+		.input textarea,
+        .input select
 	{
         width:75%;
 
@@ -21,9 +22,18 @@
 		font-family:f3;
 	}
 	.input input:not([type=submit]):not([type=button]):not([type=reset]):focus,
-		.input textarea:focus
+		.input textarea:focus,
+        .input select:focus
 	{
 		border: thin solid;
 		box-shadow:0 0 3px 0 #b6b6c8;
 		background:#FFFFFF;
 	}
+
+    .input option {
+        padding:0 5px;
+        display:block;
+    }
+        .input option:hover {
+            background:#b6b6c8;
+        }
