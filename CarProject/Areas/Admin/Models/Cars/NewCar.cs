@@ -13,12 +13,15 @@ namespace CarProject.Areas.Admin.Models.Cars
         public Car CarGeneral { get; set; }
         public string[] CarClassTypeItems { get { return new string[] { "سدان" }; } }
 
+        public CarEngine CarEngine { get; set; }
+
         public List<byte[]> CarImages { get; set; } 
 
 
         public NewCar()
         {
             CarGeneral = new Car();
+            CarEngine = new CarEngine();
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

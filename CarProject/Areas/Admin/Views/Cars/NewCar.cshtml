@@ -12,7 +12,7 @@
     <div class="wizardContainer">
         <nav class="wizardNav">
             <a href="#w1">اطلاعات عمومی خودرو</a>
-            <a href="#w2">نوع خودرو</a>
+            <a href="#w2">مشخصات موتور</a>
             <a href="#w3">صفحه 3</a>
             <a href="#w4">صفحه 4</a>
         </nav>
@@ -21,7 +21,16 @@
             <!--<section class="header">اطلاعات عمومی خودرو</section>-->
 
             <div class="inputsContainer">
-                
+                @Html.input_TextBox(m => m.CarGeneral.CarsBrandName, "برند خودرو")
+                @Html.input_TextBox(m => m.CarGeneral.CarsClass, "کلاس خودرو")
+                @Html.input_TextBox(m => m.CarGeneral.CarsModel, "مدل خودرو")
+                @Html.input_TextBox(m => m.CarGeneral.CarsClinicScore, "امتیاز کلینیک")
+                @Html.input_TextBox(m => m.CarGeneral.Price, "قیمت خودرو")
+                @Html.input_TextBox(m => m.CarGeneral.CarsVideoURL, "آدرس ویدئو")
+                @Html.input_TextArea(m => m.CarGeneral.CarsDescription, "توضیحات خودرو")
+                @Html.input_ComboBox(m => m.CarGeneral.CarClassType, "کلاس کاری خودرو", Model.CarClassTypeItems, new Dictionary<string, object>() { {"data-test","have error test"} })
+                @Html.input_TextBox(m => m.CarGeneral.CarCategory, "دسته بندی خودرو")
+                @Html.input_TextBox(m => m.CarGeneral.CarUsage, "کاربرد خودرو")
             </div> 
 
             <div class="footer">
@@ -32,26 +41,15 @@
         <div class="wizardPage" id="w2">
 
             <div class="inputsContainer">
-                <section class="input">
-                    @Html.LabelFor(m => m.CarGeneral.CarClassType, "")
-                    <select id="@Html.IdFor(m => m.CarGeneral.CarClassType)">
-                        <option value="">انتخاب کنید</option>
-                        @foreach (string item in Model.CarClassTypeItems)
-                        {
-                            <option value="@item">@item</option>
-                    }
-                    </select>
-                </section>
-
-                <section class="input">
-                    @Html.LabelFor(m => m.CarGeneral.CarCategory, "")
-                    @Html.TextBoxFor(m => m.CarGeneral.CarCategory, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.CarCategory) })
-                </section>
-
-                <section class="input">
-                    @Html.LabelFor(m => m.CarGeneral.CarUsage, "")
-                    @Html.TextBoxFor(m => m.CarGeneral.CarUsage, new { placeholder = Html.DisplayNameFor(m => m.CarGeneral.CarUsage) })
-                </section>
+                @Html.input_TextBox(m => m.CarEngine.EngineType, "نوع موتور")
+                @Html.input_TextBox(m => m.CarEngine.EngineCylinderNumber, "تعداد سیلندر")
+                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpRpm, "قدرت موتور")
+                @Html.input_TextBox(m => m.CarEngine.EngineTorque, "گشتاور")
+                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpTon, "توان وزنی")
+                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpLitr, "توان خروجی")
+                @Html.input_TextBox(m => m.CarEngine.EngineMaxSpeed, "حداکثر سرعت")
+                @Html.input_TextBox(m => m.CarEngine.EngineZeroToH, "0 تا 100")
+                @Html.input_TextArea(m => m.CarEngine.EngineDescription, "توضیحات")
             </div>
 
             <div class="footer">
@@ -61,8 +59,6 @@
         </div>
     </div>
     
-    @ViewData.ModelState.IsValidField(Html.NameFor(m => m.CarGeneral.CarsBrandName).ToString()).ToString()
     
-    @Html.ValidationSummary()
     <input type="submit" value="ثبت" />
 }
