@@ -70,7 +70,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ورود اطلاعات برای فیلد اجباری است.
+        ///   Looks up a localized string similar to این فیلد اجباری است.
         /// </summary>
         internal static string PropertyValueRequired {
             get {
