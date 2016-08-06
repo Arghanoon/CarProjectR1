@@ -12,9 +12,13 @@
     <div class="wizardContainer">
         <nav class="wizardNav">
             <a href="#w1">اطلاعات عمومی خودرو</a>
-            <a href="#w2">مشخصات موتور</a>
-            <a href="#w3">صفحه 3</a>
-            <a href="#w4">صفحه 4</a>
+            <a href="#w2">موتور</a>
+            <a href="#w3">گیر بکس</a>
+            <a href="#w4">مشخصات فیزیکی</a>
+            <a href="#w5">سیستم ترمز</a>
+            <a href="#w6">سیستم امنیتی</a>
+            <a href="#w7">سیستم فرمان</a>
+            <a href="#w8">سیستم تهویه</a>
         </nav>
 
         <div class="wizardPage" id="w1">
@@ -28,10 +32,10 @@
                 @Html.input_TextBox(m => m.CarGeneral.Price, "قیمت خودرو")
                 @Html.input_TextBox(m => m.CarGeneral.CarsVideoURL, "آدرس ویدئو")
                 @Html.input_TextArea(m => m.CarGeneral.CarsDescription, "توضیحات خودرو")
-                @Html.input_ComboBox(m => m.CarGeneral.CarClassType, "کلاس کاری خودرو", Model.CarClassTypeItems, new Dictionary<string, object>() { {"data-test","have error test"} })
+                @Html.input_ComboBox(m => m.CarGeneral.CarClassType, "کلاس کاری خودرو", Model.CarClassTypeItems, new Dictionary<string, object>() { { "data-test", "have error test" } })
                 @Html.input_TextBox(m => m.CarGeneral.CarCategory, "دسته بندی خودرو")
                 @Html.input_TextBox(m => m.CarGeneral.CarUsage, "کاربرد خودرو")
-            </div> 
+            </div>
 
             <div class="footer">
                 <button type="button" onclick="wizardNextPage(this)">ادامه</button>
@@ -57,8 +61,146 @@
                 <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
             </div>
         </div>
+
+        <div class="wizardPage" id="w3">
+
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.CarGearBox.GearBoxCode, "کد گیربکس")
+                @Html.input_TextBox(m => m.CarGearBox.GearBoxType, "نوع گیربکس")
+                @Html.input_CheckBox(m => m.CarGearBox.GearBoxCanBeManual, "قابلیت تعویض به صورت دستی")
+                @Html.input_TextBox(m => m.CarGearBox.GearBoxShiftNumber, "تعداد دنده")
+                @Html.input_TextBox(m => m.CarGearBox.GearBoxAxel, "محور متحرک")
+                @Html.input_CheckBox(m => m.CarGearBox.HasTransferCase, "آیا دارای کمک گیربکس است؟")
+                @Html.input_CheckBox(m => m.CarGearBox.GearBoxDiffrentionalLock, "آیا دارای قفل گیربکس است؟")
+                @Html.input_TextBox(m => m.CarGearBox.GearBoxWdType, "نوع 4WD")
+                @Html.input_TextBox(m => m.CarGearBox.GearBoxDescription, "توضیحات گیربکس")
+            </div>
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w4">
+
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.CarPhysicalDetail.CarLength, "طول خودرو")
+                @Html.input_TextBox(m => m.CarPhysicalDetail.Carwidth, "عرض خودرو")
+                @Html.input_TextBox(m => m.CarPhysicalDetail.CarHeight, "ارتفاع خودرو")
+                @Html.input_TextBox(m => m.CarPhysicalDetail.CarTrack, "فاصله دوچرخ یک محور")
+                @Html.input_TextBox(m => m.CarPhysicalDetail.CarWheelBase, "فاصله دو محور از یکدیگر")
+                @Html.input_TextBox(m => m.CarPhysicalDetail.CarPureWeight, "وزن خالص")
+                @Html.input_TextBox(m => m.CarPhysicalDetail.CarTankSize, "حجم باک")
+                @Html.input_TextArea(m => m.CarPhysicalDetail.Details, "توضیحات")
+            </div>
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w5">
+           
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.BreakSystem.FrontBrakeSystem, "سیستم ترمز جلو")
+                @Html.input_TextBox(m => m.BreakSystem.RearBrakeSystem, "سیستم ترمز عقب")
+                @Html.input_TextArea(m => m.BreakSystem.OtherSystem, "سیستم های دیگر")
+                @Html.input_TextBox(m => m.BreakSystem.HandBrakeSystem, "سیستم ترمز دستی")
+                @Html.input_TextArea(m => m.BreakSystem.Details, "توضیحات")
+            </div>
+            <hr />
+          
+            <div class="inputsContainer">
+                <section class="input">
+                    <strong>جزئیات سیستم ترمز<a href="javascript: void()" class="gia-add" onclick="addAnewItem()" ></a></strong>
+                     
+                </section>
+                <div id="breakSystemDetails" class="input">
+                    @if(Request.Form.GetValues("DetailedBrakeSystem") != null)
+                    {
+                        foreach (var item in Request.Form.GetValues("DetailedBrakeSystem"))
+                        {
+                            <input type="text" name="DetailedBrakeSystem" value="@item" />
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w6">
+           
+            <div class="inputsContainer">
+                @Html.input_CheckBox(m => m.SecuritySystem.RemoteControl ,"آیا دارای ریموت کنترل است")
+                @Html.input_CheckBox(m => m.SecuritySystem.BurglarAlarm ,"آیا دارای دزدگیر است؟")
+                @Html.input_CheckBox(m => m.SecuritySystem.Alarm ,"آیا دارای آژیر است؟")
+                @Html.input_CheckBox(m => m.SecuritySystem.Emo ,"آیا دارای سیستم ضد سرقت است؟")
+                @Html.input_CheckBox(m => m.SecuritySystem.KeylessDoor ,"آیا دارای درهای بازشو بدون کلید است؟")
+                @Html.input_CheckBox(m => m.SecuritySystem.KeylessStart ,"آیا سیستم استارت بدون کلید است؟")
+                @Html.input_TextArea(m => m.SecuritySystem.Details ,"توضیحات")
+            </div>
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w7">
+           
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.SteeringSystem.SteeringSystemType ,"نوع سیستم فرمان")
+                @Html.input_TextBox(m => m.SteeringSystem.SteeringType ,"مدل فرمان")
+                @Html.input_CheckBox(m => m.SteeringSystem.SteeringHeightAdjustble ,"امکان تنظیم ارتفاع دارد؟")
+                @Html.input_CheckBox(m => m.SteeringSystem.SteeringControlKey ,"آیا دارای دکمه کنترلی روی فرمان است؟")
+                @Html.input_TextArea(m => m.SteeringSystem.Details ,"توضیحات")
+            </div>
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w8">
+           
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.AirConditioningSystem.AirConditioningType , "نوع سیستم تهویه هوا")
+                @Html.input_TextArea(m => m.AirConditioningSystem.Details , "توضیحات")
+            </div>
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+        </div>
     </div>
     
-    
     <input type="submit" value="ثبت" />
+    <input type="hidden" name="wizardpagecontainer" id="wizardpagecontainer" value="@Request["wizardpagecontainer"]" />
+}
+
+
+
+
+@section script
+{
+    <script>
+        wizardAssignPostContainer(document.getElementById("wizardpagecontainer"));
+
+        function addAnewItem() {
+            var inp = document.createElement("input");
+            inp.type = "text";
+            inp.name = "DetailedBrakeSystem";
+            
+            
+            document.getElementById("breakSystemDetails").appendChild(inp);
+        }
+    </script>
 }

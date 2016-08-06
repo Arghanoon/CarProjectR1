@@ -30,6 +30,7 @@ $(".wizardNav a").click(function (e) {
     elid = $(this).attr('href').substr(1);
     wizardGoToPage(document.getElementById(elid));
 });
+var wizardActivePageContainerElm = null;
 
 function wizardNextPage(el) {
     wp = wizardFindAncestor(el);
@@ -60,9 +61,17 @@ function wizardActiveLink(linel, elid) {
 function wizardGoToPage(el) {
     $(".wizardPage").hide();
     $(el).show();
+    if (wizardActivePageContainerElm != null)
+        wizardActivePageContainerElm.value = $(el).attr("id");
 
     $(".wizardNav a.active").removeClass('active');
     $(".wizardNav a[href='#" + $(el).attr('id') + "']").addClass('active');
+}
+function wizardAssignPostContainer(el)
+{
+    wizardActivePageContainerElm = el
+    if (el.value != '')
+        wizardGoToPage(document.getElementById(el.value));
 }
 
 function wizardFindAncestor(el) {

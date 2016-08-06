@@ -15,7 +15,7 @@ namespace CarProject.Areas.Admin.Controllers
         {
             return View();
         }
-
+        
         public ActionResult NewCar()
         {
             var m = new Models.Cars.NewCar();

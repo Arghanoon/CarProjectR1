@@ -41,9 +41,17 @@ header
 		{
 			color:#BBBBBB;
 		}
-	
-	
-	
+
+
+
+
+a {
+    color:#8a8a8a;
+    text-decoration:none;
+}
+    a:hover {
+        color:#000;
+    }
 	
 	
 #container
@@ -161,6 +169,14 @@ header
 	
 	border:thin solid #bfbfd9;
 }
+    .wizardPage hr {
+        
+        position:relative;
+        width:70%;
+        color: #bfbfd9;
+        margin:5px auto;
+    }
+
 	.wizardPage .header
 	{
 		margin: 0 -5px;
