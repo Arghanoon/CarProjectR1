@@ -161,6 +161,14 @@ header
 	
 	border:thin solid #bfbfd9;
 }
+    .wizardPage hr {
+        
+        position:relative;
+        width:70%;
+        color: #bfbfd9;
+        margin:5px auto;
+    }
+
 	.wizardPage .header
 	{
 		margin: 0 -5px;

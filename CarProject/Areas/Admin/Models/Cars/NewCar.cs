@@ -16,6 +16,7 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarEngine CarEngine { get; set; }
         public CarGearBox CarGearBox { get; set; }
         public CarPhysicalDetail CarPhysicalDetail { get; set; }
+        public BrakeSystem BreakSystem { get; set; }
 
         public List<byte[]> CarImages { get; set; }
 
@@ -25,6 +26,7 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarEngine = new CarEngine();
             CarGearBox = new CarGearBox();
             CarPhysicalDetail = new CarPhysicalDetail();
+            BreakSystem = new BrakeSystem();
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

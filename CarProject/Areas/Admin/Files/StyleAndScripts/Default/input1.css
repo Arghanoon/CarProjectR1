@@ -8,7 +8,7 @@
     display:table-row;
 }
 
-    .input > * {
+    .input > *:not(hr) {
         display:table-cell;  
         vertical-align:middle;
     }
@@ -70,7 +70,7 @@
 
 
 @media (max-width:500px) {
-    .input > * {
-        display:block;      
+    .input > *:not(hr) {
+        display:block !important;      
     }
 }
