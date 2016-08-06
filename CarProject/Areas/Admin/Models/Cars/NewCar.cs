@@ -20,6 +20,12 @@ namespace CarProject.Areas.Admin.Models.Cars
         public SecuritySystem SecuritySystem { get; set; }
         public SteeringSystem SteeringSystem { get; set; }
         public AirConditioningSystem AirConditioningSystem { get; set; }
+        public CarAudioSystem CarAudioSystem { get; set; }
+        public CarSeatOption CarSeatOption { get; set; }
+        public GlassAndMirror GlassAndMirror { get; set; }
+        public CarLightingSystem CarLightingSystem { get; set; }
+        public CarSensorsSystem CarSensorsSystem { get; set; }
+        public CarAirbag CarAirbag { get; set; }
 
         public List<byte[]> CarImages { get; set; }
 
@@ -33,6 +39,12 @@ namespace CarProject.Areas.Admin.Models.Cars
             SecuritySystem = new SecuritySystem();
             SteeringSystem = new SteeringSystem();
             AirConditioningSystem = new AirConditioningSystem();
+            CarAudioSystem = new CarAudioSystem();
+            CarSeatOption = new CarSeatOption();
+            GlassAndMirror = new GlassAndMirror();
+            CarLightingSystem = new CarLightingSystem();
+            CarSensorsSystem = new CarSensorsSystem();
+            CarAirbag = new CarAirbag();
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

@@ -202,6 +202,7 @@ a {
 	
 	display:flex;
 	flex-wrap:wrap;
+	background:#efeff5;
 }
 	.wizardNav a
 	{
@@ -211,6 +212,7 @@ a {
 		margin:0;
 		
 		transition: ease 0.2s;
+        border-bottom:thin solid #bfbfd9;
 	}
 		.wizardNav a:nth-child(n+2)
 		{

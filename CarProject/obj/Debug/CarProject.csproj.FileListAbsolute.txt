@@ -34,4 +34,3 @@ G:\Projects\CarCompleteWebsite\CarProject\CarProject\bin\System.Web.WebPages.Dep
 G:\Projects\CarCompleteWebsite\CarProject\CarProject\bin\System.Web.WebPages.Razor.xml
 G:\Projects\CarCompleteWebsite\CarProject\CarProject\obj\Debug\CarProject.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProject\obj\Debug\CarProject.pdb
-G:\Projects\CarCompleteWebsite\CarProject\CarProject\obj\Debug\CarProject.csprojResolveAssemblyReference.cache

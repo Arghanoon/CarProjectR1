@@ -13,7 +13,7 @@
     <Property Name="column3" Type="nvarchar" MaxLength="50" />
     <Property Name="column4" Type="nvarchar" MaxLength="50" />
     <Property Name="column5" Type="nvarchar" MaxLength="50" />
-    <Property Name="Details" Type="nvarchar" MaxLength="1" />
+    <Property Name="Details" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="AutoService">
     <Key>
@@ -79,7 +79,7 @@
     <Property Name="FrontAirBag" Type="bit" />
     <Property Name="AirBag" Type="bit" />
     <Property Name="AirBagEntity" Type="int" />
-    <Property Name="Details" Type="nvarchar" MaxLength="1" />
+    <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" />
   </EntityType>
   <EntityType Name="CarAudioSystem">
@@ -114,7 +114,7 @@
     <Property Name="EnginePowerHpLitr" Type="int" />
     <Property Name="EngineMaxSpeed" Type="int" />
     <Property Name="EngineZeroToH" Type="int" />
-    <Property Name="EngineDescription" Type="nvarchar" MaxLength="1" />
+    <Property Name="EngineDescription" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" />
   </EntityType>
   <EntityType Name="CarGearBox">
@@ -130,7 +130,7 @@
     <Property Name="HasTransferCase" Type="bit" />
     <Property Name="GearBoxDiffrentionalLock" Type="bit" />
     <Property Name="GearBoxWdType" Type="varchar" MaxLength="50" />
-    <Property Name="GearBoxDescription" Type="nvarchar" MaxLength="1" />
+    <Property Name="GearBoxDescription" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" />
   </EntityType>
   <EntityType Name="CarLightingSystem">
@@ -147,6 +147,7 @@
     <Property Name="ReadingLamp" Type="bit" />
     <Property Name="Deailts" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" />
+    <Property Name="ThirdLightStop" Type="bit" />
   </EntityType>
   <EntityType Name="CarPhysicalDetails">
     <Key>
@@ -160,7 +161,7 @@
     <Property Name="CarWheelBase" Type="int" />
     <Property Name="CarPureWeight" Type="int" />
     <Property Name="CarTankSize" Type="int" />
-    <Property Name="Details" Type="nvarchar" MaxLength="1" />
+    <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
   </EntityType>
   <EntityType Name="CarPrice">
@@ -185,7 +186,7 @@
     <Property Name="Price" Type="nvarchar" MaxLength="50" />
     <Property Name="CarsPicsId" Type="int" />
     <Property Name="CarsVideoURL" Type="varchar" MaxLength="50" />
-    <Property Name="CarsDescription" Type="nvarchar" MaxLength="1" />
+    <Property Name="CarsDescription" Type="nvarchar(max)" />
     <Property Name="CarClassType" Type="varchar" MaxLength="50" />
     <Property Name="CarCategory" Type="varchar" MaxLength="50" />
     <Property Name="CarUsage" Type="nvarchar" MaxLength="100" />
@@ -254,7 +255,7 @@
     <Property Name="Review" Type="nvarchar(max)" />
     <Property Name="column1" Type="nvarchar(max)" />
     <Property Name="column2" Type="nvarchar(max)" />
-    <Property Name="column3" Type="nvarchar" MaxLength="1" />
+    <Property Name="column3" Type="nvarchar(max)" />
     <Property Name="CarScore" Type="float" />
     <Property Name="Beauty" Type="float" />
     <Property Name="WorthBuying" Type="float" />
@@ -273,7 +274,7 @@
     <Property Name="RingType" Type="nvarchar" MaxLength="50" />
     <Property Name="RingModel" Type="nvarchar" MaxLength="50" />
     <Property Name="AutoInflated" Type="bit" />
-    <Property Name="Details" Type="nvarchar" MaxLength="1" />
+    <Property Name="Details" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -427,8 +428,18 @@
     <Property Name="SteeringType" Type="nvarchar" MaxLength="50" />
     <Property Name="SteeringHeightAdjustble" Type="bit" />
     <Property Name="SteeringControlKey" Type="bit" />
-    <Property Name="Details" Type="nvarchar" MaxLength="1" />
+    <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="TodaysSpecial">
     <Key>
@@ -1020,6 +1031,7 @@
     <EntitySet Name="ProductStore" EntityType="Self.ProductStore" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystems" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
