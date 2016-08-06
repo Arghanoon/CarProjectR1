@@ -147,6 +147,7 @@
     <EntitySetMapping Name="CarLightingSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.CarLightingSystem">
         <MappingFragment StoreEntitySet="CarLightingSystem">
+          <ScalarProperty Name="ThirdLightStop" ColumnName="ThirdLightStop" />
           <ScalarProperty Name="CarLightingSystemId" ColumnName="CarLightingSystemId" />
           <ScalarProperty Name="FrontLights" ColumnName="FrontLights" />
           <ScalarProperty Name="RearLights" ColumnName="RearLights" />
@@ -492,6 +493,17 @@
           <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="UserRole1" ColumnName="UserRole" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CarAutomationModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

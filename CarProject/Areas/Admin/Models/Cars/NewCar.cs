@@ -11,7 +11,8 @@ namespace CarProject.Areas.Admin.Models.Cars
     public class NewCar : IValidatableObject
     {
         public Car CarGeneral { get; set; }
-        public string[] CarClassTypeItems { get { return new string[] { "سدان" }; } }
+        public string[] CarClassTypeItems { get { return new string[] { "سدان","کوپه","شاسی بلند","وانت"}; } }
+        public string[] EngineClassTypeItems { get { return new string[] {"خورجینی","خطی","باکسری"};} }
 
         public CarEngine CarEngine { get; set; }
 
