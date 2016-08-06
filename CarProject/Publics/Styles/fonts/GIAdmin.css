@@ -31,3 +31,9 @@
 .gia-images:before{content:'\0030';}
 .gia-videos:before{content:'\0031';}
 .gia-information:before{content:'\0032';}
+.gia-add:before{content:'\0033';}
+
+
+
+.gia-arghanoon:before{content:'\09FF';}
+.gia-arghanoon2:before{content:'\09FE';}

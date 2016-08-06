@@ -17,6 +17,9 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarGearBox CarGearBox { get; set; }
         public CarPhysicalDetail CarPhysicalDetail { get; set; }
         public BrakeSystem BreakSystem { get; set; }
+        public SecuritySystem SecuritySystem { get; set; }
+        public SteeringSystem SteeringSystem { get; set; }
+        public AirConditioningSystem AirConditioningSystem { get; set; }
 
         public List<byte[]> CarImages { get; set; }
 
@@ -27,6 +30,9 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarGearBox = new CarGearBox();
             CarPhysicalDetail = new CarPhysicalDetail();
             BreakSystem = new BrakeSystem();
+            SecuritySystem = new SecuritySystem();
+            SteeringSystem = new SteeringSystem();
+            AirConditioningSystem = new AirConditioningSystem();
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

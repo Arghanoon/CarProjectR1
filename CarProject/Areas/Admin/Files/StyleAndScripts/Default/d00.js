@@ -62,7 +62,7 @@ function wizardGoToPage(el) {
     $(".wizardPage").hide();
     $(el).show();
     if (wizardActivePageContainerElm != null)
-        wizardActivePageContainerElm.value = el.id;
+        wizardActivePageContainerElm.value = $(el).attr("id");
 
     $(".wizardNav a.active").removeClass('active');
     $(".wizardNav a[href='#" + $(el).attr('id') + "']").addClass('active');

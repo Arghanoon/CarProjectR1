@@ -41,9 +41,17 @@ header
 		{
 			color:#BBBBBB;
 		}
-	
-	
-	
+
+
+
+
+a {
+    color:#8a8a8a;
+    text-decoration:none;
+}
+    a:hover {
+        color:#000;
+    }
 	
 	
 #container
