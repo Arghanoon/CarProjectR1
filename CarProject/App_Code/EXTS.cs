@@ -25,7 +25,7 @@ namespace CarProject.App_Code
 
         public static void AddAttribute(IDictionary<string, object> dic, string atrname, object value)
         {
-            var x = dic.Where(an => an.Key.ToLower() == atrname.ToLower()).FirstOrDefault().Key;
+            var x = dic.FirstOrDefault(an => an.Key.ToLower() == atrname.ToLower()).Key;
             if (string.IsNullOrWhiteSpace(x))
                 dic.Add(atrname, value);
             else
