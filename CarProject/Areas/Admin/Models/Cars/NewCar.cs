@@ -18,7 +18,9 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarEngine CarEngine { get; set; }
         public CarGearBox CarGearBox { get; set; }
         public CarPhysicalDetail CarPhysicalDetail { get; set; }
+        public FuelConsumption FuelConsumption { get; set; }
         public BrakeSystem BreakSystem { get; set; }
+        public List<DetailedBrakeSystem> DetailedBrakeSystem { get; set; }
         public SecuritySystem SecuritySystem { get; set; }
         public SteeringSystem SteeringSystem { get; set; }
         public AirConditioningSystem AirConditioningSystem { get; set; }
@@ -32,7 +34,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarsPro CarsPro { get; set; }
         public CarsReview CarsReview { get; set; }
 
-        public List<byte[]> CarImages { get; set; }
+        public List<string> Advantages { get; set; }
+        public List<string> Disadvantages { get; set; }
 
         public NewCar()
         {
@@ -42,6 +45,8 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarEngine = new CarEngine();
             CarGearBox = new CarGearBox();
             CarPhysicalDetail = new CarPhysicalDetail();
+            FuelConsumption = new DBSEF.FuelConsumption();
+            DetailedBrakeSystem = new List<DBSEF.DetailedBrakeSystem>();
             BreakSystem = new BrakeSystem();
             SecuritySystem = new SecuritySystem();
             SteeringSystem = new SteeringSystem();
@@ -52,9 +57,84 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarLightingSystem = new CarLightingSystem();
             CarSensorsSystem = new CarSensorsSystem();
             CarAirbag = new CarAirbag();
+            CarWheel = new CarWheel();
             CarsPro = new CarsPro();
             CarsReview = new CarsReview();
+
+            Advantages = new List<string>();
+            Disadvantages = new List<string>();
         }
+
+
+        public void Save()
+        {
+            DBSEF.CarAutomationEntities ca = new CarAutomationEntities();
+            ca.Cars.Add(CarGeneral);
+
+            CarEngine.Car = CarGeneral;
+            ca.CarEngines.Add(CarEngine);
+
+            CarGearBox.Car = CarGeneral;
+            ca.CarGearBoxes.Add(CarGearBox);
+
+            CarPhysicalDetail.Car = CarGeneral;
+            ca.CarPhysicalDetails.Add(CarPhysicalDetail);
+
+            BreakSystem.Car = CarGeneral;
+            ca.BrakeSystems.Add(BreakSystem);
+
+            foreach (var item in DetailedBrakeSystem)
+            {
+                item.Car = CarGeneral;
+                ca.DetailedBrakeSystems.Add(item);
+            }
+
+            SecuritySystem.Car = CarGeneral;
+            ca.SecuritySystems.Add(SecuritySystem);
+
+            SteeringSystem.Car = CarGeneral;
+            ca.SteeringSystems.Add(SteeringSystem);
+
+            AirConditioningSystem.Car = CarGeneral;
+            ca.AirConditioningSystems.Add(AirConditioningSystem);
+
+            CarAudioSystem.Car = CarGeneral;
+            ca.CarAudioSystems.Add(CarAudioSystem);
+
+            CarSeatOption.Car = CarGeneral;
+            ca.CarSeatOptions.Add(CarSeatOption);
+
+            GlassAndMirror.Car = CarGeneral;
+            ca.GlassAndMirrors.Add(GlassAndMirror);
+
+            CarLightingSystem.Car = CarGeneral;
+            ca.CarLightingSystems.Add(CarLightingSystem);
+
+            CarSensorsSystem.Car = CarGeneral;
+            ca.CarSensorsSystems.Add(CarSensorsSystem);
+
+            CarAirbag.Car = CarGeneral;
+            ca.CarAirbags.Add(CarAirbag);
+
+            foreach (var item in Advantages)
+            {
+                ca.CarsProes.Add(new CarsPro { Car = CarGeneral, CarsProOrCro = true, CarProCro = item });
+            }
+
+            foreach (var item in Disadvantages)
+            {
+                ca.CarsProes.Add(new CarsPro { Car = CarGeneral, CarsProOrCro = false, CarProCro = item });
+            }
+
+            CarsReview.Car = CarGeneral;
+            ca.CarsReviews.Add(CarsReview);
+
+            CarWheel.Car = CarGeneral;
+            ca.CarWheels.Add(CarWheel);
+
+            ca.SaveChanges();
+        }
+        
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

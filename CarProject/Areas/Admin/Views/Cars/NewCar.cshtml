@@ -18,21 +18,22 @@
             <a href="#w2">موتور</a>
             <a href="#w3">گیر بکس</a>
             <a href="#w4">مشخصات فیزیکی</a>
-            <a href="#w5">سیستم ترمز</a>
-            <a href="#w6">سیستم امنیتی</a>
-            <a href="#w7">سیستم فرمان</a>
-            <a href="#w8">سیستم تهویه</a>
-            <a href="#w9">سیستم صوتی</a>
-            <a href="#w10">صندلی ها</a>
-            <a href="#w11">شیشه و آینه ها</a>
-            <a href="#w12">سیستم روشنایی</a>
-            <a href="#w13">سیستم سنسورهای خوردرو</a>
-            <a href="#w14">سیستم کیسه هوا</a>
-            <a href="#w15">رینگ و لاستیک</a>
-            <a href="#w16">مزایای خودرو</a>
-            <a href="#w17">معایب خودرو</a>
-            <a href="#w18">بررسی</a>
-            <a href="#w19">تصاویر خودرو</a>
+            <a href="#w5">سیستم سوخت رسانی</a>
+            <a href="#w6">سیستم ترمز</a>
+            <a href="#w7">سیستم امنیتی</a>
+            <a href="#w8">سیستم فرمان</a>
+            <a href="#w9">سیستم تهویه</a>
+            <a href="#w10">سیستم صوتی</a>
+            <a href="#w11">صندلی ها</a>
+            <a href="#w12">شیشه و آینه ها</a>
+            <a href="#w13">سیستم روشنایی</a>
+            <a href="#w14">سیستم سنسورهای خوردرو</a>
+            <a href="#w15">سیستم کیسه هوا</a>
+            <a href="#w16">رینگ و لاستیک</a>
+            <a href="#w17">مزایای خودرو</a>
+            <a href="#w18">معایب خودرو</a>
+            <a href="#w19">بررسی</a>
+            <a href="#w20">تصاویر خودرو</a>
         </nav>
 
         <div class="wizardPage" id="w1">
@@ -118,6 +119,38 @@
         <div class="wizardPage" id="w5">
            
             <div class="inputsContainer">
+                @Html.input_TextBox(m => m.FuelConsumption.LphCity ,"مصرف در شهر")
+                @Html.input_TextBox(m => m.FuelConsumption.LphRoad ,"مصرف در جاده")
+                @Html.input_TextBox(m => m.FuelConsumption.LphMix ,"سیکل ترکیبی")
+                @Html.input_TextArea(m => m.FuelConsumption.Details ,"توضیحات")
+            </div>
+            <hr />
+          
+            <div class="inputsContainer">
+                <section class="input">
+                    <strong>جزئیات سیستم ترمز<a href="javascript: void()" class="gia-add" onclick="addAnewItem()" ></a></strong>
+                     
+                </section>
+                <div id="breakSystemDetails" class="input">
+                    @if(Request.Form.GetValues("DetailedBrakeSystem") != null)
+                    {
+                        foreach (var item in Request.Form.GetValues("DetailedBrakeSystem"))
+                        {
+                            <input type="text" name="DetailedBrakeSystem" value="@item" />
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w6">
+           
+            <div class="inputsContainer">
                 @Html.input_TextBox(m => m.BreakSystem.FrontBrakeSystem, "سیستم ترمز جلو")
                 @Html.input_TextBox(m => m.BreakSystem.RearBrakeSystem, "سیستم ترمز عقب")
                 @Html.input_TextArea(m => m.BreakSystem.OtherSystem, "سیستم های دیگر")
@@ -148,7 +181,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w6">
+        <div class="wizardPage" id="w7">
            
             <div class="inputsContainer">
                 @Html.input_CheckBox(m => m.SecuritySystem.RemoteControl ,"آیا دارای ریموت کنترل است")
@@ -166,7 +199,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w7">
+        <div class="wizardPage" id="w8">
            
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.SteeringSystem.SteeringSystemType ,"نوع سیستم فرمان")
@@ -182,7 +215,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w8">
+        <div class="wizardPage" id="w9">
            
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.AirConditioningSystem.AirConditioningType , "نوع سیستم تهویه هوا")
@@ -195,7 +228,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w9">
+        <div class="wizardPage" id="w10">
            
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.CarAudioSystem.AudioSystemType ,"نوع سیستم صوتی")
@@ -218,7 +251,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w10">
+        <div class="wizardPage" id="w11">
            
             <div class="inputsContainer">
                 @Html.input_CheckBox(m => m.CarSeatOption.LongitudinalDisplacement ,"آیا امکان جابه جایی طوری دارد؟")
@@ -235,7 +268,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w11">
+        <div class="wizardPage" id="w12">
            
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.GlassAndMirror.FrontWindscreens ,"سیستم شیشه های جلو")
@@ -256,7 +289,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w12">
+        <div class="wizardPage" id="w13">
            
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.CarLightingSystem.FrontLights ,"سیستم چراغ های جلو")
@@ -276,7 +309,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w13">
+        <div class="wizardPage" id="w14">
            
             <div class="inputsContainer">
                 @Html.input_CheckBox(m => m.CarSensorsSystem.DayLightSensor ,"سنسور روشنایی روز")
@@ -295,7 +328,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w14">
+        <div class="wizardPage" id="w15">
            
             <div class="inputsContainer">
                 @Html.input_CheckBox(m => m.CarAirbag.DriverAirBag ,"کیسه هوای راننده")
@@ -311,7 +344,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w15">
+        <div class="wizardPage" id="w16">
            
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.CarWheel.TireType ,"نوع تایر")
@@ -329,7 +362,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w16">
+        <div class="wizardPage" id="w17">
            
             
             <div class="inputsContainer" >
@@ -351,7 +384,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w17">
+        <div class="wizardPage" id="w18">
            
             
             <div class="inputsContainer" >
@@ -374,7 +407,7 @@
 
         </div>
 
-        <div class="wizardPage" id="w18">
+        <div class="wizardPage" id="w19">
            
             <div class="inputsContainer">
                 @Html.input_TextArea(m => m.CarsReview.Review ,"متن بررسی")
@@ -392,11 +425,12 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w19">
+        <div class="wizardPage" id="w20">
            
             <div class="inputsContainer">
                 <strong><a href="javascript:void()" class="gia-add" onclick="AddImages()" >اضافه کردن تصویر</a></strong>
                 @Html.HiddenFor(m => m.CarTempID)
+                
                 <div class="input" id="carImages">
                    
                 </div>
@@ -411,7 +445,10 @@
                         {   foreach (var item in di.GetFiles())
                             {
                                 var url = ipt + "/" + item.Name;
-                                <img src="@Url.Content(url)" />
+                                <section class="uploadTmpImages">
+                                    <img src="@Url.Content(url)" />
+                                    <a href="javascript: void()" onclick="RemoveImage(this,'@item.Name')" >&#10007;</a>
+                                </section>
                             }
                         }
                     }
@@ -425,7 +462,7 @@
         </div>
     </div>
     
-   <input type="submit" value="ثبت" />
+   <input type="submit" value="ثبت" />@Model.CarGeneral.CarsId
     <input type="hidden" name="wizardpagecontainer" id="wizardpagecontainer" value="@Request["wizardpagecontainer"]" />
 </form>
 
@@ -465,6 +502,16 @@
 
             document.getElementById("carImages").appendChild(inp);
         }
+        function RemoveImage(el, name) {
+            document.getElementById("ImageUploadedTemp").removeChild(el.offsetParent);
+
+            inp = document.createElement("input");
+            inp.type = "hidden";
+            inp.name = "carImageremove";
+            inp.value = name;
+
+            document.getElementById("carImages").appendChild(inp);
+        }
     </script>
 }
 
@@ -477,9 +524,30 @@
 	        justify-content:center;
 	        align-items:center;
         }
-            #ImageUploadedTemp img {
-                width:70px;
-                height:50px;
+            
+        .uploadTmpImages {
+            position:relative;
+            width:100px;
+            height:70px;
+            margin:5px;
+            border:thin solid;
+            overflow:hidden;
+            border-radius:3px;
+        }
+            .uploadTmpImages img {
+                width:100%;
+                height:100%;
+            }
+            .uploadTmpImages a {
+                position:absolute;
+                left:0; right:0; bottom:-100%;
+                text-align:center;
+                background:rgba(0, 0, 0, 0.56);
+                color:white;
+                transition:ease 0.3s;
+            }
+            .uploadTmpImages:hover a {
+                bottom:0;
             }
     </style>
 }
