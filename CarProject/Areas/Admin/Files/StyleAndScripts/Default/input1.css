@@ -13,7 +13,7 @@
         vertical-align:middle;
     }
 
-	.input input:not([type=submit]):not([type=button]):not([type=reset]):not([type=checkbox]),
+	.input input:not([type=submit]):not([type=button]):not([type=reset]),
 		.input textarea,
         .input select
 	{
@@ -28,17 +28,6 @@
 		resize:vertical;
 		font-family:f3;
 	}
-    .input input[type=checkbox] {
-        color:#373749;
-		border:thin solid #b6b6c8;
-		border-radius:3px;
-		padding:3px;
-		margin:3px 0 5px 0;
-		background:#FEFEFE;
-		
-		resize:vertical;
-		font-family:f3;
-    }
 	.input input:not([type=submit]):not([type=button]):not([type=reset]):focus,
 		.input textarea:focus,
         .input select:focus
