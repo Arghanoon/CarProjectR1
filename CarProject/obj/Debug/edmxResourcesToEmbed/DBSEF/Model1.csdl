@@ -164,8 +164,8 @@
     <Property Name="ReadingLamp" Type="Boolean" />
     <Property Name="Deailts" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CarsId" Type="Int32" />
-    <NavigationProperty Name="Car" Relationship="Self.FK_CarLightingSystem_Cars" FromRole="CarLightingSystem" ToRole="Cars" />
     <Property Name="ThirdLightStop" Type="Boolean" />
+    <NavigationProperty Name="Car" Relationship="Self.FK_CarLightingSystem_Cars" FromRole="CarLightingSystem" ToRole="Cars" />
   </EntityType>
   <EntityType Name="CarPhysicalDetail">
     <Key>
@@ -241,7 +241,7 @@
       <PropertyRef Name="CarSeatOptionsId" />
     </Key>
     <Property Name="CarSeatOptionsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="LongitudinalDisplacement" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LongitudinalDisplacement" Type="Boolean" />
     <Property Name="BezelSet" Type="Boolean" />
     <Property Name="SeatWarmer" Type="Boolean" />
     <Property Name="SeatMassage" Type="Boolean" />
@@ -511,6 +511,16 @@
     <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CarId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_SteeringSystem_Cars" FromRole="SteeringSystem" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="TodaysSpecial">
     <Key>
@@ -1073,7 +1083,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CarAutomationEntities_CS" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
     <EntitySet Name="AutoServicePacks" EntityType="Self.AutoServicePack" />
@@ -1109,6 +1119,7 @@
     <EntitySet Name="ProductStores" EntityType="Self.ProductStore" />
     <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystem" />
     <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
@@ -1288,16 +1299,5 @@
       <End Role="User" EntitySet="Users" />
       <End Role="UserRole" EntitySet="UserRoles" />
     </AssociationSet>
-    <EntitySet Name="sysdiagrams" EntityType="CarAutomationModel.sysdiagram" />
   </EntityContainer>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
 </Schema>

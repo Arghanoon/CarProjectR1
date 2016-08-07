@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities_CS">
+  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
     <EntitySetMapping Name="AirConditioningSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
         <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -147,7 +147,6 @@
     <EntitySetMapping Name="CarLightingSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.CarLightingSystem">
         <MappingFragment StoreEntitySet="CarLightingSystem">
-          <ScalarProperty Name="ThirdLightStop" ColumnName="ThirdLightStop" />
           <ScalarProperty Name="CarLightingSystemId" ColumnName="CarLightingSystemId" />
           <ScalarProperty Name="FrontLights" ColumnName="FrontLights" />
           <ScalarProperty Name="RearLights" ColumnName="RearLights" />
@@ -158,6 +157,7 @@
           <ScalarProperty Name="ReadingLamp" ColumnName="ReadingLamp" />
           <ScalarProperty Name="Deailts" ColumnName="Deailts" />
           <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="ThirdLightStop" ColumnName="ThirdLightStop" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -467,6 +467,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CarAutomationModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TodaysSpecials">
       <EntityTypeMapping TypeName="CarAutomationModel.TodaysSpecial">
         <MappingFragment StoreEntitySet="TodaysSpecial">
@@ -493,17 +504,6 @@
           <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="UserRole1" ColumnName="UserRole" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="CarAutomationModel.sysdiagram">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="definition" ColumnName="definition" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="name" ColumnName="name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
