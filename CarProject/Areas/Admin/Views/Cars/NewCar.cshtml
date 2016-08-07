@@ -1,5 +1,8 @@
 ﻿@using  CarProject.Areas.Admin.Models.Cars
 @using CarProject.App_Code
+@using System.IO
+
+
 @model NewCar
 
 @{
@@ -7,9 +10,9 @@
 }
 
 
-@using (Html.BeginForm())
-{
-    <div class="wizardContainer">
+<form method="post" enctype="multipart/form-data">
+  
+      <div class="wizardContainer">
         <nav class="wizardNav">
             <a href="#w1">اطلاعات عمومی خودرو</a>
             <a href="#w2">موتور</a>
@@ -26,6 +29,10 @@
             <a href="#w13">سیستم سنسورهای خوردرو</a>
             <a href="#w14">سیستم کیسه هوا</a>
             <a href="#w15">رینگ و لاستیک</a>
+            <a href="#w16">مزایای خودرو</a>
+            <a href="#w17">معایب خودرو</a>
+            <a href="#w18">بررسی</a>
+            <a href="#w19">تصاویر خودرو</a>
         </nav>
 
         <div class="wizardPage" id="w1">
@@ -36,7 +43,7 @@
                 @Html.input_TextBox(m => m.CarGeneral.CarsClass, "کلاس خودرو")
                 @Html.input_TextBox(m => m.CarGeneral.CarsModel, "مدل خودرو")
                 @Html.input_Rating(m => m.CarGeneral.CarsClinicScore, "امتیاز کلینیک")
-                @Html.input_Rating(m => m.CarGeneral.Price, "قیمت خودرو")
+                @Html.input_TextBox(m => m.CarGeneral.Price, "قیمت خودرو")
                 @Html.input_TextBox(m => m.CarGeneral.CarsVideoURL, "آدرس ویدئو")
                 @Html.input_TextArea(m => m.CarGeneral.CarsDescription, "توضیحات خودرو")
                 @Html.input_ComboBox(m => m.CarGeneral.CarClassType, "کلاس کاری خودرو", Model.CarClassTypeItems, new Dictionary<string, object>() { { "data-test", "have error test" } })
@@ -322,14 +329,105 @@
             </div>
         </div>
 
+        <div class="wizardPage" id="w16">
+           
+            
+            <div class="inputsContainer" >
+                <strong><a href="javascript:void()" class="gia-add" onclick="AddAdvantage()" >اضافه کردن مزیت</a></strong>
+                <div class="input" id="advantages">
+                    @if(Request.Form.GetValues("advantage") != null)
+                    {
+                        foreach (var item in Request.Form.GetValues("advantage"))
+	                   {
+                        <input type="text" name="advantage" value="@item" />
+	                   }
+                    }
+                </div>
+            </div>
 
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w17">
+           
+            
+            <div class="inputsContainer" >
+                <strong><a href="javascript:void()" class="gia-add" onclick="AddDisAdvantage()" >اضافه کردن معایب</a></strong>
+                <div class="input" id="disAdvantages">
+                    @if (Request.Form.GetValues("disadvantage") != null)
+                    {
+                        foreach (var item in Request.Form.GetValues("disadvantage"))
+	                   {
+                        <input type="text" name="disadvantage" value="@item" />
+	                   }
+                    }
+                </div>
+            </div>
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+
+        </div>
+
+        <div class="wizardPage" id="w18">
+           
+            <div class="inputsContainer">
+                @Html.input_TextArea(m => m.CarsReview.Review ,"متن بررسی")
+                @Html.input_Rating(m => m.CarsReview.CarScore ,"امتیاز خودرو")
+                @Html.input_Rating(m => m.CarsReview.Beauty ,"زیبایی")
+                @Html.input_Rating(m => m.CarsReview.WorthBuying ,"ارزش خرید")
+                @Html.input_Rating(m => m.CarsReview.Quality ,"کیفیت")
+                @Html.input_Rating(m => m.CarsReview.Services ,"خدمات")
+
+            </div>
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w19">
+           
+            <div class="inputsContainer">
+                <strong><a href="javascript:void()" class="gia-add" onclick="AddImages()" >اضافه کردن تصویر</a></strong>
+                @Html.HiddenFor(m => m.CarTempID)
+                <div class="input" id="carImages">
+                   
+                </div>
+
+                <div id="ImageUploadedTemp">
+                    @{
+                        var ipt = "~/Publics/CarTempImages/" + Model.CarTempID;
+                        var ip = Server.MapPath(ipt);
+                        
+                        DirectoryInfo di = new DirectoryInfo(ip);
+                        if(di.Exists)
+                        {   foreach (var item in di.GetFiles())
+                            {
+                                var url = ipt + "/" + item.Name;
+                                <img src="@Url.Content(url)" />
+                            }
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="footer">
+                <button type="button" onclick="wizardNextPage(this)">ادامه</button>
+                <button type="button" onclick="wizardPreviousPage(this)">قبلی</button>
+            </div>
+        </div>
     </div>
     
-    <input type="submit" value="ثبت" />
+   <input type="submit" value="ثبت" />
     <input type="hidden" name="wizardpagecontainer" id="wizardpagecontainer" value="@Request["wizardpagecontainer"]" />
-}
-
-
+</form>
 
 
 @section script
@@ -338,12 +436,50 @@
         wizardAssignPostContainer(document.getElementById("wizardpagecontainer"));
 
         function addAnewItem() {
-            var inp = document.createElement("input");
+            inp = document.createElement("input");
             inp.type = "text";
             inp.name = "DetailedBrakeSystem";
             
             
             document.getElementById("breakSystemDetails").appendChild(inp);
         }
+
+        function AddAdvantage() {
+            inp = document.createElement("input");
+            inp.type = "text";
+            inp.name = "advantage";
+
+            document.getElementById("advantages").appendChild(inp);
+        }
+        function AddDisAdvantage() {
+            inp = document.createElement("input");
+            inp.type = "text";
+            inp.name = "disadvantage";
+
+            document.getElementById("disAdvantages").appendChild(inp);
+        }
+        function AddImages() {
+            inp = document.createElement("input");
+            inp.type = "file";
+            inp.name = "carImage";
+
+            document.getElementById("carImages").appendChild(inp);
+        }
     </script>
+}
+
+@section style
+{
+    <style>
+        #ImageUploadedTemp {
+	        display:flex;
+	        flex-wrap:wrap;
+	        justify-content:center;
+	        align-items:center;
+        }
+            #ImageUploadedTemp img {
+                width:70px;
+                height:50px;
+            }
+    </style>
 }

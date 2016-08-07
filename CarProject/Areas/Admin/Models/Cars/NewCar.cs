@@ -10,6 +10,8 @@ namespace CarProject.Areas.Admin.Models.Cars
 {
     public class NewCar : IValidatableObject
     {
+        public string CarTempID { get; set; }
+
         public Car CarGeneral { get; set; }
         public string[] CarClassTypeItems { get { return new string[] { "سدان" }; } }
 
@@ -27,11 +29,15 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarSensorsSystem CarSensorsSystem { get; set; }
         public CarAirbag CarAirbag { get; set; }
         public CarWheel CarWheel { get; set; }
+        public CarsPro CarsPro { get; set; }
+        public CarsReview CarsReview { get; set; }
 
         public List<byte[]> CarImages { get; set; }
 
         public NewCar()
         {
+            CarTempID = Guid.NewGuid().ToString();
+
             CarGeneral = new Car();
             CarEngine = new CarEngine();
             CarGearBox = new CarGearBox();
@@ -46,6 +52,8 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarLightingSystem = new CarLightingSystem();
             CarSensorsSystem = new CarSensorsSystem();
             CarAirbag = new CarAirbag();
+            CarsPro = new CarsPro();
+            CarsReview = new CarsReview();
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
