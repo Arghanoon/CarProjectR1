@@ -26,6 +26,7 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarLightingSystem CarLightingSystem { get; set; }
         public CarSensorsSystem CarSensorsSystem { get; set; }
         public CarAirbag CarAirbag { get; set; }
+        public CarWheel CarWheel { get; set; }
 
         public List<byte[]> CarImages { get; set; }
 

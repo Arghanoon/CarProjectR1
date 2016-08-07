@@ -292,6 +292,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Areas\Admin\Files\Images\ratingback.png" />
     <Content Include="Areas\Admin\Files\Images\user.png" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\d00.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

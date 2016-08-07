@@ -25,7 +25,7 @@
             <a href="#w12">سیستم روشنایی</a>
             <a href="#w13">سیستم سنسورهای خوردرو</a>
             <a href="#w14">سیستم کیسه هوا</a>
-            <a href="#w15">سیستم کیسه هوا</a>
+            <a href="#w15">رینگ و لاستیک</a>
         </nav>
 
         <div class="wizardPage" id="w1">
@@ -35,8 +35,8 @@
                 @Html.input_TextBox(m => m.CarGeneral.CarsBrandName, "برند خودرو")
                 @Html.input_TextBox(m => m.CarGeneral.CarsClass, "کلاس خودرو")
                 @Html.input_TextBox(m => m.CarGeneral.CarsModel, "مدل خودرو")
-                @Html.input_TextBox(m => m.CarGeneral.CarsClinicScore, "امتیاز کلینیک")
-                @Html.input_TextBox(m => m.CarGeneral.Price, "قیمت خودرو")
+                @Html.input_Rating(m => m.CarGeneral.CarsClinicScore, "امتیاز کلینیک")
+                @Html.input_Rating(m => m.CarGeneral.Price, "قیمت خودرو")
                 @Html.input_TextBox(m => m.CarGeneral.CarsVideoURL, "آدرس ویدئو")
                 @Html.input_TextArea(m => m.CarGeneral.CarsDescription, "توضیحات خودرو")
                 @Html.input_ComboBox(m => m.CarGeneral.CarClassType, "کلاس کاری خودرو", Model.CarClassTypeItems, new Dictionary<string, object>() { { "data-test", "have error test" } })
@@ -214,7 +214,7 @@
         <div class="wizardPage" id="w10">
            
             <div class="inputsContainer">
-                @Html.input_TextBox(m => m.CarSeatOption.LongitudinalDisplacement ,"آیا امکان جابه جایی طوری دارد؟")
+                @Html.input_CheckBox(m => m.CarSeatOption.LongitudinalDisplacement ,"آیا امکان جابه جایی طوری دارد؟")
                 @Html.input_CheckBox(m => m.CarSeatOption.BezelSet ,"آیا دارای تنظیم گودی کمر است؟")
                 @Html.input_CheckBox(m => m.CarSeatOption.SeatWarmer ,"گرم کن صندلی دارد؟")
                 @Html.input_CheckBox(m => m.CarSeatOption.SeatMassage ,"آیا مجهز به سیستم ماساژور است؟")
@@ -307,11 +307,13 @@
         <div class="wizardPage" id="w15">
            
             <div class="inputsContainer">
-                @Html.input_CheckBox(m => m.CarAirbag.DriverAirBag ,"کیسه هوای راننده")
-                @Html.input_CheckBox(m => m.CarAirbag.FrontAirBag ,"کیسه هوای شاگرد")
-                @Html.input_CheckBox(m => m.CarAirbag.AirBag ,"کیسه هوای عقب")
-                @Html.input_TextBox(m => m.CarAirbag.AirBagEntity ,"تعداد کیسه هوا")
-                @Html.input_TextArea(m => m.CarAirbag.Details ,"توضیحات")
+                @Html.input_TextBox(m => m.CarWheel.TireType ,"نوع تایر")
+                @Html.input_TextBox(m => m.CarWheel.RingStandardSize ,"سایز استاندارد رینگ")
+                @Html.input_TextBox(m => m.CarWheel.TireSpec ,"مشخصات تایر")
+                @Html.input_TextBox(m => m.CarWheel.RingType ,"نوع رینگ")
+                @Html.input_TextBox(m => m.CarWheel.RingModel ,"مدل رینگ")
+                @Html.input_CheckBox(m => m.CarWheel.AutoInflated ,"قابلیت کم و زیاد کردن باد به صورت خودکار؟")
+                @Html.input_TextArea(m => m.CarWheel.Details ,"توضیحات")
             </div>
 
             <div class="footer">

@@ -185,6 +185,47 @@ namespace CarProject.App_Code
             return input_CheckBox<TM>(htmlHelper, expres, displayName, htmlAttributes, "error");
         }
 
+
+        public static MvcHtmlString input_Rating<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass)
+        {
+
+            if (!htmlHelper.ViewData.ModelState.IsValidField(htmlHelper.NameFor(expression).ToString()))
+                AddAttribute(htmlAttributes, "class", errorClass);
+
+            string cls = DicAtrsToString(htmlAttributes);
+
+            string res = "<section class=\"input\">";
+
+            res += htmlHelper.LabelFor(expression, displayName);
+            {
+                res += string.Format("<section class=\"input rating {0}\" >", cls);
+                {
+                    res += htmlHelper.TextBoxFor(expression, new Dictionary<string, object>() { { "onKeyPress", "return floatNumber(event);" }, { "maxlength", "5" }, { "readonly", "readonly" } });
+                    res += "<section class=\"ratingSection\" onClick=\"ratint_Onclick(event)\" onMouseMove=\"ratint_OnMouseMove(event)\"> " +
+                                "<section class=\"ratingSectionSlider\" ></section> " +
+                                "<section class=\"ratingSectionFakeSlider\" ></section> " +
+                           "</section>";
+                }
+                res += "</section>";
+            }
+            res += htmlHelper.ValidationMessageFor(expression);
+
+            res += "</section>";
+            return new MvcHtmlString(res);
+        }
+        public static MvcHtmlString input_Rating<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, string errorClass)
+        {
+            return input_Rating<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), errorClass);
+        }
+        public static MvcHtmlString input_Rating<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName)
+        {
+            return input_Rating<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), "error");
+        }
+        public static MvcHtmlString input_Rating<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<string, object> htmlAttributes)
+        {
+            return input_Rating<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
+        }
+
     }
 
     #endregion
