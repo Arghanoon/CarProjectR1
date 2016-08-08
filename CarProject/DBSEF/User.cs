@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace CarProject.DBSEF
 {
     using System;
@@ -24,7 +26,13 @@ namespace CarProject.DBSEF
         }
     
         public int UserId { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Login ID")]
         public string Uname { get; set; }
+       
+        [Required(ErrorMessage = "*")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Upass { get; set; }
         public Nullable<int> CarId { get; set; }
     

@@ -65,7 +65,7 @@ namespace CarProject.Areas.Admin.Controllers
 
         public ActionResult Cars()
         {
-            var ca = new DBSEF.CarAutomationEntities();
+            var ca = new DBSEF.CarAutomationEntities1();
             return View(ca.Cars.ToList());
         }
 

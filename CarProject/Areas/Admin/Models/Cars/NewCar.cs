@@ -73,7 +73,7 @@ namespace CarProject.Areas.Admin.Models.Cars
 
         public void Save()
         {
-            DBSEF.CarAutomationEntities ca = new CarAutomationEntities();
+            DBSEF.CarAutomationEntities1 ca = new CarAutomationEntities1();
             ca.Cars.Add(CarGeneral);
 
             CarEngine.Car = CarGeneral;

@@ -47,7 +47,6 @@ E:\CarProject\CarProjectR1\CarProject\bin\CarProject.dll.config
 E:\CarProject\CarProjectR1\CarProject\bin\CarProject.dll
 E:\CarProject\CarProjectR1\CarProject\bin\CarProject.pdb
 E:\CarProject\CarProjectR1\CarProject\bin\Antlr3.Runtime.dll
-E:\CarProject\CarProjectR1\CarProject\bin\Business.dll
 E:\CarProject\CarProjectR1\CarProject\bin\EntityFramework.dll
 E:\CarProject\CarProjectR1\CarProject\bin\EntityFramework.SqlServer.dll
 E:\CarProject\CarProjectR1\CarProject\bin\Microsoft.Web.Infrastructure.dll
@@ -65,8 +64,6 @@ E:\CarProject\CarProjectR1\CarProject\bin\System.Web.WebPages.Deployment.dll
 E:\CarProject\CarProjectR1\CarProject\bin\System.Web.WebPages.dll
 E:\CarProject\CarProjectR1\CarProject\bin\System.Web.WebPages.Razor.dll
 E:\CarProject\CarProjectR1\CarProject\bin\WebGrease.dll
-E:\CarProject\CarProjectR1\CarProject\bin\MyUtility.dll
-E:\CarProject\CarProjectR1\CarProject\bin\Business.pdb
 E:\CarProject\CarProjectR1\CarProject\bin\Antlr3.Runtime.pdb
 E:\CarProject\CarProjectR1\CarProject\bin\EntityFramework.xml
 E:\CarProject\CarProjectR1\CarProject\bin\EntityFramework.SqlServer.xml
