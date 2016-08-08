@@ -1,4 +1,4 @@
-﻿@using  CarProject.Areas.Admin.Models.Cars
+﻿@using CarProject.Areas.Admin.Models.Cars
 @using CarProject.App_Code
 @using System.IO
 
@@ -57,6 +57,7 @@
             <div class="inputsContainer">
                 @Html.input_ComboBox(m => m.CarEngine.EngineType, "نوع موتور", Model.CarEngineTypeItems, new Dictionary<string, object>() { { "data-test", "have no error" } })
                 @Html.input_TextBox(m => m.CarEngine.EngineCylinderNumber, "تعداد سیلندر")
+                @Html.input_TextBox(m => m.CarEngine.EngineSize, "حجم موتور")
                 @Html.input_TextBox(m => m.CarEngine.EnginePowerHpRpm, "قدرت موتور")
                 @Html.input_TextBox(m => m.CarEngine.EngineTorque, "گشتاور")
                 @Html.input_TextBox(m => m.CarEngine.EnginePowerHpTon, "توان وزنی")
@@ -415,13 +416,13 @@
         </div>
 
         <div style="direction:ltr; padding:10px;">
-            <button type="submit" class="button green" >ثبت اطلاعات خودرو</button>
+            <button type="submit" class="button green">ثبت اطلاعات خودرو</button>
             @Html.ActionLink("انصراف", "Index", "Dashboard", new { area = "Admin" }, new { CLASS = "button red" })
         </div>
     </div>
 
-    
-    
+
+
     <input type="hidden" name="wizardpagecontainer" id="wizardpagecontainer" value="@Request["wizardpagecontainer"]" />
 </form>
 
@@ -478,35 +479,40 @@
 {
     <style>
         #ImageUploadedTemp {
-	        display:flex;
-	        flex-wrap:wrap;
-	        justify-content:center;
-	        align-items:center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
         }
-            
+
         .uploadTmpImages {
-            position:relative;
-            width:100px;
-            height:70px;
-            margin:5px;
-            border:thin solid;
-            overflow:hidden;
-            border-radius:3px;
+            position: relative;
+            width: 100px;
+            height: 70px;
+            margin: 5px;
+            border: thin solid;
+            overflow: hidden;
+            border-radius: 3px;
         }
+
             .uploadTmpImages img {
-                width:100%;
-                height:100%;
+                width: 100%;
+                height: 100%;
             }
+
             .uploadTmpImages a {
-                position:absolute;
-                left:0; right:0; bottom:-100%;
-                text-align:center;
-                background:rgba(0, 0, 0, 0.56);
-                color:white;
-                transition:ease 0.3s;
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: -100%;
+                text-align: center;
+                background: rgba(0, 0, 0, 0.56);
+                color: white;
+                transition: ease 0.3s;
             }
+
             .uploadTmpImages:hover a {
-                bottom:0;
+                bottom: 0;
             }
     </style>
 }
