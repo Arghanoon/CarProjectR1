@@ -6,11 +6,11 @@ using System.Web.Mvc;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.Areas.Admin.CLS.AuthFilter]
-    public class DashBoardController : Controller
+    public class LoginController : Controller
     {
         //
-        // GET: /Admin/DashBoard/
+        // GET: /Admin/Login/
+
         public ActionResult Index()
         {
             return View();

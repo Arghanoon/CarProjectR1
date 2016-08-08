@@ -7,6 +7,7 @@ using System.IO;
 
 namespace CarProject.Areas.Admin.Controllers
 {
+    [CarProject.Areas.Admin.CLS.AuthFilter]
     public class CarsController : Controller
     {
         //
