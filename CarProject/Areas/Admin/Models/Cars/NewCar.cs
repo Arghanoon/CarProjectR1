@@ -13,10 +13,15 @@ namespace CarProject.Areas.Admin.Models.Cars
         public string CarTempID { get; set; }
 
         public Car CarGeneral { get; set; }
-        public string[] CarClassTypeItems { get { return new string[] { "سدان" }; } }
+        public string[] CarClassTypeItems { get { return new string[] { "سدان", "کوپه", "کراس آور", "شاسی بلند", "وانت" }; } }
 
         public CarEngine CarEngine { get; set; }
+        public string[] CarEngineTypeItems { get { return new string[] { "خطی", "خورجینی", "باکسری" }; } }
+
         public CarGearBox CarGearBox { get; set; }
+        public string[] carGearBoxTypeItems { get { return new string[] { "اتوماتیک", "دستی" }; } }
+        public string[] DiffSetItems { get { return new string[] { "عقب", "جلو", "جلو و عقب" }; } }
+
         public CarPhysicalDetail CarPhysicalDetail { get; set; }
         public FuelConsumption FuelConsumption { get; set; }
         public BrakeSystem BreakSystem { get; set; }
@@ -134,13 +139,13 @@ namespace CarProject.Areas.Admin.Models.Cars
 
             ca.SaveChanges();
         }
-        
+
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (string.IsNullOrWhiteSpace(CarGeneral.CarsBrandName))
                 yield return new ValidationResult("این فیلد اجباری است", new string[] { "CarGeneral.CarsBrandName" });
-            
+
         }
     }
 }

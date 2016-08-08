@@ -62,14 +62,14 @@ a {
 	#menu
 	{
 		background:#D0D0D0;
-		min-width:20vw;
+        padding-left:20px;
 	}
 		#menu nav
 		{
 			display:flex;
 			flex-direction:column;
-			justify-content:center;
-			align-items:center;
+			justify-content:flex-start;
+			align-items:flex-start;
 			
 			padding:10px;
 			margin-bottom:15px;

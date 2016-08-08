@@ -68,12 +68,23 @@
         vertical-align:middle;
     }
 
+
+    
+@media (max-width:500px) {
+    .input > *:not(hr) {
+        display:block !important;      
+    }
+}
+
+
     
 /*-----------------------------------------Rating Section--------------------------*/
 .input.rating
 {
 	position:relative;
 	display:flex;
+
+    overflow:hidden;
 }
 	.input.rating input
 	{
@@ -87,8 +98,30 @@
 		height:30px;
 		background:url(../../Images/ratingback.png) no-repeat;
 		background-size:100% 100%;
+
+        border-radius:5px;
+        overflow:hidden;
 	}
-	
+        .input.rating .ratingSection[data-value]::after {
+            content:attr(data-value);
+            position:absolute;
+            top:100%; left:0; right:0;
+            background:rgba(0, 0, 0, 0.30);
+            color:#fff;
+
+            height:100%;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            transition:ease 0.3s;
+            z-index:2;
+        }
+        .input.rating:hover .ratingSection[data-value]::after {
+            top:0;
+        }
+
 	.input.rating .ratingSectionSlider
 	{
 		position:absolute;
@@ -111,8 +144,47 @@
 /*------------------------------------Rating Section -------------------------------*/
 
 
-@media (max-width:500px) {
-    .input > *:not(hr) {
-        display:block !important;      
-    }
-}
+
+/*---------------------------------------Buttons------------------------------------------*/
+	.button
+	{
+		border:thin solid #afafaf;
+		background:#eaeaea;
+		color: #252525;
+		
+		border-radius:3px;
+		text-decoration:none;
+		
+		padding:5px;
+		margin:3px;
+		
+        box-sizing:border-box;
+	}
+	.button:hover
+	{
+		box-shadow: 0 0 2px 0 #9b9b9b;
+	}
+	.button:active
+	{
+		box-shadow: 0 0 2px 0 #9b9b9b inset;
+	}
+	
+	.button.green
+	{
+		background:#c4ffc4;
+		color:#004e00;
+		border: thin solid #00b100;
+	}
+	.button.red
+	{
+		background:#ffb1b1;
+		color:#760000;
+		border: thin solid #c40000;
+	}
+	.button.blue
+	{
+		background:#b1b1ff;
+		color:#000089;
+		border: thin solid #0000c4;
+	}
+/*---------------------------------------Buttons------------------------------------------*/

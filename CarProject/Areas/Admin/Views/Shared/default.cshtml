@@ -43,8 +43,8 @@
         <div id="menu">
         	
             <nav>
-            	<a href="#">قسمت 1 لینک 1</a>
-                <a href="#">قسمت 1 لینک 2</a>
+            	@Html.ActionLink("ثبت خودرو", "NewCar", "Cars", new { area = "Admin" }, new { CLASS = "gia-add" })
+                @Html.ActionLink("خودروهای ثبت شده", "Cars", "Cars", new { area = "Admin" }, new { CLASS = "gia-list" })
                 <a href="#">قسمت 1 لینک 3</a>
                 <a href="#">قسمت 1 لینک 4</a>
             </nav>
@@ -93,7 +93,7 @@
     }
 </script>
 
-    @RenderSection("script", false);
+    @RenderSection("script", false)
 
-    @RenderSection("style",false);
+    @RenderSection("style",false)
 </html>

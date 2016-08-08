@@ -1,0 +1,63 @@
+﻿@model List<CarProject.DBSEF.Car>
+@{
+    ViewBag.Title = "نمایش خودروهای ثبت شده";
+}
+
+
+<table class="grid1">
+    <thead>
+        <tr>
+            <th>شناسه</th>
+            <th>برند</th>
+            <th>کلاس</th>
+            <th>مدل</th>
+            <th>کلاس کاری</th>
+            <th>دسته بندی</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CarsId</td>
+                <td>@item.CarsBrandName</td>
+                <td>@item.CarsClass</td>
+                <td>@item.CarsModel</td>
+                <td>@item.CarClassType</td>
+                <td>@item.CarCategory</td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>
+
+
+
+
+@section style
+{
+    <style>
+        .grid1 {
+            width:100%;
+        }
+            .grid1 thead {
+                background:#d6d6d6;
+                z-index:-1;
+            }
+
+        .grid1 th, .grid1 td {
+            border: thin solid #2f2f2f;
+            text-align:center;
+        }
+
+        .grid1 tbody tr:hover td {
+            background:#e0e0e0;
+            border:thin solid #2f2f2f;
+        }
+    </style>
+}

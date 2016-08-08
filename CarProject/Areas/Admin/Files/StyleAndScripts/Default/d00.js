@@ -89,11 +89,17 @@ wizardGoToPage($(".wizardPage").first());
 
 /*---------------------------------------Input Rating Section---------------------*/
 
-    $(".input.rating").each(function(index, element) {
+$(".input.rating").each(function(index, element) {
     $(".ratingSectionSlider",element).css(
-		"width",
-		(parseFloat($("input",element).attr('value')) * 10) + "%"
-		);
+	    "width",
+	    (parseFloat($("input",element).attr('value')) * 10) + "%"
+	    );
+});
+$(".input.rating  .ratingSection[data-value]").each(function (index, element) {
+    $(".ratingSectionSlider",element).css(
+	    "width",
+	    (parseFloat($(element).attr('data-value')) * 10) + "%"
+	    );
 });
 
 function ratint_Onclick(e)

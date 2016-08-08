@@ -226,6 +226,43 @@ namespace CarProject.App_Code
             return input_Rating<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
         }
 
+        public static MvcHtmlString Display_Rating<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass)
+        {
+
+            if (!htmlHelper.ViewData.ModelState.IsValidField(htmlHelper.NameFor(expression).ToString()))
+                AddAttribute(htmlAttributes, "class", errorClass);
+
+            string cls = DicAtrsToString(htmlAttributes);
+
+            string res = "<section class=\"input\">";
+
+            res += htmlHelper.LabelFor(expression, displayName);
+            {
+                res += string.Format("<section class=\"input rating {0}\" >", cls);
+                {
+                    res += "<section class=\"ratingSection\" data-value=\"" + htmlHelper.ValueFor(expression).ToString() + "\" > " +
+                                "<section class=\"ratingSectionSlider\" ></section> " +
+                           "</section>";
+                }
+                res += "</section>";
+            }
+            res += htmlHelper.ValidationMessageFor(expression);
+
+            res += "</section>";
+            return new MvcHtmlString(res);
+        }
+        public static MvcHtmlString Display_Rating<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, string errorClass)
+        {
+            return Display_Rating<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), errorClass);
+        }
+        public static MvcHtmlString Display_Rating<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName)
+        {
+            return Display_Rating<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), "error");
+        }
+        public static MvcHtmlString Display_Rating<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<string, object> htmlAttributes)
+        {
+            return Display_Rating<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
+        }
     }
 
     #endregion

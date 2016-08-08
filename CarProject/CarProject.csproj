@@ -563,7 +563,6 @@
     <Content Include="Publics\Styles\fonts\fnt1.ttf" />
     <Content Include="Publics\Styles\fonts\fnt2.ttf" />
     <Content Include="Publics\Styles\fonts\fnt3.ttf" />
-    <Content Include="Publics\Styles\fonts\GIAdmin.fcp" />
     <Content Include="Publics\Styles\fonts\GIAdmin.woff" />
     <Content Include="Publics\Styles\fonts\t1.ttf" />
   </ItemGroup>
@@ -628,6 +627,9 @@
       <Project>{94ce37b0-269b-47f1-bc9c-ba7551a9da9c}</Project>
       <Name>Business</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Cars\Cars.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
