@@ -25,6 +25,7 @@ namespace CarProject.DBSEF
         public Nullable<int> EngineZeroToH { get; set; }
         public string EngineDescription { get; set; }
         public Nullable<int> CarsId { get; set; }
+        public Nullable<int> EngineSize { get; set; }
     
         public virtual Car Car { get; set; }
     }

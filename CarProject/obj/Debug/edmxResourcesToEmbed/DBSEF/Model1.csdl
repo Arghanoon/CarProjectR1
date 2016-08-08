@@ -77,7 +77,7 @@
     <Property Name="BrakeSystemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CarId" Type="Int32" />
     <Property Name="FrontBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="RearBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RearBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="OtherSystem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="HandBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -110,7 +110,7 @@
     <Property Name="RearStereo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="FrontStereo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Subwoofer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Amplifire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Amplifire" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="HasGps" Type="Boolean" />
     <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CarsId" Type="Int32" Nullable="false" />
@@ -121,7 +121,7 @@
       <PropertyRef Name="CarEngineId" />
     </Key>
     <Property Name="CarEngineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="EngineType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EngineType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EngineCylinderNumber" Type="Int32" />
     <Property Name="EnginePowerHpRpm" Type="Int32" />
     <Property Name="EngineTorque" Type="Int32" />
@@ -131,6 +131,7 @@
     <Property Name="EngineZeroToH" Type="Int32" />
     <Property Name="EngineDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CarsId" Type="Int32" />
+    <Property Name="EngineSize" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_CarEngine_Cars" FromRole="CarEngine" ToRole="Cars" />
   </EntityType>
   <EntityType Name="CarGearBox">
@@ -138,14 +139,14 @@
       <PropertyRef Name="CarGearBoxId" />
     </Key>
     <Property Name="CarGearBoxId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="GearBoxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="GearBoxType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="GearBoxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GearBoxType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GearBoxCanBeManual" Type="Boolean" />
     <Property Name="GearBoxShiftNumber" Type="Int32" />
-    <Property Name="GearBoxAxel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="GearBoxAxel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="HasTransferCase" Type="Boolean" />
     <Property Name="GearBoxDiffrentionalLock" Type="Boolean" />
-    <Property Name="GearBoxWdType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="GearBoxWdType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GearBoxDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CarsId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_CarGearBox_Cars" FromRole="CarGearBox" ToRole="Cars" />
@@ -203,12 +204,12 @@
     <Property Name="CarsModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CarsUserScore" Type="Int32" />
     <Property Name="CarsClinicScore" Type="Int32" />
-    <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Int32" />
     <Property Name="CarsPicsId" Type="Int32" />
-    <Property Name="CarsVideoURL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CarsVideoURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CarsDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="CarClassType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="CarCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CarClassType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CarCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CarUsage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AirConditioningSystems" Relationship="Self.FK_AirConditioningSystem_Cars" FromRole="Cars" ToRole="AirConditioningSystem" />
     <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoService_Cars" FromRole="Cars" ToRole="AutoService" />
@@ -292,8 +293,8 @@
     </Key>
     <Property Name="CarsQnAId" Type="Int32" Nullable="false" />
     <Property Name="CarsId" Type="Int32" />
-    <Property Name="QuestionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="QuestionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="QuestionId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_CarsQnA_Cars" FromRole="CarsQnA" ToRole="Cars" />
   </EntityType>
@@ -351,7 +352,7 @@
       <PropertyRef Name="DetailedBrakeSystemId" />
     </Key>
     <Property Name="DetailedBrakeSystemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="DetailedName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DetailedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="HaveDetailed" Type="Boolean" />
     <Property Name="CarId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_DetailedBrakeSystem_Cars" FromRole="DetailedBrakeSystem" ToRole="Cars" />
@@ -1083,7 +1084,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CarAutomationEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
     <EntitySet Name="AutoServicePacks" EntityType="Self.AutoServicePack" />

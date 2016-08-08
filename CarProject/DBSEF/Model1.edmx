@@ -70,7 +70,7 @@
           <Property Name="BrakeSystemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CarId" Type="int" />
           <Property Name="FrontBrakeSystem" Type="nvarchar" MaxLength="50" />
-          <Property Name="RearBrakeSystem" Type="varchar" MaxLength="50" />
+          <Property Name="RearBrakeSystem" Type="nvarchar" MaxLength="50" />
           <Property Name="OtherSystem" Type="nvarchar(max)" />
           <Property Name="HandBrakeSystem" Type="nvarchar" MaxLength="50" />
           <Property Name="Details" Type="nvarchar(max)" />
@@ -101,7 +101,7 @@
           <Property Name="RearStereo" Type="nvarchar" MaxLength="50" />
           <Property Name="FrontStereo" Type="nvarchar" MaxLength="50" />
           <Property Name="Subwoofer" Type="nvarchar" MaxLength="50" />
-          <Property Name="Amplifire" Type="varchar" MaxLength="50" />
+          <Property Name="Amplifire" Type="nvarchar" MaxLength="50" />
           <Property Name="HasGps" Type="bit" />
           <Property Name="Details" Type="nvarchar(max)" />
           <Property Name="CarsId" Type="int" Nullable="false" />
@@ -111,7 +111,7 @@
             <PropertyRef Name="CarEngineId" />
           </Key>
           <Property Name="CarEngineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EngineType" Type="varchar" MaxLength="50" />
+          <Property Name="EngineType" Type="nvarchar" MaxLength="50" />
           <Property Name="EngineCylinderNumber" Type="int" />
           <Property Name="EnginePowerHpRpm" Type="int" />
           <Property Name="EngineTorque" Type="int" />
@@ -121,20 +121,21 @@
           <Property Name="EngineZeroToH" Type="int" />
           <Property Name="EngineDescription" Type="nvarchar(max)" />
           <Property Name="CarsId" Type="int" />
+          <Property Name="EngineSize" Type="int" />
         </EntityType>
         <EntityType Name="CarGearBox">
           <Key>
             <PropertyRef Name="CarGearBoxId" />
           </Key>
           <Property Name="CarGearBoxId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GearBoxCode" Type="varchar" MaxLength="50" />
-          <Property Name="GearBoxType" Type="varchar" MaxLength="50" />
+          <Property Name="GearBoxCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="GearBoxType" Type="nvarchar" MaxLength="50" />
           <Property Name="GearBoxCanBeManual" Type="bit" />
           <Property Name="GearBoxShiftNumber" Type="int" />
-          <Property Name="GearBoxAxel" Type="varchar" MaxLength="50" />
+          <Property Name="GearBoxAxel" Type="nvarchar" MaxLength="50" />
           <Property Name="HasTransferCase" Type="bit" />
           <Property Name="GearBoxDiffrentionalLock" Type="bit" />
-          <Property Name="GearBoxWdType" Type="varchar" MaxLength="50" />
+          <Property Name="GearBoxWdType" Type="nvarchar" MaxLength="50" />
           <Property Name="GearBoxDescription" Type="nvarchar(max)" />
           <Property Name="CarsId" Type="int" />
         </EntityType>
@@ -188,12 +189,12 @@
           <Property Name="CarsModel" Type="nvarchar" MaxLength="50" />
           <Property Name="CarsUserScore" Type="int" />
           <Property Name="CarsClinicScore" Type="int" />
-          <Property Name="Price" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="int" />
           <Property Name="CarsPicsId" Type="int" />
-          <Property Name="CarsVideoURL" Type="varchar" MaxLength="50" />
+          <Property Name="CarsVideoURL" Type="nvarchar" MaxLength="50" />
           <Property Name="CarsDescription" Type="nvarchar(max)" />
-          <Property Name="CarClassType" Type="varchar" MaxLength="50" />
-          <Property Name="CarCategory" Type="varchar" MaxLength="50" />
+          <Property Name="CarClassType" Type="nvarchar" MaxLength="50" />
+          <Property Name="CarCategory" Type="nvarchar" MaxLength="50" />
           <Property Name="CarUsage" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="CarSeatOptions">
@@ -247,8 +248,8 @@
           </Key>
           <Property Name="CarsQnAId" Type="int" Nullable="false" />
           <Property Name="CarsId" Type="int" />
-          <Property Name="QuestionType" Type="varchar" MaxLength="50" />
-          <Property Name="Question" Type="varchar" MaxLength="50" />
+          <Property Name="QuestionType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Question" Type="nvarchar" MaxLength="50" />
           <Property Name="QuestionId" Type="int" />
         </EntityType>
         <EntityType Name="CarsReview">
@@ -301,7 +302,7 @@
             <PropertyRef Name="DetailedBrakeSystemId" />
           </Key>
           <Property Name="DetailedBrakeSystemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DetailedName" Type="varchar" MaxLength="50" />
+          <Property Name="DetailedName" Type="nvarchar" MaxLength="50" />
           <Property Name="HaveDetailed" Type="bit" />
           <Property Name="CarId" Type="int" />
         </EntityType>
@@ -1299,7 +1300,7 @@
           <Property Name="BrakeSystemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CarId" Type="Int32" />
           <Property Name="FrontBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RearBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RearBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OtherSystem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="HandBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -1332,7 +1333,7 @@
           <Property Name="RearStereo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FrontStereo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Subwoofer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Amplifire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Amplifire" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HasGps" Type="Boolean" />
           <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarsId" Type="Int32" Nullable="false" />
@@ -1343,7 +1344,7 @@
             <PropertyRef Name="CarEngineId" />
           </Key>
           <Property Name="CarEngineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EngineType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EngineType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EngineCylinderNumber" Type="Int32" />
           <Property Name="EnginePowerHpRpm" Type="Int32" />
           <Property Name="EngineTorque" Type="Int32" />
@@ -1353,6 +1354,7 @@
           <Property Name="EngineZeroToH" Type="Int32" />
           <Property Name="EngineDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarsId" Type="Int32" />
+          <Property Name="EngineSize" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_CarEngine_Cars" FromRole="CarEngine" ToRole="Cars" />
         </EntityType>
         <EntityType Name="CarGearBox">
@@ -1360,14 +1362,14 @@
             <PropertyRef Name="CarGearBoxId" />
           </Key>
           <Property Name="CarGearBoxId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GearBoxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="GearBoxType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GearBoxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GearBoxType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GearBoxCanBeManual" Type="Boolean" />
           <Property Name="GearBoxShiftNumber" Type="Int32" />
-          <Property Name="GearBoxAxel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GearBoxAxel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HasTransferCase" Type="Boolean" />
           <Property Name="GearBoxDiffrentionalLock" Type="Boolean" />
-          <Property Name="GearBoxWdType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GearBoxWdType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GearBoxDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarsId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_CarGearBox_Cars" FromRole="CarGearBox" ToRole="Cars" />
@@ -1425,12 +1427,12 @@
           <Property Name="CarsModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CarsUserScore" Type="Int32" />
           <Property Name="CarsClinicScore" Type="Int32" />
-          <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Int32" />
           <Property Name="CarsPicsId" Type="Int32" />
-          <Property Name="CarsVideoURL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CarsVideoURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CarsDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CarClassType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CarCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CarClassType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CarCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CarUsage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AirConditioningSystems" Relationship="Self.FK_AirConditioningSystem_Cars" FromRole="Cars" ToRole="AirConditioningSystem" />
           <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoService_Cars" FromRole="Cars" ToRole="AutoService" />
@@ -1514,8 +1516,8 @@
           </Key>
           <Property Name="CarsQnAId" Type="Int32" Nullable="false" />
           <Property Name="CarsId" Type="Int32" />
-          <Property Name="QuestionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuestionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="QuestionId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_CarsQnA_Cars" FromRole="CarsQnA" ToRole="Cars" />
         </EntityType>
@@ -1573,7 +1575,7 @@
             <PropertyRef Name="DetailedBrakeSystemId" />
           </Key>
           <Property Name="DetailedBrakeSystemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DetailedName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DetailedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HaveDetailed" Type="Boolean" />
           <Property Name="CarId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_DetailedBrakeSystem_Cars" FromRole="DetailedBrakeSystem" ToRole="Cars" />
@@ -2305,7 +2307,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CarAutomationEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
           <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
           <EntitySet Name="AutoServicePacks" EntityType="Self.AutoServicePack" />
@@ -2527,7 +2529,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
+        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities1">
           <EntitySetMapping Name="AirConditioningSystems">
             <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
               <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -2651,6 +2653,7 @@
                 <ScalarProperty Name="EngineZeroToH" ColumnName="EngineZeroToH" />
                 <ScalarProperty Name="EngineDescription" ColumnName="EngineDescription" />
                 <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+                <ScalarProperty Name="EngineSize" ColumnName="EngineSize" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

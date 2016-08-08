@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
+  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities1">
     <EntitySetMapping Name="AirConditioningSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
         <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -124,6 +124,7 @@
           <ScalarProperty Name="EngineZeroToH" ColumnName="EngineZeroToH" />
           <ScalarProperty Name="EngineDescription" ColumnName="EngineDescription" />
           <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="EngineSize" ColumnName="EngineSize" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

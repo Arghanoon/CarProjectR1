@@ -50,7 +50,7 @@ namespace CarProject.DBSEF
         public string CarsModel { get; set; }
         public Nullable<int> CarsUserScore { get; set; }
         public Nullable<int> CarsClinicScore { get; set; }
-        public string Price { get; set; }
+        public Nullable<int> Price { get; set; }
         public Nullable<int> CarsPicsId { get; set; }
         public string CarsVideoURL { get; set; }
         public string CarsDescription { get; set; }

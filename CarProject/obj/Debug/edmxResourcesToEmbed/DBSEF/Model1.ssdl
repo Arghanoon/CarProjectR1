@@ -65,7 +65,7 @@
     <Property Name="BrakeSystemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarId" Type="int" />
     <Property Name="FrontBrakeSystem" Type="nvarchar" MaxLength="50" />
-    <Property Name="RearBrakeSystem" Type="varchar" MaxLength="50" />
+    <Property Name="RearBrakeSystem" Type="nvarchar" MaxLength="50" />
     <Property Name="OtherSystem" Type="nvarchar(max)" />
     <Property Name="HandBrakeSystem" Type="nvarchar" MaxLength="50" />
     <Property Name="Details" Type="nvarchar(max)" />
@@ -96,7 +96,7 @@
     <Property Name="RearStereo" Type="nvarchar" MaxLength="50" />
     <Property Name="FrontStereo" Type="nvarchar" MaxLength="50" />
     <Property Name="Subwoofer" Type="nvarchar" MaxLength="50" />
-    <Property Name="Amplifire" Type="varchar" MaxLength="50" />
+    <Property Name="Amplifire" Type="nvarchar" MaxLength="50" />
     <Property Name="HasGps" Type="bit" />
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" Nullable="false" />
@@ -106,7 +106,7 @@
       <PropertyRef Name="CarEngineId" />
     </Key>
     <Property Name="CarEngineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="EngineType" Type="varchar" MaxLength="50" />
+    <Property Name="EngineType" Type="nvarchar" MaxLength="50" />
     <Property Name="EngineCylinderNumber" Type="int" />
     <Property Name="EnginePowerHpRpm" Type="int" />
     <Property Name="EngineTorque" Type="int" />
@@ -116,20 +116,21 @@
     <Property Name="EngineZeroToH" Type="int" />
     <Property Name="EngineDescription" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" />
+    <Property Name="EngineSize" Type="int" />
   </EntityType>
   <EntityType Name="CarGearBox">
     <Key>
       <PropertyRef Name="CarGearBoxId" />
     </Key>
     <Property Name="CarGearBoxId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="GearBoxCode" Type="varchar" MaxLength="50" />
-    <Property Name="GearBoxType" Type="varchar" MaxLength="50" />
+    <Property Name="GearBoxCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="GearBoxType" Type="nvarchar" MaxLength="50" />
     <Property Name="GearBoxCanBeManual" Type="bit" />
     <Property Name="GearBoxShiftNumber" Type="int" />
-    <Property Name="GearBoxAxel" Type="varchar" MaxLength="50" />
+    <Property Name="GearBoxAxel" Type="nvarchar" MaxLength="50" />
     <Property Name="HasTransferCase" Type="bit" />
     <Property Name="GearBoxDiffrentionalLock" Type="bit" />
-    <Property Name="GearBoxWdType" Type="varchar" MaxLength="50" />
+    <Property Name="GearBoxWdType" Type="nvarchar" MaxLength="50" />
     <Property Name="GearBoxDescription" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" />
   </EntityType>
@@ -183,12 +184,12 @@
     <Property Name="CarsModel" Type="nvarchar" MaxLength="50" />
     <Property Name="CarsUserScore" Type="int" />
     <Property Name="CarsClinicScore" Type="int" />
-    <Property Name="Price" Type="nvarchar" MaxLength="50" />
+    <Property Name="Price" Type="int" />
     <Property Name="CarsPicsId" Type="int" />
-    <Property Name="CarsVideoURL" Type="varchar" MaxLength="50" />
+    <Property Name="CarsVideoURL" Type="nvarchar" MaxLength="50" />
     <Property Name="CarsDescription" Type="nvarchar(max)" />
-    <Property Name="CarClassType" Type="varchar" MaxLength="50" />
-    <Property Name="CarCategory" Type="varchar" MaxLength="50" />
+    <Property Name="CarClassType" Type="nvarchar" MaxLength="50" />
+    <Property Name="CarCategory" Type="nvarchar" MaxLength="50" />
     <Property Name="CarUsage" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="CarSeatOptions">
@@ -242,8 +243,8 @@
     </Key>
     <Property Name="CarsQnAId" Type="int" Nullable="false" />
     <Property Name="CarsId" Type="int" />
-    <Property Name="QuestionType" Type="varchar" MaxLength="50" />
-    <Property Name="Question" Type="varchar" MaxLength="50" />
+    <Property Name="QuestionType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Question" Type="nvarchar" MaxLength="50" />
     <Property Name="QuestionId" Type="int" />
   </EntityType>
   <EntityType Name="CarsReview">
@@ -296,7 +297,7 @@
       <PropertyRef Name="DetailedBrakeSystemId" />
     </Key>
     <Property Name="DetailedBrakeSystemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DetailedName" Type="varchar" MaxLength="50" />
+    <Property Name="DetailedName" Type="nvarchar" MaxLength="50" />
     <Property Name="HaveDetailed" Type="bit" />
     <Property Name="CarId" Type="int" />
   </EntityType>

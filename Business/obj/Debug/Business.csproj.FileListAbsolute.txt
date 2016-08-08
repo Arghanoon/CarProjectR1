@@ -107,3 +107,13 @@ G:\Projects\CarCompleteWebsite\CarProject\Business\bin\Debug\EntityFramework.Sql
 G:\Projects\CarCompleteWebsite\CarProject\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
 G:\Projects\CarCompleteWebsite\CarProject\Business\obj\Debug\Business.dll
 G:\Projects\CarCompleteWebsite\CarProject\Business\obj\Debug\Business.pdb
+E:\CarProject\CarProjectR1\Business\bin\Debug\Business.dll.config
+E:\CarProject\CarProjectR1\Business\bin\Debug\Business.dll
+E:\CarProject\CarProjectR1\Business\bin\Debug\Business.pdb
+E:\CarProject\CarProjectR1\Business\bin\Debug\EntityFramework.dll
+E:\CarProject\CarProjectR1\Business\bin\Debug\EntityFramework.SqlServer.dll
+E:\CarProject\CarProjectR1\Business\bin\Debug\EntityFramework.xml
+E:\CarProject\CarProjectR1\Business\bin\Debug\EntityFramework.SqlServer.xml
+E:\CarProject\CarProjectR1\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+E:\CarProject\CarProjectR1\Business\obj\Debug\Business.dll
+E:\CarProject\CarProjectR1\Business\obj\Debug\Business.pdb
