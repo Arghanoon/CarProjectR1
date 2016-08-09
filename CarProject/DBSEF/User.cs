@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace CarProject.DBSEF
 {
     using System;
@@ -22,19 +20,13 @@ namespace CarProject.DBSEF
             this.Baskets = new HashSet<Basket>();
             this.People = new HashSet<Person>();
             this.PersonProducts = new HashSet<PersonProduct>();
-            this.UserRoles = new HashSet<UserRole>();
         }
     
         public int UserId { get; set; }
-        [Required(ErrorMessage = "*")]
-        [Display(Name = "Login ID")]
         public string Uname { get; set; }
-       
-        [Required(ErrorMessage = "*")]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
         public string Upass { get; set; }
         public Nullable<int> CarId { get; set; }
+        public Nullable<int> UserRoleId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Basket> Baskets { get; set; }
@@ -43,7 +35,6 @@ namespace CarProject.DBSEF
         public virtual ICollection<Person> People { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonProduct> PersonProducts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual UserRole UserRole { get; set; }
     }
 }
