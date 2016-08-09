@@ -464,13 +464,13 @@
           <Property Name="Uname" Type="nvarchar" MaxLength="50" />
           <Property Name="Upass" Type="nvarchar" MaxLength="50" />
           <Property Name="CarId" Type="int" />
+          <Property Name="UserRoleId" Type="int" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
             <PropertyRef Name="UserRoleId" />
           </Key>
           <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" />
           <Property Name="UserRole" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_AirConditioningSystem_Cars">
@@ -989,15 +989,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserRole_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+        <Association Name="FK_User_UserRole">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
+            <Principal Role="UserRole">
+              <PropertyRef Name="UserRoleId" />
             </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="UserId" />
+            <Dependent Role="User">
+              <PropertyRef Name="UserRoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1213,9 +1213,9 @@
             <End Role="Cars" EntitySet="Cars" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
-            <End Role="User" EntitySet="User" />
+          <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
             <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1764,20 +1764,20 @@
           <Property Name="Uname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Upass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CarId" Type="Int32" />
+          <Property Name="UserRoleId" Type="Int32" />
           <NavigationProperty Name="Baskets" Relationship="Self.FK_Basket_User" FromRole="User" ToRole="Basket" />
           <NavigationProperty Name="Car" Relationship="Self.FK_User_Cars" FromRole="User" ToRole="Cars" />
           <NavigationProperty Name="People" Relationship="Self.FK_Person_User" FromRole="User" ToRole="Person" />
           <NavigationProperty Name="PersonProducts" Relationship="Self.FK_PersonProduct_User" FromRole="User" ToRole="PersonProduct" />
-          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK_User_UserRole" FromRole="User" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
             <PropertyRef Name="UserRoleId" />
           </Key>
           <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
           <Property Name="UserRole1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserRole_User" FromRole="UserRole" ToRole="User" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_UserRole" FromRole="UserRole" ToRole="User" />
         </EntityType>
         <Association Name="FK_AirConditioningSystem_Cars">
           <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
@@ -2295,19 +2295,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserRole_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+        <Association Name="FK_User_UserRole">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
+            <Principal Role="UserRole">
+              <PropertyRef Name="UserRoleId" />
             </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="UserId" />
+            <Dependent Role="User">
+              <PropertyRef Name="UserRoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CarAutomationEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
           <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
           <EntitySet Name="AutoServicePacks" EntityType="Self.AutoServicePack" />
@@ -2519,9 +2519,9 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="TodaysSpecial" EntitySet="TodaysSpecials" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
-            <End Role="User" EntitySet="Users" />
+          <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
             <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="User" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -2529,7 +2529,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities1">
+        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="AirConditioningSystems">
             <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
               <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -3025,6 +3025,7 @@
                 <ScalarProperty Name="Uname" ColumnName="Uname" />
                 <ScalarProperty Name="Upass" ColumnName="Upass" />
                 <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3032,7 +3033,6 @@
             <EntityTypeMapping TypeName="CarAutomationModel.UserRole">
               <MappingFragment StoreEntitySet="UserRole">
                 <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserRole1" ColumnName="UserRole" />
               </MappingFragment>
             </EntityTypeMapping>
