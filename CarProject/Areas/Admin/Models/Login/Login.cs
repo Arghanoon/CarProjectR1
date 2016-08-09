@@ -20,7 +20,7 @@ namespace CarProject.Areas.Admin.Models.Login
         }
         public string GetUserPassword(string loginName)
         {
-            using (DBSEF.CarAutomationEntities1 db = new CarAutomationEntities1())
+            using (DBSEF.CarAutomationEntities db = new CarAutomationEntities())
             {
                 var user = db.Users.Where(o => o.Uname.ToLower().Equals(loginName));
                 if (user.Any())

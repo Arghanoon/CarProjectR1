@@ -1,0 +1,84 @@
+﻿@{
+    Layout = null;
+}
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>خودرو کلینیک</title>
+
+    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
+<style>
+*{position:relative; box-sizing:border-box; margin:0; padding:0; }
+
+body
+{
+	direction:rtl;
+	background:url(@System.Web.VirtualPathUtility.ToAbsolute("~/Publics/Files/Images/back.jpg")) no-repeat center;
+	background-size:100% auto;
+	height:100vh;
+}
+
+header
+{
+}
+	#title
+	{
+		position:fixed;
+		top:-100%;
+	}
+
+	#logo
+	{
+		width:100%;
+	}
+
+footer
+{
+	position:absolute;
+	bottom:0; left:0; right:0;
+	
+	font-family:f2;
+}
+	footer > * { padding: 5px; }
+	#arghanoon{
+		background:rgba(0,0,0,0.35);
+		font-family:f1;
+		display:flex;
+		justify-content:space-between;
+	}
+	
+	
+	a
+	{
+		color:#848484;
+		text-decoration:none;
+		text-shadow:0 0 0 #000000;
+	}
+	a:hover
+	{
+		text-shadow:1px 1px 0 #000000;
+	}
+</style>
+</head>
+
+<body>
+	
+    <header>
+    	<h1 id="title">کلینیک خودرو</h1>
+        <img id="logo" src="~/Publics/Files/Images/logo.png" />
+    </header>
+    
+    <footer>
+    	<div style="text-align:center;">
+        	<h1>@Html.ActionLink("ورود به بخش مدیریت","Index",new {area="Admin",controller =  "Dashboard"})</h1>
+        </div>
+    	<div id="arghanoon">
+            <section>گروه نرم افزار ارغنون</section>
+            <section>copyright &copy; 2016</section>
+        </div>
+    </footer>
+    
+</body>
+</html>
