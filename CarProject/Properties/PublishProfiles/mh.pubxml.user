@@ -68,7 +68,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/09/2016 16:30:43</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>08/09/2016 17:32:50</publishTime>
+      <publishTime>08/09/2016 17:59:20</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/08/2016 15:39:29</publishTime>
@@ -842,7 +842,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/08/2016 15:39:28</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/09/2016 17:32:50</publishTime>
+      <publishTime>08/09/2016 17:59:20</publishTime>
     </File>
   </ItemGroup>
 </Project>
