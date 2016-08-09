@@ -10,8 +10,8 @@ namespace CarProject.Areas.Admin.CLS
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            //if (filterContext.HttpContext.Session["useradmin"] == null)
-            //    filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new Dictionary<string, object>() { { "area", "Admin" }, { "controller", "Login" }, { "action", "Index" } }));
+            if (filterContext.HttpContext.Session["useradmin"] == null)
+                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new Dictionary<string, object>() { { "area", "Admin" }, { "controller", "Login" }, { "action", "Index" } }));
         }
     }
 }

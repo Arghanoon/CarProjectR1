@@ -16,5 +16,12 @@ namespace CarProject.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Index()
+        {
+            
+            return View();
+        }
+
     }
 }
