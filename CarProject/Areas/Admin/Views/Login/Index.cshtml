@@ -137,7 +137,7 @@
 
 <body>
 	
-    <form id="container">
+    <form id="container" method="post">
         
         
         <div id="loginForm">
@@ -147,12 +147,12 @@
                 <small>نام نرم افزار</small>
             </div>
         	
-            <label class="gia-user"><input type="text" autocomplete="off" placeholder="نام کاربری" id="username" /></label>
-            <label class="gia-key"><input type="password" placeholder="کلمه عبور" id="password" /></label>
+            <label class="gia-user"><input type="text" autocomplete="off" placeholder="نام کاربری" id="username" name="username" /></label>
+            <label class="gia-key"><input type="password" placeholder="کلمه عبور" id="password" name="password" /></label>
             
            
            <label class="button gia-login">
-               <input type="submit" onClick="alert('Welcome')" value="ورود کاربر"/>
+               <input type="submit" value="ورود کاربر"/>
            </label>
             
             

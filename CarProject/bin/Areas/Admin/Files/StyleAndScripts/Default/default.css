@@ -42,7 +42,20 @@ header
 			color:#BBBBBB;
 		}
 
+#header_menu_nav  button {
+    border:none;
+    background:none;
+    font-family:f2;
+    font-size:100%; 
+    cursor:pointer;
+}
 
+    #header_menu_nav button:hover a {
+        color:#FBFBFB;
+    }
+     #header_menu_nav button:active a {
+        color:#BBBBBB;
+    }
 
 
 a {

@@ -17,9 +17,13 @@ namespace CarProject.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index()
+        public ActionResult Index(FormCollection form)
         {
-            
+            if (form["username"] == form["password"])
+            {
+                Session["useradmin"] = "1";
+                return RedirectToAction("Index", "Dashboard");
+            }
             return View();
         }
 

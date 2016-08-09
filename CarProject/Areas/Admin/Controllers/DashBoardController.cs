@@ -16,5 +16,18 @@ namespace CarProject.Areas.Admin.Controllers
             return View();
         }
 
+
+
+        [HttpPost]
+        public ActionResult topNavPostBack(FormCollection form)
+        {
+            if (form.AllKeys.Contains("userLogout"))
+            {
+                Session["useradmin"] = "";
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            else
+                return RedirectToAction("Index");
+        }
     }
 }
