@@ -10,6 +10,8 @@ namespace CarProject.Areas.Admin.CLS
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            filterContext.HttpContext.Session["rqpage"] = filterContext.HttpContext.Request.Url.ToString();
+
             if (filterContext.HttpContext.Session["useradmin"] == null)
                 filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new Dictionary<string, object>() { { "area", "Admin" }, { "controller", "Login" }, { "action", "Index" } }));
         }

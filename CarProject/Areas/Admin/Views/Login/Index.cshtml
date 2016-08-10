@@ -153,11 +153,11 @@
             </div>
         	
             <label class="gia-user"><input type="text" autocomplete="off" placeholder="نام کاربری" id="username" name="username" /></label>
-            <label class="gia-key"><input type="password" placeholder="کلمه عبور" id="password" name="password" /></label>
+            <label class="gia-key"><input type="password" placeholder="کلمه عبور" id="password" name="password"  /></label>
             
            
            <label class="button gia-login">
-               <input type="submit" value="ورود کاربر"/>
+               <input type="button" onclick="formsubmit()" value="ورود کاربر"/>
            </label>
             
             
@@ -189,4 +189,17 @@
     
 </body>
 
+
+    <script>
+        
+        function formsubmit() {
+            un = document.getElementById("username");
+            ps = document.getElementById("password");
+            if (un.value == "" || ps.value == "") {
+                document.getElementById("errorSection").innerHTML = "نام کاربری و یا کلمه عبور وارد نشده است";
+            }
+            else
+                un.form.submit();
+        }
+    </script>
 </html>

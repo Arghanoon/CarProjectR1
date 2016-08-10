@@ -19,9 +19,9 @@
 
 
         <section class="inputTitle">اطلاعات ورود کاربر</section>
-        @Html.input_TextBox(m => m.User.Uname, "نام کاربری")
+        @Html.input_TextBox(m => m.Person.User.Uname, "نام کاربری")
         @Html.input_Password(m => m.Password, "کلمه عبور")
-        @Html.input_Password(m => m.PasswordConfig, "تایید کلمه عبور")
+        @Html.input_Password(m => m.PasswordConfirm, "تایید کلمه عبور")
 
     </div>
     <div style="display:flex; justify-content:center;" >

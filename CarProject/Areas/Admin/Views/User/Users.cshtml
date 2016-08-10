@@ -1,0 +1,38 @@
+﻿@model List<CarProject.DBSEF.Person>
+
+@{
+    ViewBag.Title = "کاربران";
+}
+
+
+<form method="post">
+    <table class="grid1">
+        <thead>
+            <tr>
+                <th>شناسه</th>
+                <th>نام کاربری</th>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>موبایل</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UserId</td>
+                    <td>@item.User.Uname</td>
+                    <td>@item.PersonFirtstName</td>
+                    <td>@item.PersonLastName</td>
+                    <td>@item.PersonMobile</td>
+                    <td>
+                        <button type="submit" name="delete" value="@item.PersonId" class="button"><section class="gia-remove">حذف</section></button>
+                        <button type="submit" name="update" value="@item.PersonId" class="button"><section class="gia-edit">ویرایش</section></button>
+                    </td>
+                </tr>
+        }
+        </tbody>
+    </table>
+</form>

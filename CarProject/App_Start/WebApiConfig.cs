@@ -14,6 +14,11 @@ namespace CarProject
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "Admin_defaultApi",
+                routeTemplate: "AdminApi/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional });
         }
     }
 }

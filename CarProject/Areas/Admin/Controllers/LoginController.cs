@@ -49,6 +49,8 @@ namespace CarProject.Areas.Admin.Controllers
                     if (usr != null)
                     {
                         Session["useradmin"] = usr;
+                        if (Session["rqpage"] != null)
+                            return Redirect(Session["rqpage"].ToString());
                         return RedirectToAction("Index", "Dashboard");
                     }
                 }

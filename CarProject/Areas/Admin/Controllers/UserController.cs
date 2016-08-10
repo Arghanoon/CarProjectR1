@@ -7,7 +7,7 @@ using CarProject.Areas.Admin.Models.User;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    //[CarProject.Areas.Admin.CLS.AuthFilter]
+    [CarProject.Areas.Admin.CLS.AuthFilter]
     public class UserController : Controller
     {
         public ActionResult Profile()
@@ -28,10 +28,17 @@ namespace CarProject.Areas.Admin.Controllers
         {
             if (ViewData.ModelState.IsValid)
             {
+                user.Save();
                 return RedirectToAction("Index", "Dashboard");
             }
             else
                 return View(model: new UserInfo());
+        }
+
+        public ActionResult Users()
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            return View(dbs.People.ToList());
         }
     }
 }
