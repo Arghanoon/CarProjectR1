@@ -79,6 +79,9 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarEngine.Car = CarGeneral;
             ca.CarEngines.Add(CarEngine);
 
+            FuelConsumption.Car = CarGeneral;
+            ca.FuelConsumptions.Add(FuelConsumption);
+
             CarGearBox.Car = CarGeneral;
             ca.CarGearBoxes.Add(CarGearBox);
 
