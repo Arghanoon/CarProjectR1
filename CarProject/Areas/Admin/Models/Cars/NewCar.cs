@@ -93,8 +93,11 @@ namespace CarProject.Areas.Admin.Models.Cars
 
             foreach (var item in DetailedBrakeSystem)
             {
-                item.Car = CarGeneral;
-                ca.DetailedBrakeSystems.Add(item);
+                if (!item.Equals(null))
+                {
+                    item.Car = CarGeneral;
+                    ca.DetailedBrakeSystems.Add(item);
+                }
             }
 
             SecuritySystem.Car = CarGeneral;
@@ -126,7 +129,10 @@ namespace CarProject.Areas.Admin.Models.Cars
 
             foreach (var item in Advantages)
             {
-                ca.CarsProes.Add(new CarsPro { Car = CarGeneral, CarsProOrCro = true, CarProCro = item });
+                if (!item.Equals(null))
+                {
+                    ca.CarsProes.Add(new CarsPro {Car = CarGeneral, CarsProOrCro = true, CarProCro = item});
+                }
             }
 
             foreach (var item in Disadvantages)
