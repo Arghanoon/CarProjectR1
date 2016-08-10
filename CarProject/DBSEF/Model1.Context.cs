@@ -13,10 +13,10 @@ namespace CarProject.DBSEF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CarAutomationEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public CarAutomationEntities()
-            : base("name=CarAutomationEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     

@@ -48,8 +48,8 @@ namespace CarProject.DBSEF
         public string CarsBrandName { get; set; }
         public string CarsClass { get; set; }
         public string CarsModel { get; set; }
-        public Nullable<int> CarsUserScore { get; set; }
-        public Nullable<int> CarsClinicScore { get; set; }
+        public Nullable<double> CarsUserScore { get; set; }
+        public Nullable<double> CarsClinicScore { get; set; }
         public Nullable<int> Price { get; set; }
         public Nullable<int> CarsPicsId { get; set; }
         public string CarsVideoURL { get; set; }
