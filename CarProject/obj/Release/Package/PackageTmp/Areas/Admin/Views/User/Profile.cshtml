@@ -1,0 +1,23 @@
+﻿@using CarProject.Areas.Admin.Models.User
+@using CarProject.App_Code
+@model UserInfo
+
+
+@{
+    ViewBag.Title = "پروفایل کاربر";
+}
+
+
+
+<form method="post" class="inputsContainer">
+    @Html.input_TextBox(m => m.Person.PersonFirtstName, "نام")
+    @Html.input_TextBox(m => m.Person.PersonLastName, "نام خانوادگی")
+
+    <input type="submit" value="بروز رسانی کاربر" class="button green" />
+</form>
+
+
+@section style
+{
+    
+}

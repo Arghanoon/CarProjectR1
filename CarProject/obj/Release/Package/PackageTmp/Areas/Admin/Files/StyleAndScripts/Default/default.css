@@ -248,3 +248,26 @@ a {
     }
 }
 /*-----------------------------------------------------------------*/
+
+
+
+
+
+/*-------------------Tables----------------------------------------*/
+.grid1 {
+    width: 100%;
+}
+    .grid1 thead {
+        background: #d6d6d6;
+        z-index: -1;
+    }
+
+    .grid1 th, .grid1 td {
+        border: thin solid #2f2f2f;
+        text-align: center;
+    }
+
+    .grid1 tbody tr:hover td {
+        background: #e0e0e0;
+        border: thin solid #2f2f2f;
+    }

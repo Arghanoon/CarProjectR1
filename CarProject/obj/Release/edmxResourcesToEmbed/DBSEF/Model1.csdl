@@ -202,8 +202,8 @@
     <Property Name="CarsBrandName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CarsClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CarsModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="CarsUserScore" Type="Int32" />
-    <Property Name="CarsClinicScore" Type="Int32" />
+    <Property Name="CarsUserScore" Type="Double" />
+    <Property Name="CarsClinicScore" Type="Double" />
     <Property Name="Price" Type="Int32" />
     <Property Name="CarsPicsId" Type="Int32" />
     <Property Name="CarsVideoURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />

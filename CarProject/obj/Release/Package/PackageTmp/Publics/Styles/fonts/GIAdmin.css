@@ -33,6 +33,9 @@
 .gia-information:before{content:'\0032';}
 .gia-add:before{content:'\0033';}
 .gia-list:before{content:'\0034';}
+.gia-close:before{content:'\0035';}
+.gia-remove:before{content:'\0036';}
+.gia-edit:before{content:'\0037';}
 
 
 

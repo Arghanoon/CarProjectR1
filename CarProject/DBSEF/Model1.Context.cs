@@ -65,4 +65,6 @@ namespace CarProject.DBSEF
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
     }
+
+    
 }

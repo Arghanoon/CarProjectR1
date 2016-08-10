@@ -114,21 +114,6 @@
             </div>
             <hr />
 
-            <div class="inputsContainer">
-                <section class="input">
-                    <strong>جزئیات سیستم ترمز<a href="javascript: void()" class="gia-add" onclick="addAnewItem()"></a></strong>
-
-                </section>
-                <div id="breakSystemDetails" class="input">
-                    @if (Request.Form.GetValues("DetailedBrakeSystem") != null)
-                    {
-                        foreach (var item in Request.Form.GetValues("DetailedBrakeSystem"))
-                        {
-                            <input type="text" name="DetailedBrakeSystem" value="@item" />
-                        }
-                    }
-                </div>
-            </div>
             <div class="footer">
                 <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
                 <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
@@ -144,6 +129,7 @@
                 @Html.input_TextArea(m => m.BreakSystem.Details, "توضیحات")
             </div>
             <hr />
+
 
             <div class="inputsContainer">
                 <section class="input">
