@@ -44,7 +44,6 @@ namespace CarProject.Areas.Admin.Controllers
                 
 
 
-                var user = dbs.Users.First(u => u.Uname.ToLower() == username);
                 var usr = dbs.Users.First(u => u.Uname.ToLower() == username && u.Upass == pass.ToLower());
                 if (usr != null)
                 {
