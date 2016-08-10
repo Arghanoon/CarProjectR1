@@ -131,6 +131,11 @@
 		
 		display:flex; justify-content:space-between; align-items:center;
 	}
+        #errorSection
+        {
+            color:#F00;
+        }
+
 </style>
 
 </head>
@@ -161,12 +166,24 @@
                 <a href="#" class="gia-newUser">ثبت نام کاربر جدید</a>
             </div>
             
+            <div>
+                <section id="errorSection">
+                @try
+                {
+                    Write(ViewBag.error);
+                }
+                catch
+                {
+                   
+                }
+            </section>
+            </div>
         </div>
         
 		
 		<div id="footer" >
         	<section>گروه نرم افزار ارغنون</section>
-            <section style="direction:ltr; font-size:75%;" >َArghanoon CopyRight &copy;</section>
+            <section style="direction:ltr; font-size:75%;" >َArghanoon CopyRight &copy;</section>            
         </div>
     </form>
     

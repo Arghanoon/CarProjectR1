@@ -73,6 +73,36 @@ namespace CarProject.App_Code
             return input_TextBox<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
         }
 
+        public static MvcHtmlString input_Password<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass)
+        {
+
+            if (!htmlHelper.ViewData.ModelState.IsValidField(htmlHelper.NameFor(expression).ToString()))
+                AddAttribute(htmlAttributes, "class", errorClass);
+
+            AddAttribute(htmlAttributes, "placeholder", displayName);
+
+            string res = "<section class=\"input\">";
+
+            res += htmlHelper.LabelFor(expression, displayName);
+            res += htmlHelper.PasswordFor(expression, htmlAttributes);
+            res += htmlHelper.ValidationMessageFor(expression);
+
+            res += "</section>";
+            return new MvcHtmlString(res);
+        }
+        public static MvcHtmlString input_Password<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, string errorClass)
+        {
+            return input_Password<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), errorClass);
+        }
+        public static MvcHtmlString input_Password<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName)
+        {
+            return input_Password<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), "error");
+        }
+        public static MvcHtmlString input_Password<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<string, object> htmlAttributes)
+        {
+            return input_Password<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
+        }
+
 
         public static MvcHtmlString input_TextArea<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass)
         {

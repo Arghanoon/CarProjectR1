@@ -68,6 +68,10 @@
         vertical-align:middle;
     }
 
+.inputTitle {
+    border-bottom:thin solid #777;
+}
+
 
     
 @media (max-width:500px) {
