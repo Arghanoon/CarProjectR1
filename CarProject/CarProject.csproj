@@ -548,6 +548,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\User\Controller\" />
+    <Folder Include="Areas\User\Model\" />
+    <Folder Include="Areas\User\View\" />
     <Folder Include="Models\" />
     <Folder Include="Publics\CarImages\" />
     <Folder Include="Publics\CarTempImages\" />
