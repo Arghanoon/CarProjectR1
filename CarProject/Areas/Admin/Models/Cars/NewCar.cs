@@ -36,6 +36,7 @@ namespace CarProject.Areas.Admin.Models.Cars
         public SecuritySystem SecuritySystem { get; set; }
         public SteeringSystem SteeringSystem { get; set; }
         public AirConditioningSystem AirConditioningSystem { get; set; }
+        public List<AirConditioningSystemDetail> AirConditioningSystemDetails { get; set; }
         public CarAudioSystem CarAudioSystem { get; set; }
         public CarSeatOption CarSeatOption { get; set; }
         public GlassAndMirror GlassAndMirror { get; set; }
@@ -45,6 +46,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarWheel CarWheel { get; set; }
         public CarsPro CarsPro { get; set; }
         public CarsReview CarsReview { get; set; }
+
+        
 
         public List<string> Advantages { get; set; }
         public List<string> Disadvantages { get; set; }
@@ -63,6 +66,7 @@ namespace CarProject.Areas.Admin.Models.Cars
             SecuritySystem = new SecuritySystem();
             SteeringSystem = new SteeringSystem();
             AirConditioningSystem = new AirConditioningSystem();
+            AirConditioningSystemDetails = new List<AirConditioningSystemDetail>();
             CarAudioSystem = new CarAudioSystem();
             CarSeatOption = new CarSeatOption();
             GlassAndMirror = new GlassAndMirror();
@@ -72,6 +76,7 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarWheel = new CarWheel();
             CarsPro = new CarsPro();
             CarsReview = new CarsReview();
+
 
             Advantages = new List<string>();
             Disadvantages = new List<string>();
@@ -115,6 +120,12 @@ namespace CarProject.Areas.Admin.Models.Cars
 
             AirConditioningSystem.Car = CarGeneral;
             ca.AirConditioningSystems.Add(AirConditioningSystem);
+
+            foreach (var item in AirConditioningSystemDetails)
+            {
+                item.Car = CarGeneral;
+                ca.AirConditioningSystemDetails.Add(item);
+            }
 
             CarAudioSystem.Car = CarGeneral;
             ca.CarAudioSystems.Add(CarAudioSystem);

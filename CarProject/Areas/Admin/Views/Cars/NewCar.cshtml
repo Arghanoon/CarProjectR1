@@ -55,9 +55,9 @@
         </div>
         <div class="wizardPage" id="w2">
             <div class="inputsContainer">
-                @Html.input_ComboBox(m => m.CarEngine.EngineType, "نوع موتور", Model.CarEngineTypeItems, new Dictionary<string, object>() { { "data-test", "have no error" } })
+                @Html.input_ComboBox(m => m.CarEngine.EngineType, "نوع موتور", Model.CarEngineTypeItems)
                 @Html.input_TextBox(m => m.CarEngine.EngineCylinderNumber, "تعداد سیلندر")
-                @Html.input_ComboBox(m=>m.CarEngine.EngineFuel, "نوع سوخت" ,Model.CarEngineFuelTypeItems,new Dictionary<string, object>() { {"data-test","have error test"} })
+                @Html.input_ComboBox(m=>m.CarEngine.EngineFuel, "نوع سوخت" ,Model.CarEngineFuelTypeItems)
                 @Html.input_TextBox(m => m.CarEngine.EngineSize, "حجم موتور")
                 @Html.input_TextBox(m => m.CarEngine.EnginePowerHpRpm, "قدرت موتور")
                 @Html.input_TextBox(m => m.CarEngine.EngineTorque, "گشتاور")
@@ -188,6 +188,22 @@
                 @Html.input_TextBox(m => m.AirConditioningSystem.AirConditioningType, "نوع سیستم تهویه هوا")
                 @Html.input_TextArea(m => m.AirConditioningSystem.Details, "توضیحات")
             </div>
+
+            <div>
+                <strong><a href="javascript:void()" class="gia-add" onclick="AddAirConditioningSystemDetailsItem()">اضافه کردن جزئیات</a></strong>
+                <div id="AirConditioningSystemDetailsItems">
+                    @{ int aicsdi = 0; }
+                    @foreach (var item in Model.AirConditioningSystemDetails)
+                    {
+                        <div class="AirConditioningSystemDetailsItem input">
+                            <input type="text" name="AirConditioningSystemDetails[@aicsdi].AirConditioningSystemDetail1" value="@item.AirConditioningSystemDetail1" />
+                            <textarea name="AirConditioningSystemDetails[@aicsdi].AirConditioningSystemDetailSubject">@item.AirConditioningSystemDetailSubject</textarea>
+                        </div>
+                        aicsdi++;
+                    }
+                </div>
+            </div>
+
             <div class="footer">
                 <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
                 <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
@@ -460,6 +476,27 @@
 
             document.getElementById("carImages").appendChild(inp);
         }
+
+
+        function AddAirConditioningSystemDetailsItem() {
+            var cont = document.getElementsByClassName("AirConditioningSystemDetailsItem").length;
+
+            div = document.createElement("div");
+            div.classList.add("input");
+            div.classList.add("AirConditioningSystemDetailsItem");
+
+            inp = document.createElement("input");
+            inp.type = "text";
+            inp.name = "AirConditioningSystemDetails[" + cont + "].AirConditioningSystemDetail1";
+            div.appendChild(inp);
+
+            inp2 = document.createElement("textarea");
+            inp2.name = "AirConditioningSystemDetails[" + cont + "].AirConditioningSystemDetailSubject";
+
+            div.appendChild(inp2);
+
+            document.getElementById("AirConditioningSystemDetailsItems").appendChild(div);
+        }
     </script>
 }
 
@@ -502,5 +539,13 @@
             .uploadTmpImages:hover a {
                 bottom: 0;
             }
+
+
+        .AirConditioningSystemDetailsItem {
+            display:block;
+            border:thin solid #888;
+            padding:3px;
+            margin:5px;
+        }
     </style>
 }
