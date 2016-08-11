@@ -26,6 +26,7 @@ namespace CarProject.DBSEF
         }
     
         public virtual DbSet<AirConditioningSystem> AirConditioningSystems { get; set; }
+        public virtual DbSet<AirConditioningSystemDetail> AirConditioningSystemDetails { get; set; }
         public virtual DbSet<AutoService> AutoServices { get; set; }
         public virtual DbSet<AutoServicePack> AutoServicePacks { get; set; }
         public virtual DbSet<AutoService1> AutoServices1 { get; set; }
@@ -45,6 +46,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<CarsPro> CarsProes { get; set; }
         public virtual DbSet<CarsQnA> CarsQnAs { get; set; }
         public virtual DbSet<CarsReview> CarsReviews { get; set; }
+        public virtual DbSet<CarsReviewPoint> CarsReviewPoints { get; set; }
         public virtual DbSet<CarWheel> CarWheels { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Company> Companies { get; set; }

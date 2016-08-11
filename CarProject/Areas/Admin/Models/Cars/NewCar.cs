@@ -17,6 +17,13 @@ namespace CarProject.Areas.Admin.Models.Cars
 
         public CarEngine CarEngine { get; set; }
         public string[] CarEngineTypeItems { get { return new string[] { "خطی", "خورجینی", "باکسری" }; } }
+        public string[] CarEngineFuelTypeItems
+        {
+            get
+            {
+                return new string[] { "بنزین", "گازوئیل", "دوگانه سوز بنزین و گاز طبیعی", "برقی", "گاز طبیعی" };
+            }
+        }
 
         public CarGearBox CarGearBox { get; set; }
         public string[] carGearBoxTypeItems { get { return new string[] { "اتوماتیک", "دستی" }; } }
@@ -131,7 +138,7 @@ namespace CarProject.Areas.Admin.Models.Cars
             {
                 if (!item.Equals(null))
                 {
-                    ca.CarsProes.Add(new CarsPro {Car = CarGeneral, CarsProOrCro = true, CarProCro = item});
+                    ca.CarsProes.Add(new CarsPro { Car = CarGeneral, CarsProOrCro = true, CarProCro = item });
                 }
             }
 

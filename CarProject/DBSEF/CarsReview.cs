@@ -17,9 +17,6 @@ namespace CarProject.DBSEF
         public int CarsReviewId { get; set; }
         public Nullable<int> CarsId { get; set; }
         public string Review { get; set; }
-        public string column1 { get; set; }
-        public string column2 { get; set; }
-        public string column3 { get; set; }
         public Nullable<double> CarScore { get; set; }
         public Nullable<double> Beauty { get; set; }
         public Nullable<double> WorthBuying { get; set; }

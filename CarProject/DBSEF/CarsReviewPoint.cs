@@ -12,12 +12,12 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class AirConditioningSystem
+    public partial class CarsReviewPoint
     {
-        public int AirConditioningSystemId { get; set; }
-        public Nullable<int> CarId { get; set; }
-        public string AirConditioningType { get; set; }
-        public string Details { get; set; }
+        public int CarsReviewPointId { get; set; }
+        public string CarsReviewSubject { get; set; }
+        public string CarsReview { get; set; }
+        public Nullable<int> CarsId { get; set; }
     
         public virtual Car Car { get; set; }
     }
