@@ -54,6 +54,9 @@ namespace CarProject.Areas.Admin.Models.User
             if (string.IsNullOrWhiteSpace(Person.PersonMobile))
                 yield return new ValidationResult("موبایل کاربر وارد نشده است", new string[] { "Person.PersonMobile" });
 
+            if (string.IsNullOrWhiteSpace(Person.PersonEmail))
+                yield return new ValidationResult("ایمیل کاربر وارد نشده است", new string[] { "Person.PersonEmail" });
+
             if(string.IsNullOrWhiteSpace(Person.User.Uname))
                 yield return new ValidationResult("نام کاربری وارد نشده است", new string[] { "Person.User.Uname" });
             else if(dbs.Users.Count(u => u.Uname.ToLower() == this.Person.User.Uname.ToLower()) > 0)

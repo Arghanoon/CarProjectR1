@@ -349,6 +349,7 @@
     <Property Name="PersonLastName" Type="nvarchar" MaxLength="50" />
     <Property Name="PersonPhone" Type="nvarchar" MaxLength="50" />
     <Property Name="PersonMobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="PersonEmail" Type="nvarchar" MaxLength="50" />
     <Property Name="PersonAddressCity" Type="nvarchar" MaxLength="50" />
     <Property Name="PersonAddress" Type="nvarchar(max)" />
     <Property Name="UserId" Type="int" />

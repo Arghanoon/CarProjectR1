@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
+  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
     <EntitySetMapping Name="AirConditioningSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
         <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -376,6 +376,7 @@
           <ScalarProperty Name="PersonLastName" ColumnName="PersonLastName" />
           <ScalarProperty Name="PersonPhone" ColumnName="PersonPhone" />
           <ScalarProperty Name="PersonMobile" ColumnName="PersonMobile" />
+          <ScalarProperty Name="PersonEmail" ColumnName="PersonEmail" />
           <ScalarProperty Name="PersonAddressCity" ColumnName="PersonAddressCity" />
           <ScalarProperty Name="PersonAddress" ColumnName="PersonAddress" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />

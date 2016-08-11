@@ -354,6 +354,7 @@
           <Property Name="PersonLastName" Type="nvarchar" MaxLength="50" />
           <Property Name="PersonPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="PersonMobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="PersonEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="PersonAddressCity" Type="nvarchar" MaxLength="50" />
           <Property Name="PersonAddress" Type="nvarchar(max)" />
           <Property Name="UserId" Type="int" />
@@ -1633,6 +1634,7 @@
           <Property Name="PersonLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PersonPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PersonMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PersonEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PersonAddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PersonAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Int32" />
@@ -2307,7 +2309,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
           <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
           <EntitySet Name="AutoServicePacks" EntityType="Self.AutoServicePack" />
@@ -2529,7 +2531,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
           <EntitySetMapping Name="AirConditioningSystems">
             <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
               <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -2905,6 +2907,7 @@
                 <ScalarProperty Name="PersonLastName" ColumnName="PersonLastName" />
                 <ScalarProperty Name="PersonPhone" ColumnName="PersonPhone" />
                 <ScalarProperty Name="PersonMobile" ColumnName="PersonMobile" />
+                <ScalarProperty Name="PersonEmail" ColumnName="PersonEmail" />
                 <ScalarProperty Name="PersonAddressCity" ColumnName="PersonAddressCity" />
                 <ScalarProperty Name="PersonAddress" ColumnName="PersonAddress" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

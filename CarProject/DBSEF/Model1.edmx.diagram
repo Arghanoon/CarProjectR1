@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a8b2ca72ba7946448c5d9fefd50f3193" Name="Diagram1">
+      <Diagram DiagramId="82de834caf0341bf8b65ac44114e80b1" Name="Diagram1">
         <EntityTypeShape EntityType="CarAutomationModel.AirConditioningSystem" Width="1.5" PointX="3" PointY="18.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.AutoService" Width="1.5" PointX="6" PointY="53.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.AutoServicePack" Width="1.5" PointX="9" PointY="45.375" IsExpanded="true" />
@@ -32,7 +32,7 @@
         <EntityTypeShape EntityType="CarAutomationModel.Discount" Width="1.5" PointX="6" PointY="44.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.FuelConsumption" Width="1.5" PointX="3" PointY="82.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.GlassAndMirror" Width="1.5" PointX="3" PointY="86.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Person" Width="1.5" PointX="8.25" PointY="62.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Person" Width="1.5" PointX="8.25" PointY="62.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.PersonProduct" Width="1.5" PointX="11.25" PointY="49" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.Product" Width="1.5" PointX="6" PointY="48.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.ProductDiscount" Width="1.5" PointX="8.25" PointY="49.5" IsExpanded="true" />

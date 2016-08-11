@@ -19,6 +19,7 @@ namespace CarProject.DBSEF
         public string PersonLastName { get; set; }
         public string PersonPhone { get; set; }
         public string PersonMobile { get; set; }
+        public string PersonEmail { get; set; }
         public string PersonAddressCity { get; set; }
         public string PersonAddress { get; set; }
         public Nullable<int> UserId { get; set; }
