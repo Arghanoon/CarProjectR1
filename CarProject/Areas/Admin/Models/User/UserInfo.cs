@@ -36,19 +36,8 @@ namespace CarProject.Areas.Admin.Models.User
         {
             dbs.CarAutomationEntities cdbs = new dbs.CarAutomationEntities();
 
+            Person.User.Upass = CLS.Usefulls.MD5Passwords(Password);
             cdbs.People.Add(Person);
-            MD5 m5 = MD5.Create();
-            var haspas = m5.ComputeHash(Encoding.ASCII.GetBytes(Password));
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < haspas.Length; i++)
-            {
-
-                sb.Append(haspas[i].ToString("X2"));
-
-            }
-
-            Person.User.Upass = sb.ToString();
 
             cdbs.SaveChanges();
         }

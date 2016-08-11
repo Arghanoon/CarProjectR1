@@ -23,7 +23,8 @@ namespace CarProject.Areas.Admin.Controllers
         {
             if (form.AllKeys.Contains("userLogout"))
             {
-                Session["useradmin"] = "";
+                Session["useradmin"] = null;
+                Session.Remove("useradmin");
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
             else

@@ -137,11 +137,11 @@
 
                 </section>
                 <div id="breakSystemDetails" class="input">
-                    @if (Request.Form.GetValues("DetailedBrakeSystem") != null)
+                    @if (Request.Form.GetValues("DetailedBrakeSystemItem") != null)
                     {
-                        foreach (var item in Request.Form.GetValues("DetailedBrakeSystem"))
+                        foreach (var item in Request.Form.GetValues("DetailedBrakeSystemItem"))
                         {
-                            <input type="text" name="DetailedBrakeSystem" value="@item" />
+                            <input type="text" name="DetailedBrakeSystemItem" value="@item" />
                         }
                     }
                 </div>
@@ -413,6 +413,7 @@
 </form>
 
 
+
 @section script
 {
     <script>
@@ -421,7 +422,7 @@
         function addAnewItem() {
             inp = document.createElement("input");
             inp.type = "text";
-            inp.name = "DetailedBrakeSystem";
+            inp.name = "DetailedBrakeSystemItem";
 
 
             document.getElementById("breakSystemDetails").appendChild(inp);

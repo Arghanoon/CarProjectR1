@@ -26,18 +26,9 @@ namespace CarProject.Areas.Admin.Controllers
                 try
                 {
                     var dbs = new DBSEF.CarAutomationEntities();
-                    MD5 md5 = System.Security.Cryptography.MD5.Create();
-                    byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(form["password"]);
-                    byte[] hash = md5.ComputeHash(inputBytes);
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < hash.Length; i++)
-                    {
 
-                        sb.Append(hash[i].ToString("X2"));
 
-                    }
-
-                    var pass = sb.ToString();
+                    var pass = CLS.Usefulls.MD5Passwords(form["password"]);
 
                     // var pshash = System.Text.Encoding.UTF8.GetString(md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(form["password"])));
 
@@ -63,5 +54,23 @@ namespace CarProject.Areas.Admin.Controllers
             return View();
         }
 
+
+        public ActionResult Signup()
+        {
+            Models.User.UserInfo u = new Models.User.UserInfo();
+            return View(model: u);
+        }
+        [HttpPost]
+        public ActionResult Signup(Models.User.UserInfo user)
+        {       
+            ViewBag.error = new MvcHtmlString("");
+            if (ViewData.ModelState.IsValid)
+            {
+                user.Save();
+                return RedirectToAction("Index", "Login");
+            }
+
+            return View(user);
+        }
     }
 }

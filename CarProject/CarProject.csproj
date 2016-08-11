@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\CLS\Filters.cs" />
+    <Compile Include="Areas\Admin\CLS\Usefulls.cs" />
     <Compile Include="Areas\Admin\Controllers\CarsController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
@@ -298,6 +299,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Areas\Admin\Files\Images\back.jpg" />
+    <Content Include="Areas\Admin\Files\Images\SignupBack.jpg" />
     <Content Include="Areas\Admin\Files\Images\ratingback.png" />
     <Content Include="Areas\Admin\Files\Images\user.png" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\d00.js">
@@ -650,6 +652,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\Login\Signup.cshtml" />
     <None Include="Properties\PublishProfiles\q.pubxml" />
   </ItemGroup>
   <PropertyGroup>

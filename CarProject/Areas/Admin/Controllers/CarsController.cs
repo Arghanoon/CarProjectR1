@@ -47,6 +47,30 @@ namespace CarProject.Areas.Admin.Controllers
 
             if (ViewData.ModelState.IsValid)
             {
+                if (Request.Form.GetValues("DetailedBrakeSystemItem") != null)
+                {
+                    foreach (var item in Request.Form.GetValues("DetailedBrakeSystemItem"))
+                    {
+                        car.DetailedBrakeSystem.Add(new DBSEF.DetailedBrakeSystem { DetailedName = item });
+                    }
+                }
+
+                if (Request.Form.GetValues("advantage") != null)
+                {
+                    foreach (var item in Request.Form.GetValues("advantage"))
+                    {
+                        car.Advantages.Add(item);
+                    }
+                }
+
+                if (Request.Form.GetValues("disadvantage") != null)
+                {
+                    foreach (var item in Request.Form.GetValues("disadvantage"))
+                    {
+                        car.Disadvantages.Add(item);
+                    }
+                }
+
                 car.Save();
                 var mp = Server.MapPath("~/Publics/CarImages/" + car.CarGeneral.CarsId.ToString());
                 if (!Directory.Exists(mp))
@@ -58,6 +82,7 @@ namespace CarProject.Areas.Admin.Controllers
                 }
 
                 dic.Delete(true);
+                return RedirectToAction("Index", "Dashboard");
             }
             return View(car);
         }
