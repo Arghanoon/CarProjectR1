@@ -57,6 +57,7 @@
             <div class="inputsContainer">
                 @Html.input_ComboBox(m => m.CarEngine.EngineType, "نوع موتور", Model.CarEngineTypeItems, new Dictionary<string, object>() { { "data-test", "have no error" } })
                 @Html.input_TextBox(m => m.CarEngine.EngineCylinderNumber, "تعداد سیلندر")
+                @Html.input_ComboBox(m=>m.CarEngine.EngineFuel, "نوع سوخت" ,Model.CarEngineFuelTypeItems,new Dictionary<string, object>() { {"data-test","have error test"} })
                 @Html.input_TextBox(m => m.CarEngine.EngineSize, "حجم موتور")
                 @Html.input_TextBox(m => m.CarEngine.EnginePowerHpRpm, "قدرت موتور")
                 @Html.input_TextBox(m => m.CarEngine.EngineTorque, "گشتاور")
