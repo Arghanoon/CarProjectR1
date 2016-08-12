@@ -36,6 +36,7 @@ namespace CarProject.Areas.Admin.Models.Cars
         public SecuritySystem SecuritySystem { get; set; }
         public SteeringSystem SteeringSystem { get; set; }
         public AirConditioningSystem AirConditioningSystem { get; set; }
+        public List<CarsReviewPoint> CarsReviewPoint { get; set; }
         public List<AirConditioningSystemDetail> AirConditioningSystemDetails { get; set; }
         public CarAudioSystem CarAudioSystem { get; set; }
         public CarSeatOption CarSeatOption { get; set; }
@@ -65,6 +66,7 @@ namespace CarProject.Areas.Admin.Models.Cars
             BreakSystem = new BrakeSystem();
             SecuritySystem = new SecuritySystem();
             SteeringSystem = new SteeringSystem();
+            CarsReviewPoint = new List<CarsReviewPoint>();
             AirConditioningSystem = new AirConditioningSystem();
             AirConditioningSystemDetails = new List<AirConditioningSystemDetail>();
             CarAudioSystem = new CarAudioSystem();
@@ -125,6 +127,12 @@ namespace CarProject.Areas.Admin.Models.Cars
             {
                 item.Car = CarGeneral;
                 ca.AirConditioningSystemDetails.Add(item);
+            }
+
+            foreach (var item in CarsReviewPoint)
+            {
+                item.Car = CarGeneral;
+                ca.CarsReviewPoints.Add(item);
             }
 
             CarAudioSystem.Car = CarGeneral;

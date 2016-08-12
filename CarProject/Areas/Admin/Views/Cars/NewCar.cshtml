@@ -57,7 +57,7 @@
             <div class="inputsContainer">
                 @Html.input_ComboBox(m => m.CarEngine.EngineType, "نوع موتور", Model.CarEngineTypeItems)
                 @Html.input_TextBox(m => m.CarEngine.EngineCylinderNumber, "تعداد سیلندر")
-                @Html.input_ComboBox(m=>m.CarEngine.EngineFuel, "نوع سوخت" ,Model.CarEngineFuelTypeItems)
+                @Html.input_ComboBox(m => m.CarEngine.EngineFuel, "نوع سوخت", Model.CarEngineFuelTypeItems)
                 @Html.input_TextBox(m => m.CarEngine.EngineSize, "حجم موتور")
                 @Html.input_TextBox(m => m.CarEngine.EnginePowerHpRpm, "قدرت موتور")
                 @Html.input_TextBox(m => m.CarEngine.EngineTorque, "گشتاور")
@@ -188,7 +188,7 @@
                 @Html.input_TextBox(m => m.AirConditioningSystem.AirConditioningType, "نوع سیستم تهویه هوا")
                 @Html.input_TextArea(m => m.AirConditioningSystem.Details, "توضیحات")
             </div>
-
+            <!---->
             <div>
                 <strong><a href="javascript:void()" class="gia-add" onclick="AddAirConditioningSystemDetailsItem()">اضافه کردن جزئیات</a></strong>
                 <div id="AirConditioningSystemDetailsItems">
@@ -379,6 +379,22 @@
                 @Html.input_Rating(m => m.CarsReview.Quality, "کیفیت")
                 @Html.input_Rating(m => m.CarsReview.Services, "خدمات")
             </div>
+
+            <div>
+                <strong><a href="javascript:void()" class="gia-add" onclick="addCarsReviewPointItem()">اضافه کردن جزئیات</a></strong>
+                <div id="CarsReviewPointItems">
+                    @{ int aicsdi1 = 0; }
+                    @foreach (var item in Model.CarsReviewPoint)
+                    {
+                        <div class="CarsReviewPointItem input">
+                            <input type="text" name="CarsReviewPoint[@aicsdi1].CarsReview" value="@item.CarsReview" />
+                            <textarea name="CarsReviewPoint[@aicsdi1].CarsReviewSubject">@item.CarsReviewSubject</textarea>
+                        </div>
+                        aicsdi1++;
+                    }
+                </div>
+            </div>
+
             <div class="footer">
                 <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
                 <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
@@ -435,6 +451,8 @@
 {
     <script>
         wizardAssignPostContainer(document.getElementById("wizardpagecontainer"));
+
+       
 
         function addAnewItem() {
             inp = document.createElement("input");
@@ -497,6 +515,28 @@
 
             document.getElementById("AirConditioningSystemDetailsItems").appendChild(div);
         }
+
+        function addCarsReviewPointItem() {
+            var cont = document.getElementsByClassName("CarsReviewPointItem").length;
+
+            div = document.createElement("div");
+            div.classList.add("input");
+            div.classList.add("CarsReviewPointItem");
+
+            inp = document.createElement("input");
+            inp.type = "text";
+            inp.name = "CarsReviewPoint[" + cont + "].CarsReview";
+            div.appendChild(inp);
+
+            inp2 = document.createElement("textarea");
+            inp2.name = "CarsReviewPoint[" + cont + "].CarsReviewSubject";
+
+            div.appendChild(inp2);
+
+            document.getElementById("CarsReviewPointItems").appendChild(div);
+
+        }
+
     </script>
 }
 
@@ -542,10 +582,16 @@
 
 
         .AirConditioningSystemDetailsItem {
-            display:block;
-            border:thin solid #888;
-            padding:3px;
-            margin:5px;
+            display: block;
+            border: thin solid #888;
+            padding: 3px;
+            margin: 5px;
+        }
+         .CarsReviewPointItem {
+            display: block;
+            border: thin solid #888;
+            padding: 3px;
+            margin: 5px;
         }
     </style>
 }
