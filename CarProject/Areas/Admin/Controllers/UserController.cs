@@ -57,6 +57,23 @@ namespace CarProject.Areas.Admin.Controllers
             return View(user);
         }
 
+        public ActionResult UserChangeState(int id)
+        {
+            try
+            {
+                DBSEF.CarAutomationEntities con = new DBSEF.CarAutomationEntities();
+                var user = con.Users.FirstOrDefault(u => u.UserId == id);
+                if (user != null)
+                {
+                    user.IsActive = !user.IsActive.GetValueOrDefault();
+                    con.SaveChanges();
+                }
+            }
+            catch { }
+            return RedirectToAction("Users", "User");
+        }
+        
+
         public ActionResult Users()
         {
             var dbs = new DBSEF.CarAutomationEntities();

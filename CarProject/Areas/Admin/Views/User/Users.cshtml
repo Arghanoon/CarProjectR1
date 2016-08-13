@@ -38,11 +38,11 @@
                 <a href="#" class="gia-remove button red">حذف</a>
                 @if (item.User.IsActive == true)
                 {
-                    <a href="#" class="button orange gia-inactive">غیر فعال کردن</a>
+                    <a href="@Url.Action("UserChangeState","User")\@item.UserId" class="button orange gia-inactive">غیر فعال کردن</a>
                 }
                 else
                 {
-                    <a href="#" class="button green">فعال کردن</a>
+                    <a href="@Url.Action("UserChangeState","User")\@item.UserId" class="button green">فعال کردن</a>
                 }
             </div>
         </div>
