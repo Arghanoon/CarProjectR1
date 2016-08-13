@@ -90,11 +90,15 @@
 
         #carcontainer table {
             border-collapse: collapse;
+            width:100%;
         }
         #carcontainer th {
             text-align:right;
             background:#DDD;
             padding:0 3px;
+        }
+        #carcontainer th , #carcontainer td {
+            border:thin solid #DDD;
         }
 
         .carItem {
@@ -102,11 +106,18 @@
             padding:5px;
             border:thin solid;
             border-radius:5px;
+            
+            min-width:200px;
         }
             .carItem:hover {
                 box-shadow: 0 0 3px 0 #000;
             }
 
+        @@media (max-width:500px) {
+            .carItem {
+                width:100%;
+            }
+        }
 
         #removeBack {
             position:fixed;
