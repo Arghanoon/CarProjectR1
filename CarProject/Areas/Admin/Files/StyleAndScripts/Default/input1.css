@@ -194,4 +194,16 @@
 		color:#000089;
 		border: thin solid #0000c4;
 	}
+    .button.purple
+	{
+		background:#ffceff;
+		color:#6c006c;
+		border: thin solid #450045;
+	}
+    .button.orange
+	{
+		background:#ffdc9d;
+		color:#623f00;
+		border: thin solid #764c00;
+	}
 /*---------------------------------------Buttons------------------------------------------*/

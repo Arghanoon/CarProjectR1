@@ -29,7 +29,7 @@ namespace CarProject.Areas.Admin.Controllers
             if (ViewData.ModelState.IsValid)
             {
                 user.Save();
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Users", "User");
             }
             else
                 return View(model: new UserInfo());

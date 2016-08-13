@@ -5,34 +5,132 @@
 }
 
 
-<form method="post">
-    <table class="grid1">
-        <thead>
-            <tr>
-                <th>شناسه</th>
-                <th>نام کاربری</th>
-                <th>نام</th>
-                <th>نام خانوادگی</th>
-                <th>موبایل</th>
-                <th>عملیات</th>
-            </tr>
-        </thead>
+<div id="userContainer">
+    @foreach (var item in Model)
+    {
+        <div class="useritem">
 
-        <tbody>
-            @foreach (var item in Model)
-            {
+            <table>
                 <tr>
+                    <th>شناسه</th>
                     <td>@item.UserId</td>
-                    <td>@item.User.Uname</td>
-                    <td>@item.PersonFirtstName</td>
-                    <td>@item.PersonLastName</td>
-                    <td>@item.PersonMobile</td>
-                    <td>
-                        <button type="submit" name="delete" value="@item.PersonId" class="button"><section class="gia-remove">حذف</section></button>
-                        <button type="submit" name="update" value="@item.PersonId" class="button"><section class="gia-edit">ویرایش</section></button>
-                    </td>
                 </tr>
+                <tr>
+                    <th>نام کاربری</th>
+                    <td>@item.User.Uname</td>
+                </tr>
+                <tr>
+                    <th>نام</th>
+                    <td>@item.PersonFirtstName</td>
+                </tr>
+                <tr>
+                    <th>نام خانوادگی</th>
+                    <td>@item.PersonLastName</td>
+                </tr>
+                <tr>
+                    <th>ایمیل</th>
+                    <td>@item.PersonEmail</td>
+                </tr>
+            </table>
+
+            <div class="actinSection">
+                <a href="#" class="gia-edit button blue">ویرایش</a>
+                <a href="#" class="gia-remove button red">حذف</a>
+                @if (item.User.IsActive == true)
+                {
+                    <a href="#" class="button orange gia-inactive">غیر فعال کردن</a>
+                }
+                else
+                {
+                    <a href="#" class="button green">فعال کردن</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@section style
+{
+    <style>
+        #userContainer {
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            align-items: center;
+
+            padding:10px;
         }
-        </tbody>
-    </table>
-</form>
+
+        #userContainer table {
+            border-collapse: collapse;
+            width:100%;
+        }
+        #userContainer th {
+            text-align:right;
+            background:#DDD;
+            padding:0 3px;
+        }
+        #userContainer th , #userContainer td {
+            border:thin solid #DDD;
+        }
+
+        .useritem {
+            margin:3px;
+            padding:5px;
+            border:thin solid;
+            border-radius:5px;
+
+            border-top:15px solid;
+            
+            min-width:250px;
+        }
+            .useritem:hover {
+                box-shadow: 0 0 3px 0 #000;
+            }
+        
+        .actinSection {
+            display:flex;
+            justify-content:center;
+            flex-wrap:wrap;
+            align-items:center;
+        }
+
+        @@media (max-width:500px) {
+            .useritem {
+                width:100%;
+            }
+        }
+
+        #removeBack {
+            position:fixed;
+            background:rgba(0, 0, 0, 0.60);
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+
+            z-index:9999;
+
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            display:none;
+        }
+            #removeBack.show {
+                display:flex;
+            }
+        #removeMessage {
+            padding:10px;
+            min-width:300px;
+            background:white;
+
+            border:thin solid #888;
+            border-radius:5px;
+            box-shadow:0 0 3px 0 #333;
+        }
+    </style>
+}

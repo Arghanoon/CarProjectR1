@@ -37,7 +37,7 @@
                         <td>@item.CarCategory</td>
                     </tr>
                 </table>
-                <div style="display:flex; justify-content:center;">
+                <div class="actinSection">
                     <a href="@Url.Action("UpdateCar","Cars")/@item.CarsId" class="button blue gia-edit">ویرایش</a>
                     <a href="#" class="button red gia-remove" onclick="deletebuttonclick('@item.CarsId')" >حذف</a>
                 </div>
@@ -106,12 +106,21 @@
             padding:5px;
             border:thin solid;
             border-radius:5px;
+
+            border-top:15px solid;
             
             min-width:200px;
         }
             .carItem:hover {
                 box-shadow: 0 0 3px 0 #000;
             }
+
+        .actinSection {
+            display:flex;
+            justify-content:center;
+            flex-wrap:wrap;
+            align-items:center;
+        }
 
         @@media (max-width:500px) {
             .carItem {
