@@ -4,40 +4,48 @@
 }
 
 
-<table class="grid1">
-    <thead>
-        <tr>
-            <th>شناسه</th>
-            <th>برند</th>
-            <th>کلاس</th>
-            <th>مدل</th>
-            <th>کلاس کاری</th>
-            <th>دسته بندی</th>
-            <th>عملیات</th>
-        </tr>
-    </thead>
-
-
-    <tbody>
+<div id="carcontainer">
+    <div id="headerGroup">
+    </div>
+    <div id="tbody">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.CarsId</td>
-                <td>@item.CarsBrandName</td>
-                <td>@item.CarsClass</td>
-                <td>@item.CarsModel</td>
-                <td>@item.CarClassType</td>
-                <td>@item.CarCategory</td>
-                <td>
+            <div class="carItem">
+                <table>
+                    <tr>
+                        <th>شناسه</th>
+                        <td>@item.CarsId</td>
+                    </tr>
+                    <tr>
+                        <th>برند</th>
+                        <td>@item.CarsBrandName</td>
+                    </tr>
+                    <tr>                        
+                        <th>کلاس</th>
+                        <td>@item.CarsClass</td>
+                    </tr>
+                    <tr>
+                        <th>مدل</th>
+                        <td>@item.CarsModel</td>
+                    </tr>
+                    <tr>                        
+                        <th>کلاس کاری</th>
+                        <td>@item.CarClassType</td>
+                    </tr>
+                    <tr>
+                        <th>دسته بندی</th>
+                        <td>@item.CarCategory</td>
+                    </tr>
+                </table>
+                <div style="display:flex; justify-content:center;">
                     <a href="@Url.Action("UpdateCar","Cars")/@item.CarsId" class="button blue gia-edit">ویرایش</a>
                     <a href="#" class="button red gia-remove" onclick="deletebuttonclick('@item.CarsId')" >حذف</a>
-                </td>
-            </tr>
+                </div>
+            </div>
         }
-    </tbody>
+    </div>
+</div>
 
-
-</table>
 
 
 
@@ -71,6 +79,35 @@
 @section style
 {
     <style>
+        #carcontainer > #tbody {
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            align-items: center;
+
+            padding:10px;
+        }
+
+        #carcontainer table {
+            border-collapse: collapse;
+        }
+        #carcontainer th {
+            text-align:right;
+            background:#DDD;
+            padding:0 3px;
+        }
+
+        .carItem {
+            margin:3px;
+            padding:5px;
+            border:thin solid;
+            border-radius:5px;
+        }
+            .carItem:hover {
+                box-shadow: 0 0 3px 0 #000;
+            }
+
+
         #removeBack {
             position:fixed;
             background:rgba(0, 0, 0, 0.60);
