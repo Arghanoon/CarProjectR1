@@ -36,7 +36,6 @@ namespace CarProject.Areas.Admin.Models.Cars
         public SecuritySystem SecuritySystem { get; set; }
         public SteeringSystem SteeringSystem { get; set; }
         public AirConditioningSystem AirConditioningSystem { get; set; }
-        public List<CarsReviewPoint> CarsReviewPoint { get; set; }
         public List<AirConditioningSystemDetail> AirConditioningSystemDetails { get; set; }
         public CarAudioSystem CarAudioSystem { get; set; }
         public CarSeatOption CarSeatOption { get; set; }
@@ -47,6 +46,7 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarWheel CarWheel { get; set; }
         public CarsPro CarsPro { get; set; }
         public CarsReview CarsReview { get; set; }
+        public List<CarsReviewPoint> CarsReviewPoint { get; set; }
 
         
 

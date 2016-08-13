@@ -24,6 +24,14 @@
 
 
 
+
+@font-face
+{
+	font-family:gia;
+	src:url(GIAdmin.woff);
+}
+
+
 [data-font=f1]{font-family:f1;}
 [data-font=f2]{font-family:f2;}
 [data-font=f3]{font-family:f3;}
