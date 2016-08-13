@@ -6,12 +6,13 @@
 @model NewCar
 
 @{
-    ViewBag.Title = "ثبت اطلاعات خودرو";
+    ViewBag.Title = "ویرایش اطلاعات خودرو";
 }
 
 
 <form method="post" enctype="multipart/form-data">
     @Html.HiddenFor(m => m.IsForUpdate)
+
     <div class="wizardContainer">
         <nav class="wizardNav">
             <a href="#w1">اطلاعات عمومی خودرو</a>

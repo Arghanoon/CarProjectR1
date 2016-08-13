@@ -27,6 +27,13 @@ namespace CarProject.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult NewCar(Models.Cars.NewCar car)
         {
+            if (SaveChange(car))
+                return RedirectToAction("Cars");
+            return View(car);
+        }
+
+        bool SaveChange(Models.Cars.NewCar car)
+        {
             var ip = Server.MapPath("~/Publics/CarTempImages/" + car.CarTempID);
             if (!Directory.Exists(ip))
                 Directory.CreateDirectory(ip);
@@ -82,10 +89,28 @@ namespace CarProject.Areas.Admin.Controllers
                 }
 
                 dic.Delete(true);
-                return RedirectToAction("Index", "Dashboard");
+                return true;
             }
+            else
+                return false;
+        }
+
+        public ActionResult UpdateCar(int id)
+        {
+            var x = new Models.Cars.NewCar(id);
+            Session["updatecar"] = x;
+            return View(x);
+        }
+        [HttpPost]
+        public ActionResult UpdateCar(Models.Cars.NewCar car)
+        {
+            var x = Session["updatecar"] as Models.Cars.NewCar;
+            TryUpdateModel(x);
+            if (SaveChange(x))
+                return RedirectToAction("Cars");
             return View(car);
         }
+
 
 
         public ActionResult Cars()

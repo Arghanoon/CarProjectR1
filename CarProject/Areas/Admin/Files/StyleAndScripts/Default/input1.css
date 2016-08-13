@@ -149,6 +149,7 @@
 /*---------------------------------------Buttons------------------------------------------*/
 	.button
 	{
+        display:inline-block;
 		border:thin solid #afafaf;
 		background:#eaeaea;
 		color: #252525;

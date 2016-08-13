@@ -143,7 +143,7 @@ namespace CarProject.App_Code
                 AddAttribute(htmlAttributes, "class", errorClass);
 
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "--انتخاب کنید--", Value = null, Selected = true });
+            items.Add(new SelectListItem { Text = "--انتخاب کنید--", Value = "", Selected = true });
 
             foreach (var item in Items)
             {

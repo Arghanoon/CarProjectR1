@@ -655,6 +655,7 @@
     <Content Include="DBSEF\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Cars\UpdateCar.cshtml" />
     <None Include="Properties\PublishProfiles\q.pubxml" />
   </ItemGroup>
   <PropertyGroup>

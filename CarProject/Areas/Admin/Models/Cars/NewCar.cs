@@ -10,6 +10,8 @@ namespace CarProject.Areas.Admin.Models.Cars
 {
     public class NewCar : IValidatableObject
     {
+        public DBSEF.CarAutomationEntities dbs = new CarAutomationEntities();
+
         public string CarTempID { get; set; }
 
         public Car CarGeneral { get; set; }
@@ -53,6 +55,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public List<string> Advantages { get; set; }
         public List<string> Disadvantages { get; set; }
 
+        public bool IsForUpdate { get; set; }
+
         public NewCar()
         {
             CarTempID = Guid.NewGuid().ToString();
@@ -82,97 +86,177 @@ namespace CarProject.Areas.Admin.Models.Cars
 
             Advantages = new List<string>();
             Disadvantages = new List<string>();
+            IsForUpdate = false;
+        }
+
+        public NewCar(int carid)
+        {
+            IsForUpdate = true;
+
+            this.CarGeneral = dbs.Cars.FirstOrDefault(c => c.CarsId == carid);
+            this.CarEngine = dbs.CarEngines.FirstOrDefault(c => c.CarsId == carid);
+            CarGearBox = dbs.CarGearBoxes.FirstOrDefault(c => c.CarsId == carid);
+            CarPhysicalDetail = dbs.CarPhysicalDetails.FirstOrDefault(c => c.CarId == carid);
+            FuelConsumption = dbs.FuelConsumptions.FirstOrDefault(c => c.CarId == carid);
+            DetailedBrakeSystem = dbs.DetailedBrakeSystems.Where(c => c.CarId == carid).ToList();
+            BreakSystem = dbs.BrakeSystems.FirstOrDefault(c => c.CarId == carid);
+            SecuritySystem = dbs.SecuritySystems.FirstOrDefault(c => c.CarId == carid);
+            SteeringSystem = dbs.SteeringSystems.FirstOrDefault(c => c.CarId == carid);
+            CarsReviewPoint = dbs.CarsReviewPoints.Where(c => c.CarsId == carid).ToList();
+            AirConditioningSystem = dbs.AirConditioningSystems.FirstOrDefault(c => c.CarId == carid);
+            AirConditioningSystemDetails = dbs.AirConditioningSystemDetails.Where(c => c.CarsId == carid).ToList();
+            CarAudioSystem = dbs.CarAudioSystems.FirstOrDefault(c => c.CarsId == carid);
+            CarSeatOption = dbs.CarSeatOptions.FirstOrDefault(c => c.CarsId == carid);
+            GlassAndMirror = dbs.GlassAndMirrors.FirstOrDefault(c => c.CarsId == carid);
+            CarLightingSystem = dbs.CarLightingSystems.FirstOrDefault(c => c.CarsId == carid);
+            CarSensorsSystem = dbs.CarSensorsSystems.FirstOrDefault(c => c.CarsId == carid);
+            CarAirbag = dbs.CarAirbags.FirstOrDefault(c => c.CarsId == carid);
+            CarWheel = dbs.CarWheels.FirstOrDefault(c => c.CarsId == carid);
+            CarsReview = dbs.CarsReviews.FirstOrDefault(c => c.CarsId == carid);
+
+
+            Advantages = dbs.CarsProes.Where(c => c.CarsProOrCro == true).Select(c => c.CarProCro).ToList();
+            Disadvantages = dbs.CarsProes.Where(c => c.CarsProOrCro == false).Select(c => c.CarProCro).ToList();
         }
 
 
         public void Save()
         {
-            DBSEF.CarAutomationEntities ca = new CarAutomationEntities();
-            ca.Cars.Add(CarGeneral);
+            if (IsForUpdate)
+            {
+                update();
+                return;
+            }
+            dbs.Cars.Add(CarGeneral);
 
             CarEngine.Car = CarGeneral;
-            ca.CarEngines.Add(CarEngine);
+            dbs.CarEngines.Add(CarEngine);
 
             FuelConsumption.Car = CarGeneral;
-            ca.FuelConsumptions.Add(FuelConsumption);
+            dbs.FuelConsumptions.Add(FuelConsumption);
 
             CarGearBox.Car = CarGeneral;
-            ca.CarGearBoxes.Add(CarGearBox);
+            dbs.CarGearBoxes.Add(CarGearBox);
 
             CarPhysicalDetail.Car = CarGeneral;
-            ca.CarPhysicalDetails.Add(CarPhysicalDetail);
+            dbs.CarPhysicalDetails.Add(CarPhysicalDetail);
 
             BreakSystem.Car = CarGeneral;
-            ca.BrakeSystems.Add(BreakSystem);
+            dbs.BrakeSystems.Add(BreakSystem);
 
             foreach (var item in DetailedBrakeSystem)
             {
                 if (!item.Equals(null))
                 {
                     item.Car = CarGeneral;
-                    ca.DetailedBrakeSystems.Add(item);
+                    dbs.DetailedBrakeSystems.Add(item);
                 }
             }
 
             SecuritySystem.Car = CarGeneral;
-            ca.SecuritySystems.Add(SecuritySystem);
+            dbs.SecuritySystems.Add(SecuritySystem);
 
             SteeringSystem.Car = CarGeneral;
-            ca.SteeringSystems.Add(SteeringSystem);
+            dbs.SteeringSystems.Add(SteeringSystem);
 
             AirConditioningSystem.Car = CarGeneral;
-            ca.AirConditioningSystems.Add(AirConditioningSystem);
+            dbs.AirConditioningSystems.Add(AirConditioningSystem);
 
             foreach (var item in AirConditioningSystemDetails)
             {
                 item.Car = CarGeneral;
-                ca.AirConditioningSystemDetails.Add(item);
+                dbs.AirConditioningSystemDetails.Add(item);
             }
 
             foreach (var item in CarsReviewPoint)
             {
                 item.Car = CarGeneral;
-                ca.CarsReviewPoints.Add(item);
+                dbs.CarsReviewPoints.Add(item);
             }
 
             CarAudioSystem.Car = CarGeneral;
-            ca.CarAudioSystems.Add(CarAudioSystem);
+            dbs.CarAudioSystems.Add(CarAudioSystem);
 
             CarSeatOption.Car = CarGeneral;
-            ca.CarSeatOptions.Add(CarSeatOption);
+            dbs.CarSeatOptions.Add(CarSeatOption);
 
             GlassAndMirror.Car = CarGeneral;
-            ca.GlassAndMirrors.Add(GlassAndMirror);
+            dbs.GlassAndMirrors.Add(GlassAndMirror);
 
             CarLightingSystem.Car = CarGeneral;
-            ca.CarLightingSystems.Add(CarLightingSystem);
+            dbs.CarLightingSystems.Add(CarLightingSystem);
 
             CarSensorsSystem.Car = CarGeneral;
-            ca.CarSensorsSystems.Add(CarSensorsSystem);
+            dbs.CarSensorsSystems.Add(CarSensorsSystem);
 
             CarAirbag.Car = CarGeneral;
-            ca.CarAirbags.Add(CarAirbag);
+            dbs.CarAirbags.Add(CarAirbag);
 
             foreach (var item in Advantages)
             {
                 if (!item.Equals(null))
                 {
-                    ca.CarsProes.Add(new CarsPro { Car = CarGeneral, CarsProOrCro = true, CarProCro = item });
+                    dbs.CarsProes.Add(new CarsPro { Car = CarGeneral, CarsProOrCro = true, CarProCro = item });
                 }
             }
 
             foreach (var item in Disadvantages)
             {
-                ca.CarsProes.Add(new CarsPro { Car = CarGeneral, CarsProOrCro = false, CarProCro = item });
+                dbs.CarsProes.Add(new CarsPro { Car = CarGeneral, CarsProOrCro = false, CarProCro = item });
             }
 
             CarsReview.Car = CarGeneral;
-            ca.CarsReviews.Add(CarsReview);
+            dbs.CarsReviews.Add(CarsReview);
 
             CarWheel.Car = CarGeneral;
-            ca.CarWheels.Add(CarWheel);
+            dbs.CarWheels.Add(CarWheel);
 
-            ca.SaveChanges();
+            dbs.SaveChanges();
+        }
+
+        void update()
+        {
+            dbs.DetailedBrakeSystems.RemoveRange(dbs.DetailedBrakeSystems.Where(c => c.CarId == CarGeneral.CarsId));
+            foreach (var item in DetailedBrakeSystem)
+            {
+                if (!item.Equals(null))
+                {
+                    item.Car = CarGeneral;
+                    dbs.DetailedBrakeSystems.Add(item);
+                }
+            }
+
+            dbs.AirConditioningSystemDetails.RemoveRange(dbs.AirConditioningSystemDetails.Where(c => c.CarsId == CarGeneral.CarsId));
+            foreach (var item in AirConditioningSystemDetails)
+            {
+                item.Car = CarGeneral;
+                dbs.AirConditioningSystemDetails.Add(item);
+            }
+
+
+            dbs.CarsReviewPoints.RemoveRange(dbs.CarsReviewPoints.Where(c => c.CarsId == CarGeneral.CarsId));
+            foreach (var item in CarsReviewPoint)
+            {
+                item.Car = CarGeneral;
+                dbs.CarsReviewPoints.Add(item);
+            }
+
+
+            dbs.CarsProes.RemoveRange(dbs.CarsProes.Where(c => c.CarsId == CarGeneral.CarsId));
+            foreach (var item in Advantages)
+            {
+                if (!item.Equals(null))
+                {
+                    dbs.CarsProes.Add(new CarsPro { Car = CarGeneral, CarsProOrCro = true, CarProCro = item });
+                }
+            }
+
+            foreach (var item in Disadvantages)
+            {
+                dbs.CarsProes.Add(new CarsPro { Car = CarGeneral, CarsProOrCro = false, CarProCro = item });
+            }
+
+            dbs.SaveChanges();
         }
 
 

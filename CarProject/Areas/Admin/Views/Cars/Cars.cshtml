@@ -28,7 +28,9 @@
                 <td>@item.CarsModel</td>
                 <td>@item.CarClassType</td>
                 <td>@item.CarCategory</td>
-                <td></td>
+                <td>
+                    <a href="@Url.Action("UpdateCar","Cars")/@item.CarsId" class="button blue">ویرایش</a>
+                </td>
             </tr>
         }
     </tbody>
