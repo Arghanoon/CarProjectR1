@@ -656,6 +656,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Admin\Views\Cars\UpdateCar.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UpdateUser.cshtml" />
     <None Include="Properties\PublishProfiles\q.pubxml" />
   </ItemGroup>
   <PropertyGroup>

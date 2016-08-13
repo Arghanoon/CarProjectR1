@@ -34,7 +34,7 @@
             </table>
 
             <div class="actinSection">
-                <a href="#" class="gia-edit button blue">ویرایش</a>
+                <a href="@Url.Action("UpdateUser","User")/@item.UserId" class="gia-edit button blue">ویرایش</a>
                 <a href="#" class="gia-remove button red">حذف</a>
                 @if (item.User.IsActive == true)
                 {

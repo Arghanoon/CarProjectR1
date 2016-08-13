@@ -35,6 +35,28 @@ namespace CarProject.Areas.Admin.Controllers
                 return View(model: new UserInfo());
         }
 
+
+        public ActionResult UpdateUser(int id)
+        {
+            var upuser = new UserInfo(id);
+            upuser.IsForUpdate = true;
+            Session["userUpdate"] = upuser;
+            return View(upuser);
+        }
+        
+        [HttpPost]
+        public ActionResult UpdateUser(UserInfo user)
+        {
+            if (ViewData.ModelState.IsValid)
+            {
+                var ou = Session["userUpdate"] as UserInfo;
+                TryUpdateModel(ou);
+                ou.Update();
+                return RedirectToAction("Users", "User");
+            }
+            return View(user);
+        }
+
         public ActionResult Users()
         {
             var dbs = new DBSEF.CarAutomationEntities();

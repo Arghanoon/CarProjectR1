@@ -12,41 +12,43 @@ namespace CarProject.Areas.Admin.Models.User
 {
     public class UserInfo : IValidatableObject
     {
-        
+        dbs.CarAutomationEntities context = new dbs.CarAutomationEntities();
+
         public dbs.Person Person { get; set; }
 
         public string Password { get; set; }
         public string PasswordConfirm { get; set; }
 
+        public bool IsForUpdate { get; set; }
+
         public UserInfo()
         {
             Person = new dbs.Person();
             Person.User = new dbs.User();
+            IsForUpdate = false;
         }
 
         public UserInfo(int userid)
         {
-            dbs.CarAutomationEntities c = new dbs.CarAutomationEntities();
-
-            this.Person = c.People.FirstOrDefault(p => p.UserId == userid);
+            this.Person = context.People.FirstOrDefault(p => p.UserId == userid);
+            IsForUpdate = true;
         }
 
 
         public void Save()
         {
-            dbs.CarAutomationEntities cdbs = new dbs.CarAutomationEntities();
-
             Person.User.Upass = CLS.Usefulls.MD5Passwords(Password);
-            cdbs.People.Add(Person);
+            context.People.Add(Person);
 
-            cdbs.SaveChanges();
+            context.SaveChanges();
+        }
+        public void Update()
+        {
+            context.SaveChanges();
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            dbs.CarAutomationEntities dbs = new dbs.CarAutomationEntities();
-
-
             if (string.IsNullOrWhiteSpace(Person.PersonFirtstName))
                 yield return new ValidationResult("نام کاربر وارد نشده است", new string[] { "Person.PersonFirtstName" });
             if (string.IsNullOrWhiteSpace(Person.PersonFirtstName))
@@ -59,7 +61,9 @@ namespace CarProject.Areas.Admin.Models.User
 
             if(string.IsNullOrWhiteSpace(Person.User.Uname))
                 yield return new ValidationResult("نام کاربری وارد نشده است", new string[] { "Person.User.Uname" });
-            else if(dbs.Users.Count(u => u.Uname.ToLower() == this.Person.User.Uname.ToLower()) > 0)
+            else if(!IsForUpdate && context.Users.Count(u => u.Uname.ToLower() == this.Person.User.Uname.ToLower()) > 0)
+                yield return new ValidationResult("نام کاربری وارد شده تکراری است", new string[] { "Person.User.Uname" });
+            else if (IsForUpdate && context.Users.Count(u => u.Uname.ToLower() == this.Person.User.Uname.ToLower() && u.UserId != Person.UserId) > 0)
                 yield return new ValidationResult("نام کاربری وارد شده تکراری است", new string[] { "Person.User.Uname" });
             
             if (string.IsNullOrWhiteSpace(Password))
