@@ -111,7 +111,13 @@ namespace CarProject.Areas.Admin.Controllers
             return View(car);
         }
 
-
+        [HttpPost]
+        public ActionResult DeleteCar(int id)
+        {
+            var m = new Models.Cars.NewCar(id);
+            m.Delete();
+            return RedirectToAction("Cars", "Cars");
+        }
 
         public ActionResult Cars()
         {

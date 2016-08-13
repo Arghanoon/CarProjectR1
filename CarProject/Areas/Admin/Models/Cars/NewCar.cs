@@ -260,6 +260,39 @@ namespace CarProject.Areas.Admin.Models.Cars
         }
 
 
+        public void Delete()
+        {
+            var id = CarGeneral.CarsId;
+
+            dbs.CarsReviews.RemoveRange(dbs.CarsReviews.Where(c => c.CarsId == id));
+            dbs.CarsReviewPoints.RemoveRange(dbs.CarsReviewPoints.Where(c => c.CarsId == id));
+
+            dbs.CarsProes.RemoveRange(dbs.CarsProes.Where(c => c.CarsId == id));
+
+            dbs.CarWheels.RemoveRange(dbs.CarWheels.Where(c => c.CarsId == id));
+            dbs.CarAirbags.RemoveRange(dbs.CarAirbags.Where(c => c.CarsId == id));
+            dbs.CarSensorsSystems.RemoveRange(dbs.CarSensorsSystems.Where(c => c.CarsId == id));
+            dbs.CarLightingSystems.RemoveRange(dbs.CarLightingSystems.Where(c => c.CarsId == id));
+            dbs.GlassAndMirrors.RemoveRange(dbs.GlassAndMirrors.Where(c => c.CarsId == id));
+            dbs.CarSeatOptions.RemoveRange(dbs.CarSeatOptions.Where(c => c.CarsId == id));
+            dbs.CarAudioSystems.RemoveRange(dbs.CarAudioSystems.Where(c => c.CarsId == id));
+            dbs.AirConditioningSystems.RemoveRange(dbs.AirConditioningSystems.Where(c => c.CarId == id));
+            dbs.AirConditioningSystemDetails.RemoveRange(dbs.AirConditioningSystemDetails.Where(c => c.CarsId == id));
+            dbs.SteeringSystems.RemoveRange(dbs.SteeringSystems.Where(c => c.CarId == id));
+            dbs.SecuritySystems.RemoveRange(dbs.SecuritySystems.Where(c => c.CarId == id));
+            dbs.BrakeSystems.RemoveRange(dbs.BrakeSystems.Where(c => c.CarId == id));
+            dbs.DetailedBrakeSystems.RemoveRange(dbs.DetailedBrakeSystems.Where(c => c.CarId == id));
+            dbs.FuelConsumptions.RemoveRange(dbs.FuelConsumptions.Where(c => c.CarId == id));
+            dbs.CarPhysicalDetails.RemoveRange(dbs.CarPhysicalDetails.Where(c => c.CarId == id));
+            dbs.CarGearBoxes.RemoveRange(dbs.CarGearBoxes.Where(c => c.CarsId == id));
+            dbs.CarEngines.RemoveRange(dbs.CarEngines.Where(c => c.CarsId == id));
+            dbs.Cars.RemoveRange(dbs.Cars.Where(c => c.CarsId == id));
+
+
+            dbs.SaveChanges();
+        }
+
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (string.IsNullOrWhiteSpace(CarGeneral.CarsBrandName))

@@ -29,7 +29,8 @@
                 <td>@item.CarClassType</td>
                 <td>@item.CarCategory</td>
                 <td>
-                    <a href="@Url.Action("UpdateCar","Cars")/@item.CarsId" class="button blue">ویرایش</a>
+                    <a href="@Url.Action("UpdateCar","Cars")/@item.CarsId" class="button blue gia-edit">ویرایش</a>
+                    <a href="#" class="button red gia-remove" onclick="deletebuttonclick('@item.CarsId')" >حذف</a>
                 </td>
             </tr>
         }
@@ -39,3 +40,65 @@
 </table>
 
 
+
+<div id="removeBack">
+    <div id="removeMessage">
+        <div>آیا از حذف خودروی انتخابی اطمینان دارید؟</div>
+        <form method="post" action="@Url.Action("DeleteCar","Cars")" style="display:flex; justify-content:center; align-items:center;">
+            <input type="hidden" id="RemoveCarId" name="Id" value="" />
+
+            <button type="submit" class="button red"><section class="gia-remove">حذف</section></button>
+            <button type="button" class="button green" onclick="deleteCancel()">انصراف</button>
+        </form>
+    </div>
+</div>
+
+
+@section script
+{
+    <script>
+        function deletebuttonclick(id) {
+            document.getElementById('removeBack').classList.add("show");
+            document.getElementById("RemoveCarId").value = id;
+        }
+
+        function deleteCancel() {
+            document.getElementById('removeBack').classList.remove("show");
+        }
+    </script>
+}
+
+@section style
+{
+    <style>
+        #removeBack {
+            position:fixed;
+            background:rgba(0, 0, 0, 0.60);
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+
+            z-index:9999;
+
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            display:none;
+        }
+            #removeBack.show {
+                display:flex;
+            }
+        #removeMessage {
+            padding:10px;
+            min-width:300px;
+            background:white;
+
+            border:thin solid #888;
+            border-radius:5px;
+            box-shadow:0 0 3px 0 #333;
+        }
+    </style>
+}
