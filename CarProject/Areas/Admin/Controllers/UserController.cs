@@ -72,6 +72,20 @@ namespace CarProject.Areas.Admin.Controllers
             catch { }
             return RedirectToAction("Users", "User");
         }
+
+        public ActionResult DeleteUser(int id)
+        {
+            try
+            {
+                DBSEF.CarAutomationEntities con = new DBSEF.CarAutomationEntities();
+                con.People.Remove(con.People.FirstOrDefault(p => p.UserId == id));
+                con.Users.Remove(con.Users.FirstOrDefault(u => u.UserId == id));
+                con.SaveChanges();
+            }
+            catch
+            { }
+            return RedirectToAction("Users", "User");
+        }
         
 
         public ActionResult Users()

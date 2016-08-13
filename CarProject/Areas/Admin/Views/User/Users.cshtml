@@ -35,7 +35,7 @@
 
             <div class="actinSection">
                 <a href="@Url.Action("UpdateUser","User")/@item.UserId" class="gia-edit button blue">ویرایش</a>
-                <a href="#" class="gia-remove button red">حذف</a>
+                <a href="javascript:void()" onclick="deletebuttonclick('@item.UserId')" class="gia-remove button red">حذف</a>
                 @if (item.User.IsActive == true)
                 {
                     <a href="@Url.Action("UserChangeState","User")\@item.UserId" class="button orange gia-inactive">غیر فعال کردن</a>
@@ -48,6 +48,35 @@
         </div>
     }
 </div>
+
+
+
+<div id="removeBack">
+    <div id="removeMessage">
+        <div>آیا از حذف کاربر انتخابی اطمینان دارید؟</div>
+        <form method="post" action="@Url.Action("DeleteUser","User")" style="display:flex; justify-content:center; align-items:center;">
+            <input type="hidden" id="RemoveCarId" name="Id" value="" />
+
+            <button type="submit" class="button red"><section class="gia-remove">حذف</section></button>
+            <button type="button" class="button green" onclick="deleteCancel()">انصراف</button>
+        </form>
+    </div>
+</div>
+
+
+@section script
+{
+    <script>
+        function deletebuttonclick(id) {
+            document.getElementById('removeBack').classList.add("show");
+            document.getElementById("RemoveCarId").value = id;
+        }
+
+        function deleteCancel() {
+            document.getElementById('removeBack').classList.remove("show");
+        }
+    </script>
+}
 
 
 
