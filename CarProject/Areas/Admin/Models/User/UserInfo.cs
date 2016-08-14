@@ -47,6 +47,20 @@ namespace CarProject.Areas.Admin.Models.User
             context.SaveChanges();
         }
 
+        bool CheckMail(string email)
+        {
+            try
+            {
+                System.Net.Mail.MailAddress m = new System.Net.Mail.MailAddress(email);
+                return true;
+            }
+            catch
+            {
+            }
+
+            return false;
+        }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (string.IsNullOrWhiteSpace(Person.PersonFirtstName))
@@ -58,6 +72,9 @@ namespace CarProject.Areas.Admin.Models.User
 
             if (string.IsNullOrWhiteSpace(Person.PersonEmail))
                 yield return new ValidationResult("ایمیل کاربر وارد نشده است", new string[] { "Person.PersonEmail" });
+            else if(!CheckMail(Person.PersonEmail))
+                yield return new ValidationResult("ایمیل وارد شده صحیح نیست", new string[] { "Person.PersonEmail" });
+            
 
             if(string.IsNullOrWhiteSpace(Person.User.Uname))
                 yield return new ValidationResult("نام کاربری وارد نشده است", new string[] { "Person.User.Uname" });

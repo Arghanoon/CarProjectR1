@@ -36,7 +36,7 @@ namespace CarProject.Areas.Admin.Controllers
 
 
 
-                    var usr = dbs.Users.First(u => u.Uname.ToLower() == username && u.Upass == pass.ToLower());
+                    var usr = dbs.Users.First(u => u.Uname.ToLower() == username && u.Upass == pass.ToLower() && u.IsActive == true);
                     if (usr != null)
                     {
                         Session["useradmin"] = usr;
