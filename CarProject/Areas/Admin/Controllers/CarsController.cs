@@ -94,6 +94,59 @@ namespace CarProject.Areas.Admin.Controllers
             else
                 return false;
         }
+        bool UpdateChange(Models.Cars.NewCar car)
+        {
+            var ip = Server.MapPath("~/Publics/CarImages/" + car.CarGeneral.CarsId.ToString());
+            if (!Directory.Exists(ip))
+                Directory.CreateDirectory(ip);
+
+            foreach (var item in Request.Files.GetMultiple("carImage"))
+            {
+                item.SaveAs(ip + "/" + item.FileName);
+            }
+
+            if (Request.Form.GetValues("carImageremove") != null)
+            {
+                foreach (var item in Request.Form.GetValues("carImageremove"))
+                {
+                    if (System.IO.File.Exists(ip + "/" + item))
+                        System.IO.File.Delete(ip + "/" + item);
+                }
+            }
+
+            if (ViewData.ModelState.IsValid)
+            {
+                if (Request.Form.GetValues("DetailedBrakeSystemItem") != null)
+                {
+                    foreach (var item in Request.Form.GetValues("DetailedBrakeSystemItem"))
+                    {
+                        car.DetailedBrakeSystem.Add(new DBSEF.DetailedBrakeSystem { DetailedName = item });
+                    }
+                }
+
+                if (Request.Form.GetValues("advantage") != null)
+                {
+                    foreach (var item in Request.Form.GetValues("advantage"))
+                    {
+                        car.Advantages.Add(item);
+                    }
+                }
+
+                if (Request.Form.GetValues("disadvantage") != null)
+                {
+                    foreach (var item in Request.Form.GetValues("disadvantage"))
+                    {
+                        car.Disadvantages.Add(item);
+                    }
+                }
+
+                car.Save();
+                
+                return true;
+            }
+            else
+                return false;
+        }
 
         public ActionResult UpdateCar(int id)
         {
@@ -106,7 +159,7 @@ namespace CarProject.Areas.Admin.Controllers
         {
             var x = Session["updatecar"] as Models.Cars.NewCar;
             TryUpdateModel(x);
-            if (SaveChange(x))
+            if (UpdateChange(x))
                 return RedirectToAction("Cars");
             return View(car);
         }

@@ -423,7 +423,7 @@
                 </div>
                 <div id="ImageUploadedTemp">
                     @{
-                        var ipt = "~/Publics/CarTempImages/" + Model.CarTempID;
+                        var ipt = "~/Publics/CarImages/" + Model.CarGeneral.CarsId.ToString();
                         var ip = Server.MapPath(ipt);
 
                         DirectoryInfo di = new DirectoryInfo(ip);
