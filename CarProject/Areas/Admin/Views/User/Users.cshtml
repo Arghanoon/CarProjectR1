@@ -6,7 +6,7 @@
 
 
 <form id="usersearch" method="post" style="border-bottom:thin solid;">
-    <input type="text" name="searchuser" class="input1" value="@Request.Form["searchuser"]" placeholder="نام کاربری، نام و یا نام خانوادگی"  style="width:200px;"/>
+    <input type="text" name="searchuser" class="input1" value="@Request.Form["searchuser"]" placeholder="نام کاربری، نام و یا نام خانوادگی"   style="min-width:200px; width:50%;"/>
     <button type="submit" class="button">
         <section class="gia-search">جستجو</section>
     </button>
@@ -16,7 +16,7 @@
     @foreach (var item in Model)
     {
         <div class="useritem">
-
+            <section class="topbar gia-user">| @item.User.Uname</section>
             <table>
                 <tr>
                     <th>شناسه</th>
@@ -123,19 +123,33 @@
             border:thin solid;
             border-radius:5px;
 
-            border-top:15px solid;
             
             min-width:250px;
+            overflow:hidden;
         }
+            .useritem .topbar {
+                background:black;
+                color:white;
+                margin:-5px -5px 5px -5px;
+            }
             .useritem:hover {
                 box-shadow: 0 0 3px 0 #000;
             }
+            .useritem:hover .actinSection{
+                bottom:0;
+            }
         
         .actinSection {
+            position:absolute;
+            bottom:-100%; left:0; right:0;
             display:flex;
             justify-content:center;
             flex-wrap:wrap;
             align-items:center;
+            background:rgba(0,0,0,0.6);
+
+            transition:ease 0.3s;
+            font-size:80%;
         }
 
         @@media (max-width:500px) {

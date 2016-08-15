@@ -178,6 +178,19 @@ namespace CarProject.Areas.Admin.Controllers
             return View(ca.Cars.ToList());
         }
 
+        [HttpPost]
+        public ActionResult Cars(FormCollection form)
+        {
+            if (form.AllKeys.Contains("simpleSearch"))
+            {
+                var ca = new DBSEF.CarAutomationEntities();
+                string car = form["CarSearch"];
+                return View(ca.Cars.Where(c => c.CarsId.ToString() == car || c.CarsBrandName.Contains(car) || c.CarsClass.Contains(car) || c.CarsModel.Contains(car)).ToList());
+            }
+            else
+                return View();
+        }
+
 
 
         public void ClearImagesTemp()

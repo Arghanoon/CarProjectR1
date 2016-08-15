@@ -4,6 +4,15 @@
 }
 
 
+<div id="searchSection">
+    <form method="post" name="search">
+        <input type="text" name="CarSearch" value="@Request.Form["CarSearch"]" class="input1" placeholder="شناسه، برند،  کلاس، و یا مدل خودرو"  style="min-width:200px; width:50%;"/>
+        <button type="submit" class="button" name="simpleSearch" >
+            <section class="gia-search">جستجو</section>
+        </button>
+    </form>
+</div>
+
 <div id="carcontainer">
     <div id="headerGroup">
     </div>
@@ -11,6 +20,10 @@
         @foreach (var item in Model)
         {
             <div class="carItem">
+                <section class="topbar gia-car2">|
+                    @item.CarsBrandName - @item.CarsModel
+                </section>
+
                 <table>
                     <tr>
                         <th>شناسه</th>
@@ -106,21 +119,35 @@
             padding:5px;
             border:thin solid;
             border-radius:5px;
-
-            border-top:15px solid;
             
             min-width:200px;
+            overflow:hidden;
         }
+            .carItem .topbar {
+                background:black;
+                color:white;
+                margin:-5px -5px 5px -5px;
+            }
             .carItem:hover {
                 box-shadow: 0 0 3px 0 #000;
             }
-
+                
+            .carItem:hover .actinSection {
+                    bottom:0;
+                }
         .actinSection {
+            position:absolute;
+            bottom:-100%; left:0; right:0;
             display:flex;
             justify-content:center;
             flex-wrap:wrap;
             align-items:center;
+            background:rgba(0,0,0,0.6);
+
+            transition:ease 0.3s;
+            font-size:80%;
         }
+        
 
         @@media (max-width:500px) {
             .carItem {
@@ -156,6 +183,10 @@
             border:thin solid #888;
             border-radius:5px;
             box-shadow:0 0 3px 0 #333;
+        }
+
+        #searchSection {
+            border-bottom:thin solid;
         }
     </style>
 }
