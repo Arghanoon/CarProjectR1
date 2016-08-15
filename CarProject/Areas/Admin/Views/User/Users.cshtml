@@ -5,6 +5,13 @@
 }
 
 
+<form id="usersearch" method="post" style="border-bottom:thin solid;">
+    <input type="text" name="searchuser" class="input1" value="@Request.Form["searchuser"]" placeholder="نام کاربری، نام و یا نام خانوادگی"  style="width:200px;"/>
+    <button type="submit" class="button">
+        <section class="gia-search">جستجو</section>
+    </button>
+</form>
+
 <div id="userContainer">
     @foreach (var item in Model)
     {

@@ -93,5 +93,14 @@ namespace CarProject.Areas.Admin.Controllers
             var dbs = new DBSEF.CarAutomationEntities();
             return View(dbs.People.ToList());
         }
+        [HttpPost]
+        public ActionResult Users(FormCollection form, [Bind(Prefix="searchuser")] string searchUser)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (!string.IsNullOrWhiteSpace(searchUser))
+                return View(dbs.People.Where(u => u.User.Uname.Contains(searchUser) || u.PersonFirtstName.Contains(searchUser) || u.PersonLastName.Contains(searchUser)).ToList());
+            else
+                return View();
+        }
     }
 }
