@@ -47,9 +47,10 @@ namespace CarProject.Areas.Admin.Controllers
                     else
                         ViewBag.error = "نام کاربری و یا کلمه عبور صحیح نیست";
                 }
-                catch
+                catch (Exception ex)
                 {
                     ViewBag.error = "خطا در اتصال به دیتابیس";
+                    ViewBag.error = "<br />" + ex.Message;
                     return View();
                 }
             }
