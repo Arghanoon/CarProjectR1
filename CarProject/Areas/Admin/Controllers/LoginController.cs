@@ -36,7 +36,7 @@ namespace CarProject.Areas.Admin.Controllers
 
 
 
-                    var usr = dbs.Users.First(u => u.Uname.ToLower() == username && u.Upass == pass.ToLower() && u.IsActive == true);
+                    var usr = dbs.Users.FirstOrDefault(u => u.Uname.ToLower() == username && u.Upass == pass.ToLower() && u.IsActive == true);
                     if (usr != null)
                     {
                         Session["useradmin"] = usr;
@@ -44,10 +44,12 @@ namespace CarProject.Areas.Admin.Controllers
                             return Redirect(Session["rqpage"].ToString());
                         return RedirectToAction("Index", "Dashboard");
                     }
+                    else
+                        ViewBag.error = "نام کاربری و یا کلمه عبور صحیح نیست";
                 }
                 catch
                 {
-                    ViewBag.error = "نام کاربری و یا کلمه عبور صحیح نیست";
+                    ViewBag.error = "خطا در اتصال به دیتابیس";
                     return View();
                 }
             }

@@ -149,6 +149,7 @@
 /*---------------------------------------Buttons------------------------------------------*/
 	.button
 	{
+        display:inline-block;
 		border:thin solid #afafaf;
 		background:#eaeaea;
 		color: #252525;
@@ -166,6 +167,26 @@
         font-size:90%;
 
 	}
+.input1 {
+    display:inline-block;
+	border:thin solid #afafaf;
+	background:#FEFEFE;
+	color: #252525;
+	    
+	border-radius:3px;
+	text-decoration:none;
+
+		
+	padding:5px;
+	margin:3px;
+		
+    box-sizing:border-box;
+
+    font-family: f2;
+    font-size:90%;
+}
+
+
 	.button:hover
 	{
 		box-shadow: 0 0 2px 0 #9b9b9b;
@@ -193,4 +214,31 @@
 		color:#000089;
 		border: thin solid #0000c4;
 	}
+    .button.purple
+	{
+		background:#ffceff;
+		color:#6c006c;
+		border: thin solid #450045;
+	}
+    .button.orange
+	{
+		background:#ffdc9d;
+		color:#623f00;
+		border: thin solid #764c00;
+	}
+
+
+
+
+    .button.disabled
+	{
+		background:#f5f5f5;
+		color:#3d3d3d;
+		border: thin solid #3d3d3d;
+
+        opacity:0.6;
+	}
+.button.disabled:hover {
+    box-shadow:none;
+}
 /*---------------------------------------Buttons------------------------------------------*/

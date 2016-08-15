@@ -1,0 +1,191 @@
+﻿@model List<CarProject.DBSEF.Person>
+
+@{
+    ViewBag.Title = "کاربران";
+}
+
+
+<form id="usersearch" method="post" style="border-bottom:thin solid;">
+    <input type="text" name="searchuser" class="input1" value="@Request.Form["searchuser"]" placeholder="نام کاربری، نام و یا نام خانوادگی"   style="min-width:200px; width:50%;"/>
+    <button type="submit" class="button">
+        <section class="gia-search">جستجو</section>
+    </button>
+</form>
+
+<div id="userContainer">
+    @foreach (var item in Model)
+    {
+        <div class="useritem">
+            <section class="topbar gia-user">| @item.User.Uname</section>
+            <table>
+                <tr>
+                    <th>شناسه</th>
+                    <td>@item.UserId</td>
+                </tr>
+                <tr>
+                    <th>نام کاربری</th>
+                    <td>@item.User.Uname</td>
+                </tr>
+                <tr>
+                    <th>نام</th>
+                    <td>@item.PersonFirtstName</td>
+                </tr>
+                <tr>
+                    <th>نام خانوادگی</th>
+                    <td>@item.PersonLastName</td>
+                </tr>
+                <tr>
+                    <th>ایمیل</th>
+                    <td>@item.PersonEmail</td>
+                </tr>
+            </table>
+
+            <div class="actinSection">
+                <a href="@Url.Action("UpdateUser","User")/@item.UserId" class="gia-edit button blue">ویرایش</a>
+                
+                @if(((CarProject.DBSEF.User)Session["useradmin"]).UserId != @item.UserId)
+                {
+                    <a href="javascript:void()" onclick="deletebuttonclick('@item.UserId')" class="gia-remove button red">حذف</a>
+                    
+                    if (item.User.IsActive == true)
+                    {
+                        <a href="@Url.Action("UserChangeState","User")\@item.UserId" class="button orange gia-inactive">غیر فعال کردن</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("UserChangeState","User")\@item.UserId" class="button green">فعال کردن</a>
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
+
+
+
+<div id="removeBack">
+    <div id="removeMessage">
+        <div>آیا از حذف کاربر انتخابی اطمینان دارید؟</div>
+        <form method="post" action="@Url.Action("DeleteUser","User")" style="display:flex; justify-content:center; align-items:center;">
+            <input type="hidden" id="RemoveCarId" name="Id" value="" />
+
+            <button type="submit" class="button red"><section class="gia-remove">حذف</section></button>
+            <button type="button" class="button green" onclick="deleteCancel()">انصراف</button>
+        </form>
+    </div>
+</div>
+
+
+@section script
+{
+    <script>
+        function deletebuttonclick(id) {
+            document.getElementById('removeBack').classList.add("show");
+            document.getElementById("RemoveCarId").value = id;
+        }
+
+        function deleteCancel() {
+            document.getElementById('removeBack').classList.remove("show");
+        }
+    </script>
+}
+
+
+
+@section style
+{
+    <style>
+        #userContainer {
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            align-items: center;
+
+            padding:10px;
+        }
+
+        #userContainer table {
+            border-collapse: collapse;
+            width:100%;
+        }
+        #userContainer th {
+            text-align:right;
+            background:#DDD;
+            padding:0 3px;
+        }
+        #userContainer th , #userContainer td {
+            border:thin solid #DDD;
+        }
+
+        .useritem {
+            margin:3px;
+            padding:5px;
+            border:thin solid;
+            border-radius:5px;
+
+            
+            min-width:250px;
+            overflow:hidden;
+        }
+            .useritem .topbar {
+                background:#141414;
+                color:white;
+                margin:-5px -5px 5px -5px;
+            }
+            .useritem:hover {
+                box-shadow: 0 0 3px 0 #000;
+            }
+            .useritem:hover .actinSection{
+                bottom:0;
+            }
+        
+        .actinSection {
+            position:absolute;
+            bottom:-100%; left:0; right:0;
+            display:flex;
+            justify-content:center;
+            flex-wrap:wrap;
+            align-items:center;
+            background:rgba(0,0,0,0.6);
+
+            transition:ease 0.3s;
+            font-size:80%;
+        }
+
+        @@media (max-width:500px) {
+            .useritem {
+                width:100%;
+            }
+        }
+
+        #removeBack {
+            position:fixed;
+            background:rgba(0, 0, 0, 0.60);
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+
+            z-index:9999;
+
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            display:none;
+        }
+            #removeBack.show {
+                display:flex;
+            }
+        #removeMessage {
+            padding:10px;
+            min-width:300px;
+            background:white;
+
+            border:thin solid #888;
+            border-radius:5px;
+            box-shadow:0 0 3px 0 #333;
+        }
+    </style>
+}

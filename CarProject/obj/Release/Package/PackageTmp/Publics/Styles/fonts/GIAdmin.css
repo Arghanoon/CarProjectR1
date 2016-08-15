@@ -36,6 +36,15 @@
 .gia-close:before{content:'\0035';}
 .gia-remove:before{content:'\0036';}
 .gia-edit:before{content:'\0037';}
+.gia-users:before{content:'\0038';}
+.gia-inactive:before{content:'\0039';}
+.gia-active:before{content:'\003A';}
+.gia-checkEngine:before{content:'\003B';}
+.gia-search:before{content:'\003C';}
+.gia-car1:before{content:'\003D';}
+.gia-car2:before{content:'\003E';}
+.gia-right:before{content:'\0046';}
+.gia-left:before{content:'\0047';}
 
 
 

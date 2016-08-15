@@ -1,0 +1,32 @@
+﻿@model CarProject.Areas.Admin.Models.User.UserInfo
+@using CarProject.App_Code
+@{
+    ViewBag.Title = "ثبت کاربر جدید";
+}
+
+
+
+<form method="post">
+    <div class="inputsContainer">
+        <section class="inputTitle">اطلاعات عمومی کاربر</section>
+        @Html.input_TextBox(m => m.Person.PersonFirtstName, "نام")
+        @Html.input_TextBox(m => m.Person.PersonLastName, "نام خانوادگی")
+        @Html.input_TextBox(m => m.Person.PersonEmail, "ایمیل")
+        @Html.input_TextBox(m => m.Person.PersonPhone, "تلفن ثابت")
+        @Html.input_TextBox(m => m.Person.PersonMobile, "موبایل")
+
+        @Html.input_TextBox(m => m.Person.PersonAddressCity, "شهر")
+        @Html.input_TextBox(m => m.Person.PersonAddress, "آدرس")
+
+
+        <section class="inputTitle">اطلاعات ورود کاربر</section>
+        @Html.input_TextBox(m => m.Person.User.Uname, "نام کاربری")
+        @Html.input_Password(m => m.Password, "کلمه عبور")
+        @Html.input_Password(m => m.PasswordConfirm, "تایید کلمه عبور")
+
+    </div>
+    <div style="display:flex; justify-content:center;" >
+        <a href="@Url.Action("Users", "User")" class="button red">انصراف</a>
+        <input type="submit" value="ثبت کاربر" class="button green" />
+    </div>
+</form>

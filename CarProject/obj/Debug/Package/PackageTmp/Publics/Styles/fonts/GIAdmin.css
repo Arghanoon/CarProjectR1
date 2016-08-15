@@ -1,0 +1,52 @@
+@font-face
+{
+	font-family:giadmin;
+	src:url(GIAdmin.woff);
+}
+
+[class*=gia-]:before
+{
+	font-family:giadmin;
+	display:inline-block;
+	margin:0 3px;
+	direction:ltr;
+}
+
+
+.gia-logout:before{content:'\0021';}
+.gia-newUser:before{content:'\0022';}
+.gia-message:before{content:'\0023';}
+.gia-chat:before{content:'\0024';}
+.gia-menuIcon:before{content:'\0025';}
+.gia-user:before{content:'\0026';}
+.gia-setting:before{content:'\0027';}
+.gia-statistic:before{content:'\0028';}
+.gia-help:before{content:'\0029';}
+.gia-key:before{content:'\002A';}
+.gia-recovery:before{content:'\002B';}
+.gia-login:before{content:'\002C';}
+.gia-link:before{content:'\002D';}
+.gia-cart:before{content:'\002E';}
+.gia-contactUs:before{content:'\002F';}
+.gia-images:before{content:'\0030';}
+.gia-videos:before{content:'\0031';}
+.gia-information:before{content:'\0032';}
+.gia-add:before{content:'\0033';}
+.gia-list:before{content:'\0034';}
+.gia-close:before{content:'\0035';}
+.gia-remove:before{content:'\0036';}
+.gia-edit:before{content:'\0037';}
+.gia-users:before{content:'\0038';}
+.gia-inactive:before{content:'\0039';}
+.gia-active:before{content:'\003A';}
+.gia-checkEngine:before{content:'\003B';}
+.gia-search:before{content:'\003C';}
+.gia-car1:before{content:'\003D';}
+.gia-car2:before{content:'\003E';}
+.gia-right:before{content:'\0046';}
+.gia-left:before{content:'\0047';}
+
+
+
+.gia-arghanoon:before{content:'\09FF';}
+.gia-arghanoon2:before{content:'\09FE';}

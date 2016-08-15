@@ -1,39 +1,207 @@
 ﻿@model List<CarProject.DBSEF.Car>
 @{
     ViewBag.Title = "نمایش خودروهای ثبت شده";
+    var tclen = Math.Ceiling((double)new CarProject.DBSEF.CarAutomationEntities().Cars.Count() / ((int)ViewBag.pagecont));
 }
 
 
-<table class="grid1">
-    <thead>
-        <tr>
-            <th>شناسه</th>
-            <th>برند</th>
-            <th>کلاس</th>
-            <th>مدل</th>
-            <th>کلاس کاری</th>
-            <th>دسته بندی</th>
-            <th>عملیات</th>
-        </tr>
-    </thead>
+<div id="searchSection">
+    <form method="post" name="search">
+        <input type="text" name="CarSearch" value="@Request.Form["CarSearch"]" class="input1" placeholder="شناسه، برند،  کلاس، و یا مدل خودرو"  style="min-width:200px; width:50%;"/>
+        <button type="submit" class="button" name="simpleSearch" >
+            <section class="gia-search">جستجو</section>
+        </button>
+    </form>
+</div>
 
-
-    <tbody>
+<div id="carcontainer">
+    <div id="headerGroup">
+    </div>
+    <div id="tbody">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.CarsId</td>
-                <td>@item.CarsBrandName</td>
-                <td>@item.CarsClass</td>
-                <td>@item.CarsModel</td>
-                <td>@item.CarClassType</td>
-                <td>@item.CarCategory</td>
-                <td></td>
-            </tr>
+            <div class="carItem">
+                <section class="topbar gia-car2">|
+                    @item.CarsBrandName - @item.CarsModel
+                </section>
+
+                <table>
+                    <tr>
+                        <th>شناسه</th>
+                        <td>@item.CarsId</td>
+                    </tr>
+                    <tr>
+                        <th>برند</th>
+                        <td>@item.CarsBrandName</td>
+                    </tr>
+                    <tr>                        
+                        <th>کلاس</th>
+                        <td>@item.CarsClass</td>
+                    </tr>
+                    <tr>
+                        <th>مدل</th>
+                        <td>@item.CarsModel</td>
+                    </tr>
+                    <tr>                        
+                        <th>کلاس کاری</th>
+                        <td>@item.CarClassType</td>
+                    </tr>
+                    <tr>
+                        <th>دسته بندی</th>
+                        <td>@item.CarCategory</td>
+                    </tr>
+                </table>
+                <div class="actinSection">
+                    <a href="@Url.Action("UpdateCar","Cars")/@item.CarsId" class="button blue gia-edit">ویرایش</a>
+                    <a href="#" class="button red gia-remove" onclick="deletebuttonclick('@item.CarsId')" >حذف</a>
+                </div>
+            </div>
         }
-    </tbody>
+    </div>
+</div>
 
 
-</table>
+<div style="display:flex; justify-content:center; align-items:center; border-top:thin solid; padding:10px 0;">
+    @for (int i = 0; i < tclen; i++)
+    {
+        if((string.IsNullOrWhiteSpace(Request.QueryString["page"]) && i == 0) || Request.QueryString["page"] == i.ToString())
+        {
+            <section class="button purple disabled">@{Write(i + 1);}</section>
+        }
+        else
+        {
+            <a href="?page=@i" class="button purple">@{Write(i + 1);}</a>
+        }   
+    }
+</div>
 
 
+
+<div id="removeBack">
+    <div id="removeMessage">
+        <div>آیا از حذف خودروی انتخابی اطمینان دارید؟</div>
+        <form method="post" action="@Url.Action("DeleteCar","Cars")" style="display:flex; justify-content:center; align-items:center;">
+            <input type="hidden" id="RemoveCarId" name="Id" value="" />
+
+            <button type="submit" class="button red"><section class="gia-remove">حذف</section></button>
+            <button type="button" class="button green" onclick="deleteCancel()">انصراف</button>
+        </form>
+    </div>
+</div>
+
+
+@section script
+{
+    <script>
+        function deletebuttonclick(id) {
+            document.getElementById('removeBack').classList.add("show");
+            document.getElementById("RemoveCarId").value = id;
+        }
+
+        function deleteCancel() {
+            document.getElementById('removeBack').classList.remove("show");
+        }
+    </script>
+}
+
+@section style
+{
+    <style>
+        #carcontainer > #tbody {
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            align-items: center;
+
+            padding:10px;
+        }
+
+        #carcontainer table {
+            border-collapse: collapse;
+            width:100%;
+        }
+        #carcontainer th {
+            text-align:right;
+            background:#DDD;
+            padding:0 3px;
+        }
+        #carcontainer th , #carcontainer td {
+            border:thin solid #DDD;
+        }
+
+        .carItem {
+            margin:3px;
+            padding:5px;
+            border:thin solid;
+            border-radius:5px;
+            
+            min-width:200px;
+            overflow:hidden;
+        }
+            .carItem .topbar {
+                background:#141414;
+                color:white;
+                margin:-5px -5px 5px -5px;
+            }
+            .carItem:hover {
+                box-shadow: 0 0 3px 0 #000;
+            }
+                
+            .carItem:hover .actinSection {
+                    bottom:0;
+                }
+        .actinSection {
+            position:absolute;
+            bottom:-100%; left:0; right:0;
+            display:flex;
+            justify-content:center;
+            flex-wrap:wrap;
+            align-items:center;
+            background:rgba(0,0,0,0.6);
+
+            transition:ease 0.3s;
+            font-size:80%;
+        }
+        
+
+        @@media (max-width:500px) {
+            .carItem {
+                width:100%;
+            }
+        }
+
+        #removeBack {
+            position:fixed;
+            background:rgba(0, 0, 0, 0.60);
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+
+            z-index:9999;
+
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            display:none;
+        }
+            #removeBack.show {
+                display:flex;
+            }
+        #removeMessage {
+            padding:10px;
+            min-width:300px;
+            background:white;
+
+            border:thin solid #888;
+            border-radius:5px;
+            box-shadow:0 0 3px 0 #333;
+        }
+
+        #searchSection {
+            border-bottom:thin solid;
+        }
+    </style>
+}

@@ -11,7 +11,7 @@
 
 
 <form method="post" enctype="multipart/form-data">
-
+    @Html.HiddenFor(m => m.IsForUpdate)
     <div class="wizardContainer">
         <nav class="wizardNav">
             <a href="#w1">اطلاعات عمومی خودرو</a>
@@ -55,8 +55,9 @@
         </div>
         <div class="wizardPage" id="w2">
             <div class="inputsContainer">
-                @Html.input_ComboBox(m => m.CarEngine.EngineType, "نوع موتور", Model.CarEngineTypeItems, new Dictionary<string, object>() { { "data-test", "have no error" } })
+                @Html.input_ComboBox(m => m.CarEngine.EngineType, "نوع موتور", Model.CarEngineTypeItems)
                 @Html.input_TextBox(m => m.CarEngine.EngineCylinderNumber, "تعداد سیلندر")
+                @Html.input_ComboBox(m => m.CarEngine.EngineFuel, "نوع سوخت", Model.CarEngineFuelTypeItems)
                 @Html.input_TextBox(m => m.CarEngine.EngineSize, "حجم موتور")
                 @Html.input_TextBox(m => m.CarEngine.EnginePowerHpRpm, "قدرت موتور")
                 @Html.input_TextBox(m => m.CarEngine.EngineTorque, "گشتاور")
@@ -137,11 +138,14 @@
 
                 </section>
                 <div id="breakSystemDetails" class="input">
-                    @if (Request.Form.GetValues("DetailedBrakeSystem") != null)
+                    @if (Request.Form.GetValues("DetailedBrakeSystemItem") != null)
                     {
-                        foreach (var item in Request.Form.GetValues("DetailedBrakeSystem"))
+                        foreach (var item in Request.Form.GetValues("DetailedBrakeSystemItem"))
                         {
-                            <input type="text" name="DetailedBrakeSystem" value="@item" />
+                            <section class="removeable">
+                                <input type="text" name="DetailedBrakeSystemItem" value="@item" />
+                                <section class="gia-remove"></section>
+                            </section>
                         }
                     }
                 </div>
@@ -187,6 +191,23 @@
                 @Html.input_TextBox(m => m.AirConditioningSystem.AirConditioningType, "نوع سیستم تهویه هوا")
                 @Html.input_TextArea(m => m.AirConditioningSystem.Details, "توضیحات")
             </div>
+            <!---->
+            <div>
+                <strong><a href="javascript:void()" class="gia-add" onclick="AddAirConditioningSystemDetailsItem()">اضافه کردن جزئیات</a></strong>
+                <div id="AirConditioningSystemDetailsItems">
+                    @{ int aicsdi = 0; }
+                    @foreach (var item in Model.AirConditioningSystemDetails)
+                    {
+                        <div class="AirConditioningSystemDetailsItem input removeable2">
+                            <input type="text" name="AirConditioningSystemDetails[@aicsdi].AirConditioningSystemDetail1" value="@item.AirConditioningSystemDetail1" />
+                            <textarea name="AirConditioningSystemDetails[@aicsdi].AirConditioningSystemDetailSubject">@item.AirConditioningSystemDetailSubject</textarea>
+                            <section class="gia-remove"></section>
+                        </div>
+                        aicsdi++;
+                    }
+                </div>
+            </div>
+
             <div class="footer">
                 <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
                 <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
@@ -322,7 +343,10 @@
                     {
                         foreach (var item in Request.Form.GetValues("advantage"))
                         {
-                            <input type="text" name="advantage" value="@item" />
+                            <section class="removeable">
+                                <input type="text" name="advantage" value="@item" />
+                                <section class="gia-remove"></section>
+                            </section>
                         }
                     }
                 </div>
@@ -342,7 +366,10 @@
                     {
                         foreach (var item in Request.Form.GetValues("disadvantage"))
                         {
-                            <input type="text" name="disadvantage" value="@item" />
+                            <section class="removeable">
+                                <input type="text" name="disadvantage" value="@item" />
+                                <section class="gia-remove"></section>
+                            </section>
                         }
                     }
                 </div>
@@ -362,6 +389,23 @@
                 @Html.input_Rating(m => m.CarsReview.Quality, "کیفیت")
                 @Html.input_Rating(m => m.CarsReview.Services, "خدمات")
             </div>
+
+            <div>
+                <strong><a href="javascript:void()" class="gia-add" onclick="addCarsReviewPointItem()">اضافه کردن جزئیات</a></strong>
+                <div id="CarsReviewPointItems">
+                    @{ int aicsdi1 = 0; }
+                    @foreach (var item in Model.CarsReviewPoint)
+                    {
+                        <div class="CarsReviewPointItem input removeable2">
+                            <input type="text" name="CarsReviewPoint[@aicsdi1].CarsReview" value="@item.CarsReview" />
+                            <textarea name="CarsReviewPoint[@aicsdi1].CarsReviewSubject">@item.CarsReviewSubject</textarea>
+                            <section class="gia-remove"></section>
+                        </div>
+                        aicsdi1++;
+                    }
+                </div>
+            </div>
+
             <div class="footer">
                 <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
                 <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
@@ -413,33 +457,66 @@
 </form>
 
 
+
 @section script
 {
     <script>
         wizardAssignPostContainer(document.getElementById("wizardpagecontainer"));
 
+       
+
         function addAnewItem() {
+            si = document.createElement("section");
+            si.classList.add("removeable");
+
             inp = document.createElement("input");
             inp.type = "text";
-            inp.name = "DetailedBrakeSystem";
+            inp.name = "DetailedBrakeSystemItem";
+            si.appendChild(inp);
+
+            si2 = document.createElement("section");
+            si2.classList.add("gia-remove");
+            si2.onclick = function (e) { $(e.target.offsetParent).remove(); };
+            si.appendChild(si2);
 
 
-            document.getElementById("breakSystemDetails").appendChild(inp);
+            document.getElementById("breakSystemDetails").appendChild(si);
         }
 
         function AddAdvantage() {
+
+            si = document.createElement("section");
+            si.classList.add("removeable");
+
             inp = document.createElement("input");
             inp.type = "text";
             inp.name = "advantage";
+            si.appendChild(inp);
 
-            document.getElementById("advantages").appendChild(inp);
+            si2 = document.createElement("section");
+            si2.classList.add("gia-remove");
+            si2.onclick = function (e) { $(e.target.offsetParent).remove(); };
+            si.appendChild(si2);
+
+            
+            document.getElementById("advantages").appendChild(si);
         }
         function AddDisAdvantage() {
+
+            si = document.createElement("section");
+            si.classList.add("removeable");
+
             inp = document.createElement("input");
             inp.type = "text";
             inp.name = "disadvantage";
+            si.appendChild(inp);
 
-            document.getElementById("disAdvantages").appendChild(inp);
+            si2 = document.createElement("section");
+            si2.classList.add("gia-remove");
+            si2.onclick = function (e) { $(e.target.offsetParent).remove(); };
+            si.appendChild(si2);
+
+            document.getElementById("disAdvantages").appendChild(si);
         }
         function AddImages() {
             inp = document.createElement("input");
@@ -458,6 +535,84 @@
 
             document.getElementById("carImages").appendChild(inp);
         }
+
+
+        function AddAirConditioningSystemDetailsItem() {
+            var cont = document.getElementsByClassName("AirConditioningSystemDetailsItem").length;
+
+            div = document.createElement("div");
+            div.classList.add("input");
+            div.classList.add("AirConditioningSystemDetailsItem");
+            div.classList.add("removeable2");
+
+            inp = document.createElement("input");
+            inp.type = "text";
+            inp.name = "AirConditioningSystemDetails[" + cont + "].AirConditioningSystemDetail1";
+            div.appendChild(inp);
+
+            inp2 = document.createElement("textarea");
+            inp2.name = "AirConditioningSystemDetails[" + cont + "].AirConditioningSystemDetailSubject";
+
+            div.appendChild(inp2);
+
+            se = document.createElement("section");
+            se.classList.add("gia-remove");
+            se.onclick = function (e) { vp = e.target.offsetParent.offsetParent;  $(e.target.offsetParent).remove(); CollectionResort(vp); };
+            div.appendChild(se);
+
+            document.getElementById("AirConditioningSystemDetailsItems").appendChild(div);
+        }
+
+        function CollectionResort(colCont) {
+            $("> *",colCont).each(function (indexr, element) {
+                
+                $("[name*='[']", element).each(function(index,element){
+                    nm = $(this).attr('name');
+                    nm2 = nm.substring(0, nm.indexOf('[')) + "[" + indexr + nm.substring(nm.indexOf("]"));
+                   
+                    $(element).attr('name', nm2);
+                });
+            });
+        }
+
+        function addCarsReviewPointItem() {
+            var cont = document.getElementsByClassName("CarsReviewPointItem").length;
+
+            div = document.createElement("div");
+            div.classList.add("input");
+            div.classList.add("CarsReviewPointItem");
+            div.classList.add("removeable2");
+
+            inp = document.createElement("input");
+            inp.type = "text";
+            inp.name = "CarsReviewPoint[" + cont + "].CarsReview";
+            div.appendChild(inp);
+
+            inp2 = document.createElement("textarea");
+            inp2.name = "CarsReviewPoint[" + cont + "].CarsReviewSubject";
+
+            div.appendChild(inp2);
+
+            se = document.createElement("section");
+            se.classList.add("gia-remove");
+            se.onclick = function (e) { vp = e.target.offsetParent.offsetParent; $(e.target.offsetParent).remove(); CollectionResort(vp); };
+            div.appendChild(se);
+
+            document.getElementById("CarsReviewPointItems").appendChild(div);
+
+        }
+
+
+        $(".removeable .gia-remove").click(function () {
+            toppar = $(this).offsetParent().remove();
+        });
+
+        $(".removeable2 .gia-remove").click(function () {
+            cn = $(this).offsetParent().offsetParent();
+            toppar = $(this).offsetParent().remove();
+
+            CollectionResort(cn);
+        });
     </script>
 }
 
@@ -500,5 +655,47 @@
             .uploadTmpImages:hover a {
                 bottom: 0;
             }
+
+
+        .AirConditioningSystemDetailsItem {
+            display: block;
+            border: thin solid #888;
+            padding: 3px;
+            margin: 5px;
+        }
+         .CarsReviewPointItem {
+            display: block;
+            border: thin solid #888;
+            padding: 3px;
+            margin: 5px;
+        }
+
+        .removeable {
+            display:block !important;
+            position:relative;
+        }
+            .removeable .gia-remove {
+                position:absolute;
+                left:0; top:0; bottom:0;
+
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                opacity:0.3;
+                cursor:pointer;
+            }
+                .removeable .gia-remove:hover {
+                    opacity: 1;
+                }
+
+        .removeable2 .gia-remove {
+            width:100%;
+            cursor:pointer;
+            opacity:0.3;
+        }
+            .removeable2 .gia-remove:hover {
+                opacity: 1;
+            }
+
     </style>
 }

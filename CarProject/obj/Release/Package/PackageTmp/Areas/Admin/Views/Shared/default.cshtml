@@ -46,17 +46,13 @@
         	
             <nav>
             	@Html.ActionLink("ثبت خودرو", "NewCar", "Cars", new { area = "Admin" }, new { CLASS = "gia-add" })
-                @Html.ActionLink("خودروهای ثبت شده", "Cars", "Cars", new { area = "Admin" }, new { CLASS = "gia-list" })
-                <a href="#">قسمت 1 لینک 3</a>
-                <a href="#">قسمت 1 لینک 4</a>
+                @Html.ActionLink("مدیریت خودروهای ثبت شده", "Cars", "Cars", new { area = "Admin" }, new { CLASS = "gia-list" })
             </nav>
             
             
             <nav>
-            	<a href="#">قسمت 1 لینک 1</a>
-                <a href="#">قسمت 1 لینک 2</a>
-                <a href="#">قسمت 1 لینک 3</a>
-                <a href="#">قسمت 1 لینک 4</a>
+            	<a href="@Url.Action("NewUser","User")" class="gia-user">ثبت کاربر جدید</a>
+                <a href="@Url.Action("Users","User")" class="gia-users">کاربران</a>
             </nav>
             
             <nav>

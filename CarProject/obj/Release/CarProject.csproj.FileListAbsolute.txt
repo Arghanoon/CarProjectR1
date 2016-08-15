@@ -125,3 +125,4 @@ E:\CarProject\Car2\CarProjectR1\CarProject\obj\Release\CarProject.csproj.App.con
 E:\CarProject\Car2\CarProjectR1\CarProject\obj\Release\CarProject.csprojResolveAssemblyReference.cache
 E:\CarProject\Car2\CarProjectR1\CarProject\obj\Release\CarProject.dll
 E:\CarProject\Car2\CarProjectR1\CarProject\obj\Release\CarProject.pdb
+G:\Projects\CarCompleteWebsite\CarProject\CarProject\obj\Release\CarProject.csprojResolveAssemblyReference.cache

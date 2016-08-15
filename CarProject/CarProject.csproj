@@ -658,7 +658,9 @@
     </Content>
     <Content Include="Areas\Admin\Views\Cars\UpdateCar.cshtml" />
     <Content Include="Areas\Admin\Views\User\UpdateUser.cshtml" />
-    <None Include="Properties\PublishProfiles\q.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\1.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
