@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 
+using CarProject.Areas.Admin.Models.Cars;
+
 namespace CarProject.Areas.Admin.Controllers
 {
     [CarProject.Areas.Admin.CLS.AuthFilter]
@@ -15,6 +17,15 @@ namespace CarProject.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
+            for (int i = 0; i < 1000; i++)
+            {
+                var n = DateTime.Now.Ticks.ToString();
+                var nc = new NewCar();
+                nc.CarGeneral.CarsBrandName = "Brand Name " + n;
+                nc.CarGeneral.CarsClass = "Car Class " + n;
+                nc.CarGeneral.CarsModel = n;
+                nc.Save();
+            }
             return View();
         }
         
@@ -171,11 +182,13 @@ namespace CarProject.Areas.Admin.Controllers
             m.Delete();
             return RedirectToAction("Cars", "Cars");
         }
-
-        public ActionResult Cars()
+        
+        public ActionResult Cars(int page = 0)
         {
+            ViewBag.pagecont = 40;
             var ca = new DBSEF.CarAutomationEntities();
-            return View(ca.Cars.ToList());
+            var cl = ca.Cars.OrderBy(c => c.CarsId).Skip(((int)ViewBag.pagecont) * page).Take((int)ViewBag.pagecont).ToList();
+            return View(cl);
         }
 
         [HttpPost]

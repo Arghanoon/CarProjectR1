@@ -226,4 +226,19 @@
 		color:#623f00;
 		border: thin solid #764c00;
 	}
+
+
+
+
+    .button.disabled
+	{
+		background:#f5f5f5;
+		color:#3d3d3d;
+		border: thin solid #3d3d3d;
+
+        opacity:0.6;
+	}
+.button.disabled:hover {
+    box-shadow:none;
+}
 /*---------------------------------------Buttons------------------------------------------*/

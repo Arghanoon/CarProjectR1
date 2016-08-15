@@ -560,6 +560,7 @@
     <Folder Include="Models\" />
     <Folder Include="Publics\CarImages\" />
     <Folder Include="Publics\CarTempImages\" />
+    <Folder Include="Publics\Scripts\Ajax\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

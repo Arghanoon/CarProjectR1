@@ -1,6 +1,7 @@
 ﻿@model List<CarProject.DBSEF.Car>
 @{
     ViewBag.Title = "نمایش خودروهای ثبت شده";
+    var tclen = Math.Ceiling((double)new CarProject.DBSEF.CarAutomationEntities().Cars.Count() / ((int)ViewBag.pagecont));
 }
 
 
@@ -59,6 +60,20 @@
     </div>
 </div>
 
+
+<div style="display:flex; justify-content:center; align-items:center; border-top:thin solid; padding:10px 0;">
+    @for (int i = 0; i < tclen; i++)
+    {
+        if((string.IsNullOrWhiteSpace(Request.QueryString["page"]) && i == 0) || Request.QueryString["page"] == i.ToString())
+        {
+            <section class="button purple disabled">@{Write(i + 1);}</section>
+        }
+        else
+        {
+            <a href="?page=@i" class="button purple">@{Write(i + 1);}</a>
+        }   
+    }
+</div>
 
 
 
