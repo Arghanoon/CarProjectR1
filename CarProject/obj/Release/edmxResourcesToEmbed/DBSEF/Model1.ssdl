@@ -6,14 +6,17 @@
     </Key>
     <Property Name="AirConditioningSystemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarId" Type="int" />
-    <Property Name="ReservedOne" Type="nvarchar" MaxLength="50" />
     <Property Name="AirConditioningType" Type="nvarchar" MaxLength="50" />
-    <Property Name="column1" Type="nvarchar" MaxLength="50" />
-    <Property Name="column2" Type="nvarchar" MaxLength="50" />
-    <Property Name="column3" Type="nvarchar" MaxLength="50" />
-    <Property Name="column4" Type="nvarchar" MaxLength="50" />
-    <Property Name="column5" Type="nvarchar" MaxLength="50" />
     <Property Name="Details" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AirConditioningSystemDetail">
+    <Key>
+      <PropertyRef Name="AirConditioningSystemDetailId" />
+    </Key>
+    <Property Name="AirConditioningSystemDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AirConditioningSystemDetailSubject" Type="nvarchar" MaxLength="50" />
+    <Property Name="AirConditioningSystemDetail" Type="nvarchar(max)" />
+    <Property Name="CarsId" Type="int" />
   </EntityType>
   <EntityType Name="AutoService">
     <Key>
@@ -117,6 +120,7 @@
     <Property Name="EngineDescription" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" />
     <Property Name="EngineSize" Type="int" />
+    <Property Name="EngineFuel" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="CarGearBox">
     <Key>
@@ -254,14 +258,20 @@
     <Property Name="CarsReviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarsId" Type="int" />
     <Property Name="Review" Type="nvarchar(max)" />
-    <Property Name="column1" Type="nvarchar(max)" />
-    <Property Name="column2" Type="nvarchar(max)" />
-    <Property Name="column3" Type="nvarchar(max)" />
     <Property Name="CarScore" Type="float" />
     <Property Name="Beauty" Type="float" />
     <Property Name="WorthBuying" Type="float" />
     <Property Name="Quality" Type="float" />
     <Property Name="Services" Type="float" />
+  </EntityType>
+  <EntityType Name="CarsReviewPoint">
+    <Key>
+      <PropertyRef Name="CarsReviewPointId" />
+    </Key>
+    <Property Name="CarsReviewPointId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarsReviewSubject" Type="nvarchar" MaxLength="50" />
+    <Property Name="CarsReview" Type="nvarchar(max)" />
+    <Property Name="CarsId" Type="int" />
   </EntityType>
   <EntityType Name="CarWheels">
     <Key>
@@ -349,6 +359,7 @@
     <Property Name="PersonLastName" Type="nvarchar" MaxLength="50" />
     <Property Name="PersonPhone" Type="nvarchar" MaxLength="50" />
     <Property Name="PersonMobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="PersonEmail" Type="nvarchar" MaxLength="50" />
     <Property Name="PersonAddressCity" Type="nvarchar" MaxLength="50" />
     <Property Name="PersonAddress" Type="nvarchar(max)" />
     <Property Name="UserId" Type="int" />
@@ -460,6 +471,7 @@
     <Property Name="Upass" Type="nvarchar" MaxLength="50" />
     <Property Name="CarId" Type="int" />
     <Property Name="UserRoleId" Type="int" />
+    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="UserRole">
     <Key>
@@ -477,6 +489,18 @@
       </Principal>
       <Dependent Role="AirConditioningSystem">
         <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AirConditioningSystemDetail_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="AirConditioningSystemDetail" Type="Self.AirConditioningSystemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="AirConditioningSystemDetail">
+        <PropertyRef Name="CarsId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -744,6 +768,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CarsReviewPoint_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="CarsReviewPoint" Type="Self.CarsReviewPoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="CarsReviewPoint">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CarWheels_Cars">
     <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
     <End Role="CarWheels" Type="Self.CarWheels" Multiplicity="*" />
@@ -998,6 +1034,7 @@
   </Association>
   <EntityContainer Name="CarAutomationModelStoreContainer">
     <EntitySet Name="AirConditioningSystem" EntityType="Self.AirConditioningSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AirConditioningSystemDetail" EntityType="Self.AirConditioningSystemDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AutoService" EntityType="Self.AutoService" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AutoServicePack" EntityType="Self.AutoServicePack" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoServices" Schema="dbo" store:Type="Tables" />
@@ -1017,6 +1054,7 @@
     <EntitySet Name="CarsPro" EntityType="Self.CarsPro" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarsQnA" EntityType="Self.CarsQnA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarsReview" EntityType="Self.CarsReview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarsReviewPoint" EntityType="Self.CarsReviewPoint" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarWheels" EntityType="Self.CarWheels" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
@@ -1039,6 +1077,10 @@
     <AssociationSet Name="FK_AirConditioningSystem_Cars" Association="Self.FK_AirConditioningSystem_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="AirConditioningSystem" EntitySet="AirConditioningSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AirConditioningSystemDetail_Cars" Association="Self.FK_AirConditioningSystemDetail_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="AirConditioningSystemDetail" EntitySet="AirConditioningSystemDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_AutoService_Cars" Association="Self.FK_AutoService_Cars">
       <End Role="Cars" EntitySet="Cars" />
@@ -1127,6 +1169,10 @@
     <AssociationSet Name="FK_CarsReview_Cars" Association="Self.FK_CarsReview_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarsReview" EntitySet="CarsReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarsReviewPoint_Cars" Association="Self.FK_CarsReviewPoint_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarsReviewPoint" EntitySet="CarsReviewPoint" />
     </AssociationSet>
     <AssociationSet Name="FK_CarWheels_Cars" Association="Self.FK_CarWheels_Cars">
       <End Role="Cars" EntitySet="Cars" />

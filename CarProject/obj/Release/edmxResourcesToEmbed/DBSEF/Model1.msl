@@ -6,14 +6,18 @@
         <MappingFragment StoreEntitySet="AirConditioningSystem">
           <ScalarProperty Name="AirConditioningSystemId" ColumnName="AirConditioningSystemId" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
-          <ScalarProperty Name="ReservedOne" ColumnName="ReservedOne" />
           <ScalarProperty Name="AirConditioningType" ColumnName="AirConditioningType" />
-          <ScalarProperty Name="column1" ColumnName="column1" />
-          <ScalarProperty Name="column2" ColumnName="column2" />
-          <ScalarProperty Name="column3" ColumnName="column3" />
-          <ScalarProperty Name="column4" ColumnName="column4" />
-          <ScalarProperty Name="column5" ColumnName="column5" />
           <ScalarProperty Name="Details" ColumnName="Details" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AirConditioningSystemDetails">
+      <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystemDetail">
+        <MappingFragment StoreEntitySet="AirConditioningSystemDetail">
+          <ScalarProperty Name="AirConditioningSystemDetailId" ColumnName="AirConditioningSystemDetailId" />
+          <ScalarProperty Name="AirConditioningSystemDetailSubject" ColumnName="AirConditioningSystemDetailSubject" />
+          <ScalarProperty Name="AirConditioningSystemDetail1" ColumnName="AirConditioningSystemDetail" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -125,6 +129,7 @@
           <ScalarProperty Name="EngineDescription" ColumnName="EngineDescription" />
           <ScalarProperty Name="CarsId" ColumnName="CarsId" />
           <ScalarProperty Name="EngineSize" ColumnName="EngineSize" />
+          <ScalarProperty Name="EngineFuel" ColumnName="EngineFuel" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -273,14 +278,21 @@
           <ScalarProperty Name="CarsReviewId" ColumnName="CarsReviewId" />
           <ScalarProperty Name="CarsId" ColumnName="CarsId" />
           <ScalarProperty Name="Review" ColumnName="Review" />
-          <ScalarProperty Name="column1" ColumnName="column1" />
-          <ScalarProperty Name="column2" ColumnName="column2" />
-          <ScalarProperty Name="column3" ColumnName="column3" />
           <ScalarProperty Name="CarScore" ColumnName="CarScore" />
           <ScalarProperty Name="Beauty" ColumnName="Beauty" />
           <ScalarProperty Name="WorthBuying" ColumnName="WorthBuying" />
           <ScalarProperty Name="Quality" ColumnName="Quality" />
           <ScalarProperty Name="Services" ColumnName="Services" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarsReviewPoints">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarsReviewPoint">
+        <MappingFragment StoreEntitySet="CarsReviewPoint">
+          <ScalarProperty Name="CarsReviewPointId" ColumnName="CarsReviewPointId" />
+          <ScalarProperty Name="CarsReviewSubject" ColumnName="CarsReviewSubject" />
+          <ScalarProperty Name="CarsReview" ColumnName="CarsReview" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -376,6 +388,7 @@
           <ScalarProperty Name="PersonLastName" ColumnName="PersonLastName" />
           <ScalarProperty Name="PersonPhone" ColumnName="PersonPhone" />
           <ScalarProperty Name="PersonMobile" ColumnName="PersonMobile" />
+          <ScalarProperty Name="PersonEmail" ColumnName="PersonEmail" />
           <ScalarProperty Name="PersonAddressCity" ColumnName="PersonAddressCity" />
           <ScalarProperty Name="PersonAddress" ColumnName="PersonAddress" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -497,6 +510,7 @@
           <ScalarProperty Name="Upass" ColumnName="Upass" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
           <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

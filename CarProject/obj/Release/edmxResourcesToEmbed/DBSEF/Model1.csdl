@@ -6,15 +6,19 @@
     </Key>
     <Property Name="AirConditioningSystemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CarId" Type="Int32" />
-    <Property Name="ReservedOne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="AirConditioningType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="column1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="column2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="column3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="column4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="column5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Car" Relationship="Self.FK_AirConditioningSystem_Cars" FromRole="AirConditioningSystem" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="AirConditioningSystemDetail">
+    <Key>
+      <PropertyRef Name="AirConditioningSystemDetailId" />
+    </Key>
+    <Property Name="AirConditioningSystemDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AirConditioningSystemDetailSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AirConditioningSystemDetail1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CarsId" Type="Int32" />
+    <NavigationProperty Name="Car" Relationship="Self.FK_AirConditioningSystemDetail_Cars" FromRole="AirConditioningSystemDetail" ToRole="Cars" />
   </EntityType>
   <EntityType Name="AutoService">
     <Key>
@@ -132,6 +136,7 @@
     <Property Name="EngineDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CarsId" Type="Int32" />
     <Property Name="EngineSize" Type="Int32" />
+    <Property Name="EngineFuel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Car" Relationship="Self.FK_CarEngine_Cars" FromRole="CarEngine" ToRole="Cars" />
   </EntityType>
   <EntityType Name="CarGearBox">
@@ -212,6 +217,7 @@
     <Property Name="CarCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CarUsage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AirConditioningSystems" Relationship="Self.FK_AirConditioningSystem_Cars" FromRole="Cars" ToRole="AirConditioningSystem" />
+    <NavigationProperty Name="AirConditioningSystemDetails" Relationship="Self.FK_AirConditioningSystemDetail_Cars" FromRole="Cars" ToRole="AirConditioningSystemDetail" />
     <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoService_Cars" FromRole="Cars" ToRole="AutoService" />
     <NavigationProperty Name="BrakeSystems" Relationship="Self.FK_BrakeSystem_Cars" FromRole="Cars" ToRole="BrakeSystem" />
     <NavigationProperty Name="CarAirbags" Relationship="Self.FK_CarAirbags_Cars" FromRole="Cars" ToRole="CarAirbags" />
@@ -228,6 +234,7 @@
     <NavigationProperty Name="CarsProes" Relationship="Self.FK_CarsPro_Cars" FromRole="Cars" ToRole="CarsPro" />
     <NavigationProperty Name="CarsQnAs" Relationship="Self.FK_CarsQnA_Cars" FromRole="Cars" ToRole="CarsQnA" />
     <NavigationProperty Name="CarsReviews" Relationship="Self.FK_CarsReview_Cars" FromRole="Cars" ToRole="CarsReview" />
+    <NavigationProperty Name="CarsReviewPoints" Relationship="Self.FK_CarsReviewPoint_Cars" FromRole="Cars" ToRole="CarsReviewPoint" />
     <NavigationProperty Name="CarWheels" Relationship="Self.FK_CarWheels_Cars" FromRole="Cars" ToRole="CarWheels" />
     <NavigationProperty Name="DetailedBrakeSystems" Relationship="Self.FK_DetailedBrakeSystem_Cars" FromRole="Cars" ToRole="DetailedBrakeSystem" />
     <NavigationProperty Name="FuelConsumptions" Relationship="Self.FK_FuelConsumption_Cars" FromRole="Cars" ToRole="FuelConsumption" />
@@ -305,15 +312,22 @@
     <Property Name="CarsReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CarsId" Type="Int32" />
     <Property Name="Review" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="column1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="column2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="column3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CarScore" Type="Double" />
     <Property Name="Beauty" Type="Double" />
     <Property Name="WorthBuying" Type="Double" />
     <Property Name="Quality" Type="Double" />
     <Property Name="Services" Type="Double" />
     <NavigationProperty Name="Car" Relationship="Self.FK_CarsReview_Cars" FromRole="CarsReview" ToRole="Cars" />
+  </EntityType>
+  <EntityType Name="CarsReviewPoint">
+    <Key>
+      <PropertyRef Name="CarsReviewPointId" />
+    </Key>
+    <Property Name="CarsReviewPointId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarsReviewSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CarsReview" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CarsId" Type="Int32" />
+    <NavigationProperty Name="Car" Relationship="Self.FK_CarsReviewPoint_Cars" FromRole="CarsReviewPoint" ToRole="Cars" />
   </EntityType>
   <EntityType Name="CarWheel">
     <Key>
@@ -410,6 +424,7 @@
     <Property Name="PersonLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PersonPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PersonMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PersonEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PersonAddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PersonAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="UserId" Type="Int32" />
@@ -542,6 +557,7 @@
     <Property Name="Upass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CarId" Type="Int32" />
     <Property Name="UserRoleId" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="Baskets" Relationship="Self.FK_Basket_User" FromRole="User" ToRole="Basket" />
     <NavigationProperty Name="Car" Relationship="Self.FK_User_Cars" FromRole="User" ToRole="Cars" />
     <NavigationProperty Name="People" Relationship="Self.FK_Person_User" FromRole="User" ToRole="Person" />
@@ -565,6 +581,18 @@
       </Principal>
       <Dependent Role="AirConditioningSystem">
         <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AirConditioningSystemDetail_Cars">
+    <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
+    <End Role="AirConditioningSystemDetail" Type="Self.AirConditioningSystemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="AirConditioningSystemDetail">
+        <PropertyRef Name="CarsId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -856,6 +884,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CarsReviewPoint_Cars">
+    <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
+    <End Role="CarsReviewPoint" Type="Self.CarsReviewPoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="CarsReviewPoint">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CarWheels_Cars">
     <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
     <End Role="CarWheels" Type="Self.CarWheel" Multiplicity="*" />
@@ -1086,6 +1126,7 @@
   </Association>
   <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
+    <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
     <EntitySet Name="AutoServicePacks" EntityType="Self.AutoServicePack" />
     <EntitySet Name="AutoServices1" EntityType="Self.AutoService1" />
@@ -1105,6 +1146,7 @@
     <EntitySet Name="CarsProes" EntityType="Self.CarsPro" />
     <EntitySet Name="CarsQnAs" EntityType="Self.CarsQnA" />
     <EntitySet Name="CarsReviews" EntityType="Self.CarsReview" />
+    <EntitySet Name="CarsReviewPoints" EntityType="Self.CarsReviewPoint" />
     <EntitySet Name="CarWheels" EntityType="Self.CarWheel" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Companies" EntityType="Self.Company" />
@@ -1127,6 +1169,10 @@
     <AssociationSet Name="FK_AirConditioningSystem_Cars" Association="Self.FK_AirConditioningSystem_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="AirConditioningSystem" EntitySet="AirConditioningSystems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AirConditioningSystemDetail_Cars" Association="Self.FK_AirConditioningSystemDetail_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="AirConditioningSystemDetail" EntitySet="AirConditioningSystemDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_AutoService_Cars" Association="Self.FK_AutoService_Cars">
       <End Role="Cars" EntitySet="Cars" />
@@ -1223,6 +1269,10 @@
     <AssociationSet Name="FK_CarsReview_Cars" Association="Self.FK_CarsReview_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarsReview" EntitySet="CarsReviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarsReviewPoint_Cars" Association="Self.FK_CarsReviewPoint_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarsReviewPoint" EntitySet="CarsReviewPoints" />
     </AssociationSet>
     <AssociationSet Name="FK_CarWheels_Cars" Association="Self.FK_CarWheels_Cars">
       <End Role="Cars" EntitySet="Cars" />
