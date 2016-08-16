@@ -256,6 +256,61 @@ namespace CarProject.App_Code
             return input_Rating<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
         }
 
+
+        public static MvcHtmlString input_SearchBox<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass, string buttonOnclick)
+        {
+
+            if (!htmlHelper.ViewData.ModelState.IsValidField(htmlHelper.NameFor(expression).ToString()))
+                AddAttribute(htmlAttributes, "class", errorClass);
+
+            AddAttribute(htmlAttributes, "placeholder", displayName);
+
+            string res = "<section class=\"input\">";
+
+            res += "<section>";
+            res += htmlHelper.LabelFor(expression, displayName);
+            res += htmlHelper.HiddenFor(expression, htmlAttributes);
+            res += "</section>";
+
+            res += "<section class=\"label\">";
+            res += string.Format("<section id=\"{0}\" ></section>", input_SearchBox_ID(htmlHelper, expression));
+            res += string.Format("<a href=\"javascript: void()\" onclick=\"{0}\" class=\"gia-search inbutton button\"></a>", buttonOnclick);
+            res += "</section>";
+
+
+            res += htmlHelper.ValidationMessageFor(expression);
+
+            res += "</section>";
+            return new MvcHtmlString(res);
+        }
+        public static MvcHtmlString input_SearchBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, string errorClass, string buttonOnclick)
+        {
+            return input_SearchBox<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), errorClass, buttonOnclick);
+        }
+        public static MvcHtmlString input_SearchBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, string buttonOnclick)
+        {
+            return input_SearchBox<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), "error", buttonOnclick);
+        }
+        public static MvcHtmlString input_SearchBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<string, object> htmlAttributes, string buttonOnclick)
+        {
+            return input_SearchBox<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error", buttonOnclick);
+        }
+
+        public static MvcHtmlString input_SearchBox_ID<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres)
+        {
+            var x = htmlHelper.IdFor(expres).ToString();
+            x = "txt_" + x;
+
+            return new MvcHtmlString(x);
+        }
+
+        #endregion
+
+
+
+
+
+        #region Display
         public static MvcHtmlString Display_Rating<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass)
         {
 
@@ -293,7 +348,8 @@ namespace CarProject.App_Code
         {
             return Display_Rating<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
         }
+        #endregion
     }
 
-    #endregion
+
 }
