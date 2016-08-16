@@ -9,9 +9,11 @@ namespace CarProject.Areas.Admin.Controllers
 {
     public class TroubleshootingController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(int? parentID)
         {
-            return View();
+            var xc = new DBSEF.CarAutomationEntities();
+            var xtcol = xc.Troubleshootings.Where(t => t.FatherId == parentID).ToList();
+            return View(xtcol);
         }
 
         public ActionResult New(int? id)
@@ -32,7 +34,7 @@ namespace CarProject.Areas.Admin.Controllers
                 if (form.AllKeys.Contains("saveOnly"))
                 {
                     tobj.Save();
-                    return RedirectToAction("Index", "Dashboard");
+                    return RedirectToAction("Index", "Troubleshooting");
                 }
                 else if (form.AllKeys.Contains("saveAndContinue"))
                 {

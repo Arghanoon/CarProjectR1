@@ -1,6 +1,101 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@model List<CarProject.DBSEF.Troubleshooting>
+@{
+    ViewBag.Title = "سوالات عیب یابی";
+    var dbscontext = new CarProject.DBSEF.CarAutomationEntities();
 }
 
-<h2>Index</h2>
-<a href="javascript: void()" onclick="" class="gia-search inbutton button"></a>
+
+<nav id="Navigation">
+    @if (Model.Count > 0 && Model[0].FatherId != null && Model[0].FatherId > 0)
+    {
+        var xc = new CarProject.DBSEF.CarAutomationEntities();
+        int xi = Model[0].FatherId.GetValueOrDefault(-1);
+        var xt = xc.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == xi);
+        while (xt != null && xi > 0)
+        {
+            <a href="@Url.Action("Index",new {parentId = xt.TroubleshootingId})"> | @xt.TroubleshootingId</a>
+        
+            xi = xt.FatherId.GetValueOrDefault(-1);
+            xt = xc.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == xi);
+        }
+    }
+
+    <a href="@Url.Action("Index",new {parentId = ""})">لیست سوالها</a>
+    
+</nav>
+
+<div id="TroubleContianers">
+    @foreach (var item in Model)
+    {
+        <div class="items">
+            <section class="question">@item.TroubleshootingId - @item.Question</section>
+            <section class="answer">@item.Answer</section>
+
+            <div class="action">
+                @if(dbscontext.Troubleshootings.Count(t => t.FatherId == item.TroubleshootingId) > 0)
+                {
+                    <a href="@Url.Action("Index", "Troubleshooting", new { parentID = item.TroubleshootingId })" class="button blue" >نمایش سوالات مربوطه</a>
+                }
+                <a href="@Url.Action("New", "Troubleshooting", new { Id = item.TroubleshootingId })" class="button green" >اضافه کردن سوال به زیر مجموعه</a>
+                <a href="#" class="button red">حذف سوال و زیر مجموعه های مرتبط</a>
+                    
+            </div>
+        </div>
+    }
+</div>
+
+
+@section style
+{
+    <style>
+        #Navigation {
+            border-bottom:thin solid #888;
+            margin-bottom:10px;
+            padding:5px;
+
+            display:flex;
+            flex-direction:row-reverse;
+            justify-content:flex-end;
+            flex-wrap:wrap;
+        }
+
+        #TroubleContianers {
+            
+        }
+        .items {
+            margin:5px;
+            border:thin solid #666;
+            min-height:150px;
+            min-width:250px;
+            overflow:hidden;
+        }
+            .items:hover {
+                box-shadow:0 0 3px 0 #888;
+            }
+        .question {
+            font-weight: bold;
+            background:#EEE;
+            padding:1px 5px;
+            
+            border-bottom:thin solid #AAA;
+        }
+        .answer {
+            padding: 1px 5px;
+        }
+
+        .action {
+            position:absolute;
+            left:0; right:0; bottom:-100%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-wrap:wrap;
+            background:rgba(0,0,0,0.6);
+
+            transition:linear 0.3s;
+        }
+        .items:hover .action {
+            bottom:0;
+        }
+    </style>
+}

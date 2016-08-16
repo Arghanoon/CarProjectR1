@@ -12,14 +12,14 @@
     @Html.HiddenFor(m => m.Troubleshooting.FatherId)
     <div class="inputsContainer">
         @Html.input_TextBox(m => m.Troubleshooting.Question, "سوال")
-        @Html.input_TextBox(m => m.Troubleshooting.Answer, "جواب")
+        @Html.input_TextArea(m => m.Troubleshooting.Answer, "جواب")
 
         @Html.input_SearchBox(m => m.Troubleshooting.ProductId, "قطعه معیوب" , "messagebox()")
 
         @Html.input_TextBox(m => m.Troubleshooting.ServicePrice, "قیمت سرویس و تعمیر")
     </div>
     <div id="formActionSection">
-        <a href="@Url.Action("Index","Dashboard")" class="button red">برگشت</a>
+        <a href="@Url.Action("Index","Troubleshooting")" class="button red">برگشت</a>
         <input type="submit" class="button green" name="saveOnly" value="ثبت اطلاعات و اتمام" />
         <input type="submit" class="button green" name="saveAndContinue" value="ثبت اطلاعات و اضافه کردن سوال به سوال جاری" />
     </div>
