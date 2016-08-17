@@ -667,6 +667,7 @@
     </Content>
     <Content Include="Areas\Admin\Views\troubleshooting\New.cshtml" />
     <Content Include="Areas\Admin\Views\troubleshooting\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\troubleshooting\Update.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
   </ItemGroup>
   <PropertyGroup>
