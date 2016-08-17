@@ -32,16 +32,19 @@ namespace CarProject.Areas.Admin.Controllers
         {
             if (ViewData.ModelState.IsValid)
             {
+                tobj.Save();
+                    
                 if (form.AllKeys.Contains("saveOnly"))
                 {
-                    tobj.Save();
-                    return RedirectToAction("Index", "Troubleshooting");
+                   return RedirectToAction("Index", "Troubleshooting");
                 }
-                else if (form.AllKeys.Contains("saveAndContinue"))
+                else if (form.AllKeys.Contains("saveAndContinueThisAsRoot"))
                 {
-                    tobj.Save();
-
                     return RedirectToAction("New", "Troubleshooting", new { id = tobj.Troubleshooting.TroubleshootingId });
+                }
+                else if (form.AllKeys.Contains("saveAndContinueToThisRoot"))
+                {
+                    return RedirectToAction("New", "Troubleshooting", new { id = tobj.Troubleshooting.FatherId });
                 }
             }
 
