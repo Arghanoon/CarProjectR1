@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace CarProject.Areas.Admin.Controllers
 {
+    [CarProject.Areas.Admin.CLS.AuthFilter]
     public class TroubleshootingController : Controller
     {
         public ActionResult Index(int? parentID)
