@@ -320,6 +320,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\input1.css" />
+    <Content Include="Areas\Admin\Files\StyleAndScripts\Default\tinymce01.css" />
     <Content Include="Publics\Files\Images\back.jpg" />
     <Content Include="Publics\Files\Images\logo.png" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
