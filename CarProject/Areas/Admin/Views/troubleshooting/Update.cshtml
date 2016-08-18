@@ -22,3 +22,49 @@
     </div>
 </form>
 
+
+
+
+
+
+@section script
+{
+    <script>
+        tinymce.init({
+            selector: '#@Html.IdFor(m => m.Troubleshooting.Answer)',
+            content_css: '@System.Web.VirtualPathUtility.ToAbsolute("~/Publics/Styles/fonts/Fonts.css"),@System.Web.VirtualPathUtility.ToAbsolute("~/Areas/Admin/Files/StyleAndScripts/Default/tinymce01.css")',
+            directionality: 'rtl',
+            menubar: false,
+            plugins: "directionality,link",
+            toolbar: "rtl ltr | bold italic underline | bullist numlist | undo redo | link unlink"
+        });
+
+        function messagebox() {
+            vx = document.getElementById("@Html.input_SearchBox_ID(m => m.Troubleshooting.ProductId)");
+            vx.innerHTML = "این قسمت هنوز تکمیل نشده است";
+        }
+    </script>
+}
+
+@section style
+{
+    <style>
+        #formActionSection {
+            border-top:thin solid #888;
+            text-align:left;
+        }
+
+        #ShowFathers {
+
+            margin-top:10px;
+            padding-top:10px;
+            border-top:thin solid #888;
+        }
+
+        .FatherItem {
+            border:thin solid #BBB;
+            margin:2px;
+            padding:3px;
+        }
+    </style>
+}
