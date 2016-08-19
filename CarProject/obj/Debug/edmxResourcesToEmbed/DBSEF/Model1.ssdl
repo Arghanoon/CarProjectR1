@@ -308,7 +308,7 @@
     <Key>
       <PropertyRef Name="CountryId" />
     </Key>
-    <Property Name="CountryId" Type="int" Nullable="false" />
+    <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CountryShortName" Type="nvarchar" MaxLength="50" />
     <Property Name="CountryLongName" Type="nvarchar(max)" />
   </EntityType>

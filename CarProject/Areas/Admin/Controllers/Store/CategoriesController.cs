@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace CarProject.Areas.Admin.Controllers.Store
 {
+    [Admin.CLS.AuthFilter]
     public class CategoriesController : Controller
     {
         //
@@ -150,6 +151,5 @@ namespace CarProject.Areas.Admin.Controllers.Store
 
             return new MvcHtmlString(res);
         }
-
     }
 }

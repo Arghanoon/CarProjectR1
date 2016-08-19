@@ -1,0 +1,187 @@
+﻿@using dbs = CarProject.DBSEF
+@using CarProject.App_Code
+@using CarProject.Areas.Admin.Controllers.Store;
+
+@model CarProject.Areas.Admin.Models.Store.Products
+
+@{
+    ViewBag.Title = "ثبت محصول";
+    var context = new dbs.CarAutomationEntities();
+    var categoriesTools = new CategoriesTools();
+}
+
+<form method="post">
+    <div class="inputsContainer">
+
+        @Html.input_TextBox(m => m.Product.ProductName, "نام محصول")
+
+        <div class="input">
+            <section>
+                <label for="@Html.IdFor(m => m.Product.CategoryId)show">دسته مربوطه</label>
+                @Html.HiddenFor(m => m.Product.CategoryId)
+            </section>
+            <section class="displayinline">
+                <input id="@Html.IdFor(m => m.Product.CategoryId)show" name="@Html.IdFor(m => m.Product.CategoryId)show" readonly="readonly" placeholder="دسته بندی محصولات"/>
+
+                <a href="javascript: void()" class="srchbtn gia-search" data-togglebox="categoryBox"></a>
+
+                <div id="categoryBox" class="ListBoxItems">
+                    <div class="treeview">
+                        @categoriesTools.CreateTreeView(null, context)
+                    </div>
+                </div>
+            </section>
+        </div>
+
+         <div class="input">
+            <section>
+                <label for="@Html.IdFor(m => m.Product.CategoryId)show">خودرو مربوطه</label>
+                @Html.HiddenFor(m => m.Product.CarId)
+            </section>
+            <section class="displayinline">
+                <input id="@Html.IdFor(m => m.Product.CarId)show" name="@Html.IdFor(m => m.Product.CarId)show" readonly="readonly" placeholder="خودرو مربوطه"/>
+
+                <a href="javascript: void()" class="srchbtn gia-search" data-togglebox="CarsBoxItems"></a>
+
+                <div id="CarsBoxItems" class="ListBoxItems">
+                    <section style="display:flex; justify-content:center; align-items:center; border-bottom:thin solid #888;">
+                        <input type="text" name="carSearchText"  id="carSearchText" onchange="SearchForCars()"/>
+                        <input type="button" value="جستجو" class="button" onclick="SearchForCars()" />
+                    </section>
+                    <div id="CarsItemsList">
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        @Html.input_TextBox(m => m.Product.ProductHeight, "ارتفاع")
+        @Html.input_TextBox(m => m.Product.ProductWidth, "عرض")
+
+        <div class="input">
+            <label for="@Html.IdFor(m => m.Product.ManufactureId)">شرکت تولید کننده</label>
+            <select id="@Html.IdFor(m => m.Product.ManufactureId)" name="@Html.NameFor(m => m.Product.ManufactureId)">
+                <option value="">--انتخاب کنید--</option>
+                @foreach (var item in context.Manufactures)
+                {
+                    <option value="@item.ManufactureId">@item.ManufactureName</option>
+                }
+            </select>
+        </div>
+
+        <div class="input">
+            <label for="@Html.IdFor(m => m.Product.CountryId)">کشور تولید کننده</label>
+            <select id="@Html.IdFor(m => m.Product.CountryId)" name="@Html.NameFor(m => m.Product.CountryId)">
+                <option value="">--انتخاب کنید--</option>
+                @foreach (var item in context.Countries)
+                {
+                    <option value="@item.CountryId">@item.CountryLongName - @item.CountryShortName</option>
+                }
+            </select>
+        </div>
+
+        @Html.input_TextBox(m => m.Product.ProductWeight, "وزن")
+        @Html.input_TextBox(m => m.Product.ProductLength, "طول")
+
+        @Html.input_TextBox(m => m.Product.PartNumber, "شماره محصول")
+        @Html.input_TextBox(m => m.Product.MetaTags, "تگ")
+        @Html.input_Rating( m => m.Product.ProductRating, "نمره محصول")
+        @Html.input_TextArea(m => m.Product.ProductSecription, "توضیحات محصول")
+
+        
+    </div>
+
+
+    <div style="text-align:left; margin-top:10px; border-top:thin solid #888;">
+        <input type="submit" value="ثبت محصول" class="button green" />
+    </div>
+</form>
+
+
+
+
+@section style
+{
+    <style>
+        .srchbtn {
+            position:absolute;
+            left:0;
+            top:0;
+            bottom:0;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .ListBoxItems {
+            background:white;
+            box-shadow:0 2px 3px 0 #888;
+            position:absolute;
+            top:100%;
+            left:0; right:0;
+            margin-top:-5px;
+            border:thin solid #888;
+            border-radius:0 0 5px 5px;
+            z-index:999;
+            padding:10px;
+        }
+
+        #CarsItemsList  a{
+            display:block;
+            padding: 0 10px;
+        }
+    </style>
+}
+
+@section script
+{
+    <script>
+        $(".ListBoxItems").hide();
+
+        $("[data-togglebox]").click(function (e) {
+            var x = $("#" + $(this).attr("data-togglebox"));
+            
+            if ($(x).is(":visible")) {
+                $(x).hide();
+
+                $(this).removeClass('gia-inactive');
+                $(this).addClass('gia-search');
+            }
+            else {
+                $(x).show();
+
+                $(this).removeClass('gia-search');
+                $(this).addClass('gia-inactive');
+            }
+        });
+
+
+        function SearchForCars() {
+            ssch = document.getElementById("carSearchText").value;
+            
+            $.ajax({
+                url: "@Url.Action("CarSearch","Products")", method: "POST", data: { search: ssch },
+                success: function (res)
+                {
+                    vp = document.getElementById("CarsItemsList");
+                    vp.innerHTML = "";
+
+                    for (var i = 0; i < res.length; i++) {
+                        li = document.createElement("a");
+                        li.href = "javascript: void()";
+                        li.innerHTML = res[i].brand + res[i].model;
+                        li.setAttribute("id", res[i].id);
+                        li.onclick = function (e) {
+                            document.getElementById("@Html.IdFor(m => m.Product.CarId)").value = e.target.getAttribute("id");
+                            document.getElementById("@Html.IdFor(m => m.Product.CarId)show").value = e.target.innerHTML;
+                        };
+
+                        vp.appendChild(li);
+                    }
+                }
+            });
+        }
+
+    </script>
+}

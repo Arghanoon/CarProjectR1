@@ -1,0 +1,106 @@
+﻿@using CarProject.App_Code
+@model CarProject.DBSEF.Manufacture
+
+@{
+    ViewBag.Title = "تولیدکنندگان";
+    var dc = new CarProject.DBSEF.CarAutomationEntities();
+}
+
+<div id="chaneSection">
+    <form method="post">
+        <div class="inputsContainer">
+            @Html.HiddenFor(m => m.ManufactureId)
+            @Html.input_TextBox(m => m.ManufactureName, "نام تولید کننده(شرکت)")
+            @Html.input_TextArea(m => m.Address, "آدرس")
+            @Html.input_TextBox(m => m.ManufacturePhon , "شماره تلفن(ها)")
+            
+            <div class="input">
+                <label for="@Html.IdFor(m => m.CountryId)"></label>
+                <select id="@Html.IdFor(m => m.CountryId)" name="@Html.NameFor(m  => m.CountryId)">
+                    <option value="">--انتخاب کنید--</option>
+                    @foreach (var item in dc.Countries)
+                    {
+                        <option value="@item.CountryId">@item.CountryLongName - @item.CountryShortName</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div style="margin-top:5px; text-align:left;">
+            <input type="reset" value="انصراف"  class="button red" onclick="resetform()"/>
+            <button type="submit" name="NewManufacutre" class="button green"  id="btnSave">
+                <section class="gia-add">ثبت شرکت</section>
+            </button>
+            <button type="submit" name="EditManufacutre" class="button blue"  id="btnUpdate">
+                <section class="gia-edit">ویرایش شرکت</section>
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<div id="showSection">
+    <table class="grid1">
+        <thead>
+            <tr>
+                <th>شناسه</th>
+                <th>نام</th>
+                <th>آدرس</th>
+                <th>شماره تفلن(ها)</th>
+                <th>کشور</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in dc.Manufactures)
+            {
+                <tr>
+                    <td>@item.ManufactureId</td>
+                    <td>@item.ManufactureName</td>
+                    <td>@item.Address</td>
+                    <td>@item.ManufacturePhon</td>
+                    
+                    <td>@if(item.Country != null){@item.Country.CountryLongName}</td>
+
+                    <td>
+                        <a href="javascript: void()" onclick="Update('@item.ManufactureId','@item.ManufactureName','@item.Address','@item.ManufacturePhon','@item.CountryId')" class="gia-edit"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section style
+{
+    <style>
+        #showSection {
+            border-top:thin solid #aaa;
+            margin-top:10px;
+        }
+    </style>
+}
+
+@section script
+{
+    <script>
+        function resetform() {
+            $("#btnSave").show();
+            $("#btnUpdate").hide();
+        }
+        function Update(id,name,address,phone,conid) {
+            document.getElementById("@Html.IdFor(m => m.ManufactureId)").value = id;
+            document.getElementById("@Html.IdFor(m => m.ManufactureName)").value = name;
+            document.getElementById("@Html.IdFor(m => m.Address)").value = address;
+            document.getElementById("@Html.IdFor(m => m.ManufacturePhon)").value = phone;
+            document.getElementById("@Html.IdFor(m => m.CountryId)").value = conid;
+
+            $("#btnSave").hide();
+            $("#btnUpdate").show();
+        }
+
+        resetform();
+    </script>
+}
