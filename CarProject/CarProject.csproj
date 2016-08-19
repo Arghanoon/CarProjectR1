@@ -153,10 +153,12 @@
     <Compile Include="Areas\Admin\Controllers\CarsController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Store\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\TroubleshootingController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\Cars\NewCar.cs" />
     <Compile Include="Areas\Admin\Models\Cars\Troubleshooting.cs" />
+    <Compile Include="Areas\Admin\Models\Store\Categories.cs" />
     <Compile Include="Areas\Admin\Models\User\UserInfo.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DBSEF\AirConditioningSystem.cs">
@@ -234,6 +236,9 @@
     <Compile Include="DBSEF\Company.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\Country.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\DetailedBrakeSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -244,6 +249,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\GlassAndMirror.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\Manufacture.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\Model1.Context.cs">
@@ -274,6 +282,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\ProductPrice.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\ProductQnA.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\ProductReview.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\ProductStore.cs">
@@ -649,6 +663,9 @@
     <Content Include="Areas\Admin\Views\User\UpdateUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\troubleshooting\New.cshtml" />
+    <Content Include="Areas\Admin\Views\troubleshooting\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\troubleshooting\Update.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -666,9 +683,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\troubleshooting\New.cshtml" />
-    <Content Include="Areas\Admin\Views\troubleshooting\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\troubleshooting\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\New.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
   </ItemGroup>
   <PropertyGroup>

@@ -35,14 +35,27 @@ namespace CarProject.DBSEF
         public Nullable<int> CompanyId { get; set; }
         public Nullable<double> ProductWeight { get; set; }
         public Nullable<double> ProductLength { get; set; }
+        public Nullable<int> ProductTypeId { get; set; }
+        public Nullable<int> CountryId { get; set; }
+        public Nullable<int> ManufactureId { get; set; }
+        public string ProductSecription { get; set; }
+        public Nullable<int> PartNumber { get; set; }
+        public string MetaTags { get; set; }
+        public Nullable<double> ProductRating { get; set; }
+        public Nullable<int> ProductReviewId { get; set; }
+        public Nullable<int> ProductQnAId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Basket> Baskets { get; set; }
         public virtual Car Car { get; set; }
         public virtual Category Category { get; set; }
         public virtual Company Company { get; set; }
+        public virtual Country Country { get; set; }
+        public virtual Manufacture Manufacture { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonProduct> PersonProducts { get; set; }
+        public virtual ProductQnA ProductQnA { get; set; }
+        public virtual ProductReview ProductReview { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductDiscount> ProductDiscounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

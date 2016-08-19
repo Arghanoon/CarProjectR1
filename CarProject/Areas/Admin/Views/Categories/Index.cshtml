@@ -1,0 +1,63 @@
+﻿@using CarProject.DBSEF
+@using CarProject.Areas.Admin.Controllers.Store
+
+
+@{
+    ViewBag.Title = "دسته بندی محصولات";
+    var dc = new CarAutomationEntities();
+    var xt = new CategoriesTools();
+}
+
+
+
+
+<form id="selectionItem" method="post">
+    <div class="inputsContainer">
+        <input type="hidden" name="SelectedID" id="SelectedID" />
+        <div class="input">
+            <label for="SelectedName">نام دسته بندی انتخاب شده</label>
+            <input type="text" name="SelectedName" id="SelectedName" readonly="readonly" placeholder="نام دسته بندی" />
+        </div>
+        <div class="input">
+            <label for="SelectedDescription">توضیحات دسته بندی انتخاب شده</label>
+            <textarea name="SelectedDescription" id="SelectedDescription" readonly="readonly" placeholder="توضیحات"></textarea>
+        </div>
+    </div>
+
+    <div style="display:flex; justify-content:center; align-items:center;">
+        <button type="submit" name="InsertNode" class="button green"><section class="gia-add">اضافه کردن گره فرزند</section></button>
+        <button type="submit" name="updateItem" class="button blue"><section class="gia-edit">ویرایش</section></button>
+        <button type="button" name="Delete" class="button red"><section class="gia-remove">حذف</section></button>
+
+        <button type="button" onclick="$('#selectionItem').hide()" class="button"><section class="gia-inactive" >بستن</section></button>
+    </div>
+</form>
+
+<div class="treeview">
+    @xt.CreateTreeView(null, dc, "CatItemClick(this)")
+</div>
+
+
+@section style
+{
+    <style>
+        .treeview {
+            border-top:thin solid;
+            margin-top:10px;
+        }
+    </style>
+}
+
+@section script
+{
+    <script>
+        function CatItemClick(el) {
+            document.getElementById("SelectedID").value = el.getAttribute("data-id");
+            document.getElementById("SelectedName").value = el.getAttribute("data-name");
+            document.getElementById("SelectedDescription").value = el.getAttribute("data-description");
+            $("#selectionItem").show();
+        }
+
+        $("#selectionItem").hide();
+    </script>
+}

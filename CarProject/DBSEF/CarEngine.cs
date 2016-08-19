@@ -22,7 +22,7 @@ namespace CarProject.DBSEF
         public Nullable<int> EnginePowerHpTon { get; set; }
         public Nullable<int> EnginePowerHpLitr { get; set; }
         public Nullable<int> EngineMaxSpeed { get; set; }
-        public Nullable<int> EngineZeroToH { get; set; }
+        public Nullable<double> EngineZeroToH { get; set; }
         public string EngineDescription { get; set; }
         public Nullable<int> CarsId { get; set; }
         public Nullable<int> EngineSize { get; set; }

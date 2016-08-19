@@ -12,23 +12,17 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class ProductReview
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public ProductReview()
         {
-            this.Category1 = new HashSet<Category>();
             this.Products = new HashSet<Product>();
         }
     
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
-        public Nullable<int> ParentCategoryId { get; set; }
-        public string Description { get; set; }
+        public int ProductReviewId { get; set; }
+        public string ProductReview1 { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Category> Category1 { get; set; }
-        public virtual Category Category2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }

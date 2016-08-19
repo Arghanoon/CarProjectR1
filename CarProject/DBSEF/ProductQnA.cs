@@ -12,24 +12,26 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class ProductQnA
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public ProductQnA()
         {
-            this.Category1 = new HashSet<Category>();
             this.Products = new HashSet<Product>();
+            this.ProductQnA1 = new HashSet<ProductQnA>();
         }
     
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
-        public Nullable<int> ParentCategoryId { get; set; }
-        public string Description { get; set; }
+        public int ProductQnAId { get; set; }
+        public string ProductQuestion { get; set; }
+        public Nullable<bool> HasAnswer { get; set; }
+        public Nullable<bool> HasFather { get; set; }
+        public Nullable<int> FatherId { get; set; }
+        public string Answer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Category> Category1 { get; set; }
-        public virtual Category Category2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductQnA> ProductQnA1 { get; set; }
+        public virtual ProductQnA ProductQnA2 { get; set; }
     }
 }

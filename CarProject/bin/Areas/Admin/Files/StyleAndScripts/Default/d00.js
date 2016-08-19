@@ -139,3 +139,14 @@ function floatNumber(e)
 }
 
 /*---------------------------------------Input Rating Section---------------------*/
+
+
+
+/*---------------------------------TreeView----------------------------------------------*/
+$(".treeview a").addClass("gia-left");
+$(".treeview a").click(function (e) {
+    if ($(this).hasClass('active'))
+        $(this).removeClass('active');
+    else
+        $(this).addClass('active');
+});

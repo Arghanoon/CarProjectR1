@@ -12,23 +12,21 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class Country
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public Country()
         {
-            this.Category1 = new HashSet<Category>();
+            this.Manufactures = new HashSet<Manufacture>();
             this.Products = new HashSet<Product>();
         }
     
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
-        public Nullable<int> ParentCategoryId { get; set; }
-        public string Description { get; set; }
+        public int CountryId { get; set; }
+        public string CountryShortName { get; set; }
+        public string CountryLongName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Category> Category1 { get; set; }
-        public virtual Category Category2 { get; set; }
+        public virtual ICollection<Manufacture> Manufactures { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }

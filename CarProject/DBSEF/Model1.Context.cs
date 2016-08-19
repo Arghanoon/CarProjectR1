@@ -50,15 +50,19 @@ namespace CarProject.DBSEF
         public virtual DbSet<CarWheel> CarWheels { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<DetailedBrakeSystem> DetailedBrakeSystems { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }
         public virtual DbSet<FuelConsumption> FuelConsumptions { get; set; }
         public virtual DbSet<GlassAndMirror> GlassAndMirrors { get; set; }
+        public virtual DbSet<Manufacture> Manufactures { get; set; }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<PersonProduct> PersonProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductDiscount> ProductDiscounts { get; set; }
         public virtual DbSet<ProductPrice> ProductPrices { get; set; }
+        public virtual DbSet<ProductQnA> ProductQnAs { get; set; }
+        public virtual DbSet<ProductReview> ProductReviews { get; set; }
         public virtual DbSet<ProductStore> ProductStores { get; set; }
         public virtual DbSet<SecuritySystem> SecuritySystems { get; set; }
         public virtual DbSet<SteeringSystem> SteeringSystems { get; set; }
