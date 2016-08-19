@@ -16,7 +16,7 @@ namespace CarProject.Areas.Admin.Models.Store
 
         public db.Product Product { get; set; }
         public db.ProductPrice ProductPrice { get; set; }
-        public db.ProductQnA ProductQnA { get; set; }
+        public db.ProductReview ProductReview { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
