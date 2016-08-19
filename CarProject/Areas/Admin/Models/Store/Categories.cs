@@ -18,12 +18,20 @@ namespace CarProject.Areas.Admin.Models.Store
             this.CateGory = new db.Category();
         }
 
+        public Categories(int? id)
+        {
+            this.CateGory = dbc.Categories.FirstOrDefault(c => c.CategoryId == id);
+        }
+
         public void Save()
         {
             dbc.Categories.Add(this.CateGory);
             dbc.SaveChanges();
         }
-        
+        public void Update()
+        {
+            dbc.SaveChanges();
+        }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

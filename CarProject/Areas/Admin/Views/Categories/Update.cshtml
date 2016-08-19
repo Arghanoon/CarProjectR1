@@ -5,7 +5,7 @@
 
 
 @{
-    ViewBag.Title = "ثبت دسته بندی محصولات";
+    ViewBag.Title = "ویرایش دسته بندی محصولات";
     var dc = new db.CarAutomationEntities();
 }
 
@@ -37,10 +37,7 @@
 
 
     <div style="border-top:thin solid #aaa; margin-top:10px;">
-        <input type="submit" class="button green" name="saveAndFinish" value="ثبت و اتمام" />
-        <input type="submit" class="button green" name="saveAndAddAgainToThisfather" value="ثبت و اضافه کردن مورد دیگر به گره پدر" />
-        <input type="submit" class="button green" name="saveAndAddAgainThisWillBefather" value="ثبت و اضافه کردن فرزند به گره ثبت شده" />
-
+        <input type="submit" class="button green" value="ویرایش" />
         <a href="@Url.Action("Index")" class="button red" >انصراف</a>
     </div>
 </form>
