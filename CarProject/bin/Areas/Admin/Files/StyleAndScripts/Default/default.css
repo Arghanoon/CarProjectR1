@@ -309,3 +309,8 @@ a {
 		color:inherit;
 		list-style-type:none;
 	}
+
+    .treeview section 
+	{
+		display:inline-block;
+	}

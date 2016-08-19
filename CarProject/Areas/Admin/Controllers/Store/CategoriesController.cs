@@ -15,6 +15,16 @@ namespace CarProject.Areas.Admin.Controllers.Store
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Index(FormCollection form)
+        {
+            if (form.AllKeys.Contains("InsertNode"))
+            {
+                return RedirectToAction("New", new { id = form["SelectedID"] });
+            }
+            return View();
+        }
+
         public ActionResult New(int? id)
         {
             Models.Store.Categories model = new Models.Store.Categories();
@@ -62,14 +72,16 @@ namespace CarProject.Areas.Admin.Controllers.Store
             {
                 res += "<li>";
 
+                res += string.Format("<section  onClick=\"{0}\" data-id=\"{1}\" data-name=\"{2}\" data-description=\"{3}\"  class=\"gia-information information\"></section>", JSfunnection, item.CategoryId, item.CategoryName, item.Description);
+                
                 if (dc.Categories.Count(c => c.ParentCategoryId == item.CategoryId) > 0)
                 {
-                    res += string.Format("<a href=\"javascript: void();\"  onClick=\"{0}\" data-id=\"{1}\" data-name=\"{2}\" data-description=\"{3}\"  >{4}</a>", JSfunnection, item.CategoryId, item.CategoryName, item.Description, item.CategoryName);
+                    res += string.Format("<a href=\"javascript: void();\" >{0}</a>", item.CategoryName);
                     res += CreateTreeView(item.CategoryId, dc, JSfunnection).ToString();
                 }
                 else
                 {
-                    res += string.Format("<section  onClick=\"{0}\" data-id=\"{1}\" data-name=\"{2}\" data-description=\"{3}\"  >{4}</section>", JSfunnection, item.CategoryId, item.CategoryName, item.Description, item.CategoryName);
+                    res += string.Format("<section>{0}</section>", item.CategoryName);
                 }
 
                 res += "</li>";
