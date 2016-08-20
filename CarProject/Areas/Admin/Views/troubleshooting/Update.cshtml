@@ -30,14 +30,14 @@
 @section script
 {
     <script>
-        tinymce.init({
+       @* tinymce.init({
             selector: '#@Html.IdFor(m => m.Troubleshooting.Answer)',
             content_css: '@System.Web.VirtualPathUtility.ToAbsolute("~/Publics/Styles/fonts/Fonts.css"),@System.Web.VirtualPathUtility.ToAbsolute("~/Areas/Admin/Files/StyleAndScripts/Default/tinymce01.css")',
             directionality: 'rtl',
             menubar: false,
             plugins: "directionality,link",
             toolbar: "rtl ltr | bold italic underline | bullist numlist | undo redo | link unlink"
-        });
+        });*@
 
         function messagebox() {
             vx = document.getElementById("@Html.input_SearchBox_ID(m => m.Troubleshooting.ProductId)");

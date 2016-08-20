@@ -30,16 +30,18 @@ namespace CarProject.Areas.Admin.Controllers.Store
         {
             if (ViewData.ModelState.IsValid)
             {
-
+                model.Save();
+                return RedirectToAction("Index");
             }
             return View(model);
         }
-
+        
         public ActionResult CarSearch(string search)
         {
             db.CarAutomationEntities con = new db.CarAutomationEntities();
             var x = con.Cars.Where(c => c.CarsId.ToString() == search || c.CarsBrandName.Contains(search) || c.CarsModel.Contains(search)).Select(c => new { id = c.CarsId, brand = c.CarsBrandName, model = c.CarsModel });
             return Json(x, JsonRequestBehavior.DenyGet);
         }
+
     }
 }

@@ -10,7 +10,7 @@
     var categoriesTools = new CategoriesTools();
 }
 
-<form method="post">
+<form method="post" novalidate="novalidate">
     <div class="inputsContainer">
 
         @Html.input_TextBox(m => m.Product.ProductName, "نام محصول")
@@ -64,7 +64,14 @@
                 <option value="">--انتخاب کنید--</option>
                 @foreach (var item in context.Manufactures)
                 {
-                    <option value="@item.ManufactureId">@item.ManufactureName</option>
+                    if (Model.Product.ManufactureId == item.ManufactureId)
+                    {
+                        <option value="@item.ManufactureId" aria-checked="true" selected="selected">@item.ManufactureName</option>
+                    }
+                    else
+                    {
+                        <option value="@item.ManufactureId">@item.ManufactureName</option>
+                    }
                 }
             </select>
         </div>
@@ -75,7 +82,14 @@
                 <option value="">--انتخاب کنید--</option>
                 @foreach (var item in context.Countries)
                 {
-                    <option value="@item.CountryId">@item.CountryLongName - @item.CountryShortName</option>
+                    if (Model.Product.CountryId == item.CountryId)
+                    {
+                        <option value="@item.CountryId" aria-checked="true" selected="selected">@item.CountryLongName - @item.CountryShortName</option>
+                    }
+                    else
+                    {
+                        <option value="@item.CountryId">@item.CountryLongName - @item.CountryShortName</option>
+                    }
                 }
             </select>
         </div>
@@ -85,14 +99,14 @@
 
         @Html.input_TextBox(m => m.Product.PartNumber, "شماره محصول")
         @Html.input_TextBox(m => m.Product.MetaTags, "تگ")
-        @Html.input_Rating( m => m.Product.ProductRating, "نمره محصول")
+        @Html.input_Rating(m => m.Product.ProductRating, "نمره محصول")
         @Html.input_TextArea(m => m.Product.ProductSecription, "توضیحات محصول")
 
         
         <hr />
 
         @Html.input_TextBox(m => m.ProductPrice.ProductPrice1, "قیمت محصول")
-        @Html.input_TextArea(m => m.ProductReview.ProductReview1, "بررسی محصول")
+        @Html.input_TextArea(m => m.ReviewText, "بررسی محصول")
     </div>
 
 
@@ -131,7 +145,7 @@
             padding:10px;
         }
 
-        #CarsItemsList  a{
+        #CarsItemsList a{
             display:block;
             padding: 0 10px;
         }
@@ -143,7 +157,7 @@
 {
     <script>
         tinymce.init({
-            selector: '#@Html.IdFor(m => m.ProductReview.ProductReview1)',
+            selector: '#@Html.IdFor(m => m.ReviewText)',
             content_css: '@System.Web.VirtualPathUtility.ToAbsolute("~/Publics/Styles/fonts/Fonts.css"),@System.Web.VirtualPathUtility.ToAbsolute("~/Areas/Admin/Files/StyleAndScripts/Default/tinymce01.css")',
             directionality: 'rtl',
             menubar: false,
@@ -157,6 +171,7 @@
         $("[data-togglebox]").click(function (e) {
             
             var x = $("#" + $(this).attr("data-togglebox"));
+            $(".ListBoxItems").not(x).hide();//hide other boxes
             
             if ($(x).is(":visible")) {
                 $(x).hide();
@@ -181,7 +196,7 @@
             ssch = document.getElementById("carSearchText").value;
             
             $.ajax({
-                url: "@Url.Action("CarSearch","Products")", method: "POST", data: { search: ssch },
+                url: "@Url.Action("CarSearch", "Products")", method: "POST", data: { search: ssch },
                 success: function (res)
                 {
                     vp = document.getElementById("CarsItemsList");

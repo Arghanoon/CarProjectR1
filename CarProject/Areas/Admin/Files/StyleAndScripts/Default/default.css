@@ -101,6 +101,13 @@ a {
 			{
 				text-shadow:0 0 2px #6C6C6C;
 			}
+        
+        #menu hr {
+            align-self:center;
+            width:70%;
+            border:none;
+            border-bottom:thin solid #999;
+        }
 	
 	#body
 	{

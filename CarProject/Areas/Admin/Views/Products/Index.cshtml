@@ -1,0 +1,120 @@
+﻿@using db = CarProject.DBSEF
+
+@{
+    ViewBag.Title = "مدیریت محصولات";
+    var dbcon = new db.CarAutomationEntities();
+
+    int page = 0;
+    if (Request.QueryString.AllKeys.Contains("page"))
+    {
+        int.TryParse(Request.QueryString["page"], out page);
+    }
+    int showInEachPage = 40;
+}
+
+
+
+<div id="prsContainers">
+    @foreach (var item in dbcon.Products.OrderBy(p => p.ProductId).Skip(page * showInEachPage).Take(showInEachPage))
+    {
+        <div class="productItem">
+            <div class="productAction">
+                <a href="javascript: void" class="gia-edit"></a>
+                <a href="javascript: void" class="gia-remove"></a>
+                <a href="javascript: void"></a>
+            </div>
+
+            <table>
+                <tr>
+                    <th>شناسه</th>
+                    <td>@item.ProductId</td>
+                </tr>
+                 <tr>
+                    <th>نام</th>
+                    <td>@item.ProductName</td>
+                </tr>
+                 <tr>
+                    <th>دسته</th>
+                    <td>@if(item.Category != null){@item.Category.CategoryName}</td>
+                </tr>
+                 <tr>
+                    <th>شماره محصول</th>
+                    <td>@item.PartNumber</td>
+                </tr>
+                 <tr>
+                    <th>شرکت سازنده</th>
+                    <td>@if(item.Manufacture != null){  @item.Manufacture.ManufactureName}</td>
+                </tr>
+                 <tr>
+                    <th>کشور سازنده</th>
+                    <td>@if(item.Country != null){ @item.Country.CountryLongName }</td>
+                </tr>
+                 <tr>
+                    <th>تگ</th>
+                    <td>@item.MetaTags</td>
+                </tr>
+            </table>
+            
+        </div>
+    }
+</div>
+
+
+
+@section style
+{
+    <style>
+        .productItem {
+            padding:5px;
+            margin:5px;
+            display:inline-block;
+            border:thin solid #BBB;
+            border-radius:5px;
+
+            min-width:240px;
+            overflow:hidden;
+        }
+            .productItem table {
+                width:100%;
+            }
+            .productItem:hover {
+                box-shadow:0 0 3px 0 #888;
+            }
+
+
+        .productItem th {
+            text-align:right;
+            padding: 1px 3px;
+            background:#DEDEDE;
+            white-space:nowrap;
+        }
+            .productItem th, 
+            .productItem td {
+                border:thin solid #DEDEDE;
+            }
+
+            .productItem td {
+                width: 100%;
+            }
+
+        @@media (max-width:500px) {
+            .productItem {
+                display:block;
+            }
+        }
+
+        .productAction {
+            margin:-5px;
+            margin-bottom:10px;
+            padding:1px 10px;
+            background:#666;
+
+        }
+            .productAction a {
+                color:white;
+            }
+            .productAction a:hover {
+                text-shadow: 0 0 0 #FFF, 1px 1px 1px #000;
+            }
+    </style>
+}
