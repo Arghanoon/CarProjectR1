@@ -5,9 +5,31 @@
 @model CarProject.Areas.Admin.Models.Store.Products
 
 @{
-    ViewBag.Title = "ثبت محصول";
+    ViewBag.Title = "ویرایش محصول";
     var context = new dbs.CarAutomationEntities();
     var categoriesTools = new CategoriesTools();
+
+
+    string categorystring = Request.Form[Html.IdFor(m => m.Product.CategoryId) + "show"];
+    string CarNamestring = Request.Form[Html.IdFor(m => m.Product.CarId) + "show"];
+    
+    if(Model.Product.CategoryId != null && Model.Product.CategoryId > 0 && string.IsNullOrWhiteSpace(categorystring))
+    {
+        var x = context.Categories.FirstOrDefault(c => c.CategoryId == Model.Product.CategoryId);
+        if(x !=null)
+        {
+            categorystring = x.CategoryName;
+        }
+    }
+
+    if (Model.Product.CarId != null && Model.Product.CarId > 0 && string.IsNullOrWhiteSpace(CarNamestring)) 
+    {
+        var x = context.Cars.FirstOrDefault(c => c.CarsId == Model.Product.CarId);
+        if (x != null)
+        {
+            CarNamestring = x.CarsBrandName + " - " + x.CarsModel;
+        }
+    }
 }
 
 <form method="post" novalidate="novalidate">
@@ -21,7 +43,7 @@
                 @Html.HiddenFor(m => m.Product.CategoryId)
             </section>
             <section class="displayinline">
-                <input type="text" id="@Html.IdFor(m => m.Product.CategoryId)show" name="@Html.IdFor(m => m.Product.CategoryId)show" value="@Request.Form[Html.IdFor(m => m.Product.CategoryId) + "show"]" readonly="readonly" placeholder="دسته بندی محصولات"/>
+                <input type="text" id="@Html.IdFor(m => m.Product.CategoryId)show" name="@Html.IdFor(m => m.Product.CategoryId)show" value="@categorystring" readonly="readonly" placeholder="دسته بندی محصولات"/>
 
                 <a href="javascript: void()" class="srchbtn gia-search" data-togglebox="categoryBox"></a>
 
@@ -39,7 +61,7 @@
                 @Html.HiddenFor(m => m.Product.CarId)
             </section>
             <section class="displayinline">
-                <input type="text" id="@Html.IdFor(m => m.Product.CarId)show" name="@Html.IdFor(m => m.Product.CarId)show" value="@Request.Form[Html.IdFor(m => m.Product.CarId)+ "show"]" readonly="readonly" placeholder="خودرو مربوطه"/>
+                <input type="text" id="@Html.IdFor(m => m.Product.CarId)show" name="@Html.IdFor(m => m.Product.CarId)show" value="@CarNamestring" readonly="readonly" placeholder="خودرو مربوطه"/>
 
                 <a href="javascript: void()" class="srchbtn gia-search" data-togglebox="CarsBoxItems"></a>
 

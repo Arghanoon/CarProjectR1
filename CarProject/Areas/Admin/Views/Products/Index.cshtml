@@ -1,4 +1,5 @@
 ﻿@using db = CarProject.DBSEF
+@using CarProject.App_Code
 
 @{
     ViewBag.Title = "مدیریت محصولات";
@@ -19,7 +20,7 @@
     {
         <div class="productItem">
             <div class="productAction">
-                <a href="javascript: void" class="gia-edit"></a>
+                <a href="@Url.Action("Update", "Products", new { id = item.ProductId })" class="gia-edit"></a>
                 <a href="javascript: void" class="gia-remove"></a>
                 <a href="javascript: void"></a>
             </div>
@@ -49,9 +50,17 @@
                     <th>کشور سازنده</th>
                     <td>@if(item.Country != null){ @item.Country.CountryLongName }</td>
                 </tr>
+                <tr>
+                    <th>خودرو مربوطه</th>
+                    <td>@if (item.Car != null) { <section>@item.Car.CarsBrandName - @item.Car.CarsModel</section> }</td>
+                </tr>
                  <tr>
                     <th>تگ</th>
                     <td>@item.MetaTags</td>
+                </tr>
+                <tr>
+                    <th>قیمت محصول - تاریخ</th>
+                    <td>@if (item.ProductPrices.LastOrDefault() != null) { @item.ProductPrices.LastOrDefault().ProductPrice1} -@if (item.ProductPrices.LastOrDefault() != null && item.ProductPrices.LastOrDefault().Date.GetValueOrDefault() != DateTime.MinValue ) { @item.ProductPrices.LastOrDefault().Date.GetValueOrDefault().ToPersianDateString()  }</td>
                 </tr>
             </table>
             

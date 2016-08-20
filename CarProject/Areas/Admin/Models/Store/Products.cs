@@ -16,7 +16,7 @@ namespace CarProject.Areas.Admin.Models.Store
         public db.CarAutomationEntities Context { get { return _context; } }
 
         public db.Product Product { get; set; }
-        public db.ProductPrice ProductPrice { get; set; }
+        public int ProductPrice { get; set; }
 
         [AllowHtml]
         public string ReviewText { get; set; }
@@ -30,17 +30,29 @@ namespace CarProject.Areas.Admin.Models.Store
         public Products(int? id)
         {
             Product = Context.Products.FirstOrDefault(p => p.ProductId == id);
-            ProductPrice = Product.ProductPrices.LastOrDefault();
+            if (Product.ProductReview != null)
+                this.ReviewText = Product.ProductReview.ProductReview1;
+            ProductPrice = Product.ProductPrices.LastOrDefault().ProductPrice1.GetValueOrDefault();
         }
 
         public void Save()
         {
+            this.Product.ProductReview.ProductReview1 = ReviewText;
             Context.Products.Add(this.Product);
 
-            this.ProductPrice.Product = this.Product;
-            this.Product.ProductReview.ProductReview1 = ReviewText;
-            Context.ProductPrices.Add(ProductPrice);
+            Context.ProductPrices.Add(new db.ProductPrice { Product = this.Product, ProductPrice1 = this.ProductPrice, Date = DateTime.Now });
 
+            Context.SaveChanges();
+        }
+
+        public void Update()
+        {
+            this.Product.ProductReview.ProductReview1 = ReviewText;
+
+            var lp = Product.ProductPrices.LastOrDefault();
+            if (lp != null && lp.ProductPrice1 != ProductPrice)
+                Context.ProductPrices.Add(new db.ProductPrice { Product = this.Product, ProductPrice1 = this.ProductPrice, Date = DateTime.Now });
+            
             Context.SaveChanges();
         }
 

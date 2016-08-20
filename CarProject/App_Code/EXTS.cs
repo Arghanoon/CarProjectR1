@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Linq.Expressions;
+using System.Globalization;
 
 namespace CarProject.App_Code
 {
@@ -307,9 +308,6 @@ namespace CarProject.App_Code
         #endregion
 
 
-
-
-
         #region Display
         public static MvcHtmlString Display_Rating<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass)
         {
@@ -348,6 +346,16 @@ namespace CarProject.App_Code
         {
             return Display_Rating<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
         }
+        #endregion
+
+
+        #region DateAndTime
+        public static MvcHtmlString ToPersianDateString(this DateTime value)
+        {
+            PersianCalendar p = new PersianCalendar();
+            return new MvcHtmlString(string.Format("{0:0000}/{1:00}/{2:00}", p.GetYear(value), p.GetMonth(value), p.GetDayOfMonth(value)));
+        }
+
         #endregion
     }
 

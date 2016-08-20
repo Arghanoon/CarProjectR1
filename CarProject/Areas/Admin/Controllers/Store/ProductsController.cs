@@ -43,5 +43,25 @@ namespace CarProject.Areas.Admin.Controllers.Store
             return Json(x, JsonRequestBehavior.DenyGet);
         }
 
+        public ActionResult Update(int? id)
+        {
+            var xmodel = new Models.Store.Products(id);
+            Session["productUpdate"] = xmodel;
+            return View(xmodel);
+        }
+
+        [HttpPost]
+        public ActionResult Update(Models.Store.Products model)
+        {
+            if (ViewData.ModelState.IsValid)
+            {
+                var xmodel = Session["productUpdate"] as Models.Store.Products;
+                TryUpdateModel(xmodel);
+                xmodel.Update();
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
     }
 }
