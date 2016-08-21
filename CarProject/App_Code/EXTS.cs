@@ -352,8 +352,29 @@ namespace CarProject.App_Code
         #region DateAndTime
         public static MvcHtmlString ToPersianDateString(this DateTime value)
         {
-            PersianCalendar p = new PersianCalendar();
-            return new MvcHtmlString(string.Format("{0:0000}/{1:00}/{2:00}", p.GetYear(value), p.GetMonth(value), p.GetDayOfMonth(value)));
+            try
+            {
+                PersianCalendar p = new PersianCalendar();
+                return new MvcHtmlString(string.Format("{0:0000}/{1:00}/{2:00}", p.GetYear(value), p.GetMonth(value), p.GetDayOfMonth(value)));
+            }
+            catch
+            {
+                return new MvcHtmlString("");
+            }
+        }
+
+        public static MvcHtmlString ToPersianDateString_LongTime(this DateTime value)
+        {
+            try
+            {
+                PersianCalendar p = new PersianCalendar();
+                return new MvcHtmlString(string.Format("{0:0000}/{1:00}/{2:00} - {3:00}:{4:00}:{5:00}", p.GetYear(value), p.GetMonth(value), p.GetDayOfMonth(value),
+                    value.Hour, value.Minute, value.Second));
+            }
+            catch
+            {
+                return new MvcHtmlString("");
+            }
         }
 
         #endregion

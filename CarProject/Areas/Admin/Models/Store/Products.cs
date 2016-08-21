@@ -30,6 +30,9 @@ namespace CarProject.Areas.Admin.Models.Store
         public Products(int? id)
         {
             Product = Context.Products.FirstOrDefault(p => p.ProductId == id);
+            if (Product == null)
+                return;
+
             if (Product.ProductReview != null)
                 this.ReviewText = Product.ProductReview.ProductReview1;
             ProductPrice = Product.ProductPrices.LastOrDefault().ProductPrice1.GetValueOrDefault();
@@ -56,12 +59,29 @@ namespace CarProject.Areas.Admin.Models.Store
             Context.SaveChanges();
         }
 
+        public void Delete()
+        {
+            if (this.Product == null)
+                return;
+
+            Context.ProductPrices.RemoveRange(Context.ProductPrices.Where(pp => pp.ProductId == this.Product.ProductId));
+            Context.ProductReviews.Remove(this.Product.ProductReview);
+            Context.Products.Remove(this.Product);
+
+            Context.SaveChanges();
+        }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             List<ValidationResult> res = new List<ValidationResult>();
 
 
             return res;
+        }
+
+        public bool IsNull()
+        {
+            return (this.Product == null);
         }
     }
 }

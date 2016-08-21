@@ -21,8 +21,8 @@
         <div class="productItem">
             <div class="productAction">
                 <a href="@Url.Action("Update", "Products", new { id = item.ProductId })" class="gia-edit"></a>
-                <a href="javascript: void" class="gia-remove"></a>
-                <a href="javascript: void"></a>
+                <a href="javascript: void" onclick="DeleteProduct('@item.ProductId')" class="gia-remove"></a>
+                <a href="@Url.Action("ShowDetails", "Products", new { id = item.ProductId })" class="gia-active"></a>
             </div>
 
             <table>
@@ -66,6 +66,19 @@
             
         </div>
     }
+</div>
+
+
+<div id="deleteBack">
+    <div id="deleteMessage">
+        <section>آیا از حذف محصول انتخابی اطمینان دارید؟</section>
+        <form method="post" style="margin-top:5px; text-align:center;">
+            <input type="hidden" name="deleteId" id="DeleteProductId" />
+            
+            <input type="submit" value="حذف محصول" class="button red" />
+            <input type="button" value="انصراف" class="button blue"  onclick="closeDeleteMessage();"/>
+        </form>
+    </div>
 </div>
 
 
@@ -125,5 +138,43 @@
             .productAction a:hover {
                 text-shadow: 0 0 0 #FFF, 1px 1px 1px #000;
             }
+
+
+        #deleteBack {
+            position:fixed;
+            top:0; bottom:0; left:0; right:0;
+
+            z-index:999999;
+            background:rgba(0,0,0,.60);
+
+            display:none;
+            justify-content:center;
+            align-items:center;
+        }
+            #deleteBack.show {
+                display:flex;
+            }
+        #deleteMessage {
+            background:white;
+            border:thin solid #888;
+            padding:10px;
+            border-radius:5px;
+        }
     </style>
+}
+
+
+@section script
+{
+    <script>
+        function DeleteProduct(id) {
+            document.getElementById("DeleteProductId").value = id;
+            if (!document.getElementById("deleteBack").classList.contains("show"))
+                document.getElementById("deleteBack").classList.add("show");
+        }
+        function closeDeleteMessage() {
+            if (document.getElementById("deleteBack").classList.contains("show"))
+                document.getElementById("deleteBack").classList.remove("show");
+        }
+    </script>
 }

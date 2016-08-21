@@ -8,14 +8,36 @@ using db = CarProject.DBSEF;
 
 namespace CarProject.Areas.Admin.Controllers.Store
 {
+    [CLS.AuthFilter]
     public class ProductsController : Controller
     {
         //
         // GET: /Admin/Products/
 
-        public ActionResult Index()
+        public ActionResult Index(FormCollection form)
         {
+            if (form.AllKeys.Contains("deleteId"))
+            {
+                int i = 0;
+                int.TryParse(form["deleteId"], out i);
+
+                if (i > 0)
+                {
+                    var dx = new Models.Store.Products(i);
+                    dx.Delete();
+                }
+            }
             return View();
+        }
+
+        public ActionResult ShowDetails(int? id)
+        {
+            var x = new Models.Store.Products(id);
+            if (!x.IsNull())
+            {
+                return View(x);
+            }
+            return RedirectToAction("Index");
         }
 
 

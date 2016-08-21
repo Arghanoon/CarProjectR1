@@ -38,6 +38,7 @@
 .gia-edit:before{content:'\0037';}
 .gia-users:before{content:'\0038';}
 .gia-inactive:before{content:'\0039';}
+.gia-back:before{content:'\0040';}
 .gia-active:before{content:'\003A';}
 .gia-checkEngine:before{content:'\003B';}
 .gia-search:before{content:'\003C';}
