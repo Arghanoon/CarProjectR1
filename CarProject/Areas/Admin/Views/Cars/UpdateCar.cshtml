@@ -383,7 +383,7 @@
         <div class="wizardPage" id="w19">
 
             <div class="inputsContainer">
-                @Html.input_TextArea(m => m.CarsReview.Review, "متن بررسی")
+                @Html.input_TextArea(m => m.CarsReviewString, "متن بررسی")
                 @Html.input_Rating(m => m.CarsReview.CarScore, "امتیاز خودرو")
                 @Html.input_Rating(m => m.CarsReview.Beauty, "زیبایی")
                 @Html.input_Rating(m => m.CarsReview.WorthBuying, "ارزش خرید")
@@ -464,7 +464,14 @@
     <script>
         wizardAssignPostContainer(document.getElementById("wizardpagecontainer"));
 
-       
+        tinymce.init({
+            selector: '#@Html.IdFor(m => m.CarsReviewString)',
+           content_css: '@System.Web.VirtualPathUtility.ToAbsolute("~/Publics/Styles/fonts/Fonts.css"),@System.Web.VirtualPathUtility.ToAbsolute("~/Areas/Admin/Files/StyleAndScripts/Default/tinymce01.css")',
+           directionality: 'rtl',
+           menubar: false,
+           plugins: "directionality,link",
+           toolbar: "rtl ltr | bold italic underline | bullist numlist | undo redo | link unlink"
+       });
 
         function addAnewItem() {
             si = document.createElement("section");

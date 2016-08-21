@@ -28,6 +28,15 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View();
         }
+
+        public ActionResult ShowDetails(int? id)
+        {
+            NewCar c = new NewCar(id);
+            if(c.IsNull())
+                return RedirectToAction("Index");
+            else
+                return View(c);
+        }
         
         public ActionResult NewCar()
         {

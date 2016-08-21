@@ -54,6 +54,7 @@
                 <div class="actinSection">
                     <a href="@Url.Action("UpdateCar","Cars")/@item.CarsId" class="button blue gia-edit">ویرایش</a>
                     <a href="#" class="button red gia-remove" onclick="deletebuttonclick('@item.CarsId')" >حذف</a>
+                    <a href="@Url.Action("ShowDetails","Cars")/@item.CarsId" class="button purple gia-active" >نمایش</a>
                 </div>
             </div>
         }

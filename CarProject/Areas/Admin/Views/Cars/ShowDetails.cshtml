@@ -1,0 +1,58 @@
+﻿@model CarProject.Areas.Admin.Models.Cars.NewCar
+@{
+    ViewBag.Title = "نمایش اطلاعات خودرو ثبت شده";
+}
+
+
+<h2>اطلاعات عمومی خودرو</h2>
+
+<table class="infoTable">
+    <tr>
+        <th>شناسه خودرو</th>
+        <td>@Model.CarGeneral.CarsBrandName</td>
+    </tr>
+    <tr>
+        <th>برند</th>
+        <td>@Model.CarGeneral.CarsBrandName</td>
+    </tr>
+    <tr>
+        <th>کلاس</th>
+        <td>@Model.CarGeneral.CarsClass</td>
+    </tr>
+    <tr>
+        <th>مدل</th>
+        <td>@Model.CarGeneral.CarsModel</td>
+    </tr>
+    <tr>
+        <th>امتیاز کاربران</th>
+        <td>@Model.CarGeneral.CarsUserScore</td>
+    </tr>
+    <tr>
+        <th>امتیاز کلینیک</th>
+        <td>@Model.CarGeneral.CarsClinicScore</td>
+    </tr>
+    <tr>
+        <th>قیمت</th>
+        <td>@Model.CarGeneral.Price</td>
+    </tr>
+    <tr>
+        <th>آدرس ویدئو</th>
+        <td><a href="@Model.CarGeneral.CarsVideoURL">@Model.CarGeneral.CarsVideoURL</a></td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarGeneral.CarsDescription</td>
+    </tr>
+    <tr>
+        <th>کلاس کاری</th>
+        <td>@Model.CarGeneral.CarClassType</td>
+    </tr>
+    <tr>
+        <th>دسته بندی</th>
+        <td>@Model.CarGeneral.CarCategory</td>
+    </tr>
+    <tr>
+        <th>کاربر</th>
+        <td>@Model.CarGeneral.CarUsage</td>
+    </tr>
+</table>

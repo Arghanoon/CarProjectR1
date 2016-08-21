@@ -5,6 +5,7 @@ using System.Web;
 
 using CarProject.DBSEF;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace CarProject.Areas.Admin.Models.Cars
 {
@@ -48,6 +49,12 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarWheel CarWheel { get; set; }
         public CarsPro CarsPro { get; set; }
         public CarsReview CarsReview { get; set; }
+        [AllowHtml]
+        public string CarsReviewString
+        {
+            get { return CarsReview.Review; }
+            set { CarsReview.Review = value; }
+        }
         public List<CarsReviewPoint> CarsReviewPoint { get; set; }
 
         
@@ -89,11 +96,14 @@ namespace CarProject.Areas.Admin.Models.Cars
             IsForUpdate = false;
         }
 
-        public NewCar(int carid)
+        public NewCar(int? carid)
         {
             IsForUpdate = true;
 
             this.CarGeneral = dbs.Cars.FirstOrDefault(c => c.CarsId == carid);
+            if (CarGeneral == null)
+                return;
+
             this.CarEngine = dbs.CarEngines.FirstOrDefault(c => c.CarsId == carid);
             CarGearBox = dbs.CarGearBoxes.FirstOrDefault(c => c.CarsId == carid);
             CarPhysicalDetail = dbs.CarPhysicalDetails.FirstOrDefault(c => c.CarId == carid);
@@ -292,6 +302,11 @@ namespace CarProject.Areas.Admin.Models.Cars
             dbs.SaveChanges();
         }
 
+
+        public bool IsNull()
+        {
+            return CarGeneral == null;
+        }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
