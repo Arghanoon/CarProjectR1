@@ -1,4 +1,5 @@
 ﻿@model CarProject.Areas.Admin.Models.Cars.NewCar
+@using CarProject.App_Code
 @{
     ViewBag.Title = "نمایش اطلاعات خودرو ثبت شده";
 }
@@ -56,3 +57,218 @@
         <td>@Model.CarGeneral.CarUsage</td>
     </tr>
 </table>
+
+<h2>موتور</h2>
+
+<table class="infoTable">
+    <tr>
+        <th>نوع موتور</th>
+        <td>@Model.CarEngine.EngineType</td>
+    </tr>
+    <tr>
+        <th>تعداد سیلندر</th>
+        <td>@Model.CarEngine.EngineCylinderNumber</td>
+    </tr>
+    <tr>
+        <th>قدرت موتور</th>
+        <td>@Model.CarEngine.EnginePowerHpRpm</td>
+    </tr>
+    <tr>
+        <th>گشتاور</th>
+        <td>@Model.CarEngine.EngineTorque</td>
+    </tr>
+    <tr>
+        <th>توان وزنی</th>
+        <td>@Model.CarEngine.EnginePowerHpTon</td>
+    </tr>
+    <tr>
+        <th>توان خروجی</th>
+        <td>@Model.CarEngine.EnginePowerHpLitr</td>
+    </tr>
+    <tr>
+        <th>0 تا 100</th>
+        <td>@Model.CarEngine.EngineZeroToH</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarEngine.EngineDescription</td>
+    </tr>
+</table>
+
+<h2>گیربکس</h2>
+<table class="infoTable">
+    <tr>
+        <th>کد گیربکس</th>
+        <td>@Model.CarGearBox.GearBoxCode</td>
+    </tr>
+    <tr>
+        <th>نوع</th>
+        <td>@Model.CarGearBox.GearBoxType</td>
+    </tr>
+    <tr>
+        <th>آیا میتواند به صورت دستی تنظیم شود؟</th>
+        <td>@Model.CarGearBox.GearBoxCanBeManual.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>تعداد دنده</th>
+        <td>@Model.CarGearBox.GearBoxShiftNumber</td>
+    </tr>
+    <tr>
+        <th>محور متحرک</th>
+        <td>@Model.CarGearBox.GearBoxAxel</td>
+    </tr>
+    <tr>
+        <th>آیا دارای کمک گیربکس است؟</th>
+        <td>@Model.CarGearBox.HasTransferCase.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای قفل دیفرانسیل است؟</th>
+        <td>@Model.CarGearBox.GearBoxDiffrentionalLock.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>4WD</th>
+        <td>@Model.CarGearBox.GearBoxWdType</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarGearBox.GearBoxDescription</td>
+    </tr>
+</table>
+
+<h2>مشخصات فیزیکی</h2>
+<table class="infoTable">
+    <tr>
+        <th>طول خودرو</th>
+        <td>@Model.CarPhysicalDetail.CarLength</td>
+    </tr>
+    <tr>
+        <th>عرض خودرو</th>
+        <td>@Model.CarPhysicalDetail.Carwidth</td>
+    </tr>
+    <tr>
+        <th>ارتفاع خودرو</th>
+        <td>@Model.CarPhysicalDetail.CarHeight</td>
+    </tr>
+    <tr>
+        <th>وزن خالص</th>
+        <td>@Model.CarPhysicalDetail.CarPureWeight</td>
+    </tr>
+    <tr>
+        <th>فاصله دو چرخ یک محور</th>
+        <td>@Model.CarPhysicalDetail.CarTrack</td>
+    </tr>
+    <tr>
+        <th>فاصله دو محور از یکدیگر</th>
+        <td>@Model.CarPhysicalDetail.CarWheelBase</td>
+    </tr>
+    <tr>
+        <th>حجم باک</th>
+        <td>@Model.CarPhysicalDetail.CarTankSize</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarPhysicalDetail.Details</td>
+    </tr>
+</table>
+
+<h2>سیستم سوخت رسانی</h2>
+
+<table class="infoTable">
+    <tr>
+        <th>مصرف در شهر</th>
+        <td>@Model.FuelConsumption.LphCity</td>
+    </tr>
+    <tr>
+        <th>مصرف در جاده</th>
+        <td>@Model.FuelConsumption.LphRoad</td>
+    </tr>
+    <tr>
+        <th>سیکل ترکیبی</th>
+        <td>@Model.FuelConsumption.LphMix</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.FuelConsumption.Details</td>
+    </tr>
+</table>
+
+<h2>سیستم ترمز</h2>
+<table class="infoTable">
+    <tr>
+        <th>سیستم ترمز جلو</th>
+        <td>@Model.BreakSystem.FrontBrakeSystem</td>
+    </tr>
+    <tr>
+        <th>سیستم ترمز عقب</th>
+        <td>@Model.BreakSystem.RearBrakeSystem</td>
+    </tr>
+    <tr>
+        <th>سیستم های دیگر</th>
+        <td>@Model.BreakSystem.OtherSystem</td>
+    </tr>
+    <tr>
+        <th>سیستم ترمز دستی</th>
+        <td>@Model.BreakSystem.HandBrakeSystem</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.BreakSystem.Details</td>
+    </tr>
+    <tr>
+        <th>جزئیات دیگر</th>
+        <td>
+            @foreach (var item in Model.DetailedBrakeSystem)
+            {
+                <section>@item.DetailedName</section>
+            }
+        </td>
+    </tr>
+</table>
+
+<h2>سیستم امنیتی</h2>
+<table class="infoTable">
+    <tr>
+        <th>آیا دارای ریموت کنترل است؟</th>
+        <td>@Model.SecuritySystem.RemoteControl.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای دزدگیر است؟</th>
+        <td>@Model.SecuritySystem.BurglarAlarm.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای آژیر است؟</th>
+        <td>@Model.SecuritySystem.Alarm.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای سیستم ضد سرقت است؟</th>
+        <td>@Model.SecuritySystem.Emo.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای سیستم استارت بدون کلید است?</th>
+        <td>@Model.SecuritySystem.KeylessStart.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای درهای بازشو بدون کلید است؟</th>
+        <td>@Model.SecuritySystem.KeylessDoor</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.SecuritySystem.Details</td>
+    </tr>
+</table>
+
+<h2>سیستم فرمان</h2>
+
+
+@section style
+{
+    <style>
+        td section {
+            display:block;
+            padding:5px;
+            margin:5px;
+
+            background:#eee;
+        }
+    </style>
+}

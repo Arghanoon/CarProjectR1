@@ -351,6 +351,7 @@ a {
         text-align:right;
         background:#aaa;
         white-space:nowrap;
+        vertical-align:text-top;
     }
 
     .infoTable th, .infoTable td {

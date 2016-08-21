@@ -378,6 +378,13 @@ namespace CarProject.App_Code
         }
 
         #endregion
+
+        #region Usefull Extension
+        public static string YesNoString(this bool? value)
+        {
+            return (value.GetValueOrDefault()) ? "بله" : "خیر";
+        }
+        #endregion
     }
 
 
