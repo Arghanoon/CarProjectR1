@@ -6,7 +6,6 @@
 
 
 <h2>اطلاعات عمومی خودرو</h2>
-
 <table class="infoTable">
     <tr>
         <th>شناسه خودرو</th>
@@ -59,7 +58,6 @@
 </table>
 
 <h2>موتور</h2>
-
 <table class="infoTable">
     <tr>
         <th>نوع موتور</th>
@@ -172,7 +170,6 @@
 </table>
 
 <h2>سیستم سوخت رسانی</h2>
-
 <table class="infoTable">
     <tr>
         <th>مصرف در شهر</th>
@@ -249,7 +246,7 @@
     </tr>
     <tr>
         <th>آیا دارای درهای بازشو بدون کلید است؟</th>
-        <td>@Model.SecuritySystem.KeylessDoor</td>
+        <td>@Model.SecuritySystem.KeylessDoor.YesNoString()</td>
     </tr>
     <tr>
         <th>توضیحات</th>
@@ -258,7 +255,404 @@
 </table>
 
 <h2>سیستم فرمان</h2>
+<table class="infoTable">
+    <tr>
+        <th>نوع</th>
+        <td>@Model.SteeringSystem.SteeringSystemType</td>
+    </tr>
+    <tr>
+        <th>مدل فرمان</th>
+        <td>@Model.SteeringSystem.SteeringType</td>
+    </tr>
+    <tr>
+        <th>امکان تنظیم ارتفاع دارد؟</th>
+        <td>@Model.SteeringSystem.SteeringHeightAdjustble.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای دکمه کنترلی روی فرمان است؟</th>
+        <td>@Model.SteeringSystem.SteeringControlKey.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.SteeringSystem.Details</td>
+    </tr>
+</table>
 
+<h2>سیستم تهویه هوا</h2>
+<table class="infoTable">
+    <tr>
+        <th>نوع سیستم تهویه هوا</th>
+        <td>@Model.AirConditioningSystem.AirConditioningType</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.AirConditioningSystem.Details</td>
+    </tr>
+</table>
+
+<h2>جزئیات سیستم تهویه هوا</h2>
+<table class="grid1">
+    <thead>
+        <tr>
+            <th>موضوع</th>
+            <th>جزئیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AirConditioningSystemDetails)
+        {
+            <tr>
+                <td style="font-weight:bold;">@item.AirConditioningSystemDetailSubject</td>
+                <td>@item.AirConditioningSystemDetail1</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>سیستم صوتی</h2>
+<table class="infoTable">
+    <tr>
+        <th>نوع</th>
+        <td>@Model.CarAudioSystem.AudioSystemType</td>
+    </tr>
+    <tr>
+        <th>برند</th>
+        <td>@Model.CarAudioSystem.AudioSystemBrand</td>
+    </tr>
+    <tr>
+        <th>آیا دارای مانیتور است؟</th>
+        <td>@Model.CarAudioSystem.HasMonitor.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای مانیتور برای سرنشین عقب است؟</th>
+        <td>@Model.CarAudioSystem.RearSeatsMonitor.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای دوربین دنده عقب است؟</th>
+        <td>@Model.CarAudioSystem.RearGearCamera.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای دوربین جلو است؟</th>
+        <td>@Model.CarAudioSystem.FrontCamera.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>مارک باندهای عقب</th>
+        <td>@Model.CarAudioSystem.RearStereo</td>
+    </tr>
+    <tr>
+        <th>مارک باندهای جلو</th>
+        <td>@Model.CarAudioSystem.FrontStereo</td>
+    </tr>
+    <tr>
+        <th>ساب ووفر</th>
+        <td>@Model.CarAudioSystem.Subwoofer</td>
+    </tr>
+    <tr>
+        <th>آمپلی فایر</th>
+        <td>@Model.CarAudioSystem.Amplifire</td>
+    </tr>
+    <tr>
+        <th>آیا دارای سیستم جهت یابی است؟</th>
+        <td>@Model.CarAudioSystem.HasGps.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarAudioSystem.Details</td>
+    </tr>
+</table>
+
+<h2>صندلی ها</h2>
+<table class="infoTable">
+    <tr>
+        <th>آیا امکان جابه جایی طولی دارد؟</th>
+        <td>@Model.CarSeatOption.LongitudinalDisplacement.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای تنظیم گودی کمر است؟</th>
+        <td>@Model.CarSeatOption.BezelSet.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>گرم کن صندلی دارد؟</th>
+        <td>@Model.CarSeatOption.SeatWarmer.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا مجهز به سیستم ماساژور است؟</th>
+        <td>@Model.CarSeatOption.SeatMassage.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>آیا دارای حافظه است؟</th>
+        <td>@Model.CarSeatOption.HasMemory.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarSeatOption.Details</td>
+    </tr>
+</table>
+
+<h2>شیشه و آینه ها</h2>
+<table class="infoTable">
+    <tr>
+        <th>سیستم شیشه های جلو</th>
+        <td>@Model.GlassAndMirror.FrontWindscreens</td>
+    </tr>
+    <tr>
+        <th>سیستم شیشه های عقب</th>
+        <td>@Model.GlassAndMirror.RearWindscreens</td>
+    </tr>
+    <tr>
+        <th>سان روف دارد؟</th>
+        <td>@Model.GlassAndMirror.SunRoof.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>سقف پاناروما دارد؟</th>
+        <td>@Model.GlassAndMirror.PanaromaRoof.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>گرمکن شیشه عقب دارد؟</th>
+        <td>@Model.GlassAndMirror.RearGlassWarmer.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>گرمکن شیشه های بقل دارد؟</th>
+        <td>@Model.GlassAndMirror.WindscreensWarmer.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>گرمکن شیشه جلو دارد؟</th>
+        <td>@Model.GlassAndMirror.FrontGlassWarmer.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>تنظیم آینه های بقل</th>
+        <td>@Model.GlassAndMirror.SideMirrorSet</td>
+    </tr>
+    <tr>
+        <th>جمع شدن آینه های بقل</th>
+        <td>@Model.GlassAndMirror.SideMirrorSystem</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.GlassAndMirror.Details</td>
+    </tr>
+</table>
+
+<h2>سیستم روشنایی</h2>
+<table class="infoTable">
+    <tr>
+        <th>چراغ های جلو</th>
+        <td>@Model.CarLightingSystem.FrontLights</td>
+    </tr>
+    <tr>
+        <th>چراغ های عقب</th>
+        <td>@Model.CarLightingSystem.RearLights</td>
+    </tr>
+    <tr>
+        <th>دارای دیلایت است؟</th>
+        <td>@Model.CarLightingSystem.DayLight.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>چراغ راهنمای روی آینه های بقل دارد؟</th>
+        <td>@Model.CarLightingSystem.SideMirrorLight.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>دارای مه شکن جلو است؟</th>
+        <td>@Model.CarLightingSystem.FonrAntiFog.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>دارای مه شکن عقب است؟</th>
+        <td>@Model.CarLightingSystem.RearAntiFog.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>چراغ مطالعه دارد؟</th>
+        <td>@Model.CarLightingSystem.ReadingLamp.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>چراغ ترمز سوم دارد؟</th>
+        <td>@Model.CarLightingSystem.ThirdLightStop.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarLightingSystem.Deailts</td>
+    </tr>
+</table>
+
+<h2>سیستم سنوسورهای خودرو</h2>
+<table class="infoTable">
+    <tr>
+        <th>سنسور روشنایی روز دارد؟</th>
+        <td>@Model.CarSensorsSystem.DayLightSensor.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>سنسور باران دارد؟</th>
+        <td>@Model.CarSensorsSystem.RainSensor.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>سنسور دنده عقب دارد؟</th>
+        <td>@Model.CarSensorsSystem.RearGearSensor.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>سنسور پارک خودرو دارد؟</th>
+        <td>@Model.CarSensorsSystem.ParkSensor.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>سنسور هدایت خودرو دارد؟</th>
+        <td>@Model.CarSensorsSystem.NavigateSensor.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>کروز کنترل دارد؟</th>
+        <td>@Model.CarSensorsSystem.CruiseControl.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>دوربین دنده عقب دارد؟</th>
+        <td>@Model.CarSensorsSystem.RearGearCamera.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarSensorsSystem.Details</td>
+    </tr>
+</table>
+
+<h2>سیستم کیسه هوا</h2>
+<table class="infoTable">
+    <tr>
+        <th>کسیه هوای راننده دارد؟</th>
+        <td>@Model.CarAirbag.DriverAirBag.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>کیسه هوای شاگرد دارد؟</th>
+        <td>@Model.CarAirbag.FrontAirBag.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>کیسه هوای عقب دارد؟</th>
+        <td>@Model.CarAirbag.AirBag.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>تعداد کیسه هوا</th>
+        <td>@Model.CarAirbag.AirBagEntity</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarAirbag.Details</td>
+    </tr>
+</table>
+
+<h2>رینگ و لاستیک</h2>
+<table class="infoTable">
+    <tr>
+        <th>نوع</th>
+        <td>@Model.CarWheel.TireType</td>
+    </tr>
+    <tr>
+        <th>سایز استاندارد رینگ</th>
+        <td>@Model.CarWheel.RingStandardSize</td>
+    </tr>
+    <tr>
+        <th>مشخصات تایر</th>
+        <td>@Model.CarWheel.TireSpec</td>
+    </tr>
+    <tr>
+        <th>نوع رینگ</th>
+        <td>@Model.CarWheel.RingType</td>
+    </tr>
+    <tr>
+        <th>مدل رینگ</th>
+        <td>@Model.CarWheel.RingType</td>
+    </tr>
+    <tr>
+        <th>قابلیت کم و زیاد کردن باد به صورت خودکار دارد؟</th>
+        <td>@Model.CarWheel.AutoInflated.YesNoString()</td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarWheel.Details</td>
+    </tr>
+</table>
+
+<h2>معایب و مزیای</h2>
+<table class="infoTable">
+    <tr>
+        <th>مزایا</th>
+        <td>
+            @foreach (var item in @Model.Advantages)
+            {
+                <section>@item</section>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>معایب</th>
+        <td>
+            @foreach (var item in @Model.Disadvantages)
+            {
+                <section>@item</section>
+            }
+        </td>
+    </tr>
+</table>
+
+<h2>بررسی</h2>
+<table class="infoTable">
+    <tr>
+        <th>امتیاز خودرو</th>
+        <td>@Model.CarsReview.CarScore</td>
+    </tr>
+    <tr>
+        <th>زیبایی</th>
+        <td>@Model.CarsReview.Beauty</td>
+    </tr>
+    <tr>
+        <th>ارزش خرید</th>
+        <td>@Model.CarsReview.WorthBuying</td>
+    </tr>
+    <tr>
+        <th>کیفیت</th>
+        <td>@Model.CarsReview.Quality</td>
+    </tr>
+    <tr>
+        <th>خدمات</th>
+        <td>@Model.CarsReview.Services</td>
+    </tr>
+    <tr>
+        <th>متن بررسی</th>
+        <td>
+            <p style="margin:5px;">
+                @Html.Raw(Model.CarsReviewString)
+            </p>
+        </td>
+    </tr>
+</table>
+
+<h2>جزئیات بررسی</h2>
+<table class="grid1">
+    <thead>
+        <tr>
+            <th>موضوع</th>
+            <th>جزئیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CarsReviewPoint)
+        {
+            <tr>
+                <td style="font-weight:bold">@item.CarsReviewSubject</td>
+                <td>@item.CarsReview</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+<div id="carsImage">
+    @{
+        var path = "~/Publics/CarImages/" + Model.CarGeneral.CarsId ;
+        var dic = new DirectoryInfo(Server.MapPath(path));
+        if(dic.Exists)
+        {
+            foreach (var item in dic.GetFiles())
+            {
+                <img src="@System.Web.VirtualPathUtility.ToAbsolute(path + "/" + item.Name)" />
+            }
+        }
+        
+    }
+</div>
 
 @section style
 {
@@ -270,5 +664,23 @@
 
             background:#eee;
         }
+        #carsImage {
+            text-align:center;
+        }
+            #carsImage img {
+                display:inline-block;
+                width:120px;
+                height:90px;
+                border:thin solid #999;
+                border-radius:5px;
+                margin:5px;
+                overflow:hidden;
+                box-shadow:0 0 1px 0 #999;
+
+                transition:ease-in-out 0.3s;
+            }
+            #carsImage img:hover {
+                box-shadow:0 2px 3px 0 #000;
+            }
     </style>
 }
