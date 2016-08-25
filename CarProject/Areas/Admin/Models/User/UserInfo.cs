@@ -44,6 +44,7 @@ namespace CarProject.Areas.Admin.Models.User
         }
         public void Update()
         {
+            Person.User.Upass = CLS.Usefulls.MD5Passwords(Password);
             context.SaveChanges();
         }
 
