@@ -1,0 +1,46 @@
+﻿@using CarProject.App_Code
+@using db = CarProject.DBSEF
+
+@model  CarProject.Areas.Admin.Models.Store.Categories
+
+
+@{
+    ViewBag.Title = "ثبت دسته بندی محصولات";
+    var dc = new db.CarAutomationEntities();
+}
+
+
+<form method="post" >
+    <div class="inputsContainer">
+        @Html.input_TextBox(m => m.CateGory.CategoryName, "نام دسته")
+        @Html.input_TextArea(m => m.CateGory.Description, "توضیحات")
+
+        <div class="input">
+            <section>
+                <label>گره پدر</label>
+                @Html.HiddenFor(m => m.CateGory.ParentCategoryId)
+            </section>
+            @if (Model.CateGory.ParentCategoryId == null || Model.CateGory.ParentCategoryId <= 0)
+            {
+                <section>----</section>
+            }
+            else
+            {
+                var x = dc.Categories.FirstOrDefault(c => c.CategoryId == Model.CateGory.ParentCategoryId);
+                if (x != null)
+                {
+                    <section>@x.CategoryName</section>
+                }
+            }
+        </div>
+    </div>
+
+
+    <div style="border-top:thin solid #aaa; margin-top:10px;">
+        <input type="submit" class="button green" name="saveAndFinish" value="ثبت و اتمام" />
+        <input type="submit" class="button green" name="saveAndAddAgainToThisfather" value="ثبت و اضافه کردن مورد دیگر به گره پدر" />
+        <input type="submit" class="button green" name="saveAndAddAgainThisWillBefather" value="ثبت و اضافه کردن فرزند به گره ثبت شده" />
+
+        <a href="@Url.Action("Index")" class="button red" >انصراف</a>
+    </div>
+</form>

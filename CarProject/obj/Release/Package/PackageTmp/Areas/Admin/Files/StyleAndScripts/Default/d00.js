@@ -139,3 +139,24 @@ function floatNumber(e)
 }
 
 /*---------------------------------------Input Rating Section---------------------*/
+
+
+
+/*---------------------------------TreeView----------------------------------------------*/
+$(".treeview a").addClass("gia-left");
+$(".treeview a").click(function (e) {
+    if ($(this).hasClass('active')) {
+        $(this).removeClass('active');
+
+        if ($(this).hasClass('gia-down')) 
+            $(this).removeClass('gia-down');
+        $(this).addClass("gia-left");
+    }
+    else {
+        $(this).addClass('active');
+
+        if ($(this).hasClass('gia-left'))
+            $(this).removeClass('gia-left');
+        $(this).addClass("gia-down");
+    }
+});
