@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace CarProject.Areas.Admin.Controllers.Store
 {
-    [Admin.CLS.AuthFilter]
+    [CarProject.CLS.AuthFilter]
     public class CategoriesController : Controller
     {
         //

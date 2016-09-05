@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CarProject.Areas.Admin.CLS
+namespace CarProject.CLS
 {
     public class AuthFilter : ActionFilterAttribute
     {
@@ -13,7 +13,7 @@ namespace CarProject.Areas.Admin.CLS
             filterContext.HttpContext.Session["rqpage"] = filterContext.HttpContext.Request.Url.ToString();
 
             if (filterContext.HttpContext.Session["useradmin"] == null)
-                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new Dictionary<string, object>() { { "area", "Admin" }, { "controller", "Login" }, { "action", "Index" } }));
+                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new Dictionary<string, object>() { { "area", "" }, { "controller", "Login" }, { "action", "Index" } }));
         }
     }
 }

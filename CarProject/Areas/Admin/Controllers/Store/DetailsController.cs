@@ -7,7 +7,7 @@ using db = CarProject.DBSEF;
 
 namespace CarProject.Areas.Admin.Controllers.Store
 {
-    [CLS.AuthFilter]
+    [CarProject.CLS.AuthFilter]
     public class DetailsController : Controller
     {
         //

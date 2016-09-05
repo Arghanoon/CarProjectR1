@@ -7,8 +7,9 @@ using System.Text;
 
 using dbs = CarProject.DBSEF;
 using System.ComponentModel.DataAnnotations;
+using CarProject.Areas.Admin.CLS;
 
-namespace CarProject.Areas.Admin.Models.User
+namespace CarProject.Models.User
 {
     public class UserInfo : IValidatableObject
     {
@@ -37,14 +38,14 @@ namespace CarProject.Areas.Admin.Models.User
 
         public void Save()
         {
-            Person.User.Upass = CLS.Usefulls.MD5Passwords(Password);
+            Person.User.Upass = Usefulls.MD5Passwords(Password);
             context.People.Add(Person);
 
             context.SaveChanges();
         }
         public void Update()
         {
-            Person.User.Upass = CLS.Usefulls.MD5Passwords(Password);
+            Person.User.Upass = Usefulls.MD5Passwords(Password);
             context.SaveChanges();
         }
 

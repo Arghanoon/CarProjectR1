@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CarProject.Areas.Admin.Models.User;
+using CarProject.Models.User;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.Areas.Admin.CLS.AuthFilter]
+    [CarProject.CLS.AuthFilter]
     public class UserController : Controller
     {
         public ActionResult Profile()

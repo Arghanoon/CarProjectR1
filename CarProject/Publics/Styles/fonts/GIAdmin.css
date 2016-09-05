@@ -52,6 +52,9 @@
 .gia-front:before{content:'\004A';}
 .gia-checkEngine2:before{content:'\004B';}
 .gia-usercar:before{content:'\004C';}
+.gia-directory:before{content:'\004D';}
+.gia-upload:before{content:'\004E';}
+.gia-newdir:before{content:'\004F';}
 
 
 

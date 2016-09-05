@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
+using CarProject.CLS;
+using CarProject.Areas.Admin.CLS;
 
-namespace CarProject.Areas.Admin.Controllers
+namespace CarProject.Controllers
 {
     public class LoginController : Controller
     {
@@ -28,7 +30,7 @@ namespace CarProject.Areas.Admin.Controllers
                     var dbs = new DBSEF.CarAutomationEntities();
 
 
-                    var pass = CLS.Usefulls.MD5Passwords(form["password"]);
+                    var pass =   Usefulls.MD5Passwords(form["password"]);
 
                     // var pshash = System.Text.Encoding.UTF8.GetString(md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(form["password"])));
 
@@ -42,7 +44,12 @@ namespace CarProject.Areas.Admin.Controllers
                         Session["useradmin"] = usr;
                         if (Session["rqpage"] != null)
                             return Redirect(Session["rqpage"].ToString());
-                        return RedirectToAction("Index", "Dashboard");
+
+
+                        if (usr.UserRoleId == 1)
+                            return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                        else
+                            return RedirectToAction("Index", "Dashboard", new { area = "Users" });
                     }
                     else
                         ViewBag.error = "نام کاربری و یا کلمه عبور صحیح نیست";
