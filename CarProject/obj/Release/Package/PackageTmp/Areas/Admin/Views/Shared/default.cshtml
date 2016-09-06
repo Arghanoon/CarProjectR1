@@ -1,4 +1,8 @@
-﻿<!doctype html>
+﻿@{
+    Layout = null;
+}
+
+<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -49,26 +53,26 @@
         <div id="menu">
         	
             <nav>
-                <strong style="border-bottom:thin solid #BBB; width:100%;" class="gia-car1">مدیریت خودرو</strong>
+                <strong class="gia-car1 title">مدیریت خودرو</strong>
             	@Html.ActionLink("ثبت خودرو", "NewCar", "Cars", new { area = "Admin" }, new { CLASS = "gia-add" })
                 @Html.ActionLink("مدیریت خودروهای ثبت شده", "Cars", "Cars", new { area = "Admin" }, new { CLASS = "gia-list" })
             </nav>
             
             
             <nav>
-                <strong style="border-bottom:thin solid #BBB; width:100%;" class="gia-users">مدیریت کاربران</strong>
+                <strong class="gia-users title">مدیریت کاربران</strong>
             	<a href="@Url.Action("NewUser","User")" class="gia-user">ثبت کاربر جدید</a>
                 <a href="@Url.Action("Users","User")" class="gia-list">کاربران</a>
             </nav>
             
             <nav>
-                <strong style="border-bottom:thin solid #BBB; width:100%;" class="gia-checkEngine">مدیریت قسمت عیب یابی</strong>
+                <strong class="gia-checkEngine title">مدیریت قسمت عیب یابی</strong>
             	<a href="@Url.Action("New", "Troubleshooting", new { area = "admin" , id = "" })">اضافه کردن سوال عیب یابی</a>
                 <a href="@Url.Action("Index", "Troubleshooting", new { area = "admin" , id = "" })" >لیست سوالات عیب یابی</a>
             </nav>
             
             <nav>
-                <strong style="border-bottom:thin solid #BBB; width:100%;" class="gia-sparePart">مدیریت محصولات فروشگاه</strong>
+                <strong class="gia-sparePart title">مدیریت محصولات فروشگاه</strong>
             	<a href="@Url.Action("New", "Categories", new { area = "admin" , id = "" })">اضافه کردن دسته بندی</a>
                 <a href="@Url.Action("Index", "Categories", new { area = "admin" , id = "" })" >مدیریت دسته بندی محصولات</a>
                 <hr />

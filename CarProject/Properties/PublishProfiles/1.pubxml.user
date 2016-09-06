@@ -33,10 +33,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/19/2016 15:24:33</publishTime>
     </File>
     <File Include="Areas/Admin/Files/StyleAndScripts/Default/default.css">
-      <publishTime>08/21/2016 21:16:13</publishTime>
+      <publishTime>09/05/2016 21:24:27</publishTime>
     </File>
     <File Include="Areas/Admin/Files/StyleAndScripts/Default/input1.css">
-      <publishTime>08/16/2016 15:50:21</publishTime>
+      <publishTime>09/06/2016 06:27:52</publishTime>
     </File>
     <File Include="Areas/Admin/Files/StyleAndScripts/Default/tinymce01.css">
       <publishTime>08/18/2016 10:56:44</publishTime>
@@ -71,6 +71,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/Admin/Views/Details/Manufactures.cshtml">
       <publishTime>08/19/2016 18:41:21</publishTime>
     </File>
+    <File Include="Areas/Admin/Views/FileManager/Index.cshtml">
+      <publishTime>09/03/2016 18:37:57</publishTime>
+    </File>
     <File Include="Areas/Admin/Views/Login/Index.cshtml">
       <publishTime>08/30/2016 22:22:36</publishTime>
     </File>
@@ -90,7 +93,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/20/2016 21:33:36</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/default.cshtml">
-      <publishTime>08/30/2016 22:22:24</publishTime>
+      <publishTime>09/05/2016 21:22:12</publishTime>
     </File>
     <File Include="Areas/Admin/Views/troubleshooting/Index.cshtml">
       <publishTime>08/17/2016 11:45:48</publishTime>
@@ -102,7 +105,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/20/2016 11:19:21</publishTime>
     </File>
     <File Include="Areas/Admin/Views/User/NewUser.cshtml">
-      <publishTime>08/14/2016 21:25:43</publishTime>
+      <publishTime>09/06/2016 06:20:23</publishTime>
     </File>
     <File Include="Areas/Admin/Views/User/Profile.cshtml">
       <publishTime>08/13/2016 10:08:40</publishTime>
@@ -119,6 +122,24 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/Admin/Views/_ViewStart.cshtml">
       <publishTime>08/13/2016 10:08:40</publishTime>
     </File>
+    <File Include="Areas/Users/Views/Dashboard/Index.cshtml">
+      <publishTime>09/05/2016 21:15:33</publishTime>
+    </File>
+    <File Include="Areas/Users/Views/Personality/Index.cshtml">
+      <publishTime>09/05/2016 21:18:39</publishTime>
+    </File>
+    <File Include="Areas/Users/Views/Personality/PersonalInformation.cshtml">
+      <publishTime>09/06/2016 07:04:43</publishTime>
+    </File>
+    <File Include="Areas/Users/Views/Shared/publicTemplate.cshtml">
+      <publishTime>09/05/2016 22:32:13</publishTime>
+    </File>
+    <File Include="Areas/Users/Views/Web.config">
+      <publishTime>09/05/2016 17:34:02</publishTime>
+    </File>
+    <File Include="Areas/Users/Views/_ViewStart.cshtml">
+      <publishTime>09/05/2016 17:50:28</publishTime>
+    </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>08/13/2016 10:08:42</publishTime>
     </File>
@@ -126,10 +147,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/19/2016 15:24:33</publishTime>
     </File>
     <File Include="bin/Areas/Admin/Files/StyleAndScripts/Default/default.css">
-      <publishTime>08/21/2016 21:16:13</publishTime>
+      <publishTime>09/05/2016 21:24:27</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>08/25/2016 15:08:41</publishTime>
+      <publishTime>09/06/2016 07:19:39</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/13/2016 10:08:42</publishTime>
@@ -876,34 +897,40 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/13/2016 10:08:41</publishTime>
     </File>
     <File Include="Publics/Styles/fonts/fnt1.ttf">
-      <publishTime>08/13/2016 10:08:41</publishTime>
+      <publishTime>11/22/2011 01:41:50</publishTime>
     </File>
     <File Include="Publics/Styles/fonts/fnt2.ttf">
-      <publishTime>08/13/2016 10:08:41</publishTime>
+      <publishTime>12/31/2000 06:08:24</publishTime>
     </File>
     <File Include="Publics/Styles/fonts/fnt3.ttf">
-      <publishTime>08/13/2016 10:08:41</publishTime>
+      <publishTime>12/31/2000 06:11:14</publishTime>
     </File>
     <File Include="Publics/Styles/fonts/Fonts.css">
-      <publishTime>08/13/2016 11:52:40</publishTime>
+      <publishTime>09/01/2016 21:10:26</publishTime>
     </File>
     <File Include="Publics/Styles/fonts/GIAdmin.css">
-      <publishTime>08/21/2016 13:04:12</publishTime>
+      <publishTime>09/03/2016 18:34:17</publishTime>
     </File>
     <File Include="Publics/Styles/fonts/GIAdmin.woff">
-      <publishTime>08/21/2016 13:05:07</publishTime>
+      <publishTime>09/03/2016 18:33:58</publishTime>
     </File>
     <File Include="Publics/Styles/fonts/t1.ttf">
-      <publishTime>08/13/2016 10:08:41</publishTime>
+      <publishTime>12/31/2000 06:11:00</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>08/13/2016 10:08:41</publishTime>
+    </File>
+    <File Include="Views/Login/Index.cshtml">
+      <publishTime>08/30/2016 22:22:36</publishTime>
+    </File>
+    <File Include="Views/Login/Signup.cshtml">
+      <publishTime>08/30/2016 22:22:42</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>08/13/2016 10:08:41</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/30/2016 22:24:37</publishTime>
+      <publishTime>09/06/2016 07:19:41</publishTime>
     </File>
   </ItemGroup>
 </Project>

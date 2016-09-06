@@ -151,6 +151,8 @@
     <Compile Include="Areas\Admin\Controllers\CarsController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
     <Compile Include="Areas\Admin\Controllers\FileManagerController.cs" />
+    <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Users\Controllers\PersonalityController.cs" />
     <Compile Include="CLS\Filters.cs" />
     <Compile Include="CLS\Usefulls.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -582,7 +584,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Users\Controllers\" />
     <Folder Include="Areas\Users\Models\" />
     <Folder Include="Publics\CarImages\" />
     <Folder Include="Publics\CarTempImages\" />
@@ -703,6 +704,9 @@
     <Content Include="Areas\Users\Views\Web.config" />
     <Content Include="Areas\Users\Views\Shared\publicTemplate.cshtml" />
     <Content Include="Areas\Users\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Users\Views\Personality\Index.cshtml" />
+    <Content Include="Areas\Users\Views\Personality\PersonalInformation.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
   </ItemGroup>
   <PropertyGroup>

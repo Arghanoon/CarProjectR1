@@ -92,6 +92,10 @@
 }
 
 
+.inputAction {
+    display:flex; justify-content:center; align-items:center;
+    flex-wrap:wrap;
+}
     
 @media (max-width:500px) {
     .input > *:not(hr) {
@@ -244,6 +248,12 @@
 		background:#ffdc9d;
 		color:#623f00;
 		border: thin solid #764c00;
+	}
+    .button.yellow
+	{
+		background:#ffffeb;
+		color:#626200;
+		border: thin solid #c4c400;
 	}
 
 

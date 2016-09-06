@@ -8,7 +8,7 @@ using System.Text;
 using System.Globalization;
 using System.Web.Mvc;
 
-namespace CarProject.Areas.Admin.CLS
+namespace CarProject.CLS
 {
     public class Usefulls
     {

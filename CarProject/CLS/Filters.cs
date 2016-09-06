@@ -12,7 +12,21 @@ namespace CarProject.CLS
         {
             filterContext.HttpContext.Session["rqpage"] = filterContext.HttpContext.Request.Url.ToString();
 
-            if (filterContext.HttpContext.Session["useradmin"] == null)
+            var usr = filterContext.HttpContext.Session["user"];
+
+            if (usr == null || !( usr is DBSEF.User))
+                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new Dictionary<string, object>() { { "area", "" }, { "controller", "Login" }, { "action", "Index" } }));
+            else if (((DBSEF.User)usr).UserRoleId != 1)
+                filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new Dictionary<string, object>() { { "area", "" }, { "controller", "Login" }, { "action", "Index" } }));
+        }
+    }
+    public class UsersAuthFilter : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            filterContext.HttpContext.Session["rqpage"] = filterContext.HttpContext.Request.Url.ToString();
+
+            if (filterContext.HttpContext.Session["user"] == null)
                 filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new Dictionary<string, object>() { { "area", "" }, { "controller", "Login" }, { "action", "Index" } }));
         }
     }

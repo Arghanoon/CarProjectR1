@@ -20,7 +20,7 @@ namespace CarProject.Controllers
                 DBSEF.Person p = new DBSEF.Person();
                 p.PersonFirtstName = "Administrator";
                 p.PersonLastName = "Administrator";
-                p.User = new DBSEF.User { Uname = "Admin", Upass = CarProject.Areas.Admin.CLS.Usefulls.MD5Passwords("admin"), IsActive = true };
+                p.User = new DBSEF.User { Uname = "Admin", Upass = CarProject.CLS.Usefulls.MD5Passwords("admin"), IsActive = true };
 
                 ca.People.Add(p);
                 ca.SaveChanges();

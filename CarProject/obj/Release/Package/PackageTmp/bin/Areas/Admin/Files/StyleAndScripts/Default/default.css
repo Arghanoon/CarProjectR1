@@ -96,6 +96,11 @@ a {
 			padding:10px;
 			margin-bottom:15px;
 		}
+         #menu nav .title {
+            border-bottom:thin solid #BBB; 
+            width:100%;
+        }
+
 		#menu a
 		{
 			color:inherit;

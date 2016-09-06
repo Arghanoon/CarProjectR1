@@ -7,7 +7,7 @@ using System.Text;
 
 using dbs = CarProject.DBSEF;
 using System.ComponentModel.DataAnnotations;
-using CarProject.Areas.Admin.CLS;
+using CarProject.CLS;
 
 namespace CarProject.Models.User
 {
@@ -21,6 +21,18 @@ namespace CarProject.Models.User
         public string PasswordConfirm { get; set; }
 
         public bool IsForUpdate { get; set; }
+
+        public static UserInfo CreateFromSessionIfExist
+        {
+            get
+            {
+                var usr = System.Web.HttpContext.Current.Session["user"];
+                if (usr != null && usr is dbs.User)
+                    return new UserInfo(((dbs.User)usr).UserId);
+                else
+                    return new UserInfo();
+            }
+        }
 
         public UserInfo()
         {

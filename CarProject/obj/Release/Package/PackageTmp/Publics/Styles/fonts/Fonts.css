@@ -18,18 +18,28 @@
 
 @font-face
 {
+	font-family:mitra;
+	src:url(mitra.TTF);
+}
+
+@font-face
+{
 	font-family:t1;
 	src:url(t1.ttf);
 }
 
-
-
+@font-face
+{
+	font-family:t2;
+	src:url(t1.ttf);
+}
 
 @font-face
 {
-	font-family:gia;
-	src:url(GIAdmin.woff);
+	font-family:mitraB;
+	src:url(mitraB.TTF);
 }
+
 
 
 [data-font=f1]{font-family:f1;}

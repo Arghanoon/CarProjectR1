@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
 using CarProject.CLS;
-using CarProject.Areas.Admin.CLS;
+
 
 namespace CarProject.Controllers
 {
@@ -41,15 +41,13 @@ namespace CarProject.Controllers
                     var usr = dbs.Users.FirstOrDefault(u => u.Uname.ToLower() == username && u.Upass == pass.ToLower() && u.IsActive == true);
                     if (usr != null)
                     {
-                        Session["useradmin"] = usr;
-                        if (Session["rqpage"] != null)
-                            return Redirect(Session["rqpage"].ToString());
-
+                        Session["user"] = usr;
 
                         if (usr.UserRoleId == 1)
                             return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                         else
                             return RedirectToAction("Index", "Dashboard", new { area = "Users" });
+                        
                     }
                     else
                         ViewBag.error = "نام کاربری و یا کلمه عبور صحیح نیست";
