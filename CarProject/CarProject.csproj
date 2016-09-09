@@ -707,6 +707,7 @@
     <Content Include="Areas\Users\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Users\Views\Personality\Index.cshtml" />
     <Content Include="Areas\Users\Views\Personality\PersonalInformation.cshtml" />
+    <Content Include="Areas\Admin\Views\User\newUsers.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
   </ItemGroup>
   <PropertyGroup>

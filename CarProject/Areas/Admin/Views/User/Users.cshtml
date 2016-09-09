@@ -41,7 +41,14 @@
 
                 <tr>
                     <th>نوع کاربر</th>
-                    <td>@item.User.UserRole.UserRole1</td>
+                    @if (item.User.UserRole != null)
+                    {
+                        <td>@item.User.UserRole.UserRole1</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    } 
                 </tr>
             </table>
 

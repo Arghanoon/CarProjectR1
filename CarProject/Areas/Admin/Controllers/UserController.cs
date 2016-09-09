@@ -86,6 +86,36 @@ namespace CarProject.Areas.Admin.Controllers
             { }
             return RedirectToAction("Users", "User");
         }
+
+        public ActionResult newUsers()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult newUsers(FormCollection form)
+        {
+            try
+            {
+                if (ViewData.ModelState.IsValid)
+                {
+                    if (form.AllKeys.Contains("userid") && form["userid"] != "" && form.AllKeys.Contains("UserRole") && form["UserRole"] != "")
+                    {
+                        var db = new DBSEF.CarAutomationEntities();
+                        int id = int.Parse(form["userid"]);
+                        var p = db.Users.FirstOrDefault(u => u.UserId == id);
+
+                        int rlid = int.Parse(form["UserRole"]);
+                        p.UserRoleId = rlid;
+
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return View();
+        }
         
 
         public ActionResult Users()
