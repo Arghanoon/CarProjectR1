@@ -930,7 +930,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/13/2016 10:08:41</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/06/2016 07:19:41</publishTime>
+      <publishTime>09/06/2016 10:56:17</publishTime>
     </File>
   </ItemGroup>
 </Project>

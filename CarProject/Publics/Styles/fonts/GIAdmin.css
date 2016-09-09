@@ -55,6 +55,16 @@
 .gia-directory:before{content:'\004D';}
 .gia-upload:before{content:'\004E';}
 .gia-newdir:before{content:'\004F';}
+.gia-play:before{content:'\0050';}
+.gia-pause:before{content:'\0051';}
+.gia-stop:before{content:'\0052';}
+.gia-bw:before{content:'\0053';}
+.gia-fw:before{content:'\0054';}
+.gia-pp:before{content:'\0055';}
+.gia-pn:before{content:'\0056';}
+.gia-unchecked:before{content:'\0057';}
+.gia-checked:before{content:'\0058';}
+
 
 
 

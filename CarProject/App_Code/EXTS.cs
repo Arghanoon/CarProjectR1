@@ -184,6 +184,52 @@ namespace CarProject.App_Code
             return input_ComboBox<TM, TP>(htmlHelper, expres, displayName, Items, htmlAttributes, "error");
         }
 
+        public static MvcHtmlString input_ComboBox<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<int,string> Items, IDictionary<string, object> htmlAttributes, string errorClass)
+        {
+
+            if (!htmlHelper.ViewData.ModelState.IsValidField(htmlHelper.NameFor(expression).ToString()))
+                AddAttribute(htmlAttributes, "class", errorClass);
+
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "--انتخاب کنید--", Value = "", Selected = true });
+
+            foreach (var item in Items)
+            {
+                items.Add(new SelectListItem { Text = item.Value, Value = item.Key.ToString() });
+            }
+
+            string res = "<section class=\"input\">";
+
+            res += htmlHelper.LabelFor(expression, displayName);
+            res += htmlHelper.DropDownListFor(expression, items, htmlAttributes);
+
+            /*res += string.Format("<select {0} {1} {2} >", htmlHelper.IdFor(expression).ToString(), htmlHelper.NameFor(expression).ToString(), attributes);
+           
+            res += string.Format("<option value=\"\" >{0}</option>", "--انتخاب کنید--");
+            foreach (var item in Items)
+            {
+                res += string.Format("<option value=\"{0}\" >{0}</option>", item);
+            }
+            
+            res += "</select>";*/
+
+            res += htmlHelper.ValidationMessageFor(expression);
+
+            res += "</section>";
+            return new MvcHtmlString(res);
+        }
+        public static MvcHtmlString input_ComboBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<int, string> Items, string errorClass)
+        {
+            return input_ComboBox<TM, TP>(htmlHelper, expres, displayName, Items, new Dictionary<string, object>(), errorClass);
+        }
+        public static MvcHtmlString input_ComboBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<int, string> Items)
+        {
+            return input_ComboBox<TM, TP>(htmlHelper, expres, displayName, Items, new Dictionary<string, object>(), "error");
+        }
+        public static MvcHtmlString input_ComboBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<int, string> Items, IDictionary<string, object> htmlAttributes)
+        {
+            return input_ComboBox<TM, TP>(htmlHelper, expres, displayName, Items, htmlAttributes, "error");
+        }
 
         public static MvcHtmlString input_CheckBox<tm>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, bool?>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass)
         {
