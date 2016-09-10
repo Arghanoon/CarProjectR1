@@ -19,6 +19,7 @@ namespace CarProject.Models.User
 
         public string Password { get; set; }
         public string PasswordConfirm { get; set; }
+        public bool NoNeedPassword { get; set; }
 
         public bool IsForUpdate { get; set; }
 
@@ -39,25 +40,33 @@ namespace CarProject.Models.User
             Person = new dbs.Person();
             Person.User = new dbs.User();
             IsForUpdate = false;
+            NoNeedPassword = false;
         }
 
         public UserInfo(int userid)
         {
             this.Person = context.People.FirstOrDefault(p => p.UserId == userid);
             IsForUpdate = true;
+            NoNeedPassword = false;
         }
 
 
         public void Save()
         {
-            Person.User.Upass = Usefulls.MD5Passwords(Password);
+            if (!NoNeedPassword)
+            {
+                Person.User.Upass = Usefulls.MD5Passwords(Password);
+            }
             context.People.Add(Person);
 
             context.SaveChanges();
         }
         public void Update()
         {
-            Person.User.Upass = Usefulls.MD5Passwords(Password);
+            if (!NoNeedPassword)
+            {
+                Person.User.Upass = Usefulls.MD5Passwords(Password);
+            }
             context.SaveChanges();
         }
 
@@ -96,11 +105,15 @@ namespace CarProject.Models.User
                 yield return new ValidationResult("نام کاربری وارد شده تکراری است", new string[] { "Person.User.Uname" });
             else if (IsForUpdate && context.Users.Count(u => u.Uname.ToLower() == this.Person.User.Uname.ToLower() && u.UserId != Person.UserId) > 0)
                 yield return new ValidationResult("نام کاربری وارد شده تکراری است", new string[] { "Person.User.Uname" });
-            
-            if (string.IsNullOrWhiteSpace(Password))
-                yield return new ValidationResult("کلمه عبور وارد نشده است", new string[] { "Password" });
-            if (string.IsNullOrWhiteSpace(PasswordConfirm))
-                yield return new ValidationResult("تایید کلمه عبور وارد نشده است", new string[] { "PasswordConfirm" });
+
+
+            if (!NoNeedPassword)
+            {
+                if (string.IsNullOrWhiteSpace(Password))
+                    yield return new ValidationResult("کلمه عبور وارد نشده است", new string[] { "Password" });
+                if (string.IsNullOrWhiteSpace(PasswordConfirm))
+                    yield return new ValidationResult("تایید کلمه عبور وارد نشده است", new string[] { "PasswordConfirm" });
+            }
 
             if (!string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(PasswordConfirm) && PasswordConfirm != Password)
                 yield return new ValidationResult("کلمه عبور وتایید آن یکسان نیستند", new string[] { "Password", "PasswordConfirm" });

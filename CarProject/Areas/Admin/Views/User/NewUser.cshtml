@@ -25,7 +25,7 @@
         @Html.input_Password(m => m.Password, "کلمه عبور")
         @Html.input_Password(m => m.PasswordConfirm, "تایید کلمه عبور")
 
-        @Html.input_ComboBox(m => m.Person.User.UserRoleId, "نوع کاربر", dbs.UserRoles.AsEnumerable().ToDictionary(r => r.UserRoleId, r => r.UserRole1));
+        @Html.input_ComboBox(m => m.Person.User.UserRoleId, "نوع کاربر", dbs.UserRoles.AsEnumerable().ToDictionary(r => r.UserRoleId, r => r.UserRole1))
 
     </div>
     <div style="display:flex; justify-content:center;" >

@@ -39,6 +39,7 @@ namespace CarProject.Areas.Admin.Controllers
         public ActionResult UpdateUser(int id)
         {
             var upuser = new UserInfo(id);
+            upuser.NoNeedPassword = true;
             upuser.IsForUpdate = true;
             Session["userUpdate"] = upuser;
             return View(upuser);
