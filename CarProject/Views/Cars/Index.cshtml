@@ -1,0 +1,106 @@
+﻿@using System.IO
+@{
+    ViewBag.Title = "خودروها";
+
+    int countEP = 50 , order = 0;
+    int page = 0;
+    if(Request.QueryString.AllKeys.Contains("page"))
+    {
+        int.TryParse(Request.QueryString["page"], out page);
+        page--;
+    }
+    
+    
+    var db = new CarProject.DBSEF.CarAutomationEntities();
+    var cars = db.Cars.OrderByDescending(c => c.CarsId).Skip(page * countEP).Take(countEP).Select(c => new { c.CarsId, c.CarsBrandName, c.CarsModel, c.CarClassType, c.CarsClinicScore }).ToList();
+
+    
+    
+    
+    string rootPath = "~/Publics/CarImages/";
+    
+    var func_GetPath = new Func<int,string>((int v) => 
+    {
+        string res = Url.Content(Path.Combine(rootPath, "notfound.jpg"));
+
+        var di = new DirectoryInfo(Server.MapPath(Path.Combine(rootPath,v.ToString())));
+        if (di.Exists)
+        {
+            var x = di.GetFiles();
+            if (x.Length > 0)
+            {
+                res = Url.Content(Path.Combine(rootPath,di.Name, x[0].Name));
+            }
+        }
+        
+        return res;
+    });
+}
+
+
+
+<div id="pageContainer">
+
+    <div id="carListsContainer">
+        <div id="carslist" class="itemViewContainer">
+
+            @foreach (var item in cars)
+            {   
+                <a href="#" class="itemViewItems">
+                    <img src="@func_GetPath(item.CarsId)" />
+                    <table>
+                        <tr>
+                            <th>برند:</th>
+                            <td>@item.CarsBrandName</td>
+                        </tr>
+                        <tr>
+                            <th>مدل:</th>
+                            <td>@item.CarsModel</td>
+                        </tr>
+                    </table>
+
+                    
+                    <div class="actions">
+                        <section class="gia-active">نمایش خودرو</section>
+
+                        <section style="font-family: f1;" class="gia-score">@item.CarsClinicScore</section>
+                    </div>
+                </a>
+            }
+        </div>
+
+        <div id="carPageList">
+
+            @{
+                int pgcnt = (int)(db.Cars.Count() / countEP);
+                if((db.Cars.Count() % countEP) > 0)
+                {   pgcnt+=1;}
+                
+                for (int i = 1; i <= pgcnt; i++)
+                {
+                    if(i == (page + 1))
+                    {
+                       <section class="button disabled">@i</section>
+                    }
+                    else
+                    {
+                        <a href="?page=@i" class="button">@i</a>
+                    }
+                }
+            }
+        </div>
+    </div>
+
+    <div id="rightMenu">
+        <h3 class="title">تنظیمات نمایش</h3>
+    </div>
+
+</div>
+
+
+
+
+@section style
+{
+    <link href="~/Publics/Styles/PagesStyle/CarsPage.css" rel="stylesheet" />
+}

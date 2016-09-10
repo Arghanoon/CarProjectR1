@@ -155,6 +155,7 @@
     <Compile Include="Areas\Users\Controllers\PersonalityController.cs" />
     <Compile Include="CLS\Filters.cs" />
     <Compile Include="CLS\Usefulls.cs" />
+    <Compile Include="Controllers\CarsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\Store\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\Store\DetailsController.cs" />
@@ -351,6 +352,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Publics\CarImages\notfound.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Publics\Files\Images\back.jpg" />
     <Content Include="Publics\Files\Images\logo.png" />
@@ -571,6 +575,8 @@
     <Content Include="Publics\Scripts\tinymce\themes\modern\theme.min.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.min.js" />
+    <Content Include="Publics\Styles\PagesStyle\CarsPage.css" />
+    <Content Include="Publics\Styles\PagesStyle\template.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -585,7 +591,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Users\Models\" />
-    <Folder Include="Publics\CarImages\" />
     <Folder Include="Publics\CarTempImages\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Scripts\Ajax\" />
@@ -709,6 +714,9 @@
     <Content Include="Areas\Users\Views\Personality\PersonalInformation.cshtml" />
     <Content Include="Areas\Admin\Views\User\newUsers.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
+    <Content Include="Views\Cars\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\public\template.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

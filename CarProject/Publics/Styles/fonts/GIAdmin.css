@@ -65,6 +65,7 @@
 .gia-unchecked:before{content:'\0057';}
 .gia-checked:before{content:'\0058';}
 .gia-waitedUser:before{content:'\0059';}
+.gia-score:before{content:'\005A';}
 
 
 

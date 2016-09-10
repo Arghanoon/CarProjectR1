@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html manifest="khor">
+<head>
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+
+    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/PagesStyle/template.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/input1.css" rel="stylesheet" />
+
+    <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
+
+    <title>خودرو کلینیک - @ViewBag.Title</title>
+
+    @RenderSection("style", false)
+</head>
+
+<body>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+    @RenderSection("script", false)
+</html>

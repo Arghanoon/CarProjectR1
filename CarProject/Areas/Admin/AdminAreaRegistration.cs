@@ -17,7 +17,8 @@ namespace CarProject.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
-                new { controller = "DashBoard", action = "Index", id = UrlParameter.Optional }
+                new { controller = "DashBoard", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "CarProject.Areas.Admin.Controllers" }
             );
         }
     }
