@@ -12,7 +12,7 @@
     
     
     var db = new CarProject.DBSEF.CarAutomationEntities();
-    var cars = db.Cars.OrderByDescending(c => c.CarsId).Skip(page * countEP).Take(countEP).Select(c => new { c.CarsId, c.CarsBrandName, c.CarsModel, c.CarClassType, c.CarsClinicScore }).ToList();
+    var cars = db.Cars.OrderByDescending(c => c.CarsId).Skip(page * countEP).Take(countEP).AsEnumerable().Select(c => new { c.CarsId, c.CarsBrandName, c.CarsModel, c.CarClassType, CarsClinicScore = c.CarsClinicScore.GetValueOrDefault() }).ToList();
 
     
     
@@ -91,9 +91,7 @@
         </div>
     </div>
 
-    <div id="rightMenu">
-        <h3 class="title">تنظیمات نمایش</h3>
-    </div>
+   @Html.Partial("RightMenu")
 
 </div>
 

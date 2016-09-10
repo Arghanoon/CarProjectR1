@@ -3,24 +3,87 @@
     justify-content:space-between;
     flex-direction:row-reverse;
 }
+@media (max-width:500px) {
+    #pageContainer {
+        flex-direction:column;
+    }
+}
 
 #rightMenu {
-    min-width:300px;
+    min-width:30%;
     background:#eaeaea;
 
     font-family:f2;
 }
-    #rightMenu .title {
-        font-family:f1;
-        border-bottom:thin solid #888;
+    #rightMenu > * {
+        
+    }
+        #rightMenu > * .title {
+            font-family:f2;
+            border-bottom:thin solid #888;
+        }
+        
+        #rightMenu > * a {
+            text-decoration:none;
+            color:#777;
+            padding-right:10px;
+        }
+            #rightMenu > * a:hover {
+                color:black;
+            }
+
+    #rightMenu label,
+    #rightMenu .label {
+        display:flex; flex-direction:column;
+        justify-content:center; align-items:stretch;
         padding:0 5px;
     }
+        #rightMenu .label label {
+            display:flex; justify-content:flex-start; align-items:center; flex-direction:row;
+        }
+
+    
+
+    #rightMenu input,
+    #rightMenu select {
+        position:relative; margin:auto;
+        display:block;
+        font-family:f3;
+        border:thin solid #888;
+        flex:1;
+        margin:5px;
+        padding:0; margin:0; min-width:0;
+    }
+
+    #rightMenu option {
+        padding:0 5px;
+    }
+
+    #rightMenu input[type=radio],
+    #rightMenu input[type=checkbox] {
+        display:none;
+    }
+
+        #rightMenu input[type=radio] + label {
+            cursor:pointer;
+            font-family:f3;
+        }
+            #rightMenu input[type=radio] + label:before {
+                direction:ltr;
+                margin:0 5px;
+                content:'\005B';
+                font-family:giadmin;
+            }
+            #rightMenu input[type=radio]:checked + label:before {
+                content:'\005C';
+            }
 
 #carListsContainer {
     flex:1;
 }
-    #carslist {
-    }
+
+#carslist {
+}
 
 .itemViewContainer {
     display:flex; justify-content:center; align-items:stretch;
@@ -35,7 +98,8 @@
     color:inherit;
 
     display:flex; flex-direction:column;
-    justify-content:space-between;
+    justify-content:flex-start;
+
    
     overflow:hidden;
 }

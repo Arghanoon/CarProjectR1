@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "RightMenu";
+}
+
+
+
+<div id="rightMenu">
+    <div>
+        
+        <label>
+            مرتب سازی بر اساس:
+           <select id="orderType">
+               <option value="0">آخرین ثبت</option>
+               <option value="1">قیمت</option>
+               <option value="2">حجم موتور</option>
+               <option value="3">قدرت</option>
+               <option value="4">گشتاور</option>
+               <option value="5">توان وزنی</option>
+               <option value="6">حداکثر سرعت</option>
+               <option value="7">0 تا 100</option>
+               <option value="8">مصرف ترکیبی</option>
+           </select>
+        </label>
+
+        <h3 class="title">جستجو</h3>
+        <label>
+            جستجو:
+            <input type="text" name="search" placeholder="عبارت جستجو" />
+        </label>
+        <section class="label">
+            جستجو عبارت در:
+            <input type="radio" name="searchOn" id="searchOn0" value="0" /><label for="searchOn0">برند خودرو</label>
+            <input type="radio" name="searchOn" id="searchOn1" value="1" /><label for="searchOn1">کلاس</label>
+            <input type="radio" name="searchOn" id="searchOn2" value="2" /><label for="searchOn2">رده</label>
+            <input type="radio" name="searchOn" id="searchOn3" value="3" /><label for="searchOn3">کاربرد</label>
+            <input type="radio" name="searchOn" id="searchOn4" value="4" /><label for="searchOn4">نوع گیربکس</label>
+            <input type="radio" name="searchOn" id="searchOn5" value="5" /><label for="searchOn5">محور جابه جایی</label>
+        </section>
+    </div>
+</div>
+
+
+@section style
+{
+    <link href="~/Publics/Styles/PagesStyle/CarsPage.css" rel="stylesheet" />
+}

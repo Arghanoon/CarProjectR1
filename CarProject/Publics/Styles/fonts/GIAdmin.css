@@ -66,6 +66,8 @@
 .gia-checked:before{content:'\0058';}
 .gia-waitedUser:before{content:'\0059';}
 .gia-score:before{content:'\005A';}
+.gia-radioBUC:before{content:'\005B';}
+.gia-radioBCH:before{content:'\005C';}
 
 
 
