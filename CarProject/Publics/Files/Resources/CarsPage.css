@@ -77,7 +77,6 @@
 
 .itemsView.grid .items {
     flex-direction:column;
-    width:25vw;
 }
     .items .img {
         border-left:thin solid #888;
@@ -89,8 +88,8 @@
     border-bottom:thin solid #888;
 }
     .items img {
-        width:170px;
-        height:100px;
+        width:200px;
+        height:140px;
     }
     .items table {
         flex:1;
