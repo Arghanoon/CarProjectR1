@@ -358,6 +358,7 @@
     </Content>
     <Content Include="Publics\Files\Images\back.jpg" />
     <Content Include="Publics\Files\Images\logo.png" />
+    <Content Include="Publics\Files\Resources\template.js" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />
     <Content Include="Publics\Styles\fonts\Fonts.css" />
@@ -575,8 +576,8 @@
     <Content Include="Publics\Scripts\tinymce\themes\modern\theme.min.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.min.js" />
-    <Content Include="Publics\Styles\PagesStyle\CarsPage.css" />
-    <Content Include="Publics\Styles\PagesStyle\template.css" />
+    <Content Include="Publics\Files\Resources\CarsPage.css" />
+    <Content Include="Publics\Files\Resources\template.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -594,6 +595,7 @@
     <Folder Include="Publics\CarTempImages\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Scripts\Ajax\" />
+    <Folder Include="Publics\Styles\PagesStyle\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -714,10 +716,10 @@
     <Content Include="Areas\Users\Views\Personality\PersonalInformation.cshtml" />
     <Content Include="Areas\Admin\Views\User\newUsers.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
-    <Content Include="Views\Cars\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
-    <Content Include="Views\Cars\RightMenu.cshtml" />
+    <Content Include="Publics\Styles\fonts\yekan.TTF" />
+    <Content Include="Views\Cars\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,104 +1,201 @@
-﻿@using System.IO
+﻿@using db = CarProject.DBSEF
+@using System.IO
 @{
     ViewBag.Title = "خودروها";
+    
+    var db = new db.CarAutomationEntities();
 
-    int countEP = 50 , order = 0;
+    string BaseDIr = "~/Publics/CarImages/";
+
+    int pagecount = 20;
+    if (Request.QueryString.AllKeys.Contains("pageCount") && Request.QueryString["pageCount"] != "")
+    {int.TryParse(Request.QueryString["pageCount"], out pagecount);}
+
+    int orderBy = 0;
+    if (Request.QueryString.AllKeys.Contains("orderBy") && Request.QueryString["orderBy"] != "")
+    {int.TryParse(Request.QueryString["orderBy"], out orderBy);}
+
     int page = 0;
-    if(Request.QueryString.AllKeys.Contains("page"))
+    if (Request.QueryString.AllKeys.Contains("page") && Request.QueryString["page"] != "")
+    { int.TryParse(Request.QueryString["page"], out page); }
+
+    int orderType = 0;
+    if (Request.QueryString.AllKeys.Contains("orderType") && Request.QueryString["orderType"] != "")
+    { int.TryParse(Request.QueryString["orderType"], out orderType); }
+
+
+    var cars = new List<db.Car>();
+    
+    if(orderType == 0)
     {
-        int.TryParse(Request.QueryString["page"], out page);
-        page--;
+        switch (orderBy)
+        {
+            case 0:
+                cars = db.Cars.OrderBy(c => c.CarsId).Skip(page * pagecount).Take(pagecount).ToList();
+                break;
+            case 1:
+                cars = db.Cars.OrderBy(c => c.Price).Skip(page * pagecount).Take(pagecount).ToList();
+                break;
+            case 2:
+                cars = db.Cars.OrderBy(c => c.CarsId).Skip(page * pagecount).Take(pagecount).ToList();
+                break;
+            case 3:
+                cars = db.Cars.OrderBy(c => c.CarEngines).Skip(page * pagecount).Take(pagecount).ToList();
+                break;
+            case 4:
+                cars = db.Cars.OrderBy(c => c.CarsId).Skip(page * pagecount).Take(pagecount).ToList();
+                break;
+            case 5:
+                cars = db.Cars.OrderBy(c => c.CarsId).Skip(page * pagecount).Take(pagecount).ToList();
+                break;
+            case 6:
+                cars = db.Cars.OrderBy(c => c.CarsId).Skip(page * pagecount).Take(pagecount).ToList();
+                break;
+            case 7:
+                cars = db.Cars.OrderBy(c => c.CarsId).Skip(page * pagecount).Take(pagecount).ToList();
+                break;
+            case 8:
+                cars = db.Cars.OrderBy(c => c.CarsId).Skip(page * pagecount).Take(pagecount).ToList();
+                break;
+            default:
+                break;
+        }
+    }
+    else if(orderType == 1)
+    {
     }
     
     
-    var db = new CarProject.DBSEF.CarAutomationEntities();
-    var cars = db.Cars.OrderByDescending(c => c.CarsId).Skip(page * countEP).Take(countEP).AsEnumerable().Select(c => new { c.CarsId, c.CarsBrandName, c.CarsModel, c.CarClassType, CarsClinicScore = c.CarsClinicScore.GetValueOrDefault() }).ToList();
-
-    
-    
-    
-    string rootPath = "~/Publics/CarImages/";
-    
-    var func_GetPath = new Func<int,string>((int v) => 
-    {
-        string res = Url.Content(Path.Combine(rootPath, "notfound.jpg"));
-
-        var di = new DirectoryInfo(Server.MapPath(Path.Combine(rootPath,v.ToString())));
-        if (di.Exists)
-        {
-            var x = di.GetFiles();
-            if (x.Length > 0)
-            {
-                res = Url.Content(Path.Combine(rootPath,di.Name, x[0].Name));
-            }
-        }
-        
-        return res;
-    });
+    var Cars = db.Cars.Take(pagecount);
 }
 
+@section style
+{
+    <link href="~/Publics/Files/Resources/CarsPage.css" rel="stylesheet" />
+}
+
+<div id="baseContainer">
+
+    <div id="mainContainer">
+
+        <form id="sortandsearchContainer">
+            <div id="searchSection">
+                <section id="searchControl">
+                    <input type="text" name="search" placeholder="جستجو" />
+                    <button type="submit">
+                        <section class="gia-search"></section>
+                    </button>
+                </section>
+            </div>
+            <div id="sortSection">
+                <div>
+                    <strong>مرتب سازی بر اساس:</strong>
+                    <select name="orderBy">
+                        <option value="0">تاریخ ثبت</option>
+                        <option value="1">قیمت</option>
+                        <option value="2">حجم موتور</option>
+                        <option value="3">قدرت</option>
+                        <option value="4">گشتاور</option>
+                        <option value="5">توان وزنی</option>
+                        <option value="6">حداکثر سرعت</option>
+                        <option value="7">0 تا 100</option>
+                        <option value="8">مصرف ترکیبی</option>
+                    </select>
+                    |
+                    <input type="radio" name="orderType" value="0" id="id1" checked="checked"/><label for="id1">صعودی</label>
+                    <input type="radio" name="orderType" value="1" id="id2" /><label for="id2">نزولی</label>
+                    |
+                    <strong>تعداد نمایش در هر صفحه:</strong>
+                    <select name="pageCount">
+                        <option>20</option>
+                        <option>30</option>
+                        <option>40</option>
+                        <option>50</option>
+                    </select>
+                </div>
+                <div>
+                    <strong>نحوه نمایش:</strong>
+                    <a href="javascript:void()" id="btn_viewType1" class="gia-listView" onclick="changeView(0)" ></a>
+                    <a href="javascript:void()" id="btn_viewType2" class="gia-gridView" onclick="changeView(1)" ></a>
+                </div>
+            </div>
+        </form>
 
 
-<div id="pageContainer">
-
-    <div id="carListsContainer">
-        <div id="carslist" class="itemViewContainer">
-
-            @foreach (var item in cars)
-            {   
-                <a href="#" class="itemViewItems">
-                    <img src="@func_GetPath(item.CarsId)" />
+        <div id="carlists" class="itemsView">
+            @foreach (var item in Cars)
+            {
+                <div class="items">
+                    <div class="img">
+                    @{
+                        var dic = new DirectoryInfo(Server.MapPath(Path.Combine(BaseDIr,item.CarsId.ToString())));
+                        if (dic.Exists && dic.GetFiles().Length > 0)
+                        {
+                            <img src="@Url.Content(Path.Combine(BaseDIr,item.CarsId.ToString(),dic.GetFiles()[0].Name))" />
+                        }
+                        else if(!dic.Exists || dic.GetFiles().Length <= 0)
+                        {
+                            <img src="@Url.Content(Path.Combine(BaseDIr,"notfound.jpg"))" />
+                        }
+                    }
+                    </div>
                     <table>
                         <tr>
-                            <th>برند:</th>
-                            <td>@item.CarsBrandName</td>
+                            <th>برند</th>
+                            <td class="grid">@item.CarsBrandName</td>
                         </tr>
                         <tr>
-                            <th>مدل:</th>
-                            <td>@item.CarsModel</td>
+                            <th>کلاس</th>
+                            <td>@item.CarsClass</td>
+                        </tr>
+                        <tr>
+                            <th>مدل</th>
+                            <td class="grid">@item.CarsModel</td>
+                        </tr>
+                        <tr>
+                            <th>امتیاز کلینیک</th>
+                            <td>@item.CarsClinicScore</td>
+                        </tr>
+                        <tr>
+                            <th>امتیاز کاربران</th>
+                            <td>@item.CarsUserScore</td>
+                        </tr>
+                        <tr>
+                            <th>قیمت</th>
+                            <td class="grid">@item.Price</td>
                         </tr>
                     </table>
-
-                    
-                    <div class="actions">
-                        <section class="gia-active">نمایش خودرو</section>
-
-                        <section style="font-family: f1;" class="gia-score">@item.CarsClinicScore</section>
-                    </div>
-                </a>
-            }
-        </div>
-
-        <div id="carPageList">
-
-            @{
-                int pgcnt = (int)(db.Cars.Count() / countEP);
-                if((db.Cars.Count() % countEP) > 0)
-                {   pgcnt+=1;}
-                
-                for (int i = 1; i <= pgcnt; i++)
-                {
-                    if(i == (page + 1))
-                    {
-                       <section class="button disabled">@i</section>
-                    }
-                    else
-                    {
-                        <a href="?page=@i" class="button">@i</a>
-                    }
-                }
+                </div>
             }
         </div>
     </div>
 
-   @Html.Partial("RightMenu")
-
+    <div id="rightContainer"></div>
 </div>
 
 
-
-
-@section style
+@section script
 {
-    <link href="~/Publics/Styles/PagesStyle/CarsPage.css" rel="stylesheet" />
+    <script>
+        function changeView(viewType) {
+           
+            el = document.getElementById("carlists");
+            if (viewType == 0) { 
+                if (el.classList.contains("grid")) {
+                    el.classList.remove("grid");
+                }
+                document.getElementById("btn_viewType1").style.background = "#eaeaea";
+                document.getElementById("btn_viewType2").style.background = "transparent";
+            }
+            else if (viewType == 1) {
+                if (!el.classList.contains("grid")) { 
+                    el.classList.add("grid");
+                }
+                document.getElementById("btn_viewType2").style.background = "#eaeaea";
+                document.getElementById("btn_viewType1").style.background = "transparent";
+            }
+        }
+
+        changeView(0);
+    </script>
 }

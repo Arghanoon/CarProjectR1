@@ -16,10 +16,5 @@ namespace CarProject.Controllers
             return View();
         }
 
-
-        public ActionResult RightMenu()
-        {
-            return View();
-        }
     }
 }

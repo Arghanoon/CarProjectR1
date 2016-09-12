@@ -68,6 +68,8 @@
 .gia-score:before{content:'\005A';}
 .gia-radioBUC:before{content:'\005B';}
 .gia-radioBCH:before{content:'\005C';}
+.gia-listView:before{content:'\005D';}
+.gia-gridView:before{content:'\005E';}
 
 
 
