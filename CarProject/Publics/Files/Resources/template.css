@@ -64,3 +64,48 @@ a {
     a:active {
         text-shadow: none;
     }
+
+
+/*--------------Tables----------------*/
+.infoTable {
+    width:100%;
+    margin:5px;
+    border:thin solid #777;
+    border-collapse:collapse;
+}
+
+    .infoTable th {
+        text-align:right;
+        background:#eaeaea;
+        white-space:nowrap;
+        vertical-align:text-top;
+    }
+
+    .infoTable th, .infoTable td {
+        border:thin solid #aaa;
+        padding:2px 5px;
+    }
+    .infoTable td {
+        width:100%;
+    }
+
+
+.grid1 {
+    width:100%;
+}
+    .grid1 thead th {
+        background:#888;
+        color:#fff;
+        z-index: -1;
+    }
+
+    .grid1 th, .grid1 td {
+        border: thin solid #2f2f2f;
+        text-align: center;
+        padding:0 5px;
+    }
+
+    .grid1 tbody tr:hover td {
+        background: #e0e0e0;
+        border: thin solid #2f2f2f;
+    }
