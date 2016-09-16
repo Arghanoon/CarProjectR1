@@ -23,7 +23,13 @@ namespace CarProject.Areas.Admin.Controllers
 
         public ActionResult NewCar()
         {
-            return View();
+            var model = new Models.Cars.CarsModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult NewCar(Models.Cars.CarsModel model)
+        {
+            return View(model);
         }
 
         [HttpGet]

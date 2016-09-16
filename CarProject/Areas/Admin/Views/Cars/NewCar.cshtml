@@ -1,27 +1,185 @@
 ﻿@model CarProject.Areas.Admin.Models.Cars.CarsModel
 @using CarProject.App_Code
+@using db = CarProject.DBSEF
 @{
     ViewBag.Title = "ثبت خودرو";
+    var dbs  = new db.CarAutomationEntities();
 }
 
 
 
-<form method="post">
-    
-    <div class="inputsContainer">
-        
-       
+<form method="post" id="form1">
+    <div class="wizardContainer">
+        <div class="wizardNav">
+            <a href="#w1">اطلاعات خودرو</a>
+            <a href="#w2">موتور</a>
+            <a href="#w3">گیر بکس</a>
+            <a href="#w4">مشخصات فیزیکی</a>
+            <a href="#w5">سیستم ترمز</a>
+            <a href="#w6">مصرف سوخت</a>
+        </div>
 
+
+        <div class="wizardPage" id="w1">
+            <div class="inputsContainer">
+                @Html.input_ComboBox(m => m.Car.CarModel.CarBrand.CarBrandId, "برند", dbs.CarBrands.ToDictionary(b => b.CarBrandId, b => b.CarBrandName))
+                @Html.input_TextBox(m => m.Car.CarModel.CarModelName, "مدل")
+
+                @Html.input_TextBox(m => m.Car.CarsClass, "کلاس خودرو")
+                @Html.input_Rating(m => m.Car.CarsClinicScore, "امتیاز کلینیک")
+                @Html.input_TextBox(m => m.Car.Price, "قیمت اولیه")
+                @Html.input_TextBox(m => m.Car.CarsVideoURL, "آدرس ویدئو")
+                @Html.input_TextBox(m => m.Car.CarClassType, "کلاس خودرو")
+                @Html.input_TextBox(m => m.Car.CarCategory, "دسته بندی خودرو")
+                @Html.input_TextBox(m => m.Car.CarUsage, "کاربر خودرو")
+                @Html.input_TextBox(m => m.Car.CarYearModel, "ساخت ساخت")
+                @Html.input_ComboBox(m => m.Car.CarBodyType, "نوع بدنه", Model.List_CarBodyTypes)
+                @Html.input_TextArea(m => m.Car.CarsDescription, "توضیحات")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w2">
+            <div class="inputsContainer">
+                @Html.input_ComboBox(m => m.CarEngine.EngineType, "نوع موتور", Model.List_EngineTypes)
+                @Html.input_TextBox(m => m.CarEngine.EngineCylinderNumber, "تعداد سیلندر")
+                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpRpm, "قدرت (اسب بخار بر دور بر دقیقه)")
+                @Html.input_TextBox(m => m.CarEngine.EngineTorque, "گشتاور (نیوتون بر متر )")
+                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpTon, "توان وزنی (اسب بخار بر 1000 کلیوگرم)")
+                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpLitr, "توان خروجی (اسب بخار بر لیتر)")
+                @Html.input_TextBox(m => m.CarEngine.EngineMaxSpeed, "حداکثر سرعت (کلیومتر بر ساعت)")
+                @Html.input_TextBox(m => m.CarEngine.EngineZeroToH, "صفر تا صد خودرو (ثانیه)")
+                @Html.input_TextBox(m => m.CarEngine.EngineSize, "حجم موتور (سی سی )")
+                @Html.input_ComboBox(m => m.CarEngine.EngineFuel, "سوخت خودرو", Model.List_EngineFuel)
+                @Html.input_TextArea(m => m.CarEngine.EngineDescription, "توضیحات")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w3">
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.GearBox.GearBoxCode, "کد گیربکس")
+                @Html.input_ComboBox(m => m.GearBox.GearBoxType, "نوع گیربکس", Model.List_GearBoxType)
+                @Html.input_CheckBox(m => m.GearBox.GearBoxCanBeManual, "قابلیت تبدیل به دنده دستی")
+                @Html.input_TextBox(m => m.GearBox.GearBoxShiftNumber, "تعداد دنده")
+                @Html.input_TextBox(m => m.GearBox.GearBoxAxel, "محور جابه‌جایی")
+                @Html.input_CheckBox(m => m.GearBox.HasTransferCase, "آیا دارای کمک گیربکس است")
+                @Html.input_CheckBox(m => m.GearBox.GearBoxDiffrentionalLock, "قفل دفرانسیل")
+                @Html.input_TextBox(m => m.GearBox.GearBoxWdType, "نوع 4WD")
+                @Html.input_TextArea(m => m.GearBox.GearBoxDescription, "توضیحات")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w4">
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.PhysicalDetail.CarLength, "طول خودرو")
+                @Html.input_TextBox(m => m.PhysicalDetail.Carwidth, "عرض خودرو")
+                @Html.input_TextBox(m => m.PhysicalDetail.CarHeight, "ارتفاع خودرو")
+                @Html.input_TextBox(m => m.PhysicalDetail.CarTrack, "فاصله دو چرخ یک محور")
+                @Html.input_TextBox(m => m.PhysicalDetail.CarWheelBase, "فاصله دو محور از یکدیگر")
+                @Html.input_TextBox(m => m.PhysicalDetail.CarPureWeight, "وزن خالص")
+                @Html.input_TextBox(m => m.PhysicalDetail.CarTankSize, "حجم باک بنزین")
+                @Html.input_TextBox(m => m.PhysicalDetail.Details, "توضیحات")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+        
+        <div class="wizardPage" id="w5">
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.BrakeSystem.FrontBrakeSystem, "سیستم ترمزهای چرخ های جلو")
+                @Html.input_TextBox(m => m.BrakeSystem.RearBrakeSystem, "سیستم ترمز چرخ های عقب")
+                @Html.input_TextBox(m => m.BrakeSystem.OtherSystem, "سیستم های دیگر")
+                @Html.input_TextBox(m => m.BrakeSystem.HandBrakeSystem, "سیستم ترمز دستی")
+                @Html.input_TextArea(m => m.BrakeSystem.Details, "جزئیات")
+            </div>
+
+            <h3 style="border-bottom:thin solid #888;">ثبت جزئیات <a href="javascript:void()" onclick="InsertNew_Textbox('DetailedBreakSystemControls')" class="gia-add"></a></h3>
+            <div class="detailsContainer">
+                <div class="controls" id="DetailedBreakSystemControls">
+                    @foreach (var item in Model.DetailedBrakeSystems)
+                    {
+                        <div class="input">
+                            <input type="text" value="@item.DetailedName" />
+                            <a href="javascript:void()" onclick="this.offsetParent.remove();" class="gia-remove" ></a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
     </div>
 
+    <div id="formAction">
+        <input type="submit" value="ثبت اطلاعات خودرو" />
+    </div>
 </form>
 
 
 @section script
 {
     <script>
-        function GetBrands() {
+        document.getElementById("form1").addEventListener("submit", function (e) { e.preventDefault(); BeforeSubmitActions(); this.submit(); });
+        function BeforeSubmitActions() {
+            DetailedBreakSystemNaming();
+        }
+
+        function InsertNew_Textbox(id) {
+            div = document.createElement('div');
+            div.classList.add("input");
+
+            del = document.createElement('a');
+            del.classList.add("gia-remove");
+            del.href = "javascript:void()";
+            del.onclick = function (e) { this.offsetParent.remove(); };
             
+            inp = document.createElement("input")
+            inp.type = "text";
+            div.appendChild(inp);
+            div.appendChild(del);
+            document.getElementById(id).appendChild(div);
+        }
+
+        function DetailedBreakSystemNaming() {
+            var inps = document.getElementById("DetailedBreakSystemControls").querySelectorAll("input");
+            for (var i = 0; i < inps.length; i++) {
+                inps[i].name = "DetailedBrakeSystems[" + i + "].DetailedName";
+            }
         }
     </script>
+}
+
+@section style
+{
+    <style>
+        .detailsContainer {
+            display:flex;
+            justify-content:space-between;
+
+        }
+            .detailsContainer .controls {
+                position:relative;
+                flex:1;
+            }
+                .detailsContainer .controls > * {
+                   display:flex;
+                   flex:1;
+                   justify-content:center;
+                   align-items:center;
+                }
+    </style>
 }
