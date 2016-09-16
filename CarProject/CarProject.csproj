@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E3200A96-1EF4-4265-9DFF-B90A260DA791}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CarProject</RootNamespace>
@@ -142,7 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\EXTS.cs" />
-    <Content Include="App_Code\StringAddRoutes.cs" />
+    <Compile Include="App_Code\StringAddRoutes.cs" />
     <Compile Include="App_GlobalResources\Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -152,24 +152,14 @@
     <Compile Include="Areas\Admin\Controllers\CarsController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
     <Compile Include="Areas\Admin\Controllers\FileManagerController.cs" />
+    <Compile Include="Areas\Admin\Models\Cars\CarsModel.cs" />
     <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Users\Controllers\PersonalityController.cs" />
     <Compile Include="CLS\Filters.cs" />
     <Compile Include="CLS\Usefulls.cs" />
     <Compile Include="Controllers\CarsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Areas\Admin\Controllers\Store\CategoriesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\Store\DetailsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\Store\ProductsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\TroubleshootingController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
-    <Compile Include="Areas\Admin\Models\Cars\NewCar.cs" />
-    <Compile Include="Areas\Admin\Models\Cars\Troubleshooting.cs" />
-    <Compile Include="Areas\Admin\Models\Store\Categories.cs" />
-    <Compile Include="Areas\Admin\Models\Store\Products.cs" />
-    <Compile Include="Models\User\UserInfo.cs" />
-    <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DBSEF\AirConditioningSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -200,6 +190,9 @@
     <Compile Include="DBSEF\CarAudioSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\CarBrand.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\CarEngine.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -207,6 +200,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\CarLightingSystem.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\CarModel.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\CarPhysicalDetail.cs">
@@ -245,6 +241,9 @@
     <Compile Include="DBSEF\Company.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\Content.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\Country.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -281,13 +280,31 @@
     <Compile Include="DBSEF\Person.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\PersonCar.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\PersonCarDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\PersonProduct.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\PersonProductEntity.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\PersonService.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\PersonServicesPack.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\ProductDiscount.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\ProductInService.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\ProductPrice.cs">
@@ -299,16 +316,31 @@
     <Compile Include="DBSEF\ProductReview.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\ProductServicePackUse.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\ProductServiceUse.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\ProductStore.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\ProductToView.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\SecuritySystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\ServicesPackToView.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\ServiceToView.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\SteeringSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBSEF\sysdiagram.cs">
+    <Compile Include="DBSEF\ToBasket.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\TodaysSpecial.cs">
@@ -323,6 +355,9 @@
     <Compile Include="DBSEF\UserRole.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\User\UserInfo.cs" />
+    <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -344,16 +379,6 @@
     </Content>
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\input1.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\tinymce01.css" />
-    <Content Include="DBSEF\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DBSEF\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
     <Content Include="Publics\CarImages\notfound.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -595,6 +620,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Users\Models\" />
+    <Folder Include="Publics\Brands\" />
     <Folder Include="Publics\CarTempImages\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Scripts\Ajax\" />
@@ -624,12 +650,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\DashBoard\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Cars\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Cars\NewCar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
@@ -668,9 +688,6 @@
     <Content Include="Publics\Scripts\tinymce\langs\readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Cars\Cars.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -687,29 +704,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Login\Signup.cshtml" />
-    <Content Include="Areas\Admin\Views\Cars\UpdateCar.cshtml" />
     <Content Include="Areas\Admin\Views\User\UpdateUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\troubleshooting\New.cshtml" />
-    <Content Include="Areas\Admin\Views\troubleshooting\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\troubleshooting\Update.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\New.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Update.cshtml" />
-    <Content Include="Areas\Admin\Views\Details\Manufactures.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\New.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Update.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\ShowDetails.cshtml" />
-    <Content Include="Areas\Admin\Views\Cars\ShowDetails.cshtml" />
-    <EntityDeploy Include="DBSEF\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DBSEF\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\FileManager\Index.cshtml" />
     <Content Include="Areas\Users\Views\Web.config" />
     <Content Include="Areas\Users\Views\Shared\publicTemplate.cshtml" />
@@ -718,6 +715,25 @@
     <Content Include="Areas\Users\Views\Personality\Index.cshtml" />
     <Content Include="Areas\Users\Views\Personality\PersonalInformation.cshtml" />
     <Content Include="Areas\Admin\Views\User\newUsers.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\NewCar.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\Brands.cshtml" />
+    <EntityDeploy Include="DBSEF\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DBSEF\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBSEF\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="DBSEF\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

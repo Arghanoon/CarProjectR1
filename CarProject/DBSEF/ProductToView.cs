@@ -12,18 +12,12 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductDiscount
+    public partial class ProductToView
     {
-        public int ProductDiscountId { get; set; }
-        public Nullable<int> ProductDiscount1 { get; set; }
+        public int ProdcutToViewId { get; set; }
+        public Nullable<int> Viewd { get; set; }
         public Nullable<int> ProductId { get; set; }
-        public Nullable<int> DiscountId { get; set; }
-        public Nullable<int> AutoServiceId { get; set; }
-        public Nullable<int> AutoServicePackId { get; set; }
     
-        public virtual AutoService AutoService { get; set; }
-        public virtual AutoServicePack AutoServicePack { get; set; }
-        public virtual Discount Discount { get; set; }
         public virtual Product Product { get; set; }
     }
 }

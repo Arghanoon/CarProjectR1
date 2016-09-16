@@ -19,23 +19,30 @@ namespace CarProject.DBSEF
         {
             this.Baskets = new HashSet<Basket>();
             this.People = new HashSet<Person>();
+            this.PersonCars = new HashSet<PersonCar>();
             this.PersonProducts = new HashSet<PersonProduct>();
+            this.PersonServices = new HashSet<PersonService>();
+            this.PersonServicesPacks = new HashSet<PersonServicesPack>();
         }
     
         public int UserId { get; set; }
         public string Uname { get; set; }
         public string Upass { get; set; }
-        public Nullable<int> CarId { get; set; }
         public Nullable<int> UserRoleId { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Basket> Baskets { get; set; }
-        public virtual Car Car { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Person> People { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonCar> PersonCars { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonProduct> PersonProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonService> PersonServices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonServicesPack> PersonServicesPacks { get; set; }
         public virtual UserRole UserRole { get; set; }
     }
 }

@@ -18,8 +18,24 @@ namespace CarProject.Controllers
 
         public ActionResult Car(int id)
         {
-            var model = new Areas.Admin.Models.Cars.NewCar(id);
-            return View(model);
+            
+            return View();
+        }
+
+        public class tst
+        {
+            public string username { get; set; }
+            public string fullname { get; set; }
+        }
+        public class tstcol : System.Collections.ObjectModel.ObservableCollection<tst>
+        {
+            public tstcol()
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    this.Add(new tst { username = "Username" + i.ToString(), fullname = "Fullname " + i.ToString() });
+                }
+            }
         }
     }
 }

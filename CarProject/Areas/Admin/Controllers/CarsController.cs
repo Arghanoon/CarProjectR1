@@ -5,224 +5,92 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 
-using CarProject.Areas.Admin.Models.Cars;
+using CarProject.App_Code;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
     public class CarsController : Controller
     {
         //
         // GET: /Admin/Cars/
 
+        DBSEF.CarAutomationEntities dbs = new DBSEF.CarAutomationEntities();
+
         public ActionResult Index()
         {
-            for (int i = 0; i < 1000; i++)
-            {
-                var n = DateTime.Now.Ticks.ToString();
-                var nc = new NewCar();
-                nc.CarGeneral.CarsBrandName = "Brand Name " + n;
-                nc.CarGeneral.CarsClass = "Car Class " + n;
-                nc.CarGeneral.CarsModel = n;
-                nc.Save();
-            }
             return View();
         }
 
-        public ActionResult ShowDetails(int? id)
-        {
-            NewCar c = new NewCar(id);
-            if(c.IsNull())
-                return RedirectToAction("Index");
-            else
-                return View(c);
-        }
-        
         public ActionResult NewCar()
         {
-            var m = new Models.Cars.NewCar();
-            return View(m);
+            return View();
         }
 
-        [HttpPost]
-        public ActionResult NewCar(Models.Cars.NewCar car)
+        [HttpGet]
+        public ActionResult Brands(int? id)
         {
-            if (SaveChange(car))
-                return RedirectToAction("Cars");
-            return View(car);
-        }
-
-        bool SaveChange(Models.Cars.NewCar car)
-        {
-            var ip = Server.MapPath("~/Publics/CarTempImages/" + car.CarTempID);
-            if (!Directory.Exists(ip))
-                Directory.CreateDirectory(ip);
-
-            foreach (var item in Request.Files.GetMultiple("carImage"))
-            {
-                item.SaveAs(ip + "/" + item.FileName);
-            }
-
-            if (Request.Form.GetValues("carImageremove") != null)
-            {
-                foreach (var item in Request.Form.GetValues("carImageremove"))
-                {
-                    if (System.IO.File.Exists(ip + "/" + item))
-                        System.IO.File.Delete(ip + "/" + item);
-                }
-            }
-
-            if (ViewData.ModelState.IsValid)
-            {
-                if (Request.Form.GetValues("DetailedBrakeSystemItem") != null)
-                {
-                    foreach (var item in Request.Form.GetValues("DetailedBrakeSystemItem"))
-                    {
-                        car.DetailedBrakeSystem.Add(new DBSEF.DetailedBrakeSystem { DetailedName = item });
-                    }
-                }
-
-                if (Request.Form.GetValues("advantage") != null)
-                {
-                    foreach (var item in Request.Form.GetValues("advantage"))
-                    {
-                        car.Advantages.Add(item);
-                    }
-                }
-
-                if (Request.Form.GetValues("disadvantage") != null)
-                {
-                    foreach (var item in Request.Form.GetValues("disadvantage"))
-                    {
-                        car.Disadvantages.Add(item);
-                    }
-                }
-
-                car.Save();
-                var mp = Server.MapPath("~/Publics/CarImages/" + car.CarGeneral.CarsId.ToString());
-                if (!Directory.Exists(mp))
-                    Directory.CreateDirectory(mp);
-                DirectoryInfo dic = new DirectoryInfo(ip);
-                foreach (var item in dic.GetFiles())
-                {
-                    item.MoveTo(mp + "/" + item.Name);
-                }
-
-                dic.Delete(true);
-                return true;
-            }
-            else
-                return false;
-        }
-        bool UpdateChange(Models.Cars.NewCar car)
-        {
-            var ip = Server.MapPath("~/Publics/CarImages/" + car.CarGeneral.CarsId.ToString());
-            if (!Directory.Exists(ip))
-                Directory.CreateDirectory(ip);
-
-            foreach (var item in Request.Files.GetMultiple("carImage"))
-            {
-                item.SaveAs(ip + "/" + item.FileName);
-            }
-
-            if (Request.Form.GetValues("carImageremove") != null)
-            {
-                foreach (var item in Request.Form.GetValues("carImageremove"))
-                {
-                    if (System.IO.File.Exists(ip + "/" + item))
-                        System.IO.File.Delete(ip + "/" + item);
-                }
-            }
-
-            if (ViewData.ModelState.IsValid)
-            {
-                if (Request.Form.GetValues("DetailedBrakeSystemItem") != null)
-                {
-                    foreach (var item in Request.Form.GetValues("DetailedBrakeSystemItem"))
-                    {
-                        car.DetailedBrakeSystem.Add(new DBSEF.DetailedBrakeSystem { DetailedName = item });
-                    }
-                }
-
-                if (Request.Form.GetValues("advantage") != null)
-                {
-                    foreach (var item in Request.Form.GetValues("advantage"))
-                    {
-                        car.Advantages.Add(item);
-                    }
-                }
-
-                if (Request.Form.GetValues("disadvantage") != null)
-                {
-                    foreach (var item in Request.Form.GetValues("disadvantage"))
-                    {
-                        car.Disadvantages.Add(item);
-                    }
-                }
-
-                car.Save();
-                
-                return true;
-            }
-            else
-                return false;
-        }
-
-        public ActionResult UpdateCar(int id)
-        {
-            var x = new Models.Cars.NewCar(id);
-            Session["updatecar"] = x;
-            return View(x);
+            ViewBag.error = new List<string>();
+            var model = dbs.CarBrands.FirstOrDefault(b => b.CarBrandId == id);
+            if (model == null)
+                model = new DBSEF.CarBrand();
+            return View(model);
         }
         [HttpPost]
-        public ActionResult UpdateCar(Models.Cars.NewCar car)
+        public ActionResult Brands(DBSEF.CarBrand model)
         {
-            var x = Session["updatecar"] as Models.Cars.NewCar;
-            TryUpdateModel(x);
-            if (UpdateChange(x))
-                return RedirectToAction("Cars");
-            return View(car);
-        }
-
-        [HttpPost]
-        public ActionResult DeleteCar(int id)
-        {
-            var m = new Models.Cars.NewCar(id);
-            m.Delete();
-            return RedirectToAction("Cars", "Cars");
-        }
-        
-        public ActionResult Cars(int page = 0)
-        {
-            ViewBag.pagecont = 40;
-            var ca = new DBSEF.CarAutomationEntities();
-            var cl = ca.Cars.OrderBy(c => c.CarsId).Skip(((int)ViewBag.pagecont) * page).Take((int)ViewBag.pagecont).ToList();
-            return View(cl);
-        }
-
-        [HttpPost]
-        public ActionResult Cars(FormCollection form)
-        {
-            if (form.AllKeys.Contains("simpleSearch"))
+            if (this.ModelState.IsValid)
             {
-                var ca = new DBSEF.CarAutomationEntities();
-                string car = form["CarSearch"];
-                return View(ca.Cars.Where(c => c.CarsId.ToString() == car || c.CarsBrandName.Contains(car) || c.CarsClass.Contains(car) || c.CarsModel.Contains(car)).ToList());
+                var erros = new List<string>();
+
+                if (string.IsNullOrWhiteSpace(model.CarBrandName))
+                    erros.Add("نام وارد نشده است");
+                else if ((model.CarBrandId == null || model.CarBrandId <= 0) &&  dbs.CarBrands.Count(b => b.CarBrandName.ToLower() == model.CarBrandName.ToLower()) > 0)
+                    erros.Add("نام وارد شده تکراری است");
+                else if ((model.CarBrandId != null && model.CarBrandId > 0) && dbs.CarBrands.Count(b => b.CarBrandName.ToLower() == model.CarBrandName.ToLower() && b.CarBrandId != model.CarBrandId) > 0)
+                    erros.Add("نام وارد شده تکراری است");
+
+                if (Request.Files.Count > 0 && Request.Files.AllKeys.Contains("brandLogo") && Request.Files["brandLogo"].ContentLength > 0)
+                {
+                    var f = Request.Files["brandLogo"];
+
+                    if (!f.ContentType.ContentTypeIsImage())
+                        erros.Add("فایل انتخاب شده تصویر نیست");
+                    if (f.ContentLength > (200 * 1024))
+                        erros.Add("حجم تصویر بیشتر از 200 کیلوبایت است");
+                }
+
+                if (erros.Count <= 0)
+                {
+                    if (model.CarBrandId != null && model.CarBrandId > 0)
+                    {
+                        var m = dbs.CarBrands.FirstOrDefault(b => b.CarBrandId == model.CarBrandId);
+                        if (m != null)
+                            TryUpdateModel(m);
+                    }
+                    else
+                        dbs.CarBrands.Add(model);
+
+                    dbs.SaveChanges();
+
+                    if (Request.Files.Count > 0 && Request.Files.AllKeys.Contains("brandLogo") && Request.Files["brandLogo"].ContentLength > 0)
+                    {
+                        var f = Request.Files["brandLogo"];
+                        var p = Server.MapPath((model.CarBrandId.ToString() + f.FileName.Substring(f.FileName.LastIndexOf("."))).BaseRouts_CarBrands());
+                        if (System.IO.File.Exists(p))
+                            System.IO.File.Delete(p);
+                        f.SaveAs(p);
+                    }
+                    return RedirectToAction("Brands", new { id = "" });
+                }
+                else
+                {
+                    ViewBag.error = erros;
+                    return View(model);
+                }
+
             }
-            else
-                return View();
+            return View(model);
         }
 
-
-
-        public void ClearImagesTemp()
-        {
-            DirectoryInfo tmpdic = new DirectoryInfo(Server.MapPath("~/Publics/CarTempImages/"));
-            foreach (var item in tmpdic.GetDirectories())
-            {
-                if (item.CreationTime < DateTime.Now.AddDays(-1))
-                    item.Delete(true);
-            }
-        }
     }
 }

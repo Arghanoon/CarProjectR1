@@ -43,13 +43,11 @@ namespace CarProject.DBSEF
             this.Products = new HashSet<Product>();
             this.SecuritySystems = new HashSet<SecuritySystem>();
             this.SteeringSystems = new HashSet<SteeringSystem>();
-            this.Users = new HashSet<User>();
         }
     
         public int CarsId { get; set; }
-        public string CarsBrandName { get; set; }
+        public Nullable<int> CarModelId { get; set; }
         public string CarsClass { get; set; }
-        public string CarsModel { get; set; }
         public Nullable<double> CarsUserScore { get; set; }
         public Nullable<double> CarsClinicScore { get; set; }
         public Nullable<int> Price { get; set; }
@@ -59,6 +57,8 @@ namespace CarProject.DBSEF
         public string CarClassType { get; set; }
         public string CarCategory { get; set; }
         public string CarUsage { get; set; }
+        public Nullable<int> CarYearModel { get; set; }
+        public string CarBodyType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AirConditioningSystem> AirConditioningSystems { get; set; }
@@ -78,6 +78,7 @@ namespace CarProject.DBSEF
         public virtual ICollection<CarGearBox> CarGearBoxes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarLightingSystem> CarLightingSystems { get; set; }
+        public virtual CarModel CarModel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarPhysicalDetail> CarPhysicalDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -106,13 +107,12 @@ namespace CarProject.DBSEF
         public virtual ICollection<FuelConsumption> FuelConsumptions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GlassAndMirror> GlassAndMirrors { get; set; }
+        public virtual PersonCar PersonCar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SecuritySystem> SecuritySystems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SteeringSystem> SteeringSystems { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
     }
 }

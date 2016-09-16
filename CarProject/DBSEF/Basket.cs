@@ -14,15 +14,25 @@ namespace CarProject.DBSEF
     
     public partial class Basket
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Basket()
+        {
+            this.ToBaskets = new HashSet<ToBasket>();
+        }
+    
         public int BasketId { get; set; }
         public Nullable<int> UserId { get; set; }
-        public Nullable<int> ProductId { get; set; }
         public Nullable<System.DateTime> date { get; set; }
-        public Nullable<double> ProductPrice { get; set; }
-        public Nullable<int> ProductEntity { get; set; }
         public string BasketCode { get; set; }
+        public Nullable<int> TotalPrice { get; set; }
+        public Nullable<bool> OnlineOrInPlace { get; set; }
+        public string BackCodeFromBank { get; set; }
+        public Nullable<System.DateTime> DateToDeliver { get; set; }
+        public Nullable<System.TimeSpan> HourToDeliver { get; set; }
+        public Nullable<bool> IsFinished { get; set; }
     
-        public virtual Product Product { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ToBasket> ToBaskets { get; set; }
     }
 }

@@ -12,27 +12,19 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class Troubleshooting
+    public partial class CarBrand
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Troubleshooting()
+        public CarBrand()
         {
-            this.Troubleshooting1 = new HashSet<Troubleshooting>();
+            this.CarModels = new HashSet<CarModel>();
         }
     
-        public int TroubleshootingId { get; set; }
-        public string Question { get; set; }
-        public string AnswerYes { get; set; }
-        public string AnswerNo { get; set; }
-        public Nullable<bool> HasFather { get; set; }
-        public Nullable<int> FatherId { get; set; }
-        public Nullable<bool> HasProduct { get; set; }
-        public Nullable<int> ProductId { get; set; }
-        public Nullable<int> ServicePrice { get; set; }
+        public int CarBrandId { get; set; }
+        public string CarBrandName { get; set; }
+        public string CarBrandHistory { get; set; }
     
-        public virtual Product Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Troubleshooting> Troubleshooting1 { get; set; }
-        public virtual Troubleshooting Troubleshooting2 { get; set; }
+        public virtual ICollection<CarModel> CarModels { get; set; }
     }
 }

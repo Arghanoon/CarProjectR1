@@ -14,18 +14,21 @@ namespace CarProject.DBSEF
     
     public partial class PersonProduct
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PersonProduct()
+        {
+            this.PersonProductEntities = new HashSet<PersonProductEntity>();
+        }
+    
         public int PersonProductId { get; set; }
         public Nullable<int> UserId { get; set; }
         public Nullable<int> ProductId { get; set; }
-        public Nullable<bool> UsedProduct { get; set; }
-        public Nullable<int> AutoServiceId { get; set; }
-        public Nullable<bool> UsedService { get; set; }
-        public Nullable<int> AutoServicePackId { get; set; }
-        public Nullable<bool> UsedPack { get; set; }
+        public Nullable<int> ProductCurrentEntity { get; set; }
+        public Nullable<System.DateTime> DateAdded { get; set; }
     
-        public virtual AutoService AutoService { get; set; }
-        public virtual AutoServicePack AutoServicePack { get; set; }
         public virtual Product Product { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonProductEntity> PersonProductEntities { get; set; }
     }
 }

@@ -8,6 +8,11 @@ namespace CarProject.App_Code
 {
     public static class StringAddRoutes
     {
+        public static bool IsNullOrWhiteSpace(this string value)
+        {
+            return string.IsNullOrWhiteSpace(value);
+        }
+
         public static string BaseRouts_CarImages(this string value)
         {
             return Path.Combine("~/Publics/CarImages/",value);
@@ -15,6 +20,18 @@ namespace CarProject.App_Code
         public static string BaseRouts_CarTempImages(this string value)
         {
             return Path.Combine("~/Publics/CarTempImages/", value);
+        }
+        public static string BaseRouts_CarBrands(this string value)
+        {
+            return Path.Combine("~/Publics/Brands/", value);
+        }
+
+
+        public static bool ContentTypeIsImage(this string value)
+        {
+            string[] contentTypes = { "image/gif", "image/jpeg", "image/png", "image/gif", "image/x-icon" };
+
+            return contentTypes.Contains(value.ToLower());
         }
     }
 }

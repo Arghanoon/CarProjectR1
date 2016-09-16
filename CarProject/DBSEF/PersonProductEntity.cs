@@ -12,12 +12,13 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class PersonProductEntity
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int PersonProductEntityId { get; set; }
+        public Nullable<int> PersonProductId { get; set; }
+        public Nullable<System.DateTime> DateUsed { get; set; }
+        public Nullable<int> EntityUsed { get; set; }
+    
+        public virtual PersonProduct PersonProduct { get; set; }
     }
 }

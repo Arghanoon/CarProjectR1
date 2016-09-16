@@ -12,27 +12,23 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class Troubleshooting
+    public partial class PersonServicesPack
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Troubleshooting()
+        public PersonServicesPack()
         {
-            this.Troubleshooting1 = new HashSet<Troubleshooting>();
+            this.ProductServicePackUses = new HashSet<ProductServicePackUse>();
         }
     
-        public int TroubleshootingId { get; set; }
-        public string Question { get; set; }
-        public string AnswerYes { get; set; }
-        public string AnswerNo { get; set; }
-        public Nullable<bool> HasFather { get; set; }
-        public Nullable<int> FatherId { get; set; }
-        public Nullable<bool> HasProduct { get; set; }
-        public Nullable<int> ProductId { get; set; }
-        public Nullable<int> ServicePrice { get; set; }
+        public int PersonServicesPackId { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<int> ServicesPackId { get; set; }
+        public Nullable<int> ServicesPackCurrentEntity { get; set; }
+        public Nullable<System.DateTime> DateAdded { get; set; }
     
-        public virtual Product Product { get; set; }
+        public virtual AutoServicePack AutoServicePack { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Troubleshooting> Troubleshooting1 { get; set; }
-        public virtual Troubleshooting Troubleshooting2 { get; set; }
+        public virtual ICollection<ProductServicePackUse> ProductServicePackUses { get; set; }
     }
 }

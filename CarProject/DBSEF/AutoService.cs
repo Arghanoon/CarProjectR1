@@ -18,7 +18,11 @@ namespace CarProject.DBSEF
         public AutoService()
         {
             this.AutoServices = new HashSet<AutoService1>();
-            this.PersonProducts = new HashSet<PersonProduct>();
+            this.PersonServices = new HashSet<PersonService>();
+            this.ProductDiscounts = new HashSet<ProductDiscount>();
+            this.ProductInServices = new HashSet<ProductInService>();
+            this.ServiceToViews = new HashSet<ServiceToView>();
+            this.ToBaskets = new HashSet<ToBasket>();
         }
     
         public int AutoServiceId { get; set; }
@@ -26,15 +30,20 @@ namespace CarProject.DBSEF
         public Nullable<bool> HasCarId { get; set; }
         public Nullable<int> CarId { get; set; }
         public Nullable<bool> HasProduct { get; set; }
-        public Nullable<int> ProductId { get; set; }
         public string Price { get; set; }
-        public Nullable<int> DiscountId { get; set; }
     
         public virtual Car Car { get; set; }
-        public virtual Discount Discount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AutoService1> AutoServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PersonProduct> PersonProducts { get; set; }
+        public virtual ICollection<PersonService> PersonServices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductDiscount> ProductDiscounts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductInService> ProductInServices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiceToView> ServiceToViews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ToBasket> ToBaskets { get; set; }
     }
 }

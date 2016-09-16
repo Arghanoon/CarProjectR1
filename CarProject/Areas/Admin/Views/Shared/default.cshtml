@@ -54,6 +54,7 @@
         	
             <nav>
                 <strong class="gia-car1 title">مدیریت خودرو</strong>
+                <a href="@Url.Action("Brands","Cars")">مدیریت برندها</a>
             	@Html.ActionLink("ثبت خودرو", "NewCar", "Cars", new { area = "Admin" }, new { CLASS = "gia-add" })
                 @Html.ActionLink("مدیریت خودروهای ثبت شده", "Cars", "Cars", new { area = "Admin" }, new { CLASS = "gia-list" })
             </nav>

@@ -14,6 +14,12 @@ namespace CarProject.DBSEF
     
     public partial class CarsQnA
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CarsQnA()
+        {
+            this.CarsQnA1 = new HashSet<CarsQnA>();
+        }
+    
         public int CarsQnAId { get; set; }
         public Nullable<int> CarsId { get; set; }
         public string QuestionType { get; set; }
@@ -21,5 +27,8 @@ namespace CarProject.DBSEF
         public Nullable<int> QuestionId { get; set; }
     
         public virtual Car Car { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CarsQnA> CarsQnA1 { get; set; }
+        public virtual CarsQnA CarsQnA2 { get; set; }
     }
 }

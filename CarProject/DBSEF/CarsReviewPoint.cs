@@ -14,11 +14,21 @@ namespace CarProject.DBSEF
     
     public partial class CarsReviewPoint
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CarsReviewPoint()
+        {
+            this.CarsReviewPoint1 = new HashSet<CarsReviewPoint>();
+        }
+    
         public int CarsReviewPointId { get; set; }
         public string CarsReviewSubject { get; set; }
         public string CarsReview { get; set; }
         public Nullable<int> CarsId { get; set; }
+        public Nullable<int> LastPointId { get; set; }
     
         public virtual Car Car { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CarsReviewPoint> CarsReviewPoint1 { get; set; }
+        public virtual CarsReviewPoint CarsReviewPoint2 { get; set; }
     }
 }
