@@ -174,11 +174,22 @@
                 @Html.input_TextBox(m => m.AirConditioningSystem.AirConditioningType, "نوع تهویه")
                 @Html.input_TextBox(m => m.AirConditioningSystem.Details, "جزئیات")
             </div>
-            @Html.NameFor(m => m.DetailedBrakeSystems[0].DetailedName)
-            <h3 class="underline">جزئیات <a href="javascript:void()" onclick="InsertNew_TextboxAndTextArea('AirContitionSystemDetails')" class="gia-add"></a></h3>
-            <div class="">
+            
+            <h3 class="underline">جزئیات <a href="javascript: void();" onclick="InsertNew_TextboxAndTextArea('AirContitionSystemDetails');" class="gia-add"></a></h3>
+            <div>
                 <div class="controls" id="AirContitionSystemDetails">
-
+                    @foreach (var item in Model.AirConditioningSystemDetails)
+                    {
+                        <div class="controls2">
+                            <div class="input">
+                                <input type="text" value="@item.AirConditioningSystemDetailSubject" />
+                                <a href="javascript:void()" onclick="this.offsetParent.offsetParent.remove();" class="gia-remove"></a>
+                            </div>
+                            <div class="input">
+                                <textarea>@item.AirConditioningSystemDetail1</textarea>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
 
@@ -202,6 +213,7 @@
         document.getElementById("form1").addEventListener("submit", function (e) { e.preventDefault(); BeforeSubmitActions(); this.submit(); });
         function BeforeSubmitActions() {
             DetailedBreakSystemNaming();
+            AirConditioningSystemDetailsNaming();
         }
 
         function InsertNew_Textbox(id) {
@@ -246,10 +258,15 @@
         }
 
         function DetailedBreakSystemNaming() {
-            var inps = document.getElementById("DetailedBreakSystemControls").querySelectorAll("input");
-            for (var i = 0; i < inps.length; i++) {
-                inps[i].name = "DetailedBrakeSystems[" + i + "].DetailedName";
-            }
+            $("#DetailedBreakSystemControls  input").each(function (index, element) {
+                $(element).attr("name", "DetailedBrakeSystems[" + index + "].DetailedName");
+            });
+        }
+        function AirConditioningSystemDetailsNaming() {
+            $("#AirContitionSystemDetails > div").each(function (index, element) {
+                $("input[type=text]", element).attr("name", "AirConditioningSystemDetails[" + index + "].AirConditioningSystemDetailSubject");
+                $("textarea", element).attr("name", "AirConditioningSystemDetails[" + index + "].AirConditioningSystemDetail1");
+            });
         }
     </script>
 }
