@@ -188,7 +188,7 @@
     <Key>
       <PropertyRef Name="CarPriceId" />
     </Key>
-    <Property Name="CarPriceId" Type="int" Nullable="false" />
+    <Property Name="CarPriceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarsId" Type="int" />
     <Property Name="Price" Type="float" />
     <Property Name="Date" Type="datetime" />
@@ -261,7 +261,7 @@
     <Key>
       <PropertyRef Name="CarsQnAId" />
     </Key>
-    <Property Name="CarsQnAId" Type="int" Nullable="false" />
+    <Property Name="CarsQnAId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarsId" Type="int" />
     <Property Name="QuestionType" Type="nvarchar" MaxLength="150" />
     <Property Name="Question" Type="nvarchar" MaxLength="450" />
@@ -499,7 +499,6 @@
     <Property Name="ProductQnAId" Type="int" />
     <Property Name="DiscountId" Type="int" />
     <Property Name="WithInstall" Type="bit" />
-    <Property Name="InstallPrice" Type="int" />
   </EntityType>
   <EntityType Name="ProductDiscount">
     <Key>
@@ -528,6 +527,7 @@
     <Property Name="ProductId" Type="int" />
     <Property Name="ProductPrice" Type="int" />
     <Property Name="Date" Type="date" />
+    <Property Name="InstallPrice" Type="int" />
   </EntityType>
   <EntityType Name="ProductQnA">
     <Key>
@@ -651,8 +651,8 @@
     </Key>
     <Property Name="TroubleshootingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Question" Type="nvarchar" MaxLength="150" />
-    <Property Name="AnswerYes" Type="nvarchar(max)" />
-    <Property Name="AnswerNo" Type="nvarchar(max)" />
+    <Property Name="Answer" Type="nvarchar(max)" />
+    <Property Name="AnswerYesOrNo" Type="bit" />
     <Property Name="HasFather" Type="bit" />
     <Property Name="FatherId" Type="int" />
     <Property Name="HasProduct" Type="bit" />

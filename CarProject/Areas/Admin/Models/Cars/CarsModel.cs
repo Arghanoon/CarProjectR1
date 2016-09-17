@@ -41,6 +41,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public db.CarAirbag CarAirbag { get; set; }
         public db.CarWheel CarWheel { get; set; }
 
+        public List<string> Advantages { get; set; }
+        public List<string> DisAdvatages { get; set; }
 
         public CarsModel()
         {
@@ -68,6 +70,9 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarSensorsSystem = new db.CarSensorsSystem();
             CarAirbag = new db.CarAirbag();
             CarWheel = new db.CarWheel();
+
+            Advantages = new List<string>();
+            DisAdvatages = new List<string>();
         }
     }
 }

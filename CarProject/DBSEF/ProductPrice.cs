@@ -18,6 +18,7 @@ namespace CarProject.DBSEF
         public Nullable<int> ProductId { get; set; }
         public Nullable<int> ProductPrice1 { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
+        public Nullable<int> InstallPrice { get; set; }
     
         public virtual Product Product { get; set; }
     }

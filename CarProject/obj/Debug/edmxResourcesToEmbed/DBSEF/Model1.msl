@@ -540,7 +540,6 @@
           <ScalarProperty Name="ProductQnAId" ColumnName="ProductQnAId" />
           <ScalarProperty Name="DiscountId" ColumnName="DiscountId" />
           <ScalarProperty Name="WithInstall" ColumnName="WithInstall" />
-          <ScalarProperty Name="InstallPrice" ColumnName="InstallPrice" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -572,6 +571,7 @@
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
           <ScalarProperty Name="ProductPrice1" ColumnName="ProductPrice" />
           <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="InstallPrice" ColumnName="InstallPrice" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -708,8 +708,8 @@
         <MappingFragment StoreEntitySet="Troubleshooting">
           <ScalarProperty Name="TroubleshootingId" ColumnName="TroubleshootingId" />
           <ScalarProperty Name="Question" ColumnName="Question" />
-          <ScalarProperty Name="AnswerYes" ColumnName="AnswerYes" />
-          <ScalarProperty Name="AnswerNo" ColumnName="AnswerNo" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="AnswerYesOrNo" ColumnName="AnswerYesOrNo" />
           <ScalarProperty Name="HasFather" ColumnName="HasFather" />
           <ScalarProperty Name="FatherId" ColumnName="FatherId" />
           <ScalarProperty Name="HasProduct" ColumnName="HasProduct" />

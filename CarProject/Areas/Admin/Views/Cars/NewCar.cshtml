@@ -27,6 +27,8 @@
             <a href="#w14">سنسورها</a>
             <a href="#w15">کیسه هوا</a>
             <a href="#w16">چرخها</a>
+            <a href="#w17">مزایا</a>
+            <a href="#w18">معایب</a>
         </div>
 
 
@@ -325,6 +327,47 @@
                 <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+
+        
+        
+        <div class="wizardPage" id="w17">
+
+            <div class="underline">مزایا <a href="javascript: void();" onclick="InsertNew_Textbox('AdvantagesDivs')" class="gia-add"></a></div>
+            <div class="detailsContainer">
+                <div class="controls" id="AdvantagesDivs">
+                    @foreach (var item in Model.Advantages)
+                    {
+                        <div class="input">
+                            <input type="text" value="@item" />
+                            <a href="javascript:void()" onclick="this.offsetParent.remove();" class="gia-remove" ></a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+         <div class="wizardPage" id="w18">
+
+            <div class="underline">معایب <a href="javascript: void();" onclick="InsertNew_Textbox('DisAdvantagesDivs')" class="gia-add"></a></div>
+            <div class="detailsContainer">
+                <div class="controls" id="DisAdvantagesDivs">
+                    @foreach (var item in Model.DisAdvatages)
+                    {
+                        <div class="input">
+                            <input type="text" value="@item" />
+                            <a href="javascript:void()" onclick="this.offsetParent.remove();" class="gia-remove" ></a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
     </div>
 
     <div id="formAction">
@@ -340,6 +383,8 @@
         function BeforeSubmitActions() {
             DetailedBreakSystemNaming();
             AirConditioningSystemDetailsNaming();
+            AdvantagesNaming();
+            DisAdvantagesNaming();
         }
 
         function InsertNew_Textbox(id) {
@@ -392,6 +437,16 @@
             $("#AirContitionSystemDetails > div").each(function (index, element) {
                 $("input[type=text]", element).attr("name", "AirConditioningSystemDetails[" + index + "].AirConditioningSystemDetailSubject");
                 $("textarea", element).attr("name", "AirConditioningSystemDetails[" + index + "].AirConditioningSystemDetail1");
+            });
+        }
+        function AdvantagesNaming() {
+            $("#AdvantagesDivs  input").each(function (index, element) {
+                $(element).attr("name", "Advantages[" + index + "]");
+            });
+        }
+        function DisAdvantagesNaming() {
+            $("#DisAdvantagesDivs  input").each(function (index, element) {
+                $(element).attr("name", "DisAdvatages[" + index + "]");
             });
         }
     </script>

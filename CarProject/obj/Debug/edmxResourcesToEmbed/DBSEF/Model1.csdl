@@ -216,7 +216,7 @@
     <Key>
       <PropertyRef Name="CarPriceId" />
     </Key>
-    <Property Name="CarPriceId" Type="Int32" Nullable="false" />
+    <Property Name="CarPriceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CarsId" Type="Int32" />
     <Property Name="Price" Type="Double" />
     <Property Name="Date" Type="DateTime" Precision="3" />
@@ -323,7 +323,7 @@
     <Key>
       <PropertyRef Name="CarsQnAId" />
     </Key>
-    <Property Name="CarsQnAId" Type="Int32" Nullable="false" />
+    <Property Name="CarsQnAId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CarsId" Type="Int32" />
     <Property Name="QuestionType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="Question" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
@@ -596,7 +596,6 @@
     <Property Name="ProductQnAId" Type="Int32" />
     <Property Name="DiscountId" Type="Int32" />
     <Property Name="WithInstall" Type="Boolean" />
-    <Property Name="InstallPrice" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_Product_Cars" FromRole="Product" ToRole="Cars" />
     <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
     <NavigationProperty Name="Company" Relationship="Self.FK_Product_Company" FromRole="Product" ToRole="Company" />
@@ -647,6 +646,7 @@
     <Property Name="ProductId" Type="Int32" />
     <Property Name="ProductPrice1" Type="Int32" />
     <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="InstallPrice" Type="Int32" />
     <NavigationProperty Name="Product" Relationship="Self.FK_ProductPrice_Product" FromRole="ProductPrice" ToRole="Product" />
   </EntityType>
   <EntityType Name="ProductQnA">
@@ -788,8 +788,8 @@
     </Key>
     <Property Name="TroubleshootingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Question" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="AnswerYes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="AnswerNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AnswerYesOrNo" Type="Boolean" />
     <Property Name="HasFather" Type="Boolean" />
     <Property Name="FatherId" Type="Int32" />
     <Property Name="HasProduct" Type="Boolean" />
