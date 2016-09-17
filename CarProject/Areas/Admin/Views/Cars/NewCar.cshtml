@@ -20,6 +20,13 @@
             <a href="#w7">سیستم های امنیتی خودرو</a>
             <a href="#w8">سیستم فرمان خودرو</a>
             <a href="#w9">سیستم تهویه</a>
+            <a href="#w10">سیستم صوتی</a>
+            <a href="#w11">صندلی ها</a>
+            <a href="#w12">شیشه و آینه</a>
+            <a href="#w13">روشنایی</a>
+            <a href="#w14">سنسورها</a>
+            <a href="#w15">کیسه هوا</a>
+            <a href="#w16">چرخها</a>
         </div>
 
 
@@ -199,6 +206,125 @@
             </div>
         </div>
         
+        <div class="wizardPage" id="w10">
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.CarAudioSystem.AudioSystemType ,"نوع سیستم صوتی خودرو")
+                @Html.input_TextBox(m => m.CarAudioSystem.AudioSystemBrand ,"برند سیستم صوتی")
+                @Html.input_CheckBox(m => m.CarAudioSystem.HasMonitor ,"آیا دارای مانیتور است ؟")
+                @Html.input_CheckBox(m => m.CarAudioSystem.RearSeatsMonitor ,"آیا دارای مانیتور صندلی عقب است ؟")
+                @Html.input_CheckBox(m => m.CarAudioSystem.RearGearCamera ,"دوربین دنده عقب ؟")
+                @Html.input_CheckBox(m => m.CarAudioSystem.FrontCamera ,"دوربین دید جلو ؟")
+                @Html.input_TextBox(m => m.CarAudioSystem.RearStereo ,"مارک سیستم صوتی عقب")
+                @Html.input_TextBox(m => m.CarAudioSystem.FrontStereo ,"مارک سیستم صوتی جلو")
+                @Html.input_TextBox(m => m.CarAudioSystem.Subwoofer ,"مارک سابووفر")
+                @Html.input_TextBox(m => m.CarAudioSystem.Amplifire ,"مارک آمپلی فایر")
+                @Html.input_CheckBox(m => m.CarAudioSystem.HasGps ,"آیا دارای رهیاب ماهواره ای است ؟")
+                @Html.input_TextArea(m => m.CarAudioSystem.Details ,"توضیحات")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+        
+        <div class="wizardPage" id="w11">
+            <div class="inputsContainer">
+                @Html.input_CheckBox(m => m.CarSeatOption.LongitudinalDisplacement ,"آیا دارای جابه‌جایی طولی است ؟")
+                @Html.input_CheckBox(m => m.CarSeatOption.BezelSet ,"آیا دارای تنظیم گودی کمر است ؟")
+                @Html.input_CheckBox(m => m.CarSeatOption.SeatWarmer ,"آیا دارای گرمکن صندلی است ؟")
+                @Html.input_CheckBox(m => m.CarSeatOption.SeatMassage ,"آیا دارای ماساژور صندلی است ؟")
+                @Html.input_CheckBox(m => m.CarSeatOption.HasMemory ,"آیا دارای حافظه است ؟")
+                @Html.input_TextArea(m => m.CarSeatOption.Details ,"توضیحات")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+        
+        <div class="wizardPage" id="w12">
+            <div class="inputsContainer">
+                @Html.input_ComboBox(m => m.GlassAndMirror.FrontWindscreens, "سیستم شیشه های جلو", Model.List_WindscreensTypes)
+                @Html.input_ComboBox(m => m.GlassAndMirror.RearWindscreens, "سیستم شیشه های عقب", Model.List_WindscreensTypes)
+                @Html.input_TextBox(m => m.GlassAndMirror.SunRoof, "آیا دارای سانروف است ؟")
+                @Html.input_TextBox(m => m.GlassAndMirror.PanaromaRoof, "آیا دارای سقف پاناروما است ؟")
+                @Html.input_TextBox(m => m.GlassAndMirror.RearGlassWarmer, "آیا دارای گرم کن شیشه عقب است ؟")
+                @Html.input_TextBox(m => m.GlassAndMirror.WindscreensWarmer, "آیا دارای گرم کن شیشه‌های بقل است ؟")
+                @Html.input_TextBox(m => m.GlassAndMirror.FrontGlassWarmer, "آیا دارای گرم کن شیشه جلو است ؟")
+                @Html.input_ComboBox(m => m.GlassAndMirror.SideMirrorSet, "سیستم آینه بقل", Model.List_SideMirrorTypes)
+                @Html.input_ComboBox(m => m.GlassAndMirror.SideMirrorSystem, "سیستم جمع شدن آینه بقل", Model.List_SideMirrorSystemTypes)
+                @Html.input_TextArea(m => m.GlassAndMirror.Details, "جزئیات")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+        
+        <div class="wizardPage" id="w13">
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.CarLightingSystem.FrontLights, "سیستم روشنایی جلو")
+                @Html.input_TextBox(m => m.CarLightingSystem.RearLights, "سیستم روشنایی عقب")
+                @Html.input_TextBox(m => m.CarLightingSystem.DayLight, "آیا دارای LED روز است ؟")
+                @Html.input_TextBox(m => m.CarLightingSystem.SideMirrorLight, "آیا دارای راهنما روی آینه های بقل است ؟")
+                @Html.input_TextBox(m => m.CarLightingSystem.FonrAntiFog, "آیا دارای مه شکن جلو است ؟")
+                @Html.input_TextBox(m => m.CarLightingSystem.RearAntiFog, "آیا دارای مه شکن عقب است ؟")
+                @Html.input_TextBox(m => m.CarLightingSystem.ReadingLamp, "آیا دارای چراغ مطالعه است ؟")
+                @Html.input_TextBox(m => m.CarLightingSystem.ThirdLightStop, "آیا دارای چراغ سوم خطر است ؟")
+                @Html.input_TextArea(m => m.CarLightingSystem.Deailts, "جزئیات")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+        
+        <div class="wizardPage" id="w14">
+            <div class="inputsContainer">
+                @Html.input_CheckBox(m => m.CarSensorsSystem.DayLightSensor, "آیا دارای سیستم سنسور روشنایی روز است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.RainSensor, "آیا دارای سیستم سنسور باران است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.RearGearSensor, "آیا دارای سیستم سنسور دنده عقب است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.ParkSensor, "آیا دارای سیستم سنسور پارک است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.NavigateSensor, "آیا دارای سیستم سنسور ناوبری هدایت خودرو است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.CruiseControl, "آیا دارای کروز کنترل است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.RearGearCamera, "آیا دارای دوربین عقب است ؟")
+                @Html.input_TextArea(m => m.CarSensorsSystem.Details, "توضیحات")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+        
+        <div class="wizardPage" id="w15">
+            <div class="inputsContainer">
+                @Html.input_CheckBox(m => m.CarAirbag.DriverAirBag, "آیا دارای کیسه هوای راننده است ؟")
+                @Html.input_CheckBox(m => m.CarAirbag.FrontAirBag, "آیا دارای کیسه هوای شاگرد است ؟")
+                @Html.input_CheckBox(m => m.CarAirbag.AirBag, "آیا دارای کیسه هوای سرنشینان عقب است ؟")
+                @Html.input_TextBox(m => m.CarAirbag.AirBagEntity, "تعداد کیسه هوا")
+                @Html.input_TextArea(m => m.CarAirbag.Details, "توضیحات")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+        
+        <div class="wizardPage" id="w16">
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.CarWheel.TireType, "نوع لاستیک")
+                @Html.input_TextBox(m => m.CarWheel.RingStandardSize, "سایز استاندارد رینگ")
+                @Html.input_TextBox(m => m.CarWheel.TireSpec, "مشخصات لاستیک")
+                @Html.input_TextBox(m => m.CarWheel.RingType, "نوع رینگ")
+                @Html.input_TextBox(m => m.CarWheel.RingModel, "مدل رینگ")
+                @Html.input_CheckBox(m => m.CarWheel.AutoInflated, "قابلیت کم و زیاد کردن باد لاستیک به صورت اتوماتیک ؟")
+                @Html.input_TextArea(m => m.CarWheel.Details, "توضیحات")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
     </div>
 
     <div id="formAction">

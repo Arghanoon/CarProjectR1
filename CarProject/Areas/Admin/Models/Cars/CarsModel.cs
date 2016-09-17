@@ -28,7 +28,19 @@ namespace CarProject.Areas.Admin.Models.Cars
         public db.SteeringSystem SteeringSystem { get; set; }
         public db.AirConditioningSystem AirConditioningSystem { get; set; }
         public List<db.AirConditioningSystemDetail> AirConditioningSystemDetails { get; set; }
-        
+
+        public db.CarAudioSystem CarAudioSystem { get; set; }
+        public db.CarSeatOption CarSeatOption { get; set; }
+        public db.GlassAndMirror GlassAndMirror { get; set; }
+        public List<string> List_WindscreensTypes { get { return new List<string> { "دستی", "برقی" }; } }
+        public List<string> List_SideMirrorTypes { get { return new List<string> { "دستی", "برقی" }; } }
+        public List<string> List_SideMirrorSystemTypes { get { return new List<string> { "ندارد", "دستی", "برقی" }; } }
+
+        public db.CarLightingSystem CarLightingSystem { get; set; }
+        public db.CarSensorsSystem CarSensorsSystem { get; set; }
+        public db.CarAirbag CarAirbag { get; set; }
+        public db.CarWheel CarWheel { get; set; }
+
 
         public CarsModel()
         {
@@ -47,6 +59,15 @@ namespace CarProject.Areas.Admin.Models.Cars
             SteeringSystem = new db.SteeringSystem();
             AirConditioningSystem = new db.AirConditioningSystem();
             AirConditioningSystemDetails = new List<db.AirConditioningSystemDetail>();
+
+            CarAudioSystem = new db.CarAudioSystem();
+            CarSeatOption = new db.CarSeatOption();
+            GlassAndMirror = new db.GlassAndMirror();
+
+            CarLightingSystem = new db.CarLightingSystem();
+            CarSensorsSystem = new db.CarSensorsSystem();
+            CarAirbag = new db.CarAirbag();
+            CarWheel = new db.CarWheel();
         }
     }
 }
