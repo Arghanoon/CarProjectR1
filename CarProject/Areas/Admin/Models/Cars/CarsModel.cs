@@ -24,7 +24,10 @@ namespace CarProject.Areas.Admin.Models.Cars
         public List<db.DetailedBrakeSystem> DetailedBrakeSystems { get; set; }
 
         public db.FuelConsumption FuelConsumption { get; set; }
-
+        public db.SecuritySystem SecuritySystem { get; set; }
+        public db.SteeringSystem SteeringSystem { get; set; }
+        public db.AirConditioningSystem AirConditioningSystem { get; set; }
+        public List<db.AirConditioningSystemDetail> AirConditioningSystemDetails { get; set; }
         
 
         public CarsModel()
@@ -40,6 +43,10 @@ namespace CarProject.Areas.Admin.Models.Cars
             DetailedBrakeSystems = new List<db.DetailedBrakeSystem>();
 
             FuelConsumption = new db.FuelConsumption();
+            SecuritySystem = new db.SecuritySystem();
+            SteeringSystem = new db.SteeringSystem();
+            AirConditioningSystem = new db.AirConditioningSystem();
+            AirConditioningSystemDetails = new List<db.AirConditioningSystemDetail>();
         }
     }
 }
