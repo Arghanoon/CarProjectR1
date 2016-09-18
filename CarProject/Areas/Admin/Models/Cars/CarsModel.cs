@@ -9,6 +9,8 @@ namespace CarProject.Areas.Admin.Models.Cars
 {
     public class CarsModel
     {
+        db.CarAutomationEntities DBS = new db.CarAutomationEntities();
+
         public db.Car Car { get; set; }
         public List<string> List_CarBodyTypes { get { return new List<string> { "سقف فلزی", "سقف جمع شو(کروک)" }; } }
         
@@ -44,6 +46,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public List<string> Advantages { get; set; }
         public List<string> DisAdvatages { get; set; }
 
+        public db.CarsReview CarsReview { get; set; }
+
         public CarsModel()
         {
             Car = new db.Car();
@@ -73,6 +77,84 @@ namespace CarProject.Areas.Admin.Models.Cars
 
             Advantages = new List<string>();
             DisAdvatages = new List<string>();
+
+            CarsReview = new db.CarsReview();
+        }
+
+        public void Save()
+        {
+            DBS.Cars.Add(this.Car);
+
+            this.CarEngine.Car = this.Car;
+            DBS.CarEngines.Add(this.CarEngine);
+
+            this.GearBox.Car = this.Car;
+            DBS.CarGearBoxes.Add(this.GearBox);
+
+            this.PhysicalDetail.Car = this.Car;
+            DBS.CarPhysicalDetails.Add(this.PhysicalDetail);
+
+            this.BrakeSystem.Car = this.Car;
+            DBS.BrakeSystems.Add(this.BrakeSystem);
+
+            foreach (var item in this.DetailedBrakeSystems)
+            {
+                item.Car = this.Car;
+                DBS.DetailedBrakeSystems.Add(item);
+            }
+
+            this.FuelConsumption.Car = this.Car;
+            DBS.FuelConsumptions.Add(this.FuelConsumption);
+
+            this.SecuritySystem.Car = this.Car;
+            DBS.SecuritySystems.Add(this.SecuritySystem);
+
+            this.SteeringSystem.Car = this.Car;
+            DBS.SteeringSystems.Add(this.SteeringSystem);
+
+            this.AirConditioningSystem.Car = this.Car;
+            DBS.AirConditioningSystems.Add(this.AirConditioningSystem);
+
+            foreach (var item in this.AirConditioningSystemDetails)
+            {
+                item.Car = this.Car;
+                DBS.AirConditioningSystemDetails.Add(item);
+            }
+
+            this.CarAudioSystem.Car = this.Car;
+            DBS.CarAudioSystems.Add(this.CarAudioSystem);
+
+            this.CarSeatOption.Car = this.Car;
+            DBS.CarSeatOptions.Add(this.CarSeatOption);
+
+            this.GlassAndMirror.Car = this.Car;
+            DBS.GlassAndMirrors.Add(this.GlassAndMirror);
+
+            this.CarLightingSystem.Car = this.Car;
+            DBS.CarLightingSystems.Add(this.CarLightingSystem);
+
+            this.CarSensorsSystem.Car = this.Car;
+            DBS.CarSensorsSystems.Add(this.CarSensorsSystem);
+
+            this.CarAirbag.Car = this.Car;
+            DBS.CarAirbags.Add(this.CarAirbag);
+
+            this.CarWheel.Car = this.Car;
+            DBS.CarWheels.Add(this.CarWheel);
+
+            foreach (var item in Advantages)
+            {
+                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = true });
+            }
+            foreach (var item in DisAdvatages)
+            {
+                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = false });
+            }
+
+            this.CarsReview.Car = this.Car;
+            DBS.CarsReviews.Add(this.CarsReview);
+
+            DBS.SaveChanges();
         }
     }
 }

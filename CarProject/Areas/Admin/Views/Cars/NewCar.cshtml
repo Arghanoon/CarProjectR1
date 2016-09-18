@@ -9,6 +9,8 @@
 
 
 <form method="post" id="form1">
+    <input type="hidden" name="IsForUpdate" value="false" />
+
     <div class="wizardContainer">
         <div class="wizardNav">
             <a href="#w1">اطلاعات خودرو</a>
@@ -29,6 +31,7 @@
             <a href="#w16">چرخها</a>
             <a href="#w17">مزایا</a>
             <a href="#w18">معایب</a>
+            <a href="#w19">بررسی</a>
         </div>
 
 
@@ -349,7 +352,7 @@
                 <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
-         <div class="wizardPage" id="w18">
+        <div class="wizardPage" id="w18">
 
             <div class="underline">معایب <a href="javascript: void();" onclick="InsertNew_Textbox('DisAdvantagesDivs')" class="gia-add"></a></div>
             <div class="detailsContainer">
@@ -368,10 +371,27 @@
                 <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+
+
+        <div class="wizardPage" id="w19">
+            <div class="inputsContainer">
+                @Html.input_TextArea(m => m.CarsReview.Review, "نقد و بررسی")
+                @Html.input_Rating(m => m.CarsReview.CarScore, "امتیاز خودرو")
+                @Html.input_Rating(m => m.CarsReview.Beauty, "امتیاز زیبایی")
+                @Html.input_Rating(m => m.CarsReview.WorthBuying, "ارزش خرید")
+                @Html.input_Rating(m => m.CarsReview.Quality, "کیفیت")
+                @Html.input_Rating(m => m.CarsReview.Services, "خدمات پس از فروش")
+            </div>
+            
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                @*<input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />*@
+            </div>
+        </div>
     </div>
 
     <div id="formAction">
-        <input type="submit" value="ثبت اطلاعات خودرو" />
+        <input type="submit" class="button green" value="ثبت اطلاعات خودرو" />
     </div>
 </form>
 
@@ -488,6 +508,13 @@
 
         .underline {
             border-bottom:thin solid #888;
+        }
+
+        #formAction {
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            margin:5px;
         }
     </style>
 }
