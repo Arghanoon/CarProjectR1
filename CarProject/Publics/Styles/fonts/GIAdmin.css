@@ -70,6 +70,10 @@
 .gia-radioBCH:before{content:'\005C';}
 .gia-listView:before{content:'\005D';}
 .gia-gridView:before{content:'\005E';}
+.gia-news:before{content:'\005F';}
+.gia-brands:before{content:'\0060';}
+.gia-newCar:before{content:'\0061';}
+.gia-cars:before{content:'\0062';}
 
 
 

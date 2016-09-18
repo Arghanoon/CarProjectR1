@@ -15,15 +15,15 @@ namespace CarProject.App_Code
 
         public static string BaseRouts_CarImages(this string value)
         {
-            return Path.Combine("~/Publics/CarImages/",value);
+            return Path.Combine("~/Publics/CarImages/",value).Replace('\\','/');
         }
         public static string BaseRouts_CarTempImages(this string value)
         {
-            return Path.Combine("~/Publics/CarTempImages/", value);
+            return Path.Combine("~/Publics/CarTempImages/", value).Replace('\\', '/'); ;
         }
         public static string BaseRouts_CarBrands(this string value)
         {
-            return Path.Combine("~/Publics/Brands/", value);
+            return Path.Combine("~/Publics/Brands/", value).Replace('\\', '/'); ;
         }
 
 

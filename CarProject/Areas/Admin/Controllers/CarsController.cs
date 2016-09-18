@@ -54,7 +54,6 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View();
         }
-
         [HttpPost, ActionName("CarImagesGallery")]
         public ActionResult CarImagesGalleryPost(int id)
         {
@@ -65,12 +64,12 @@ namespace CarProject.Areas.Admin.Controllers
             {
                 if (!dic.Exists)
                     dic.Create();
-                int namitem = dic.GetFiles().Length;
+                long namitem = DateTime.Now.Ticks;
                 for (int i = 0; i < Request.Files.Count; i++)
                 {
                     if (Request.Files[i].ContentType.ContentTypeIsImage())
                     {
-                        Request.Files[i].SaveAs(Server.MapPath(Path.Combine(folder, string.Format("{0:000000}.{1}", namitem++, Request.Files[i].FileName.Substring(Request.Files[i].FileName.LastIndexOf('.'))))));
+                        Request.Files[i].SaveAs(Server.MapPath(Path.Combine(folder, string.Format("{0:000000}{1}", namitem++, Request.Files[i].FileName.Substring(Request.Files[i].FileName.LastIndexOf('.'))))));
                     }
                 }
             }
@@ -87,6 +86,15 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View();
         }
+        public ActionResult CarImageGalleryRemove(int id, string filename)
+        {
+            var file = new FileInfo(Server.MapPath(filename));
+            if (file.Exists)
+                file.Delete();
+
+            return RedirectToAction("CarImagesGallery", new { id = id });
+        }
+
 
         [HttpGet]
         public ActionResult Brands(int? id)
