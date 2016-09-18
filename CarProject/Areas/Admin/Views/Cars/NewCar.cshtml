@@ -375,7 +375,7 @@
 
         <div class="wizardPage" id="w19">
             <div class="inputsContainer">
-                @Html.input_TextArea(m => m.CarsReview.Review, "نقد و بررسی")
+                @Html.input_TextArea(m => m.CarsRviewHtml, "نقد و بررسی")
                 @Html.input_Rating(m => m.CarsReview.CarScore, "امتیاز خودرو")
                 @Html.input_Rating(m => m.CarsReview.Beauty, "امتیاز زیبایی")
                 @Html.input_Rating(m => m.CarsReview.WorthBuying, "ارزش خرید")
@@ -399,6 +399,16 @@
 @section script
 {
     <script>
+        
+        tinymce.init({
+            selector: '#@Html.IdFor(m => m.CarsRviewHtml)',
+            menubar: false,
+            plugins: "directionality,link,hr,table,emoticons,preview,image",
+            toolbar: "rtl ltr | alignleft aligncenter alignright alignjustify | bold italic underline strikethrough | undo redo | cut copy paste | bullist numlist | hr link unlink | image | table tabledelete tabledelete tablemergecells tablesplitcells tableinsertrowbefore tableinsertrowbefore tableinsertrowbefore tablerowprops tablecutrow tablecopyrow tablepasterowbefore tablepasterowafter tableinsertcolbefore tableinsertcolafter tabledeletecol | emoticons preview | ",
+            content_css: "@Url.Content("~/Publics/Styles/fonts/Fonts.css"),@Url.Content("~/Areas/Admin/Files/StyleAndScripts/Default/tinymce01.css")"
+        });
+
+
         document.getElementById("form1").addEventListener("submit", function (e) { e.preventDefault(); BeforeSubmitActions(); this.submit(); });
         function BeforeSubmitActions() {
             DetailedBreakSystemNaming();

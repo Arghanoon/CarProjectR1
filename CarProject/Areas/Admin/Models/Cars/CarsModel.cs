@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.Web.Mvc;
 using db = CarProject.DBSEF;
 
 namespace CarProject.Areas.Admin.Models.Cars
@@ -47,6 +47,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public List<string> DisAdvatages { get; set; }
 
         public db.CarsReview CarsReview { get; set; }
+        [AllowHtml]
+        public string CarsRviewHtml { get { return this.CarsReview.Review; } set { this.CarsReview.Review = value; } }
 
         public CarsModel()
         {
