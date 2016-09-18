@@ -396,10 +396,24 @@
 </form>
 
 
+<div id="filebrowserBack">
+    <div id="filebrowser">
+        <div id="topToolbar"></div>
+
+        <div id="navigation"></div>
+
+        <div id="FilesContainer">
+
+        </div>
+    </div>
+</div>
+
 @section script
 {
     <script>
-        
+        var fieldname = "";
+        var wind = "";
+
         tinymce.init({
             selector: '#@Html.IdFor(m => m.CarsRviewHtml)',
             menubar: false,
@@ -409,10 +423,59 @@
 
             automatic_uploads: true,
             file_browser_callback: function (field_name, url, type, win) {
-                win.document.getElementById(field_name).value = 'my browser value';
+                //win.document.getElementById(field_name).value = 'my browser value';
+                
+                fieldname = field_name;
+                wind = win;
+                document.getElementById("filebrowserBack").style.display = "inherit";
+                GetFiles('');
             }
         });
 
+        function GetFiles(path) {
+
+            fc = document.getElementById("FilesContainer");
+            fc.innerHTML = "";
+
+            $.get("@Url.Action("GetImages","FileManager")", { path: path } , function (e) {
+                for (var i = 0; i < e["DIR"].length; i++) {
+                    a = document.createElement("a");
+                    a.href = "javascript: void();";
+                    a.classList.add("gia-directory");
+                    a.classList.add("dir");
+                    a.setAttribute("data-path", e["DIR"][i]["name"]);
+                    
+                    a.onclick = function () { GetFiles(this.getAttribute("data-path")); }
+                    a.textContent = e["DIR"][i]["name"];
+                    fc.appendChild(a);
+                }
+
+                for (var i = 0; i < e["IMGS"].length; i++) {
+                    img = document.createElement("img");
+                    img.src = e["IMGS"][i]["path"];
+                    //img.setAttribute("data-title", e["IMGS"][i]["name"]);
+
+                    secname = document.createElement("section");
+                    secname.classList.add("imgname");
+                    secname.innerHTML = e["IMGS"][i]["name"];
+
+                    a = document.createElement("a");
+                    a.classList.add("img");
+                    a.setAttribute("data-path", e["IMGS"][i]["path"]);
+                    a.onclick = function () { wind.document.getElementById(fieldname).value = this.getAttribute("data-path"); document.getElementById("filebrowserBack").style.display = "none"; };
+                    a.href = "javascript:void();";
+
+                    a.appendChild(img);
+                    a.appendChild(secname);
+
+                   
+                   
+                    fc.appendChild(a);
+                }
+            });
+
+            
+        }
 
         document.getElementById("form1").addEventListener("submit", function (e) { e.preventDefault(); BeforeSubmitActions(); this.submit(); });
         function BeforeSubmitActions() {
@@ -531,5 +594,45 @@
             align-items:center;
             margin:5px;
         }
+
+        #filebrowserBack {
+            display:none ;
+            position:fixed;
+            top:0; bottom:0; left:0; right:0; 
+            background:rgba(0,0,0,0.7);
+            z-index:75535;
+        }
+        #filebrowser {
+            position:absolute;
+            top:0; bottom:0; left:0; right:0; 
+            background:white;
+            margin:auto;
+            width:95%;
+            height:95%;
+            overflow:auto;
+        }
+
+        #FilesContainer {
+            display:flex; justify-content:center; align-items:stretch;
+            flex-wrap:wrap;
+        }
+            #FilesContainer > * {
+                position:relative;
+                width:200px; height:120px;
+                display:flex; flex-direction:column; justify-content:center; align-items:center;
+                border:thin solid #888;
+                margin:5px;
+                border-radius:5px;
+                overflow:hidden;
+            }
+            #FilesContainer  img {
+                
+            }
+            #FilesContainer imgname {
+                position:absolute; left:0; right:0; bottom:0;
+                background:rgba(0, 0, 0, 0.60);
+                color:white;
+                z-index: 1;
+            }
     </style>
 }
