@@ -34,6 +34,7 @@ namespace CarProject.Areas.Admin.Models
         {
             dbc.SaveChanges();
         }
+        
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

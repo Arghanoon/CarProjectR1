@@ -29,7 +29,9 @@ namespace CarProject.DBSEF
         public Nullable<bool> HasProduct { get; set; }
         public Nullable<int> ProductId { get; set; }
         public Nullable<int> ServicePrice { get; set; }
-    
+        public string AnswerYes { get; set; }
+        public string AnswerNo { get; set; }
+        public string QQuestion { get; set; }
         public virtual Product Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Troubleshooting> Troubleshooting1 { get; set; }

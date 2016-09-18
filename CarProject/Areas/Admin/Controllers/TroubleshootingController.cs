@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CarProject.App_Code;
 using CarProject.Areas.Admin.Models;
 
+
 namespace CarProject.Areas.Admin.Controllers
 {
     public class TroubleshootingController : Controller
@@ -34,7 +35,7 @@ namespace CarProject.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult New(TroubleshootingClass tobj,TroubleshootingClass tobj1, TroubleshootingClass tobj2, FormCollection form)
         {
-          /*  int id = 0;
+            int id = 0;
             if (ViewData.ModelState.IsValid)
             {
                 if (!tobj.Troubleshooting.QQuestion.IsNullOrWhiteSpace())
@@ -50,7 +51,7 @@ namespace CarProject.Areas.Admin.Controllers
                     }
                     tobj.Troubleshooting.Answer = tobj.Troubleshooting.QQuestion;
                     tobj.Troubleshooting.QQuestion = null;
-                     tobj.Save();
+                    tobj.Save();
                 }
                 if (!tobj.Troubleshooting.AnswerYes.IsNullOrWhiteSpace())
                 {
@@ -62,11 +63,11 @@ namespace CarProject.Areas.Admin.Controllers
                     tobj1.Save();
 
 
-                    
+
                 }
                 if (!tobj.Troubleshooting.AnswerNo.IsNullOrWhiteSpace())
                 {
-                    tobj2.Troubleshooting.FatherId = tobj.Troubleshooting.TroubleshootingId;    
+                    tobj2.Troubleshooting.FatherId = tobj.Troubleshooting.TroubleshootingId;
                     tobj2.Troubleshooting.HasFather = false;
                     tobj2.Troubleshooting.Answer = tobj.Troubleshooting.AnswerNo;
                     tobj2.Troubleshooting.AnswerNo = null;
@@ -89,8 +90,7 @@ namespace CarProject.Areas.Admin.Controllers
                 }
             }
 
-            return View(tobj);*/
-            return View();
+            return View(tobj);
         }
     }
 }
