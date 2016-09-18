@@ -857,14 +857,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Cars_CarModel">
-    <End Role="CarModel" Type="Self.CarModel" Multiplicity="1" />
-    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="CarModel" Type="Self.CarModel" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CarModel">
         <PropertyRef Name="CarModelId" />
       </Principal>
       <Dependent Role="Cars">
-        <PropertyRef Name="CarsId" />
+        <PropertyRef Name="CarModelId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

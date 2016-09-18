@@ -14,11 +14,18 @@ namespace CarProject.DBSEF
     
     public partial class CarModel
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CarModel()
+        {
+            this.Cars = new HashSet<Car>();
+        }
+    
         public int CarModelId { get; set; }
         public string CarModelName { get; set; }
         public Nullable<int> CarBrandId { get; set; }
     
         public virtual CarBrand CarBrand { get; set; }
-        public virtual Car Car { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Car> Cars { get; set; }
     }
 }

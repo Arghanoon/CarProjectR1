@@ -194,7 +194,7 @@
     <Property Name="CarModelName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="CarBrandId" Type="Int32" />
     <NavigationProperty Name="CarBrand" Relationship="Self.FK_CarModel_CarBrand" FromRole="CarModel" ToRole="CarBrand" />
-    <NavigationProperty Name="Car" Relationship="Self.FK_Cars_CarModel" FromRole="CarModel" ToRole="Cars" />
+    <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_CarModel" FromRole="CarModel" ToRole="Cars" />
   </EntityType>
   <EntityType Name="CarPhysicalDetail">
     <Key>
@@ -1101,14 +1101,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Cars_CarModel">
-    <End Role="CarModel" Type="Self.CarModel" Multiplicity="1" />
-    <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
+    <End Role="CarModel" Type="Self.CarModel" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Car" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CarModel">
         <PropertyRef Name="CarModelId" />
       </Principal>
       <Dependent Role="Cars">
-        <PropertyRef Name="CarsId" />
+        <PropertyRef Name="CarModelId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

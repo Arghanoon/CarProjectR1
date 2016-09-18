@@ -51,8 +51,6 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarsModel()
         {
             Car = new db.Car();
-            Car.CarModel = new db.CarModel();
-            Car.CarModel.CarBrand = new db.CarBrand();
 
             CarEngine = new db.CarEngine();
 

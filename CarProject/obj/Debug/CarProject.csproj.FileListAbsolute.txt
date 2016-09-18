@@ -213,4 +213,3 @@ E:\CarProject\1.6\CarProjectR1\CarProject\obj\Debug\CarProject.csproj.App.config
 E:\CarProject\1.6\CarProjectR1\CarProject\obj\Debug\CarProject.csprojResolveAssemblyReference.cache
 E:\CarProject\1.6\CarProjectR1\CarProject\obj\Debug\CarProject.dll
 E:\CarProject\1.6\CarProjectR1\CarProject\obj\Debug\CarProject.pdb
-G:\Projects\CarCompleteWebsite\CarProject\CarProject\bin\Publics\CarImages\notfound.jpg
