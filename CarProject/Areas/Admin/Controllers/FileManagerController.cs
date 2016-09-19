@@ -38,5 +38,13 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return Json(new { DIR = dirs, IMGS = images }, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public void RenameRequest(string address, string newname)
+        {
+            var file = new FileInfo(Server.MapPath(address));
+            if (file.Exists)
+                file.MoveTo(file.FullName.Replace(file.Name, newname));
+            
+        }
     }
 }
