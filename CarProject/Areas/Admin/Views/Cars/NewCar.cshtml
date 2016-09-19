@@ -398,8 +398,17 @@
 
 <div id="filebrowserBack">
     <div id="filebrowser">
+        <div id="statusbar">
+            <a href="javascript:void()" onclick="document.getElementById('filebrowserBack').style.display = 'none';" style="color:red;" title="close"> &times;</a>
+            |
+            <span>انتخاب فایل تصویر</span>
+        </div>
         <div id="topToolbar">
-            <a href="javascript:void()" />
+            <a href="javascript: void()" class="gia-upload">آپلود فایل</a> |
+            <a href="javascript: void()" class="gia-home" onclick="GetFiles('')">پوشه اصلی</a> | 
+            <a href="javascript: void()" class="gia-back" onclick="GetFiles(dirHistory.pop())">برگشت به پوشه قبلی</a> | 
+            <a href="javascript: void()" class="gia-refresh" onclick="dirHistory = [] ;GetFiles(currentDir);">بروزرسانی</a> |
+            <a href="javascript: void()" class="gia-newdir" onclick="">پوشه جدید</a> 
         </div>
 
         <div id="navigation"></div>
@@ -422,6 +431,8 @@
             plugins: "directionality,link,hr,table,emoticons,preview,image",
             toolbar: "rtl ltr | alignleft aligncenter alignright alignjustify | bold italic underline strikethrough | undo redo | cut copy paste | bullist numlist | hr link unlink | image | table tabledelete tabledelete tablemergecells tablesplitcells tableinsertrowbefore tableinsertrowbefore tableinsertrowbefore tablerowprops tablecutrow tablecopyrow tablepasterowbefore tablepasterowafter tableinsertcolbefore tableinsertcolafter tabledeletecol | emoticons preview | ",
             content_css: "@Url.Content("~/Publics/Styles/fonts/Fonts.css"),@Url.Content("~/Areas/Admin/Files/StyleAndScripts/Default/tinymce01.css")",
+            directionality: 'rtl',
+            min_height:300,
 
             automatic_uploads: true,
             file_browser_callback: function (field_name, url, type, win) {
@@ -433,9 +444,13 @@
                 GetFiles('');
             }
         });
+        
+        var dirHistory = [];
+        var currentDir = "";
 
         function GetFiles(path) {
-
+            dirHistory.push(currentDir);
+            currentDir = path;
             fc = document.getElementById("FilesContainer");
             fc.innerHTML = "";
 
@@ -598,11 +613,19 @@
         }
 
         #filebrowserBack {
-            display:none ;
+            /*display:none ;*/
             position:fixed;
             top:0; bottom:0; left:0; right:0; 
             background:rgba(0,0,0,0.7);
             z-index:75535;
+        }
+        #statusbar {
+            background:#eaeaea;
+            border-bottom:thin solid #888;
+            padding:0 5px;
+        }
+        #topToolbar {
+            border-bottom:thin solid #888;
         }
         #filebrowser {
             position:absolute;
@@ -615,7 +638,7 @@
         }
 
         #FilesContainer {
-            display:flex; justify-content:center; align-items:stretch;
+            display:flex; /*justify-content:center; align-items:stretch;*/
             flex-wrap:wrap;
         }
             #FilesContainer > * {

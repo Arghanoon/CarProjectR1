@@ -74,6 +74,9 @@
 .gia-brands:before{content:'\0060';}
 .gia-newCar:before{content:'\0061';}
 .gia-cars:before{content:'\0062';}
+.gia-rename:before{content:'\0063';}
+.gia-refresh:before{content:'\0064';}
+.gia-home:before{content:'\0065';}
 
 
 
