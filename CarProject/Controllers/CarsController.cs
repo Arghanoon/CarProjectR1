@@ -100,6 +100,25 @@ namespace CarProject.Controllers
             List<db.CarBrand> _objcountry = new List<db.CarBrand>();
             return _objcountry;
         }
+
+        public ActionResult SearchView()
+        {
+            var model = new SearchClass();
+            var dbs = new DBSEF.CarAutomationEntities();
+            var list = dbs.CarBrands.ToArray();
+            var checkBoxListItems = new List<CheckBoxListItem>();
+            foreach (var genre in list)
+            {
+                checkBoxListItems.Add(new CheckBoxListItem()
+                {
+                    ID = genre.CarBrandId,
+                    Display = genre.CarBrandName,
+                    IsChecked = false //On the add view, no genres are selected by default
+                });
+            }
+            model.BrandName = checkBoxListItems;
+            return View(model);
+        }
     }
 }
 

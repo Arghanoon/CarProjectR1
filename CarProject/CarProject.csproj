@@ -748,7 +748,7 @@
     <Content Include="Publics\Styles\fonts\yekan.TTF" />
     <Content Include="Views\Cars\Index.cshtml" />
     <Content Include="Views\Cars\Car.cshtml" />
-    <Content Include="Views\Cars\Searchs\View.cshtml" />
+    <Content Include="Views\Cars\SearchView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
