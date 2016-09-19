@@ -1,4 +1,6 @@
-﻿@using db = CarProject.DBSEF
+﻿@model CarProject.CLS.SearchClass
+
+@using db = CarProject.DBSEF
 @using System.IO
 @{
     ViewBag.Title = "خودروها";
@@ -65,115 +67,119 @@
     {
     }
     
-    
     var Cars = db.Cars.Take(pagecount);
 }
 
 @section style
 {
-    <link href="~/Publics/Files/Resources/CarsPage.css" rel="stylesheet" />
+    <link href="~/Publics/Files/Resources/CarsPage.css" rel="stylesheet"/>
 }
+@using (Html.BeginForm())
+{
+    <div id="baseContainer">
 
-<div id="baseContainer">
+        <div id="mainContainer">
 
-    <div id="mainContainer">
-
-        <form id="sortandsearchContainer">
-            <div id="searchSection">
-                <section id="searchControl">
-                    <input type="text" name="search" placeholder="جستجو" />
-                    <button type="submit">
-                        <section class="gia-search"></section>
-                    </button>
-                </section>
-            </div>
-            <div id="sortSection">
-                <div>
-                    <strong>مرتب سازی بر اساس:</strong>
-                    <select name="orderBy">
-                        <option value="0">تاریخ ثبت</option>
-                        <option value="1">قیمت</option>
-                        <option value="2">حجم موتور</option>
-                        <option value="3">قدرت</option>
-                        <option value="4">گشتاور</option>
-                        <option value="5">توان وزنی</option>
-                        <option value="6">حداکثر سرعت</option>
-                        <option value="7">0 تا 100</option>
-                        <option value="8">مصرف ترکیبی</option>
-                    </select>
-                    |
-                    <input type="radio" name="orderType" value="0" id="id1" checked="checked"/><label for="id1">صعودی</label>
-                    <input type="radio" name="orderType" value="1" id="id2" /><label for="id2">نزولی</label>
-                    |
-                    <strong>تعداد نمایش در هر صفحه:</strong>
-                    <select name="pageCount">
-                        <option>20</option>
-                        <option>30</option>
-                        <option>40</option>
-                        <option>50</option>
-                    </select>
+            <form id="sortandsearchContainer">
+                <div id="searchSection">
+                    <section id="searchControl">
+                        <input type="text" name="search" placeholder="جستجو"/>
+                        <button type="submit">
+                            <section class="gia-search"></section>
+                        </button>
+                        <div>
+                            @Html.EditorFor(x => x.BrandName)
+                            <br/>
+                        </div>
+                    </section>
                 </div>
-                <div>
-                    <strong>نحوه نمایش:</strong>
-                    <a href="javascript:void()" id="btn_viewType1" class="gia-listView" onclick="changeView(0)" ></a>
-                    <a href="javascript:void()" id="btn_viewType2" class="gia-gridView" onclick="changeView(1)" ></a>
-                </div>
-            </div>
-        </form>
-
-
-        <div id="carlists" class="itemsView">
-            @foreach (var item in Cars)
-            {
-                <div class="items">
-                    <div class="img">
-                    @{
-                        var dic = new DirectoryInfo(Server.MapPath(Path.Combine(BaseDIr,item.CarsId.ToString())));
-                        if (dic.Exists && dic.GetFiles().Length > 0)
-                        {
-                            <img src="@Url.Content(Path.Combine(BaseDIr,item.CarsId.ToString(),dic.GetFiles()[0].Name))" />
-                        }
-                        else if(!dic.Exists || dic.GetFiles().Length <= 0)
-                        {
-                            <img src="@Url.Content(Path.Combine(BaseDIr,"notfound.jpg"))" />
-                        }
-                    }
+                <div id="sortSection">
+                    <div>
+                        <strong>مرتب سازی بر اساس:</strong>
+                        <select name="orderBy">
+                            <option value="0">تاریخ ثبت</option>
+                            <option value="1">قیمت</option>
+                            <option value="2">حجم موتور</option>
+                            <option value="3">قدرت</option>
+                            <option value="4">گشتاور</option>
+                            <option value="5">توان وزنی</option>
+                            <option value="6">حداکثر سرعت</option>
+                            <option value="7">0 تا 100</option>
+                            <option value="8">مصرف ترکیبی</option>
+                        </select>
+                        |
+                        <input type="radio" name="orderType" value="0" id="id1" checked="checked"/><label for="id1">صعودی</label>
+                        <input type="radio" name="orderType" value="1" id="id2"/><label for="id2">نزولی</label>
+                        |
+                        <strong>تعداد نمایش در هر صفحه:</strong>
+                        <select name="pageCount">
+                            <option>20</option>
+                            <option>30</option>
+                            <option>40</option>
+                            <option>50</option>
+                        </select>
                     </div>
-                    <table>
-                        <tr>
-                            <th>برند</th>
-                            <td class="grid">@item.CarModel.CarBrand.CarBrandName</td>
-                        </tr>
-                        <tr>
-                            <th>کلاس</th>
-                            <td>@item.CarsClass</td>
-                        </tr>
-                        <tr>
-                            <th>مدل</th>
-                            <td class="grid">@item.CarModel.CarModelName</td>
-                        </tr>
-                        <tr>
-                            <th>امتیاز کلینیک</th>
-                            <td>@item.CarsClinicScore</td>
-                        </tr>
-                        <tr>
-                            <th>امتیاز کاربران</th>
-                            <td>@item.CarsUserScore</td>
-                        </tr>
-                        <tr>
-                            <th>قیمت</th>
-                            <td class="grid">@item.Price</td>
-                        </tr>
-                    </table>
+                    <div>
+                        <strong>نحوه نمایش:</strong>
+                        <a href="javascript:void()" id="btn_viewType1" class="gia-listView" onclick="changeView(0)"></a>
+                        <a href="javascript:void()" id="btn_viewType2" class="gia-gridView" onclick="changeView(1)"></a>
+                    </div>
                 </div>
-            }
+            </form>
+
+
+            <div id="carlists" class="itemsView">
+                @foreach (var item in Cars)
+                {
+                    <div class="items">
+                        <div class="img">
+                            @{
+                                var dic = new DirectoryInfo(Server.MapPath(Path.Combine(BaseDIr, item.CarsId.ToString())));
+                                if (dic.Exists && dic.GetFiles().Length > 0)
+                                {
+                                    <img src="@Url.Content(Path.Combine(BaseDIr, item.CarsId.ToString(), dic.GetFiles()[0].Name))"/>
+                                }
+                                else if (!dic.Exists || dic.GetFiles().Length <= 0)
+                                {
+                                    <img src="@Url.Content(Path.Combine(BaseDIr, "notfound.jpg"))"/>
+                                }
+                            }
+                        </div>
+                        <table>
+                            <tr>
+                                <th>برند</th>
+                                <td class="grid">@item.CarModel.CarBrand.CarBrandName</td>
+                            </tr>
+                            <tr>
+                                <th>کلاس</th>
+                                <td>@item.CarsClass</td>
+                            </tr>
+                            <tr>
+                                <th>مدل</th>
+                                <td class="grid">@item.CarModel.CarModelName</td>
+                            </tr>
+                            <tr>
+                                <th>امتیاز کلینیک</th>
+                                <td>@item.CarsClinicScore</td>
+                            </tr>
+                            <tr>
+                                <th>امتیاز کاربران</th>
+                                <td>@item.CarsUserScore</td>
+                            </tr>
+                            <tr>
+                                <th>قیمت</th>
+                                <td class="grid">@item.Price</td>
+                            </tr>
+                        </table>
+                    </div>
+                }
+            </div>
         </div>
+
+        <div id="rightContainer"></div>
     </div>
 
-    <div id="rightContainer"></div>
-</div>
-
-
+}
 @section script
 {
     <script>

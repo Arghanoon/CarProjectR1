@@ -623,6 +623,16 @@
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="ToBasket">
     <Key>
       <PropertyRef Name="ToBasketId" />
@@ -676,6 +686,21 @@
     <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserRole" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="AllIn">
+          <Property Name="CarBrandName" Type="nvarchar" MaxLength="150" />
+          <Property Name="CarModelName" Type="nvarchar" MaxLength="150" />
+          <Property Name="EngineType" Type="nvarchar" MaxLength="50" />
+          <Property Name="EngineCylinderNumber" Type="int" />
+          <Property Name="GearBoxType" Type="nvarchar" MaxLength="50" />
+          <Property Name="CarUsage" Type="nvarchar" MaxLength="100" />
+          <Property Name="CarYearModel" Type="int" />
+          <Property Name="CarBodyType" Type="nvarchar" MaxLength="50" />
+          <Property Name="LphCity" Type="float" />
+          <Property Name="LphRoad" Type="float" />
+          <Property Name="LphMix" Type="float" />
+        </EntityType>-->
   <Association Name="FK_AirConditioningSystem_Cars">
     <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
     <End Role="AirConditioningSystem" Type="Self.AirConditioningSystem" Multiplicity="*" />
@@ -856,7 +881,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Cars_CarModel">
+  <Association Name="FK_Cars_CarModel1">
     <End Role="CarModel" Type="Self.CarModel" Multiplicity="0..1" />
     <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
     <ReferentialConstraint>
@@ -1620,6 +1645,7 @@
     <EntitySet Name="ServicesPackToView" EntityType="Self.ServicesPackToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ToBasket" EntityType="Self.ToBasket" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
@@ -1685,7 +1711,7 @@
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarPrice" EntitySet="CarPrice" />
     </AssociationSet>
-    <AssociationSet Name="FK_Cars_CarModel" Association="Self.FK_Cars_CarModel">
+    <AssociationSet Name="FK_Cars_CarModel1" Association="Self.FK_Cars_CarModel1">
       <End Role="CarModel" EntitySet="CarModel" />
       <End Role="Cars" EntitySet="Cars" />
     </AssociationSet>
