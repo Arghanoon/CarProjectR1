@@ -80,6 +80,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<ServicesPackToView> ServicesPackToViews { get; set; }
         public virtual DbSet<ServiceToView> ServiceToViews { get; set; }
         public virtual DbSet<SteeringSystem> SteeringSystems { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ToBasket> ToBaskets { get; set; }
         public virtual DbSet<TodaysSpecial> TodaysSpecials { get; set; }
         public virtual DbSet<Troubleshooting> Troubleshootings { get; set; }
