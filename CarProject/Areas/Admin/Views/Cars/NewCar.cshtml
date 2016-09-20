@@ -37,7 +37,7 @@
 
         <div class="wizardPage" id="w1">
             <div class="inputsContainer">
-                @Html.input_ComboBox(m => m.Car.CarModel.CarBrand.CarBrandId, "برند", dbs.CarBrands.ToDictionary(b => b.CarBrandId, b => b.CarBrandName))
+                @Html.input_ComboBox(m => m.Car.CarModel.CarBrandId, "برند", dbs.CarBrands.ToDictionary(b => b.CarBrandId, b => b.CarBrandName))
                 @Html.input_TextBox(m => m.Car.CarModel.CarModelName, "مدل")
 
                 @Html.input_TextBox(m => m.Car.CarsClass, "کلاس خودرو")
@@ -384,8 +384,8 @@
             </div>
             
             <div class="footer" style="direction: ltr;">
-                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
-                @*<input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />*@
+                @*<input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />*@
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
     </div>

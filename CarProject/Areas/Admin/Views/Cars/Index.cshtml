@@ -1,0 +1,88 @@
+﻿@using CarProject.DBSEF
+@{
+    ViewBag.Title = "خودروها";
+    int page = 0;
+    int showCount = 20;
+
+    var dbs = new CarAutomationEntities();
+    int PageCount = dbs.Cars.Count() / showCount;
+    if ((dbs.Cars.Count() % showCount) > 0)
+    { PageCount += 1; }
+
+    var cars = dbs.Cars.OrderBy(b => b.CarsId).Skip(page * showCount).Take(showCount);
+    
+}
+
+
+<div>
+
+    <div id="itemsContainer">
+        @foreach (var item in cars)
+        {
+            <div class="item">
+                <table>
+                    <tr>
+                        <th>برند</th>
+                        <td>@item.CarModel.CarBrand.CarBrandName</td>
+                    </tr>
+                    <tr>
+                        <th>مدل</th>
+                        <td>@item.CarModel.CarModelName</td>
+                    </tr>
+                    <tr>
+                        <th>سال ساخت</th>
+                        <td>@item.CarYearModel.GetValueOrDefault()</td>
+                    </tr>
+                </table>
+
+                <div class="action">
+                    <a href="@Url.Action("UpdateCar", new { id = item.CarsId })" class="gia-edit" ></a>
+                    <a href="@Url.Action("CarImagesGallery", new { id = item.CarsId })" class="gia-images" ></a>
+                    <a href="#" class="gia-remove"></a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div id="pageNumberContainer">
+
+    </div>
+</div>
+
+
+@section style
+{
+    <style>
+        #itemsContainer {
+            display:flex; jusftify-content:center; align-items:stretch;
+        }
+        .item {
+            border:thin solid #888;
+            padding:2px;
+            font-size:98%;
+            background:#f9f9f9;
+            border-radius:5px;
+            margin:5px;
+        }
+            .item:hover {
+                box-shadow:0 0 3px 0 #444;
+            }
+        .item table {
+            border-collapse:collapse;
+        }
+            .item table th {
+                text-align:right;
+                width:0;
+                white-space:nowrap;
+            }
+            .item table th,
+            .item table td {
+                border:thin solid #888;
+                padding:1px 3px;
+            }
+
+            .item .action {
+                display:flex; justify-content:center; align-items:center;
+            }
+    </style>
+}

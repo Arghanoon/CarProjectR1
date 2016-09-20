@@ -81,6 +81,37 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarsReview = new db.CarsReview();
         }
 
+        public CarsModel(int? CarsId)
+        {
+            Car = DBS.Cars.FirstOrDefault(c => c.CarsId == CarsId);
+
+            CarEngine = DBS.CarEngines.FirstOrDefault(c => c.CarsId == CarsId);
+
+            GearBox = DBS.CarGearBoxes.FirstOrDefault(c => c.CarsId == CarsId);
+            BrakeSystem = DBS.BrakeSystems.FirstOrDefault(c => c.CarId == CarsId);
+            DetailedBrakeSystems = DBS.DetailedBrakeSystems.Where(c => c.CarId == CarsId).ToList();
+
+            FuelConsumption = DBS.FuelConsumptions.FirstOrDefault(c => c.CarId == CarsId);
+            SecuritySystem = DBS.SecuritySystems.FirstOrDefault(c => c.CarId == CarsId);
+            SteeringSystem = DBS.SteeringSystems.FirstOrDefault(c => c.CarId == CarsId);
+            AirConditioningSystem = DBS.AirConditioningSystems.FirstOrDefault(c => c.CarId == CarsId);
+            AirConditioningSystemDetails = DBS.AirConditioningSystemDetails.Where(c => c.CarsId == CarsId).ToList();
+
+            CarAudioSystem = DBS.CarAudioSystems.FirstOrDefault(c => c.CarsId == CarsId);
+            CarSeatOption = DBS.CarSeatOptions.FirstOrDefault(c => c.CarsId == CarsId);
+            GlassAndMirror = DBS.GlassAndMirrors.FirstOrDefault(c => c.CarsId == CarsId);
+
+            CarLightingSystem = DBS.CarLightingSystems.FirstOrDefault(c => c.CarsId == CarsId);
+            CarSensorsSystem = DBS.CarSensorsSystems.FirstOrDefault(c => c.CarsId == CarsId);
+            CarAirbag = DBS.CarAirbags.FirstOrDefault(c => c.CarsId == CarsId);
+            CarWheel = DBS.CarWheels.FirstOrDefault(c => c.CarsId == CarsId);
+
+            Advantages = DBS.CarsProes.Where(c => c.CarsProOrCro == true).Select(c => c.CarProCro).ToList();
+            DisAdvatages = DBS.CarsProes.Where(c => c.CarsProOrCro == false).Select(c => c.CarProCro).ToList();
+
+            CarsReview = DBS.CarsReviews.FirstOrDefault(c => c.CarsId == CarsId);
+        }
+
         public void Save()
         {
             DBS.Cars.Add(this.Car);
@@ -154,6 +185,10 @@ namespace CarProject.Areas.Admin.Models.Cars
             this.CarsReview.Car = this.Car;
             DBS.CarsReviews.Add(this.CarsReview);
 
+            DBS.SaveChanges();
+        }
+        public void Update()
+        {
             DBS.SaveChanges();
         }
     }

@@ -40,6 +40,7 @@ namespace CarProject.Areas.Admin.Controllers
 
         public ActionResult CarImagesGallery(int id)
         {
+            ViewBag.images = new List<string>();
             string folder = id.ToString().BaseRouts_CarImages();
             DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
             if (dic.Exists)
@@ -57,6 +58,8 @@ namespace CarProject.Areas.Admin.Controllers
         [HttpPost, ActionName("CarImagesGallery")]
         public ActionResult CarImagesGalleryPost(int id)
         {
+            ViewBag.images = new List<string>();
+            
             string folder = id.ToString().BaseRouts_CarImages();
             DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
             
@@ -93,6 +96,34 @@ namespace CarProject.Areas.Admin.Controllers
                 file.Delete();
 
             return RedirectToAction("CarImagesGallery", new { id = id });
+        }
+
+        
+        public ActionResult UpdateCar(int? id)
+        {
+            if (id != null && id > 0)
+            {
+                Models.Cars.CarsModel model = new Models.Cars.CarsModel(id);
+                Session["updateCarModel"] = model;
+                return View(model);
+            }
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult UpdateCar(Models.Cars.CarsModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Session["updateCarModel"] != null && Session["updateCarModel"] is Models.Cars.CarsModel)
+                {
+                    var mdl = Session["updateCarModel"] as Models.Cars.CarsModel;
+                    TryUpdateModel(mdl);
+                    mdl.Update();
+                    return RedirectToAction("Index");
+                }
+                
+            }
+            return View(model);
         }
 
 
