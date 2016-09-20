@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "خودروها";
     int page = 0;
+    if (Request.QueryString.AllKeys.Contains("page"))
+    { int.TryParse(Request.QueryString["page"], out page); page--; }
     int showCount = 20;
 
     var dbs = new CarAutomationEntities();
@@ -9,12 +11,73 @@
     if ((dbs.Cars.Count() % showCount) > 0)
     { PageCount += 1; }
 
-    var cars = dbs.Cars.OrderBy(b => b.CarsId).Skip(page * showCount).Take(showCount);
+    IQueryable<Car> cars = null;
+    int orederType = 1;
+    if (Request.QueryString.AllKeys.Contains("orederType") && !string.IsNullOrWhiteSpace(Request.QueryString["orederType"]))
+    { int.TryParse(Request.QueryString["orederType"], out orederType); }
+
+    switch (orederType)
+    {
+        case 1:
+            cars = dbs.Cars.OrderByDescending(c => c.CarsId);
+            break;
+        case 2:
+            cars = dbs.Cars.OrderBy(c => c.Price);
+            break;
+        case 3:
+            cars = dbs.Cars.OrderByDescending(c => c.Price);
+            break;
+        case 4:
+            cars = dbs.Cars.OrderBy(c => c.CarYearModel);
+            break;
+        case 5:
+            cars = dbs.Cars.OrderByDescending(c => c.CarYearModel);
+            break;
+    }
     
+    int brandid = -1;
+    if(Request.QueryString.AllKeys.Contains("filter_BrandType") &&  !string.IsNullOrWhiteSpace(Request.QueryString["filter_BrandType"]))
+    { int.TryParse(Request.QueryString["filter_BrandType"], out brandid); }
+    
+    if(brandid > 0)
+    { cars = cars.Where(c => c.CarModel.CarBrandId == brandid); }
+    
+
+    cars = cars.Skip(page * showCount).Take(showCount);
 }
 
-
 <div>
+    <div id="searchFilterContianer">
+        <form method="get" id="searchForm">
+            <input type="text" name="search" placeholder="جستجو خودرو؛ برند، مدل کلاس و ..." />
+            <button type="button" name="sendForm"><span class="gia-search"></span></button>
+        </form>
+       
+        <form method="get">
+            <select name="filter_BrandType">
+                <option value="" >--نمایش همه برند ها--</option>
+                @foreach (var item in dbs.CarBrands)
+                {
+                    if(Request.QueryString["filter_BrandType"] == item.CarBrandId.ToString())
+                    {
+                        <option value="@item.CarBrandId" selected="selected">@item.CarBrandName</option>
+                    }
+                    else
+                    {
+                        <option value="@item.CarBrandId">@item.CarBrandName</option>
+                    }
+                }
+            </select>
+            <select name="orederType">
+                <option value="1"  @{if (Request.QueryString["orederType"] == "1") { Write("selected=\"selected\" "); } }>آخرین خودروی ثبت شده</option>
+                <option value="2"  @{if (Request.QueryString["orederType"] == "2") { Write("selected=\"selected\" "); } }>قیمت - صعودی</option>
+                <option value="3"  @{if (Request.QueryString["orederType"] == "3") { Write("selected=\"selected\" "); } }>قیمت - نزولی</option>
+                <option value="4"  @{if (Request.QueryString["orederType"] == "4") { Write("selected=\"selected\" "); } }>سال ساخت - صعودی</option>
+                <option value="5"  @{if (Request.QueryString["orederType"] == "5") { Write("selected=\"selected\" "); } }>سال ساخت - نزولی</option>
+            </select>
+            <input type="submit" value="فیلتر نمایش" />
+        </form>
+    </div>
 
     <div id="itemsContainer">
         @foreach (var item in cars)
@@ -38,6 +101,7 @@
                 <div class="action">
                     <a href="@Url.Action("UpdateCar", new { id = item.CarsId })" class="gia-edit" ></a>
                     <a href="@Url.Action("CarImagesGallery", new { id = item.CarsId })" class="gia-images" ></a>
+                    <a href="#" class="gia-news" ></a>
                     <a href="#" class="gia-remove"></a>
                 </div>
             </div>
@@ -45,7 +109,20 @@
     </div>
 
     <div id="pageNumberContainer">
-
+        @if (PageCount > 1)
+        {
+            for (int i = 1; i <= PageCount; i++)
+            {
+                if (i == (page + 1))
+                {
+                    <span>@i</span>
+                }
+                else
+                {
+                    <a href="?page=@i">@i</a>
+                }
+            }
+        }
     </div>
 </div>
 
@@ -53,8 +130,47 @@
 @section style
 {
     <style>
+        input, select, button,option {
+            font-family: yekan;
+            padding:1px 5px;
+            margin:1px;
+        }
+        #searchFilterContianer {
+            border-bottom:thin solid #888;
+            margin:5px;
+            padding:5px;
+        }
+
+        #searchForm {
+            position:relative;
+            display:flex; jusftiy-content:center; align-items:stretch;
+        }
+            #searchForm input {
+                border:thin solid #666;
+                background:white;
+                padding:1px 3px;
+                width:100%;
+
+                font-family:yekan;
+            }
+            #searchForm button {
+                position:absolute;
+                left:0; top:0; bottom:0;
+
+                border:thin solid #666; border-right:none;
+                background:#aaa;
+                color:white;
+            }
+                #searchForm button:hover {
+                    background:#999;
+                }
+                #searchForm button:active {
+                    box-shadow:0 0 3px 0 #fff inset;
+                }
+
         #itemsContainer {
             display:flex; jusftify-content:center; align-items:stretch;
+            flex-wrap:wrap;
         }
         .item {
             border:thin solid #888;
@@ -84,5 +200,33 @@
             .item .action {
                 display:flex; justify-content:center; align-items:center;
             }
+
+
+
+        #pageNumberContainer {
+            display:flex; justify-content:center; align-items:center;
+            flex-wrap:wrap;
+            margin:5px;
+            padding:5px;
+            border-top:thin solid #888; 
+        }
+            #pageNumberContainer > * {
+                min-width:30px;
+                border: thin solid #888;
+                margin:3px;
+                padding:2px;
+                border-radius:2px;
+                background:white;
+
+                display:flex; justify-content:center; align-items:center;
+            }
+            #pageNumberContainer > span {
+                background:#888;
+                color:white;
+            }
+            #pageNumberContainer a:hover {
+                box-shadow:0 0 3px 0 #000;
+            }
+
     </style>
 }

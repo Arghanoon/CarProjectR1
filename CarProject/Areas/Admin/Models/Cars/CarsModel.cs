@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using db = CarProject.DBSEF;
+using CarProject.App_Code;
 
 namespace CarProject.Areas.Admin.Models.Cars
 {
-    public class CarsModel
+    public class CarsModel : IValidatableObject
     {
         db.CarAutomationEntities DBS = new db.CarAutomationEntities();
 
@@ -190,6 +192,14 @@ namespace CarProject.Areas.Admin.Models.Cars
         public void Update()
         {
             DBS.SaveChanges();
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Car.CarModel.CarBrand == null)
+                yield return new ValidationResult("برند تعیین نشده است", new string[] { "Car.CarModel.CarBrandId" });
+            if (Car.CarModel.CarModelName.IsNullOrWhiteSpace())
+                yield return new ValidationResult("مدل تعیین نشده است", new string[] { "Car.CarModel.CarModelName" });
         }
     }
 }
