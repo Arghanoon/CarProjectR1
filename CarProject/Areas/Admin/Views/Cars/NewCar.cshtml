@@ -404,11 +404,11 @@
             <span>انتخاب فایل تصویر</span>
         </div>
         <div id="topToolbar" tabindex="1.1">
-            <a href="javascript: void()" class="gia-upload">آپلود فایل</a> |
+            <a href="javascript: void()" class="gia-upload" onclick="document.getElementById('FileUploader').style.display = 'flex';">آپلود فایل</a> |
             <a href="javascript: void()" class="gia-home" onclick="GetFiles('')">پوشه اصلی</a> | 
             <a href="javascript: void()" class="gia-back" onclick="GetFiles(dirHistory.pop())">برگشت به پوشه قبلی</a> | 
             <a href="javascript: void()" class="gia-refresh" onclick="dirHistory = [] ;GetFiles(currentDir);">بروزرسانی</a> |
-            <a href="javascript: void()" class="gia-newdir" onclick="">پوشه جدید</a> 
+            <a href="javascript: void()" class="gia-newdir" onclick="document.getElementById('NewFolderCreate').style.display = 'flex'">پوشه جدید</a> 
         </div>
 
         <div id="navigation" tabindex="1.2"></div>
@@ -418,13 +418,29 @@
         </div>
     </div>
 
-    <form method="delete" id="renameContainer" tabindex="2">
+    <form method="post" id="renameContainer" class="box1" tabindex="2">
         <h3>تغییر نام فایل</h3>
         <input type="hidden" name="filepath" />
         <input type="text" name="filename" id="fileBrowserTxtName" />
-        <div id="renameaction">
+        <div id="renameaction" class="actionbar">
             <input type="button" value="انصراف" onclick="document.getElementById('renameContainer').style.display = 'none';" class="button yellow" />
             <input type="button" value="تغییر نام" class="button green" onclick="RenameChangeRequest(event)" />
+        </div>
+    </form>
+    <form id="NewFolderCreate" class="box1">
+        <h3>ایجاد پوشه جدید</h3>
+        <input type="text" name="NewDirectorytxt" placeholder="folder name" />
+        <div  class="actionbar">
+            <input type="button" value="انصراف" onclick="document.getElementById('NewFolderCreate').style.display = 'none';" class="button yellow" />
+            <input type="button" value="تایید" class="button green" onclick="createNewDirRequest(this)" />
+        </div>
+    </form>
+    <form id="FileUploader" class="box1" enctype="multipart/form-data">
+        <h3>آپلود کردن فایل</h3>
+        <input type="file" name="file" />
+        <div class="actionbar" >
+            <input type="button" value="انصراف" onclick="document.getElementById('FileUploader').style.display = 'none';" class="button yellow" />
+            <input type="button" value="تایید" class="button green" onclick="UploadRequest(this)" />
         </div>
     </form>
     <div id="ContextMenu" tabindex="3">
@@ -594,8 +610,8 @@
             e.preventDefault();
             //alert(e.offsetX);
             
-            ContextMenuSelectedElement = $(e.target).parent('a');
-
+            ContextMenuSelectedElement = $(e.target).closest('a');
+            
             cnm = document.getElementById("ContextMenu");
             cnm.style.left = e.clientX + "px";
             cnm.style.top = e.clientY + "px";
@@ -622,6 +638,24 @@
             })
         }
        
+        function createNewDirRequest(obj) {
+            if (obj.form.NewDirectorytxt.value == "")
+                return;
+            fname = obj.form.NewDirectorytxt.value;
+            obj.form.NewDirectorytxt.value = "";
+            document.getElementById('NewFolderCreate').style.display = 'none';
+            $.post("@Url.Action("CreateNewDir","FileManager")", { current: currentDir, dir: fname }, function () { GetFiles(currentDir);  });
+        }
+
+        function UploadRequest(obj) {
+            fd = new FormData();
+
+            fd.append("file", obj.form.file.files[0], obj.form.file.value);
+            fd.append("current", currentDir);
+            
+
+            $.ajax({ url: "@Url.Action("UploadFile","FileManager")", processData: false, cache: false, contentType: false, type: 'POST', data: fd, success: function (res) { document.getElementById('FileUploader').style.display = 'none'; GetFiles(currentDir); } });
+        }
 
     </script>
 }
@@ -676,7 +710,7 @@
     <style>
         
         #filebrowserBack {
-            /*display:none ;*/
+            display:none ;
             position:fixed;
             top:0; bottom:0; left:0; right:0; 
             background:rgba(0,0,0,0.7);
@@ -745,21 +779,21 @@
                     background: #888;
                 }
 
-        #renameContainer {
+        .box1 {
             position:fixed;
             left:0; right:0; top:0; bottom:0;
             margin:auto;
             width:300px;
-            height:100px;
+            height:130px;
             border:thin solid #888;
             box-shadow: 0 0 5px 0 #000;
             background:white;
             display:none;
             flex-direction:column;
-            justify-content:center; align-items:stretch;
+            justify-content:flex-start; align-items:stretch;
             padding:5px;
         }
-            #renameContainer h3 {
+            .box1 h3 {
                 margin:-5px;
                 margin-bottom:5px;
                 padding:0 5px;
@@ -767,14 +801,16 @@
                 color:white;
                 font-size:90%;
             }
-            #renameContainer input[type=text] {
+
+            .box1 input:not([type=button]) {
                 border: thin solid #777;
                 font-family:yekan;
                 direction:ltr;
                 font-size:100%;
                 padding:1px 3px;
+                min-height:40px;
             }
-            #renameContainer #renameaction {
+            .box1 .actionbar {
                 display:flex; justify-content:center;
             }
     </style>

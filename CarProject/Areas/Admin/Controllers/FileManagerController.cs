@@ -42,9 +42,40 @@ namespace CarProject.Areas.Admin.Controllers
         public void RenameRequest(string address, string newname)
         {
             var file = new FileInfo(Server.MapPath(address));
-            if (file.Exists)
+            if (file.Attributes == FileAttributes.Directory && Directory.Exists(file.FullName))
+                Directory.Move(file.FullName, file.FullName.Replace(file.Name, newname));
+            else if (file.Exists)
                 file.MoveTo(file.FullName.Replace(file.Name, newname));
             
+        }
+        [HttpPost]
+        public void CreateNewDir(string current, string dir)
+        {
+            if (dir.IsNullOrWhiteSpace())
+                return;
+            var rtdirel = "~/Publics/Filemanager";
+            if (current != null && !current.IsNullOrWhiteSpace())
+                rtdirel = Path.Combine(rtdirel, current).Replace('\\', '/');
+
+            rtdirel = Path.Combine(rtdirel, dir).Replace('\\', '/');
+
+            DirectoryInfo dirinf = new DirectoryInfo(Server.MapPath(rtdirel));
+            if (!dirinf.Exists)
+                dirinf.Create(Directory.GetAccessControl(Server.MapPath("~/Publics/Filemanager")));
+        }
+
+        [HttpPost]
+        public void UploadFile(string current)
+        {
+            if (Request.Files.AllKeys.Contains("file"))
+            {
+                var rtdirel = "~/Publics/Filemanager";
+                if (current != null && !current.IsNullOrWhiteSpace())
+                    rtdirel = Path.Combine(rtdirel, current).Replace('\\', '/');
+                var dir = new DirectoryInfo(Server.MapPath(rtdirel));
+
+                Request.Files["file"].SaveAs(Path.Combine(dir.FullName, Request.Files["file"].FileName));
+            }
         }
     }
 }
