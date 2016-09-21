@@ -102,7 +102,7 @@
                     <a href="@Url.Action("UpdateCar", new { id = item.CarsId })" class="gia-edit" ></a>
                     <a href="@Url.Action("CarImagesGallery", new { id = item.CarsId })" class="gia-images" ></a>
                     <a href="#" class="gia-news" ></a>
-                    <a href="#" class="gia-remove"></a>
+                    <a href="javascript:void()" onclick="DeleteRequest('@item.CarsId','@item.CarModel.CarBrand.CarBrandName','@item.CarModel.CarModelName','@item.CarYearModel')" class="gia-remove"></a>
                 </div>
             </div>
         }
@@ -124,8 +124,23 @@
             }
         }
     </div>
+
 </div>
 
+
+<div id="messageBack">
+    <form method="post" action="@Url.Action("DeleteCar","Cars")" id="messageShow">
+        <input type="hidden" name="CarsID" id="deleteCarsID" />
+        <h3 id="messageTitle"><a href="javascript: void()" onclick="$('#messageBack').toggleClass('show')">&times;</a> حذف خودرو</h3>
+        <div>
+            <p>آیا از حذف خودرو با برند <q><span id="deleteBrand"></span></q>  مدل  <q><span id="deleteModel"></span></q> سال <q><span id="deleteYear"></span></q> اطمینان دارید ؟</p>
+        </div>
+        <div id="messageAction">
+            <input type="button" class="button blue" value="انصراف" onclick="$('#messageBack').toggleClass('show')" />
+            <input type="submit" class="button red" value="حذف" />
+        </div>
+    </form>
+</div>
 
 @section style
 {
@@ -228,5 +243,47 @@
                 box-shadow:0 0 3px 0 #000;
             }
 
+        #messageBack {
+            position:fixed; left:0; right:0; top:0; bottom:0;
+            background:rgba(0,0,0,0.7);
+            z-index:9999;
+
+            display:none; justify-content:center; align-items:center;
+        }
+            #messageBack.show {
+                display:flex;
+            }
+        #messageShow {
+           
+            margin:5px;
+            background:white;
+            border:thin solid #888;
+            box-shadow:0 0 3px 0 #000;
+            min-width:200px;
+            width:50%;
+        }
+        #messageTitle {
+            background:#444;
+            color: white;
+            padding:2px 5px;
+        }
+        #messageAction {
+            display:flex; justify-content:center; align-items:center;
+        }
+
     </style>
+}
+
+@section script
+{
+    <script>
+        function DeleteRequest(id, brand, model, year) {
+            document.getElementById("deleteCarsID").value = id;
+
+            document.getElementById("deleteBrand").innerHTML = brand;
+            document.getElementById("deleteModel").innerHTML = model;
+            document.getElementById("deleteYear").innerHTML = year;
+            $("#messageBack").toggleClass('show');
+        }
+    </script>
 }

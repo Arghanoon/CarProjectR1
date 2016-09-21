@@ -21,6 +21,13 @@ namespace CarProject.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult DeleteCar(int? CarsID)
+        {
+            Models.Cars.CarsModel.DeleteCar(CarsID);
+            return RedirectToAction("Index");
+        }
+
         public ActionResult NewCar()
         {
             var model = new Models.Cars.CarsModel();

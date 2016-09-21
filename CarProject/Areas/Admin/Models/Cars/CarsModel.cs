@@ -194,6 +194,53 @@ namespace CarProject.Areas.Admin.Models.Cars
             DBS.SaveChanges();
         }
 
+        public static void DeleteCar(int? CarsId)
+        {
+            var DBS = new db.CarAutomationEntities();
+
+            DBS.CarEngines.Remove(DBS.CarEngines.FirstOrDefault(c => c.CarsId == CarsId));
+
+            DBS.CarGearBoxes.Remove(DBS.CarGearBoxes.FirstOrDefault(c => c.CarsId == CarsId));
+
+            DBS.CarPhysicalDetails.Remove(DBS.CarPhysicalDetails.FirstOrDefault(c => c.CarId == CarsId));
+
+            DBS.BrakeSystems.Remove(DBS.BrakeSystems.FirstOrDefault(c => c.CarId == CarsId));
+
+            DBS.DetailedBrakeSystems.RemoveRange(DBS.DetailedBrakeSystems.Where(c => c.CarId == CarsId));
+
+            DBS.FuelConsumptions.Remove(DBS.FuelConsumptions.FirstOrDefault(c => c.CarId == CarsId));
+
+            DBS.SecuritySystems.Remove(DBS.SecuritySystems.FirstOrDefault(c => c.CarId == CarsId));
+
+            DBS.SteeringSystems.Remove(DBS.SteeringSystems.FirstOrDefault(c => c.CarId == CarsId));
+
+            DBS.AirConditioningSystems.Remove(DBS.AirConditioningSystems.FirstOrDefault(c => c.CarId == CarsId));
+
+            DBS.AirConditioningSystemDetails.RemoveRange(DBS.AirConditioningSystemDetails.Where(c => c.CarsId == CarsId));
+
+            DBS.CarAudioSystems.Remove(DBS.CarAudioSystems.FirstOrDefault(c => c.CarsId == CarsId));
+
+            DBS.CarSeatOptions.Remove(DBS.CarSeatOptions.FirstOrDefault(c => c.CarsId == CarsId));
+
+            DBS.GlassAndMirrors.Remove(DBS.GlassAndMirrors.FirstOrDefault(c => c.CarsId == CarsId));
+
+            DBS.CarLightingSystems.Remove(DBS.CarLightingSystems.FirstOrDefault(c => c.CarsId == CarsId));
+
+            DBS.CarSensorsSystems.Remove(DBS.CarSensorsSystems.FirstOrDefault(c => c.CarsId == CarsId));
+
+            DBS.CarAirbags.Remove(DBS.CarAirbags.FirstOrDefault(c => c.CarsId == c.CarsId));
+
+            DBS.CarWheels.Remove(DBS.CarWheels.FirstOrDefault(c => c.CarsId == c.CarsId));
+
+            DBS.CarsProes.RemoveRange(DBS.CarsProes.Where(c => c.CarsId == CarsId));
+
+            DBS.CarsReviews.Remove(DBS.CarsReviews.FirstOrDefault(c => c.CarsId == CarsId));
+
+            DBS.Cars.Remove(DBS.Cars.FirstOrDefault(c => c.CarsId == CarsId));
+
+            DBS.SaveChanges();
+        }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (Car.CarModel.CarBrand == null)
