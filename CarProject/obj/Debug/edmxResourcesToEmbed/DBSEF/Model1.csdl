@@ -194,7 +194,7 @@
     <Property Name="CarModelName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="CarBrandId" Type="Int32" />
     <NavigationProperty Name="CarBrand" Relationship="Self.FK_CarModel_CarBrand" FromRole="CarModel" ToRole="CarBrand" />
-    <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_CarModel1" FromRole="CarModel" ToRole="Cars" />
+    <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_CarModel" FromRole="CarModel" ToRole="Cars" />
   </EntityType>
   <EntityType Name="CarPhysicalDetail">
     <Key>
@@ -249,7 +249,7 @@
     <NavigationProperty Name="CarEngines" Relationship="Self.FK_CarEngine_Cars" FromRole="Cars" ToRole="CarEngine" />
     <NavigationProperty Name="CarGearBoxes" Relationship="Self.FK_CarGearBox_Cars" FromRole="Cars" ToRole="CarGearBox" />
     <NavigationProperty Name="CarLightingSystems" Relationship="Self.FK_CarLightingSystem_Cars" FromRole="Cars" ToRole="CarLightingSystem" />
-    <NavigationProperty Name="CarModel" Relationship="Self.FK_Cars_CarModel1" FromRole="Cars" ToRole="CarModel" />
+    <NavigationProperty Name="CarModel" Relationship="Self.FK_Cars_CarModel" FromRole="Cars" ToRole="CarModel" />
     <NavigationProperty Name="CarPhysicalDetails" Relationship="Self.FK_CarPhysicalDetails_Cars" FromRole="Cars" ToRole="CarPhysicalDetails" />
     <NavigationProperty Name="CarPrices" Relationship="Self.FK_CarPrice_Cars" FromRole="Cars" ToRole="CarPrice" />
     <NavigationProperty Name="CarSeatOptions" Relationship="Self.FK_CarSeatOptions_Cars" FromRole="Cars" ToRole="CarSeatOptions" />
@@ -401,8 +401,8 @@
     </Key>
     <Property Name="ContenstId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ContentSubject" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="ContentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="VideoHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ContentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="VideoHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ContentType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="tags" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
   </EntityType>
@@ -755,16 +755,6 @@
     <Property Name="CarId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_SteeringSystem_Cars" FromRole="SteeringSystem" ToRole="Cars" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="ToBasket">
     <Key>
       <PropertyRef Name="ToBasketId" />
@@ -1110,7 +1100,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Cars_CarModel1">
+  <Association Name="FK_Cars_CarModel">
     <End Role="CarModel" Type="Self.CarModel" Multiplicity="0..1" />
     <End Role="Cars" Type="Self.Car" Multiplicity="*" />
     <ReferentialConstraint>
@@ -1722,7 +1712,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
     <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
@@ -1778,7 +1768,6 @@
     <EntitySet Name="ServicesPackToViews" EntityType="Self.ServicesPackToView" />
     <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
     <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="ToBaskets" EntityType="Self.ToBasket" />
     <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />
     <EntitySet Name="Troubleshootings" EntityType="Self.Troubleshooting" />
@@ -1876,7 +1865,7 @@
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarLightingSystem" EntitySet="CarLightingSystems" />
     </AssociationSet>
-    <AssociationSet Name="FK_Cars_CarModel1" Association="Self.FK_Cars_CarModel1">
+    <AssociationSet Name="FK_Cars_CarModel" Association="Self.FK_Cars_CarModel">
       <End Role="CarModel" EntitySet="CarModels" />
       <End Role="Cars" EntitySet="Cars" />
     </AssociationSet>

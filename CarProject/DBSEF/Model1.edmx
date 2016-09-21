@@ -332,8 +332,8 @@
           </Key>
           <Property Name="ContenstId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ContentSubject" Type="nvarchar" MaxLength="150" />
-          <Property Name="ContentText" Type="text" />
-          <Property Name="VideoHtml" Type="text" />
+          <Property Name="ContentText" Type="ntext" />
+          <Property Name="VideoHtml" Type="ntext" />
           <Property Name="ContentType" Type="nchar" MaxLength="10" />
           <Property Name="tags" Type="nvarchar" MaxLength="350" />
         </EntityType>
@@ -628,16 +628,6 @@
           <Property Name="Details" Type="nvarchar(max)" />
           <Property Name="CarId" Type="int" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="ToBasket">
           <Key>
             <PropertyRef Name="ToBasketId" />
@@ -691,21 +681,6 @@
           <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserRole" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="AllIn">
-          <Property Name="CarBrandName" Type="nvarchar" MaxLength="150" />
-          <Property Name="CarModelName" Type="nvarchar" MaxLength="150" />
-          <Property Name="EngineType" Type="nvarchar" MaxLength="50" />
-          <Property Name="EngineCylinderNumber" Type="int" />
-          <Property Name="GearBoxType" Type="nvarchar" MaxLength="50" />
-          <Property Name="CarUsage" Type="nvarchar" MaxLength="100" />
-          <Property Name="CarYearModel" Type="int" />
-          <Property Name="CarBodyType" Type="nvarchar" MaxLength="50" />
-          <Property Name="LphCity" Type="float" />
-          <Property Name="LphRoad" Type="float" />
-          <Property Name="LphMix" Type="float" />
-        </EntityType>-->
         <Association Name="FK_AirConditioningSystem_Cars">
           <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
           <End Role="AirConditioningSystem" Type="Self.AirConditioningSystem" Multiplicity="*" />
@@ -886,7 +861,7 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Cars_CarModel1">
+        <Association Name="FK_Cars_CarModel">
           <End Role="CarModel" Type="Self.CarModel" Multiplicity="0..1" />
           <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1650,7 +1625,6 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
           <EntitySet Name="ServicesPackToView" EntityType="Self.ServicesPackToView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToBasket" EntityType="Self.ToBasket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
@@ -1716,7 +1690,7 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
             <End Role="Cars" EntitySet="Cars" />
             <End Role="CarPrice" EntitySet="CarPrice" />
           </AssociationSet>
-          <AssociationSet Name="FK_Cars_CarModel1" Association="Self.FK_Cars_CarModel1">
+          <AssociationSet Name="FK_Cars_CarModel" Association="Self.FK_Cars_CarModel">
             <End Role="CarModel" EntitySet="CarModel" />
             <End Role="Cars" EntitySet="Cars" />
           </AssociationSet>
@@ -2152,7 +2126,7 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
           <Property Name="CarModelName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="CarBrandId" Type="Int32" />
           <NavigationProperty Name="CarBrand" Relationship="Self.FK_CarModel_CarBrand" FromRole="CarModel" ToRole="CarBrand" />
-          <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_CarModel1" FromRole="CarModel" ToRole="Cars" />
+          <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_CarModel" FromRole="CarModel" ToRole="Cars" />
         </EntityType>
         <EntityType Name="CarPhysicalDetail">
           <Key>
@@ -2207,7 +2181,7 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
           <NavigationProperty Name="CarEngines" Relationship="Self.FK_CarEngine_Cars" FromRole="Cars" ToRole="CarEngine" />
           <NavigationProperty Name="CarGearBoxes" Relationship="Self.FK_CarGearBox_Cars" FromRole="Cars" ToRole="CarGearBox" />
           <NavigationProperty Name="CarLightingSystems" Relationship="Self.FK_CarLightingSystem_Cars" FromRole="Cars" ToRole="CarLightingSystem" />
-          <NavigationProperty Name="CarModel" Relationship="Self.FK_Cars_CarModel1" FromRole="Cars" ToRole="CarModel" />
+          <NavigationProperty Name="CarModel" Relationship="Self.FK_Cars_CarModel" FromRole="Cars" ToRole="CarModel" />
           <NavigationProperty Name="CarPhysicalDetails" Relationship="Self.FK_CarPhysicalDetails_Cars" FromRole="Cars" ToRole="CarPhysicalDetails" />
           <NavigationProperty Name="CarPrices" Relationship="Self.FK_CarPrice_Cars" FromRole="Cars" ToRole="CarPrice" />
           <NavigationProperty Name="CarSeatOptions" Relationship="Self.FK_CarSeatOptions_Cars" FromRole="Cars" ToRole="CarSeatOptions" />
@@ -2359,8 +2333,8 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
           </Key>
           <Property Name="ContenstId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ContentSubject" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ContentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VideoHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ContentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VideoHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ContentType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="tags" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -2713,16 +2687,6 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
           <Property Name="CarId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_SteeringSystem_Cars" FromRole="SteeringSystem" ToRole="Cars" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="ToBasket">
           <Key>
             <PropertyRef Name="ToBasketId" />
@@ -3068,7 +3032,7 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Cars_CarModel1">
+        <Association Name="FK_Cars_CarModel">
           <End Role="CarModel" Type="Self.CarModel" Multiplicity="0..1" />
           <End Role="Cars" Type="Self.Car" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3680,7 +3644,7 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
           <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
           <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
@@ -3736,7 +3700,6 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
           <EntitySet Name="ServicesPackToViews" EntityType="Self.ServicesPackToView" />
           <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
           <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="ToBaskets" EntityType="Self.ToBasket" />
           <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />
           <EntitySet Name="Troubleshootings" EntityType="Self.Troubleshooting" />
@@ -3834,7 +3797,7 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
             <End Role="Cars" EntitySet="Cars" />
             <End Role="CarLightingSystem" EntitySet="CarLightingSystems" />
           </AssociationSet>
-          <AssociationSet Name="FK_Cars_CarModel1" Association="Self.FK_Cars_CarModel1">
+          <AssociationSet Name="FK_Cars_CarModel" Association="Self.FK_Cars_CarModel">
             <End Role="CarModel" EntitySet="CarModels" />
             <End Role="Cars" EntitySet="Cars" />
           </AssociationSet>
@@ -4044,7 +4007,7 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
           <EntitySetMapping Name="AirConditioningSystems">
             <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
               <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -4720,17 +4683,6 @@ warning 6013: The table/view 'CarAutomation.dbo.AllIn' does not have a primary k
                 <ScalarProperty Name="SteeringControlKey" ColumnName="SteeringControlKey" />
                 <ScalarProperty Name="Details" ColumnName="Details" />
                 <ScalarProperty Name="CarId" ColumnName="CarId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="CarAutomationModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

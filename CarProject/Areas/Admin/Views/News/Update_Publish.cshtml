@@ -1,13 +1,14 @@
 ﻿@model CarProject.Areas.Admin.Models.News.Newsmodel
 @using CarProject.App_Code
 @{
-    ViewBag.Title = "انتشار خبر";
+    ViewBag.Title = "ویرایش خبر";
 }
 
 
 <div>
     <h3>ثبت خبر برای</h3>
     <form method="post">
+        @Html.HiddenFor( m => m.Content.ContenstId)
         <div class="inputsContainer">
             @Html.input_TextBox(m => m.Content.ContentSubject, "موضوع")
             @Html.input_TextArea(m => m.ContentHTML, "متن")

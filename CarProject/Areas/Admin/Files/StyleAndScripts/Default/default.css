@@ -287,6 +287,7 @@ a {
     .grid1 th, .grid1 td {
         border: thin solid #2f2f2f;
         text-align: center;
+        padding:1px 5px;
     }
 
     .grid1 tbody tr:hover td {

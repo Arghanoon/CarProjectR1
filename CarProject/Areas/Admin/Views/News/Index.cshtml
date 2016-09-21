@@ -1,0 +1,37 @@
+﻿@using db = CarProject.DBSEF;
+
+@{
+    ViewBag.Title = "اخبار";
+    var DBS = new db.CarAutomationEntities();
+
+    IQueryable<db.Content> Contents = null;
+
+    Contents = DBS.Contents;
+}
+
+
+<div>
+    <table class="grid1">
+        <thead>
+            <tr>
+                <th>شناسه</th>
+                <th style="width:80%;">عنوان</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            @foreach (var item in Contents)
+            {
+                <tr>
+                    <td>@item.ContenstId</td>
+                    <td style="text-align:right;">@item.ContentSubject</td>
+                    <td>
+                        <a href="@Url.Action("Update_Publish", "News", new { id = item.ContenstId })" class="gia-edit"></a>
+                        <a href="#" class="gia-remove"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
