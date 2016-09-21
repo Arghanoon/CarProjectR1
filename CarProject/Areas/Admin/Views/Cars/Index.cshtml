@@ -11,7 +11,7 @@
     if ((dbs.Cars.Count() % showCount) > 0)
     { PageCount += 1; }
 
-    IQueryable<Car> cars = null;
+    IQueryable<Car> cars = null;    
     int orederType = 1;
     if (Request.QueryString.AllKeys.Contains("orederType") && !string.IsNullOrWhiteSpace(Request.QueryString["orederType"]))
     { int.TryParse(Request.QueryString["orederType"], out orederType); }
@@ -34,6 +34,20 @@
             cars = dbs.Cars.OrderByDescending(c => c.CarYearModel);
             break;
     }
+
+
+
+    if (Request.QueryString.AllKeys.Contains("search") && !string.IsNullOrWhiteSpace(Request.QueryString["search"]))
+    {
+        var srch = Request.QueryString["search"];
+
+        cars = cars.AsQueryable().Where(c =>
+            (c.CarModel.CarBrand.CarBrandName.Contains(srch)) ||
+            (c.CarModel.CarModelName.Contains(srch)) ||
+            (c.CarsClass.Contains(srch)) ||
+            (c.CarClassType.Contains(srch)));
+    }
+    
     
     int brandid = -1;
     if(Request.QueryString.AllKeys.Contains("filter_BrandType") &&  !string.IsNullOrWhiteSpace(Request.QueryString["filter_BrandType"]))
@@ -48,18 +62,19 @@
 
 <div>
     <div id="searchFilterContianer">
-        <form method="get" id="searchForm">
-            <input type="text" name="search" placeholder="جستجو خودرو؛ برند، مدل کلاس و ..." />
-            <button type="button" name="sendForm"><span class="gia-search"></span></button>
-        </form>
-       
-        <form method="get">
-            <select name="filter_BrandType">
-                <option value="" >--نمایش همه برند ها--</option>
-                @foreach (var item in dbs.CarBrands)
-                {
-                    if(Request.QueryString["filter_BrandType"] == item.CarBrandId.ToString())
+        <form method="get" >
+            <section id="searchForm">
+                <input type="text" name="search" placeholder="جستجو خودرو؛ برند، مدل کلاس و ..." value="@Request.QueryString["search"]" />
+                <button type="submit"><span class="gia-search"></span></button>
+            </section>
+
+            <section>
+                <select name="filter_BrandType">
+                    <option value="">--نمایش همه برند ها--</option>
+                    @foreach (var item in dbs.CarBrands)
                     {
+                        if (Request.QueryString["filter_BrandType"] == item.CarBrandId.ToString())
+                        {
                         <option value="@item.CarBrandId" selected="selected">@item.CarBrandName</option>
                     }
                     else
@@ -67,16 +82,18 @@
                         <option value="@item.CarBrandId">@item.CarBrandName</option>
                     }
                 }
-            </select>
-            <select name="orederType">
-                <option value="1"  @{if (Request.QueryString["orederType"] == "1") { Write("selected=\"selected\" "); } }>آخرین خودروی ثبت شده</option>
-                <option value="2"  @{if (Request.QueryString["orederType"] == "2") { Write("selected=\"selected\" "); } }>قیمت - صعودی</option>
-                <option value="3"  @{if (Request.QueryString["orederType"] == "3") { Write("selected=\"selected\" "); } }>قیمت - نزولی</option>
-                <option value="4"  @{if (Request.QueryString["orederType"] == "4") { Write("selected=\"selected\" "); } }>سال ساخت - صعودی</option>
-                <option value="5"  @{if (Request.QueryString["orederType"] == "5") { Write("selected=\"selected\" "); } }>سال ساخت - نزولی</option>
-            </select>
-            <input type="submit" value="فیلتر نمایش" />
+                </select>
+                <select name="orederType">
+                    <option value="1"  @{if (Request.QueryString["orederType"] == "1") { Write("selected=\"selected\" "); } }>آخرین خودروی ثبت شده</option>
+                    <option value="2"  @{if (Request.QueryString["orederType"] == "2") { Write("selected=\"selected\" "); } }>قیمت - صعودی</option>
+                    <option value="3"  @{if (Request.QueryString["orederType"] == "3") { Write("selected=\"selected\" "); } }>قیمت - نزولی</option>
+                    <option value="4"  @{if (Request.QueryString["orederType"] == "4") { Write("selected=\"selected\" "); } }>سال ساخت - صعودی</option>
+                    <option value="5"  @{if (Request.QueryString["orederType"] == "5") { Write("selected=\"selected\" "); } }>سال ساخت - نزولی</option>
+                </select>
+                <input type="submit" value="فیلتر نمایش" />
+            </section>
         </form>
+
     </div>
 
     <div id="itemsContainer">
