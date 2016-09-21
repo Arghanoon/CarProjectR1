@@ -153,8 +153,10 @@
     <Compile Include="Areas\Admin\Controllers\CarsController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
     <Compile Include="Areas\Admin\Controllers\FileManagerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TroubleshootingController.cs" />
     <Compile Include="Areas\Admin\Models\Cars\CarsModel.cs" />
+    <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
     <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
     <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Users\Controllers\PersonalityController.cs" />
@@ -748,6 +750,7 @@
     </Content>
     <Content Include="Areas\Admin\Views\Cars\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\UpdateCar.cshtml" />
+    <Content Include="Areas\Admin\Views\News\News_Publish.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
