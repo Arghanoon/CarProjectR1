@@ -326,11 +326,21 @@
       <PropertyRef Name="ContenstId" />
     </Key>
     <Property Name="ContenstId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContentsCategoryId" Type="int" />
     <Property Name="ContentSubject" Type="nvarchar" MaxLength="150" />
     <Property Name="ContentText" Type="ntext" />
     <Property Name="VideoHtml" Type="ntext" />
     <Property Name="ContentType" Type="nchar" MaxLength="10" />
     <Property Name="tags" Type="nvarchar" MaxLength="350" />
+  </EntityType>
+  <EntityType Name="ContentsCategory">
+    <Key>
+      <PropertyRef Name="ContentsCategoryId" />
+    </Key>
+    <Property Name="ContentsCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Describe" Type="nvarchar(max)" />
+    <Property Name="ParentId" Type="int" />
   </EntityType>
   <EntityType Name="Country">
     <Key>
@@ -1012,6 +1022,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Contents_ContentsCategory">
+    <End Role="ContentsCategory" Type="Self.ContentsCategory" Multiplicity="0..1" />
+    <End Role="Contents" Type="Self.Contents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContentsCategory">
+        <PropertyRef Name="ContentsCategoryId" />
+      </Principal>
+      <Dependent Role="Contents">
+        <PropertyRef Name="ContentsCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContentsCategory_ContentsCategory">
+    <End Role="ContentsCategory" Type="Self.ContentsCategory" Multiplicity="0..1" />
+    <End Role="ContentsCategory1" Type="Self.ContentsCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContentsCategory">
+        <PropertyRef Name="ContentsCategoryId" />
+      </Principal>
+      <Dependent Role="ContentsCategory1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_DetailedBrakeSystem_Cars">
     <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
     <End Role="DetailedBrakeSystem" Type="Self.DetailedBrakeSystem" Multiplicity="*" />
@@ -1593,6 +1627,7 @@
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Contents" EntityType="Self.Contents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentsCategory" EntityType="Self.ContentsCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetailedBrakeSystem" EntityType="Self.DetailedBrakeSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
@@ -1736,6 +1771,14 @@
     <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
       <End Role="Category" EntitySet="Category" />
       <End Role="Category1" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contents_ContentsCategory" Association="Self.FK_Contents_ContentsCategory">
+      <End Role="ContentsCategory" EntitySet="ContentsCategory" />
+      <End Role="Contents" EntitySet="Contents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContentsCategory_ContentsCategory" Association="Self.FK_ContentsCategory_ContentsCategory">
+      <End Role="ContentsCategory" EntitySet="ContentsCategory" />
+      <End Role="ContentsCategory1" EntitySet="ContentsCategory" />
     </AssociationSet>
     <AssociationSet Name="FK_DetailedBrakeSystem_Cars" Association="Self.FK_DetailedBrakeSystem_Cars">
       <End Role="Cars" EntitySet="Cars" />

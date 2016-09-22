@@ -15,10 +15,13 @@ namespace CarProject.DBSEF
     public partial class Content
     {
         public int ContenstId { get; set; }
+        public Nullable<int> ContentsCategoryId { get; set; }
         public string ContentSubject { get; set; }
         public string ContentText { get; set; }
         public string VideoHtml { get; set; }
         public string ContentType { get; set; }
         public string tags { get; set; }
+    
+        public virtual ContentsCategory ContentsCategory { get; set; }
     }
 }

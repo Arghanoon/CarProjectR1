@@ -353,11 +353,22 @@
       <EntityTypeMapping TypeName="CarAutomationModel.Content">
         <MappingFragment StoreEntitySet="Contents">
           <ScalarProperty Name="ContenstId" ColumnName="ContenstId" />
+          <ScalarProperty Name="ContentsCategoryId" ColumnName="ContentsCategoryId" />
           <ScalarProperty Name="ContentSubject" ColumnName="ContentSubject" />
           <ScalarProperty Name="ContentText" ColumnName="ContentText" />
           <ScalarProperty Name="VideoHtml" ColumnName="VideoHtml" />
           <ScalarProperty Name="ContentType" ColumnName="ContentType" />
           <ScalarProperty Name="tags" ColumnName="tags" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentsCategories">
+      <EntityTypeMapping TypeName="CarAutomationModel.ContentsCategory">
+        <MappingFragment StoreEntitySet="ContentsCategory">
+          <ScalarProperty Name="ContentsCategoryId" ColumnName="ContentsCategoryId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Describe" ColumnName="Describe" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -400,11 +400,25 @@
       <PropertyRef Name="ContenstId" />
     </Key>
     <Property Name="ContenstId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContentsCategoryId" Type="Int32" />
     <Property Name="ContentSubject" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="ContentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="VideoHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ContentType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="tags" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ContentsCategory" Relationship="Self.FK_Contents_ContentsCategory" FromRole="Contents" ToRole="ContentsCategory" />
+  </EntityType>
+  <EntityType Name="ContentsCategory">
+    <Key>
+      <PropertyRef Name="ContentsCategoryId" />
+    </Key>
+    <Property Name="ContentsCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ParentId" Type="Int32" />
+    <NavigationProperty Name="Contents" Relationship="Self.FK_Contents_ContentsCategory" FromRole="ContentsCategory" ToRole="Contents" />
+    <NavigationProperty Name="ContentsCategory1" Relationship="Self.FK_ContentsCategory_ContentsCategory" FromRole="ContentsCategory" ToRole="ContentsCategory1" />
+    <NavigationProperty Name="ContentsCategory2" Relationship="Self.FK_ContentsCategory_ContentsCategory" FromRole="ContentsCategory1" ToRole="ContentsCategory" />
   </EntityType>
   <EntityType Name="Country">
     <Key>
@@ -1388,6 +1402,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Contents_ContentsCategory">
+    <End Role="ContentsCategory" Type="Self.ContentsCategory" Multiplicity="0..1" />
+    <End Role="Contents" Type="Self.Content" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContentsCategory">
+        <PropertyRef Name="ContentsCategoryId" />
+      </Principal>
+      <Dependent Role="Contents">
+        <PropertyRef Name="ContentsCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContentsCategory_ContentsCategory">
+    <End Role="ContentsCategory" Type="Self.ContentsCategory" Multiplicity="0..1" />
+    <End Role="ContentsCategory1" Type="Self.ContentsCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContentsCategory">
+        <PropertyRef Name="ContentsCategoryId" />
+      </Principal>
+      <Dependent Role="ContentsCategory1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Manufacture_Country">
     <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
     <End Role="Manufacture" Type="Self.Manufacture" Multiplicity="*" />
@@ -1741,6 +1779,7 @@
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Companies" EntityType="Self.Company" />
     <EntitySet Name="Contents" EntityType="Self.Content" />
+    <EntitySet Name="ContentsCategories" EntityType="Self.ContentsCategory" />
     <EntitySet Name="Countries" EntityType="Self.Country" />
     <EntitySet Name="DetailedBrakeSystems" EntityType="Self.DetailedBrakeSystem" />
     <EntitySet Name="Discounts" EntityType="Self.Discount" />
@@ -1960,6 +1999,14 @@
     <AssociationSet Name="FK_Product_Company" Association="Self.FK_Product_Company">
       <End Role="Company" EntitySet="Companies" />
       <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contents_ContentsCategory" Association="Self.FK_Contents_ContentsCategory">
+      <End Role="ContentsCategory" EntitySet="ContentsCategories" />
+      <End Role="Contents" EntitySet="Contents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContentsCategory_ContentsCategory" Association="Self.FK_ContentsCategory_ContentsCategory">
+      <End Role="ContentsCategory" EntitySet="ContentsCategories" />
+      <End Role="ContentsCategory1" EntitySet="ContentsCategories" />
     </AssociationSet>
     <AssociationSet Name="FK_Manufacture_Country" Association="Self.FK_Manufacture_Country">
       <End Role="Country" EntitySet="Countries" />

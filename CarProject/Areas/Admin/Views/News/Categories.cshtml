@@ -1,0 +1,38 @@
+﻿@using db = CarProject.DBSEF
+@using CarProject.App_Code
+@model CarProject.Areas.Admin.Models.News.CategoryModel
+
+@{
+    ViewBag.Title = "مدیریت گروههای اخبار";
+}
+
+
+<div>
+
+    <div id="insertDiv">
+        <h3>ثبت گروه جدید</h3>
+        <form method="post"  action="@Url.Action("NewCategory","News")">
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.Category.Name , "نام گروه")
+                @Html.input_TextArea(m => m.Category.Describe, "توضیحات")
+                @Html.HiddenFor(m => m.Category.ParentId)
+            </div>
+            <div class="inputAction">
+                <input type="submit" value="ثبت گروه"  class="button green" />
+            </div>
+        </form>
+    </div>
+   
+    <div></div>
+
+</div>
+
+
+@section style
+{
+    <style>
+        #insertDiv {
+            border-bottom:thin solid #888;
+        }
+    </style>
+}

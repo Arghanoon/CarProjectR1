@@ -57,10 +57,14 @@
                 <a href="@Url.Action("Brands","Cars")" class="gia-brands">مدیریت برندها</a>
                 <a href="@Url.Action("NewCar","Cars")" class="gia-newCar">ثبت خودرو جدید</a>
                 <a href="@Url.Action("Index","Cars")" class="gia-cars">مدیریت خودروها</a>
-                <a href="@Url.Action("News_Publish","News")" class="gia-newsAdd">ثبت خبر</a>
-                <a href="@Url.Action("Index","News")" class="gia-news">اخبار خودروها</a>
             </nav>
-            
+             
+            <nav>
+                <strong class="gia-news title">اخبار و محتوا</strong>
+                <a href="@Url.Action("Categories", "News")" class="gia-category">مدیریت گروها</a>
+                <a href="@Url.Action("News_Publish","News")" class="gia-newsAdd">ثبت خبر</a>
+                <a href="@Url.Action("Index","News")" class="gia-news">مدیریت اخبار</a>
+            </nav>
             
             <nav>
                 <strong class="gia-users title">مدیریت کاربران</strong>
@@ -85,6 +89,7 @@
                 <a href="@Url.Action("New", "Products", new { area = "admin" , id = "" })" >ثبت محصول</a>
                 <a href="@Url.Action("Index", "Products", new { area = "admin" , id = "" })" >مدیریت محصولات</a>
             </nav>
+
             
         </div>
         

@@ -53,6 +53,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Content> Contents { get; set; }
+        public virtual DbSet<ContentsCategory> ContentsCategories { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<DetailedBrakeSystem> DetailedBrakeSystems { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }

@@ -7,7 +7,7 @@ using CarProject.Models.User;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class UserController : Controller
     {
         public ActionResult Profile()

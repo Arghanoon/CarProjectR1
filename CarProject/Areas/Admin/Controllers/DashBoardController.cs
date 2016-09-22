@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class DashBoardController : Controller
     {
         //
