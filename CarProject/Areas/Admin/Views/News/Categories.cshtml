@@ -33,7 +33,7 @@
 
                 <div class="input">
                     <label>ریشه انتخاب شده</label>
-                    <section>@Model.Category.ParentId</section>
+                    <section>@if (Model.Category.ContentsCategory2 != null) { Write(Model.Category.ContentsCategory2.Name); }</section>
                 </div>
                 
             </div>
@@ -53,11 +53,67 @@
 </div>
 
 
+<div id="DeleteMessage" class="messageBack">
+    <form method="post" class="message">
+        <input type="hidden" name="ContentCategoryId" id="deleteContentCategoryId" />
+        <strong class="title"><a href="javascript:void()"> &times; حذف گروه</a></strong>
+        <section>
+            آیا از حذف گروه انتخابی اطمینان دارید؟
+        </section>
+        <section class="messageActionBar">
+            <input type="button" value="انصراف" class="button green" />
+            <input type="submit" name="DeleteNode" class="button orange" value="حذف گره وانتقال زیر مجموعها به گره بالاتر" />
+            <input type="submit" name="DeleteAll"  class="button red" value="حذف گره و تمام زیر مجموعهای"/>
+        </section>
+    </form>
+</div>
+
 @section style
 {
     <style>
         #insertDiv {
             border-bottom:thin solid #888;
         }
+
+         .messageBack {
+            position:absolute; top:0; bottom:0; left:0; right:0;
+            background:rgba(0,0,0,0.7);
+            z-index:9999;
+            padding:10%;
+        }
+        .message {
+
+            padding:5px;
+            background:white;
+            margin:auto;
+            border:2px solid #888;
+            border-radius:3px;
+            box-shadow: 0 0 3px 0 #000;
+            width:50%;
+            min-width:150px;
+        }
+            .message .title {
+                display:block;
+                margin:-5px;
+                margin-bottom:5px;
+                color:#fff;
+                background:#888;
+            }
+                .message .title a {
+                    color:#eaeaea;
+                }
+                    .message .title a:hover {
+                        color:#fff;
+                    }
+
+        .messageActionBar {
+            display:flex; justify-content:flex-end; align-items:stretch;
+            flex-wrap:wrap;
+        }
     </style>
+}
+
+@section script
+{
+    <script></script>
 }
