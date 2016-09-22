@@ -60,7 +60,10 @@ namespace CarProject.Areas.Admin.Controllers
         {
             var model = new Models.News.CategoryModel();
             if (Id != null && Id > 0)
-                model.Category.ParentId = Id;
+            {
+                //model.Category.ParentId = Id;
+                model.Category.ContentsCategory2 = DBS.ContentsCategories.FirstOrDefault(c => c.ContentsCategoryId == Id);
+            }
             return View(model);
         }
         [HttpPost]

@@ -17,7 +17,9 @@
     {
         cats = DBS.ContentsCategories.Where(c => c.ParentId == pid);
     }*/
+    
 }
+
 
 <div>
 
@@ -28,6 +30,12 @@
                 @Html.input_TextBox(m => m.Category.Name , "نام گروه")
                 @Html.input_TextArea(m => m.Category.Describe, "توضیحات")
                 @Html.HiddenFor(m => m.Category.ParentId)
+
+                <div class="input">
+                    <label>ریشه انتخاب شده</label>
+                    <section>@Model.Category.ParentId</section>
+                </div>
+                
             </div>
             <div class="inputAction">
                 <input type="submit" value="ثبت گروه"  class="button green" />

@@ -42,9 +42,11 @@ namespace CarProject.Areas.Admin.Models.News
             string res = "";
             foreach (var item in DBS.ContentsCategories.Where(c => c.ParentId == pid))
             {
-                res += string.Format("<li> <a href=\"{0}\">{1}</a> {2} </li>",
+                res += string.Format("<li> <a href=\"{0}\">{1}</a> {2} {3} {4} </li>",
                     Url.Action("Categories", "News", new { Id = item.ContentsCategoryId }),
                     item.Name,
+                    string.Format("<a href=\"{0}\" class=\"gia-edit\"></a>", "#"),
+                    string.Format("<a href=\"{0}\" class=\"gia-remove\"></a>", "#"),
                     GetCategories(Url, item.ContentsCategoryId));
             }
             if (!res.IsNullOrWhiteSpace())
