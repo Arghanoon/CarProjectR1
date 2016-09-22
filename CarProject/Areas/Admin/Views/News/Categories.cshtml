@@ -4,14 +4,26 @@
 
 @{
     ViewBag.Title = "مدیریت گروههای اخبار";
-}
+    var DBS = new db.CarAutomationEntities();
 
+    /*int? pid = Model.Category.ParentId;
+    
+    IQueryable<db.ContentsCategory> cats = null;
+    if(pid == null || pid <= 0)
+    {
+        cats = DBS.ContentsCategories;
+    }
+    else
+    {
+        cats = DBS.ContentsCategories.Where(c => c.ParentId == pid);
+    }*/
+}
 
 <div>
 
     <div id="insertDiv">
         <h3>ثبت گروه جدید</h3>
-        <form method="post"  action="@Url.Action("NewCategory","News")">
+        <form method="post">
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.Category.Name , "نام گروه")
                 @Html.input_TextArea(m => m.Category.Describe, "توضیحات")
@@ -23,7 +35,12 @@
         </form>
     </div>
    
-    <div></div>
+    <div>
+        <h3>گروه ها</h3>
+        <div>
+           @Model.GetCategories(this.Url, null | 0)
+        </div>
+    </div>
 
 </div>
 

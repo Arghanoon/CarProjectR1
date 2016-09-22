@@ -60,25 +60,18 @@ namespace CarProject.Areas.Admin.Controllers
         {
             var model = new Models.News.CategoryModel();
             if (Id != null && Id > 0)
-                model.Category.ParentId = 0;
-            if (TempData.ContainsKey("SaveModelCallBack_NewCategory") && TempData["SaveModelCallBack_NewCategory"] != null && TempData["SaveModelCallBack_NewCategory"] is Models.News.CategoryModel)
-            {
-                model = TempData["SaveModelCallBack_NewCategory"] as Models.News.CategoryModel;
-                TempData.Remove("SaveModelCallBack_NewCategory");
-            }
+                model.Category.ParentId = Id;
             return View(model);
         }
-
-        public ActionResult NewCategory(Models.News.CategoryModel model)
+        [HttpPost]
+        public ActionResult Categories(Models.News.CategoryModel model)
         {
             if (ModelState.IsValid)
             {
-
-                
+                model.Save();
+                return RedirectToAction("Categories", new { Id = model.Category.ParentId });
             }
-
-            TempData["SaveModelCallBack_NewCategory"] = model;
-            return RedirectToAction("Categories", new { Id = model.Category.ParentId });
+            return View(model);
         }
 
     }
