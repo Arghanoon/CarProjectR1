@@ -72,9 +72,54 @@ namespace CarProject.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 model.Save();
-                return RedirectToAction("Categories", new { Id = model.Category.ParentId });
+                return RedirectToAction("Categories");
             }
             return View(model);
+        }
+
+        public ActionResult Categories_Update(int? Id)
+        {
+            var model = new Models.News.CategoryModel(Id);
+            TempData["CategoryModelUpdateItem"] = model;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Categories_Update(Models.News.CategoryModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var mo = TempData["CategoryModelUpdateItem"] as Models.News.CategoryModel;
+                TryUpdateModel(mo);
+                mo.DBS.SaveChanges();
+                return RedirectToAction("Categories");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Categories_delete(int? ContentCategoryId, int? type)
+        {
+            var node = DBS.ContentsCategories.FirstOrDefault(c => c.ContentsCategoryId == ContentCategoryId);
+            if (node != null)
+            {
+                if (type != null && type == 0)
+                {
+                    foreach (var item in DBS.ContentsCategories.Where(cc => cc.ParentId == node.ContentsCategoryId))
+                    {
+                        item.ParentId = node.ParentId;
+                    }
+                    DBS.ContentsCategories.Remove(node);
+                }
+                else if (type != null && type == 1)
+                {
+                    DBS.ContentsCategories.RemoveRange(DBS.ContentsCategories.Where(cc => cc.ParentId == node.ContentsCategoryId));
+                    DBS.ContentsCategories.Remove(node);
+                }
+
+                DBS.SaveChanges();
+            }
+
+            return RedirectToAction("Categories");
         }
 
     }

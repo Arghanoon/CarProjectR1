@@ -3,7 +3,7 @@
 @model CarProject.Areas.Admin.Models.News.CategoryModel
 
 @{
-    ViewBag.Title = "مدیریت گروههای اخبار";
+    ViewBag.Title = "ویرایش گروههای اخبار";
     var DBS = new db.CarAutomationEntities();
 
     /*int? pid = Model.Category.ParentId;
@@ -27,6 +27,7 @@
         <h3>ثبت گروه جدید</h3>
         <form method="post">
             <div class="inputsContainer">
+                @Html.HiddenFor( m => m.Category.ContentsCategoryId)
                 @Html.input_TextBox(m => m.Category.Name , "نام گروه")
                 @Html.input_TextArea(m => m.Category.Describe, "توضیحات")
                 @Html.HiddenFor(m => m.Category.ParentId)
@@ -50,7 +51,7 @@
     <div>
         <h3>گروه ها</h3>
         <div id="CategoryPresentation">
-           @Model.GetCategories(null | 0, null, "javascript:void()", "SelectParent", "DeleteRequest", Url.Action("Categories_Update", "News"))
+           @Model.GetCategories_readOnly(null | 0, new int?[] { Model.Category.ContentsCategoryId }, "javascript:void()", "SelectParent")
         </div>
     </div>
 
@@ -135,9 +136,10 @@
             did.value = id;
             $('#DeleteMessage').toggleClass('show');
         }
+
         function SelectParent(id, name, pid) {
             document.getElementById('@Html.IdFor( m => m.Category.ParentId)').value = id;
-              document.getElementById("selectedParentName").innerHTML = name;
-          }
+            document.getElementById("selectedParentName").innerHTML = name;
+        }
     </script>
 }
