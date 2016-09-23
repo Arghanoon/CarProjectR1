@@ -10,6 +10,23 @@
     <form method="post">
         <div class="inputsContainer">
             @Html.input_TextBox(m => m.Content.ContentSubject, "موضوع")
+            <div class="input">
+                <label style="white-space:nowrap;">گروه <small><a href="javascript:void()" onclick="$('#GroupsShowBox').toggleClass('show');">انتخاب گروه</a></small></label>
+                <section>
+                    <input type="hidden" id="GrouIdSelected" name="@Html.NameFor( m => m.Category.Category.ContentsCategoryId)" value="@Html.ValueFor( m => m.Category.Category.ContentsCategoryId)""  />
+                    <input type="text" id="GroupNameSelectd" value="@Html.ValueFor(m => m.Category.Category.Name)"   onfocus="$('#GroupsShowBox').toggleClass('show');" readonly="readonly"/>
+                    
+                    <div id="GroupsShowBox" tabindex="100" >
+                        <div id="actionBar">
+                            <a href="javascript:void()"  onclick="$('#GroupsShowBox').toggleClass('show');">&times;</a>
+                        </div>
+                        <div id="groupsContianer">
+                            @Model.Category.GetCategories_readOnly(0 | null,null,"javascript:void()","SelectGroup","gia-left")
+                        </div>
+                    </div>
+                </section>
+                @Html.ValidationMessageFor(m => m.Category.Category.ContentsCategoryId)
+            </div>
             @Html.input_TextArea(m => m.ContentHTML, "متن")
             @Html.input_TextBox(m=> m.Content.tags, "تگ ها" )
         </div>
@@ -18,6 +35,7 @@
         </div>
     </form>
 
+    @Html.ValidationSummary(false)
 </div>
 
 <div id="filebrowserBack" tabindex="0">
@@ -182,6 +200,43 @@
                 display:flex; justify-content:center;
             }
     </style>
+    <style>
+        #GroupsShowBox {
+            display:none;
+            position:absolute;
+            left:0; top:90%; right:0;
+
+            background:white;
+            border:2px solid #eaeaea;
+            box-shadow:0 3px 3px 0 #000;
+            z-index:10;
+        }
+            #GroupsShowBox.show {
+                display:inherit;
+            }
+
+        #actionBar {
+            background:#eaeaea;
+            padding:0 5px;
+        }
+        #groupsContianer {
+            max-height:200px;
+            overflow:auto;
+        }
+
+            #GroupsShowBox ul {
+                border-right:thin solid #888;
+                padding-right:5px;
+            }
+
+            #GroupsShowBox a + ul {
+                display:none;
+            }
+             #GroupsShowBox a.showsub + ul {
+                display:block;
+            }
+
+    </style>
 }
 
 @section script
@@ -319,5 +374,14 @@
             $.ajax({ url: "@Url.Action("UploadFile","FileManager")", processData: false, cache: false, contentType: false, type: 'POST', data: fd, success: function (res) { document.getElementById('FileUploader').style.display = 'none'; GetFiles(currentDir); } });
         }
 
+    </script>
+    <script>
+        $("#GroupsShowBox a").click(function (e) {
+            $(this).toggleClass("showsub");
+        });
+        function SelectGroup(id,name,pid) {
+            document.getElementById("GrouIdSelected").value = id;
+            document.getElementById("GroupNameSelectd").value = name;
+        }
     </script>
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using db = CarProject.DBSEF;
-using CarProject.App_Code;
+using CarProject.App_extension;
 using System.Web.Mvc;
 using System.Net;
 
@@ -43,34 +43,41 @@ namespace CarProject.Areas.Admin.Models.News
             return result;
         }
 
-        public MvcHtmlString GetCategories(UrlHelper Url, int? pid, int?[] SkippedItems, string OnDelete = "", string EditeHref = "#")
+        public MvcHtmlString GetCategories(UrlHelper Url, int? pid, int?[] SkippedItems, string OnDelete = "", string EditeHref = "#", string havesubClass = "")
         {
             string res = "";
             foreach (var item in DBS.ContentsCategories.Where(c => c.ParentId == pid))
             {
                 if (SkippedItems != null && SkippedItems.Contains(item.ContentsCategoryId))
                     continue;
-                res += string.Format("<li title=\"{0}\"> <a href=\"{1}\">{2}</a> {3} {4} {5} </li>",
+                MvcHtmlString subcateories = GetCategories(Url, item.ContentsCategoryId, SkippedItems, OnDelete, EditeHref, havesubClass);
+                string havesub = (subcateories.ToString().IsNullOrWhiteSpace()) ? "" : havesubClass;
+                
+                res += string.Format("<li title=\"{0}\"> <a href=\"{1}\" class=\"{2}\">{3}</a> {4} {5} {6} </li>",
                     WebUtility.HtmlEncode(item.Describe),
                     Url.Action("Categories", "News", new { Id = item.ContentsCategoryId }),
+                    havesub,
                     item.Name,
                     string.Format("<a href=\"{0}/{1}\" class=\"gia-edit\"></a>", EditeHref.TrimEnd('/'), item.ContentsCategoryId),
                     string.Format("<a href=\"{0}\" onclick=\"{1}\" class=\"gia-remove\"></a>", "javascript:void", string.Format("{0}('{1}')", OnDelete, item.ContentsCategoryId)),
-                    GetCategories(Url, item.ContentsCategoryId, SkippedItems, OnDelete));
+                    subcateories);
             }
             if (!res.IsNullOrWhiteSpace())
                 res = string.Format("<ul>{0}</ul>", res);
             return new MvcHtmlString(res);
         }
 
-        public MvcHtmlString GetCategories(int? pid, int?[] SkippedItems, string href = "#", string onclick = "", string OnDelete = "", string EditeHref = "#")
+        public MvcHtmlString GetCategories(int? pid, int?[] SkippedItems, string href = "#", string onclick = "", string OnDelete = "", string EditeHref = "#", string havesubClass = "")
         {
             string res = "";
             foreach (var item in DBS.ContentsCategories.Where(c => c.ParentId == pid))
             {
                 if (SkippedItems != null && SkippedItems.Contains(item.ContentsCategoryId))
                     continue;
-                res += string.Format("<li title=\"{0}\"> <a href=\"{1}\" onclick=\"{2}('{3}','{4}','{5}')\" >{6}</a> {7} {8} {9} </li>",
+                MvcHtmlString subcateories = GetCategories(item.ContentsCategoryId, SkippedItems, href, onclick, OnDelete, EditeHref, havesubClass);
+                string havesub = (subcateories.ToString().IsNullOrWhiteSpace()) ? "" : havesubClass;
+                
+                res += string.Format("<li title=\"{0}\"> <a href=\"{1}\" onclick=\"{2}('{3}','{4}','{5}')\" class=\"{6}\" >{7}</a> {8} {9} {10} </li>",
                     WebUtility.HtmlEncode(item.Describe),
                     href,
                     onclick,
@@ -79,24 +86,29 @@ namespace CarProject.Areas.Admin.Models.News
                     item.Name,
                     item.ParentId,
 
+                    havesub,
+
                     item.Name,
                     string.Format("<a href=\"{0}/{1}\" class=\"gia-edit\"></a>", EditeHref.TrimEnd('/'), item.ContentsCategoryId),
                     string.Format("<a href=\"{0}\" onclick=\"{1}\" class=\"gia-remove\"></a>", "javascript:void", string.Format("{0}('{1}')", OnDelete, item.ContentsCategoryId)),
-                    GetCategories(item.ContentsCategoryId, SkippedItems, href, onclick, OnDelete, EditeHref));
+                    subcateories);
             }
             if (!res.IsNullOrWhiteSpace())
                 res = string.Format("<ul>{0}</ul>", res);
             return new MvcHtmlString(res);
         }
 
-        public MvcHtmlString GetCategories_readOnly(int? pid, int?[] SkippedItems, string href = "#", string onclick = "")
+        public MvcHtmlString GetCategories_readOnly(int? pid, int?[] SkippedItems, string href = "#", string onclick = "", string havesubClass = "")
         {
             string res = "";
             foreach (var item in DBS.ContentsCategories.Where(c => c.ParentId == pid))
             {
                 if (SkippedItems != null && SkippedItems.Contains(item.ContentsCategoryId))
                     continue;
-                res += string.Format("<li title=\"{0}\"> <a href=\"{1}\" onclick=\"{2}('{3}','{4}','{5}')\" >{6}</a> {7} </li>",
+                MvcHtmlString subcateories = GetCategories_readOnly(item.ContentsCategoryId, SkippedItems, href, onclick, havesubClass);
+                string havesub = (subcateories.ToString().IsNullOrWhiteSpace()) ? "" : havesubClass;
+                
+                res += string.Format("<li title=\"{0}\"> <a href=\"{1}\" onclick=\"{2}('{3}','{4}','{5}')\"  class=\"{6}\">{7}</a> {8} </li>",
                    WebUtility.HtmlEncode(item.Describe),
                     href,
                     onclick,
@@ -105,8 +117,10 @@ namespace CarProject.Areas.Admin.Models.News
                     item.Name,
                     item.ParentId,
 
+                    havesub,
+
                     item.Name,
-                    GetCategories_readOnly(item.ContentsCategoryId, SkippedItems, href, onclick));
+                    subcateories);
             }
             if (!res.IsNullOrWhiteSpace())
                 res = string.Format("<ul>{0}</ul>", res);

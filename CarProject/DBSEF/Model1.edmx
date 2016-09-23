@@ -337,6 +337,8 @@
           <Property Name="VideoHtml" Type="ntext" />
           <Property Name="ContentType" Type="nchar" MaxLength="10" />
           <Property Name="tags" Type="nvarchar" MaxLength="350" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="LastUpdateDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ContentsCategory">
           <Key>
@@ -2381,6 +2383,8 @@
           <Property Name="VideoHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ContentType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="tags" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ContentsCategory" Relationship="Self.FK_Contents_ContentsCategory" FromRole="Contents" ToRole="ContentsCategory" />
         </EntityType>
         <EntityType Name="ContentsCategory">
@@ -4456,6 +4460,8 @@
                 <ScalarProperty Name="VideoHtml" ColumnName="VideoHtml" />
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

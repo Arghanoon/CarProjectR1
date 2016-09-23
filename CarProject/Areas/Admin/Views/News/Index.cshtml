@@ -1,4 +1,5 @@
 ﻿@using db = CarProject.DBSEF;
+@using CarProject.App_extension
 
 @{
     ViewBag.Title = "اخبار";
@@ -14,8 +15,10 @@
     <table class="grid1">
         <thead>
             <tr>
-                <th>شناسه</th>
+                <th style="width:0; white-space:nowrap;">شناسه</th>
                 <th style="width:80%;">عنوان</th>
+                <th style="width:0; white-space:nowrap;">تاریخ ثبت</th>
+                <th style="width:0; white-space:nowrap;">تاریخ آخرین تغییر</th>
                 <th>عملیات</th>
             </tr>
         </thead>
@@ -26,6 +29,8 @@
                 <tr>
                     <td>@item.ContenstId</td>
                     <td style="text-align:right;">@item.ContentSubject</td>
+                    <td style="width:0; white-space:nowrap;">@item.Date.DateTime_Persian()</td>
+                    <td style="width:0; white-space:nowrap;">@item.LastUpdateDate.DateTime_Persian()</td>
                     <td>
                         <a href="@Url.Action("Update_Publish", "News", new { id = item.ContenstId })" class="gia-edit"></a>
                         <a href="#" class="gia-remove"></a>

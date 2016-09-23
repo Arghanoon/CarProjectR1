@@ -406,6 +406,8 @@
     <Property Name="VideoHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ContentType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="tags" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="ContentsCategory" Relationship="Self.FK_Contents_ContentsCategory" FromRole="Contents" ToRole="ContentsCategory" />
   </EntityType>
   <EntityType Name="ContentsCategory">

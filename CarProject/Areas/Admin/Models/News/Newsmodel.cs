@@ -12,6 +12,8 @@ namespace CarProject.Areas.Admin.Models.News
     {
         DBSEF.CarAutomationEntities DBS = new db.CarAutomationEntities();
         public db.Content Content { get; set; }
+        public CategoryModel Category { get; set; }
+
         [AllowHtml]
         public string ContentHTML
         {
@@ -21,11 +23,15 @@ namespace CarProject.Areas.Admin.Models.News
 
         public Newsmodel()
         {
+            Content = new db.Content();
+            Category = new CategoryModel();
+            Category.DBS = this.DBS;
         }
 
         public Newsmodel(int? contentsId)
         {
             this.Content = DBS.Contents.FirstOrDefault(c => c.ContenstId == contentsId);
+            this.Category = new CategoryModel(Content.ContentsCategoryId);
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -37,11 +43,15 @@ namespace CarProject.Areas.Admin.Models.News
 
         public void Save()
         {
+            this.Content.ContentsCategory = this.Category.Category;
             DBS.Contents.Add(Content);
+            this.Content.Date = DateTime.Now;
             DBS.SaveChanges();
         }
         public void Update()
         {
+            this.Content.LastUpdateDate = DateTime.Now;
+            this.Content.ContentsCategory = this.Category.Category;
             DBS.SaveChanges();
         }
     }

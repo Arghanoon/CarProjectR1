@@ -143,7 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\EXTS.cs" />
-    <Compile Include="App_Code\StringAddRoutes.cs" />
+    <Compile Include="App_extension\StringAddRoutes.cs" />
     <Compile Include="App_GlobalResources\Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -738,6 +738,7 @@
     <Content Include="Areas\Admin\Views\News\Index.cshtml" />
     <Content Include="Areas\Admin\Views\News\Update_Publish.cshtml" />
     <Content Include="Areas\Admin\Views\News\Categories.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Categories_Update.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -755,7 +756,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\News\Categories_Update.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

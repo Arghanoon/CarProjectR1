@@ -359,6 +359,8 @@
           <ScalarProperty Name="VideoHtml" ColumnName="VideoHtml" />
           <ScalarProperty Name="ContentType" ColumnName="ContentType" />
           <ScalarProperty Name="tags" ColumnName="tags" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

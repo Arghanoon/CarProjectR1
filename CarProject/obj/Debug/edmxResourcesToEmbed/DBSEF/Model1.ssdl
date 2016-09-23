@@ -332,6 +332,8 @@
     <Property Name="VideoHtml" Type="ntext" />
     <Property Name="ContentType" Type="nchar" MaxLength="10" />
     <Property Name="tags" Type="nvarchar" MaxLength="350" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="LastUpdateDate" Type="datetime" />
   </EntityType>
   <EntityType Name="ContentsCategory">
     <Key>
