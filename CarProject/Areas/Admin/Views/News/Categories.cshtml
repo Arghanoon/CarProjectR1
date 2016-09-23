@@ -40,13 +40,17 @@
             <div class="inputAction">
                 <input type="submit" value="ثبت گروه"  class="button green" />
             </div>
+
+            <small>
+                * برای انتخاب ریشه و ثبت در زیر مجموعه هر گروه، بر روی نام گروه در لیست زیر کلیک کنید
+            </small>
         </form>
     </div>
    
     <div>
         <h3>گروه ها</h3>
-        <div>
-           @Model.GetCategories(this.Url, null | 0)
+        <div id="CategoryPresentation">
+           @Model.GetCategories(this.Url, null | 0, "DeleteRequest")
         </div>
     </div>
 
@@ -56,12 +60,12 @@
 <div id="DeleteMessage" class="messageBack">
     <form method="post" class="message">
         <input type="hidden" name="ContentCategoryId" id="deleteContentCategoryId" />
-        <strong class="title"><a href="javascript:void()"> &times; حذف گروه</a></strong>
+        <strong class="title"><a href="javascript:void()" onclick="$('#DeleteMessage').toggleClass('show')"> &times;</a>  حذف گروه</strong>
         <section>
             آیا از حذف گروه انتخابی اطمینان دارید؟
         </section>
         <section class="messageActionBar">
-            <input type="button" value="انصراف" class="button green" />
+            <input type="button" value="انصراف" class="button green" onclick="$('#DeleteMessage').toggleClass('show')" />
             <input type="submit" name="DeleteNode" class="button orange" value="حذف گره وانتقال زیر مجموعها به گره بالاتر" />
             <input type="submit" name="DeleteAll"  class="button red" value="حذف گره و تمام زیر مجموعهای"/>
         </section>
@@ -75,12 +79,22 @@
             border-bottom:thin solid #888;
         }
 
+        #CategoryPresentation ul {
+            border-right:thin solid #888;
+            padding-right:15px;
+        }
+
+
          .messageBack {
             position:absolute; top:0; bottom:0; left:0; right:0;
+            display:none;
             background:rgba(0,0,0,0.7);
             z-index:9999;
             padding:10%;
         }
+            .messageBack.show {
+                display: inherit;
+            }
         .message {
 
             padding:5px;
@@ -107,7 +121,7 @@
                     }
 
         .messageActionBar {
-            display:flex; justify-content:flex-end; align-items:stretch;
+            display:flex; justify-content:center; align-items:stretch;
             flex-wrap:wrap;
         }
     </style>
@@ -115,5 +129,11 @@
 
 @section script
 {
-    <script></script>
+    <script>
+        function DeleteRequest(id) {
+            did = document.getElementById("deleteContentCategoryId");
+            did.value = id;
+            $('#DeleteMessage').toggleClass('show');
+        }
+    </script>
 }

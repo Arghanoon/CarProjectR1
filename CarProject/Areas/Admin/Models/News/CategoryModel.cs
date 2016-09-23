@@ -37,7 +37,7 @@ namespace CarProject.Areas.Admin.Models.News
             return result;
         }
 
-        public MvcHtmlString GetCategories(UrlHelper Url, int? pid)
+        public MvcHtmlString GetCategories(UrlHelper Url, int? pid, string OnDelete = "")
         {
             string res = "";
             foreach (var item in DBS.ContentsCategories.Where(c => c.ParentId == pid))
@@ -46,8 +46,8 @@ namespace CarProject.Areas.Admin.Models.News
                     Url.Action("Categories", "News", new { Id = item.ContentsCategoryId }),
                     item.Name,
                     string.Format("<a href=\"{0}\" class=\"gia-edit\"></a>", "#"),
-                    string.Format("<a href=\"{0}\" class=\"gia-remove\"></a>", "#"),
-                    GetCategories(Url, item.ContentsCategoryId));
+                    string.Format("<a href=\"{0}\" onclick=\"{1}\" class=\"gia-remove\"></a>", "javascript:void", string.Format("{0}('{1}')", OnDelete, item.ContentsCategoryId)),
+                    GetCategories(Url, item.ContentsCategoryId, OnDelete));
             }
             if (!res.IsNullOrWhiteSpace())
                 res = string.Format("<ul>{0}</ul>", res);
