@@ -15,7 +15,7 @@ namespace CarProject.CLS.Searchs
         {
             Contexts = new CarAutomationEntities();
         }
-        
+
 
         public IEnumerable GetJoinedView(SearchModel search)
         {
@@ -67,7 +67,7 @@ namespace CarProject.CLS.Searchs
 
             //  var result = Resultting.ToList();
 
-            if (!(search.brandname == null|| search.brandname   .Length == 0))
+            if (!(search.brandname == null || search.brandname.Length == 0))
             {
                 foreach (var VARIABLE in search.brandname)
                 {
@@ -80,46 +80,53 @@ namespace CarProject.CLS.Searchs
             {
                 foreach (var VARIABLE in search.enginetype)
                 {
-                    r1.AddRange(Resultting.Where(x => x.EngineType == VARIABLE));
+                    r2.AddRange(r1.Where(t => t.EngineType == VARIABLE));
+                    r1 = r2;
+                    // r1.AddRange(Resultting.Where(x => x.EngineType == VARIABLE));
                 }
             }
             if (!(search.enginecylandr == null || search.enginecylandr.Length == 0))
             {
                 foreach (var VARIABLE in search.enginecylandr)
                 {
-                    r1.AddRange(Resultting.Where(x => x.EngineCylinderNumber == VARIABLE));
+                    r2.AddRange(r1.Where(t => t.EngineCylinderNumber == VARIABLE));
+                    r1 = r2;
                 }
             }
             if (!(search.carusage == null || search.carusage.Length == 0))
             {
                 foreach (var VARIABLE in search.carusage)
                 {
-                    r1.AddRange(Resultting.Where(x => x.CarUsage == VARIABLE));
+                    r2.AddRange(r1.Where(t => t.CarUsage == VARIABLE));
+                    r1 = r2;
                 }
             }
             if (!(search.carbodytype == null || search.carbodytype.Length == 0))
             {
                 foreach (var VARIABLE in search.carbodytype)
                 {
-                    r1.AddRange(Resultting.Where(x => x.CarBodyType == VARIABLE));
+                    r2.AddRange(r1.Where(t => t.CarBodyType == VARIABLE));
+                    r1 = r2;
                 }
             }
             if (!(search.gearboxtype == null || search.gearboxtype.Length == 0))
             {
                 foreach (var VARIABLE in search.gearboxtype)
                 {
-                    r1.AddRange(Resultting.Where(x => x.GearBoxType == VARIABLE));
+                    r2.AddRange(r1.Where(t => t.GearBoxType == VARIABLE));
+                    r1 = r2;
                 }
             }
             if (!(search.gearboxaxle == null || search.gearboxaxle.Length == 0))
             {
                 foreach (var VARIABLE in search.gearboxaxle)
                 {
-                    r1.AddRange(Resultting.Where(x => x.GearBoxAxel == VARIABLE));
+                    r2.AddRange(r1.Where(t => t.GearBoxAxel == VARIABLE));
+                    r1 = r2;
                 }
             }
-            
-            return  r1;
+
+            return r1;
         }
     }
 }
