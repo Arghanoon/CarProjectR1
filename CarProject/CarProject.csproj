@@ -156,6 +156,7 @@
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TroubleshootingController.cs" />
     <Compile Include="Areas\Admin\Models\Cars\CarsModel.cs" />
+    <Compile Include="Areas\Admin\Models\Dashboard\AboutMe.cs" />
     <Compile Include="Areas\Admin\Models\News\CategoryModel.cs" />
     <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
     <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
@@ -396,6 +397,9 @@
     <Content Include="Publics\Files\Images\logo.png" />
     <Content Include="Publics\Files\Images\zoomin.png" />
     <Content Include="Publics\Files\Images\zoomout.png" />
+    <Content Include="Publics\Files\Resources\HomePage\HomePage.css" />
+    <Content Include="Publics\Files\Resources\HomePage\HomePage.js" />
+    <Content Include="Publics\Files\Resources\HomePage\logo.png" />
     <Content Include="Publics\Files\Resources\template.js" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />
@@ -633,6 +637,7 @@
     <Folder Include="Publics\Brands\" />
     <Folder Include="Publics\CarTempImages\" />
     <Folder Include="Publics\Filemanager\" />
+    <Folder Include="Publics\Files\Settings\" />
     <Folder Include="Publics\Scripts\Ajax\" />
     <Folder Include="Publics\Styles\PagesStyle\" />
   </ItemGroup>
@@ -756,6 +761,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\DashBoard\AboutMe.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\ContactUs.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

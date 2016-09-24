@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
+using System.Xml.Serialization;
+using System.IO;
+
 namespace CarProject.Areas.Admin.Controllers
 {
     //[CarProject.CLS.AuthFilter]
@@ -11,11 +15,49 @@ namespace CarProject.Areas.Admin.Controllers
     {
         //
         // GET: /Admin/DashBoard/
+
+        Models.Dashboard.MySerializer mserilize = new Models.Dashboard.MySerializer();
+
         public ActionResult Index()
         {
             return View();
         }
 
+        public ActionResult AboutMe()
+        {
+            var model = new Models.Dashboard.AboutMe();
+            var xm = mserilize.LoadXml(Server.MapPath(model.FileLocation), model.GetType());
+            if (xm != null)
+                model = (Models.Dashboard.AboutMe)xm;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult AboutMe(Models.Dashboard.AboutMe model)
+        {
+            if (ModelState.IsValid)
+            {
+                mserilize.SaveXml(Server.MapPath(model.FileLocation), model);
+            }
+            return View(model);
+        }
+
+        public ActionResult ContactUs()
+        {
+            var model = new Models.Dashboard.ContactUs();
+            var xm = mserilize.LoadXml(Server.MapPath(model.FileLocation), model.GetType());
+            if (xm != null)
+                model = (Models.Dashboard.ContactUs)xm;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ContactUs(Models.Dashboard.ContactUs model)
+        {
+            if (ModelState.IsValid)
+            {
+                mserilize.SaveXml(Server.MapPath(model.FileLocation), model);
+            }
+            return View(model);
+        }
 
 
         [HttpPost]
@@ -30,5 +72,7 @@ namespace CarProject.Areas.Admin.Controllers
             else
                 return RedirectToAction("Index");
         }
+
+
     }
 }
