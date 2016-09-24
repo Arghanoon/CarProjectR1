@@ -1,29 +1,121 @@
-﻿<!DOCTYPE html>
-
-<html manifest="khor">
-<head>
+﻿@{
+    var serializer = new CarProject.Areas.Admin.Models.Dashboard.MySerializer();
     
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    var contectus = new CarProject.Areas.Admin.Models.Dashboard.ContactUs();
+    var aboutme = new CarProject.Areas.Admin.Models.Dashboard.AboutMe();
 
+    contectus = (CarProject.Areas.Admin.Models.Dashboard.ContactUs)serializer.LoadXml(Server.MapPath(contectus.FileLocation), contectus.GetType());
+    aboutme = (CarProject.Areas.Admin.Models.Dashboard.AboutMe)serializer.LoadXml(Server.MapPath(aboutme.FileLocation), aboutme.GetType());
+    
+}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="خدمات آنلاین خودرو فروش قطعات و لوازم یدکی" />
 
-    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
+<title>خودرو کلینیک - @ViewBag.Title</title>
     <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
-    <link href="~/Publics/Files/Resources/template.css" rel="stylesheet" />
-    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/input1.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
+    <link href="~/Publics/Files/Resources/HomePage/HomePage.css" rel="stylesheet" />
 
     <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
 
-    <title>خودرو کلینیک - @ViewBag.Title</title>
-
-    @RenderSection("style", false)
 </head>
 
 <body>
-    <div>
+	<h1 id="webheader">خودرو کلینیک</h1>
+    <header id="header">
+    
+    	<img id="webicon" src="~/Publics/Files/Resources/HomePage/logo.png" alt="خودرو کلینیک" />
+
+        <nav id="header_navigation">
+        	<a href="#">لینک 1</a>
+            <a href="#">لینک 2</a>
+            
+            <section >لینک 3 <section class="gia-down"></section>
+                <nav>
+                    <a href="#">ساب لینک 1</a>
+                    <a href="#">ساب لینک 2</a>
+                    <a href="#">ساب لینک 3 asdfasfas fasdf</a>
+                    <a href="#">ساب لینک 4 asdfasdfasd</a>
+                </nav>
+            </section>
+            
+            <section >لینک a sdas fasfasfaqer we <section class="gia-down"></section>
+                <nav>
+                    <a href="#">ساب لینک 1</a>
+                    <a href="#">ساب لینک 2</a>
+                    <a href="#">ساب لینک 3 asdfasfas fasdf</a>
+                    <a href="#">ساب لینک 4 asdfasdfasd</a>
+                </nav>
+            </section>
+            
+            <a href="#">لینک 4</a>
+        </nav>
+        
+        <nav id="header_ShortNavs">
+        	<a href="#" class="gia-login" ></a>
+        	<div>
+            	<a href="javascript:void()" class="gia-search" onClick="$('#searchSection').toggleClass('show')" ></a>
+                <div id="searchSection">
+                	<form id="searchForm" method="get">
+                    	<input type="text" name="searchText" />
+                        <button type="submit"><section class="gia-search"></section></button>
+                    </form>
+                </div>
+            </div>
+            <a href="#" class="gia-cart" ></a>
+        	<a href="javascript:void()" onClick="$('#header_navigation').toggleClass('show')" id="HeaderNavigationMenuIcon" class="gia-menuIcon"></a>
+        </nav>
+    </header>
+    
+
+
+    <div id="bodyContentRender">
         @RenderBody()
     </div>
+    
+    
+    <footer id="footer">
+    
+    	<div class="items">
+        	<h3 class="title">تماس با ما</h3>
+            <p>
+                @contectus.ShortDescribe
+            </p>
+        </div>
+        
+        
+        
+        <div class="items">
+        	<h3 class="title">درباره ما</h3>
+            <p>
+                @aboutme.ShortDescribe
+            </p>
+        </div>
+        
+        
+        
+        <div class="items">
+        	<h3 class="title">درباره ما</h3>
+            <p>
+            	درباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره ما
+            </p>
+        </div>
+        
+    </footer>
+    
+    <footer id="footer2">
+    	<section>گروه نرم افزاری ارغنون</section>
+    	<section dir="ltr">Arghanoon Programming Team &copy; 2016-2018</section>
+    </footer>
 </body>
 
-    @RenderSection("script", false)
-    <script src="~/Publics/Files/Resources/template.js"></script>
+<script>
+
+</script>
+<script src="~/Publics/Files/Resources/HomePage/HomePage.js"></script>
+
 </html>
