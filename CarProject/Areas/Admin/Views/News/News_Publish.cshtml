@@ -2,8 +2,10 @@
 @using CarProject.App_Code
 @{
     ViewBag.Title = "انتشار خبر";
+    var sc = new CarProject.Areas.Admin.Models.News.CategoryModel();
+    
+    
 }
-
 
 <div>
     <h3>ثبت خبر برای</h3>
@@ -13,19 +15,19 @@
             <div class="input">
                 <label style="white-space:nowrap;">گروه <small><a href="javascript:void()" onclick="$('#GroupsShowBox').toggleClass('show');">انتخاب گروه</a></small></label>
                 <section>
-                    <input type="hidden" id="GrouIdSelected" name="@Html.NameFor( m => m.Category.Category.ContentsCategoryId)" value="@Html.ValueFor( m => m.Category.Category.ContentsCategoryId)""  />
-                    <input type="text" id="GroupNameSelectd" value="@Html.ValueFor(m => m.Category.Category.Name)"   onfocus="$('#GroupsShowBox').toggleClass('show');" readonly="readonly"/>
+                    @Html.HiddenFor(m => m.Content.ContentsCategoryId)
+                    <input type="text" id="GroupNameSelectd" value="@Html.ValueFor(m => m.Category.Name)"   onfocus="$('#GroupsShowBox').toggleClass('show');" readonly="readonly"/>
                     
                     <div id="GroupsShowBox" tabindex="100" >
                         <div id="actionBar">
                             <a href="javascript:void()"  onclick="$('#GroupsShowBox').toggleClass('show');">&times;</a>
                         </div>
                         <div id="groupsContianer">
-                            @Model.Category.GetCategories_readOnly(0 | null,null,"javascript:void()","SelectGroup","gia-left")
+                            @sc.GetCategories_readOnly(0 | null,null,"javascript:void()","SelectGroup","gia-left")
                         </div>
                     </div>
                 </section>
-                @Html.ValidationMessageFor(m => m.Category.Category.ContentsCategoryId)
+                @Html.ValidationMessageFor(m => m.Content.ContentsCategoryId)
             </div>
             @Html.input_TextArea(m => m.ContentHTML, "متن")
             @Html.input_TextBox(m=> m.Content.tags, "تگ ها" )
@@ -35,7 +37,7 @@
         </div>
     </form>
 
-    @Html.ValidationSummary(false)
+    
 </div>
 
 <div id="filebrowserBack" tabindex="0">
@@ -379,8 +381,8 @@
         $("#GroupsShowBox a").click(function (e) {
             $(this).toggleClass("showsub");
         });
-        function SelectGroup(id,name,pid) {
-            document.getElementById("GrouIdSelected").value = id;
+        function SelectGroup(id, name, pid) {
+            document.getElementById("@Html.IdFor(m => m.Content.ContentsCategoryId)").value = id;
             document.getElementById("GroupNameSelectd").value = name;
         }
     </script>

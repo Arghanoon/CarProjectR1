@@ -16,7 +16,8 @@
         <thead>
             <tr>
                 <th style="width:0; white-space:nowrap;">شناسه</th>
-                <th style="width:80%;">عنوان</th>
+                <th>عنوان</th>
+                <th>گروه</th>
                 <th style="width:0; white-space:nowrap;">تاریخ ثبت</th>
                 <th style="width:0; white-space:nowrap;">تاریخ آخرین تغییر</th>
                 <th>عملیات</th>
@@ -29,9 +30,10 @@
                 <tr>
                     <td>@item.ContenstId</td>
                     <td style="text-align:right;">@item.ContentSubject</td>
+                    <td style="width:0; white-space:nowrap;">@item.ContentsCategory.Name</td>
                     <td style="width:0; white-space:nowrap;">@item.Date.DateTime_Persian()</td>
                     <td style="width:0; white-space:nowrap;">@item.LastUpdateDate.DateTime_Persian()</td>
-                    <td>
+                    <td style="width:0; white-space:nowrap;">
                         <a href="@Url.Action("Update_Publish", "News", new { id = item.ContenstId })" class="gia-edit"></a>
                         <a href="#" class="gia-remove"></a>
                     </td>
