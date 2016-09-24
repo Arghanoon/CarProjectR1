@@ -770,6 +770,7 @@
     <Content Include="Views\Cars\Index.cshtml" />
     <Content Include="Views\Cars\Car.cshtml" />
     <Content Include="Views\Cars\SearchView.cshtml" />
+    <Content Include="Views\Home\ContectUs.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

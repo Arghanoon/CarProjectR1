@@ -19,9 +19,12 @@
     <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
     <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
     <link href="~/Publics/Files/Resources/HomePage/HomePage.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/input1.css" rel="stylesheet" />
 
     <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
 
+
+    @RenderSection("style", false)
 </head>
 
 <body>
@@ -117,5 +120,8 @@
 
 </script>
 <script src="~/Publics/Files/Resources/HomePage/HomePage.js"></script>
+
+    
+    @RenderSection("script", false)
 
 </html>

@@ -4,13 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
+
 namespace CarProject.Controllers
 {
     public class HomeController : Controller
     {
         //
         // GET: /Home/
-
         public ActionResult Index()
         {
             DBSEF.CarAutomationEntities ca = new DBSEF.CarAutomationEntities();
@@ -25,6 +26,11 @@ namespace CarProject.Controllers
                 ca.People.Add(p);
                 ca.SaveChanges();
             }
+            return View();
+        }
+
+        public ActionResult ContectUs()
+        {
             return View();
         }
 

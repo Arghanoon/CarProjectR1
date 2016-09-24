@@ -1,0 +1,61 @@
+﻿@using dsh = CarProject.Areas.Admin.Models.Dashboard
+@using CarProject.App_Code
+@{
+    ViewBag.Title = "تماس با ما";
+    
+    var sri = new dsh.MySerializer();
+    var cus = new dsh.ContactUs();
+
+    cus = (dsh.ContactUs)sri.LoadXml(Server.MapPath(cus.FileLocation), cus.GetType());
+}
+
+
+
+<div id="DescribePageShowing">
+    @Html.Raw(cus.Html)
+</div>
+
+
+<div id="ContactUsForm">
+    <h3>فرم تماس با ما</h3>
+    <form method="post"  id="contectusform">
+       <div class="inputsContainer">
+           <section class="input">
+              <input type="text" placeholder="نام و نام خانوادگی" />
+           </section>
+           <section class="input">
+              <input type="text" placeholder="ایمیل" />
+           </section>
+           <section class="input">
+              <input type="text" placeholder="موضوع" />
+           </section>
+           <section class="input">
+              <textarea placeholder="نام و نام خانوادگی" ></textarea>
+           </section>
+       </div>
+
+        <div class="inputAction">
+            <input type="reset" class="button yellow" value="ازنو" />
+            <input type="submit" class="button green" value="ارسال" />
+        </div>
+    </form>
+</div>
+
+
+
+@section style
+{
+    <style>
+        #ContactUsForm {
+            margin:auto;
+            margin-top:10px;
+            border-top:thin solid #888;
+        }
+
+        #contectusform {
+            min-height:200px;
+            width:50%;
+            margin:auto;
+        }
+    </style>
+}
