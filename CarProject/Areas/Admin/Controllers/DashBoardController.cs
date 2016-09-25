@@ -59,6 +59,22 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
+        public ActionResult ContactUsMessages()
+        {
+            return View();
+        }
+
+        public ActionResult ContactUsMessagesShow(int id)
+        {
+            var db = new DBSEF.CarAutomationEntities();
+            var model = db.ContactUsMessages.SingleOrDefault(m => m.MessagID == id);
+
+            model.Seen = DateTime.Now;
+            db.SaveChanges();
+
+            return View(model);
+        }
+
 
         [HttpPost]
         public ActionResult topNavPostBack(FormCollection form)

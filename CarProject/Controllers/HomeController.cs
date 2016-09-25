@@ -40,6 +40,7 @@ namespace CarProject.Controllers
             if (ModelState.IsValid)
             {
                 model.Save();
+                return RedirectToAction("ContectUs");
             }
             return View(model);
         }

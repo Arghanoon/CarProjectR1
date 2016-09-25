@@ -1,0 +1,52 @@
+﻿@using CarProject.DBSEF
+@using CarProject.App_extension
+@{
+    ViewBag.Title = "تماس با ما - پیام های دریافتی";
+    var dbs = new CarAutomationEntities();
+    var messages = dbs.ContactUsMessages.OrderByDescending(c => c.MessagID).ToList();
+}
+
+<div>
+
+    <div id="messages">
+        <table class="grid1">
+            <thead>
+                <tr>
+                    <th>تاریخ</th>
+                    <th>موضوع</th>
+                    <th>فرستنده</th>
+                </tr>
+            </thead>
+            <tbody style="font-size:80%;">
+                @foreach (var item in messages)
+                {
+                    <tr onclick="" @if (item.Seen == null) { Write("data-unread='data-unread'"); } data-message-id="@item.MessagID">
+                        <td style="width:0; white-space:nowrap;">@item.Date.GetValueOrDefault().DateTime_Persian()</td>
+                        <td style="text-align:right;">@item.Subject</td>
+                        <td style="width:0; white-space:nowrap;">@item.FullName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@section style
+{
+    <style>
+        tbody tr {
+            cursor:pointer;
+        }
+            tbody tr[data-unread] {
+                font-weight:bold;
+            }
+    </style>
+}
+
+@section script
+{
+    <script>
+        $("tbody tr").click(function (e) { rep = '@Url.Action("ContactUsMessagesShow", "DashBoard")/' + $(this).attr('data-message-id'); window.location = rep; window.location.replace(rep); });
+    </script>
+}
