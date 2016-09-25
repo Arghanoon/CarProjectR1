@@ -367,3 +367,16 @@ a {
     .infoTable td {
         width:100%;
     }
+
+
+    /*--------------------------------------Other Classes---------------------------------------------*/
+.countShower {
+    display:inline-block;
+    color:#888;
+    border:thin solid ;
+    background:#eaeaea;
+    border-radius :5px;
+    text-align:center;
+    padding:0 3px;
+    font-size:70%;
+}
