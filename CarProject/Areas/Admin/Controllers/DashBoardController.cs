@@ -63,6 +63,14 @@ namespace CarProject.Areas.Admin.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult ContactUsMessages_Delete(int id)
+        {
+            var db = new DBSEF.CarAutomationEntities();
+            db.ContactUsMessages.Remove(db.ContactUsMessages.SingleOrDefault(cum => cum.MessagID == id));
+            db.SaveChanges();
+            return RedirectToAction("ContactUsMessages");
+        }
 
         public ActionResult ContactUsMessagesShow(int id)
         {
