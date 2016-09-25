@@ -1,5 +1,6 @@
 ﻿@using dsh = CarProject.Areas.Admin.Models.Dashboard
 @using CarProject.App_Code
+@model CarProject.Models.Home.ContactUsMessageModel
 @{
     ViewBag.Title = "تماس با ما";
     
@@ -19,24 +20,17 @@
 <div id="ContactUsForm">
     <h3>فرم تماس با ما</h3>
     <form method="post"  id="contectusform">
+
        <div class="inputsContainer">
-           <section class="input">
-              <input type="text" placeholder="نام و نام خانوادگی" />
-           </section>
-           <section class="input">
-              <input type="text" placeholder="ایمیل" />
-           </section>
-           <section class="input">
-              <input type="text" placeholder="موضوع" />
-           </section>
-           <section class="input">
-              <textarea placeholder="نام و نام خانوادگی" ></textarea>
-           </section>
+           @Html.input_TextBox(m => m.Message.Subject, "موضوع")
+           @Html.input_TextBox(m => m.Message.Email, "ایمیل")
+           @Html.input_TextBox(m => m.Message.FullName, "نام و نام خانوادگی")
+           @Html.input_TextArea(m => m.Message.Message, "متن پیام")
        </div>
 
         <div class="inputAction">
             <input type="reset" class="button yellow" value="ازنو" />
-            <input type="submit" class="button green" value="ارسال" />
+            <input type="submit" name="ContectUsSumbit" class="button green" value="ارسال" />
         </div>
     </form>
 </div>
@@ -53,9 +47,14 @@
         }
 
         #contectusform {
-            min-height:200px;
-            width:50%;
+            min-width:200px;
+            width:80%;
             margin:auto;
+        }
+        @@media (max-width:700px) {
+            #contectusform {
+                width: 100%;
+            }
         }
     </style>
 }

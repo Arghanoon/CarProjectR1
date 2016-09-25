@@ -349,6 +349,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ContactUsMessages">
+      <EntityTypeMapping TypeName="CarAutomationModel.ContactUsMessage">
+        <MappingFragment StoreEntitySet="ContactUsMessages">
+          <ScalarProperty Name="MessagID" ColumnName="MessagID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Seen" ColumnName="Seen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Contents">
       <EntityTypeMapping TypeName="CarAutomationModel.Content">
         <MappingFragment StoreEntitySet="Contents">

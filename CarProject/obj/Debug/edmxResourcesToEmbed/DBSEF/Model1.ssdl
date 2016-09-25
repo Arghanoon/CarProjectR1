@@ -321,6 +321,18 @@
     <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
     <Property Name="CompanyAddress" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="ContactUsMessages">
+    <Key>
+      <PropertyRef Name="MessagID" />
+    </Key>
+    <Property Name="MessagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Seen" Type="datetime" />
+  </EntityType>
   <EntityType Name="Contents">
     <Key>
       <PropertyRef Name="ContenstId" />
@@ -1628,6 +1640,7 @@
     <EntitySet Name="CarWheels" EntityType="Self.CarWheels" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContactUsMessages" EntityType="Self.ContactUsMessages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Contents" EntityType="Self.Contents" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContentsCategory" EntityType="Self.ContentsCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />

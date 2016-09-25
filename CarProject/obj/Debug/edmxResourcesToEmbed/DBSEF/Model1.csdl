@@ -395,6 +395,18 @@
     <Property Name="CompanyAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Product_Company" FromRole="Company" ToRole="Product" />
   </EntityType>
+  <EntityType Name="ContactUsMessage">
+    <Key>
+      <PropertyRef Name="MessagID" />
+    </Key>
+    <Property Name="MessagID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Seen" Type="DateTime" Precision="3" />
+  </EntityType>
   <EntityType Name="Content">
     <Key>
       <PropertyRef Name="ContenstId" />
@@ -1780,6 +1792,7 @@
     <EntitySet Name="CarWheels" EntityType="Self.CarWheel" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Companies" EntityType="Self.Company" />
+    <EntitySet Name="ContactUsMessages" EntityType="Self.ContactUsMessage" />
     <EntitySet Name="Contents" EntityType="Self.Content" />
     <EntitySet Name="ContentsCategories" EntityType="Self.ContentsCategory" />
     <EntitySet Name="Countries" EntityType="Self.Country" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.IO;
 using System.Globalization;
+using System.Net.Mail;
 
 namespace CarProject.App_extension
 {
@@ -33,6 +34,22 @@ namespace CarProject.App_extension
             string[] contentTypes = { "image/gif", "image/jpeg", "image/png", "image/gif", "image/x-icon" };
 
             return contentTypes.Contains(value.ToLower());
+        }
+
+        public static bool String_IsEmail(this string value)
+        {
+            bool result = false;
+
+            try
+            {
+                MailAddress m = new MailAddress(value);
+                result = true;
+            }
+            catch
+            {
+            }
+
+            return result;
         }
     }
 

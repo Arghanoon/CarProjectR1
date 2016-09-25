@@ -31,11 +31,22 @@ namespace CarProject.Controllers
 
         public ActionResult ContectUs()
         {
-            return View();
+            var model = new Models.Home.ContactUsMessageModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ContectUs(Models.Home.ContactUsMessageModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+            }
+            return View(model);
         }
 
         public ActionResult AboutUs()
         {
+            ViewBag.error = new List<string>();
             return View();
         }
 

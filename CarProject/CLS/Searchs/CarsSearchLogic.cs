@@ -133,10 +133,10 @@ namespace CarProject.CLS.Searchs
 
         public IEnumerable GetProductSearch(ProductSearchModel model)
         {
+
+            return null;
             
-             
-            
-           var result = (Contexts.Products.GroupJoin(Contexts.ProductPrices, product => new {ProductId = product.ProductId},
+           /*var result = (Contexts.Products.GroupJoin(Contexts.ProductPrices, product => new {ProductId = product.ProductId},
                ProductPrice => new {ProductId = Convert.ToInt32(ProductPrice.ProductId)},
                (product, ProductPrice_join) => new {product, ProductPrice_join})
                .SelectMany(@t => ProductPrice_join.DefaultIfEmpty(), (@t, ProductPrice) => new {@t, ProductPrice})
@@ -178,7 +178,7 @@ namespace CarProject.CLS.Searchs
                    CountryLongName = Country.CountryLongName,
                    ProductPrice1 = (int?) ProductPrice.ProductPrice1,
                    CategoryName = Category.CategoryName
-               })).Distinct();
+               })).Distinct();*/
             //var Resultting = (Contexts.CarBrands.Join(Contexts.CarModels, carbrand => carbrand.CarBrandId,
             //               carmodel => carmodel.CarBrandId, (carbrand, carmodel) => new { carbrand, carmodel })
             //               .Join(Contexts.Cars, @t => @t.carmodel.CarModelId, cars => cars.CarModelId, (@t, cars) => new { @t, cars })
