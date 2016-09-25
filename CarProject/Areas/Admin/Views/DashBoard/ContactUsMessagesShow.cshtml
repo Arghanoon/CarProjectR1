@@ -1,9 +1,68 @@
 ﻿@model CarProject.DBSEF.ContactUsMessage
+@using CarProject.App_extension
 @{
     ViewBag.Title = "نمایش پیغام";
 }
 
 <div>
     
-    <div>@Model.Message</div>
+    <table>
+        <tr>
+            <th>نام و نام خانوادگی</th>
+            <td>@Model.FullName</td>
+        </tr>
+         <tr>
+            <th>ایمیل</th>
+            <td>@Model.Email</td>
+        </tr>
+         <tr>
+            <th>موضوع پیام</th>
+            <td>@Model.Subject</td>
+        </tr>
+         <tr>
+            <th>تاریخ ارسال پیام</th>
+            <td>@Model.Date.DateTime_Persian()</td>
+        </tr>
+        <tr>
+            <th>تاریخ بررسی</th>
+            <td>@Model.Seen.DateTime_Persian()</td>
+        </tr>
+    </table>
+
+    <div id="messageContent">
+        @Model.Message
+    </div>
+
+    <div id="messageAction">
+
+        <a href="#" class="button yellow" >پاسخ به پیام</a>
+
+    </div>
+    
 </div>
+
+
+@section style
+{
+    <style>
+        table {
+            font-size:85%;
+        }
+
+        th {
+            text-align:right;
+            padding:0 5px;
+        }
+
+        #messageContent {
+            margin:15px;
+            border:thin solid #888;
+            border-radius:5px;
+            padding:5px;
+        }
+
+        #messageAction {
+            display:flex; justify-content:flex-end; align-items:center;
+        }
+    </style>
+}
