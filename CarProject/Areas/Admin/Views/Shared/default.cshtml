@@ -1,7 +1,9 @@
 ﻿@{
     Layout = null;
     var DBS = new CarProject.DBSEF.CarAutomationEntities();
+    
     var ContaectUsUnreadMessage = DBS.ContactUsMessages.Count(ms => ms.Seen == null);
+    var NewUsersNotGetAccess = DBS.Users.Count(u => u.UserRoleId == null);
 }
 
 <!doctype html>
@@ -72,8 +74,8 @@
             <nav>
                 <strong class="gia-users title">مدیریت کاربران</strong>
             	<a href="@Url.Action("NewUser","User")" class="gia-user">ثبت کاربر جدید</a>
-                <a href="@Url.Action("Users","User")" class="gia-list">کاربران</a>
-                <a href="@Url.Action("newUsers","User")" class="gia-waitedUser">کاربران جدید</a>
+                <a href="@Url.Action("Users","User")" class="gia-users">کاربران</a>
+                <a href="@Url.Action("newUsers","User")" class="gia-waitedUser">کاربران جدید @if(@NewUsersNotGetAccess > 0){ <span class="countShower">@NewUsersNotGetAccess</span>}</a>
             </nav>
             
             <nav>
