@@ -31,15 +31,18 @@ namespace CarProject.Controllers
 
         public ActionResult ContectUs()
         {
+            ViewBag.success = "";
             var model = new Models.Home.ContactUsMessageModel();
             return View(model);
         }
         [HttpPost]
         public ActionResult ContectUs(Models.Home.ContactUsMessageModel model)
         {
+            ViewBag.success = "";
             if (ModelState.IsValid)
             {
                 model.Save();
+                ViewBag.success = "پیام شما ثبت گردید";
             }
             return View(model);
         }
