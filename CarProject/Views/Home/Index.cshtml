@@ -6,7 +6,9 @@
 }
 
 
-<div id="SlideShowerBack" class="whitesmooke">
+@if(slides.Count > 0)
+{
+    <div id="SlideShowerBack" class="whitesmooke">
     <div id="SlideShower">
     	@*<div class="slides">
         	<img  class="image" src="../Cars/Images/img (1).jpg" alt="describe" />
@@ -34,8 +36,16 @@
         <section class="gia-stop"></section>
     </div>
 </div>
-    
+}  
 <div id="contentContainer" class="page whitesmooke">
-    جفنگیات
+    
 </div>
     
+
+<div id="AboutUsInnerPage" class="page2 whitesmooke">
+    @Html.Partial("AboutUs")
+</div>
+
+<div id="ContactUsInnerPage" class="page2 whitesmooke">
+    @Html.Partial("ContectUs")
+</div>

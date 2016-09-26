@@ -93,10 +93,24 @@ namespace CarProject.Areas.Admin.Models.Dashboard
 
         public DBSEF.SlideShow SlideShow { get; set; }
 
+        public SlideShowModel()
+        {
+            SlideShow = new DBSEF.SlideShow();
+        }
+
+        public SlideShowModel(int Id)
+        {
+            SlideShow = DBS.SlideShows.FirstOrDefault(m => m.SlideShowId == Id);
+        }
 
         public void Save()
         {
             DBS.SlideShows.Add(this.SlideShow);
+            DBS.SaveChanges();
+        }
+
+        public void Update()
+        {
             DBS.SaveChanges();
         }
 

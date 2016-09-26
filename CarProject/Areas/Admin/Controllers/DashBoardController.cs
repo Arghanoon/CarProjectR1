@@ -80,6 +80,27 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
+        public ActionResult SlideShower_Update(int Id)
+        {
+            var model = new Models.Dashboard.SlideShowModel(Id);
+            if (model == null)
+                return RedirectToAction("SlideShower_Slides");
+            TempData["SlideshowUpdateObjectSelect"] = model;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult SlideShower_Update(Models.Dashboard.SlideShowModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var m = TempData["SlideshowUpdateObjectSelect"] as Models.Dashboard.SlideShowModel;
+                TryUpdateModel(m);
+                m.Update();
+                return RedirectToAction("SlideShower_Slides");
+            }
+            return View(model);
+        }
+
 
         [HttpPost]
         public ActionResult topNavPostBack(FormCollection form)

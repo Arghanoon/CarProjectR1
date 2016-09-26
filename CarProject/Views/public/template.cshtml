@@ -38,12 +38,11 @@
     	<img id="webicon" src="~/Publics/Files/Resources/HomePage/logo.png" alt="خودرو کلینیک" />
 
         <nav id="header_navigation">
-        	<a href="#">لینک 1</a>
+        	<a href="@Url.Action("Index", "Home", new { area = "" })">صفحه نخست</a>
             <a href="#">لینک 2</a>
             
             <section >لینک 3 <section class="gia-down"></section>
                 <nav>
-                    <a href="#">ساب لینک 1</a>
                     <a href="#">ساب لینک 2</a>
                     <a href="#">ساب لینک 3 asdfasfas fasdf</a>
                     <a href="#">ساب لینک 4 asdfasdfasd</a>
@@ -59,12 +58,12 @@
                 </nav>
             </section>
             
-            <a href="@Url.Action("AboutUs","Home")">درباره ما</a>
-            <a href="@Url.Action("ContectUs","Home")">تماس با ما</a>
+            <a href="#AboutUsInnerPage">درباره ما</a>
+            <a href="#ContactUsInnerPage">تماس با ما</a>
         </nav>
         
         <nav id="header_ShortNavs">
-        	<a href="#" class="gia-login" ></a>
+        	<a href="@Url.Action("Index","Login")" class="gia-login" ></a>
         	<div>
             	<a href="javascript:void()" class="gia-search" onClick="$('#searchSection').toggleClass('show')" ></a>
                 <div id="searchSection">
@@ -106,11 +105,9 @@
         
         
         
-        <div class="items">
-        	<h3 class="title">درباره ما</h3>
-            <p>
-            	درباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره مادرباره ما
-            </p>
+        <div class="items" style="display:flex; justify-content:center; align-items:center; flex-direction:column;">
+        	<img src="~/Publics/Files/Resources/HomePage/logo.png" alt="خودرو کلینیک" width="200" />
+            <p>وب سایت کلینیک خودرو</p>
         </div>
         
     </footer>

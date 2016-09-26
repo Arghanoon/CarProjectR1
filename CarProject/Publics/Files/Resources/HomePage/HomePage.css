@@ -17,6 +17,10 @@ body
     padding:5px;
 }
 
+.page2 {
+    padding:15px 5px;
+}
+
 	/*body > *:not(#header) { padding:5px;}*/
 	
 	#webheader{ position:fixed; top:-500px; }

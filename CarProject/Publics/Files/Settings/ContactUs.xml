@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <ContactUs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ShortDescribe>توضیحات مختصر تماس با ما</ShortDescribe>
-  <Html>&lt;p&gt;توضیحا خیلی زیاد تماس با ما &lt;img src="../../Publics/Filemanager/شسیب/BMW-3-Series_2012_800x600_wallpaper_64.jpg" alt="" width="644" height="223" /&gt;&lt;/p&gt;</Html>
+  <ShortDescribe>توضیحات تماس با ما در فوتر
+&gt;برای ویرایش این صفحه به قسمت مدیریت سایت مراجعه کنید&lt;</ShortDescribe>
+  <Html>&lt;p&gt;توضیحات تماس با ما در صفحه تماس با ما&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;برای ویرایش این صفحه به قسمت مدیریت سایت مراجعه کنید&lt;/strong&gt;&lt;/p&gt;</Html>
   <LastUpdate>0001-01-01T00:00:00</LastUpdate>
 </ContactUs>
