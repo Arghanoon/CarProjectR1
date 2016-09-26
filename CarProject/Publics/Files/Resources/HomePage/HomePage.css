@@ -11,9 +11,17 @@ body
 	
 	min-height:100vh;
 }
-	body > *:not(#header) { padding:5px;}
+
+.page {
+    min-height: 100vh;
+    padding:5px;
+}
+
+	/*body > *:not(#header) { padding:5px;}*/
 	
 	#webheader{ position:fixed; top:-500px; }
+
+
 	
 	#header
 	{

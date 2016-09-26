@@ -1,0 +1,36 @@
+body{
+	background:#000027;
+	color:#ebebff;
+}
+
+#header
+{
+	border-bottom:thin solid #ebebff;
+}
+			
+
+				#header_navigation a:hover,
+				#header_navigation a.active,
+				#header_navigation > *:hover,
+				#header_navigation > *:active
+				{
+					background:#ebebff;
+					color:#000027;
+				}
+				
+#SlideShowerBack
+{
+	color:black;
+	min-height:100vh;
+	display:flex; justify-content:center; align-items:center;
+	flex-direction:column;
+}
+
+#SlideShower .slideMover{
+	background:#ebebff;
+}
+
+#SlideShower .slideMover:hover{
+	color:#ebebff;
+	background:#000027;
+}

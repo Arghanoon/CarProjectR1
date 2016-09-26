@@ -9,6 +9,7 @@ using CarProject.Areas.Admin.Models;
 
 namespace CarProject.Areas.Admin.Controllers
 {
+    [CarProject.CLS.AuthFilter]
     public class TroubleshootingController : Controller
     {
         public ActionResult Index(int? parentID)
