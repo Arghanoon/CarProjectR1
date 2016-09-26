@@ -635,6 +635,16 @@
     <Property Name="Views" Type="int" />
     <Property Name="ServiceId" Type="int" />
   </EntityType>
+  <EntityType Name="SlideShows">
+    <Key>
+      <PropertyRef Name="SlideShowId" />
+    </Key>
+    <Property Name="SlideShowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+    <Property Name="Describe" Type="nvarchar(max)" />
+    <Property Name="Image" Type="nvarchar" MaxLength="255" />
+    <Property Name="Url" Type="nvarchar" MaxLength="255" />
+  </EntityType>
   <EntityType Name="SteeringSystem">
     <Key>
       <PropertyRef Name="SteeringSystemId" />
@@ -1669,6 +1679,7 @@
     <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystems" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ServicesPackToView" EntityType="Self.ServicesPackToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ToBasket" EntityType="Self.ToBasket" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />

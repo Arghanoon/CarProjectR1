@@ -1,34 +1,28 @@
 ﻿@{
     ViewBag.Title = "خانه";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    var slides = dbs.SlideShows.ToList();
 }
 
 
 
 <div id="SlideShowerBack">
     <div id="SlideShower">
-    	<div class="slides">
+    	@*<div class="slides">
         	<img  class="image" src="../Cars/Images/img (1).jpg" alt="describe" />
             <h3 class="title">توضیحات تصویر</h3>
             <p class="describe">توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | </p>
-        </div>
+        </div>*@
         
-        <div class="slides">
-        	<img  src="../Cars/Images/img (2).jpg" alt="describe" />
-            <h3 class="title">توضیحات تصویر</h3>
-            <p class="describe">توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | </p>
-        </div>
-        
-        <div class="slides ">
-        	<img  src="../Cars/Images/img (3).jpg" alt="describe" />
-            <h3 class="title">توضیحات تصویر</h3>
-            <p class="describe">توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | </p>
-        </div>
-        
-        <div class="slides show">
-        	<img  src="../Cars/Images/img (4).jpg" alt="describe" />
-            <h3 class="title">توضیحات تصویر</h3>
-            <p class="describe">توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | </p>
-        </div>
+        @foreach (var item in slides)
+        {
+            <div class="slides">
+        	    <img  class="image" src="@item.Image" alt="describe" />
+                <h3 class="title">@item.Subject</h3>
+                <p class="describe">@item.Describe</p>
+            </div>
+        }
         
         <section id="forwardButton" onClick="changeSlideForward()" class="slideMover gia-right" ></section>
         <section id="backwardButton" onClick="changeSlideBackWard()" class="slideMover gia-left" ></section>

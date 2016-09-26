@@ -640,6 +640,16 @@
           <Property Name="Views" Type="int" />
           <Property Name="ServiceId" Type="int" />
         </EntityType>
+        <EntityType Name="SlideShows">
+          <Key>
+            <PropertyRef Name="SlideShowId" />
+          </Key>
+          <Property Name="SlideShowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+          <Property Name="Describe" Type="nvarchar(max)" />
+          <Property Name="Image" Type="nvarchar" MaxLength="255" />
+          <Property Name="Url" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="SteeringSystem">
           <Key>
             <PropertyRef Name="SteeringSystemId" />
@@ -1674,6 +1684,7 @@
           <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServicesPackToView" EntityType="Self.ServicesPackToView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToBasket" EntityType="Self.ToBasket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
@@ -2760,6 +2771,16 @@
           <Property Name="ServiceId" Type="Int32" />
           <NavigationProperty Name="AutoService" Relationship="Self.FK_ServiceToView_AutoService" FromRole="ServiceToView" ToRole="AutoService" />
         </EntityType>
+        <EntityType Name="SlideShow">
+          <Key>
+            <PropertyRef Name="SlideShowId" />
+          </Key>
+          <Property Name="SlideShowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="SteeringSystem">
           <Key>
             <PropertyRef Name="SteeringSystemId" />
@@ -3811,6 +3832,7 @@
           <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystem" />
           <EntitySet Name="ServicesPackToViews" EntityType="Self.ServicesPackToView" />
           <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
+          <EntitySet Name="SlideShows" EntityType="Self.SlideShow" />
           <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
           <EntitySet Name="ToBaskets" EntityType="Self.ToBasket" />
           <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />
@@ -4816,6 +4838,17 @@
                 <ScalarProperty Name="ServiceToViewId" ColumnName="ServiceToViewId" />
                 <ScalarProperty Name="Views" ColumnName="Views" />
                 <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SlideShows">
+            <EntityTypeMapping TypeName="CarAutomationModel.SlideShow">
+              <MappingFragment StoreEntitySet="SlideShows">
+                <ScalarProperty Name="SlideShowId" ColumnName="SlideShowId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -59,6 +59,27 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
+        public ActionResult SlideShower_Slides()
+        {
+            return View();
+        }
+
+        public ActionResult SlideShower_Insert()
+        {
+            var model = new Models.Dashboard.SlideShowModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult SlideShower_Insert(Models.Dashboard.SlideShowModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+                return RedirectToAction("SlideShower_Slides");
+            }
+            return View(model);
+        }
+
 
         [HttpPost]
         public ActionResult topNavPostBack(FormCollection form)

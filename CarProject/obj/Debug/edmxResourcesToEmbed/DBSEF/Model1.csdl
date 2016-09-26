@@ -770,6 +770,16 @@
     <Property Name="ServiceId" Type="Int32" />
     <NavigationProperty Name="AutoService" Relationship="Self.FK_ServiceToView_AutoService" FromRole="ServiceToView" ToRole="AutoService" />
   </EntityType>
+  <EntityType Name="SlideShow">
+    <Key>
+      <PropertyRef Name="SlideShowId" />
+    </Key>
+    <Property Name="SlideShowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
   <EntityType Name="SteeringSystem">
     <Key>
       <PropertyRef Name="SteeringSystemId" />
@@ -1821,6 +1831,7 @@
     <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystem" />
     <EntitySet Name="ServicesPackToViews" EntityType="Self.ServicesPackToView" />
     <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
+    <EntitySet Name="SlideShows" EntityType="Self.SlideShow" />
     <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
     <EntitySet Name="ToBaskets" EntityType="Self.ToBasket" />
     <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />

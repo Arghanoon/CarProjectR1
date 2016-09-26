@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E3200A96-1EF4-4265-9DFF-B90A260DA791}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CarProject</RootNamespace>
@@ -157,7 +157,7 @@
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TroubleshootingController.cs" />
     <Compile Include="Areas\Admin\Models\Cars\CarsModel.cs" />
-    <Compile Include="Areas\Admin\Models\Dashboard\AboutMe.cs" />
+    <Compile Include="Areas\Admin\Models\Dashboard\DashBoardController.cs" />
     <Compile Include="Areas\Admin\Models\News\CategoryModel.cs" />
     <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
     <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
@@ -353,6 +353,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\ServiceToView.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\SlideShow.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\SteeringSystem.cs">
@@ -752,6 +755,8 @@
     <Content Include="Areas\Admin\Views\News\Categories_Update.cshtml" />
     <Content Include="Areas\Admin\Views\DashBoard\AboutMe.cshtml" />
     <Content Include="Areas\Admin\Views\DashBoard\ContactUs.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\SlideShower_Slides.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\SlideShower_Insert.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>

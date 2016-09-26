@@ -692,6 +692,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SlideShows">
+      <EntityTypeMapping TypeName="CarAutomationModel.SlideShow">
+        <MappingFragment StoreEntitySet="SlideShows">
+          <ScalarProperty Name="SlideShowId" ColumnName="SlideShowId" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Describe" ColumnName="Describe" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SteeringSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.SteeringSystem">
         <MappingFragment StoreEntitySet="SteeringSystem">
