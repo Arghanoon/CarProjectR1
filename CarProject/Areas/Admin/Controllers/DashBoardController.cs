@@ -59,6 +59,32 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
+        public ActionResult ContactUsMessages()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ContactUsMessages_Delete(int id)
+        {
+            var db = new DBSEF.CarAutomationEntities();
+            db.ContactUsMessages.Remove(db.ContactUsMessages.SingleOrDefault(cum => cum.MessagID == id));
+            db.SaveChanges();
+            return RedirectToAction("ContactUsMessages");
+        }
+
+        public ActionResult ContactUsMessagesShow(int id)
+        {
+            var db = new DBSEF.CarAutomationEntities();
+            var model = db.ContactUsMessages.SingleOrDefault(m => m.MessagID == id);
+
+            model.Seen = DateTime.Now;
+            db.SaveChanges();
+
+            return View(model);
+        }
+
+
+
         public ActionResult SlideShower_Slides()
         {
             return View();
