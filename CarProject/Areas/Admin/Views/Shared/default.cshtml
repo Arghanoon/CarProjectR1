@@ -35,7 +35,7 @@
         <form method="post" id="header_menu" action="@Url.Action("topNavPostBack", new { area = "Admin", controller = "Dashboard" })">
             <nav id="header_menu_nav">
                  <a href="@Url.Action("Index", "Home", new { area = "" })" class="gia-home">صفحه نخست سایت</a>
-                <a href="#" class="gia-statistic">داشبور</a>
+                <a href="@Url.Action("Index","DashBoard")" class="gia-statistic">داشبور</a>
                 <a href="#" class="gia-setting">تنظیمات</a>
                 <a href="#" class="gia-user">پروفایل</a>
                 <a href="#" class="gia-help">راهنما</a>
