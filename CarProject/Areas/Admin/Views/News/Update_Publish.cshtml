@@ -248,10 +248,10 @@
 
          tinymce.init({
              selector: '#@Html.IdFor(m => m.ContentHTML)',
-            menubar: false,
-            plugins: "directionality,link,hr,table,emoticons,preview,image",
-            toolbar: "fontsizeselect styleselect removeformat | ltr rtl | alignleft aligncenter alignright alignjustify | bold italic underline strikethrough | undo redo | cut copy paste | bullist numlist | hr link unlink | image | table tabledelete tabledelete tablemergecells tablesplitcells tableinsertrowbefore tableinsertrowbefore tableinsertrowbefore tablerowprops tablecutrow tablecopyrow tablepasterowbefore tablepasterowafter tableinsertcolbefore tableinsertcolafter tabledeletecol | emoticons preview | ",
-            content_css: "@Url.Content("~/Publics/Styles/fonts/Fonts.css"),@Url.Content("~/Areas/Admin/Files/StyleAndScripts/Default/tinymce01.css")",
+             menubar: false,
+             plugins: "directionality,link,hr,table,emoticons,preview,image,media",
+             toolbar: "fontsizeselect styleselect removeformat | ltr rtl | alignleft aligncenter alignright alignjustify | bold italic underline strikethrough | undo redo | cut copy paste | bullist numlist | hr link unlink | image media | table tabledelete tabledelete tablemergecells tablesplitcells tableinsertrowbefore tableinsertrowbefore tableinsertrowbefore tablerowprops tablecutrow tablecopyrow tablepasterowbefore tablepasterowafter tableinsertcolbefore tableinsertcolafter tabledeletecol | emoticons preview | ",
+             content_css: "@Url.Content("~/Publics/Styles/fonts/Fonts.css"),@Url.Content("~/Areas/Admin/Files/StyleAndScripts/Default/tinymce01.css")",
             directionality: 'rtl',
             min_height: 300,
 
@@ -263,6 +263,15 @@
                 wind = win;
                 document.getElementById("filebrowserBack").style.display = "inherit";
                 GetFiles('');
+            },
+
+
+            video_template_callback: function (data) {
+
+                url = "https://www.aparat.com/video/video/embed/videohash/" + data.source1 + "/vt/frame";
+
+                return '<style>.h_iframe-aparat_embed_frame{position:relative;} .h_iframe-aparat_embed_frame .ratio {display:block;width:100%;height:auto;} .h_iframe-aparat_embed_frame iframe {position:absolute;top:0;left:0;width:100%; height:100%;}</style><div class="h_iframe-aparat_embed_frame"> <span style="display: block;padding-top: 57%"></span><iframe src="' + url + '" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" ></iframe></div>';
+
             }
         });
 
