@@ -426,6 +426,7 @@
     <Content Include="Publics\Files\Resources\HomePage\HomePage.css" />
     <Content Include="Publics\Files\Resources\HomePage\HomePage.js" />
     <Content Include="Publics\Files\Resources\HomePage\logo.png" />
+    <Content Include="Publics\Files\Resources\PublicClasses.css" />
     <Content Include="Publics\Files\Resources\template.js" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />
@@ -786,6 +787,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Admin\Views\News\NewsImagesGallery.cshtml" />
+    <Content Include="Areas\Admin\Views\FileManager\tinymcefm.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
