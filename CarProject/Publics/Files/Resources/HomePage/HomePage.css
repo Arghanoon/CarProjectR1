@@ -81,6 +81,10 @@ body
 						display:flex;
 						flex-direction:column;
 					}
+
+            #header_navigation *[class*=gia-]:before {
+                
+            }
 		
 		#header_ShortNavs
 		{

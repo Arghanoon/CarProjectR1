@@ -7,16 +7,38 @@ body{
 {
 	border-bottom:thin solid #ebebff;
 }
-			
 
-				#header_navigation a:hover,
+			#header_navigation a:hover,
 				#header_navigation a.active,
 				#header_navigation > *:hover,
 				#header_navigation > *:active
 				{
-					background:#ebebff;
-					color:#000027;
+					background:none;
 				}
+
+                #header_navigation *[class*=gia-] {
+                    overflow:hidden;
+                }
+                #header_navigation *[class*=gia-]:before {
+					color:#000027;
+                    position:absolute; top:100%; left:0; right:0;
+                    height:100%;
+                    font-size:230%;
+                    display:flex; justify-content:center; align-items:center;
+                    background:#ebebff;
+                    box-shadow:0 0 2px 0 #ebebff;
+
+                    transition:ease-in-out 0.3s;
+                }
+                    #header_navigation *[class*=gia-]:hover:before {
+                        top:0;
+                    }
+@media (max-width:700px) 
+{
+    #header_navigation {
+        background: #000027;
+    }
+}
 				
 #SlideShowerBack
 {
