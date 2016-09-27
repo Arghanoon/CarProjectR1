@@ -77,5 +77,11 @@ namespace CarProject.Areas.Admin.Controllers
                 Request.Files["file"].SaveAs(Path.Combine(dir.FullName, Request.Files["file"].FileName));
             }
         }
+
+
+        public ActionResult tinymcefm(string id)
+        {
+            return View(model: id);
+        }
     }
 }
