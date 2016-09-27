@@ -664,6 +664,7 @@
     <Folder Include="Publics\CarTempImages\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Files\Settings\" />
+    <Folder Include="Publics\NewsImages\" />
     <Folder Include="Publics\Scripts\Ajax\" />
     <Folder Include="Publics\Styles\PagesStyle\" />
   </ItemGroup>
@@ -784,6 +785,7 @@
     <Content Include="DBSEF\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\News\NewsImagesGallery.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

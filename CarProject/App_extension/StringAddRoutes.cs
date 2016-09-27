@@ -28,6 +28,11 @@ namespace CarProject.App_extension
             return Path.Combine("~/Publics/Brands/", value).Replace('\\', '/'); ;
         }
 
+        public static string BaseRouts_NewsImages(this string value)
+        {
+            return Path.Combine("~/Publics/NewsImages/", value).Replace('\\', '/');
+        }
+
 
         public static bool ContentTypeIsImage(this string value)
         {

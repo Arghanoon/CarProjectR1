@@ -5,10 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 
 using db = CarProject.DBSEF;
+using System.IO;
+using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class NewsController : Controller
     {
         //
@@ -32,10 +34,73 @@ namespace CarProject.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 model.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("NewsImagesGallery", new { id = model.Content.ContenstId });
             }
             return View(model);
         }
+
+
+        public ActionResult NewsImagesGallery(int id)
+        {
+            ViewBag.images = new List<string>();
+            string folder = id.ToString().BaseRouts_NewsImages();
+            DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
+            if (dic.Exists)
+            {
+                var imgs = dic.GetFiles();
+                List<string> imgPath = new List<string>();
+                foreach (var item in imgs)
+                {
+                    imgPath.Add(Path.Combine(id.ToString(), item.Name).BaseRouts_NewsImages());
+                }
+                ViewBag.images = imgPath;
+            }
+            return View();
+        }
+        [HttpPost, ActionName("NewsImagesGallery")]
+        public ActionResult NewsImagesGalleryPost(int id)
+        {
+            ViewBag.images = new List<string>();
+
+            string folder = id.ToString().BaseRouts_NewsImages();
+            DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
+
+            if (ModelState.IsValid)
+            {
+                if (!dic.Exists)
+                    dic.Create();
+                long namitem = DateTime.Now.Ticks;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    if (Request.Files[i].ContentType.ContentTypeIsImage())
+                    {
+                        Request.Files[i].SaveAs(Server.MapPath(Path.Combine(folder, string.Format("{0:000000}{1}", namitem++, Request.Files[i].FileName.Substring(Request.Files[i].FileName.LastIndexOf('.'))))));
+                    }
+                }
+            }
+
+            if (dic.Exists)
+            {
+                var imgs = dic.GetFiles();
+                List<string> imgPath = new List<string>();
+                foreach (var item in imgs)
+                {
+                    imgPath.Add(Path.Combine(id.ToString(), item.Name).BaseRouts_NewsImages());
+                }
+                ViewBag.images = imgPath;
+            }
+            return View();
+        }
+        public ActionResult NewsImagesGalleryRemove(int id, string filename)
+        {
+            var file = new FileInfo(Server.MapPath(filename));
+            if (file.Exists)
+                file.Delete();
+
+            return RedirectToAction("NewsImagesGallery", new { id = id });
+        }
+
+
 
         public ActionResult Update_Publish(int? Id)
         {
