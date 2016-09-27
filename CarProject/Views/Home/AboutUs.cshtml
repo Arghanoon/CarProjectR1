@@ -12,6 +12,9 @@
 
 <div>
     <div id="AboutMePageShower">
-        @Html.Raw(ab.Html)
+        @if(ab != null)
+        {
+             @Html.Raw(ab.Html)
+        }
     </div>
 </div>

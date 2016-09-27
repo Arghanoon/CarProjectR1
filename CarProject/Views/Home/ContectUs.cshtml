@@ -13,7 +13,10 @@
 
 
 <div id="DescribePageShowing">
-    @Html.Raw(cus.Html)
+    @if(cus != null)
+    {
+        @Html.Raw(cus.Html)
+    }
 </div>
 
 
