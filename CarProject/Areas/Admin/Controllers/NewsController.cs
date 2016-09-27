@@ -122,6 +122,22 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult News_Delete(int id)
+        {
+            if (id > 0)
+            {
+                DBS.Contents.Remove(DBS.Contents.FirstOrDefault(c => c.ContenstId == id));
+                DBS.SaveChanges();
+                string folder = id.ToString().BaseRouts_NewsImages();
+                DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
+                if (dic.Exists)
+                    dic.Delete(true);
+            }
+
+            return RedirectToAction("Index", "News");
+        }
+
         public ActionResult Categories(int? Id)
         {
             var model = new Models.News.CategoryModel();
