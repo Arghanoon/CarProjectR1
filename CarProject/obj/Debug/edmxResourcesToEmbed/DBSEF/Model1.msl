@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
+  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
     <EntitySetMapping Name="AirConditioningSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
         <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -774,5 +774,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_cars" FunctionName="CarAutomationModel.Store.sp_cars">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CarAutomationModel.sp_cars_Result">
+          <ScalarProperty Name="CarBrandName" ColumnName="CarBrandName" />
+          <ScalarProperty Name="CarModelName" ColumnName="CarModelName" />
+          <ScalarProperty Name="CarUsage" ColumnName="CarUsage" />
+          <ScalarProperty Name="CarBodyType" ColumnName="CarBodyType" />
+          <ScalarProperty Name="GearBoxType" ColumnName="GearBoxType" />
+          <ScalarProperty Name="GearBoxAxel" ColumnName="GearBoxAxel" />
+          <ScalarProperty Name="EngineType" ColumnName="EngineType" />
+          <ScalarProperty Name="EngineCylinderNumber" ColumnName="EngineCylinderNumber" />
+          <ScalarProperty Name="CarYearModel" ColumnName="CarYearModel" />
+          <ScalarProperty Name="LphCity" ColumnName="LphCity" />
+          <ScalarProperty Name="LphRoad" ColumnName="LphRoad" />
+          <ScalarProperty Name="LphMix" ColumnName="LphMix" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
