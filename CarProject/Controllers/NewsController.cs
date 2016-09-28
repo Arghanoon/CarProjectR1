@@ -29,7 +29,7 @@ namespace CarProject.Controllers
 
             foreach (DBSEF.ContentsCategory item in DBS.ContentsCategories.Where(cc => cc.ParentId == parent))
             {
-                res += string.Format("<a href=\"{0}\" class=\"\">{1}</a> ");
+                res += string.Format("<a href=\"{0}\" class=\"{1}\">{2}</a> ", "#", linkClass, item.Name);
                 res += CreateGroupLink(item.ContentsCategoryId, navclass, linkClass, (datalevel + 1));
             }
 
