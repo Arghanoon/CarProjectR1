@@ -797,6 +797,8 @@
     <Content Include="Views\Cars\SearchView.cshtml" />
     <Content Include="Views\Home\ContectUs.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\public\template_News.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
