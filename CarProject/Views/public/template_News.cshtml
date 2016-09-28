@@ -6,6 +6,9 @@
 
     contectus = (CarProject.Areas.Admin.Models.Dashboard.ContactUs)serializer.LoadXml(Server.MapPath(contectus.FileLocation), contectus.GetType());
     aboutme = (CarProject.Areas.Admin.Models.Dashboard.AboutMe)serializer.LoadXml(Server.MapPath(aboutme.FileLocation), aboutme.GetType());
+
+
+    var contentcategormenu = new CarProject.Controllers.NewsGroupLink();
     
 }
 <!doctype html>
@@ -65,7 +68,7 @@
     </header>
 
     <header id="header2">
-       
+       @contentcategormenu.CreateGroupLink(0 | null)
     </header>
     
 
