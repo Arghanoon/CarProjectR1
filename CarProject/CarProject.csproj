@@ -419,6 +419,7 @@
     <Content Include="Publics\Files\Resources\HomePage\logo.png" />
     <Content Include="Publics\Files\Resources\PublicClasses.css" />
     <Content Include="Publics\Files\Resources\template.js" />
+    <Content Include="Publics\NewsImages\nophoto.png" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />
     <Content Include="Publics\Styles\fonts\Fonts.css" />
@@ -656,7 +657,6 @@
     <Folder Include="Publics\CarTempImages\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Files\Settings\" />
-    <Folder Include="Publics\NewsImages\" />
     <Folder Include="Publics\Scripts\Ajax\" />
     <Folder Include="Publics\Styles\PagesStyle\" />
   </ItemGroup>
