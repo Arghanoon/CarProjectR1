@@ -362,6 +362,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ContentPresentations">
+      <EntityTypeMapping TypeName="CarAutomationModel.ContentPresentation">
+        <MappingFragment StoreEntitySet="ContentPresentation">
+          <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+          <ScalarProperty Name="ShowCount" ColumnName="ShowCount" />
+          <ScalarProperty Name="Like" ColumnName="Like" />
+          <ScalarProperty Name="Dislike" ColumnName="Dislike" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Contents">
       <EntityTypeMapping TypeName="CarAutomationModel.Content">
         <MappingFragment StoreEntitySet="Contents">

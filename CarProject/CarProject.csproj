@@ -260,6 +260,9 @@
     <Compile Include="DBSEF\Content.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\ContentPresentation.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\ContentsCategory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

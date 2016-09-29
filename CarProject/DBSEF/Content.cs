@@ -25,6 +25,7 @@ namespace CarProject.DBSEF
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<System.DateTime> LastUpdateDate { get; set; }
     
+        public virtual ContentPresentation ContentPresentation { get; set; }
         public virtual ContentsCategory ContentsCategory { get; set; }
     }
 }

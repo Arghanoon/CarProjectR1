@@ -338,6 +338,15 @@
           <Property Name="Date" Type="datetime" />
           <Property Name="Seen" Type="datetime" />
         </EntityType>
+        <EntityType Name="ContentPresentation">
+          <Key>
+            <PropertyRef Name="ContentId" />
+          </Key>
+          <Property Name="ContentId" Type="int" Nullable="false" />
+          <Property Name="ShowCount" Type="int" />
+          <Property Name="Like" Type="int" />
+          <Property Name="Dislike" Type="int" />
+        </EntityType>
         <EntityType Name="Contents">
           <Key>
             <PropertyRef Name="ContenstId" />
@@ -1052,6 +1061,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ContentPresentation_Contents">
+          <End Role="Contents" Type="Self.Contents" Multiplicity="1" />
+          <End Role="ContentPresentation" Type="Self.ContentPresentation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="ContenstId" />
+            </Principal>
+            <Dependent Role="ContentPresentation">
+              <PropertyRef Name="ContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Contents_ContentsCategory">
           <End Role="ContentsCategory" Type="Self.ContentsCategory" Multiplicity="0..1" />
           <End Role="Contents" Type="Self.Contents" Multiplicity="*" />
@@ -1657,6 +1678,7 @@
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUsMessages" EntityType="Self.ContactUsMessages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContentPresentation" EntityType="Self.ContentPresentation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contents" EntityType="Self.Contents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContentsCategory" EntityType="Self.ContentsCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
@@ -1803,6 +1825,10 @@
           <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentPresentation_Contents" Association="Self.FK_ContentPresentation_Contents">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="ContentPresentation" EntitySet="ContentPresentation" />
           </AssociationSet>
           <AssociationSet Name="FK_Contents_ContentsCategory" Association="Self.FK_Contents_ContentsCategory">
             <End Role="ContentsCategory" EntitySet="ContentsCategory" />
@@ -2409,6 +2435,16 @@
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Seen" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="ContentPresentation">
+          <Key>
+            <PropertyRef Name="ContentId" />
+          </Key>
+          <Property Name="ContentId" Type="Int32" Nullable="false" />
+          <Property Name="ShowCount" Type="Int32" />
+          <Property Name="Like" Type="Int32" />
+          <Property Name="Dislike" Type="Int32" />
+          <NavigationProperty Name="Content" Relationship="Self.FK_ContentPresentation_Contents" FromRole="ContentPresentation" ToRole="Contents" />
+        </EntityType>
         <EntityType Name="Content">
           <Key>
             <PropertyRef Name="ContenstId" />
@@ -2423,6 +2459,7 @@
           <Property Name="tags" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ContentPresentation" Relationship="Self.FK_ContentPresentation_Contents" FromRole="Contents" ToRole="ContentPresentation" />
           <NavigationProperty Name="ContentsCategory" Relationship="Self.FK_Contents_ContentsCategory" FromRole="Contents" ToRole="ContentsCategory" />
         </EntityType>
         <EntityType Name="ContentsCategory">
@@ -3429,6 +3466,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ContentPresentation_Contents">
+          <End Role="Contents" Type="Self.Content" Multiplicity="1" />
+          <End Role="ContentPresentation" Type="Self.ContentPresentation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="ContenstId" />
+            </Principal>
+            <Dependent Role="ContentPresentation">
+              <PropertyRef Name="ContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Contents_ContentsCategory">
           <End Role="ContentsCategory" Type="Self.ContentsCategory" Multiplicity="0..1" />
           <End Role="Contents" Type="Self.Content" Multiplicity="*" />
@@ -3806,6 +3855,7 @@
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Companies" EntityType="Self.Company" />
           <EntitySet Name="ContactUsMessages" EntityType="Self.ContactUsMessage" />
+          <EntitySet Name="ContentPresentations" EntityType="Self.ContentPresentation" />
           <EntitySet Name="Contents" EntityType="Self.Content" />
           <EntitySet Name="ContentsCategories" EntityType="Self.ContentsCategory" />
           <EntitySet Name="Countries" EntityType="Self.Country" />
@@ -4028,6 +4078,10 @@
           <AssociationSet Name="FK_Product_Company" Association="Self.FK_Product_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentPresentation_Contents" Association="Self.FK_ContentPresentation_Contents">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="ContentPresentation" EntitySet="ContentPresentations" />
           </AssociationSet>
           <AssociationSet Name="FK_Contents_ContentsCategory" Association="Self.FK_Contents_ContentsCategory">
             <End Role="ContentsCategory" EntitySet="ContentsCategories" />
@@ -4510,6 +4564,16 @@
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Seen" ColumnName="Seen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContentPresentations">
+            <EntityTypeMapping TypeName="CarAutomationModel.ContentPresentation">
+              <MappingFragment StoreEntitySet="ContentPresentation">
+                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+                <ScalarProperty Name="ShowCount" ColumnName="ShowCount" />
+                <ScalarProperty Name="Like" ColumnName="Like" />
+                <ScalarProperty Name="Dislike" ColumnName="Dislike" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

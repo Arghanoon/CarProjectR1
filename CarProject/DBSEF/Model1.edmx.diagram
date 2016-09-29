@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f683fcb2f29e4409a8208b377a81144a" Name="Diagram1">
+      <Diagram DiagramId="9fc39dc87cd5451e9f6b636d7d827e37" Name="Diagram1">
         <EntityTypeShape EntityType="CarAutomationModel.AirConditioningSystem" Width="1.5" PointX="7.5" PointY="25.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.AirConditioningSystemDetail" Width="1.5" PointX="7.5" PointY="28" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.AutoService" Width="1.5" PointX="7.5" PointY="30.75" IsExpanded="true" />
@@ -32,9 +32,10 @@
         <EntityTypeShape EntityType="CarAutomationModel.CarWheel" Width="1.5" PointX="7.5" PointY="88.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.Category" Width="1.5" PointX="11.25" PointY="58.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.Company" Width="1.5" PointX="11.25" PointY="62" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ContactUsMessage" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ContactUsMessage" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ContentPresentation" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.Content" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ContentsCategory" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ContentsCategory" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.Country" Width="1.5" PointX="11.25" PointY="55.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.DetailedBrakeSystem" Width="1.5" PointX="7.5" PointY="92.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.Discount" Width="1.5" PointX="10.5" PointY="37.625" IsExpanded="true" />
@@ -61,7 +62,7 @@
         <EntityTypeShape EntityType="CarAutomationModel.SecuritySystem" Width="1.5" PointX="7.5" PointY="121.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.ServicesPackToView" Width="1.5" PointX="12.75" PointY="20.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.ServiceToView" Width="1.5" PointX="9.75" PointY="44" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.SlideShow" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.SlideShow" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.SteeringSystem" Width="1.5" PointX="7.5" PointY="125.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.ToBasket" Width="1.5" PointX="12.75" PointY="26.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.TodaysSpecial" Width="1.5" PointX="15.75" PointY="71.5" IsExpanded="true" />
@@ -115,6 +116,7 @@
         <AssociationConnector Association="CarAutomationModel.FK_Category_Category" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Product_Category" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Product_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_ContentPresentation_Contents" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Contents_ContentsCategory" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ContentsCategory_ContentsCategory" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Manufacture_Country" ManuallyRouted="false" />
