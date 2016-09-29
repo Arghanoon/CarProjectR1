@@ -345,8 +345,9 @@
           <Property Name="ContenstId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ContentsCategoryId" Type="int" />
           <Property Name="ContentSubject" Type="nvarchar" MaxLength="150" />
+          <Property Name="ContentDescribe" Type="nvarchar(max)" />
           <Property Name="ContentText" Type="ntext" />
-          <Property Name="VideoHtml" Type="ntext" />
+          <Property Name="VideoUrl" Type="nvarchar" MaxLength="255" />
           <Property Name="ContentType" Type="nchar" MaxLength="10" />
           <Property Name="tags" Type="nvarchar" MaxLength="350" />
           <Property Name="Date" Type="datetime" />
@@ -1627,7 +1628,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="sp_cars" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CarAutomationModelStoreContainer">
           <EntitySet Name="AirConditioningSystem" EntityType="Self.AirConditioningSystem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AirConditioningSystemDetail" EntityType="Self.AirConditioningSystemDetail" Schema="dbo" store:Type="Tables" />
@@ -2416,8 +2416,9 @@
           <Property Name="ContenstId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ContentsCategoryId" Type="Int32" />
           <Property Name="ContentSubject" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContentDescribe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ContentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="VideoHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VideoUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ContentType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="tags" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="3" />
@@ -3776,7 +3777,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
           <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
           <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
@@ -4144,28 +4145,13 @@
             <End Role="UserRole" EntitySet="UserRoles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <FunctionImport Name="sp_cars" ReturnType="Collection(CarAutomationModel.sp_cars_Result)" />
         </EntityContainer>
-        <ComplexType Name="sp_cars_Result">
-          <Property Type="String" Name="CarBrandName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="CarModelName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="CarUsage" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="CarBodyType" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="GearBoxType" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="GearBoxAxel" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="EngineType" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="EngineCylinderNumber" Nullable="true" />
-          <Property Type="Int32" Name="CarYearModel" Nullable="true" />
-          <Property Type="Double" Name="LphCity" Nullable="true" />
-          <Property Type="Double" Name="LphRoad" Nullable="true" />
-          <Property Type="Double" Name="LphMix" Nullable="true" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
           <EntitySetMapping Name="AirConditioningSystems">
             <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
               <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -4533,8 +4519,9 @@
                 <ScalarProperty Name="ContenstId" ColumnName="ContenstId" />
                 <ScalarProperty Name="ContentsCategoryId" ColumnName="ContentsCategoryId" />
                 <ScalarProperty Name="ContentSubject" ColumnName="ContentSubject" />
+                <ScalarProperty Name="ContentDescribe" ColumnName="ContentDescribe" />
                 <ScalarProperty Name="ContentText" ColumnName="ContentText" />
-                <ScalarProperty Name="VideoHtml" ColumnName="VideoHtml" />
+                <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="tags" ColumnName="tags" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -4939,24 +4926,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_cars" FunctionName="CarAutomationModel.Store.sp_cars">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CarAutomationModel.sp_cars_Result">
-                <ScalarProperty Name="CarBrandName" ColumnName="CarBrandName" />
-                <ScalarProperty Name="CarModelName" ColumnName="CarModelName" />
-                <ScalarProperty Name="CarUsage" ColumnName="CarUsage" />
-                <ScalarProperty Name="CarBodyType" ColumnName="CarBodyType" />
-                <ScalarProperty Name="GearBoxType" ColumnName="GearBoxType" />
-                <ScalarProperty Name="GearBoxAxel" ColumnName="GearBoxAxel" />
-                <ScalarProperty Name="EngineType" ColumnName="EngineType" />
-                <ScalarProperty Name="EngineCylinderNumber" ColumnName="EngineCylinderNumber" />
-                <ScalarProperty Name="CarYearModel" ColumnName="CarYearModel" />
-                <ScalarProperty Name="LphCity" ColumnName="LphCity" />
-                <ScalarProperty Name="LphRoad" ColumnName="LphRoad" />
-                <ScalarProperty Name="LphMix" ColumnName="LphMix" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

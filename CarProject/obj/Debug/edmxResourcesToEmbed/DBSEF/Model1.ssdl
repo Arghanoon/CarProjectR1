@@ -340,8 +340,9 @@
     <Property Name="ContenstId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ContentsCategoryId" Type="int" />
     <Property Name="ContentSubject" Type="nvarchar" MaxLength="150" />
+    <Property Name="ContentDescribe" Type="nvarchar(max)" />
     <Property Name="ContentText" Type="ntext" />
-    <Property Name="VideoHtml" Type="ntext" />
+    <Property Name="VideoUrl" Type="nvarchar" MaxLength="255" />
     <Property Name="ContentType" Type="nchar" MaxLength="10" />
     <Property Name="tags" Type="nvarchar" MaxLength="350" />
     <Property Name="Date" Type="datetime" />
@@ -1622,7 +1623,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="sp_cars" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="CarAutomationModelStoreContainer">
     <EntitySet Name="AirConditioningSystem" EntityType="Self.AirConditioningSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AirConditioningSystemDetail" EntityType="Self.AirConditioningSystemDetail" Schema="dbo" store:Type="Tables" />

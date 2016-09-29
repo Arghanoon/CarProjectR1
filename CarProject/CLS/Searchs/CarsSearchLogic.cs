@@ -26,8 +26,8 @@ namespace CarProject.CLS.Searchs
 
         public IEnumerable GetJoinedView(SearchModel search)
         {
-            
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            return null;
+            /*var watch = System.Diagnostics.Stopwatch.StartNew();
             
             var rx = Contexts.sp_cars().Select(c => new
             {
@@ -169,7 +169,7 @@ namespace CarProject.CLS.Searchs
                 }
             }
 
-            return r1;
+            return r1;*/
         }
 
         public IEnumerable GetProductSearch(ProductSearchModel model)

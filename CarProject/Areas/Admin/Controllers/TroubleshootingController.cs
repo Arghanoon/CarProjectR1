@@ -35,7 +35,7 @@ namespace CarProject.Areas.Admin.Controllers
         }
         [HttpPost]
         public ActionResult New(TroubleshootingClass tobj,TroubleshootingClass tobj1, TroubleshootingClass tobj2, FormCollection form)
-        {
+        {/*
             int id = 0;
             if (ViewData.ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace CarProject.Areas.Admin.Controllers
                     return RedirectToAction("New", "Troubleshooting", new { id = tobj.Troubleshooting.FatherId });
                 }
             }
-
+            */
             return View(tobj);
         }
     }

@@ -414,8 +414,9 @@
     <Property Name="ContenstId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ContentsCategoryId" Type="Int32" />
     <Property Name="ContentSubject" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContentDescribe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ContentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="VideoHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="VideoUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="ContentType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="tags" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
     <Property Name="Date" Type="DateTime" Precision="3" />
@@ -1774,7 +1775,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
     <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
@@ -2142,20 +2143,5 @@
       <End Role="UserRole" EntitySet="UserRoles" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>
-    <FunctionImport Name="sp_cars" ReturnType="Collection(CarAutomationModel.sp_cars_Result)" />
   </EntityContainer>
-  <ComplexType Name="sp_cars_Result">
-    <Property Type="String" Name="CarBrandName" Nullable="true" MaxLength="150" />
-    <Property Type="String" Name="CarModelName" Nullable="true" MaxLength="150" />
-    <Property Type="String" Name="CarUsage" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="CarBodyType" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="GearBoxType" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="GearBoxAxel" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="EngineType" Nullable="true" MaxLength="50" />
-    <Property Type="Int32" Name="EngineCylinderNumber" Nullable="true" />
-    <Property Type="Int32" Name="CarYearModel" Nullable="true" />
-    <Property Type="Double" Name="LphCity" Nullable="true" />
-    <Property Type="Double" Name="LphRoad" Nullable="true" />
-    <Property Type="Double" Name="LphMix" Nullable="true" />
-  </ComplexType>
 </Schema>

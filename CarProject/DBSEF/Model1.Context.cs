@@ -12,15 +12,12 @@ namespace CarProject.DBSEF
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class CarAutomationEntities : DbContext
     {
         public CarAutomationEntities()
             : base("name=CarAutomationEntities")
         {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 350;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -91,10 +88,5 @@ namespace CarProject.DBSEF
         public virtual DbSet<Troubleshooting> Troubleshootings { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
-    
-        public virtual ObjectResult<sp_cars_Result> sp_cars()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_cars_Result>("sp_cars");
-        }
     }
 }

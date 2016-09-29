@@ -29,6 +29,7 @@
                 </section>
                 @Html.ValidationMessageFor(m => m.Content.ContentsCategoryId)
             </div>
+            @Html.input_TextArea(m => m.Content.ContentDescribe, "خلاصه خبر")
             @Html.input_TextArea(m => m.ContentHTML, "متن")
             @Html.input_TextBox(m=> m.Content.tags, "تگ ها" )
         </div>

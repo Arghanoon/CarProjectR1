@@ -59,3 +59,10 @@ body{
 	color:#ebebff;
 	background:#000027;
 }
+
+
+#footer {
+    background:#00008b;
+    border-top:5px solid #0000d8;
+    border-bottom:thin solid #0000d8;
+}
