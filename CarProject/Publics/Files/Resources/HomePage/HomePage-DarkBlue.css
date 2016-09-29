@@ -1,11 +1,13 @@
 body{
-	background:#000027;
-	color:#ebebff;
+	
 }
 
 #header
 {
-	border-bottom:thin solid #ebebff;
+	border-bottom:2px solid #ebebff;
+    box-shadow:0 1px 2px 0 #9f9fff;
+    background:#000027;
+	color:#ebebff;
 }
 
 			#header_navigation a:hover,
