@@ -420,6 +420,7 @@
     <Content Include="Publics\Files\Resources\HomePage\logo.png" />
     <Content Include="Publics\Files\Resources\PublicClasses.css" />
     <Content Include="Publics\Files\Resources\template.js" />
+    <Content Include="Publics\Files\Settings\TopMenu.xml" />
     <Content Include="Publics\NewsImages\nophoto.png" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />
@@ -657,7 +658,6 @@
     <Folder Include="Publics\Brands\" />
     <Folder Include="Publics\CarTempImages\" />
     <Folder Include="Publics\Filemanager\" />
-    <Folder Include="Publics\Files\Settings\" />
     <Folder Include="Publics\Scripts\Ajax\" />
     <Folder Include="Publics\Styles\PagesStyle\" />
   </ItemGroup>
@@ -792,6 +792,8 @@
     </Content>
     <Content Include="Areas\Admin\Views\Shared\default_Store.cshtml" />
     <Content Include="Areas\Admin\Views\Store\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Products_Insert.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\CategoryManagment.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

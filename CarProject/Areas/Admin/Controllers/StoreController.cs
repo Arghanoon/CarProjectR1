@@ -16,6 +16,11 @@ namespace CarProject.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult CategoryManagment()
+        {
+            return View();
+        }
+
         public ActionResult Products_Insert()
         {
             return View();

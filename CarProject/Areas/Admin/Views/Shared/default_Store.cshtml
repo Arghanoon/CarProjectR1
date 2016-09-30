@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Xml
+@{
     Layout = null;
     var DBS = new CarProject.DBSEF.CarAutomationEntities();
     var ContaectUsUnreadMessage = DBS.ContactUsMessages.Count(ms => ms.Seen == null);
@@ -36,12 +37,14 @@
         <a href="javascript: void()" id="header_menuIcon"  class="gia-menuIcon" onClick="TogleClassShow(header_menu,'display');"></a>
         <form method="post" id="header_menu" action="@Url.Action("topNavPostBack", new { area = "Admin", controller = "Dashboard" })">
             <nav id="header_menu_nav">
-                 <a href="@Url.Action("Index", "Home", new { area = "" })" class="gia-home">صفحه نخست سایت</a>
-                <a href="@Url.Action("Index","DashBoard")" class="gia-statistic">داشبور</a>
-                <a href="#" class="gia-setting">تنظیمات</a>
-                <a href="#" class="gia-user">پروفایل</a>
-                <a href="#" class="gia-help">راهنما</a>
-                
+                 @{
+                    XmlDocument xml = new XmlDocument();
+                    xml.Load(Server.MapPath("~/Publics/Files/Settings/TopMenu.xml"));
+                    foreach (XmlNode item in xml["links"].ChildNodes)
+                    {
+                        <a href="@item["url"].InnerText" target="@item["target"].InnerText" class="@item["class"].InnerText">@item["text"].InnerText</a>
+                    }
+                }                
                 <button type="submit" name="userLogout"><a href="#" class="gia-logout" onclick="">خروج کاربر</a></button>
             </nav>
         </form>

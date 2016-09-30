@@ -33,6 +33,10 @@ header
 	
 	z-index:999;
 }
+#headerTitleAndInfo {
+    display:flex;
+    justify-content:center; align-items:center;
+}
 	header > *
 	{
 		margin: 0 5px;

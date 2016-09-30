@@ -18,11 +18,11 @@
         
         @foreach (var item in slides)
         {
-            <div class="slides">
+            <a href="@item.Url" target="_blank" class="slides">
         	    <img  class="image" src="@item.Image" alt="describe" />
                 <h3 class="title">@item.Subject</h3>
                 <p class="describe">@item.Describe</p>
-            </div>
+            </a>
         }
         
         <section id="forwardButton" onClick="changeSlideForward()" class="slideMover gia-right" ></section>
