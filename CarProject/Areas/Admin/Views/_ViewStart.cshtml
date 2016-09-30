@@ -1,4 +1,13 @@
 ﻿@{
-    Layout = "~/Areas/Admin/Views/Shared/default.cshtml";
+    switch (Url.RequestContext.RouteData.Values["controller"].ToString().ToLower())
+    {
+        case "store":
+            Layout = "~/Areas/Admin/Views/Shared/default_Store.cshtml";
+            break;
+        default:
+            Layout = "~/Areas/Admin/Views/Shared/default.cshtml";
+            break;
+    }
+    
 }
 

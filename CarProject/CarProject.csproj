@@ -155,6 +155,7 @@
     <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
     <Compile Include="Areas\Admin\Controllers\FileManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StoreController.cs" />
     <Compile Include="Areas\Admin\Controllers\TroubleshootingController.cs" />
     <Compile Include="Areas\Admin\Models\Cars\CarsModel.cs" />
     <Compile Include="Areas\Admin\Models\Dashboard\DashBoardController.cs" />
@@ -789,6 +790,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\Shared\default_Store.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Index.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
