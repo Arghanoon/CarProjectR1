@@ -2,6 +2,9 @@
 @using CarProject.App_Code
 @{
     ViewBag.Title = "CategoryManagment";
+
+    var x = new CarProject.Areas.Admin.Controllers.StoreMVC();
+    
 }
 
 <h2>مدیریت گروه  بندی کالاها</h2>
@@ -16,13 +19,32 @@
                 <div class="input">
                     <label>گروه پدر</label>
                     <section>
-                        <input type="hidden" name="@Html.NameFor(m => m.Category.ParentCategoryId)" id="@Html.IdFor(m => m.Category.ParentCategoryId)" />
+                        @Html.HiddenFor(m => m.Category.ParentCategoryId)
+                        <section id="parentCategoryName"></section>
                     </section>
+                    @Html.ValidationMessageFor(m => m.Category.ParentCategoryId)
                 </div>
             </div>
             <div class="inputAction">
                 <input type="submit" class="button green" value="ثبت" />
             </div>
+
+            <section>* <small>ریشه پدر را از لیست زیر انتخاب کنید</small></section>
         </form>
     </div>
+
+    <div id="GroupsPresentation">
+        @x.Categories(null | 0, aHref: "javascript:void(0)", aClass: "categoriItemLink")
+    </div>
 </div>
+
+
+@section script
+{
+    <script>
+        $(".categoriItemLink").click(function (e) {
+            document.getElementById("parentCategoryName").innerHTML = $(this).attr("data-name");
+            document.getElementById("@Html.IdFor(m => m.Category.ParentCategoryId)").value = $(this).attr("data-id");
+        });
+    </script>
+}
