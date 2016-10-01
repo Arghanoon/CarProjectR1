@@ -1,9 +1,28 @@
-﻿@{
+﻿@model CarProject.Areas.Admin.Models.Store.CategoryModel
+@using CarProject.App_Code
+@{
     ViewBag.Title = "CategoryManagment";
 }
 
 <h2>مدیریت گروه  بندی کالاها</h2>
 
 <div>
-    
+    <div id="form">
+        <form method="post">
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.Category.CategoryName, "نام گروه")
+                @Html.input_TextArea(m => m.Category.Description, "توضیحات")
+                
+                <div class="input">
+                    <label>گروه پدر</label>
+                    <section>
+                        <input type="hidden" name="@Html.NameFor(m => m.Category.ParentCategoryId)" id="@Html.IdFor(m => m.Category.ParentCategoryId)" />
+                    </section>
+                </div>
+            </div>
+            <div class="inputAction">
+                <input type="submit" class="button green" value="ثبت" />
+            </div>
+        </form>
+    </div>
 </div>

@@ -161,6 +161,7 @@
     <Compile Include="Areas\Admin\Models\Dashboard\DashBoardController.cs" />
     <Compile Include="Areas\Admin\Models\News\CategoryModel.cs" />
     <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
+    <Compile Include="Areas\Admin\Models\Store\Category.cs" />
     <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
     <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Users\Controllers\PersonalityController.cs" />
