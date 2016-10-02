@@ -21,7 +21,8 @@ namespace CarProject.Areas.Admin.Controllers
 
         public ActionResult CategoryManagment(int? id)
         {
-            var model = new Models.Store.CategoryModel(id);
+            var model = new Models.Store.CategoryModel();
+            model.Category.ParentCategoryId = id;
             return View(model);
         }
         [HttpPost]
@@ -53,9 +54,12 @@ namespace CarProject.Areas.Admin.Controllers
                 res += string.Format("<li class=\"{0}\" >", liClass);
                 {
                     var tmp = Categories(item.CategoryId, (level + 1), ulclass, liClass, aHref, aClass);
-                    res += string.Format("<a href=\"{0}\" class=\"{1}\" data-id=\"{2}\" data-name=\"{3}\" data-describe=\"{4}\" >{5}</a> {6}",
+
+                    res += string.Format("<a href=\"{0}\" class=\"{1}\" data-id=\"{2}\" data-name=\"{3}\" data-describe=\"{4}\" data-haveroot=\"{5}\" >{6}</a> {7}",
                         aHref, aClass, item.CategoryId, item.CategoryName,
-                        HttpUtility.HtmlEncode(item.Description), item.CategoryName, tmp);
+                        HttpUtility.HtmlEncode(item.Description),
+                        ((tmp.ToString().IsNullOrWhiteSpace()) ? 0 : 1),
+                        item.CategoryName, tmp);
                 }
                 res += "</li>";
             }
