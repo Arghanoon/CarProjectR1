@@ -36,10 +36,10 @@
 </form>
 
 
-@if (Model.Troubleshooting.FatherId != null && Model.Troubleshooting.FatherId > 0)
+@if (Model.trb.FatherId != null && Model.trb.FatherId > 0)
 {
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
-    var xint = dbs.Troubleshootings.FirstOrDefault( m => m.TroubleshootingId == Model.Troubleshooting.FatherId);
+    var xint = dbs.Troubleshootings.FirstOrDefault( m => m.TroubleshootingId == Model.trb.FatherId);
     
     <div id="ShowFathers">
         @while (xint != null)

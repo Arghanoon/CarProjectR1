@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CarProject.App_extension;
 using CarProject.Areas.Admin.Models;
+using CarProject.CLS;
 
 
 namespace CarProject.Areas.Admin.Controllers
@@ -34,8 +35,8 @@ namespace CarProject.Areas.Admin.Controllers
             return View(tob);
         }
         [HttpPost]
-        public ActionResult New(TroubleshootingClass tobj,TroubleshootingClass tobj1, TroubleshootingClass tobj2, FormCollection form)
-        {/*
+        public ActionResult New(TroubleshootingClass tobj, TroubleshootingClass tobj1, TroubleshootingClass tobj2, FormCollection form)
+        {
             int id = 0;
             if (ViewData.ModelState.IsValid)
             {
@@ -50,15 +51,15 @@ namespace CarProject.Areas.Admin.Controllers
                         tobj.Troubleshooting.HasFather = false;
 
                     }
-                    tobj.Troubleshooting.Answer = tobj.Troubleshooting.QQuestion;
+                    tobj.trb.Answer = tobj.Troubleshooting.QQuestion;
                     tobj.Troubleshooting.QQuestion = null;
                     tobj.Save();
                 }
                 if (!tobj.Troubleshooting.AnswerYes.IsNullOrWhiteSpace())
                 {
-                    tobj1.Troubleshooting.FatherId = tobj.Troubleshooting.TroubleshootingId;
-                    tobj1.Troubleshooting.HasFather = false;
-                    tobj1.Troubleshooting.Answer = tobj.Troubleshooting.AnswerYes;
+                    tobj1.trb.FatherId = tobj.trb.TroubleshootingId;
+                    tobj1.trb.HasFather = false;
+                    tobj1.trb.Answer = tobj.Troubleshooting.AnswerYes;
                     tobj1.Troubleshooting.AnswerYes = null;
 
                     tobj1.Save();
@@ -68,9 +69,9 @@ namespace CarProject.Areas.Admin.Controllers
                 }
                 if (!tobj.Troubleshooting.AnswerNo.IsNullOrWhiteSpace())
                 {
-                    tobj2.Troubleshooting.FatherId = tobj.Troubleshooting.TroubleshootingId;
-                    tobj2.Troubleshooting.HasFather = false;
-                    tobj2.Troubleshooting.Answer = tobj.Troubleshooting.AnswerNo;
+                    tobj2.trb.FatherId = tobj.trb.TroubleshootingId;
+                    tobj2.trb.HasFather = false;
+                    tobj2.trb.Answer = tobj.Troubleshooting.AnswerNo;
                     tobj2.Troubleshooting.AnswerNo = null;
 
                     tobj2.Save();
@@ -90,7 +91,7 @@ namespace CarProject.Areas.Admin.Controllers
                     return RedirectToAction("New", "Troubleshooting", new { id = tobj.Troubleshooting.FatherId });
                 }
             }
-            */
+
             return View(tobj);
         }
     }
