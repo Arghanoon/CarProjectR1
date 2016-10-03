@@ -6,6 +6,13 @@
     <target>_blank</target>
     <class>gia-home</class>
   </link>
+
+  <link>
+    <text>مدیریت فروشگاه</text>
+    <url>/Admin/Store</url>
+    <target>_Self</target>
+    <class>gia-cart</class>
+  </link>
   
   <link>
     <text>داشبور</text>

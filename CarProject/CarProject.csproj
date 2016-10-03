@@ -795,6 +795,7 @@
     <Content Include="Areas\Admin\Views\Store\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Store\Products_Insert.cshtml" />
     <Content Include="Areas\Admin\Views\Store\CategoryManagment.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\CategoryManagment_Update.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

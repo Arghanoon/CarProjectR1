@@ -20,6 +20,8 @@
     <div id="form">
         <form method="post">
             <div class="inputsContainer">
+                @Html.HiddenFor(m => m.Category.CategoryId)
+
                 @Html.input_TextBox(m => m.Category.CategoryName, "نام گروه")
                 @Html.input_TextArea(m => m.Category.Description, "توضیحات")
                 
@@ -41,7 +43,7 @@
     </div>
 
     <div id="GroupsPresentation" >
-        @x.Categories_managment(null | 0, aHref: "javascript:void(0)", aClass: "categoriItemLink", editClass: "gia-edit", editOnclick: "EditRequest", removeClass: "gia-remove")
+        @x.Categories_readonly(null | 0, aHref: "javascript:void(0)", aClass: "categoriItemLink",skipShoingId: Model.Category.CategoryId)
     </div>
 </div>
 
