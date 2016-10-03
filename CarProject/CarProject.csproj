@@ -421,7 +421,9 @@
     <Content Include="Publics\Files\Resources\HomePage\logo.png" />
     <Content Include="Publics\Files\Resources\PublicClasses.css" />
     <Content Include="Publics\Files\Resources\template.js" />
-    <Content Include="Publics\Files\Settings\TopMenu.xml" />
+    <Content Include="Publics\Files\Settings\TopMenu.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Publics\NewsImages\nophoto.png" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />

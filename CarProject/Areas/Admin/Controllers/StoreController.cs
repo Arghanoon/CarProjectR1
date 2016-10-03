@@ -76,14 +76,10 @@ namespace CarProject.Areas.Admin.Controllers
 
                 res += string.Format("<li class=\"{0}\" >", liClass);
                 {
-<<<<<<< HEAD
                     var tmp = Categories_readonly(item.CategoryId, (level + 1), skipShoingId, ulclass, liClass, aHref, aClass);
 
-                    res += string.Format("<a href=\"{0}\" class=\"{1}\" data-id=\"{2}\" data-name=\"{3}\" data-describe=\"{4}\" data-haveroot=\"{5}\" >{6}</a> {7}",
-=======
-                    var tmp = Categories(item.CategoryId, (level + 1), ulclass, liClass, aHref, aClass);
                     res += string.Format("<a href=\"{0}\" class=\"{1}\" data-id=\"{2}\" data-name=\"{3}\" data-describe=\"{4}\" >{5}</a> {6}",
->>>>>>> origin/master
+
                         aHref, aClass, item.CategoryId, item.CategoryName,
                         HttpUtility.HtmlEncode(item.Description), item.CategoryName, tmp);
                 }
