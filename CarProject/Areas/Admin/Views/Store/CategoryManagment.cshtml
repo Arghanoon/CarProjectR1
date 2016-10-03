@@ -2,9 +2,8 @@
 @using CarProject.App_Code
 @{
     ViewBag.Title = "CategoryManagment";
-    CarProject.DBSEF.CarAutomationEntities dbs = new CarProject.DBSEF.CarAutomationEntities();
-    var x = new CarProject.Areas.Admin.Controllers.StoreMVC();
 
+<<<<<<< HEAD
     var parentame = "";
     if(Model.Category.ParentCategoryId != null || Model.Category.ParentCategoryId != 0)
     {
@@ -12,6 +11,10 @@
         if (cattmp != null)
         {parentame = cattmp.CategoryName;}
     }
+=======
+    var x = new CarProject.Areas.Admin.Controllers.StoreMVC();
+    
+>>>>>>> origin/master
 }
 
 <h2>مدیریت گروه  بندی کالاها</h2>
@@ -27,7 +30,7 @@
                     <label>گروه پدر</label>
                     <section>
                         @Html.HiddenFor(m => m.Category.ParentCategoryId)
-                        <section id="parentCategoryName">@parentame</section>
+                        <section id="parentCategoryName"></section>
                     </section>
                     @Html.ValidationMessageFor(m => m.Category.ParentCategoryId)
                 </div>
@@ -58,6 +61,7 @@
             window.location.replace("@Url.Action("CategoryManagment_Update","Store")/" + id);
         }
     </script>
+<<<<<<< HEAD
 }
 
 @section style
@@ -89,4 +93,6 @@
 	        direction:ltr;
         }
     </style>
+=======
+>>>>>>> origin/master
 }

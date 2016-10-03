@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using CarProject.CLS;
 using dbs = CarProject.DBSEF;
 
 
@@ -12,21 +13,28 @@ namespace CarProject.Areas.Admin.Models
     {
         dbs.CarAutomationEntities dbc = new dbs.CarAutomationEntities();
 
-        public dbs.Troubleshooting[] Troubleshootings { get; set; }
-        public dbs.Troubleshooting Troubleshooting { get; set; }
+        public dbs.Troubleshooting[] Troubls { get; set; }
+        public dbs.Troubleshooting trb { get; set; }
+        public TroubleShootModel[] Troubleshootings { get; set; }
+        //public dbs.Troubleshooting[] Troubleshootings { get; set; }
+        public TroubleShootModel Troubleshooting { get; set; }
 
         public TroubleshootingClass()
         {
-            Troubleshooting = new dbs.Troubleshooting();
+            //Troubleshooting =new TroubleShootModel();
+            trb = new dbs.Troubleshooting();
         }
         public TroubleshootingClass(Nullable<int> id)
         {
-            Troubleshooting = dbc.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == id);
+            trb = dbc.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == id);
+            Troubleshooting = Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == id);
         }
 
         public void Save()
         {
-            dbc.Troubleshootings.Add(Troubleshooting);
+            //trb = Troubleshooting;
+            dbc.Troubleshootings.Add(trb);
+            
             var id = dbc.SaveChanges();
             
         }
