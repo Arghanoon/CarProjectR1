@@ -1,9 +1,8 @@
 ﻿@model CarProject.Areas.Admin.Models.Store.CategoryModel
 @using CarProject.App_Code
 @{
-    ViewBag.Title = "CategoryManagment";
-
-<<<<<<< HEAD
+    ViewBag.Title = "مدیریت گروه های محصولات";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var parentame = "";
     if(Model.Category.ParentCategoryId != null || Model.Category.ParentCategoryId != 0)
     {
@@ -11,10 +10,7 @@
         if (cattmp != null)
         {parentame = cattmp.CategoryName;}
     }
-=======
     var x = new CarProject.Areas.Admin.Controllers.StoreMVC();
-    
->>>>>>> origin/master
 }
 
 <h2>مدیریت گروه  بندی کالاها</h2>
@@ -61,7 +57,6 @@
             window.location.replace("@Url.Action("CategoryManagment_Update","Store")/" + id);
         }
     </script>
-<<<<<<< HEAD
 }
 
 @section style
@@ -93,6 +88,4 @@
 	        direction:ltr;
         }
     </style>
-=======
->>>>>>> origin/master
 }

@@ -82,6 +82,7 @@
 .gia-openFile:before{content:'\0068';}
 .gia-slides:before{content:'\006A';}
 .gia-newSlide:before{content:'\0069';}
+.gia-product:before{content:'\006B';}
 
 
 

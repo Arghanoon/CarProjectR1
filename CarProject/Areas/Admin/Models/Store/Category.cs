@@ -20,6 +20,8 @@ namespace CarProject.Areas.Admin.Models.Store
         public CategoryModel(int? id)
         {
             Category = DBS.Categories.FirstOrDefault(c => c.CategoryId == id);
+            if (Category == null)
+                Category = new DBSEF.Category();
         }
 
         public void Save()
