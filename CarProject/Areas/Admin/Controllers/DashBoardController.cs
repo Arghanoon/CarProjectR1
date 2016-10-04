@@ -128,6 +128,44 @@ namespace CarProject.Areas.Admin.Controllers
         }
 
 
+        public ActionResult CountryManagment()
+        {
+            var model = new Models.Dashboard.CountryModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult CountryManagment(Models.Dashboard.CountryModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+                return RedirectToAction("CountryManagment");
+            }
+            return View(model);
+        }
+        public ActionResult CountryManagment_Update(int? id)
+        {
+            var model = new Models.Dashboard.CountryModel(id);
+            if (model == null)
+                return RedirectToAction("CountryManagment");
+            TempData["countryUpdateSelectedItem"] = model;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult CountryManagment_Update(Models.Dashboard.CountryModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var m = TempData["countryUpdateSelectedItem"] as Models.Dashboard.CountryModel;
+                TryUpdateModel(m);
+                m.dbs.SaveChanges();
+
+                return RedirectToAction("CountryManagment");
+            }
+            return View(model);
+        }
+
+
         [HttpPost]
         public ActionResult topNavPostBack(FormCollection form)
         {

@@ -23,7 +23,9 @@
     <script src="~/Publics/Scripts/tinymce/tinymce.min.js"></script>
     <link href="~/Publics/Files/Resources/PublicClasses.css" rel="stylesheet" />
 
+    
 
+    @RenderSection("style",false)
 </head>
 
 <body>
@@ -89,6 +91,4 @@
 </script>
 
     @RenderSection("script", false)
-
-    @RenderSection("style",false)
 </html>

@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+using CarProject.App_extension;
+
+namespace CarProject.Areas.Admin.Models.Dashboard
+{
+    public class CountryModel : IValidatableObject
+    {
+        public DBSEF.CarAutomationEntities dbs = new DBSEF.CarAutomationEntities();
+        public DBSEF.Country Country { get; set; }
+
+        public CountryModel()
+        {
+            Country = new DBSEF.Country();
+        }
+
+        public CountryModel(int? id)
+        {
+            Country = dbs.Countries.FirstOrDefault(c => c.CountryId == id);
+            if (Country == null)
+                Country = new DBSEF.Country();
+        }
+
+        public void Save()
+        {
+            dbs.Countries.Add(this.Country);
+            dbs.SaveChanges();
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> result = new List<ValidationResult>();
+
+            if (Country.CountryLongName.IsNullOrWhiteSpace())
+                result.Add(new ValidationResult("نام کشور وارد نشده است", new string[] { "Country.CountryLongName" }));
+
+
+            if (Country.CountryShortName.IsNullOrWhiteSpace())
+                result.Add(new ValidationResult("حروف اختصاری وارد نشده است", new string[] { "Country.CountryShortName" }));
+            else if (dbs.Countries.Count(c => c.CountryShortName.ToLower() == Country.CountryShortName.ToLower() && c.CountryId != Country.CountryId) > 0)
+                result.Add(new ValidationResult("کشوری با این مشخصه قبلا ثبت شده است", new string[] { "Country.CountryShortName" }));
+
+            return result;
+        }
+    }
+}

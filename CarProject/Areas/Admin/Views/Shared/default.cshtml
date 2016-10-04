@@ -23,7 +23,9 @@
     <script src="~/Publics/Scripts/tinymce/tinymce.min.js"></script>
     <link href="~/Publics/Files/Resources/PublicClasses.css" rel="stylesheet" />
 
+    
 
+    @RenderSection("style",false)
 </head>
 
 <body>
@@ -100,6 +102,8 @@
 
             <nav>
                 <strong class="title">تنظیمات سایت</strong>
+                <a href="@Url.Action("CountryManagment","DashBoard")" class="gia-country" >مدیریت کشورها</a>
+                <hr />
                 <a href="@Url.Action("SlideShower_Insert","DashBoard")" class="gia-newSlide" >اضافه کردن اسلاید</a>
                 <a href="@Url.Action("SlideShower_Slides","DashBoard")" class="gia-slides" >مدیریت اسلایدها</a>
                 <a href="@Url.Action("AboutMe","DashBoard")" class="gia-information" >درباره ما</a>
@@ -131,6 +135,4 @@
 </script>
 
     @RenderSection("script", false)
-
-    @RenderSection("style",false)
 </html>

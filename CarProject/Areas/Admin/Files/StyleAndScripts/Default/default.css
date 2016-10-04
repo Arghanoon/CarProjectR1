@@ -299,6 +299,20 @@ a {
         border: thin solid #2f2f2f;
     }
 
+    .grid1 .min_nw {
+        width:0;
+        white-space:nowrap;
+    }
+
+    .grid1 .tcenter {
+        text-align:center;
+    }
+    .grid1 .tright {
+        text-align:right;
+    }
+    .grid1 .tleft {
+        text-align:left;
+    }
 
 /*------------------------------TreeView------------------------------------*/
 .treeview
