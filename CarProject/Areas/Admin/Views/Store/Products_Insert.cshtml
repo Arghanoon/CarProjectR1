@@ -1,4 +1,39 @@
-﻿@{
+﻿@using CarProject.App_Code
+@{
     ViewBag.Title = "ثبت محصول";
 }
+@model CarProject.Areas.Admin.Models.Store.ProductsModel
 
+
+
+<div>
+    <form method="post" id="NewProductForm">
+        <div class="inputsContainer">
+            
+            @Html.input_TextBox(m => m.Product.ProductName, "نام محصول")
+
+            <div class="input">
+                <label for="">دسته بندی محصول</label>
+                <div>
+                    @Html.HiddenFor(m => m.Product.CategoryId)
+                    <section id="DispalayFor_@Html.IdFor(m => m.Product.CategoryId)"></section>
+                </div>
+                @Html.ValidationMessageFor(m => m.Product.CategoryId)
+            </div>
+            
+            @Html.input_TextBox(m => m.Product.ProductHeight, "ارتفاع")
+            @Html.input_TextBox(m => m.Product.ProductWidth, "عرض")
+            @*@Html.input_TextBox(m => m.Product., "")
+            @Html.input_TextBox(m => m.Product., "")
+            @Html.input_TextBox(m => m.Product., "")
+            @Html.input_TextBox(m => m.Product., "")
+            @Html.input_TextBox(m => m.Product., "")
+            @Html.input_TextBox(m => m.Product., "")
+            @Html.input_TextBox(m => m.Product., "")
+            @Html.input_TextBox(m => m.Product., "")
+            @Html.input_TextBox(m => m.Product., "")
+            @Html.input_TextBox(m => m.Product., "")*@
+
+        </div>
+    </form>
+</div>

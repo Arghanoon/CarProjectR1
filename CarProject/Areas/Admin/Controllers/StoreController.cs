@@ -58,7 +58,8 @@ namespace CarProject.Areas.Admin.Controllers
 
         public ActionResult Products_Insert()
         {
-            return View();
+            var model = new Models.Store.ProductsModel();
+            return View(model: model);
         }
     }
 
