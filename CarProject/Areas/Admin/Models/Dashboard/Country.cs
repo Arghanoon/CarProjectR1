@@ -47,4 +47,42 @@ namespace CarProject.Areas.Admin.Models.Dashboard
             return result;
         }
     }
+
+    public class CompanyModel : IValidatableObject
+    {
+        public DBSEF.CarAutomationEntities dbs = new DBSEF.CarAutomationEntities();
+
+        public DBSEF.Company Company { get; set; }
+
+        public CompanyModel()
+        {
+            Company = new DBSEF.Company();
+        }
+
+        public CompanyModel(int? Id)
+        {
+            Company = dbs.Companies.FirstOrDefault(c => c.CompanyId == Id);
+            if (Company == null)
+                Company = new DBSEF.Company();
+        }
+
+        public void Save()
+        {
+            dbs.Companies.Add(Company);
+            dbs.SaveChanges();
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> result = new List<ValidationResult>();
+
+            if (Company.CompanyName.IsNullOrWhiteSpace())
+                result.Add(new ValidationResult("نام وارد نشده است.", new string[] { "Company.CompanyName" }));
+            else if (dbs.Companies.Count(c => c.CompanyName.ToLower() == Company.CompanyName && c.CompanyId != Company.CompanyId) > 0)
+                result.Add(new ValidationResult("نام وارد شده تکراری است.", new string[] { "Company.CompanyName" }));
+
+            return result;
+        }
+    }
+
 }

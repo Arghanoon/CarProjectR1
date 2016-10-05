@@ -10,7 +10,7 @@ using System.IO;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class DashBoardController : Controller
     {
         //
@@ -164,6 +164,43 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View(model);
         }
+
+
+        public ActionResult CompaniesManagment()
+        {
+            var model = new Models.Dashboard.CompanyModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult CompaniesManagment(Models.Dashboard.CompanyModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+                return RedirectToAction("CompaniesManagment");
+            }
+            return View(model);
+        }
+        public ActionResult CompaniesManagment_Update(int? id)
+        {
+            var model = new Models.Dashboard.CompanyModel(id);
+            TempData["updateSelectedCompany"] = model;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult CompaniesManagment_Update(Models.Dashboard.CompanyModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var m = TempData["updateSelectedCompany"] as Models.Dashboard.CompanyModel;
+                TryUpdateModel(m);
+                m.dbs.SaveChanges();
+
+                return RedirectToAction("CompaniesManagment");
+            }
+            return View(model);
+        }
+
 
 
         [HttpPost]
