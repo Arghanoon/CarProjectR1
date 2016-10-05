@@ -85,4 +85,40 @@ namespace CarProject.Areas.Admin.Models.Dashboard
         }
     }
 
+    public class ManufactureModel : IValidatableObject
+    {
+        public DBSEF.CarAutomationEntities dbs = new DBSEF.CarAutomationEntities();
+
+        public DBSEF.Manufacture Manufacture { get; set; }
+
+        public ManufactureModel()
+        {
+            Manufacture = new DBSEF.Manufacture();
+        }
+
+        public ManufactureModel(int? Id)
+        {
+            Manufacture = dbs.Manufactures.FirstOrDefault(c => c.ManufactureId == Id);
+            if (Manufacture == null)
+                Manufacture = new DBSEF.Manufacture();
+        }
+
+        public void Save()
+        {
+            dbs.Manufactures.Add(Manufacture);
+            dbs.SaveChanges();
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> result = new List<ValidationResult>();
+
+            if (Manufacture.ManufactureName.IsNullOrWhiteSpace())
+                result.Add(new ValidationResult("نام وارد نشده است.", new string[] { "Manufacture.ManufactureName" }));
+            else if (dbs.Manufactures.Count(m => m.ManufactureName.ToLower() == Manufacture.ManufactureName && m.ManufactureId != Manufacture.ManufactureId) > 0)
+                result.Add(new ValidationResult("نام وارد شده تکراری است.", new string[] { "Manufacture.ManufactureName" }));
+
+            return result;
+        }
+    }
 }

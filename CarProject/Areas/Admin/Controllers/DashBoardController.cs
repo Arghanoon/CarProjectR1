@@ -203,6 +203,43 @@ namespace CarProject.Areas.Admin.Controllers
 
 
 
+        public ActionResult ManufactursManagment()
+        {
+            var model = new Models.Dashboard.CompanyModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ManufactursManagment(Models.Dashboard.CompanyModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+                return RedirectToAction("CompaniesManagment");
+            }
+            return View(model);
+        }
+        public ActionResult ManufactursManagment_Update(int? id)
+        {
+            var model = new Models.Dashboard.CompanyModel(id);
+            TempData["updateSelectedCompany"] = model;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ManufactursManagment_Update(Models.Dashboard.CompanyModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var m = TempData["updateSelectedCompany"] as Models.Dashboard.CompanyModel;
+                TryUpdateModel(m);
+                m.dbs.SaveChanges();
+
+                return RedirectToAction("CompaniesManagment");
+            }
+            return View(model);
+        }
+
+
+
         [HttpPost]
         public ActionResult topNavPostBack(FormCollection form)
         {
