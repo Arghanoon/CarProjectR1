@@ -1,5 +1,69 @@
-﻿@{
-    ViewBag.Title = "Products";
+﻿
+@{
+    ViewBag.Title = "محصولات";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
 }
 
-<h2>Products</h2>
+<div>
+
+    <div id="ProductItemsContainer">
+
+        @foreach (var item in dbs.Products)
+        {
+            <div class="productItem">
+                <section class="title"> @item.ProductId - @item.ProductName </section>
+                <table>
+                    <tr>
+                        <th>شماره محصول</th>
+                        <td>@item.PartNumber</td>
+                    </tr>
+                    <tr>
+                        <th>نام محصول</th>
+                        <td>@item.ProductName</td>
+                    </tr>
+                    <tr>
+                        <th>دسته بندی</th>
+                        <td>@item.Category.CategoryName</td>
+                    </tr>
+                </table>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+
+
+@section style
+{
+    <style>
+        #ProductItemsContainer {
+            display:flex; justify-content: center; align-items:stretch;
+            flex-wrap:wrap;
+        }
+        .productItem {
+            margin:5px;
+            border:thin solid #888;
+            border-radius:5px;
+            overflow:hidden;
+        }
+            .productItem .title {
+                background:#444;
+                color:white;
+                padding:1px 5px;
+            }
+            .productItem table {
+                margin:5px;
+            }
+                .productItem table th,
+                .productItem table td {
+                    padding: 1px 5px;
+                    border:thin solid #eaeaea;
+                }
+                .productItem table th {
+                    text-align: right;
+                    background:#eaeaea;
+                }
+    </style>
+}

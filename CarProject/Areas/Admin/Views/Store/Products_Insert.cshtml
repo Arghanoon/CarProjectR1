@@ -67,6 +67,9 @@
             @x.Categories_readonly(null | 0, aClass: "groupAselectClass", aHref: "javascript:void(0)", aOnclick: "SelectGroup")
         </div>
     </div>
+    <div style="display:flex; flex-direction:row-reverse;">
+        <a href="javascript:void(0)" class="gia-delete button red" onclick="$('#GroupSelector').toggleClass('show')" >بستن پنجره</a>
+    </div>
 </div>
 
 
@@ -98,7 +101,6 @@
 
             #GroupSelector .showSelectediTem {
                 padding:1px 5px;
-                border-bottom:thin dotted #888;
             }
 
             #GroupSelector .title {
@@ -114,7 +116,9 @@
                     color:inherit;
                 }
         #GroupSelector .groupShowing {
-            
+            flex:1;
+            border-bottom:thin dotted #888;
+            border-top:thin dotted #888;
             padding:5px;
             overflow:auto;
         }
