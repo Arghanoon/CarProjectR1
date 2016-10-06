@@ -58,6 +58,11 @@ namespace CarProject.Areas.Admin.Controllers
         #endregion
 
         #region Products
+        public ActionResult Products()
+        {
+            return View();
+        }
+
         public ActionResult Products_Insert()
         {
             var model = new Models.Store.ProductsModel();
@@ -77,6 +82,9 @@ namespace CarProject.Areas.Admin.Controllers
         public ActionResult Products_Review(int? id)
         {
             var model = new Models.Store.ProductsModel(id);
+            if (model.IsNull)
+                return RedirectToAction("Products_Insert");
+
             TempData["Products_Review_ChangesTemp"] = model;
             return View(model);
         } 
@@ -86,7 +94,9 @@ namespace CarProject.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var m = TempData["Products_Review_ChangesTemp"] as Models.Store.ProductsModel;
-                m.dbs.SaveChanges();
+                m.Save_review();
+
+                return RedirectToAction("Products");
             }
             return View(model);
         }
