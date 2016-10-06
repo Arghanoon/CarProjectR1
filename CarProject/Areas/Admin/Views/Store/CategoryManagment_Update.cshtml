@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "CategoryManagment";
     CarProject.DBSEF.CarAutomationEntities dbs = new CarProject.DBSEF.CarAutomationEntities();
-    var x = new CarProject.Areas.Admin.Controllers.StoreMVC();
+    var x = new CarProject.Areas.Admin.Models.Store.StoreMVC();
 
     var parentame = "";
     if(Model.Category.ParentCategoryId != null || Model.Category.ParentCategoryId != 0)

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using CarProject.App_extension;
+
 namespace CarProject.Areas.Admin.Models.Store
 {
     public class ProductsModel : IValidatableObject
@@ -48,7 +50,10 @@ namespace CarProject.Areas.Admin.Models.Store
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             List<ValidationResult> result = new List<ValidationResult>();
-
+            if (Product.ProductName.IsNullOrWhiteSpace())
+                result.Add(new ValidationResult("نام محصول وارد نشده است", new string[] { "Product.ProductName" }));
+            if (Product.CategoryId == null)
+                result.Add(new ValidationResult("گروه تعیین نشده است", new string[] { "Product.CategoryId" }));
             return result;
         }
     }

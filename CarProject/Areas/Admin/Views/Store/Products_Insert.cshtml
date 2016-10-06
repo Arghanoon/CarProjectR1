@@ -1,6 +1,15 @@
 ﻿@using CarProject.App_Code
 @{
     ViewBag.Title = "ثبت محصول";
+    var x = new CarProject.Areas.Admin.Models.Store.StoreMVC();
+
+    var category = "";
+    if(Model.Product.CategoryId != null && Model.Product.CategoryId > 0)
+    {
+        var cm = Model.dbs.Categories.FirstOrDefault(c => c.CategoryId == Model.Product.CategoryId);
+        if (cm != null)
+        {category = cm.CategoryName;}
+    }
 }
 @model CarProject.Areas.Admin.Models.Store.ProductsModel
 
@@ -17,7 +26,9 @@
                 <label for="">دسته بندی محصول</label>
                 <div>
                     @Html.HiddenFor(m => m.Product.CategoryId)
-                    <section id="DispalayFor_Product_CategoryId" tabindex="7" class="inputElement gia-select"></section>
+                    <section id="DispalayFor_Product_CategoryId" tabindex="7" class="inputElement gia-select" onclick="$('#GroupSelector').toggleClass('show')">
+                       @category
+                    </section>
                 </div>
                 @Html.ValidationMessageFor(m => m.Product.CategoryId)
             </div>
@@ -44,6 +55,19 @@
 </div>
 
 
+<div id="GroupSelector">
+    <div class="title">
+        <strong><a href="javascript:void(0)" class="gia-delete" onclick="$('#GroupSelector').toggleClass('show')">&times;</a> انتخاب گروه کالا</strong>
+    </div>
+    <div class="showSelectediTem">
+        <section><strong>گروه انتخاب شده:</strong> <q id="selectedGroupShowing">@category</q> </section>
+    </div>
+    <div class="groupShowing">
+        <div>
+            @x.Categories_readonly(null | 0, aClass: "groupAselectClass", aHref: "javascript:void(0)", aOnclick: "SelectGroup")
+        </div>
+    </div>
+</div>
 
 
 @section style
@@ -52,5 +76,74 @@
         #DispalayFor_Product_CategoryId {
             cursor:pointer;
         }
+
+        #GroupSelector {
+            background:#fafafa;
+            position:absolute;
+            top:0; left:0; bottom:0; right:0;
+            width:90%; height:90%;
+            margin:auto;
+
+            border:thin solid #888;
+            border-radius:5px;
+            box-shadow:0 0 5px 0 #444;
+            overflow:hidden;
+            
+            display:none;
+            flex-direction:column;
+        }
+            #GroupSelector.show {
+                display:flex;
+            }
+
+            #GroupSelector .showSelectediTem {
+                padding:1px 5px;
+                border-bottom:thin dotted #888;
+            }
+
+            #GroupSelector .title {
+                display:block;
+                margin-bottom:5px;
+                padding:1px 5px;
+                background:#888;
+                color:#fff;
+
+                display:flex; justify-content:flex-start; align-items:center;
+            }
+                #GroupSelector .title a {
+                    color:inherit;
+                }
+        #GroupSelector .groupShowing {
+            
+            padding:5px;
+            overflow:auto;
+        }
+
+        #GroupSelector ul {
+            border-right: thin solid #888;
+            padding: 0;
+            margin: 0 10px;
+        }
+        #GroupSelector li {
+            list-style: none;
+        }
+        a[data-haveroot="1"]:before {
+            content: '\0047';
+            font-family: giadmin;
+            display: inline-block;
+            margin: 0 3px;
+            direction: ltr;
+        }
     </style>    
+}
+
+@section script
+{
+    <script>
+        $(".groupAselectClass").click(function (e) {
+            document.getElementById("DispalayFor_Product_CategoryId").innerHTML = $(e.target).attr("data-name");
+            document.getElementById("selectedGroupShowing").innerHTML = $(e.target).attr("data-name");;
+            document.getElementById("@Html.IdFor( m => m.Product.CategoryId)").value = $(e.target).attr("data-id");;
+        });
+    </script>
 }
