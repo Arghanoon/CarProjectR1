@@ -10,7 +10,7 @@ using System.IO;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    //[CarProject.CLS.AuthFilter]
+    [CarProject.CLS.AuthFilter]
     public class DashBoardController : Controller
     {
         //
@@ -205,35 +205,35 @@ namespace CarProject.Areas.Admin.Controllers
 
         public ActionResult ManufactursManagment()
         {
-            var model = new Models.Dashboard.CompanyModel();
+            var model = new Models.Dashboard.ManufactureModel();
             return View(model);
         }
         [HttpPost]
-        public ActionResult ManufactursManagment(Models.Dashboard.CompanyModel model)
+        public ActionResult ManufactursManagment(Models.Dashboard.ManufactureModel model)
         {
             if (ModelState.IsValid)
             {
                 model.Save();
-                return RedirectToAction("CompaniesManagment");
+                return RedirectToAction("ManufactursManagment");
             }
             return View(model);
         }
         public ActionResult ManufactursManagment_Update(int? id)
         {
-            var model = new Models.Dashboard.CompanyModel(id);
-            TempData["updateSelectedCompany"] = model;
+            var model = new Models.Dashboard.ManufactureModel(id);
+            TempData["updateSelectedManufactureModel"] = model;
             return View(model);
         }
         [HttpPost]
-        public ActionResult ManufactursManagment_Update(Models.Dashboard.CompanyModel model)
+        public ActionResult ManufactursManagment_Update(Models.Dashboard.ManufactureModel model)
         {
             if (ModelState.IsValid)
             {
-                var m = TempData["updateSelectedCompany"] as Models.Dashboard.CompanyModel;
+                var m = TempData["updateSelectedManufactureModel"] as Models.Dashboard.ManufactureModel;
                 TryUpdateModel(m);
                 m.dbs.SaveChanges();
 
-                return RedirectToAction("CompaniesManagment");
+                return RedirectToAction("ManufactursManagment");
             }
             return View(model);
         }
