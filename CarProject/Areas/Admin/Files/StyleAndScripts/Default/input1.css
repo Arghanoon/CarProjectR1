@@ -15,7 +15,8 @@
 
 	.input input:not([type=submit]):not([type=button]):not([type=reset]):not([type=checkbox]),
 		.input textarea,
-        .input select
+        .input select,
+        .input .inputElement
 	{
         width:100%;
         color:#373749;
@@ -62,7 +63,8 @@
     
 	.input input:not([type=submit]):not([type=button]):not([type=reset]):focus,
 		.input textarea:focus,
-        .input select:focus
+        .input select:focus,
+        .input .inputElement:focus
 	{
 		border: thin solid;
 		box-shadow:0 0 3px 0 #b6b6c8;

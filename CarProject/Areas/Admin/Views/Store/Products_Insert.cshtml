@@ -17,7 +17,7 @@
                 <label for="">دسته بندی محصول</label>
                 <div>
                     @Html.HiddenFor(m => m.Product.CategoryId)
-                    <section id="DispalayFor_@Html.IdFor(m => m.Product.CategoryId)"></section>
+                    <section id="DispalayFor_Product_CategoryId" tabindex="7" class="inputElement gia-select"></section>
                 </div>
                 @Html.ValidationMessageFor(m => m.Product.CategoryId)
             </div>
@@ -42,3 +42,15 @@
         </div>
     </form>
 </div>
+
+
+
+
+@section style
+{
+    <style>
+        #DispalayFor_Product_CategoryId {
+            cursor:pointer;
+        }
+    </style>    
+}
