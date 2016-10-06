@@ -19,6 +19,7 @@ namespace CarProject.Areas.Admin.Controllers
             return View();
         }
 
+        #region CategoryManagment
         public ActionResult CategoryManagment(int? id)
         {
             var model = new Models.Store.CategoryModel(id);
@@ -54,13 +55,43 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View(model);
         }
+        #endregion
 
-
+        #region Products
         public ActionResult Products_Insert()
         {
             var model = new Models.Store.ProductsModel();
             return View(model: model);
         }
+        [HttpPost]
+        public ActionResult Products_Insert(Models.Store.ProductsModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+                return RedirectToAction("Products_Review", new { id = model.Product.ProductId });
+            }
+            return View(model: model);
+        }
+
+        public ActionResult Products_Review(int? id)
+        {
+            var model = new Models.Store.ProductsModel(id);
+            TempData["Products_Review_ChangesTemp"] = model;
+            return View(model);
+        } 
+        [HttpPost]
+        public ActionResult Products_Review(Models.Store.ProductsModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var m = TempData["Products_Review_ChangesTemp"] as Models.Store.ProductsModel;
+                m.dbs.SaveChanges();
+            }
+            return View(model);
+        }
+
+        #endregion
     }
 
     public class StoreMVC

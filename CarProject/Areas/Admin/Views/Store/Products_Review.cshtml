@@ -1,0 +1,14 @@
+﻿@using CarProject.App_Code
+@{
+    ViewBag.Title = "توضیحات محصول - "+ Model.Product.ProductName;
+}
+@model CarProject.Areas.Admin.Models.Store.ProductsModel
+
+
+<div>
+    <form method="post">
+        @Html.HiddenFor(m => m.Product.ProductId)
+        
+
+    </form>
+</div>
