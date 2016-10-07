@@ -8,6 +8,7 @@
 <div>
     <form method="post">
         @Html.HiddenFor(m => m.Product.ProductId)
+        @Html.HiddenFor(m => m.Product.ProductReview.ProductReviewId)
         @Html.TextAreaFor(m => m.HtmlReview)
 
         <center>

@@ -14,49 +14,34 @@ namespace CarProject.Areas.Admin.Models.Store
         public DBSEF.CarAutomationEntities dbs = new DBSEF.CarAutomationEntities();
 
         public DBSEF.Product Product { get; set; }
-
-        public bool IsNull { get; set; }
-
+        public int? Price { get; set; }
         [AllowHtml]
-        public string HtmlReview { get; set; }
+        public string HtmlReview { get { return Product.ProductReview.ProductReview1; } set { Product.ProductReview.ProductReview1 = value; } }
 
         public ProductsModel()
         {
             Product = new DBSEF.Product();
             Product.ProductReview = new DBSEF.ProductReview();
-            IsNull = true;
         }
 
         public ProductsModel(int? id)
         {
             Product = dbs.Products.FirstOrDefault(p => p.ProductId == id);
-            if (Product == null)
-            {
-                IsNull = true;
-                Product = new DBSEF.Product();
-            }
-            else
-                IsNull = false;
-            
-            if (Product.ProductReview == null && Product.ProductReviewId != null && Product.ProductReviewId > 0)
-            {
-                Product.ProductReview = dbs.ProductReviews.FirstOrDefault(r => r.ProductReviewId == Product.ProductReviewId);
-            }
+
+            if (Product != null && Product.ProductPrices.Count > 0)
+                Price = Product.ProductPrices.Last().ProductPrice1;
         }
 
 
         public void Save()
         {
             dbs.Products.Add(this.Product);
+            dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price });
             dbs.SaveChanges();
         }
 
         public void Save_review()
         {
-            var x = new DBSEF.ProductReview { ProductReview1 = HtmlReview };
-            dbs.ProductReviews.Add(x);
-
-            Product.ProductReview = x;
             dbs.SaveChanges();
         }
 

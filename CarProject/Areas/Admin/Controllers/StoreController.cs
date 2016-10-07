@@ -82,24 +82,25 @@ namespace CarProject.Areas.Admin.Controllers
         public ActionResult Products_Review(int? id)
         {
             var model = new Models.Store.ProductsModel(id);
-            if (model.IsNull)
-                return RedirectToAction("Products_Insert");
+            TempData["ProductReviewInsertOrUpdate"] = model;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Products_Review(Models.Store.ProductsModel model)
+        {
+            var m = TempData["ProductReviewInsertOrUpdate"] as Models.Store.ProductsModel;
+            m.HtmlReview = model.HtmlReview;
+            m.Save_review();
+            return RedirectToAction("Products");
+        }
+
+        public ActionResult Products_Update(int? id)
+        {
+            var model = new Models.Store.ProductsModel(id);
 
             TempData["Products_Review_ChangesTemp"] = model;
             return View(model);
         } 
-        [HttpPost]
-        public ActionResult Products_Review(Models.Store.ProductsModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var m = TempData["Products_Review_ChangesTemp"] as Models.Store.ProductsModel;
-                m.Save_review();
-
-                return RedirectToAction("Products");
-            }
-            return View(model);
-        }
 
         #endregion
     }
