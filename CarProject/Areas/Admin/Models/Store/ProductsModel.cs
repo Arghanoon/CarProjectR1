@@ -45,6 +45,14 @@ namespace CarProject.Areas.Admin.Models.Store
             dbs.SaveChanges();
         }
 
+        public void Update()
+        {
+            var lp = Product.ProductPrices.Last();
+            if(lp == null || lp.ProductPrice1 != Price)
+                dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price });
+            dbs.SaveChanges();
+        }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             List<ValidationResult> result = new List<ValidationResult>();
@@ -52,6 +60,8 @@ namespace CarProject.Areas.Admin.Models.Store
                 result.Add(new ValidationResult("نام محصول وارد نشده است", new string[] { "Product.ProductName" }));
             if (Product.CategoryId == null)
                 result.Add(new ValidationResult("گروه تعیین نشده است", new string[] { "Product.CategoryId" }));
+            if (Price == null || Price <= 0)
+                result.Add(new ValidationResult("قیمت وارد نشده است", new string[] { "Price" }));
             return result;
         }
     }

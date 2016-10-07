@@ -18,7 +18,7 @@
 <div>
     <form method="post" id="NewProductForm">
         <div class="inputsContainer">
-            
+            @Html.HiddenFor( m => m.Product.ProductId)
             @Html.input_TextBox(m => m.Product.PartNumber, "شماره محصول")
             @Html.input_TextBox(m => m.Product.ProductName, "نام محصول")
 

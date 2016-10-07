@@ -100,7 +100,20 @@ namespace CarProject.Areas.Admin.Controllers
 
             TempData["Products_Review_ChangesTemp"] = model;
             return View(model);
-        } 
+        }
+        [HttpPost]
+        public ActionResult Products_Update(Models.Store.ProductsModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var m = TempData["Products_Review_ChangesTemp"] as Models.Store.ProductsModel;
+                TryUpdateModel(m);
+                m.Update();
+                return RedirectToAction("Products");
+            }
+
+            return View(model);
+        }
 
         #endregion
     }
