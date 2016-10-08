@@ -37,7 +37,6 @@ namespace CarProject.DBSEF
         public Nullable<int> CompanyId { get; set; }
         public Nullable<double> ProductWeight { get; set; }
         public Nullable<double> ProductLength { get; set; }
-        public Nullable<int> ProductTypeId { get; set; }
         public Nullable<int> CountryId { get; set; }
         public Nullable<int> ManufactureId { get; set; }
         public string ProductSecription { get; set; }

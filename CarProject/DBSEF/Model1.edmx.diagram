@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9fc39dc87cd5451e9f6b636d7d827e37" Name="Diagram1">
+      <Diagram DiagramId="d267710575c843f7bfda04ccc171e748" Name="Diagram1">
         <EntityTypeShape EntityType="CarAutomationModel.AirConditioningSystem" Width="1.5" PointX="7.5" PointY="25.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.AirConditioningSystemDetail" Width="1.5" PointX="7.5" PointY="28" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.AutoService" Width="1.5" PointX="7.5" PointY="30.75" IsExpanded="true" />

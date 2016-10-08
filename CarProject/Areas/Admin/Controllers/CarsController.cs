@@ -9,7 +9,7 @@ using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class CarsController : Controller
     {
         //
@@ -201,5 +201,16 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
+
+        [HttpPost]
+        public JsonResult CarsSearch(string search)
+        {
+            if (search == null)
+                search = "";
+            var x = dbs.Cars.Where(c =>
+                c.CarModel.CarBrand.CarBrandName.Contains(search) ||
+                c.CarModel.CarModelName.Contains(search)).Select(c => new { brand = c.CarModel.CarBrand.CarBrandName, model = c.CarModel.CarModelName }).ToList();
+            return Json(x);
+        }
     }
 }

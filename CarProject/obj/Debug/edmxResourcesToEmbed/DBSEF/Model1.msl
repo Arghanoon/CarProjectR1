@@ -566,7 +566,6 @@
           <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
           <ScalarProperty Name="ProductWeight" ColumnName="ProductWeight" />
           <ScalarProperty Name="ProductLength" ColumnName="ProductLength" />
-          <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
           <ScalarProperty Name="CountryId" ColumnName="CountryId" />
           <ScalarProperty Name="ManufactureId" ColumnName="ManufactureId" />
           <ScalarProperty Name="ProductSecription" ColumnName="ProductSecription" />

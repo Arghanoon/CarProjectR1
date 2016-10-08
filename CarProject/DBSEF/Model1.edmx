@@ -527,7 +527,6 @@
           <Property Name="CompanyId" Type="int" />
           <Property Name="ProductWeight" Type="float" />
           <Property Name="ProductLength" Type="float" />
-          <Property Name="ProductTypeId" Type="int" />
           <Property Name="CountryId" Type="int" />
           <Property Name="ManufactureId" Type="int" />
           <Property Name="ProductSecription" Type="nvarchar(max)" />
@@ -539,6 +538,12 @@
           <Property Name="DiscountId" Type="int" />
           <Property Name="WithInstall" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'CarAutomation.dbo.ProductCars' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ProductCars">
+          <Property Name="ProductId" Type="int" />
+          <Property Name="CarsId" Type="int" />
+        </EntityType>-->
         <EntityType Name="ProductDiscount">
           <Key>
             <PropertyRef Name="ProductDiscountId" />
@@ -1361,6 +1366,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_ProductCars_Cars" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_ProductCars_Product" />-->
         <Association Name="FK_ProductDiscount_AutoService">
           <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
           <End Role="ProductDiscount" Type="Self.ProductDiscount" Multiplicity="*" />
@@ -2653,7 +2664,6 @@
           <Property Name="CompanyId" Type="Int32" />
           <Property Name="ProductWeight" Type="Double" />
           <Property Name="ProductLength" Type="Double" />
-          <Property Name="ProductTypeId" Type="Int32" />
           <Property Name="CountryId" Type="Int32" />
           <Property Name="ManufactureId" Type="Int32" />
           <Property Name="ProductSecription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -4771,7 +4781,6 @@
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="ProductWeight" ColumnName="ProductWeight" />
                 <ScalarProperty Name="ProductLength" ColumnName="ProductLength" />
-                <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
                 <ScalarProperty Name="CountryId" ColumnName="CountryId" />
                 <ScalarProperty Name="ManufactureId" ColumnName="ManufactureId" />
                 <ScalarProperty Name="ProductSecription" ColumnName="ProductSecription" />

@@ -243,7 +243,7 @@ namespace CarProject.Areas.Admin.Models.Cars
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (Car.CarModel.CarBrand == null)
+            if (Car.CarModel.CarBrandId == null)
                 yield return new ValidationResult("برند تعیین نشده است", new string[] { "Car.CarModel.CarBrandId" });
             if (Car.CarModel.CarModelName.IsNullOrWhiteSpace())
                 yield return new ValidationResult("مدل تعیین نشده است", new string[] { "Car.CarModel.CarModelName" });

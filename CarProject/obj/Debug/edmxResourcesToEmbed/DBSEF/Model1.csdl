@@ -625,7 +625,6 @@
     <Property Name="CompanyId" Type="Int32" />
     <Property Name="ProductWeight" Type="Double" />
     <Property Name="ProductLength" Type="Double" />
-    <Property Name="ProductTypeId" Type="Int32" />
     <Property Name="CountryId" Type="Int32" />
     <Property Name="ManufactureId" Type="Int32" />
     <Property Name="ProductSecription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
