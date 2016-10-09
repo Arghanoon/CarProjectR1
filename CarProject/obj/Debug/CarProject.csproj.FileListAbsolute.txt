@@ -258,3 +258,7 @@ G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\System.Web
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\System.Web.WebPages.Deployment.xml
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\System.Web.WebPages.Razor.xml
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\obj\Debug\CarProject.pdb
+E:\CarProject\3.10\CarProjectR1\CarProject\obj\Debug\CarProject.csproj.App.config
+E:\CarProject\3.10\CarProjectR1\CarProject\obj\Debug\CarProject.csprojResolveAssemblyReference.cache
+E:\CarProject\3.10\CarProjectR1\CarProject\obj\Debug\CarProject.dll
+E:\CarProject\3.10\CarProjectR1\CarProject\obj\Debug\CarProject.pdb
