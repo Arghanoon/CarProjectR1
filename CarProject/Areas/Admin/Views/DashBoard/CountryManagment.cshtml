@@ -1,8 +1,75 @@
-﻿@model CarProject.Areas.Admin.Models.Dashboard.CountryModel
-
+﻿@using CarProject.App_Code
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewBag.Title = "مدیریت کشورها";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+}
+@model CarProject.Areas.Admin.Models.Dashboard.CountryModel
+
+<div>
+    <form method="post">
+        <div class="inputsContainer">
+            @Html.input_TextBox(m => m.Country.CountryShortName, "حروف اختصاری")
+            @Html.input_TextBox(m => m.Country.CountryLongName, "نام کامل کشور")
+        </div>
+
+        <div class="inputAction">
+            <input type="submit" value="ثبت کشور" class="button green" />
+        </div>
+    </form>
+</div>
+
+<div id="ContriesShowing">
+    <div class="input">
+        <input type="text" placeholder="نام کامل کشور..." onkeyup="searchForCountries(this.value)" />
+    </div>
+    <table class="grid1">
+        <thead>
+            <tr>
+                <th>حروف اختصاری</th>
+                <th>نام کامل کشور</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in dbs.Countries)
+            {
+                <tr>
+                    <td class="min_nw">@item.CountryShortName</td>
+                    <td class="tright longname">@item.CountryLongName</td>
+                    <td class="min_nw">
+                        <a href="@Url.Action("CountryManagment_Update","DashBoard",new {id = item.CountryId})" class="gia-edit"></a>
+                        <a href="javascript: void(0)" class="gia-remove"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section style
+{
+    <style>
+        #ContriesShowing {
+            margin-top:10px; 
+        }
+    </style>
 }
 
-<h2>title</h2>
+@section script
+{
+    <script>
+        function searchForCountries(txt) {
+            $("#ContriesShowing td.longname").each(function (index, element) {
+                //var reg = new RegExp("^" + txt, "i");
+                var reg = new RegExp(txt, "i");
+                if ($(element).html().match(reg))
+                    $(element).parent("tr").show();
+                else
+                    $(element).parent("tr").hide();
+            });
+        }
+    </script>
+}
+
