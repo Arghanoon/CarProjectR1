@@ -14,6 +14,8 @@ namespace CarProject.Areas.Admin.Models.Store
         public DBSEF.CarAutomationEntities dbs = new DBSEF.CarAutomationEntities();
 
         public DBSEF.Product Product { get; set; }
+        public List<DBSEF.ProductCar> Cars { get; set; }
+
         public int? Price { get; set; }
         [AllowHtml]
         public string HtmlReview { get { return Product.ProductReview.ProductReview1; } set { Product.ProductReview.ProductReview1 = value; } }
@@ -22,6 +24,7 @@ namespace CarProject.Areas.Admin.Models.Store
         {
             Product = new DBSEF.Product();
             Product.ProductReview = new DBSEF.ProductReview();
+            Cars = new List<DBSEF.ProductCar>();
         }
 
         public ProductsModel(int? id)
@@ -30,13 +33,24 @@ namespace CarProject.Areas.Admin.Models.Store
 
             if (Product != null && Product.ProductPrices.Count > 0)
                 Price = Product.ProductPrices.Last().ProductPrice1;
+            Cars = dbs.ProductCars.Where(pc => pc.ProductId == this.Product.ProductId).ToList();
         }
 
 
         public void Save()
         {
+            foreach (var item in Cars)
+            {
+                Product.ProductCars.Add(item);
+            }
             dbs.Products.Add(this.Product);
+            //foreach (var item in Cars)
+            //{
+            //    item.Product = this.Product;
+            //    dbs.ProductCars.Add(item);
+            //}
             dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price });
+            
             dbs.SaveChanges();
         }
 

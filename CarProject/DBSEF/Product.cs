@@ -18,6 +18,7 @@ namespace CarProject.DBSEF
         public Product()
         {
             this.PersonProducts = new HashSet<PersonProduct>();
+            this.ProductCars = new HashSet<ProductCar>();
             this.ProductDiscounts = new HashSet<ProductDiscount>();
             this.ProductInServices = new HashSet<ProductInService>();
             this.ProductPrices = new HashSet<ProductPrice>();
@@ -57,6 +58,8 @@ namespace CarProject.DBSEF
         public virtual ICollection<PersonProduct> PersonProducts { get; set; }
         public virtual ProductQnA ProductQnA { get; set; }
         public virtual ProductReview ProductReview { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductCar> ProductCars { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductDiscount> ProductDiscounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

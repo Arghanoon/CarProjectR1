@@ -70,6 +70,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<PersonService> PersonServices { get; set; }
         public virtual DbSet<PersonServicesPack> PersonServicesPacks { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductCar> ProductCars { get; set; }
         public virtual DbSet<ProductDiscount> ProductDiscounts { get; set; }
         public virtual DbSet<ProductInService> ProductInServices { get; set; }
         public virtual DbSet<ProductPrice> ProductPrices { get; set; }

@@ -209,7 +209,7 @@ namespace CarProject.Areas.Admin.Controllers
                 search = "";
             var x = dbs.Cars.Where(c =>
                 c.CarModel.CarBrand.CarBrandName.Contains(search) ||
-                c.CarModel.CarModelName.Contains(search)).Select(c => new { brand = c.CarModel.CarBrand.CarBrandName, model = c.CarModel.CarModelName }).ToList();
+                c.CarModel.CarModelName.Contains(search)).Select(c => new { id = c.CarsId, brand = c.CarModel.CarBrand.CarBrandName, model = c.CarModel.CarModelName }).ToList();
             return Json(x);
         }
     }

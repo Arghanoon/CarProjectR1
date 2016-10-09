@@ -538,12 +538,14 @@
           <Property Name="DiscountId" Type="int" />
           <Property Name="WithInstall" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'CarAutomation.dbo.ProductCars' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="ProductCars">
+          <Key>
+            <PropertyRef Name="RID" />
+          </Key>
+          <Property Name="RID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductId" Type="int" />
           <Property Name="CarsId" Type="int" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="ProductDiscount">
           <Key>
             <PropertyRef Name="ProductDiscountId" />
@@ -1366,12 +1368,30 @@ warning 6013: The table/view 'CarAutomation.dbo.ProductCars' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_ProductCars_Cars" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_ProductCars_Product" />-->
+        <Association Name="FK_ProductCars_Cars">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+          <End Role="ProductCars" Type="Self.ProductCars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarsId" />
+            </Principal>
+            <Dependent Role="ProductCars">
+              <PropertyRef Name="CarsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCars_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductCars" Type="Self.ProductCars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ProductCars">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductDiscount_AutoService">
           <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
           <End Role="ProductDiscount" Type="Self.ProductDiscount" Multiplicity="*" />
@@ -1706,6 +1726,7 @@ error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relatio
           <EntitySet Name="PersonServices" EntityType="Self.PersonServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonServicesPack" EntityType="Self.PersonServicesPack" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCars" EntityType="Self.ProductCars" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductDiscount" EntityType="Self.ProductDiscount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductInService" EntityType="Self.ProductInService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductPrice" EntityType="Self.ProductPrice" Schema="dbo" store:Type="Tables" />
@@ -1936,6 +1957,14 @@ error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relatio
           <AssociationSet Name="FK_Product_ProductReview" Association="Self.FK_Product_ProductReview">
             <End Role="ProductReview" EntitySet="ProductReview" />
             <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCars_Cars" Association="Self.FK_ProductCars_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="ProductCars" EntitySet="ProductCars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCars_Product" Association="Self.FK_ProductCars_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductCars" EntitySet="ProductCars" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductDiscount_AutoService" Association="Self.FK_ProductDiscount_AutoService">
             <End Role="AutoService" EntitySet="AutoService" />
@@ -2305,6 +2334,7 @@ error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relatio
           <NavigationProperty Name="GlassAndMirrors" Relationship="Self.FK_GlassAndMirrors_Cars" FromRole="Cars" ToRole="GlassAndMirrors" />
           <NavigationProperty Name="PersonCar" Relationship="Self.FK_PersonCars_Cars" FromRole="Cars" ToRole="PersonCars" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Cars" FromRole="Cars" ToRole="Product" />
+          <NavigationProperty Name="ProductCars" Relationship="Self.FK_ProductCars_Cars" FromRole="Cars" ToRole="ProductCars" />
           <NavigationProperty Name="SecuritySystems" Relationship="Self.FK_SecuritySystems_Cars" FromRole="Cars" ToRole="SecuritySystems" />
           <NavigationProperty Name="SteeringSystems" Relationship="Self.FK_SteeringSystem_Cars" FromRole="Cars" ToRole="SteeringSystem" />
         </EntityType>
@@ -2682,6 +2712,7 @@ error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relatio
           <NavigationProperty Name="PersonProducts" Relationship="Self.FK_PersonProduct_Product" FromRole="Product" ToRole="PersonProduct" />
           <NavigationProperty Name="ProductQnA" Relationship="Self.FK_Product_ProductQnA" FromRole="Product" ToRole="ProductQnA" />
           <NavigationProperty Name="ProductReview" Relationship="Self.FK_Product_ProductReview" FromRole="Product" ToRole="ProductReview" />
+          <NavigationProperty Name="ProductCars" Relationship="Self.FK_ProductCars_Product" FromRole="Product" ToRole="ProductCars" />
           <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_Product" FromRole="Product" ToRole="ProductDiscount" />
           <NavigationProperty Name="ProductInServices" Relationship="Self.FK_ProductInService_Product" FromRole="Product" ToRole="ProductInService" />
           <NavigationProperty Name="ProductPrices" Relationship="Self.FK_ProductPrice_Product" FromRole="Product" ToRole="ProductPrice" />
@@ -2690,6 +2721,16 @@ error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relatio
           <NavigationProperty Name="ToBaskets" Relationship="Self.FK_ToBasket_Product" FromRole="Product" ToRole="ToBasket" />
           <NavigationProperty Name="TodaysSpecials" Relationship="Self.FK_TodaysSpecial_Product" FromRole="Product" ToRole="TodaysSpecial" />
           <NavigationProperty Name="Troubleshootings" Relationship="Self.FK_Troubleshooting_Product" FromRole="Product" ToRole="Troubleshooting" />
+        </EntityType>
+        <EntityType Name="ProductCar">
+          <Key>
+            <PropertyRef Name="RID" />
+          </Key>
+          <Property Name="RID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="CarsId" Type="Int32" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_ProductCars_Cars" FromRole="ProductCars" ToRole="Cars" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductCars_Product" FromRole="ProductCars" ToRole="Product" />
         </EntityType>
         <EntityType Name="ProductDiscount">
           <Key>
@@ -3392,6 +3433,18 @@ error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relatio
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductCars_Cars">
+          <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="ProductCars" Type="Self.ProductCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarsId" />
+            </Principal>
+            <Dependent Role="ProductCars">
+              <PropertyRef Name="CarsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SecuritySystems_Cars">
           <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
           <End Role="SecuritySystems" Type="Self.SecuritySystem" Multiplicity="*" />
@@ -3704,6 +3757,18 @@ error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relatio
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductCars_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductCars" Type="Self.ProductCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ProductCars">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductDiscount_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="ProductDiscount" Type="Self.ProductDiscount" Multiplicity="*" />
@@ -3882,6 +3947,7 @@ error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relatio
           <EntitySet Name="PersonServices" EntityType="Self.PersonService" />
           <EntitySet Name="PersonServicesPacks" EntityType="Self.PersonServicesPack" />
           <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductCars" EntityType="Self.ProductCar" />
           <EntitySet Name="ProductDiscounts" EntityType="Self.ProductDiscount" />
           <EntitySet Name="ProductInServices" EntityType="Self.ProductInService" />
           <EntitySet Name="ProductPrices" EntityType="Self.ProductPrice" />
@@ -4061,6 +4127,10 @@ error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relatio
             <End Role="Cars" EntitySet="Cars" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProductCars_Cars" Association="Self.FK_ProductCars_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="ProductCars" EntitySet="ProductCars" />
+          </AssociationSet>
           <AssociationSet Name="FK_SecuritySystems_Cars" Association="Self.FK_SecuritySystems_Cars">
             <End Role="Cars" EntitySet="Cars" />
             <End Role="SecuritySystems" EntitySet="SecuritySystems" />
@@ -4164,6 +4234,10 @@ error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relatio
           <AssociationSet Name="FK_Product_ProductReview" Association="Self.FK_Product_ProductReview">
             <End Role="ProductReview" EntitySet="ProductReviews" />
             <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCars_Product" Association="Self.FK_ProductCars_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductCars" EntitySet="ProductCars" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductDiscount_Product" Association="Self.FK_ProductDiscount_Product">
             <End Role="Product" EntitySet="Products" />
@@ -4791,6 +4865,15 @@ error 6004: The table 'CarAutomation.dbo.ProductCars' is referenced by a relatio
                 <ScalarProperty Name="ProductQnAId" ColumnName="ProductQnAId" />
                 <ScalarProperty Name="DiscountId" ColumnName="DiscountId" />
                 <ScalarProperty Name="WithInstall" ColumnName="WithInstall" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCars">
+            <EntityTypeMapping TypeName="CarAutomationModel.ProductCar">
+              <MappingFragment StoreEntitySet="ProductCars">
+                <ScalarProperty Name="RID" ColumnName="RID" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CarsId" ColumnName="CarsId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

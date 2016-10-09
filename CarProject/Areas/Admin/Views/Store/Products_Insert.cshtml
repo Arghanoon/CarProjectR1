@@ -2,7 +2,8 @@
 @{
     ViewBag.Title = "ثبت محصول";
     var x = new CarProject.Areas.Admin.Models.Store.StoreMVC();
-
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    
     var category = "";
     if(Model.Product.CategoryId != null && Model.Product.CategoryId > 0)
     {
@@ -51,19 +52,35 @@
             <div class="input">
                 <label for="">خودروهای مرتبط</label>
                 <div>
-                    <section id="DispalayFor_Product_Cars" tabindex="0" class="inputElement" onclick="$('#carSelector').toggleClass('show')">
-                        <a href="javascript:void(0)" class="gia-select" >انتخاب خودرو</a>
+                    <section id="DispalayFor_Product_Cars" tabindex="0" class="inputElement" >
+                        <a href="javascript:void(0)" class="gia-select" onclick="$('#carSelector').toggleClass('show')" >انتخاب خودرو</a>
                         <table class="grid1">
-                            <tbody>
+                            <thead style="z-index:1;">
                                 <tr>
                                     <th>برند خودرو</th>
                                     <th>مدل خودرو</th>
                                 </tr>
+                            </thead>
+
+                            <tbody id="selectedCarsTbody">
+                                @foreach (var item in Model.Cars)
+                                {
+                                    var car = dbs.Cars.FirstOrDefault(c => c.CarsId == item.CarsId);
+                                    if (car == null)
+                                    { continue; }
+                        
+                                    <tr onclick="this.remove()">
+                                        <input type="hidden" value="@item.CarsId" />
+                                        <td>@car.CarModel.CarBrand.CarBrandName</td>
+                                        <td>@car.CarModel.CarModelName</td>
+                                    </tr>
+                                }
                             </tbody>
+
                         </table>
                     </section>
                 </div>
-                @Html.ValidationMessageFor(m => m.Product.CategoryId)
+                @Html.ValidationMessageFor(m => m.Cars)
             </div>
 
         </div>
@@ -97,12 +114,25 @@
         <strong><a href="javascript:void(0)" class="gia-delete" onclick="$('#carSelector').toggleClass('show')">&times;</a> انتخاب خودروهای مرتبط</strong>
     </div>
     <div class="showSelectediTem">
-        
+        <section id="carSearchSection">
+            <input type="text" placeholder="جستجو خودرو بر اساس برند و مدل" id="carSearchText" />
+            <button type="button" onclick="retriveCarsBaseOnSearch()" ><span class="gia-search"></span></button>
+        </section>
     </div>
 
     <div class="groupShowing">
         <div id="caritemsShowing">
-            
+            <table class="grid1">
+                <thead>
+                    <tr>
+                        <th>برند خودرو</th>
+                        <th>مدل خودرو</th>
+                    </tr>
+                </thead>
+                <tbody id="CarsTBody">
+                   
+                </tbody>
+            </table>
         </div>
         <div id="pageShowing">
 
@@ -126,7 +156,7 @@
             background:#fafafa;
             position:absolute;
             top:0; left:0; bottom:0; right:0;
-            width:90%; height:90%;
+            width:90%; max-height:70vh;
             margin:auto;
 
             border:thin solid #888;
@@ -180,6 +210,33 @@
             margin: 0 3px;
             direction: ltr;
         }
+
+
+        #carSearchSection {
+            display:flex; align-items:stretch;
+            margin:5px;
+        }
+            #carSearchSection input {
+                background:white;
+                width:100%;
+                padding:2px 5px;
+                border:thin solid #888;
+                font-family:yekan;
+            }
+            #carSearchSection button {
+                background:#888;
+                color:white;
+                border:thin solid #888;
+                cursor:pointer;
+            }
+
+                #carSearchSection button:active {
+                    box-shadow:0 0 3px 0 #000 inset;
+                }
+
+        #CarsTBody tr, #selectedCarsTbody tr {
+            cursor:pointer;
+        }
     </style>    
 }
 
@@ -194,13 +251,47 @@
 
         function submitFunction(e) {
             e.preventDefault();
-            retriveCarsBaseOnSearch();
+            
+            $("#selectedCarsTbody input[type=hidden]").each(function (index, element) {
+                $(element).attr('name', 'Cars['+ index +'].CarsId');
+            });
+
+            e.target.submit();
         }
 
         function retriveCarsBaseOnSearch() {
-            $.post("@Url.Action("CarsSearch","Cars")", {search: ""}, function (res)
+            srchtxt = document.getElementById("carSearchText").value;
+            $.post("@Url.Action("CarsSearch","Cars")", {search: srchtxt}, function (res)
             {
-                alert(res[0]['model']);
+                cnt = document.getElementById("CarsTBody");
+                cnt.innerHTML = "";
+                for (var i = 0; i < res.length; i++) {
+                    tr = document.createElement("tr");
+
+                    tr.onclick = function (e) {
+                        document.getElementById("selectedCarsTbody").appendChild(this);
+                        this.onclick = function () {
+                            this.remove();
+                        };
+                    };
+
+                    inp = document.createElement("input");
+                    inp.type = "hidden";
+                    inp.setAttribute("readonly", "readonly");
+                    inp.value = res[i]["id"];
+
+                    tr.appendChild(inp);
+
+                    td = document.createElement("td");
+                    td.innerHTML = res[i]["brand"];
+                    tr.appendChild(td);
+
+                    td = document.createElement("td");
+                    td.innerHTML = res[i]["model"];
+                    tr.appendChild(td);
+
+                    cnt.appendChild(tr);
+                }
             })
         }
     </script>

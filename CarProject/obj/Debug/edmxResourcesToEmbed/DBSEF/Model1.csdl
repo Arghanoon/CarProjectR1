@@ -266,6 +266,7 @@
     <NavigationProperty Name="GlassAndMirrors" Relationship="Self.FK_GlassAndMirrors_Cars" FromRole="Cars" ToRole="GlassAndMirrors" />
     <NavigationProperty Name="PersonCar" Relationship="Self.FK_PersonCars_Cars" FromRole="Cars" ToRole="PersonCars" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Product_Cars" FromRole="Cars" ToRole="Product" />
+    <NavigationProperty Name="ProductCars" Relationship="Self.FK_ProductCars_Cars" FromRole="Cars" ToRole="ProductCars" />
     <NavigationProperty Name="SecuritySystems" Relationship="Self.FK_SecuritySystems_Cars" FromRole="Cars" ToRole="SecuritySystems" />
     <NavigationProperty Name="SteeringSystems" Relationship="Self.FK_SteeringSystem_Cars" FromRole="Cars" ToRole="SteeringSystem" />
   </EntityType>
@@ -643,6 +644,7 @@
     <NavigationProperty Name="PersonProducts" Relationship="Self.FK_PersonProduct_Product" FromRole="Product" ToRole="PersonProduct" />
     <NavigationProperty Name="ProductQnA" Relationship="Self.FK_Product_ProductQnA" FromRole="Product" ToRole="ProductQnA" />
     <NavigationProperty Name="ProductReview" Relationship="Self.FK_Product_ProductReview" FromRole="Product" ToRole="ProductReview" />
+    <NavigationProperty Name="ProductCars" Relationship="Self.FK_ProductCars_Product" FromRole="Product" ToRole="ProductCars" />
     <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_Product" FromRole="Product" ToRole="ProductDiscount" />
     <NavigationProperty Name="ProductInServices" Relationship="Self.FK_ProductInService_Product" FromRole="Product" ToRole="ProductInService" />
     <NavigationProperty Name="ProductPrices" Relationship="Self.FK_ProductPrice_Product" FromRole="Product" ToRole="ProductPrice" />
@@ -651,6 +653,16 @@
     <NavigationProperty Name="ToBaskets" Relationship="Self.FK_ToBasket_Product" FromRole="Product" ToRole="ToBasket" />
     <NavigationProperty Name="TodaysSpecials" Relationship="Self.FK_TodaysSpecial_Product" FromRole="Product" ToRole="TodaysSpecial" />
     <NavigationProperty Name="Troubleshootings" Relationship="Self.FK_Troubleshooting_Product" FromRole="Product" ToRole="Troubleshooting" />
+  </EntityType>
+  <EntityType Name="ProductCar">
+    <Key>
+      <PropertyRef Name="RID" />
+    </Key>
+    <Property Name="RID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="CarsId" Type="Int32" />
+    <NavigationProperty Name="Car" Relationship="Self.FK_ProductCars_Cars" FromRole="ProductCars" ToRole="Cars" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductCars_Product" FromRole="ProductCars" ToRole="Product" />
   </EntityType>
   <EntityType Name="ProductDiscount">
     <Key>
@@ -1353,6 +1365,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProductCars_Cars">
+    <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
+    <End Role="ProductCars" Type="Self.ProductCar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="ProductCars">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SecuritySystems_Cars">
     <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
     <End Role="SecuritySystems" Type="Self.SecuritySystem" Multiplicity="*" />
@@ -1665,6 +1689,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProductCars_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductCars" Type="Self.ProductCar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductCars">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ProductDiscount_Product">
     <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
     <End Role="ProductDiscount" Type="Self.ProductDiscount" Multiplicity="*" />
@@ -1843,6 +1879,7 @@
     <EntitySet Name="PersonServices" EntityType="Self.PersonService" />
     <EntitySet Name="PersonServicesPacks" EntityType="Self.PersonServicesPack" />
     <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="ProductCars" EntityType="Self.ProductCar" />
     <EntitySet Name="ProductDiscounts" EntityType="Self.ProductDiscount" />
     <EntitySet Name="ProductInServices" EntityType="Self.ProductInService" />
     <EntitySet Name="ProductPrices" EntityType="Self.ProductPrice" />
@@ -2022,6 +2059,10 @@
       <End Role="Cars" EntitySet="Cars" />
       <End Role="Product" EntitySet="Products" />
     </AssociationSet>
+    <AssociationSet Name="FK_ProductCars_Cars" Association="Self.FK_ProductCars_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="ProductCars" EntitySet="ProductCars" />
+    </AssociationSet>
     <AssociationSet Name="FK_SecuritySystems_Cars" Association="Self.FK_SecuritySystems_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="SecuritySystems" EntitySet="SecuritySystems" />
@@ -2125,6 +2166,10 @@
     <AssociationSet Name="FK_Product_ProductReview" Association="Self.FK_Product_ProductReview">
       <End Role="ProductReview" EntitySet="ProductReviews" />
       <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductCars_Product" Association="Self.FK_ProductCars_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductCars" EntitySet="ProductCars" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductDiscount_Product" Association="Self.FK_ProductDiscount_Product">
       <End Role="Product" EntitySet="Products" />
