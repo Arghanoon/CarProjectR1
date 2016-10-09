@@ -12,12 +12,14 @@ namespace CarProject.Areas.Admin.Models.Store
         public DBSEF.CarAutomationEntities DBS = new DBSEF.CarAutomationEntities();
 
         public DBSEF.AutoService Service { get; set; }
-        public List<DBSEF.Product> Products { get; set; }
+        public List<int> Products { get; set; }
+        public List<int> CarsId { get; set; }
 
         public ServicesModel()
         {
             Service = new DBSEF.AutoService();
-            Products = new List<DBSEF.Product>();
+            Products = new List<int>();
+            CarsId = new List<int>();
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
