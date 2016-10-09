@@ -33,6 +33,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AutoServiceCars">
+      <EntityTypeMapping TypeName="CarAutomationModel.AutoServiceCar">
+        <MappingFragment StoreEntitySet="AutoServiceCars">
+          <ScalarProperty Name="AutoServiceCarsID" ColumnName="AutoServiceCarsID" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="AutoServicePacks">
       <EntityTypeMapping TypeName="CarAutomationModel.AutoServicePack">
         <MappingFragment StoreEntitySet="AutoServicePack">

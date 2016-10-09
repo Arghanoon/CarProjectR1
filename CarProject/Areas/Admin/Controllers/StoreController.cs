@@ -179,5 +179,28 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
         #endregion
+
+        #region Services and servicePacks
+        public ActionResult Services()
+        {
+            return View();
+        }
+
+        public ActionResult Services_New()
+        {
+            var model = new Models.Store.ServicesModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Services_New(Models.Store.ServicesModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                return RedirectToAction("Services");
+            }
+            return View(model);
+        }
+        #endregion
     }
 }

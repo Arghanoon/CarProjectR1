@@ -164,6 +164,7 @@
     <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
     <Compile Include="Areas\Admin\Models\Store\Category.cs" />
     <Compile Include="Areas\Admin\Models\Store\ProductsModel.cs" />
+    <Compile Include="Areas\Admin\Models\Store\Services.cs" />
     <Compile Include="Areas\Admin\Models\Store\StoreMVC.cs" />
     <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
     <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
@@ -189,6 +190,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\AutoService1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\AutoServiceCar.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\AutoServicePack.cs">
@@ -798,6 +802,9 @@
     <Content Include="Areas\Admin\Views\Store\Products_Review.cshtml" />
     <Content Include="Areas\Admin\Views\Store\Products.cshtml" />
     <Content Include="Areas\Admin\Views\Store\Products_Update.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Products_Gallery.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Services.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Services_New.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -815,7 +822,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Store\Products_Gallery.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

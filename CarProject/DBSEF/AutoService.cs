@@ -17,6 +17,7 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AutoService()
         {
+            this.AutoServiceCars = new HashSet<AutoServiceCar>();
             this.AutoServices = new HashSet<AutoService1>();
             this.PersonServices = new HashSet<PersonService>();
             this.ProductDiscounts = new HashSet<ProductDiscount>();
@@ -33,6 +34,8 @@ namespace CarProject.DBSEF
         public string Price { get; set; }
     
         public virtual Car Car { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AutoServiceCar> AutoServiceCars { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AutoService1> AutoServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
