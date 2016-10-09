@@ -8,12 +8,12 @@
 
     Func<int, string> GetBrandImage = (int id) =>
     {
-        var ser = Server.MapPath("~/Publics/Gallery/Brands");
+        var ser = Server.MapPath("~/Publics/Brands");
         DirectoryInfo di = new DirectoryInfo(ser);
         var f = di.GetFiles(string.Format("{0}.*", id));
 
         if (f.Length > 0)
-            return Url.Content("~/Publics/Gallery/Brands/" + f[0].Name);
+            return Url.Content("~/Publics/Brands/" + f[0].Name);
         else
             return "";
     };
