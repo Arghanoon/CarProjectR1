@@ -17,20 +17,25 @@ namespace CarProject.App_extension
 
         public static string BaseRouts_CarImages(this string value)
         {
-            return Path.Combine("~/Publics/CarImages/",value).Replace('\\','/');
+            return Path.Combine("~/Publics/Gallery/CarImages/",value).Replace('\\','/');
         }
         public static string BaseRouts_CarTempImages(this string value)
         {
-            return Path.Combine("~/Publics/CarTempImages/", value).Replace('\\', '/'); ;
+            return Path.Combine("~/Publics/Gallery/CarTempImages/", value).Replace('\\', '/'); ;
         }
         public static string BaseRouts_CarBrands(this string value)
         {
-            return Path.Combine("~/Publics/Brands/", value).Replace('\\', '/'); ;
+            return Path.Combine("~/Publics/Gallery/Brands/", value).Replace('\\', '/'); ;
         }
 
         public static string BaseRouts_NewsImages(this string value)
         {
-            return Path.Combine("~/Publics/NewsImages/", value).Replace('\\', '/');
+            return Path.Combine("~/Publics/Gallery/NewsImages/", value).Replace('\\', '/');
+        }
+
+        public static string BaseRouts_ProductImages(this string value)
+        {
+            return Path.Combine("~/Publics/Gallery/ProductImages/", value).Replace('\\', '/');
         }
 
 
