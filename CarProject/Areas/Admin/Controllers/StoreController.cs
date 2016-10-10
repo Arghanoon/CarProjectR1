@@ -178,6 +178,14 @@ namespace CarProject.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult JsonProductsSearch(string search)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var res = dbs.Products.Where(c => c.ProductName.Contains(search)).Select(c => new { id = c.ProductId, name = c.ProductName, cat = c.Category.CategoryName }).ToList();
+            return Json(res, JsonRequestBehavior.DenyGet);
+        }
         #endregion
 
         #region Services and servicePacks
@@ -197,7 +205,7 @@ namespace CarProject.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 
-                return RedirectToAction("Services");
+                //return RedirectToAction("Services");
             }
             return View(model);
         }
