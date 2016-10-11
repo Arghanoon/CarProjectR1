@@ -21,6 +21,11 @@ namespace CarProject.Areas.Admin.Models.Store
             ServicePack = new DBSEF.AutoServicePack();
             ServicesIds = new List<int>();
         }
+        public ServicePacksModel(int? id)
+        {
+            ServicePack = DBS.AutoServicePacks.FirstOrDefault(sp => sp.AutoServicePackId == id);
+            ServicesIds = ServicePack.AutoServices.Select(s => s.AutoServiceId.GetValueOrDefault()).ToList();
+        }
 
         public void Save()
         {
@@ -29,6 +34,18 @@ namespace CarProject.Areas.Admin.Models.Store
                 this.ServicePack.AutoServices.Add(new DBSEF.AutoService1 { AutoServiceId = item });
             }
             DBS.AutoServicePacks.Add(this.ServicePack);
+            DBS.SaveChanges();
+        }
+
+        public void Update()
+        {
+            DBS.AutoServices1.RemoveRange(ServicePack.AutoServices.Where(s => !ServicesIds.Contains(s.AutoServiceId.GetValueOrDefault())));
+            foreach (var item in ServicesIds)
+            {
+                if (ServicePack.AutoServices.Count(s => s.AutoServiceId == item) <= 0)
+                    ServicePack.AutoServices.Add(new DBSEF.AutoService1 { AutoServiceId = item });
+            }
+
             DBS.SaveChanges();
         }
 

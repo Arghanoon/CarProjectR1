@@ -261,6 +261,26 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View(model);
         }
+
+        public ActionResult ServicePacks_Update(int? id)
+        {
+            var model = new Models.Store.ServicePacksModel(id);
+            TempData["updateServicePacksSelected"] = model;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ServicePacks_Update(Models.Store.ServicePacksModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var m = TempData["updateServicePacksSelected"] as Models.Store.ServicePacksModel;
+                TryUpdateModel(m);
+                m.Update();
+
+                return RedirectToAction("ServicePacks");
+            }
+            return View(model);
+        }
         #endregion
     }
 }
