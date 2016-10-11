@@ -230,6 +230,37 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult JsonServicesSearch(string search)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var res = dbs.AutoServices.Where(s => s.AutoServiceName.Contains(search)).Select(c => new { id = c.AutoServiceId, name = c.AutoServiceName, price = c.Price }).ToList();
+            return Json(res, JsonRequestBehavior.DenyGet);
+        }
+
+        /* Packs */
+
+        public ActionResult ServicePacks()
+        {
+            return View();
+        }
+
+        public ActionResult ServicePacks_New()
+        {
+            var model = new Models.Store.ServicePacksModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ServicePacks_New(Models.Store.ServicePacksModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+                return RedirectToAction("ServicePacks");
+            }
+            return View(model);
+        }
         #endregion
     }
 }
