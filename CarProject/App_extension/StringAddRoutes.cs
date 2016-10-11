@@ -6,6 +6,8 @@ using System.IO;
 using System.Globalization;
 using System.Net.Mail;
 
+using System.Text.RegularExpressions;
+
 namespace CarProject.App_extension
 {
     public static class StringAddRoutes
@@ -60,6 +62,10 @@ namespace CarProject.App_extension
             }
 
             return result;
+        }
+        public static bool IsNumber(this string value)
+        {
+            return !value.IsNullOrWhiteSpace() && Regex.IsMatch(value, "^[0-9]*$");
         }
     }
 

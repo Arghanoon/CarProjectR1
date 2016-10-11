@@ -14,7 +14,7 @@ namespace CarProject.DBSEF
     
     public partial class AutoServiceCar
     {
-        public long AutoServiceCarsID { get; set; }
+        public long AutoServiceCarsId { get; set; }
         public Nullable<int> CarsId { get; set; }
         public Nullable<int> AutoServiceId { get; set; }
     

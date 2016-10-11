@@ -204,8 +204,29 @@ namespace CarProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.Save();
                 
-                //return RedirectToAction("Services");
+                return RedirectToAction("Services");
+            }
+            return View(model);
+        }
+
+        public ActionResult Services_Update(int? id)
+        {
+            var model = new Models.Store.ServicesModel(id);
+            TempData["serviceUpdateTempdDataStore"] = model;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Services_Update(Models.Store.ServicesModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var m = TempData["serviceUpdateTempdDataStore"] as Models.Store.ServicesModel;
+                TryUpdateModel(m);
+                m.Update();
+
+                return RedirectToAction("Services");
             }
             return View(model);
         }

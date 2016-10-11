@@ -41,9 +41,9 @@
   </EntityType>
   <EntityType Name="AutoServiceCar">
     <Key>
-      <PropertyRef Name="AutoServiceCarsID" />
+      <PropertyRef Name="AutoServiceCarsId" />
     </Key>
-    <Property Name="AutoServiceCarsID" Type="Int64" Nullable="false" />
+    <Property Name="AutoServiceCarsId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CarsId" Type="Int32" />
     <Property Name="AutoServiceId" Type="Int32" />
     <NavigationProperty Name="AutoService" Relationship="Self.FK_AutoServiceCars_AutoService" FromRole="AutoServiceCars" ToRole="AutoService" />
@@ -668,9 +668,9 @@
   </EntityType>
   <EntityType Name="ProductCar">
     <Key>
-      <PropertyRef Name="RID" />
+      <PropertyRef Name="ProductCarsId" />
     </Key>
-    <Property Name="RID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductCarsId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ProductId" Type="Int32" />
     <Property Name="CarsId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_ProductCars_Cars" FromRole="ProductCars" ToRole="Cars" />
@@ -695,7 +695,7 @@
     <Key>
       <PropertyRef Name="ProductInServiceId" />
     </Key>
-    <Property Name="ProductInServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductInServiceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ServiceId" Type="Int32" />
     <Property Name="ProductId" Type="Int32" />
     <NavigationProperty Name="AutoService" Relationship="Self.FK_ProductInService_AutoService" FromRole="ProductInService" ToRole="AutoService" />

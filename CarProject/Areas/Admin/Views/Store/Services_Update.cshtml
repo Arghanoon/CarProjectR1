@@ -1,6 +1,6 @@
 ﻿@using CarProject.App_Code
 @{
-    ViewBag.Title = "اضافه کردن سرویس جدید";
+    ViewBag.Title = "ویرایش سرویس";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
 }
 
@@ -10,6 +10,7 @@
 <div>
     <form method="post" onsubmit="submitFunction(event)">
         <div class="inputsContainer">
+            @Html.HiddenFor(m => m.Service.AutoServiceId)
             @Html.input_TextBox(m => m.Service.AutoServiceName, "نام سرویس")
             @Html.input_TextBox(m => m.Service.Price, "قیمت سرویس")
 

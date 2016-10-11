@@ -31,9 +31,9 @@
   </EntityType>
   <EntityType Name="AutoServiceCars">
     <Key>
-      <PropertyRef Name="AutoServiceCarsID" />
+      <PropertyRef Name="AutoServiceCarsId" />
     </Key>
-    <Property Name="AutoServiceCarsID" Type="bigint" Nullable="false" />
+    <Property Name="AutoServiceCarsId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarsId" Type="int" />
     <Property Name="AutoServiceId" Type="int" />
   </EntityType>
@@ -543,9 +543,9 @@
   </EntityType>
   <EntityType Name="ProductCars">
     <Key>
-      <PropertyRef Name="RID" />
+      <PropertyRef Name="ProductCarsId" />
     </Key>
-    <Property Name="RID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductCarsId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductId" Type="int" />
     <Property Name="CarsId" Type="int" />
   </EntityType>
@@ -564,7 +564,7 @@
     <Key>
       <PropertyRef Name="ProductInServiceId" />
     </Key>
-    <Property Name="ProductInServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductInServiceId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ServiceId" Type="int" />
     <Property Name="ProductId" Type="int" />
   </EntityType>

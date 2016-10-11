@@ -64,6 +64,15 @@ namespace CarProject.Areas.Admin.Models.Store
             var lp = Product.ProductPrices.Last();
             if(lp == null || lp.ProductPrice1 != Price)
                 dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price });
+
+            var xtmp = Cars.Select(c => c.CarsId);
+            dbs.ProductCars.RemoveRange(Product.ProductCars.Where(c => !xtmp.Contains(c.CarsId)));
+            foreach (var item in Cars)
+            {
+                if (Product.ProductCars.Count(c => c.CarsId == item.CarsId) <= 0)
+                    Product.ProductCars.Add(item);
+            }
+
             dbs.SaveChanges();
         }
 

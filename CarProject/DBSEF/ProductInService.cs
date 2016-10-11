@@ -14,7 +14,7 @@ namespace CarProject.DBSEF
     
     public partial class ProductInService
     {
-        public int ProductInServiceId { get; set; }
+        public long ProductInServiceId { get; set; }
         public Nullable<int> ServiceId { get; set; }
         public Nullable<int> ProductId { get; set; }
     
