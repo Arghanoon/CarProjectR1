@@ -15,6 +15,5 @@ namespace CarProject.Areas.Users.Controllers
         {
             return View();
         }
-
     }
 }

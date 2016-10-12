@@ -6,63 +6,50 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1" >
+<meta name="viewport" content="width=device-width, initial-scale=1" >
 
 <title>کلینیک خودرو - @ViewBag.Title</title>
 
     <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
     <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
 
-    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/default.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Files/StyleAndScripts/UsersDefault/Default.css" rel="stylesheet" />
     <link href="~/Areas/Admin/Files/StyleAndScripts/Default/input1.css" rel="stylesheet" />
 
     <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
     <script src="~/Publics/Scripts/tinymce/tinymce.min.js"></script>
 
+    
 
+    @RenderSection("style",false)
 </head>
 
 <body>
 
-	<header>
-    	<div>
-        	<h1 style="font-family:f1;"><a href="#">خودروکلینیک</a></h1>
+	<header id="header1">
+        <div id="header1_section1">
+            <a href="#" class="gia-setting"></a>
+            <section>نام و نام خانوادگی کاربر</section>
         </div>
-        
-        <a href="javascript: void()" id="header_menuIcon"  class="gia-menuIcon" onClick="TogleClassShow(header_menu,'display');"></a>
-        <form method="post" id="header_menu" action="@Url.Action("topNavPostBack", new { area = "Admin", controller = "Dashboard" })">
-            <nav id="header_menu_nav">
-                <a href="#" class="gia-statistic">داشبور</a>
-                <a href="#" class="gia-setting">تنظیمات</a>
-                <a href="#" class="gia-user">پروفایل</a>
-                <a href="#" class="gia-help">راهنما</a>
-                
-                <button type="submit" name="userLogout"><a href="#" class="gia-logout" onclick="">خروج کاربر</a></button>
-            </nav>
-        </form>
-    </header>
-    
-    
-    <div id="container">
-    
-    	
-        <div id="body">
-        	@RenderBody()
-        </div>
-        
-        <div id="menu">
-        	
-            <nav>
-                <strong class="gia-car1 title">مدیریت خودرو</strong>
-            	@Html.ActionLink("مشخصات کاربر", "PersonalInformation", "Personality", new { area = "Users" }, new { CLASS = "gia-user" })
-                @Html.ActionLink("اطلاعات کاربری", "Cars", "Cars", new { area = "Users" }, new { CLASS = "gia-key" })
-            </nav>
 
+        <div id="header1_section2"></div>
+
+        <div id="header1_section3">
+            <a href="#" class="gia-logout"></a>
         </div>
-        
-        
+	</header>
+
+    <div id="body">
+
+        <div id="renderBody">
+            @RenderBody()
+        </div>
+
     </div>
 
+    <footer id="footer1">
+
+    </footer>
 </body>
 
 <script src="~/Areas/Admin/Files/StyleAndScripts/Default/d00.js"></script>
@@ -81,6 +68,4 @@
 </script>
 
     @RenderSection("script", false)
-
-    @RenderSection("style",false)
 </html>

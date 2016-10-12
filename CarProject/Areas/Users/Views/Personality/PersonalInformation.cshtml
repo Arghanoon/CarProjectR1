@@ -8,11 +8,11 @@
 <form method="post">
     @Html.HiddenFor(m => m.IsForUpdate)
     @Html.HiddenFor(m => m.Person.UserId)
-    <div id="errorsection" style="color:red;">
+    @*<div id="errorsection" style="color:red;">
         @Html.ValidationSummary(false)
-    </div>
+    </div>*@
     <div class="inputsContainer">
-
+        
         @Html.input_TextBox(m => m.Person.PersonFirtstName, "نام")
         @Html.input_TextBox(m => m.Person.PersonLastName, "نام خانوادگی")
         @Html.input_TextBox(m => m.Person.PersonPhone, "شماره تلفن ثابت")
@@ -21,11 +21,11 @@
         @Html.input_TextBox(m => m.Person.PersonAddressCity, "شهر محل اقامت")
         @Html.input_TextBox(m => m.Person.PersonAddress, "آدرس دقیق")
         <hr />
-        @Html.input_TextBox(m => m.Person.User.Uname, "نام کاربری", new Dictionary<string, object> { {"readonly","readonly"} } )
+
         @Html.input_Password(m => m.Password, "کلمه عبور")
-        @Html.input_Password(m => m.PasswordConfirm, "تایید کلمه عبور")
     </div>
-   
+   <small><q>برای ثبت تغییرات کلمه عبور باید وارد شود</q></small>
+
     <div class="inputAction">
         <a href="#" class="button yellow">انصراف و بازگشت</a>
         <input type="submit" class="button green" value="بروزرسانی" />
