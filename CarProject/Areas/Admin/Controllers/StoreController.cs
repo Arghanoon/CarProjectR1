@@ -9,6 +9,7 @@ using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
+    [CarProject.CLS.AuthFilter]
     public class StoreController : Controller
     {
         //

@@ -15,9 +15,21 @@
                 <section>
                     <section class="inputElement" tabindex="0" id="SelectedCarInputContainer">
                         @Html.HiddenFor(m => m.PCar.CarId)
-                        <a href="javascript:void()" class="gia-select">انتخاب خودرو :  </a>
-                        <section id="selectedCarTextShow">نمایش خودرو</section>
+                        <a href="javascript:void()" class="gia-select" onclick="$('#ComboSelecteCar').toggleClass('show');">انتخاب خودرو | </a>
+                        <section id="selectedCarTextShow"></section>
                     </section>
+                    <div id="ComboSelecteCar">
+                        <section id="CarSearchSection">
+                            <input type="text" id="CarSearchText" placeholder="جستجوی خودرو بر اساس برند و مدل" />
+                            <button type="button"><section class="gia-search"></section></button>
+                        </section>
+                        <section id="carSearchResultContainer">
+                            @for (int i = 0; i < 340; i++)
+                            {
+                                <a href="#">برند - مدل @i</a>
+                            }
+                        </section>
+                    </div>
                 </section>
 
                 @Html.ValidationMessageFor(m =>  m.PCar.CarId)
@@ -35,16 +47,7 @@
 </div>
 
 
-<div class="dialogback">
-    <div class="dialogbox">
-        <section class="title">
 
-        </section>
-        <div class="body">
-
-        </div>
-    </div>
-</div>
 
 @section style
 {
@@ -55,6 +58,73 @@
         }
             #SelectedCarInputContainer > * {
                 margin:0 3px;
+            }
+
+
+        #ComboSelecteCar {
+            position:absolute;
+            top:100%; left:0; right:0;
+            margin-top:-5px;
+            border:thin solid #888;
+            box-shadow:0 2px 2px #444;
+            
+            background:white;
+            z-index:99;
+
+            animation-name:anim_ComboSelecteCar;
+            animation-duration:0.3s;
+            animation-timing-function:ease-in-out;
+
+            display:none;
+            flex-direction:column;
+            align-items:stretch;
+        }
+            #ComboSelecteCar.show {
+                display:flex;
+            }
+
+        @@keyframes anim_ComboSelecteCar{
+            from {
+                transform-origin:top;
+                transform: scaleY(0);
+            }
+            to {
+                transform-origin:top;
+                transform:none;
+            }
+        }
+
+        #CarSearchSection {
+            display:flex;
+            align-items:stretch;
+            margin:5px;
+            padding-bottom:5px;
+            border-bottom: thin solid #eaeaea;
+        }
+            #CarSearchSection input {
+                background:white;
+                border:thin solid #888;
+                border-radius:0;
+                margin:0;
+            }
+            #CarSearchSection button {
+                background:#888;
+                color:white;
+                border:thin solid #888;
+                margin:0;
+            }
+
+        #carSearchResultContainer {
+            height:100px;
+            overflow:auto;
+            margin:5px;
+            margin-top:0;
+        }
+            #carSearchResultContainer > a {
+                display:block;
+            }
+            #carSearchResultContainer > a:hover {
+                background:#eaeaea;
             }
     </style>
 }

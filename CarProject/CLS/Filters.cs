@@ -25,6 +25,9 @@ namespace CarProject.CLS
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             filterContext.HttpContext.Session["rqpage"] = filterContext.HttpContext.Request.Url.ToString();
+            
+            //MustBe Remove
+            filterContext.HttpContext.Session["user"] = new DBSEF.CarAutomationEntities().Users.FirstOrDefault();
 
             if (filterContext.HttpContext.Session["user"] == null)
                 filterContext.Result = new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary(new Dictionary<string, object>() { { "area", "" }, { "controller", "Login" }, { "action", "Index" } }));
