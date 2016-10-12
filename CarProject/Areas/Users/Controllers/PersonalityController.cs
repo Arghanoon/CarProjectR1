@@ -19,21 +19,30 @@ namespace CarProject.Areas.Users.Controllers
 
         public ActionResult PersonalInformation()
         {
-            var model = Models.User.UserInfo.CreateFromSessionIfExist;
+            var model = CarProject.Models.User.UserInfo.CreateFromSessionIfExist;
             return View(model);
         }
         [HttpPost]
-        public ActionResult PersonalInformation(Models.User.UserInfo user)
+        public ActionResult PersonalInformation(CarProject.Models.User.UserInfo user)
         {
             if (ModelState.IsValid)
             {
-                var u = Models.User.UserInfo.CreateFromSessionIfExist;
+                var u = CarProject.Models.User.UserInfo.CreateFromSessionIfExist;
                 TryUpdateModel(u);
                 u.Update();
                 return View(u);
             }
             else
                 return View(user);
+        }
+
+        public ActionResult UserCars()
+        {
+            return View();
+        }
+        public ActionResult UserCars_New()
+        {
+            return View();
         }
 
     }

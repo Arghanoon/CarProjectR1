@@ -1,0 +1,60 @@
+﻿@using CarProject.App_Code
+@{
+    ViewBag.Title = "ثبت خودروی کاربر";
+}
+@model CarProject.Areas.Users.Models.Personality.UserCarsModel
+
+<div>
+    <form method="post">
+
+        <div class="inputsContainer">
+
+            <div class="input">
+                <label for="">انتخاب خودرو</label>
+                
+                <section>
+                    <section class="inputElement" tabindex="0" id="SelectedCarInputContainer">
+                        @Html.HiddenFor(m => m.PCar.CarId)
+                        <a href="javascript:void()" class="gia-select">انتخاب خودرو :  </a>
+                        <section id="selectedCarTextShow">نمایش خودرو</section>
+                    </section>
+                </section>
+
+                @Html.ValidationMessageFor(m =>  m.PCar.CarId)
+            </div>
+
+            @Html.input_TextBox(m => m.PCar.CarMilage, "کارکرد خودرو")
+            @Html.input_TextBox(m => m.PCar.CarCreationDate, "سال ساخت")
+            
+        </div>
+
+        <div class="inputAction">
+            <input type="submit" value="ثبت خودرو" class="button blue" />
+        </div>
+    </form>
+</div>
+
+
+<div class="dialogback">
+    <div class="dialogbox">
+        <section class="title">
+
+        </section>
+        <div class="body">
+
+        </div>
+    </div>
+</div>
+
+@section style
+{
+    <style>
+        #SelectedCarInputContainer {
+            display:flex;
+            align-items:center;
+        }
+            #SelectedCarInputContainer > * {
+                margin:0 3px;
+            }
+    </style>
+}
