@@ -34,7 +34,7 @@ body
 		align-items: stretch;
 		border-bottom:thin solid #888;
 	}
-		#webicon{ height:50px; margin:5px; }
+		#webicon{ height:90px; margin:5px; }
 		#header_navigation
 		{
 			flex:1;
@@ -47,11 +47,11 @@ body
 				color:inherit;
 				
 				font-family:f2;
-				font-size:90%;
+				font-size:120%;
 				
 				padding:5px;
 				
-				min-width:90px;
+				min-width:120px;
 				
 				display:flex; justify-content:center; align-items:center;
 				text-align:center;
