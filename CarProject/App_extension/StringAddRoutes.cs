@@ -17,6 +17,7 @@ namespace CarProject.App_extension
             return string.IsNullOrWhiteSpace(value);
         }
 
+        #region Routes
         public static string BaseRouts_CarImages(this string value)
         {
             return Path.Combine("~/Publics/Gallery/CarImages/",value).Replace('\\','/');
@@ -39,7 +40,7 @@ namespace CarProject.App_extension
         {
             return Path.Combine("~/Publics/Gallery/ProductImages/", value).Replace('\\', '/');
         }
-
+        #endregion
 
         public static bool ContentTypeIsImage(this string value)
         {
@@ -85,6 +86,26 @@ namespace CarProject.App_extension
             PersianCalendar PRS = new PersianCalendar();
 
             return string.Format("{0:0000}/{1:00}/{2:00} {3:00}:{4:00}:{5:00}", PRS.GetYear(value), PRS.GetMonth(value), PRS.GetDayOfMonth(value), value.Hour, value.Minute, value.Second);
+        }
+
+        public static bool IsPersianDateTime(this string value)
+        {
+            string ptrn = "^[0-9]{4}\\/(0[0-9]|1[0-2])\\/([0-2][0-9]|3[0-1])$";
+            return Regex.IsMatch(value, ptrn);
+        }
+        public static DateTime? Persian_ToDateTime(this string value)
+        {
+            int y = 0, m = 0, d = 0;
+            PersianCalendar prs = new PersianCalendar();
+            var re = value.Split('/');
+            if (re.Length <= 3)
+                return null;
+            
+            int.TryParse(re[0], out y);
+            int.TryParse(re[1], out m);
+            int.TryParse(re[2], out d);
+
+            return (DateTime?)prs.ToDateTime(y, m, d, 0, 0, 0, 0);
         }
     }
 }

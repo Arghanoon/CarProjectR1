@@ -42,6 +42,16 @@
 
             @Html.input_TextBox(m => m.PCar.CarMilage, "کارکرد خودرو")
             @Html.input_TextBox(m => m.PCar.CarCreationDate, "سال ساخت")
+            @Html.input_TextBox(m => m.PCar.CarPlate, "پلاک")
+            @Html.input_TextBox(m => m.PCar.CarPlateCityCode, "کد شهر پلاک")
+            @Html.input_TextBox(m => m.PCar.CarColor, "رنگ خودرو")
+
+            <hr />
+
+            @Html.input_TextBox(m => m.Detail.LastFilterChangeMilage, "کیلومتر آخرین تعویض فیلتر ها")
+            @Html.input_TextBox(m => m.LastFiltersChangeDate, "تاریخ آخرین تعویض فیلتر ها")
+            @Html.input_TextBox(m => m.Detail.LastOilChangeMilage, "کیلومتر آخرین تعویض روغن")
+            @Html.input_TextBox(m => m.LastOilChangeDate, "آخرین تعویض روغن")
             
         </div>
 
