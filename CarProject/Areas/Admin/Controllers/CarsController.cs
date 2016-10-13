@@ -202,7 +202,7 @@ namespace CarProject.Areas.Admin.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost,OverrideActionFilters]
         public JsonResult CarsSearch(string search)
         {
             if (search == null)

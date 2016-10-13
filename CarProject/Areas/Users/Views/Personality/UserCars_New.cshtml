@@ -1,6 +1,14 @@
 ﻿@using CarProject.App_Code
 @{
     ViewBag.Title = "ثبت خودروی کاربر";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var carname = "";
+    var car = dbs.Cars.FirstOrDefault(c => c.CarsId == Model.PCar.CarId);
+    if (car != null)
+    {
+        carname = car.CarModel.CarBrand.CarBrandName + " " + car.CarModel.CarModelName;
+    }
 }
 @model CarProject.Areas.Users.Models.Personality.UserCarsModel
 
@@ -16,18 +24,15 @@
                     <section class="inputElement" tabindex="0" id="SelectedCarInputContainer">
                         @Html.HiddenFor(m => m.PCar.CarId)
                         <a href="javascript:void()" class="gia-select" onclick="$('#ComboSelecteCar').toggleClass('show');">انتخاب خودرو | </a>
-                        <section id="selectedCarTextShow"></section>
+                        <section id="selectedCarTextShow">@carname</section>
                     </section>
                     <div id="ComboSelecteCar">
                         <section id="CarSearchSection">
                             <input type="text" id="CarSearchText" placeholder="جستجوی خودرو بر اساس برند و مدل" />
-                            <button type="button"><section class="gia-search"></section></button>
+                            <button type="button" onclick="RetriveCarsBasedonSearch(event)"><section class="gia-search"></section></button>
                         </section>
                         <section id="carSearchResultContainer">
-                            @for (int i = 0; i < 340; i++)
-                            {
-                                <a href="#">برند - مدل @i</a>
-                            }
+                           
                         </section>
                     </div>
                 </section>
@@ -127,4 +132,32 @@
                 background:#eaeaea;
             }
     </style>
+}
+
+@section script
+{
+    <script>
+        function RetriveCarsBasedonSearch(e) {
+            txtsrch = document.getElementById("CarSearchText").value;
+
+            $.post("@Url.Action("CarsSearch", "Cars", new { area = "Admin" })", { search: txtsrch }, function (res) {
+                
+                cntr = document.getElementById("carSearchResultContainer");
+                cntr.innerHTML = "";
+
+                for (var i = 0; i < res.length; i++) {
+                    a = document.createElement("a");
+                    a.href = "javascript:void(0)";
+                    a.onclick = function (e) {
+                        document.getElementById("@Html.IdFor(m => m.PCar.CarId)").value = e.target.getAttribute("data-id");
+                        document.getElementById("selectedCarTextShow").innerHTML = e.target.innerHTML;
+                    };
+                    a.innerHTML = res[i]["brand"] + " " + res[i]["model"];
+                    a.setAttribute("data-id", res[i]["id"]);
+
+                    cntr.appendChild(a);
+                }
+            });
+        }
+    </script>
 }

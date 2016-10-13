@@ -40,10 +40,21 @@ namespace CarProject.Areas.Users.Controllers
         {
             return View();
         }
+        
         public ActionResult UserCars_New()
         {
-            return View();
+            var model = new Models.Personality.UserCarsModel();
+            return View(model);
         }
-
+        [HttpPost]
+        public ActionResult UserCars_New(Models.Personality.UserCarsModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+                return RedirectToAction("UserCars");
+            }
+            return View(model);
+        }
     }
 }

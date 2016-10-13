@@ -18,6 +18,12 @@ namespace CarProject.Areas.Users.Models.Personality
         {
             PCar = new DBSEF.PersonCar();
         }
+
+        public void Save()
+        {
+            DBS.PersonCars.Add(PCar);
+            DBS.SaveChanges();
+        }
         
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

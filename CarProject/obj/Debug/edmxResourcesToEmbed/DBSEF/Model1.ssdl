@@ -1204,14 +1204,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PersonCars_Cars">
-    <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
-    <End Role="PersonCars" Type="Self.PersonCars" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="PersonCars" Type="Self.PersonCars" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Cars">
         <PropertyRef Name="CarsId" />
       </Principal>
       <Dependent Role="PersonCars">
-        <PropertyRef Name="PersonCarsId" />
+        <PropertyRef Name="CarId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

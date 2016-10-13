@@ -1209,14 +1209,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PersonCars_Cars">
-          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
-          <End Role="PersonCars" Type="Self.PersonCars" Multiplicity="0..1" />
+          <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+          <End Role="PersonCars" Type="Self.PersonCars" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cars">
               <PropertyRef Name="CarsId" />
             </Principal>
             <Dependent Role="PersonCars">
-              <PropertyRef Name="PersonCarsId" />
+              <PropertyRef Name="CarId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2385,7 +2385,7 @@
           <NavigationProperty Name="DetailedBrakeSystems" Relationship="Self.FK_DetailedBrakeSystem_Cars" FromRole="Cars" ToRole="DetailedBrakeSystem" />
           <NavigationProperty Name="FuelConsumptions" Relationship="Self.FK_FuelConsumption_Cars" FromRole="Cars" ToRole="FuelConsumption" />
           <NavigationProperty Name="GlassAndMirrors" Relationship="Self.FK_GlassAndMirrors_Cars" FromRole="Cars" ToRole="GlassAndMirrors" />
-          <NavigationProperty Name="PersonCar" Relationship="Self.FK_PersonCars_Cars" FromRole="Cars" ToRole="PersonCars" />
+          <NavigationProperty Name="PersonCars" Relationship="Self.FK_PersonCars_Cars" FromRole="Cars" ToRole="PersonCars" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Cars" FromRole="Cars" ToRole="Product" />
           <NavigationProperty Name="ProductCars" Relationship="Self.FK_ProductCars_Cars" FromRole="Cars" ToRole="ProductCars" />
           <NavigationProperty Name="SecuritySystems" Relationship="Self.FK_SecuritySystems_Cars" FromRole="Cars" ToRole="SecuritySystems" />
@@ -3487,14 +3487,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PersonCars_Cars">
-          <End Role="Cars" Type="Self.Car" Multiplicity="1" />
-          <End Role="PersonCars" Type="Self.PersonCar" Multiplicity="0..1" />
+          <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="PersonCars" Type="Self.PersonCar" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cars">
               <PropertyRef Name="CarsId" />
             </Principal>
             <Dependent Role="PersonCars">
-              <PropertyRef Name="PersonCarsId" />
+              <PropertyRef Name="CarId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

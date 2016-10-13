@@ -1,4 +1,17 @@
 ﻿@{
     ViewBag.Title = "خودروی کاربران";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
 }
 
+<div>
+
+    <div>
+        @foreach (var item in dbs.PersonCars)
+        {
+            <div>
+                @item.Car.CarModel.CarBrand.CarBrandName  @item.Car.CarModel.CarModelName
+            </div>
+        }
+    </div>
+
+</div>

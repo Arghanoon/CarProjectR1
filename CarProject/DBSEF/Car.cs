@@ -41,6 +41,7 @@ namespace CarProject.DBSEF
             this.DetailedBrakeSystems = new HashSet<DetailedBrakeSystem>();
             this.FuelConsumptions = new HashSet<FuelConsumption>();
             this.GlassAndMirrors = new HashSet<GlassAndMirror>();
+            this.PersonCars = new HashSet<PersonCar>();
             this.Products = new HashSet<Product>();
             this.ProductCars = new HashSet<ProductCar>();
             this.SecuritySystems = new HashSet<SecuritySystem>();
@@ -111,7 +112,8 @@ namespace CarProject.DBSEF
         public virtual ICollection<FuelConsumption> FuelConsumptions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GlassAndMirror> GlassAndMirrors { get; set; }
-        public virtual PersonCar PersonCar { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonCar> PersonCars { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
