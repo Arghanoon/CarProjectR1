@@ -30,7 +30,7 @@
 
   <link>
     <text>پروفایل</text>
-    <url>#</url>
+    <url>/Users</url>
     <target>_self</target>
     <class>gia-user</class>
   </link>
