@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E3200A96-1EF4-4265-9DFF-B90A260DA791}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CarProject</RootNamespace>
@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\EXTS.cs" />
+    <Content Include="App_Code\ErrorHandler.cs" />
     <Compile Include="App_extension\StringAddRoutes.cs" />
     <Compile Include="App_GlobalResources\Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -164,11 +165,13 @@
     <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
     <Compile Include="Areas\Admin\Models\Store\Category.cs" />
     <Compile Include="Areas\Admin\Models\Store\ProductsModel.cs" />
+    <Compile Include="Areas\Admin\Models\Store\ServicePacks.cs" />
     <Compile Include="Areas\Admin\Models\Store\Services.cs" />
     <Compile Include="Areas\Admin\Models\Store\StoreMVC.cs" />
     <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
     <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Users\Controllers\PersonalityController.cs" />
+    <Compile Include="Areas\Users\Models\Personality\UserCars.cs" />
     <Compile Include="CLS\Filters.cs" />
     <Compile Include="CLS\SearchClass.cs" />
     <Compile Include="CLS\Searchs\CarsSearchLogic.cs" />
@@ -417,7 +420,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\input1.css" />
+    <Content Include="Areas\Admin\Files\StyleAndScripts\Default\ItemsShowing.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\tinymce01.css" />
+    <Content Include="Areas\Admin\Files\StyleAndScripts\UsersDefault\Default.css" />
     <Content Include="Publics\Gallery\CarImages\notfound.jpg" />
     <Content Include="Publics\Files\Images\back.jpg" />
     <Content Include="Publics\Files\Resources\HomePage\News\template_News.css" />
@@ -668,7 +673,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Users\Models\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Gallery\Brands\" />
     <Folder Include="Publics\Gallery\CarTempImages\" />
@@ -805,6 +809,12 @@
     <Content Include="Areas\Admin\Views\Store\Products_Gallery.cshtml" />
     <Content Include="Areas\Admin\Views\Store\Services.cshtml" />
     <Content Include="Areas\Admin\Views\Store\Services_New.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Services_Update.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ServicePacks.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ServicePacks_New.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ServicePacks_Update.cshtml" />
+    <Content Include="Areas\Users\Views\Personality\UserCars.cshtml" />
+    <Content Include="Areas\Users\Views\Personality\UserCars_New.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -822,6 +832,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Users\Views\Personality\UserCars_Update.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

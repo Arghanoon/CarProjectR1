@@ -18,10 +18,18 @@ namespace CarProject.Areas.Users.Models.Personality
         public string LastOilChangeDate { get; set; }
         public string LastFiltersChangeDate { get; set; }
 
+        public bool UpdateOrginalValues { get; set; }
+
         public UserCarsModel()
         {
             PCar = new DBSEF.PersonCar();
             Detail = new DBSEF.PersonCarDetail();
+            UpdateOrginalValues = false;
+        }
+
+        public UserCarsModel(int? id)
+        {
+            PCar = DBS.PersonCars.FirstOrDefault(pc => pc.PersonCarsId == id);
         }
 
         public void Save()
@@ -31,6 +39,11 @@ namespace CarProject.Areas.Users.Models.Personality
 
             PCar.PersonCarDetails.Add(Detail);
             DBS.PersonCars.Add(PCar);
+            DBS.SaveChanges();
+        }
+
+        public void Update()
+        {
             DBS.SaveChanges();
         }
         
@@ -48,22 +61,24 @@ namespace CarProject.Areas.Users.Models.Personality
                 result.Add(new ValidationResult("سال ساخت باید به صورت عدد باشد", new string[] { "PCar.CarCreationDate" }));
 
 
-            if (Detail.LastFilterChangeMilage == null)
-                result.Add(new ValidationResult("کیلومت آخرین تعویض فیلتر وارد نشده است", new string[] { "Detail.LastFilterChangeMilage" }));
-            
-            if (LastFiltersChangeDate.IsNullOrWhiteSpace())
-                result.Add(new ValidationResult("تاریخ آخرین تعویض فیلتر وارد نشده است", new string[] { "LastFiltersChangeDate" }));
-            else if (!LastFiltersChangeDate.IsPersianDateTime())
-                result.Add(new ValidationResult("تاریخ آخرین تعویض فیلتر وارد شده صحیح نیست", new string[] { "LastFiltersChangeDate" }));
+            if (!UpdateOrginalValues)
+            {
+                if (Detail.LastFilterChangeMilage == null)
+                    result.Add(new ValidationResult("کیلومت آخرین تعویض فیلتر وارد نشده است", new string[] { "Detail.LastFilterChangeMilage" }));
 
-            if (Detail.LastOilChangeMilage == null)
-                result.Add(new ValidationResult("کیلومتر آخرین تعویض روغن وارد نشده است", new string[] { "Detail.LastOilChangeMilage" }));
-            
-            if (LastOilChangeDate.IsNullOrWhiteSpace())
-                result.Add(new ValidationResult("تاریخ آخرین تعویض روغن وارد نشده است", new string[] { "LastOilChangeDate" }));
-            else if (!LastOilChangeDate.IsPersianDateTime())
-                result.Add(new ValidationResult("تاریخ آخرین تعویض روغن وارد شده صحیح نیست", new string[] { "LastOilChangeDate" }));
+                if (LastFiltersChangeDate.IsNullOrWhiteSpace())
+                    result.Add(new ValidationResult("تاریخ آخرین تعویض فیلتر وارد نشده است", new string[] { "LastFiltersChangeDate" }));
+                else if (!LastFiltersChangeDate.IsPersianDateTime())
+                    result.Add(new ValidationResult("تاریخ آخرین تعویض فیلتر وارد شده صحیح نیست", new string[] { "LastFiltersChangeDate" }));
 
+                if (Detail.LastOilChangeMilage == null)
+                    result.Add(new ValidationResult("کیلومتر آخرین تعویض روغن وارد نشده است", new string[] { "Detail.LastOilChangeMilage" }));
+
+                if (LastOilChangeDate.IsNullOrWhiteSpace())
+                    result.Add(new ValidationResult("تاریخ آخرین تعویض روغن وارد نشده است", new string[] { "LastOilChangeDate" }));
+                else if (!LastOilChangeDate.IsPersianDateTime())
+                    result.Add(new ValidationResult("تاریخ آخرین تعویض روغن وارد شده صحیح نیست", new string[] { "LastOilChangeDate" }));
+            }
             return result;
         }
     }

@@ -56,5 +56,26 @@ namespace CarProject.Areas.Users.Controllers
             }
             return View(model);
         }
+
+        public ActionResult UserCars_Update(int? id)
+        {
+            var model = new Models.Personality.UserCarsModel(id);
+            model.UpdateOrginalValues = true;
+            TempData["UpdatePersonalCarGeralInformation"] = model;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult UserCars_Update(Models.Personality.UserCarsModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var m = TempData["UpdatePersonalCarGeralInformation"] as Models.Personality.UserCarsModel;
+                TryUpdateModel(m);
+                m.Update();
+
+                return RedirectToAction("UserCars");
+            }
+            return View(model);
+        }
     }
 }
