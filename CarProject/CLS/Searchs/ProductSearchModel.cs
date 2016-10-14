@@ -16,5 +16,10 @@ namespace CarProject.CLS.Searchs
         public int PriceTo { get; set; }
         public string[] CategoryName { get; set; }
 
+        public int? MinPrice { get; set; }
+        public int? MaxPrice { get; set; }
+        public int? MinInstallPrice { get; set; }
+        public int? MaxInstallPrice { get; set; }
+
     }
 }

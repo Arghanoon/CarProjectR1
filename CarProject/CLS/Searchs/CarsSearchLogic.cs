@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using CarProject.DBSEF;
+using Microsoft.Ajax.Utilities;
 using db = CarProject.DBSEF;
 
 
@@ -26,28 +27,9 @@ namespace CarProject.CLS.Searchs
 
         public IEnumerable GetJoinedView(SearchModel search)
         {
-            return null;
-            /*var watch = System.Diagnostics.Stopwatch.StartNew();
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             
-            var rx = Contexts.sp_cars().Select(c => new
-            {
-                CarBrandnamex = c.CarBrandName,
-                CarModelNamex = c.CarModelName,
-                CarUsagex = c.CarUsage,
-                CarBodyTypex = c.CarBodyType,
-                GearBoxTypex = c.GearBoxType,
-                GearBoxAxelx = c.GearBoxAxel,
-                EngineTypex = c.EngineType,
-                EngineCylinderNumberx = (int?)c.EngineCylinderNumber,
-                CarYearModelx = (int?)c.CarYearModel,
-                LphCityx = (double?)c.LphCity,
-                LphRoadx = (double?)c.LphRoad,
-                LphMixx = (double?)c.LphMix
-            });
-
-            var list = rx.ToList();
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
+          
 
             var watch2 = System.Diagnostics.Stopwatch.StartNew();
             //Car.Join(CarModel, p => , c => , (p, c) => new {p, c}) 
@@ -169,7 +151,7 @@ namespace CarProject.CLS.Searchs
                 }
             }
 
-            return r1;*/
+            return r1;
         }
 
         public IEnumerable GetProductSearch(ProductSearchModel model)
@@ -204,9 +186,11 @@ namespace CarProject.CLS.Searchs
                     @t.@t.@t.@t.@t.@t.@t.@t.@t.@t.@t.@t.@t.@t.Product.ProductName,
                     @t.@t.@t.@t.@t.@t.@t.@t.ProductPrice.ProductPrice1,
                     @t.@t.@t.@t.@t.@t.@t.@t.ProductPrice.InstallPrice,
+                    @t.@t.@t.@t.@t.@t.@t.@t.ProductPrice.Date, 
                     @t.@t.@t.@t.@t.@t.@t.@t.@t.@t.@t.@t.@t.@t.@t.Manufacture.ManufactureName,
                     @t.@t.@t.@t.@t.@t.@t.@t.@t.@t.@t.@t.Country.CountryLongName,
                     @t.@t.@t.@t.@t.@t.@t.@t.@t.@t.Category.CategoryName
+                    
                 }).Distinct();
 
             var ReslutList = r.ToList();
@@ -221,70 +205,86 @@ namespace CarProject.CLS.Searchs
                     ReslutList.Clear();
                 }
             }
-            if (!(model.BrandName == null || model.BrandName.Length == 0))
+            if (!(model.CarmodelName == null || model.CarmodelName.Length == 0))
             {
-                foreach (var VARIABLE in model.BrandName)
+                foreach (var VARIABLE in model.CarmodelName)
                 {
-                    ReslutList.AddRange(r.Where(x => x.CarBrandName == VARIABLE));
+                    ReslutList.AddRange(r.Where(x => x.CarModelName == VARIABLE));
                     r2 = ReslutList;
                     ReslutList.Clear();
                 }
             }
-            if (!(model.BrandName == null || model.BrandName.Length == 0))
+            if (!(model.CategoryName == null || model.CategoryName.Length == 0))
             {
-                foreach (var VARIABLE in model.BrandName)
+                foreach (var VARIABLE in model.CategoryName)
                 {
-                    ReslutList.AddRange(r.Where(x => x.CarBrandName == VARIABLE));
+                    ReslutList.AddRange(r.Where(x => x.CategoryName == VARIABLE));
                     r2 = ReslutList;
                     ReslutList.Clear();
                 }
             }
-            if (!(model.BrandName == null || model.BrandName.Length == 0))
+            if (!(model.Country == null || model.Country.Length == 0))
             {
-                foreach (var VARIABLE in model.BrandName)
+                foreach (var VARIABLE in model.Country)
                 {
-                    ReslutList.AddRange(r.Where(x => x.CarBrandName == VARIABLE));
+                    ReslutList.AddRange(r.Where(x => x.CountryLongName == VARIABLE));
                     r2 = ReslutList;
                     ReslutList.Clear();
                 }
             }
-            if (!(model.BrandName == null || model.BrandName.Length == 0))
+            if (!(model.Manufacture == null || model.Manufacture.Length == 0))
             {
-                foreach (var VARIABLE in model.BrandName)
+                foreach (var VARIABLE in model.Manufacture)
                 {
-                    ReslutList.AddRange(r.Where(x => x.CarBrandName == VARIABLE));
+                    ReslutList.AddRange(r.Where(x => x.ManufactureName == VARIABLE));
                     r2 = ReslutList;
                     ReslutList.Clear();
                 }
             }
-            if (!(model.BrandName == null || model.BrandName.Length == 0))
+            if (!(model.ProductName == null || model.ProductName.Length == 0))
             {
-                foreach (var VARIABLE in model.BrandName)
+                foreach (var VARIABLE in model.ProductName)
                 {
-                    ReslutList.AddRange(r.Where(x => x.CarBrandName == VARIABLE));
+                    ReslutList.AddRange(r.Where(x => x.ProductName == VARIABLE));
                     r2 = ReslutList;
                     ReslutList.Clear();
                 }
             }
-            if (!(model.BrandName == null || model.BrandName.Length == 0))
+
+            
+            if (model.MinPrice.HasValue == true )
             {
-                foreach (var VARIABLE in model.BrandName)
-                {
-                    ReslutList.AddRange(r.Where(x => x.CarBrandName == VARIABLE));
+                   
+                    ReslutList.AddRange(r.Where(x => x.ProductPrice1 > model.MinPrice));
                     r2 = ReslutList;
                     ReslutList.Clear();
-                }
+                
             }
-            if (!(model.BrandName == null || model.BrandName.Length == 0))
+            if (model.MaxPrice.HasValue == true)
             {
-                foreach (var VARIABLE in model.BrandName)
-                {
-                    ReslutList.AddRange(r.Where(x => x.CarBrandName == VARIABLE));
-                    r2 = ReslutList;
-                    ReslutList.Clear();
-                }
+
+                ReslutList.AddRange(r.Where(x => x.ProductPrice1 < model.MaxPrice));
+                r2 = ReslutList;
+                ReslutList.Clear();
+
             }
-            return r;
+            if (model.MinInstallPrice.HasValue == true)
+            {
+
+                ReslutList.AddRange(r.Where(x => x.InstallPrice > model.MinInstallPrice));
+                r2 = ReslutList;
+                ReslutList.Clear();
+
+            }
+            if (model.MaxInstallPrice.HasValue == true)
+            {
+
+                ReslutList.AddRange(r.Where(x => x.InstallPrice < model.MaxInstallPrice));
+                r2 = ReslutList;
+                ReslutList.Clear();
+
+            }
+            return r2;
         }
 
         
