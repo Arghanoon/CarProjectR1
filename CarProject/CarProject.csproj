@@ -674,6 +674,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Publics\Filemanager\" />
+    <Folder Include="Publics\Files\Resources\StorePage\" />
     <Folder Include="Publics\Gallery\Brands\" />
     <Folder Include="Publics\Gallery\CarTempImages\" />
     <Folder Include="Publics\Gallery\ProductImages\" />
