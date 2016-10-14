@@ -14,6 +14,7 @@ namespace CarProject.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
+            return RedirectToAction("Index", "Store");
             DBSEF.CarAutomationEntities ca = new DBSEF.CarAutomationEntities();
             if (!ca.Database.Exists())
             {

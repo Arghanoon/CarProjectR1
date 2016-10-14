@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "فروشگاه";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    var slides = dbs.SlideShows.ToList();
+}
+
+
+@if(slides.Count > 0)
+{
+<div class="SliderType2" style="min-height:500px;">
+	<div class="sliderItems">
+        @{int i = 1; }
+        @foreach (var item in slides)
+        {
+            <a href="@item.Url" class="slideItem" data-slide="@i">
+        	    <img src="@item.Image" alt=""/>
+            </a>   
+            i++;
+        }
+    </div>
+    <div class="sliderTitles">
+        @{ i = 1; }
+        @foreach (var item in slides)
+        {
+            <section onClick="SliderType2ChangeSlide_byelement(this)" data-slide='@i' class="flex-column-center-stretch">
+                <h3>@item.Subject</h3>
+                <small>@item.Describe</small>
+            </section>
+            i++;
+        }
+    	
+    </div>
+</div>
+}

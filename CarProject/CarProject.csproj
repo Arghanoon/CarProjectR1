@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E3200A96-1EF4-4265-9DFF-B90A260DA791}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CarProject</RootNamespace>
@@ -183,6 +183,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="DBSEF\AirConditioningSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -423,6 +424,8 @@
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\ItemsShowing.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\tinymce01.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\UsersDefault\Default.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Default.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Default.js" />
     <Content Include="Publics\Gallery\CarImages\notfound.jpg" />
     <Content Include="Publics\Files\Images\back.jpg" />
     <Content Include="Publics\Files\Resources\HomePage\News\template_News.css" />
@@ -674,7 +677,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Publics\Filemanager\" />
-    <Folder Include="Publics\Files\Resources\StorePage\" />
     <Folder Include="Publics\Gallery\Brands\" />
     <Folder Include="Publics\Gallery\CarTempImages\" />
     <Folder Include="Publics\Gallery\ProductImages\" />
@@ -845,6 +847,8 @@
     <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\public\template_News.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\public\template_Sotre.cshtml" />
+    <Content Include="Views\Store\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
