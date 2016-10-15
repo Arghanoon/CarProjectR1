@@ -231,10 +231,11 @@ a:hover , a:focus{
 
 
 /*----------------------------SliderType2---------------------------*/
-.SliderType2
+    .SliderType2
 	{
+        position:relative;
 		display:flex;
-		flex-direction:column;
+        flex-direction:column;
 		align-items:stretch;
 		justify-content:space-between;
 		
@@ -244,13 +245,12 @@ a:hover , a:focus{
 	}
 	.SliderType2 .sliderItems
 	{
-		height:80%;
+		flex:1;
 	}
 	
 	.SliderType2 .sliderTitles
 	{
 		display:flex; justify-content:center; align-items:stretch;
-		flex:1;
 	}
 	.SliderType2 .sliderTitles > *
 	{
@@ -259,6 +259,8 @@ a:hover , a:focus{
 		border:thin solid #bababa;
 		cursor:pointer;
 		background:white;
+        padding:3px;
+        text-align:center;
 	}
 	
 	.SliderType2 .sliderTitles > *.active
@@ -312,7 +314,6 @@ a:hover , a:focus{
 		background:white;
 		border:thin solid #bababa;
 		border-radius:2px;
-		margin:5px;
 	}
 	.flex-row-center-stretch
 	{
@@ -349,6 +350,13 @@ a:hover , a:focus{
         justify-content: center;
 		align-items:flex-start;
     }
+.flex-row-spacebetween-center {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+}
+
 .flex-wrap {
     flex-wrap:wrap;
 }

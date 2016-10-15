@@ -7,70 +7,71 @@
 
 
 
-<div class="SliderType2" style="min-height:500px; margin:10px;">
-	<div class="sliderItems">
-        @{int i = 1; }
-        @foreach (var item in slides)
-        {
-            <a href="@item.Url" class="slideItem" data-slide="@i">
-        	    <img src="@item.Image" alt=""/>
-            </a>   
+<div style="margin: 10px;" >
+    <div class="SliderType2" style="min-height: 500px; margin-bottom:10px;">
+        <div class="sliderItems">
+            @{int i = 1; }
+            @foreach (var item in slides)
+            {
+                <a href="@item.Url" class="slideItem" data-slide="@i">
+                    <img src="@item.Image" alt=""/>
+                </a>   
             i++;
         }
-    </div>
-    <div class="sliderTitles">
-        @{ i = 1; }
-        @foreach (var item in slides)
-        {
-            <section onClick="SliderType2ChangeSlide_byelement(this)" data-slide='@i' class="flex-column-center-stretch">
-                <h3>@item.Subject </h3>
-                <small>@item.Describe</small>
-            </section>
-            i++;
-        }
-    	
-    </div>
-</div>
-
-
-<div class="flex-row-center-fstart" style="margin:5px;">
-    <div class="w30 flex-row-center-center flex-wrap">
-        @for (int i2 = 0; i2 < 20; i2++)
-        {
-            <section style="width:150px; height:150px" class="item">
-                
-            </section>
-        }
-    </div>
-    <div class="w70">
-        <div class="SliderType1" style="height:400px; margin:5px;">
-            <div class="w25 sliderTitles">
-                <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='1'>موضوع اسلاید شماره 1 </section>
-                <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='2' data-slide='1'>موضوع اسلاید شماره 2  </section>
-                <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='3'>اسلایدر 3 </section>
-                <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='4'>موضوع اسلاید شماره 4</section>
-                <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='5'>موضوع اسلاید شماره 5</section>
-                <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='6'>موضوع اسلاید شماره 6</section>
-                <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='7'>موضوع اسلاید شماره 7</section>
-                <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='8'>موضوع اسلاید شماره 7</section>
-                <section onclick="SliderType1ChangeSlide_byindex(8)" data-slide='9'>موضوع اسلاید شماره 9</section>
-                <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='10'>موضوع اسلاید شماره 7 </section>
-                <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='11'>موضوع اسلاید شماره 7</section>
-                <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='12'>موضوع اسلاید شماره 7 </section>
-            </div>
-            <div class="w75 sliderItems">
-                <div class="slideItem" data-slide="1">
-                    <img src="../Cars/Images/img (1).jpg" alt="" />
-                </div>
-                <div class="slideItem" data-slide="2">
-                    <img src="../Cars/Images/img (1).png" alt="" />
-                </div>
-                <div class="slideItem" data-slide="9">
-                    <img src="../Cars/Images/img (3).jpg" alt="" />
-                </div>
-            </div>
         </div>
+        <div class="sliderTitles">
+            @{ i = 1; }
+            @foreach (var item in slides)
+            {
+                <section onClick="SliderType2ChangeSlide_byelement(this)" data-slide='@i' class="flex-column-center-stretch">
+                    <h3>@item.Subject </h3>
+                    <small>@item.Describe</small>
+                </section>
+            i++;
+        }
 
+        </div>
+    </div>
+
+
+    <div class="flex-row-center-fstart" style="">
+        <div class="w30 flex-row-spacebetween-center flex-wrap" style="margin-left:5px;">
+            @for (int i2 = 0; i2 < 10; i2++)
+            {
+                <section style="width: 48%; height: 110px; margin:2.5px;" class="item">
+                </section>
+        }
+        </div>
+        <div class="w70">
+            <div class="SliderType1" style="height: 400px; margin-right:5px;">
+                <div class="w25 sliderTitles">
+                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='1'>موضوع اسلاید شماره 1 </section>
+                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='2' data-slide='1'>موضوع اسلاید شماره 2  </section>
+                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='3'>اسلایدر 3 </section>
+                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='4'>موضوع اسلاید شماره 4</section>
+                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='5'>موضوع اسلاید شماره 5</section>
+                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='6'>موضوع اسلاید شماره 6</section>
+                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='7'>موضوع اسلاید شماره 7</section>
+                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='8'>موضوع اسلاید شماره 7</section>
+                    <section onclick="SliderType1ChangeSlide_byindex(8)" data-slide='9'>موضوع اسلاید شماره 9</section>
+                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='10'>موضوع اسلاید شماره 7 </section>
+                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='11'>موضوع اسلاید شماره 7</section>
+                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='12'>موضوع اسلاید شماره 7 </section>
+                </div>
+                <div class="w75 sliderItems">
+                    <div class="slideItem" data-slide="1">
+                        <img src="../Cars/Images/img (1).jpg" alt="" />
+                    </div>
+                    <div class="slideItem" data-slide="2">
+                        <img src="../Cars/Images/img (1).png" alt="" />
+                    </div>
+                    <div class="slideItem" data-slide="9">
+                        <img src="../Cars/Images/img (3).jpg" alt="" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 
