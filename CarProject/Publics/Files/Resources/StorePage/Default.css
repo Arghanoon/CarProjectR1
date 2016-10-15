@@ -158,7 +158,6 @@ a:hover , a:focus{
 
 /*----------------------------SliderType1---------------------------*/
 .SliderType1{
-		margin:10px;
 		background:white;
 		border:thin solid #bababa;
 		
@@ -239,7 +238,6 @@ a:hover , a:focus{
 		align-items:stretch;
 		justify-content:space-between;
 		
-		margin:10px;
 		background:white;
 		border:thin solid #bababa;
 		overflow:hidden;
@@ -345,6 +343,15 @@ a:hover , a:focus{
 		justify-content:center;
 		align-items:stretch;
 	}
+    .flex-row-center-fstart {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+		align-items:flex-start;
+    }
+.flex-wrap {
+    flex-wrap:wrap;
+}
 	
 	.w70{ width: 70%; }
 	.w75{ width: 75%; }
