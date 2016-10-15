@@ -305,6 +305,59 @@ a:hover , a:focus{
 		}
 /*-------------------------ENDSliderType2---------------------------*/
 
+/*----------------------------SliderType3---------------------------*/
+.SliderType3
+{
+	position:relative;
+	background:white;
+	border:thin solid #bababa;
+	
+	display:flex; justify-content:center; align-items:stretch;
+	overflow:hidden;
+}
+.SliderType3 .sliderItems
+{
+	position:absolute;
+	right:0;
+	height:100%;
+	display:flex;
+}
+
+.SliderType3 .sliderItems .slideItem
+{
+	border:thin solid transparent;
+	border-radius:3px;
+	padding:3px;
+	margin:0 5px;
+	height:100%;
+	display:flex; flex-direction:column;
+	justify-content:space-between;
+	align-items:center;
+}
+
+.SliderType3 .sliderItems .slideItem img
+{
+	height:100%;
+}
+
+.SliderType3 .sliderNav
+{
+	position:absolute;
+	top:0; bottom:0;
+	display:flex; justify-content:center;
+	align-items:center;
+	background:white;
+	cursor:pointer;
+	min-width:40px;
+	opacity:0.1;
+	z-index:10;
+	box-shadow:0 0 3px 0 #000;
+	transition:ease 0.3s;
+}
+.SliderType3:hover .sliderNav{ opacity:1;}
+.SliderType3 .sliderNav.right{right:0;}
+.SliderType3 .sliderNav.left{left:0;}
+/*-------------------------ENDSliderType3---------------------------*/
 
 
 
