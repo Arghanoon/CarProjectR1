@@ -72,7 +72,7 @@ function SliderType3GoLeft(el) {
         if (!SliderType3GoLeft_intvl) {
             SliderType3GoLeft_intvl = setInterval(function () {
                 cx2 = parseInt($(".sliderItems", $(el).parent(".SliderType3")).css("right"));
-                if (cx2 >= nr || cx2 >= cw) {
+                if (cx2 >= nr || cx2 >= 0) {
                     clearInterval(SliderType3GoLeft_intvl);
                     SliderType3GoLeft_intvl = false;
                 }
@@ -99,7 +99,7 @@ function SliderType3GoRight(el) {
         if (!SliderType3GoRight_intvl) {
             SliderType3GoRight_intvl = setInterval(function () {
                 cx2 = parseInt($(".sliderItems", $(el).parent(".SliderType3")).css("right"));
-                if (cx2 <= nr || cx2 <= -c2w) {
+                if (cx2 <= nr || cx2 <= (cw - c2w)) {
                     clearInterval(SliderType3GoRight_intvl);
                     SliderType3GoRight_intvl = false;
                 }
