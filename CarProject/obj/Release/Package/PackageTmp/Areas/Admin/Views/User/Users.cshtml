@@ -38,12 +38,24 @@
                     <th>ایمیل</th>
                     <td>@item.PersonEmail</td>
                 </tr>
+
+                <tr>
+                    <th>نوع کاربر</th>
+                    @if (item.User.UserRole != null)
+                    {
+                        <td>@item.User.UserRole.UserRole1</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    } 
+                </tr>
             </table>
 
             <div class="actinSection">
                 <a href="@Url.Action("UpdateUser","User")/@item.UserId" class="gia-edit button blue">ویرایش</a>
                 
-                @if(((CarProject.DBSEF.User)Session["useradmin"]).UserId != @item.UserId)
+                @if(((CarProject.DBSEF.User)Session["user"]).UserId != @item.UserId)
                 {
                     <a href="javascript:void()" onclick="deletebuttonclick('@item.UserId')" class="gia-remove button red">حذف</a>
                     
@@ -112,6 +124,8 @@
             text-align:right;
             background:#DDD;
             padding:0 3px;
+            width:0; 
+            white-space:nowrap;
         }
         #userContainer th , #userContainer td {
             border:thin solid #DDD;

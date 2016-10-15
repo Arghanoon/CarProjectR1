@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Linq.Expressions;
+using System.Globalization;
 
 namespace CarProject.App_Code
 {
@@ -103,6 +104,36 @@ namespace CarProject.App_Code
             return input_Password<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
         }
 
+        public static MvcHtmlString input_Password2<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass)
+        {
+
+            if (!htmlHelper.ViewData.ModelState.IsValidField(htmlHelper.NameFor(expression).ToString()))
+                AddAttribute(htmlAttributes, "class", errorClass);
+
+            AddAttribute(htmlAttributes, "placeholder", displayName);
+
+            string res = "<section class=\"input\">";
+
+            res += htmlHelper.LabelFor(expression, displayName);
+            res += string.Format("<input type=\"password\" name=\"{0}\" id=\"{1}\" value=\"{2}\" />", htmlHelper.NameFor(expression), htmlHelper.IdFor(expression), htmlHelper.ValueFor(expression));
+            res += htmlHelper.ValidationMessageFor(expression);
+
+            res += "</section>";
+            return new MvcHtmlString(res);
+        }
+        public static MvcHtmlString input_Password2<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, string errorClass)
+        {
+            return input_Password2<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), errorClass);
+        }
+        public static MvcHtmlString input_Password2<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName)
+        {
+            return input_Password2<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), "error");
+        }
+        public static MvcHtmlString input_Password2<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<string, object> htmlAttributes)
+        {
+            return input_Password2<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
+        }
+
 
         public static MvcHtmlString input_TextArea<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass)
         {
@@ -183,6 +214,52 @@ namespace CarProject.App_Code
             return input_ComboBox<TM, TP>(htmlHelper, expres, displayName, Items, htmlAttributes, "error");
         }
 
+        public static MvcHtmlString input_ComboBox<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<int,string> Items, IDictionary<string, object> htmlAttributes, string errorClass)
+        {
+
+            if (!htmlHelper.ViewData.ModelState.IsValidField(htmlHelper.NameFor(expression).ToString()))
+                AddAttribute(htmlAttributes, "class", errorClass);
+
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "--انتخاب کنید--", Value = "", Selected = true });
+
+            foreach (var item in Items)
+            {
+                items.Add(new SelectListItem { Text = item.Value, Value = item.Key.ToString() });
+            }
+
+            string res = "<section class=\"input\">";
+
+            res += htmlHelper.LabelFor(expression, displayName);
+            res += htmlHelper.DropDownListFor(expression, items, htmlAttributes);
+
+            /*res += string.Format("<select {0} {1} {2} >", htmlHelper.IdFor(expression).ToString(), htmlHelper.NameFor(expression).ToString(), attributes);
+           
+            res += string.Format("<option value=\"\" >{0}</option>", "--انتخاب کنید--");
+            foreach (var item in Items)
+            {
+                res += string.Format("<option value=\"{0}\" >{0}</option>", item);
+            }
+            
+            res += "</select>";*/
+
+            res += htmlHelper.ValidationMessageFor(expression);
+
+            res += "</section>";
+            return new MvcHtmlString(res);
+        }
+        public static MvcHtmlString input_ComboBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<int, string> Items, string errorClass)
+        {
+            return input_ComboBox<TM, TP>(htmlHelper, expres, displayName, Items, new Dictionary<string, object>(), errorClass);
+        }
+        public static MvcHtmlString input_ComboBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<int, string> Items)
+        {
+            return input_ComboBox<TM, TP>(htmlHelper, expres, displayName, Items, new Dictionary<string, object>(), "error");
+        }
+        public static MvcHtmlString input_ComboBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<int, string> Items, IDictionary<string, object> htmlAttributes)
+        {
+            return input_ComboBox<TM, TP>(htmlHelper, expres, displayName, Items, htmlAttributes, "error");
+        }
 
         public static MvcHtmlString input_CheckBox<tm>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, bool?>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass)
         {
@@ -256,6 +333,58 @@ namespace CarProject.App_Code
             return input_Rating<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
         }
 
+
+        public static MvcHtmlString input_SearchBox<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass, string buttonOnclick)
+        {
+
+            if (!htmlHelper.ViewData.ModelState.IsValidField(htmlHelper.NameFor(expression).ToString()))
+                AddAttribute(htmlAttributes, "class", errorClass);
+
+            AddAttribute(htmlAttributes, "placeholder", displayName);
+
+            string res = "<section class=\"input\">";
+
+            res += "<section>";
+            res += htmlHelper.LabelFor(expression, displayName);
+            res += htmlHelper.HiddenFor(expression, htmlAttributes);
+            res += "</section>";
+
+            res += "<section class=\"label\">";
+            res += string.Format("<section id=\"{0}\" ></section>", input_SearchBox_ID(htmlHelper, expression));
+            res += string.Format("<a href=\"javascript: void()\" onclick=\"{0}\" class=\"gia-search inbutton button\"></a>", buttonOnclick);
+            res += "</section>";
+
+
+            res += htmlHelper.ValidationMessageFor(expression);
+
+            res += "</section>";
+            return new MvcHtmlString(res);
+        }
+        public static MvcHtmlString input_SearchBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, string errorClass, string buttonOnclick)
+        {
+            return input_SearchBox<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), errorClass, buttonOnclick);
+        }
+        public static MvcHtmlString input_SearchBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, string buttonOnclick)
+        {
+            return input_SearchBox<TM, TP>(htmlHelper, expres, displayName, new Dictionary<string, object>(), "error", buttonOnclick);
+        }
+        public static MvcHtmlString input_SearchBox<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres, string displayName, IDictionary<string, object> htmlAttributes, string buttonOnclick)
+        {
+            return input_SearchBox<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error", buttonOnclick);
+        }
+
+        public static MvcHtmlString input_SearchBox_ID<TM, TP>(this HtmlHelper<TM> htmlHelper, Expression<Func<TM, TP>> expres)
+        {
+            var x = htmlHelper.IdFor(expres).ToString();
+            x = "txt_" + x;
+
+            return new MvcHtmlString(x);
+        }
+
+        #endregion
+
+
+        #region Display
         public static MvcHtmlString Display_Rating<tm, tp>(this HtmlHelper<tm> htmlHelper, Expression<Func<tm, tp>> expression, string displayName, IDictionary<string, object> htmlAttributes, string errorClass)
         {
 
@@ -293,7 +422,46 @@ namespace CarProject.App_Code
         {
             return Display_Rating<TM, TP>(htmlHelper, expres, displayName, htmlAttributes, "error");
         }
+        #endregion
+
+
+        #region DateAndTime
+        public static MvcHtmlString ToPersianDateString(this DateTime value)
+        {
+            try
+            {
+                PersianCalendar p = new PersianCalendar();
+                return new MvcHtmlString(string.Format("{0:0000}/{1:00}/{2:00}", p.GetYear(value), p.GetMonth(value), p.GetDayOfMonth(value)));
+            }
+            catch
+            {
+                return new MvcHtmlString("");
+            }
+        }
+
+        public static MvcHtmlString ToPersianDateString_LongTime(this DateTime value)
+        {
+            try
+            {
+                PersianCalendar p = new PersianCalendar();
+                return new MvcHtmlString(string.Format("{0:0000}/{1:00}/{2:00} - {3:00}:{4:00}:{5:00}", p.GetYear(value), p.GetMonth(value), p.GetDayOfMonth(value),
+                    value.Hour, value.Minute, value.Second));
+            }
+            catch
+            {
+                return new MvcHtmlString("");
+            }
+        }
+
+        #endregion
+
+        #region Usefull Extension
+        public static string YesNoString(this bool? value)
+        {
+            return (value.GetValueOrDefault()) ? "بله" : "خیر";
+        }
+        #endregion
     }
 
-    #endregion
+
 }

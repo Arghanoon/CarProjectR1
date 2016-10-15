@@ -54,8 +54,8 @@ namespace CarProject.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.error = "خطا در اتصال به دیتابیس";
-                    //ViewBag.error = "<br />" + ex.Message;
+                    //ViewBag.error = "خطا در اتصال به دیتابیس";
+                    ViewBag.error = "<br />" + ex.Message;
                     return View();
                 }
             }

@@ -1,84 +1,51 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "خانه";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    var slides = dbs.SlideShows.ToList();
 }
 
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>خودرو کلینیک</title>
 
-    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
-<style>
-*{position:relative; box-sizing:border-box; margin:0; padding:0; }
-
-body
+@if(slides.Count > 0)
 {
-	direction:rtl;
-	background:url(@System.Web.VirtualPathUtility.ToAbsolute("~/Publics/Files/Images/back.jpg")) no-repeat center;
-	background-size:100% auto;
-	height:100vh;
-}
-
-header
-{
-}
-	#title
-	{
-		position:fixed;
-		top:-100%;
-	}
-
-	#logo
-	{
-		width:100%;
-	}
-
-footer
-{
-	position:absolute;
-	bottom:0; left:0; right:0;
-	
-	font-family:f2;
-}
-	footer > * { padding: 5px; }
-	#arghanoon{
-		background:rgba(0,0,0,0.35);
-		font-family:f1;
-		display:flex;
-		justify-content:space-between;
-	}
-	
-	
-	a
-	{
-		color:#848484;
-		text-decoration:none;
-		text-shadow:0 0 0 #000000;
-	}
-	a:hover
-	{
-		text-shadow:1px 1px 0 #000000;
-	}
-</style>
-</head>
-
-<body>
-	
-    <header>
-    	<h1 id="title">کلینیک خودرو</h1>
-        <img id="logo" src="~/Publics/Files/Images/logo.png" />
-    </header>
+    <div id="SlideShowerBack" class="whitesmooke">
+    <div id="SlideShower">
+    	@*<div class="slides">
+        	<img  class="image" src="../Cars/Images/img (1).jpg" alt="describe" />
+            <h3 class="title">توضیحات تصویر</h3>
+            <p class="describe">توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | توضیحات بیشتر درمورد تصویر | </p>
+        </div>*@
+        
+        @foreach (var item in slides)
+        {
+            <a href="@item.Url" target="_blank" class="slides">
+        	    <img  class="image" src="@item.Image" alt="describe" />
+                <h3 class="title">@item.Subject</h3>
+                <p class="describe">@item.Describe</p>
+            </a>
+        }
+        
+        <section id="forwardButton" onClick="changeSlideForward()" class="slideMover gia-right" ></section>
+        <section id="backwardButton" onClick="changeSlideBackWard()" class="slideMover gia-left" ></section>
+        
+    </div>
+    <div id="slidesPreview">
+    </div>
+    <div id="slideShowController">
+    	<section class="gia-play" ></section>
+        <section class="gia-stop"></section>
+    </div>
+</div>
+}  
+<div id="contentContainer" class="page whitesmooke">
     
-    <footer>
-    	<div style="text-align:center;">
-        	<h1>@Html.ActionLink("ورود به بخش مدیریت","Index",new {area="Admin",controller =  "Dashboard"})</h1>
-        </div>
-    	<div id="arghanoon">
-            <section>گروه نرم افزار ارغنون</section>
-            <section>copyright &copy; 2016</section>
-        </div>
-    </footer>
+</div>
     
-</body>
-</html>
+
+<div id="AboutUsInnerPage" class="page2 whitesmooke">
+    @Html.Partial("AboutUs")
+</div>
+
+<div id="ContactUsInnerPage" class="page2 whitesmooke">
+    @Html.Partial("ContectUs")
+</div>

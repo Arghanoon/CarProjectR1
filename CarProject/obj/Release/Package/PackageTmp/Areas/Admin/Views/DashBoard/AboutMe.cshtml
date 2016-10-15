@@ -1,0 +1,21 @@
+﻿@using CarProject.App_Code
+@model CarProject.Areas.Admin.Models.Dashboard.AboutMe
+@{
+    ViewBag.Title = "درباره ما";
+}
+
+
+<div>
+    
+    <form method="post">
+        <div class="inputsContainer">
+            @Html.input_TextArea(m => m.ShortDescribe, "توضیحات مختصر")
+            @Html.input_TextArea(m => m.Html, "صفحه درباره ما")
+        </div>
+        <div class="inputAction">
+            <input type="submit" class="button green" value="ثبت" />
+        </div>
+    </form>
+</div>
+
+@Html.Action("tinymcefm", "FileManager", new { id = Html.IdFor(m => m.Html) })

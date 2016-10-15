@@ -3,8 +3,18 @@
 
 body
 {
-	font-family:f3;
+	font-family:yekan;
+    font-size:98%;
 	direction:rtl;
+}
+
+ul, ol {
+    margin:10px;
+    padding:5px;
+}
+li {
+    margin-left:10px;
+    margin-right:10px;
 }
 
 header
@@ -22,6 +32,10 @@ header
 	align-items:center;
 	
 	z-index:999;
+}
+#headerTitleAndInfo {
+    display:flex;
+    justify-content:center; align-items:center;
 }
 	header > *
 	{
@@ -87,6 +101,11 @@ a {
 			padding:10px;
 			margin-bottom:15px;
 		}
+         #menu nav .title {
+            border-bottom:thin solid #BBB; 
+            width:100%;
+        }
+
 		#menu a
 		{
 			color:inherit;
@@ -101,6 +120,13 @@ a {
 			{
 				text-shadow:0 0 2px #6C6C6C;
 			}
+        
+        #menu hr {
+            align-self:center;
+            width:70%;
+            border:none;
+            border-bottom:thin solid #999;
+        }
 	
 	#body
 	{
@@ -171,7 +197,6 @@ a {
 .wizardContainer
 {
 	position:relative;
-	width:70%; margin: auto;
 	margin-top:10px;
 }
 
@@ -258,16 +283,119 @@ a {
     width: 100%;
 }
     .grid1 thead {
-        background: #d6d6d6;
-        z-index: -1;
+        background: #555;
+        color:#fff;
+        /*z-index:1 ;*/
     }
 
     .grid1 th, .grid1 td {
         border: thin solid #2f2f2f;
         text-align: center;
+        padding:1px 5px;
     }
 
     .grid1 tbody tr:hover td {
         background: #e0e0e0;
         border: thin solid #2f2f2f;
     }
+
+    .grid1 .min_nw {
+        width:0;
+        white-space:nowrap;
+    }
+
+    .grid1 .tcenter {
+        text-align:center;
+    }
+    .grid1 .tright {
+        text-align:right;
+    }
+    .grid1 .tleft {
+        text-align:left;
+    }
+
+/*------------------------------TreeView------------------------------------*/
+.treeview
+	{
+		padding:5px;
+		margin:5px;
+	}
+		.treeview ul
+		{
+			
+		}
+			.treeview ul li
+			{
+                margin:3px;
+				margin-right:0;
+				list-style-type:none;
+				cursor:pointer;
+			}
+
+                .treeview ul li ul {
+                    margin-right:35px;
+                    border-right:thin solid #aaa;
+                }
+			
+	.treeview a + ul
+	{
+		display:none;
+		list-style-type:none;
+	}
+	.treeview a.active + ul
+	{
+		display:inherit;
+	}
+
+	
+	.treeview a 
+	{
+		text-decoration:none;
+		color:inherit;
+		list-style-type:none;
+	}
+
+    .treeview section 
+	{
+		display:inline-block;
+	}
+
+
+
+
+    /*------------------------------Info Table -----------------------------------*/
+
+.infoTable {
+    width:100%;
+    margin:5px;
+    border:thin solid #777;
+}
+
+    .infoTable th {
+        text-align:right;
+        background:#aaa;
+        white-space:nowrap;
+        vertical-align:text-top;
+    }
+
+    .infoTable th, .infoTable td {
+        border:thin solid #aaa;
+        padding:2px 5px;
+    }
+    .infoTable td {
+        width:100%;
+    }
+
+
+    /*--------------------------------------Other Classes---------------------------------------------*/
+.countShower {
+    display:inline-block;
+    color:#888;
+    border:thin solid ;
+    background:#eaeaea;
+    border-radius :5px;
+    text-align:center;
+    padding:0 3px;
+    font-size:70%;
+}
+

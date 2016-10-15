@@ -1,12 +1,14 @@
-﻿@model CarProject.Areas.Admin.Models.User.UserInfo
+﻿@model CarProject.Models.User.UserInfo
 @using CarProject.App_Code
 @{
     ViewBag.Title = "ویرایش اطلاعات کاربر";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
 }
 
 
 
 <form method="post">
+    @Html.HiddenFor(m => m.NoNeedPassword)
     @Html.HiddenFor(m => m.IsForUpdate)
     @Html.HiddenFor(m => m.Person.UserId)
     <div class="inputsContainer">
@@ -25,6 +27,8 @@
         @Html.input_TextBox(m => m.Person.User.Uname, "نام کاربری")
         @Html.input_Password(m => m.Password, "کلمه عبور")
         @Html.input_Password(m => m.PasswordConfirm, "تایید کلمه عبور")
+
+        @Html.input_ComboBox(m => m.Person.User.UserRoleId, "نوع کاربر", dbs.UserRoles.AsEnumerable().ToDictionary(r => r.UserRoleId, r => r.UserRole1))
 
     </div>
     <div style="display:flex; justify-content:center;" >

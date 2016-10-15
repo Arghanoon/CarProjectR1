@@ -55,6 +55,43 @@
 .gia-directory:before{content:'\004D';}
 .gia-upload:before{content:'\004E';}
 .gia-newdir:before{content:'\004F';}
+.gia-play:before{content:'\0050';}
+.gia-pause:before{content:'\0051';}
+.gia-stop:before{content:'\0052';}
+.gia-bw:before{content:'\0053';}
+.gia-fw:before{content:'\0054';}
+.gia-pp:before{content:'\0055';}
+.gia-pn:before{content:'\0056';}
+.gia-unchecked:before{content:'\0057';}
+.gia-checked:before{content:'\0058';}
+.gia-waitedUser:before{content:'\0059';}
+.gia-score:before{content:'\005A';}
+.gia-radioBUC:before{content:'\005B';}
+.gia-radioBCH:before{content:'\005C';}
+.gia-listView:before{content:'\005D';}
+.gia-gridView:before{content:'\005E';}
+.gia-news:before{content:'\005F';}
+.gia-brands:before{content:'\0060';}
+.gia-newCar:before{content:'\0061';}
+.gia-cars:before{content:'\0062';}
+.gia-rename:before{content:'\0063';}
+.gia-refresh:before{content:'\0064';}
+.gia-home:before{content:'\0065';}
+.gia-newsAdd:before{content:'\0066';}
+.gia-category:before{content:'\0067';}
+.gia-openFile:before{content:'\0068';}
+.gia-slides:before{content:'\006A';}
+.gia-newSlide:before{content:'\0069';}
+.gia-product:before{content:'\006B';}
+.gia-country:before{content:'\006C';}
+.gia-companies:before{content:'\006D';}
+.gia-distribution:before{content:'\006E';}
+.gia-select:before{content:'\006F';}
+.gia-products:before{content:'\0070';}
+.gia-article:before{content:'\0071';}
+.gia-service:before{content:'\0072';}
+.gia-userInfo:before{content:'\0073';}
+
 
 
 

@@ -1,0 +1,114 @@
+﻿@model CarProject.DBSEF.CarBrand
+@using CarProject.App_Code
+@using CarProject.DBSEF
+@using System.IO
+@{
+    ViewBag.Title = "مدیریت برندها";
+    var dbs = new CarAutomationEntities();
+
+    Func<int, string> GetBrandImage = (int id) =>
+    {
+        var ser = Server.MapPath("~/Publics/Gallery/Brands");
+        DirectoryInfo di = new DirectoryInfo(ser);
+        var f = di.GetFiles(string.Format("{0}.*", id));
+
+        if (f.Length > 0)
+            return Url.Content("~/Publics/Gallery/Brands/" + f[0].Name);
+        else
+            return "";
+    };
+}
+
+
+<div>
+    <h3>ثبت برند جدید</h3>
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            @Html.HiddenFor( m => m.CarBrandId)
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.CarBrandName, "نام برند")
+                @Html.input_TextArea(m => m.CarBrandHistory, "تاریخچه")
+                <section class="input">
+                    <section>تصویر برند:</section>
+                    <input type="file" name="brandLogo" id="brandLogo" onchange="LoadImage(this)" />
+                   
+                    <img src="@GetBrandImage(Model.CarBrandId)" id="selectedImage" alt="" style="height:100px;" />
+                </section>
+            </div>
+            <ul style="color:red;">
+                @try
+                {
+                    foreach (var item in ViewBag.error)
+                    {
+                        <li>@item</li>
+                    }
+                }
+                catch
+                {
+                }
+            </ul>
+            <div class="inputAction">
+                <input type="reset" value="خالی کردن فرم" class="button yellow" />
+                <input type="submit" name="btnRegNewBrand" value="ثبت برند" class="button green"/>
+            </div>
+        </form>
+    </div>
+    
+    <h3>برندهای ثبت شده</h3>
+    <table id="tblbrandsContainer" class="grid1">
+        <thead>
+            <tr>
+                <th>شناسه</th>
+                <th>نام برند</th>
+                <th>تصویر</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in dbs.CarBrands)
+            {
+                <tr>
+                    <td>@item.CarBrandId</td>
+                    <td>@item.CarBrandName</td>
+                    <td class="brandItems">
+                       <img src="@GetBrandImage(item.CarBrandId)" alt="" height="100" />
+                    </td>
+                    <td>
+                        <a href="Brands/@item.CarBrandId" class="gia-edit" ></a>
+                        <a href="Brands/@item.CarBrandId" class="gia-remove"></a>
+                    </td>
+                </tr>
+                
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section style
+{
+    <style>
+        #tblbrandsContainer img {
+            width:100px;
+        }
+    </style>
+}
+@section script
+{
+    <script>
+        function LoadImage(el) {
+            var preview = document.querySelector('#selectedImage');
+            var file = document.querySelector('#brandLogo').files[0];
+            var reader = new FileReader();
+
+            reader.addEventListener("load", function () {
+                preview.src = reader.result;
+            }, false);
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+}

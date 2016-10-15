@@ -3,7 +3,8 @@
 
 body
 {
-	font-family:f3;
+	font-family:yekan;
+    font-size:98%;
 	direction:rtl;
 }
 
@@ -31,6 +32,10 @@ header
 	align-items:center;
 	
 	z-index:999;
+}
+#headerTitleAndInfo {
+    display:flex;
+    justify-content:center; align-items:center;
 }
 	header > *
 	{
@@ -192,7 +197,6 @@ a {
 .wizardContainer
 {
 	position:relative;
-	width:70%; margin: auto;
 	margin-top:10px;
 }
 
@@ -281,12 +285,13 @@ a {
     .grid1 thead {
         background: #555;
         color:#fff;
-        z-index: -1;
+        /*z-index:1 ;*/
     }
 
     .grid1 th, .grid1 td {
         border: thin solid #2f2f2f;
         text-align: center;
+        padding:1px 5px;
     }
 
     .grid1 tbody tr:hover td {
@@ -294,6 +299,20 @@ a {
         border: thin solid #2f2f2f;
     }
 
+    .grid1 .min_nw {
+        width:0;
+        white-space:nowrap;
+    }
+
+    .grid1 .tcenter {
+        text-align:center;
+    }
+    .grid1 .tright {
+        text-align:right;
+    }
+    .grid1 .tleft {
+        text-align:left;
+    }
 
 /*------------------------------TreeView------------------------------------*/
 .treeview
@@ -366,3 +385,17 @@ a {
     .infoTable td {
         width:100%;
     }
+
+
+    /*--------------------------------------Other Classes---------------------------------------------*/
+.countShower {
+    display:inline-block;
+    color:#888;
+    border:thin solid ;
+    background:#eaeaea;
+    border-radius :5px;
+    text-align:center;
+    padding:0 3px;
+    font-size:70%;
+}
+

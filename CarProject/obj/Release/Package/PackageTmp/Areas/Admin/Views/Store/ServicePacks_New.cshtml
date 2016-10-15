@@ -1,0 +1,239 @@
+﻿@using CarProject.App_Code
+@{
+    ViewBag.Title = "اضافه کردن سرویس پک";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+}
+@model CarProject.Areas.Admin.Models.Store.ServicePacksModel
+
+<div>
+    <form method="post" onsubmit="submitFunction(event)">
+        <div class="inputsContainer">
+            @Html.input_TextBox(m => m.ServicePack.AutoServicePackName, "نام")
+            @Html.input_TextBox(m => m.ServicePack.PackPrice, "قیمت")
+
+            <div class="input">
+                <label for="">سرویس ها</label>
+                <div>
+                    <section id="DispalayFor_Services" tabindex="0" class="inputElement">
+                        <a href="javascript:void(0)" class="gia-select" onclick="$('#ServicesSelector').toggleClass('show')">انتخاب سرویس</a>
+                        <table class="grid1">
+                            <thead style="z-index: 1;">
+                                <tr>
+                                    <th>نام سرویس</th>
+                                    <th>قیمت</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="selectedServicesTbody">
+                                @foreach (var item in Model.ServicesIds)
+                                {
+                                    var srv = dbs.AutoServices.FirstOrDefault(c => c.AutoServiceId == item);
+                                    if (srv == null)
+                                    { continue; }
+                        
+                                    <tr onclick="this.remove()">
+                                        <input type="hidden" value="@item" />
+                                        <td>@srv.AutoServiceName</td>
+                                        <td>@srv.Price</td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                        <section><b>مجموع:</b> <span id="totalPrice"></span></section>
+                    </section>
+                </div>
+                @Html.ValidationMessageFor(m => m.ServicesIds)
+            </div>
+        </div>
+
+        <div class="inputAction">
+            <input type="submit" value="ثبت" class="button green" />
+        </div>
+    </form>
+</div>
+
+
+<div id="ServicesSelector" class="selectros">
+    <div class="title">
+        <strong><a href="javascript:void(0)" class="gia-delete" onclick="$('#ServicesSelector').toggleClass('show')">&times;</a> انتخاب خودروهای مرتبط</strong>
+    </div>
+    <div class="showSelectediTem">
+        <section id="ServicesSearchSection">
+            <input type="text" placeholder="جستجو سرویس بر اساس نام" id="ServicesSearchText" />
+            <button type="button" onclick="retriveServicesBaseOnSearch()" ><span class="gia-search"></span></button>
+        </section>
+    </div>
+
+    <div class="groupShowing">
+        <div id="caritemsShowing">
+            <table class="grid1">
+                <thead>
+                    <tr>
+                        <th>نام سرویس</th>
+                        <th>قیمت</th>
+                    </tr>
+                </thead>
+                <tbody id="ServicesTBody">
+                   
+                </tbody>
+            </table>
+        </div>
+        <div id="ServicespageShowing">
+
+        </div>
+    </div>
+
+    <div style="display:flex; flex-direction:row-reverse;">
+        <a href="javascript:void(0)" class="gia-delete button red" onclick="$('#ServicesSelector').toggleClass('show')" >بستن پنجره</a>
+    </div>
+</div>
+
+
+@section style
+{
+    <style>
+
+        .selectros {
+            background:#fafafa;
+            position:absolute;
+            top:0; left:0; bottom:0; right:0;
+            width:90%; max-height:70vh;
+            margin:auto;
+
+            border:thin solid #888;
+            border-radius:5px;
+            box-shadow:0 0 5px 0 #444;
+            overflow:hidden;
+            
+            display:none;
+            flex-direction:column;
+            z-index:2;
+        }
+            .selectros.show {
+                display:flex;
+            }
+
+            .selectros .showSelectediTem {
+                padding:1px 5px;
+            }
+
+            .selectros .title {
+                display:block;
+                margin-bottom:5px;
+                padding:1px 5px;
+                background:#888;
+                color:#fff;
+
+                display:flex; justify-content:flex-start; align-items:center;
+            }
+                .selectros .title a {
+                    color:inherit;
+                }
+        .selectros .groupShowing {
+            flex:1;
+            border-bottom:thin dotted #888;
+            border-top:thin dotted #888;
+            padding:5px;
+            overflow:auto;
+        }
+
+        #GroupSelector ul {
+            border-right: thin solid #888;
+            padding: 0;
+            margin: 0 10px;
+        }
+        #GroupSelector li {
+            list-style: none;
+        }
+        a[data-haveroot="1"]:before {
+            content: '\0047';
+            font-family: giadmin;
+            display: inline-block;
+            margin: 0 3px;
+            direction: ltr;
+        }
+
+
+        #ServicesSearchSection{
+            display:flex; align-items:stretch;
+            margin:5px;
+        }
+            #ServicesSearchSection input {
+                background:white;
+                width:100%;
+                padding:2px 5px;
+                border:thin solid #888;
+                font-family:yekan;
+            }
+            #ServicesSearchSection button{
+                background:#888;
+                color:white;
+                border:thin solid #888;
+                cursor:pointer;
+            }
+
+                #ServicesSearchSection button:active{
+                    box-shadow:0 0 3px 0 #000 inset;
+                }
+
+        #ServicesTBody tr, #selectedServicesTbody tr{
+            cursor:pointer;
+        }
+    </style>    
+}
+
+@section script
+{
+    <script>
+      
+
+        function submitFunction(e) {
+            e.preventDefault();
+            
+            $("#selectedServicesTbody input[type=hidden]").each(function (index, element) {
+                $(element).attr('name', 'ServicesIds[' + index + ']');
+            });
+
+            e.target.submit();
+        }
+
+        function retriveServicesBaseOnSearch() {
+            srchtxt = document.getElementById("ServicesSearchText").value;
+            $.post("@Url.Action("JsonServicesSearch","Store")", {search: srchtxt}, function (res)
+            {
+                cnt = document.getElementById("ServicesTBody");
+                cnt.innerHTML = "";
+                for (var i = 0; i < res.length; i++) {
+                    tr = document.createElement("tr");
+
+                    tr.onclick = function (e) {
+                        document.getElementById("selectedServicesTbody").appendChild(this);
+                        this.onclick = function () {
+                            this.remove();
+                        };
+                    };
+
+                    inp = document.createElement("input");
+                    inp.type = "hidden";
+                    inp.setAttribute("readonly", "readonly");
+                    inp.value = res[i]["id"];
+
+                    tr.appendChild(inp);
+
+                    td = document.createElement("td");
+                    td.innerHTML = res[i]["name"];
+                    tr.appendChild(td);
+
+                    td = document.createElement("td");
+                    td.innerHTML = res[i]["price"];
+                    tr.appendChild(td);
+
+                    cnt.appendChild(tr);
+                }
+            })
+        }
+
+        
+    </script>
+}

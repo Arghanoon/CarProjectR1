@@ -1,702 +1,577 @@
-﻿@using CarProject.Areas.Admin.Models.Cars
+﻿@model CarProject.Areas.Admin.Models.Cars.CarsModel
 @using CarProject.App_Code
-@using System.IO
-
-
-@model NewCar
-
+@using db = CarProject.DBSEF
 @{
-    ViewBag.Title = "ویرایش اطلاعات خودرو";
+    ViewBag.Title = "ثبت خودرو";
+    var dbs  = new db.CarAutomationEntities();
 }
 
 
-<form method="post" enctype="multipart/form-data">
-    @Html.HiddenFor(m => m.IsForUpdate)
+
+<form method="post" id="form1">
+    @Html.HiddenFor(m => m.Car.CarsId)
 
     <div class="wizardContainer">
-        <nav class="wizardNav">
-            <a href="#w1">اطلاعات عمومی خودرو</a>
+        <div class="wizardNav">
+            <a href="#w1">اطلاعات خودرو</a>
             <a href="#w2">موتور</a>
             <a href="#w3">گیر بکس</a>
             <a href="#w4">مشخصات فیزیکی</a>
-            <a href="#w5">سیستم سوخت رسانی</a>
-            <a href="#w6">سیستم ترمز</a>
-            <a href="#w7">سیستم امنیتی</a>
-            <a href="#w8">سیستم فرمان</a>
+            <a href="#w5">سیستم ترمز</a>
+            <a href="#w6">مصرف سوخت</a>
+            <a href="#w7">سیستم های امنیتی خودرو</a>
+            <a href="#w8">سیستم فرمان خودرو</a>
             <a href="#w9">سیستم تهویه</a>
             <a href="#w10">سیستم صوتی</a>
             <a href="#w11">صندلی ها</a>
-            <a href="#w12">شیشه و آینه ها</a>
-            <a href="#w13">سیستم روشنایی</a>
-            <a href="#w14">سیستم سنسورهای خوردرو</a>
-            <a href="#w15">سیستم کیسه هوا</a>
-            <a href="#w16">رینگ و لاستیک</a>
-            <a href="#w17">مزایای خودرو</a>
-            <a href="#w18">معایب خودرو</a>
+            <a href="#w12">شیشه و آینه</a>
+            <a href="#w13">روشنایی</a>
+            <a href="#w14">سنسورها</a>
+            <a href="#w15">کیسه هوا</a>
+            <a href="#w16">چرخها</a>
+            <a href="#w17">مزایا</a>
+            <a href="#w18">معایب</a>
             <a href="#w19">بررسی</a>
-            <a href="#w20">تصاویر خودرو</a>
-        </nav>
+        </div>
+
+
         <div class="wizardPage" id="w1">
-            <!--<section class="header">اطلاعات عمومی خودرو</section>-->
             <div class="inputsContainer">
-                @Html.input_TextBox(m => m.CarGeneral.CarsBrandName, "برند خودرو")
-                @Html.input_TextBox(m => m.CarGeneral.CarsClass, "کلاس خودرو")
-                @Html.input_TextBox(m => m.CarGeneral.CarsModel, "مدل خودرو")
-                @Html.input_Rating(m => m.CarGeneral.CarsClinicScore, "امتیاز کلینیک")
-                @Html.input_TextBox(m => m.CarGeneral.Price, "قیمت خودرو")
-                @Html.input_TextBox(m => m.CarGeneral.CarsVideoURL, "آدرس ویدئو")
-                @Html.input_TextArea(m => m.CarGeneral.CarsDescription, "توضیحات خودرو")
-                @Html.input_ComboBox(m => m.CarGeneral.CarClassType, "کلاس کاری خودرو", Model.CarClassTypeItems, new Dictionary<string, object>() { { "data-test", "have error test" } })
-                @Html.input_TextBox(m => m.CarGeneral.CarCategory, "دسته بندی خودرو")
-                @Html.input_TextBox(m => m.CarGeneral.CarUsage, "کاربرد خودرو")
+                @Html.input_ComboBox(m => m.Car.CarModel.CarBrandId, "برند", dbs.CarBrands.ToDictionary(b => b.CarBrandId, b => b.CarBrandName))
+                @Html.input_TextBox(m => m.Car.CarModel.CarModelName, "مدل")
+
+                @Html.input_TextBox(m => m.Car.CarsClass, "کلاس خودرو")
+                @Html.input_Rating(m => m.Car.CarsClinicScore, "امتیاز کلینیک")
+                @Html.input_TextBox(m => m.Car.Price, "قیمت اولیه")
+                @Html.input_TextBox(m => m.Car.CarsVideoURL, "آدرس ویدئو")
+                @Html.input_TextBox(m => m.Car.CarClassType, "کلاس خودرو")
+                @Html.input_TextBox(m => m.Car.CarCategory, "دسته بندی خودرو")
+                @Html.input_TextBox(m => m.Car.CarUsage, "کاربر خودرو")
+                @Html.input_TextBox(m => m.Car.CarYearModel, "ساخت ساخت")
+                @Html.input_ComboBox(m => m.Car.CarBodyType, "نوع بدنه", Model.List_CarBodyTypes)
+                @Html.input_TextArea(m => m.Car.CarsDescription, "توضیحات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
             </div>
         </div>
+
         <div class="wizardPage" id="w2">
             <div class="inputsContainer">
-                @Html.input_ComboBox(m => m.CarEngine.EngineType, "نوع موتور", Model.CarEngineTypeItems)
+                @Html.input_ComboBox(m => m.CarEngine.EngineType, "نوع موتور", Model.List_EngineTypes)
                 @Html.input_TextBox(m => m.CarEngine.EngineCylinderNumber, "تعداد سیلندر")
-                @Html.input_ComboBox(m => m.CarEngine.EngineFuel, "نوع سوخت", Model.CarEngineFuelTypeItems)
-                @Html.input_TextBox(m => m.CarEngine.EngineSize, "حجم موتور")
-                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpRpm, "قدرت موتور")
-                @Html.input_TextBox(m => m.CarEngine.EngineTorque, "گشتاور")
-                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpTon, "توان وزنی")
-                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpLitr, "توان خروجی")
-                @Html.input_TextBox(m => m.CarEngine.EngineMaxSpeed, "حداکثر سرعت")
-                @Html.input_TextBox(m => m.CarEngine.EngineZeroToH, "0 تا 100")
+                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpRpm, "قدرت (اسب بخار بر دور بر دقیقه)")
+                @Html.input_TextBox(m => m.CarEngine.EngineTorque, "گشتاور (نیوتون بر متر )")
+                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpTon, "توان وزنی (اسب بخار بر 1000 کلیوگرم)")
+                @Html.input_TextBox(m => m.CarEngine.EnginePowerHpLitr, "توان خروجی (اسب بخار بر لیتر)")
+                @Html.input_TextBox(m => m.CarEngine.EngineMaxSpeed, "حداکثر سرعت (کلیومتر بر ساعت)")
+                @Html.input_TextBox(m => m.CarEngine.EngineZeroToH, "صفر تا صد خودرو (ثانیه)")
+                @Html.input_TextBox(m => m.CarEngine.EngineSize, "حجم موتور (سی سی )")
+                @Html.input_ComboBox(m => m.CarEngine.EngineFuel, "سوخت خودرو", Model.List_EngineFuel)
                 @Html.input_TextArea(m => m.CarEngine.EngineDescription, "توضیحات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+
         <div class="wizardPage" id="w3">
             <div class="inputsContainer">
-                @Html.input_TextBox(m => m.CarGearBox.GearBoxCode, "کد گیربکس")
-                @Html.input_ComboBox(m => m.CarGearBox.GearBoxType, "نوع گیربکس", Model.carGearBoxTypeItems)
-                @Html.input_CheckBox(m => m.CarGearBox.GearBoxCanBeManual, "قابلیت تعویض به صورت دستی")
-                @Html.input_TextBox(m => m.CarGearBox.GearBoxShiftNumber, "تعداد دنده")
-                @Html.input_ComboBox(m => m.CarGearBox.GearBoxAxel, "محور متحرک", Model.DiffSetItems)
-                @Html.input_CheckBox(m => m.CarGearBox.HasTransferCase, "آیا دارای کمک گیربکس است؟")
-                @Html.input_CheckBox(m => m.CarGearBox.GearBoxDiffrentionalLock, "آیا دارای قفل گیربکس است؟")
-                @Html.input_TextBox(m => m.CarGearBox.GearBoxWdType, "نوع 4WD")
-                @Html.input_TextBox(m => m.CarGearBox.GearBoxDescription, "توضیحات گیربکس")
+                @Html.input_TextBox(m => m.GearBox.GearBoxCode, "کد گیربکس")
+                @Html.input_ComboBox(m => m.GearBox.GearBoxType, "نوع گیربکس", Model.List_GearBoxType)
+                @Html.input_CheckBox(m => m.GearBox.GearBoxCanBeManual, "قابلیت تبدیل به دنده دستی")
+                @Html.input_TextBox(m => m.GearBox.GearBoxShiftNumber, "تعداد دنده")
+                @Html.input_TextBox(m => m.GearBox.GearBoxAxel, "محور جابه‌جایی")
+                @Html.input_CheckBox(m => m.GearBox.HasTransferCase, "آیا دارای کمک گیربکس است")
+                @Html.input_CheckBox(m => m.GearBox.GearBoxDiffrentionalLock, "قفل دفرانسیل")
+                @Html.input_TextBox(m => m.GearBox.GearBoxWdType, "نوع 4WD")
+                @Html.input_TextArea(m => m.GearBox.GearBoxDescription, "توضیحات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+
         <div class="wizardPage" id="w4">
             <div class="inputsContainer">
-                @Html.input_TextBox(m => m.CarPhysicalDetail.CarLength, "طول خودرو")
-                @Html.input_TextBox(m => m.CarPhysicalDetail.Carwidth, "عرض خودرو")
-                @Html.input_TextBox(m => m.CarPhysicalDetail.CarHeight, "ارتفاع خودرو")
-                @Html.input_TextBox(m => m.CarPhysicalDetail.CarTrack, "فاصله دوچرخ یک محور")
-                @Html.input_TextBox(m => m.CarPhysicalDetail.CarWheelBase, "فاصله دو محور از یکدیگر")
-                @Html.input_TextBox(m => m.CarPhysicalDetail.CarPureWeight, "وزن خالص")
-                @Html.input_TextBox(m => m.CarPhysicalDetail.CarTankSize, "حجم باک")
-                @Html.input_TextArea(m => m.CarPhysicalDetail.Details, "توضیحات")
+                @Html.input_TextBox(m => m.PhysicalDetail.CarLength, "طول خودرو")
+                @Html.input_TextBox(m => m.PhysicalDetail.Carwidth, "عرض خودرو")
+                @Html.input_TextBox(m => m.PhysicalDetail.CarHeight, "ارتفاع خودرو")
+                @Html.input_TextBox(m => m.PhysicalDetail.CarTrack, "فاصله دو چرخ یک محور")
+                @Html.input_TextBox(m => m.PhysicalDetail.CarWheelBase, "فاصله دو محور از یکدیگر")
+                @Html.input_TextBox(m => m.PhysicalDetail.CarPureWeight, "وزن خالص")
+                @Html.input_TextBox(m => m.PhysicalDetail.CarTankSize, "حجم باک بنزین")
+                @Html.input_TextBox(m => m.PhysicalDetail.Details, "توضیحات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+        
         <div class="wizardPage" id="w5">
-
             <div class="inputsContainer">
-                @Html.input_TextBox(m => m.FuelConsumption.LphCity, "مصرف در شهر")
-                @Html.input_TextBox(m => m.FuelConsumption.LphRoad, "مصرف در جاده")
-                @Html.input_TextBox(m => m.FuelConsumption.LphMix, "سیکل ترکیبی")
+                @Html.input_TextBox(m => m.BrakeSystem.FrontBrakeSystem, "سیستم ترمزهای چرخ های جلو")
+                @Html.input_TextBox(m => m.BrakeSystem.RearBrakeSystem, "سیستم ترمز چرخ های عقب")
+                @Html.input_TextBox(m => m.BrakeSystem.OtherSystem, "سیستم های دیگر")
+                @Html.input_TextBox(m => m.BrakeSystem.HandBrakeSystem, "سیستم ترمز دستی")
+                @Html.input_TextArea(m => m.BrakeSystem.Details, "جزئیات")
+            </div>
+
+            <h3 class="underline">ثبت جزئیات <a href="javascript:void()" onclick="InsertNew_Textbox('DetailedBreakSystemControls')" class="gia-add"></a></h3>
+            <div class="detailsContainer">
+                <div class="controls" id="DetailedBreakSystemControls">
+                    @foreach (var item in Model.DetailedBrakeSystems)
+                    {
+                        <div class="input">
+                            <input type="text" value="@item.DetailedName" />
+                            <a href="javascript:void()" onclick="this.offsetParent.remove();" class="gia-remove" ></a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+        
+        <div class="wizardPage" id="w6">
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.FuelConsumption.LphCity, "مصرف سوخت داخل شهر")
+                @Html.input_TextBox(m => m.FuelConsumption.LphRoad, "مصرف سوخت جاده")
+                @Html.input_TextBox(m => m.FuelConsumption.LphMix, "سیکل ترکیبی مصرف سوخت")
                 @Html.input_TextArea(m => m.FuelConsumption.Details, "توضیحات")
             </div>
-            <hr />
-
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
-        <div class="wizardPage" id="w6">
-
-            <div class="inputsContainer">
-                @Html.input_TextBox(m => m.BreakSystem.FrontBrakeSystem, "سیستم ترمز جلو")
-                @Html.input_TextBox(m => m.BreakSystem.RearBrakeSystem, "سیستم ترمز عقب")
-                @Html.input_TextArea(m => m.BreakSystem.OtherSystem, "سیستم های دیگر")
-                @Html.input_TextBox(m => m.BreakSystem.HandBrakeSystem, "سیستم ترمز دستی")
-                @Html.input_TextArea(m => m.BreakSystem.Details, "توضیحات")
-            </div>
-            <hr />
-
-
-            <div class="inputsContainer">
-                <section class="input">
-                    <strong>جزئیات سیستم ترمز<a href="javascript: void()" class="gia-add" onclick="addAnewItem()"></a></strong>
-
-                </section>
-                <div id="breakSystemDetails" class="input">
-                    @if (Request.Form.GetValues("DetailedBrakeSystemItem") != null)
-                    {
-                        foreach (var item in Request.Form.GetValues("DetailedBrakeSystemItem"))
-                        {
-                            <section class="removeable">
-                                <input type="text" name="DetailedBrakeSystemItem" value="@item" />
-                                <section class="gia-remove"></section>
-                            </section>
-                        }
-                    }
-                </div>
-            </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
-            </div>
-        </div>
+        
         <div class="wizardPage" id="w7">
-
             <div class="inputsContainer">
-                @Html.input_CheckBox(m => m.SecuritySystem.RemoteControl, "آیا دارای ریموت کنترل است")
-                @Html.input_CheckBox(m => m.SecuritySystem.BurglarAlarm, "آیا دارای دزدگیر است؟")
-                @Html.input_CheckBox(m => m.SecuritySystem.Alarm, "آیا دارای آژیر است؟")
-                @Html.input_CheckBox(m => m.SecuritySystem.Emo, "آیا دارای سیستم ضد سرقت است؟")
-                @Html.input_CheckBox(m => m.SecuritySystem.KeylessDoor, "آیا دارای درهای بازشو بدون کلید است؟")
-                @Html.input_CheckBox(m => m.SecuritySystem.KeylessStart, "آیا سیستم استارت بدون کلید است؟")
+                @Html.input_CheckBox(m => m.SecuritySystem.RemoteControl, "آیا دارای ریموت کنترل است ؟")
+                @Html.input_CheckBox(m => m.SecuritySystem.BurglarAlarm, "آیا دارای دزدگیر است ؟")
+                @Html.input_CheckBox(m => m.SecuritySystem.Alarm, "آیا دارای آژیر است ؟")
+                @Html.input_CheckBox(m => m.SecuritySystem.Emo, "آیا دارای سیستم ضد سرقت است ؟")
+                @Html.input_CheckBox(m => m.SecuritySystem.KeylessDoor, "آیا درب ها بدون سوییچ باز میشود ؟")
+                @Html.input_CheckBox(m => m.SecuritySystem.KeylessStart, "آیا بدون سوییچ روشن می‌شود ؟")
                 @Html.input_TextArea(m => m.SecuritySystem.Details, "توضیحات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+        
         <div class="wizardPage" id="w8">
-
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.SteeringSystem.SteeringSystemType, "نوع سیستم فرمان")
-                @Html.input_TextBox(m => m.SteeringSystem.SteeringType, "مدل فرمان")
-                @Html.input_CheckBox(m => m.SteeringSystem.SteeringHeightAdjustble, "امکان تنظیم ارتفاع دارد؟")
-                @Html.input_CheckBox(m => m.SteeringSystem.SteeringControlKey, "آیا دارای دکمه کنترلی روی فرمان است؟")
-                @Html.input_TextArea(m => m.SteeringSystem.Details, "توضیحات")
+                @Html.input_TextBox(m => m.SteeringSystem.SteeringType, "مدل فرمان ")
+                @Html.input_TextBox(m => m.SteeringSystem.SteeringHeightAdjustble, "امکان تنظیم ارتفاع فرمان ")
+                @Html.input_TextBox(m => m.SteeringSystem.SteeringControlKey, "دکمه های کنترلی روی فرمان")
+                @Html.input_TextBox(m => m.SteeringSystem.Details, "جزئیات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+        
         <div class="wizardPage" id="w9">
-
             <div class="inputsContainer">
-                @Html.input_TextBox(m => m.AirConditioningSystem.AirConditioningType, "نوع سیستم تهویه هوا")
-                @Html.input_TextArea(m => m.AirConditioningSystem.Details, "توضیحات")
+                @Html.input_TextBox(m => m.AirConditioningSystem.AirConditioningType, "نوع تهویه")
+                @Html.input_TextBox(m => m.AirConditioningSystem.Details, "جزئیات")
             </div>
-            <!---->
+            
+            <h3 class="underline">جزئیات <a href="javascript: void();" onclick="InsertNew_TextboxAndTextArea('AirContitionSystemDetails');" class="gia-add"></a></h3>
             <div>
-                <strong><a href="javascript:void()" class="gia-add" onclick="AddAirConditioningSystemDetailsItem()">اضافه کردن جزئیات</a></strong>
-                <div id="AirConditioningSystemDetailsItems">
-                    @{ int aicsdi = 0; }
+                <div class="controls" id="AirContitionSystemDetails">
                     @foreach (var item in Model.AirConditioningSystemDetails)
                     {
-                        <div class="AirConditioningSystemDetailsItem input removeable2">
-                            <input type="text" name="AirConditioningSystemDetails[@aicsdi].AirConditioningSystemDetail1" value="@item.AirConditioningSystemDetail1" />
-                            <textarea name="AirConditioningSystemDetails[@aicsdi].AirConditioningSystemDetailSubject">@item.AirConditioningSystemDetailSubject</textarea>
-                            <section class="gia-remove"></section>
+                        <div class="controls2">
+                            <div class="input">
+                                <input type="text" value="@item.AirConditioningSystemDetailSubject" />
+                                <a href="javascript:void()" onclick="this.offsetParent.offsetParent.remove();" class="gia-remove"></a>
+                            </div>
+                            <div class="input">
+                                <textarea>@item.AirConditioningSystemDetail1</textarea>
+                            </div>
                         </div>
-                        aicsdi++;
                     }
                 </div>
             </div>
 
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+        
         <div class="wizardPage" id="w10">
-
             <div class="inputsContainer">
-                @Html.input_TextBox(m => m.CarAudioSystem.AudioSystemType, "نوع سیستم صوتی")
-                @Html.input_TextBox(m => m.CarAudioSystem.AudioSystemBrand, "برند سیستم صوتی")
-                @Html.input_CheckBox(m => m.CarAudioSystem.HasMonitor, "آیا دارای مانیتور است؟")
-                @Html.input_CheckBox(m => m.CarAudioSystem.RearSeatsMonitor, "آیا دارای مانیتور برای سرنشین عقب است؟")
-                @Html.input_CheckBox(m => m.CarAudioSystem.RearGearCamera, "آیا دارای دوربین دنده عقب است؟")
-                @Html.input_CheckBox(m => m.CarAudioSystem.FrontCamera, "آیادارای دوربین جلو است؟")
-                @Html.input_TextBox(m => m.CarAudioSystem.RearStereo, "مارک باندهای عقب")
-                @Html.input_TextBox(m => m.CarAudioSystem.FrontStereo, "مارک باندهای جلو")
-                @Html.input_TextBox(m => m.CarAudioSystem.Subwoofer, "ساب ووفر")
-                @Html.input_TextBox(m => m.CarAudioSystem.Amplifire, "آمپلی فایر")
-                @Html.input_CheckBox(m => m.CarAudioSystem.HasGps, "آیا دارای سیستم جهت یابی است؟")
-                @Html.input_TextBox(m => m.CarAudioSystem.Details, "توضیحات")
+                @Html.input_TextBox(m => m.CarAudioSystem.AudioSystemType ,"نوع سیستم صوتی خودرو")
+                @Html.input_TextBox(m => m.CarAudioSystem.AudioSystemBrand ,"برند سیستم صوتی")
+                @Html.input_CheckBox(m => m.CarAudioSystem.HasMonitor ,"آیا دارای مانیتور است ؟")
+                @Html.input_CheckBox(m => m.CarAudioSystem.RearSeatsMonitor ,"آیا دارای مانیتور صندلی عقب است ؟")
+                @Html.input_CheckBox(m => m.CarAudioSystem.RearGearCamera ,"دوربین دنده عقب ؟")
+                @Html.input_CheckBox(m => m.CarAudioSystem.FrontCamera ,"دوربین دید جلو ؟")
+                @Html.input_TextBox(m => m.CarAudioSystem.RearStereo ,"مارک سیستم صوتی عقب")
+                @Html.input_TextBox(m => m.CarAudioSystem.FrontStereo ,"مارک سیستم صوتی جلو")
+                @Html.input_TextBox(m => m.CarAudioSystem.Subwoofer ,"مارک سابووفر")
+                @Html.input_TextBox(m => m.CarAudioSystem.Amplifire ,"مارک آمپلی فایر")
+                @Html.input_CheckBox(m => m.CarAudioSystem.HasGps ,"آیا دارای رهیاب ماهواره ای است ؟")
+                @Html.input_TextArea(m => m.CarAudioSystem.Details ,"توضیحات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+        
         <div class="wizardPage" id="w11">
-
             <div class="inputsContainer">
-                @Html.input_CheckBox(m => m.CarSeatOption.LongitudinalDisplacement, "آیا امکان جابه جایی طوری دارد؟")
-                @Html.input_CheckBox(m => m.CarSeatOption.BezelSet, "آیا دارای تنظیم گودی کمر است؟")
-                @Html.input_CheckBox(m => m.CarSeatOption.SeatWarmer, "گرم کن صندلی دارد؟")
-                @Html.input_CheckBox(m => m.CarSeatOption.SeatMassage, "آیا مجهز به سیستم ماساژور است؟")
-                @Html.input_CheckBox(m => m.CarSeatOption.HasMemory, "آیا دارای حافظه است؟")
-                @Html.input_TextArea(m => m.CarSeatOption.Details, "توضیحات")
+                @Html.input_CheckBox(m => m.CarSeatOption.LongitudinalDisplacement ,"آیا دارای جابه‌جایی طولی است ؟")
+                @Html.input_CheckBox(m => m.CarSeatOption.BezelSet ,"آیا دارای تنظیم گودی کمر است ؟")
+                @Html.input_CheckBox(m => m.CarSeatOption.SeatWarmer ,"آیا دارای گرمکن صندلی است ؟")
+                @Html.input_CheckBox(m => m.CarSeatOption.SeatMassage ,"آیا دارای ماساژور صندلی است ؟")
+                @Html.input_CheckBox(m => m.CarSeatOption.HasMemory ,"آیا دارای حافظه است ؟")
+                @Html.input_TextArea(m => m.CarSeatOption.Details ,"توضیحات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+        
         <div class="wizardPage" id="w12">
-
             <div class="inputsContainer">
-                @Html.input_TextBox(m => m.GlassAndMirror.FrontWindscreens, "سیستم شیشه های جلو")
-                @Html.input_TextBox(m => m.GlassAndMirror.RearWindscreens, "سیستم شیشه های عقب")
-                @Html.input_CheckBox(m => m.GlassAndMirror.SunRoof, "سان روف دارد؟")
-                @Html.input_CheckBox(m => m.GlassAndMirror.PanaromaRoof, "سقف پانورما دارد؟")
-                @Html.input_CheckBox(m => m.GlassAndMirror.RearGlassWarmer, "گرمکن شیشه عقب ؟")
-                @Html.input_CheckBox(m => m.GlassAndMirror.WindscreensWarmer, "گرم کن شیشه های بقل؟")
-                @Html.input_CheckBox(m => m.GlassAndMirror.FrontGlassWarmer, "گرمکن شیشه های جلو؟")
-                @Html.input_TextBox(m => m.GlassAndMirror.SideMirrorSet, "تنظیم آینه های بقل")
-                @Html.input_TextBox(m => m.GlassAndMirror.SideMirrorSystem, "جمع شدن آینه های بقل")
-                @Html.input_TextArea(m => m.GlassAndMirror.Details, "توضیحات")
+                @Html.input_ComboBox(m => m.GlassAndMirror.FrontWindscreens, "سیستم شیشه های جلو", Model.List_WindscreensTypes)
+                @Html.input_ComboBox(m => m.GlassAndMirror.RearWindscreens, "سیستم شیشه های عقب", Model.List_WindscreensTypes)
+                @Html.input_TextBox(m => m.GlassAndMirror.SunRoof, "آیا دارای سانروف است ؟")
+                @Html.input_TextBox(m => m.GlassAndMirror.PanaromaRoof, "آیا دارای سقف پاناروما است ؟")
+                @Html.input_TextBox(m => m.GlassAndMirror.RearGlassWarmer, "آیا دارای گرم کن شیشه عقب است ؟")
+                @Html.input_TextBox(m => m.GlassAndMirror.WindscreensWarmer, "آیا دارای گرم کن شیشه‌های بقل است ؟")
+                @Html.input_TextBox(m => m.GlassAndMirror.FrontGlassWarmer, "آیا دارای گرم کن شیشه جلو است ؟")
+                @Html.input_ComboBox(m => m.GlassAndMirror.SideMirrorSet, "سیستم آینه بقل", Model.List_SideMirrorTypes)
+                @Html.input_ComboBox(m => m.GlassAndMirror.SideMirrorSystem, "سیستم جمع شدن آینه بقل", Model.List_SideMirrorSystemTypes)
+                @Html.input_TextArea(m => m.GlassAndMirror.Details, "جزئیات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+        
         <div class="wizardPage" id="w13">
-
             <div class="inputsContainer">
-                @Html.input_TextBox(m => m.CarLightingSystem.FrontLights, "سیستم چراغ های جلو")
-                @Html.input_TextBox(m => m.CarLightingSystem.RearLights, "سیستم چراغ های عقب")
-                @Html.input_CheckBox(m => m.CarLightingSystem.DayLight, "دیلایت")
-                @Html.input_CheckBox(m => m.CarLightingSystem.SideMirrorLight, "چراغ راهنما روی آینه های بغل")
-                @Html.input_CheckBox(m => m.CarLightingSystem.FonrAntiFog, "مه شکن جلو")
-                @Html.input_CheckBox(m => m.CarLightingSystem.RearAntiFog, "مه شکن عقب")
-                @Html.input_CheckBox(m => m.CarLightingSystem.ReadingLamp, "چراغ مطلالعه")
-                @Html.input_CheckBox(m => m.CarLightingSystem.ThirdLightStop, "چراغ ترمز سوم")
-                @Html.input_TextArea(m => m.CarLightingSystem.Deailts, "توضیحات")
+                @Html.input_TextBox(m => m.CarLightingSystem.FrontLights, "سیستم روشنایی جلو")
+                @Html.input_TextBox(m => m.CarLightingSystem.RearLights, "سیستم روشنایی عقب")
+                @Html.input_TextBox(m => m.CarLightingSystem.DayLight, "آیا دارای LED روز است ؟")
+                @Html.input_TextBox(m => m.CarLightingSystem.SideMirrorLight, "آیا دارای راهنما روی آینه های بقل است ؟")
+                @Html.input_TextBox(m => m.CarLightingSystem.FonrAntiFog, "آیا دارای مه شکن جلو است ؟")
+                @Html.input_TextBox(m => m.CarLightingSystem.RearAntiFog, "آیا دارای مه شکن عقب است ؟")
+                @Html.input_TextBox(m => m.CarLightingSystem.ReadingLamp, "آیا دارای چراغ مطالعه است ؟")
+                @Html.input_TextBox(m => m.CarLightingSystem.ThirdLightStop, "آیا دارای چراغ سوم خطر است ؟")
+                @Html.input_TextArea(m => m.CarLightingSystem.Deailts, "جزئیات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+        
         <div class="wizardPage" id="w14">
-
             <div class="inputsContainer">
-                @Html.input_CheckBox(m => m.CarSensorsSystem.DayLightSensor, "سنسور روشنایی روز")
-                @Html.input_CheckBox(m => m.CarSensorsSystem.RainSensor, "سنسور باران")
-                @Html.input_CheckBox(m => m.CarSensorsSystem.RearGearCamera, "سنسور دنده عقب")
-                @Html.input_CheckBox(m => m.CarSensorsSystem.ParkSensor, "سنسور پارک خودرو")
-                @Html.input_CheckBox(m => m.CarSensorsSystem.NavigateSensor, "سنسور هدایت خودرو")
-                @Html.input_CheckBox(m => m.CarSensorsSystem.CruiseControl, "کروز کنترل")
-                @Html.input_CheckBox(m => m.CarSensorsSystem.RearGearCamera, "دوربین دنده عقب")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.DayLightSensor, "آیا دارای سیستم سنسور روشنایی روز است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.RainSensor, "آیا دارای سیستم سنسور باران است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.RearGearSensor, "آیا دارای سیستم سنسور دنده عقب است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.ParkSensor, "آیا دارای سیستم سنسور پارک است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.NavigateSensor, "آیا دارای سیستم سنسور ناوبری هدایت خودرو است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.CruiseControl, "آیا دارای کروز کنترل است ؟")
+                @Html.input_CheckBox(m => m.CarSensorsSystem.RearGearCamera, "آیا دارای دوربین عقب است ؟")
                 @Html.input_TextArea(m => m.CarSensorsSystem.Details, "توضیحات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+        
         <div class="wizardPage" id="w15">
-
             <div class="inputsContainer">
-                @Html.input_CheckBox(m => m.CarAirbag.DriverAirBag, "کیسه هوای راننده")
-                @Html.input_CheckBox(m => m.CarAirbag.FrontAirBag, "کیسه هوای شاگرد")
-                @Html.input_CheckBox(m => m.CarAirbag.AirBag, "کیسه هوای عقب")
+                @Html.input_CheckBox(m => m.CarAirbag.DriverAirBag, "آیا دارای کیسه هوای راننده است ؟")
+                @Html.input_CheckBox(m => m.CarAirbag.FrontAirBag, "آیا دارای کیسه هوای شاگرد است ؟")
+                @Html.input_CheckBox(m => m.CarAirbag.AirBag, "آیا دارای کیسه هوای سرنشینان عقب است ؟")
                 @Html.input_TextBox(m => m.CarAirbag.AirBagEntity, "تعداد کیسه هوا")
                 @Html.input_TextArea(m => m.CarAirbag.Details, "توضیحات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+        
         <div class="wizardPage" id="w16">
-
             <div class="inputsContainer">
-                @Html.input_TextBox(m => m.CarWheel.TireType, "نوع تایر")
+                @Html.input_TextBox(m => m.CarWheel.TireType, "نوع لاستیک")
                 @Html.input_TextBox(m => m.CarWheel.RingStandardSize, "سایز استاندارد رینگ")
-                @Html.input_TextBox(m => m.CarWheel.TireSpec, "مشخصات تایر")
+                @Html.input_TextBox(m => m.CarWheel.TireSpec, "مشخصات لاستیک")
                 @Html.input_TextBox(m => m.CarWheel.RingType, "نوع رینگ")
                 @Html.input_TextBox(m => m.CarWheel.RingModel, "مدل رینگ")
-                @Html.input_CheckBox(m => m.CarWheel.AutoInflated, "قابلیت کم و زیاد کردن باد به صورت خودکار؟")
+                @Html.input_CheckBox(m => m.CarWheel.AutoInflated, "قابلیت کم و زیاد کردن باد لاستیک به صورت اتوماتیک ؟")
                 @Html.input_TextArea(m => m.CarWheel.Details, "توضیحات")
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
+
+        
+        
         <div class="wizardPage" id="w17">
 
-
-            <div class="inputsContainer">
-                <strong><a href="javascript:void()" class="gia-add" onclick="AddAdvantage()">اضافه کردن مزیت</a></strong>
-                <div class="input" id="advantages">
-                    @if (Request.Form.GetValues("advantage") != null)
+            <div class="underline">مزایا <a href="javascript: void();" onclick="InsertNew_Textbox('AdvantagesDivs')" class="gia-add"></a></div>
+            <div class="detailsContainer">
+                <div class="controls" id="AdvantagesDivs">
+                    @foreach (var item in Model.Advantages)
                     {
-                        foreach (var item in Request.Form.GetValues("advantage"))
-                        {
-                            <section class="removeable">
-                                <input type="text" name="advantage" value="@item" />
-                                <section class="gia-remove"></section>
-                            </section>
-                        }
+                        <div class="input">
+                            <input type="text" value="@item" />
+                            <a href="javascript:void()" onclick="this.offsetParent.remove();" class="gia-remove" ></a>
+                        </div>
                     }
                 </div>
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
         <div class="wizardPage" id="w18">
 
-
-            <div class="inputsContainer">
-                <strong><a href="javascript:void()" class="gia-add" onclick="AddDisAdvantage()">اضافه کردن معایب</a></strong>
-                <div class="input" id="disAdvantages">
-                    @if (Request.Form.GetValues("disadvantage") != null)
+            <div class="underline">معایب <a href="javascript: void();" onclick="InsertNew_Textbox('DisAdvantagesDivs')" class="gia-add"></a></div>
+            <div class="detailsContainer">
+                <div class="controls" id="DisAdvantagesDivs">
+                    @foreach (var item in Model.DisAdvatages)
                     {
-                        foreach (var item in Request.Form.GetValues("disadvantage"))
-                        {
-                            <section class="removeable">
-                                <input type="text" name="disadvantage" value="@item" />
-                                <section class="gia-remove"></section>
-                            </section>
-                        }
+                        <div class="input">
+                            <input type="text" value="@item" />
+                            <a href="javascript:void()" onclick="this.offsetParent.remove();" class="gia-remove" ></a>
+                        </div>
                     }
                 </div>
             </div>
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
-        <div class="wizardPage" id="w19">
 
+
+        <div class="wizardPage" id="w19">
             <div class="inputsContainer">
-                @Html.input_TextArea(m => m.CarsReview.Review, "متن بررسی")
+                @Html.input_TextArea(m => m.CarsRviewHtml, "نقد و بررسی")
                 @Html.input_Rating(m => m.CarsReview.CarScore, "امتیاز خودرو")
-                @Html.input_Rating(m => m.CarsReview.Beauty, "زیبایی")
+                @Html.input_Rating(m => m.CarsReview.Beauty, "امتیاز زیبایی")
                 @Html.input_Rating(m => m.CarsReview.WorthBuying, "ارزش خرید")
                 @Html.input_Rating(m => m.CarsReview.Quality, "کیفیت")
-                @Html.input_Rating(m => m.CarsReview.Services, "خدمات")
+                @Html.input_Rating(m => m.CarsReview.Services, "خدمات پس از فروش")
             </div>
-
-            <div>
-                <strong><a href="javascript:void()" class="gia-add" onclick="addCarsReviewPointItem()">اضافه کردن جزئیات</a></strong>
-                <div id="CarsReviewPointItems">
-                    @{ int aicsdi1 = 0; }
-                    @foreach (var item in Model.CarsReviewPoint)
-                    {
-                        <div class="CarsReviewPointItem input removeable2">
-                            <input type="text" name="CarsReviewPoint[@aicsdi1].CarsReview" value="@item.CarsReview" />
-                            <textarea name="CarsReviewPoint[@aicsdi1].CarsReviewSubject">@item.CarsReviewSubject</textarea>
-                            <section class="gia-remove"></section>
-                        </div>
-                        aicsdi1++;
-                    }
-                </div>
+            
+            <div class="footer" style="direction: ltr;">
+                @*<input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />*@
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
-
-            <div class="footer">
-                <button type="button" onclick="wizardNextPage(this)" class="button">ادامه</button>
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
-            </div>
-        </div>
-        <div class="wizardPage" id="w20">
-
-            <div class="inputsContainer">
-                <strong><a href="javascript:void()" class="gia-add" onclick="AddImages()">اضافه کردن تصویر</a></strong>
-                @Html.HiddenFor(m => m.CarTempID)
-
-                <div class="input" id="carImages">
-
-                </div>
-                <div id="ImageUploadedTemp">
-                    @{
-                        var ipt = "~/Publics/CarImages/" + Model.CarGeneral.CarsId.ToString();
-                        var ip = Server.MapPath(ipt);
-
-                        DirectoryInfo di = new DirectoryInfo(ip);
-                        if (di.Exists)
-                        {
-                            foreach (var item in di.GetFiles())
-                            {
-                                var url = ipt + "/" + item.Name;
-                                <section class="uploadTmpImages">
-                                    <img src="@Url.Content(url)" />
-                                    <a href="javascript: void()" onclick="RemoveImage(this,'@item.Name')">&#10007;</a>
-                                </section>
-                            }
-                        }
-                    }
-                </div>
-            </div>
-            <div class="footer">
-                <button type="button" onclick="wizardPreviousPage(this)" class="button">قبلی</button>
-            </div>
-        </div>
-
-        <div style="direction:ltr; padding:10px;">
-            <button type="submit" class="button green">ثبت اطلاعات خودرو</button>
-            @Html.ActionLink("انصراف", "Index", "Dashboard", new { area = "Admin" }, new { CLASS = "button red" })
         </div>
     </div>
 
-
-
-    <input type="hidden" name="wizardpagecontainer" id="wizardpagecontainer" value="@Request["wizardpagecontainer"]" />
+    <div id="formAction">
+        <input type="submit" class="button green" value="ثبت اطلاعات خودرو" />
+    </div>
 </form>
 
 
+<div id="filebrowserBack" tabindex="0">
+    <div id="filebrowser" tabindex="1">
+        <div id="statusbar" tabindex="1.0">
+            <a href="javascript:void()" onclick="document.getElementById('filebrowserBack').style.display = 'none';" style="color:red;" title="close"> &times;</a>
+            |
+            <span>انتخاب فایل تصویر</span>
+        </div>
+        <div id="topToolbar" tabindex="1.1">
+            <a href="javascript: void()" class="gia-upload" onclick="document.getElementById('FileUploader').style.display = 'flex';">آپلود فایل</a> |
+            <a href="javascript: void()" class="gia-home" onclick="GetFiles('')">پوشه اصلی</a> | 
+            <a href="javascript: void()" class="gia-back" onclick="GetFiles(dirHistory.pop())">برگشت به پوشه قبلی</a> | 
+            <a href="javascript: void()" class="gia-refresh" onclick="dirHistory = [] ;GetFiles(currentDir);">بروزرسانی</a> |
+            <a href="javascript: void()" class="gia-newdir" onclick="document.getElementById('NewFolderCreate').style.display = 'flex'">پوشه جدید</a> 
+        </div>
+
+        <div id="navigation" tabindex="1.2"></div>
+
+        <div id="FilesContainer" tabindex="1.3">
+
+        </div>
+    </div>
+
+    <form method="post" id="renameContainer" class="box1" tabindex="2">
+        <h3>تغییر نام فایل</h3>
+        <input type="hidden" name="filepath" />
+        <input type="text" name="filename" id="fileBrowserTxtName" />
+        <div id="renameaction" class="actionbar">
+            <input type="button" value="انصراف" onclick="document.getElementById('renameContainer').style.display = 'none';" class="button yellow" />
+            <input type="button" value="تغییر نام" class="button green" onclick="RenameChangeRequest(event)" />
+        </div>
+    </form>
+    <form id="NewFolderCreate" class="box1">
+        <h3>ایجاد پوشه جدید</h3>
+        <input type="text" name="NewDirectorytxt" placeholder="folder name" />
+        <div  class="actionbar">
+            <input type="button" value="انصراف" onclick="document.getElementById('NewFolderCreate').style.display = 'none';" class="button yellow" />
+            <input type="button" value="تایید" class="button green" onclick="createNewDirRequest(this)" />
+        </div>
+    </form>
+    <form id="FileUploader" class="box1" enctype="multipart/form-data">
+        <h3>آپلود کردن فایل</h3>
+        <input type="file" name="file" />
+        <div class="actionbar" >
+            <input type="button" value="انصراف" onclick="document.getElementById('FileUploader').style.display = 'none';" class="button yellow" />
+            <input type="button" value="تایید" class="button green" onclick="UploadRequest(this)" />
+        </div>
+    </form>
+    <div id="ContextMenu" tabindex="3">
+        <a href="javascript:void()" onclick="RenameObject()" class="gia-rename">تغییر نام فایل</a>
+        <a href="javascript:void()" onclick="" class="gia-remove">حذف فایل</a>
+    </div>
+</div>
+
+@Html.Action("tinymcefm", "FileManager", new { id = Html.IdFor(m => m.CarsRviewHtml) })
 
 @section script
 {
     <script>
-        wizardAssignPostContainer(document.getElementById("wizardpagecontainer"));
-
-       
-
-        function addAnewItem() {
-            si = document.createElement("section");
-            si.classList.add("removeable");
-
-            inp = document.createElement("input");
-            inp.type = "text";
-            inp.name = "DetailedBrakeSystemItem";
-            si.appendChild(inp);
-
-            si2 = document.createElement("section");
-            si2.classList.add("gia-remove");
-            si2.onclick = function (e) { $(e.target.offsetParent).remove(); };
-            si.appendChild(si2);
-
-
-            document.getElementById("breakSystemDetails").appendChild(si);
+        document.getElementById("form1").addEventListener("submit", function (e) { e.preventDefault(); BeforeSubmitActions(); this.submit(); });
+        function BeforeSubmitActions() {
+            DetailedBreakSystemNaming();
+            AirConditioningSystemDetailsNaming();
+            AdvantagesNaming();
+            DisAdvantagesNaming();
         }
 
-        function AddAdvantage() {
-
-            si = document.createElement("section");
-            si.classList.add("removeable");
-
-            inp = document.createElement("input");
-            inp.type = "text";
-            inp.name = "advantage";
-            si.appendChild(inp);
-
-            si2 = document.createElement("section");
-            si2.classList.add("gia-remove");
-            si2.onclick = function (e) { $(e.target.offsetParent).remove(); };
-            si.appendChild(si2);
-
-            
-            document.getElementById("advantages").appendChild(si);
-        }
-        function AddDisAdvantage() {
-
-            si = document.createElement("section");
-            si.classList.add("removeable");
-
-            inp = document.createElement("input");
-            inp.type = "text";
-            inp.name = "disadvantage";
-            si.appendChild(inp);
-
-            si2 = document.createElement("section");
-            si2.classList.add("gia-remove");
-            si2.onclick = function (e) { $(e.target.offsetParent).remove(); };
-            si.appendChild(si2);
-
-            document.getElementById("disAdvantages").appendChild(si);
-        }
-        function AddImages() {
-            inp = document.createElement("input");
-            inp.type = "file";
-            inp.name = "carImage";
-
-            document.getElementById("carImages").appendChild(inp);
-        }
-        function RemoveImage(el, name) {
-            document.getElementById("ImageUploadedTemp").removeChild(el.offsetParent);
-
-            inp = document.createElement("input");
-            inp.type = "hidden";
-            inp.name = "carImageremove";
-            inp.value = name;
-
-            document.getElementById("carImages").appendChild(inp);
-        }
-
-
-        function AddAirConditioningSystemDetailsItem() {
-            var cont = document.getElementsByClassName("AirConditioningSystemDetailsItem").length;
-
-            div = document.createElement("div");
+        function InsertNew_Textbox(id) {
+            div = document.createElement('div');
             div.classList.add("input");
-            div.classList.add("AirConditioningSystemDetailsItem");
-            div.classList.add("removeable2");
 
-            inp = document.createElement("input");
+            del = document.createElement('a');
+            del.classList.add("gia-remove");
+            del.href = "javascript:void()";
+            del.onclick = function (e) { this.offsetParent.remove(); };
+            
+            inp = document.createElement("input")
             inp.type = "text";
-            inp.name = "AirConditioningSystemDetails[" + cont + "].AirConditioningSystemDetail1";
             div.appendChild(inp);
+            div.appendChild(del);
+            document.getElementById(id).appendChild(div);
+        }
+        function InsertNew_TextboxAndTextArea(id) {
+            div1 = document.createElement('div');
+            div1.classList.add("input");
 
-            inp2 = document.createElement("textarea");
-            inp2.name = "AirConditioningSystemDetails[" + cont + "].AirConditioningSystemDetailSubject";
+            del = document.createElement('a');
+            del.classList.add("gia-remove");
+            del.href = "javascript:void()";
+            del.onclick = function (e) { this.offsetParent.offsetParent.remove(); };
 
-            div.appendChild(inp2);
+            inp = document.createElement("input")
+            inp.type = "text";
+            div1.appendChild(inp);
+            div1.appendChild(del);
 
-            se = document.createElement("section");
-            se.classList.add("gia-remove");
-            se.onclick = function (e) { vp = e.target.offsetParent.offsetParent;  $(e.target.offsetParent).remove(); CollectionResort(vp); };
-            div.appendChild(se);
-
-            document.getElementById("AirConditioningSystemDetailsItems").appendChild(div);
+            div2 = document.createElement('div');
+            div2.classList.add("input");
+            txtarea = document.createElement("textarea");
+            div2.appendChild(txtarea);
+            
+            div = document.createElement('div');
+            div.classList.add("controls2");
+            div.appendChild(div1);
+            div.appendChild(div2);
+            document.getElementById(id).appendChild(div);
         }
 
-        function CollectionResort(colCont) {
-            $("> *",colCont).each(function (indexr, element) {
-                
-                $("[name*='[']", element).each(function(index,element){
-                    nm = $(this).attr('name');
-                    nm2 = nm.substring(0, nm.indexOf('[')) + "[" + indexr + nm.substring(nm.indexOf("]"));
-                   
-                    $(element).attr('name', nm2);
-                });
+        function DetailedBreakSystemNaming() {
+            $("#DetailedBreakSystemControls  input").each(function (index, element) {
+                $(element).attr("name", "DetailedBrakeSystems[" + index + "].DetailedName");
             });
         }
-
-        function addCarsReviewPointItem() {
-            var cont = document.getElementsByClassName("CarsReviewPointItem").length;
-
-            div = document.createElement("div");
-            div.classList.add("input");
-            div.classList.add("CarsReviewPointItem");
-            div.classList.add("removeable2");
-
-            inp = document.createElement("input");
-            inp.type = "text";
-            inp.name = "CarsReviewPoint[" + cont + "].CarsReview";
-            div.appendChild(inp);
-
-            inp2 = document.createElement("textarea");
-            inp2.name = "CarsReviewPoint[" + cont + "].CarsReviewSubject";
-
-            div.appendChild(inp2);
-
-            se = document.createElement("section");
-            se.classList.add("gia-remove");
-            se.onclick = function (e) { vp = e.target.offsetParent.offsetParent; $(e.target.offsetParent).remove(); CollectionResort(vp); };
-            div.appendChild(se);
-
-            document.getElementById("CarsReviewPointItems").appendChild(div);
-
+        function AirConditioningSystemDetailsNaming() {
+            $("#AirContitionSystemDetails > div").each(function (index, element) {
+                $("input[type=text]", element).attr("name", "AirConditioningSystemDetails[" + index + "].AirConditioningSystemDetailSubject");
+                $("textarea", element).attr("name", "AirConditioningSystemDetails[" + index + "].AirConditioningSystemDetail1");
+            });
         }
-
-
-        $(".removeable .gia-remove").click(function () {
-            toppar = $(this).offsetParent().remove();
-        });
-
-        $(".removeable2 .gia-remove").click(function () {
-            cn = $(this).offsetParent().offsetParent();
-            toppar = $(this).offsetParent().remove();
-
-            CollectionResort(cn);
-        });
-    </script>
+        function AdvantagesNaming() {
+            $("#AdvantagesDivs  input").each(function (index, element) {
+                $(element).attr("name", "Advantages[" + index + "]");
+            });
+        }
+        function DisAdvantagesNaming() {
+            $("#DisAdvantagesDivs  input").each(function (index, element) {
+                $(element).attr("name", "DisAdvatages[" + index + "]");
+            });
+        }
+    </script>  
 }
 
 @section style
 {
     <style>
-        #ImageUploadedTemp {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-        }
+        .detailsContainer {
+            display:flex;
+            justify-content:space-between;
 
-        .uploadTmpImages {
-            position: relative;
-            width: 100px;
-            height: 70px;
-            margin: 5px;
-            border: thin solid;
-            overflow: hidden;
-            border-radius: 3px;
         }
-
-            .uploadTmpImages img {
-                width: 100%;
-                height: 100%;
+            .detailsContainer .controls {
+                position:relative;
+                flex:1;
             }
-
-            .uploadTmpImages a {
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: -100%;
-                text-align: center;
-                background: rgba(0, 0, 0, 0.56);
-                color: white;
-                transition: ease 0.3s;
-            }
-
-            .uploadTmpImages:hover a {
-                bottom: 0;
-            }
-
-
-        .AirConditioningSystemDetailsItem {
-            display: block;
-            border: thin solid #888;
-            padding: 3px;
-            margin: 5px;
-        }
-         .CarsReviewPointItem {
-            display: block;
-            border: thin solid #888;
-            padding: 3px;
-            margin: 5px;
-        }
-
-        .removeable {
-            display:block !important;
-            position:relative;
-        }
-            .removeable .gia-remove {
-                position:absolute;
-                left:0; top:0; bottom:0;
-
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                opacity:0.3;
-                cursor:pointer;
-            }
-                .removeable .gia-remove:hover {
-                    opacity: 1;
+                .detailsContainer .controls > * {
+                   display:flex;
+                   flex:1;
+                   justify-content:center;
+                   align-items:center;
                 }
 
-        .removeable2 .gia-remove {
-            width:100%;
-            cursor:pointer;
-            opacity:0.3;
+        .controls2 {
+            border:thin solid #888;
+            margin:5px;
+            padding:3px;
+            border-radius:3px;
         }
-            .removeable2 .gia-remove:hover {
-                opacity: 1;
+        .controls2 > * {
+            display:flex;
+            flex:1;
+        }
+            .controls2 > *:nth-child(1) {
+                   justify-content:center;
+                   align-items:center;
             }
 
+        .underline {
+            border-bottom:thin solid #888;
+        }
+
+        #formAction {
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            margin:5px;
+        }
+
     </style>
+
 }

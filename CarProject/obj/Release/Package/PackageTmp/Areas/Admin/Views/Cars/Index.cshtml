@@ -1,5 +1,305 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@using CarProject.DBSEF
+@{
+    ViewBag.Title = "خودروها";
+    int page = 0;
+    if (Request.QueryString.AllKeys.Contains("page"))
+    { int.TryParse(Request.QueryString["page"], out page); page--; }
+    int showCount = 20;
+
+    var dbs = new CarAutomationEntities();
+    int PageCount = dbs.Cars.Count() / showCount;
+    if ((dbs.Cars.Count() % showCount) > 0)
+    { PageCount += 1; }
+
+    IQueryable<Car> cars = null;    
+    int orederType = 1;
+    if (Request.QueryString.AllKeys.Contains("orederType") && !string.IsNullOrWhiteSpace(Request.QueryString["orederType"]))
+    { int.TryParse(Request.QueryString["orederType"], out orederType); }
+
+    switch (orederType)
+    {
+        case 1:
+            cars = dbs.Cars.OrderByDescending(c => c.CarsId);
+            break;
+        case 2:
+            cars = dbs.Cars.OrderBy(c => c.Price);
+            break;
+        case 3:
+            cars = dbs.Cars.OrderByDescending(c => c.Price);
+            break;
+        case 4:
+            cars = dbs.Cars.OrderBy(c => c.CarYearModel);
+            break;
+        case 5:
+            cars = dbs.Cars.OrderByDescending(c => c.CarYearModel);
+            break;
+    }
+
+
+
+    if (Request.QueryString.AllKeys.Contains("search") && !string.IsNullOrWhiteSpace(Request.QueryString["search"]))
+    {
+        var srch = Request.QueryString["search"];
+
+        cars = cars.AsQueryable().Where(c =>
+            (c.CarModel.CarBrand.CarBrandName.Contains(srch)) ||
+            (c.CarModel.CarModelName.Contains(srch)) ||
+            (c.CarsClass.Contains(srch)) ||
+            (c.CarClassType.Contains(srch)));
+    }
+    
+    
+    int brandid = -1;
+    if(Request.QueryString.AllKeys.Contains("filter_BrandType") &&  !string.IsNullOrWhiteSpace(Request.QueryString["filter_BrandType"]))
+    { int.TryParse(Request.QueryString["filter_BrandType"], out brandid); }
+    
+    if(brandid > 0)
+    { cars = cars.Where(c => c.CarModel.CarBrandId == brandid); }
+    
+
+    cars = cars.Skip(page * showCount).Take(showCount);
 }
 
-<h2>Index</h2>
+<div>
+    <div id="searchFilterContianer">
+        <form method="get" >
+            <section id="searchForm">
+                <input type="text" name="search" placeholder="جستجو خودرو؛ برند، مدل کلاس و ..." value="@Request.QueryString["search"]" />
+                <button type="submit"><span class="gia-search"></span></button>
+            </section>
+
+            <section>
+                <select name="filter_BrandType">
+                    <option value="">--نمایش همه برند ها--</option>
+                    @foreach (var item in dbs.CarBrands)
+                    {
+                        if (Request.QueryString["filter_BrandType"] == item.CarBrandId.ToString())
+                        {
+                        <option value="@item.CarBrandId" selected="selected">@item.CarBrandName</option>
+                    }
+                    else
+                    {
+                        <option value="@item.CarBrandId">@item.CarBrandName</option>
+                    }
+                }
+                </select>
+                <select name="orederType">
+                    <option value="1"  @{if (Request.QueryString["orederType"] == "1") { Write("selected=\"selected\" "); } }>آخرین خودروی ثبت شده</option>
+                    <option value="2"  @{if (Request.QueryString["orederType"] == "2") { Write("selected=\"selected\" "); } }>قیمت - صعودی</option>
+                    <option value="3"  @{if (Request.QueryString["orederType"] == "3") { Write("selected=\"selected\" "); } }>قیمت - نزولی</option>
+                    <option value="4"  @{if (Request.QueryString["orederType"] == "4") { Write("selected=\"selected\" "); } }>سال ساخت - صعودی</option>
+                    <option value="5"  @{if (Request.QueryString["orederType"] == "5") { Write("selected=\"selected\" "); } }>سال ساخت - نزولی</option>
+                </select>
+                <input type="submit" value="فیلتر نمایش" />
+            </section>
+        </form>
+
+    </div>
+
+    <div id="itemsContainer">
+        @foreach (var item in cars)
+        {
+            <div class="item">
+                <table>
+                    <tr>
+                        <th>برند</th>
+                        <td>@item.CarModel.CarBrand.CarBrandName</td>
+                    </tr>
+                    <tr>
+                        <th>مدل</th>
+                        <td>@item.CarModel.CarModelName</td>
+                    </tr>
+                    <tr>
+                        <th>سال ساخت</th>
+                        <td>@item.CarYearModel.GetValueOrDefault()</td>
+                    </tr>
+                </table>
+
+                <div class="action">
+                    <a href="@Url.Action("UpdateCar", new { id = item.CarsId })" class="gia-edit" ></a>
+                    <a href="@Url.Action("CarImagesGallery", new { id = item.CarsId })" class="gia-images" ></a>
+                    <a href="javascript:void()" onclick="DeleteRequest('@item.CarsId','@item.CarModel.CarBrand.CarBrandName','@item.CarModel.CarModelName','@item.CarYearModel')" class="gia-remove"></a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div id="pageNumberContainer">
+        @if (PageCount > 1)
+        {
+            for (int i = 1; i <= PageCount; i++)
+            {
+                if (i == (page + 1))
+                {
+                    <span>@i</span>
+                }
+                else
+                {
+                    <a href="?page=@i">@i</a>
+                }
+            }
+        }
+    </div>
+
+</div>
+
+
+<div id="messageBack">
+    <form method="post" action="@Url.Action("DeleteCar","Cars")" id="messageShow">
+        <input type="hidden" name="CarsID" id="deleteCarsID" />
+        <h3 id="messageTitle"><a href="javascript: void()" onclick="$('#messageBack').toggleClass('show')">&times;</a> حذف خودرو</h3>
+        <div>
+            <p>آیا از حذف خودرو با برند <q><span id="deleteBrand"></span></q>  مدل  <q><span id="deleteModel"></span></q> سال <q><span id="deleteYear"></span></q> اطمینان دارید ؟</p>
+        </div>
+        <div id="messageAction">
+            <input type="button" class="button blue" value="انصراف" onclick="$('#messageBack').toggleClass('show')" />
+            <input type="submit" class="button red" value="حذف" />
+        </div>
+    </form>
+</div>
+
+@section style
+{
+    <style>
+        input, select, button,option {
+            font-family: yekan;
+            padding:1px 5px;
+            margin:1px;
+        }
+        #searchFilterContianer {
+            border-bottom:thin solid #888;
+            margin:5px;
+            padding:5px;
+        }
+
+        #searchForm {
+            position:relative;
+            display:flex; jusftiy-content:center; align-items:stretch;
+        }
+            #searchForm input {
+                border:thin solid #666;
+                background:white;
+                padding:1px 3px;
+                width:100%;
+
+                font-family:yekan;
+            }
+            #searchForm button {
+                position:absolute;
+                left:0; top:0; bottom:0;
+
+                border:thin solid #666; border-right:none;
+                background:#aaa;
+                color:white;
+            }
+                #searchForm button:hover {
+                    background:#999;
+                }
+                #searchForm button:active {
+                    box-shadow:0 0 3px 0 #fff inset;
+                }
+
+        #itemsContainer {
+            display:flex; jusftify-content:center; align-items:stretch;
+            flex-wrap:wrap;
+        }
+        .item {
+            border:thin solid #888;
+            padding:2px;
+            font-size:98%;
+            background:#f9f9f9;
+            border-radius:5px;
+            margin:5px;
+        }
+            .item:hover {
+                box-shadow:0 0 3px 0 #444;
+            }
+        .item table {
+            border-collapse:collapse;
+        }
+            .item table th {
+                text-align:right;
+                width:0;
+                white-space:nowrap;
+            }
+            .item table th,
+            .item table td {
+                border:thin solid #888;
+                padding:1px 3px;
+            }
+
+            .item .action {
+                display:flex; justify-content:center; align-items:center;
+            }
+
+
+
+        #pageNumberContainer {
+            display:flex; justify-content:center; align-items:center;
+            flex-wrap:wrap;
+            margin:5px;
+            padding:5px;
+            border-top:thin solid #888; 
+        }
+            #pageNumberContainer > * {
+                min-width:30px;
+                border: thin solid #888;
+                margin:3px;
+                padding:2px;
+                border-radius:2px;
+                background:white;
+
+                display:flex; justify-content:center; align-items:center;
+            }
+            #pageNumberContainer > span {
+                background:#888;
+                color:white;
+            }
+            #pageNumberContainer a:hover {
+                box-shadow:0 0 3px 0 #000;
+            }
+
+        #messageBack {
+            position:fixed; left:0; right:0; top:0; bottom:0;
+            background:rgba(0,0,0,0.7);
+            z-index:9999;
+
+            display:none; justify-content:center; align-items:center;
+        }
+            #messageBack.show {
+                display:flex;
+            }
+        #messageShow {
+           
+            margin:5px;
+            background:white;
+            border:thin solid #888;
+            box-shadow:0 0 3px 0 #000;
+            min-width:200px;
+            width:50%;
+        }
+        #messageTitle {
+            background:#444;
+            color: white;
+            padding:2px 5px;
+        }
+        #messageAction {
+            display:flex; justify-content:center; align-items:center;
+        }
+
+    </style>
+}
+
+@section script
+{
+    <script>
+        function DeleteRequest(id, brand, model, year) {
+            document.getElementById("deleteCarsID").value = id;
+
+            document.getElementById("deleteBrand").innerHTML = brand;
+            document.getElementById("deleteModel").innerHTML = model;
+            document.getElementById("deleteYear").innerHTML = year;
+            $("#messageBack").toggleClass('show');
+        }
+    </script>
+}

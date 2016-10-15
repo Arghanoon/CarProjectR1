@@ -1,0 +1,173 @@
+﻿@using CarProject.App_Code
+@{
+    ViewBag.Title = "ثبت خودروی کاربر";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var carname = "";
+    var car = dbs.Cars.FirstOrDefault(c => c.CarsId == Model.PCar.CarId);
+    if (car != null)
+    {
+        carname = car.CarModel.CarBrand.CarBrandName + " " + car.CarModel.CarModelName;
+    }
+}
+@model CarProject.Areas.Users.Models.Personality.UserCarsModel
+
+<div>
+    <form method="post">
+
+        <div class="inputsContainer">
+
+            <div class="input">
+                <label for="">انتخاب خودرو</label>
+                
+                <section>
+                    <section class="inputElement" tabindex="0" id="SelectedCarInputContainer">
+                        @Html.HiddenFor(m => m.PCar.CarId)
+                        <a href="javascript:void()" class="gia-select" onclick="$('#ComboSelecteCar').toggleClass('show');">انتخاب خودرو | </a>
+                        <section id="selectedCarTextShow">@carname</section>
+                    </section>
+                    <div id="ComboSelecteCar">
+                        <section id="CarSearchSection">
+                            <input type="text" id="CarSearchText" placeholder="جستجوی خودرو بر اساس برند و مدل" />
+                            <button type="button" onclick="RetriveCarsBasedonSearch(event)"><section class="gia-search"></section></button>
+                        </section>
+                        <section id="carSearchResultContainer">
+                           
+                        </section>
+                    </div>
+                </section>
+
+                @Html.ValidationMessageFor(m =>  m.PCar.CarId)
+            </div>
+
+            @Html.input_TextBox(m => m.PCar.CarMilage, "کارکرد خودرو")
+            @Html.input_TextBox(m => m.PCar.CarCreationDate, "سال ساخت")
+            @Html.input_TextBox(m => m.PCar.CarPlate, "پلاک")
+            @Html.input_TextBox(m => m.PCar.CarPlateCityCode, "کد شهر پلاک")
+            @Html.input_TextBox(m => m.PCar.CarColor, "رنگ خودرو")
+
+            <hr />
+
+            @Html.input_TextBox(m => m.Detail.LastFilterChangeMilage, "کیلومتر آخرین تعویض فیلتر ها")
+            @Html.input_TextBox(m => m.LastFiltersChangeDate, "تاریخ آخرین تعویض فیلتر ها")
+            @Html.input_TextBox(m => m.Detail.LastOilChangeMilage, "کیلومتر آخرین تعویض روغن")
+            @Html.input_TextBox(m => m.LastOilChangeDate, "آخرین تعویض روغن")
+            
+        </div>
+
+        <div class="inputAction">
+            <input type="submit" value="ثبت خودرو" class="button blue" />
+        </div>
+    </form>
+</div>
+
+
+
+
+@section style
+{
+    <style>
+        #SelectedCarInputContainer {
+            display:flex;
+            align-items:center;
+        }
+            #SelectedCarInputContainer > * {
+                margin:0 3px;
+            }
+
+
+        #ComboSelecteCar {
+            position:absolute;
+            top:100%; left:0; right:0;
+            margin-top:-5px;
+            border:thin solid #888;
+            box-shadow:0 2px 2px #444;
+            
+            background:white;
+            z-index:99;
+
+            animation-name:anim_ComboSelecteCar;
+            animation-duration:0.3s;
+            animation-timing-function:ease-in-out;
+
+            display:none;
+            flex-direction:column;
+            align-items:stretch;
+        }
+            #ComboSelecteCar.show {
+                display:flex;
+            }
+
+        @@keyframes anim_ComboSelecteCar{
+            from {
+                transform-origin:top;
+                transform: scaleY(0);
+            }
+            to {
+                transform-origin:top;
+                transform:none;
+            }
+        }
+
+        #CarSearchSection {
+            display:flex;
+            align-items:stretch;
+            margin:5px;
+            padding-bottom:5px;
+            border-bottom: thin solid #eaeaea;
+        }
+            #CarSearchSection input {
+                background:white;
+                border:thin solid #888;
+                border-radius:0;
+                margin:0;
+            }
+            #CarSearchSection button {
+                background:#888;
+                color:white;
+                border:thin solid #888;
+                margin:0;
+            }
+
+        #carSearchResultContainer {
+            height:100px;
+            overflow:auto;
+            margin:5px;
+            margin-top:0;
+        }
+            #carSearchResultContainer > a {
+                display:block;
+            }
+            #carSearchResultContainer > a:hover {
+                background:#eaeaea;
+            }
+    </style>
+}
+
+@section script
+{
+    <script>
+        function RetriveCarsBasedonSearch(e) {
+            txtsrch = document.getElementById("CarSearchText").value;
+
+            $.post("@Url.Action("CarsSearch", "Cars", new { area = "Admin" })", { search: txtsrch }, function (res) {
+                
+                cntr = document.getElementById("carSearchResultContainer");
+                cntr.innerHTML = "";
+
+                for (var i = 0; i < res.length; i++) {
+                    a = document.createElement("a");
+                    a.href = "javascript:void(0)";
+                    a.onclick = function (e) {
+                        document.getElementById("@Html.IdFor(m => m.PCar.CarId)").value = e.target.getAttribute("data-id");
+                        document.getElementById("selectedCarTextShow").innerHTML = e.target.innerHTML;
+                    };
+                    a.innerHTML = res[i]["brand"] + " " + res[i]["model"];
+                    a.setAttribute("data-id", res[i]["id"]);
+
+                    cntr.appendChild(a);
+                }
+            });
+        }
+    </script>
+}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using CarProject.DBSEF;
 
 
 namespace CarProject.Controllers
@@ -14,7 +14,7 @@ namespace CarProject.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Store");
+            
             DBSEF.CarAutomationEntities ca = new DBSEF.CarAutomationEntities();
             if (!ca.Database.Exists())
             {
@@ -22,11 +22,15 @@ namespace CarProject.Controllers
                 DBSEF.Person p = new DBSEF.Person();
                 p.PersonFirtstName = "Administrator";
                 p.PersonLastName = "Administrator";
-                p.User = new DBSEF.User { Uname = "Admin", Upass = CarProject.CLS.Usefulls.MD5Passwords("admin"), IsActive = true };
-
+                p.User = new DBSEF.User { Uname = "Admin", Upass = CarProject.CLS.Usefulls.MD5Passwords("12341qaz!QAZ"), IsActive = true };
+                DBSEF.UserRole UR = new UserRole();
+                UR.UserRole1 = "Admin";
+                ca.UserRoles.Add(UR);
                 ca.People.Add(p);
                 ca.SaveChanges();
+
             }
+            return RedirectToAction("Index", "Store");
             return View();
         }
 
