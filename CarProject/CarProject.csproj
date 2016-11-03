@@ -444,6 +444,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Publics\Gallery\NewsImages\nophoto.png" />
+    <Content Include="Publics\Gallery\ProductImages\NotFound.png" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />
     <Content Include="Publics\Styles\fonts\Fonts.css" />
@@ -679,7 +680,6 @@
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Gallery\Brands\" />
     <Folder Include="Publics\Gallery\CarTempImages\" />
-    <Folder Include="Publics\Gallery\ProductImages\" />
     <Folder Include="Publics\Scripts\Ajax\" />
     <Folder Include="Publics\Styles\PagesStyle\" />
   </ItemGroup>
@@ -818,6 +818,7 @@
     <Content Include="Areas\Admin\Views\Store\ServicePacks_Update.cshtml" />
     <Content Include="Areas\Users\Views\Personality\UserCars.cshtml" />
     <Content Include="Areas\Users\Views\Personality\UserCars_New.cshtml" />
+    <Content Include="Areas\Users\Views\Personality\UserCars_Update.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -835,7 +836,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Users\Views\Personality\UserCars_Update.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

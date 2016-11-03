@@ -669,6 +669,7 @@
     <Property Name="Describe" Type="nvarchar(max)" />
     <Property Name="Image" Type="nvarchar" MaxLength="255" />
     <Property Name="Url" Type="nvarchar" MaxLength="255" />
+    <Property Name="Type" Type="tinyint" />
   </EntityType>
   <EntityType Name="SteeringSystem">
     <Key>

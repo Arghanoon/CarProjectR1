@@ -2,7 +2,11 @@
     ViewBag.Title = "فروشگاه";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
 
-    var slides = dbs.SlideShows.ToList();
+    var slides = dbs.SlideShows.Where(s => s.Type == 1).ToList();
+    var slides2 = dbs.SlideShows.Where(s => s.Type == 2).ToList();
+
+
+    var rand = new Random();
 }
 
 
@@ -16,8 +20,8 @@
                 <a href="@item.Url" class="slideItem" data-slide="@i">
                     <img src="@item.Image" alt=""/>
                 </a>   
-            i++;
-        }
+                i++;
+            }
         </div>
         <div class="sliderTitles">
             @{ i = 1; }
@@ -27,145 +31,81 @@
                     <h3>@item.Subject </h3>
                     <small>@item.Describe</small>
                 </section>
-            i++;
-        }
+                i++;
+            }
 
         </div>
     </div>
 
 
     <div class="flex-row-center-fstart" style="">
-        <div class="w30 flex-row-spacebetween-center flex-wrap" style="margin-left:5px; margin-top:-2.5px;">
+        <div class="w30 flex-row-spacebetween-center flex-wrap" style="margin-left: 5px; margin-top: -2.5px;">
             @for (int i2 = 0; i2 < 10; i2++)
             {
-                <section style="width: 48%; height: 110px; margin:2.5px;" class="item">
+                <section style="width: 48%; height: 110px; margin: 2.5px;" class="item">
                 </section>
-        }
+            }
         </div>
         <div class="w70 flex-column-center-stretch">
             <div class="SliderType1" style="height: 400px; margin-right: 5px;">
                 <div class="w25 sliderTitles">
-                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='1'>موضوع اسلاید شماره 1 </section>
-                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='2' >موضوع اسلاید شماره 2  </section>
-                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='3'>اسلایدر 3 </section>
-                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='4'>موضوع اسلاید شماره 4</section>
-                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='5'>موضوع اسلاید شماره 5</section>
-                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='6'>موضوع اسلاید شماره 6</section>
-                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='7'>موضوع اسلاید شماره 7</section>
-                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='8'>موضوع اسلاید شماره 7</section>
-                    <section onclick="SliderType1ChangeSlide_byindex(8)" data-slide='9'>موضوع اسلاید شماره 9</section>
-                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='10'>موضوع اسلاید شماره 7 </section>
-                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='11'>موضوع اسلاید شماره 7</section>
-                    <section onclick="SliderType1ChangeSlide_byelement(this)" data-slide='12'>موضوع اسلاید شماره 7 </section>
+                    @{i = 1; }
+                    @foreach (var item in slides2)
+                    {
+                        <section onclick="SliderType1ChangeSlide_byelement(this)" class="slideItem" data-slide="@i">
+                            <strong>@item.Subject</strong><br />
+                            <small>@item.Describe</small>
+                        </section>   
+                        i++;
+                    }
                 </div>
                 <div class="w75 sliderItems">
-                    <div class="slideItem" data-slide="1">
-                        <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                    </div>
-                    <div class="slideItem" data-slide="2">
-                        <img src="../Cars/Images/img (1).png" alt="" />
-                    </div>
-                    <div class="slideItem" data-slide="3">
-                        <img src="../Cars/Images/img (3).jpg" alt="" />
-                    </div>
-                    <div class="slideItem" data-slide="4">
-                        <img src="../Cars/Images/img (3).jpg" alt="" />
-                    </div>
-                    <div class="slideItem" data-slide="5">
-                        <img src="../Cars/Images/img (3).jpg" alt="" />
-                    </div>
-                    <div class="slideItem" data-slide="6">
-                        <img src="../Cars/Images/img (3).jpg" alt="" />
-                    </div>
-                    <div class="slideItem" data-slide="7">
-                        <img src="../Cars/Images/img (3).jpg" alt="" />
-                    </div>
-                    <div class="slideItem" data-slide="8">
-                        <img src="../Cars/Images/img (3).jpg" alt="" />
-                    </div>
-                    <div class="slideItem" data-slide="9">
-                        <img src="../Cars/Images/img (3).jpg" alt="" />
-                    </div>
-                    <div class="slideItem" data-slide="10">
-                        <img src="../Cars/Images/img (3).jpg" alt="" />
-                    </div>
-                    <div class="slideItem" data-slide="11">
-                        <img src="../Cars/Images/img (3).jpg" alt="" />
-                    </div>
-                    <div class="slideItem" data-slide="12">
-                        <img src="../Cars/Images/img (3).jpg" alt="" />
-                    </div>
+                    @{i = 1; }
+                    @foreach (var item in slides2)
+                    {
+                        <div class="slideItem" data-slide="@i">
+                            <img src="@item.Image" alt="" />
+                        </div>
+                        i++;
+                    }
                 </div>
             </div>
 
             <div style="margin-top: 5px; margin-right: 5px;">
-                <h4>پرفروشها</h4>
-                <div class="SliderType3" style="height: 150px;">
+                <h4>آخرین محصولات</h4>
+                <div class="SliderType3" data-slidewidth="300px">
                     <div class="sliderItems">
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع1</section>
-                        </div>
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع2</section>
-                        </div>
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع3</section>
-                        </div>
-
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع4</section>
-                        </div>
-
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع5</section>
-                        </div>
-
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع6</section>
-                        </div>
-
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع7</section>
-                        </div>
-
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع8</section>
-                        </div>
-
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع9</section>
-                        </div>
-
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع10</section>
-                        </div>
-
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع11</section>
-                        </div>
-
+                        @{
+                            var xNews = dbs.Products.OrderByDescending(p => p.ProductId).Take(20);
+                            foreach (var item in xNews)
+                            {
+                                var PicFileUrl = "~/Publics/Gallery/ProductImages/"+ item.ProductId;
+                                var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+                                
+                                if(finfo.Exists && finfo.GetFiles().Count() > 0)
+                                {
+                                    <a href="#" class="slideItem">
+                                        <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                                        <section>
+                                            <strong>@item.ProductName</strong><br />
+                                            <small>@item.Category.CategoryName</small><br />
+                                            <small>@item.ProductPrices.Last().ProductPrice1 ریال</small>
+                                        </section>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="#" class="slideItem">
+                                        <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
+                                        <section>
+                                            <strong>@item.ProductName</strong><br />
+                                            <small>@item.Category.CategoryName</small>
+                                        </section>
+                                    </a>
+                                }
+                            }
+                            
+                        }
                     </div>
 
                     <div class="sliderNav left gia-left"></div>
@@ -174,42 +114,7 @@
             </div>
 
             <div style="margin-top: 5px; margin-right: 5px;">
-                <h4>تازها</h4>
-                <div class="SliderType3" style="height: 150px;">
-                    <div class="sliderItems">
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع1</section>
-                        </div>
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع2</section>
-                        </div>
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع3</section>
-                        </div>
-
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع4</section>
-                        </div>
-
-
-                        <div class="slideItem">
-                            <img src="/Publics/Filemanager/folder/CC003.png" alt="" />
-                            <section>موضوع5</section>
-                        </div>
-
-                    </div>
-
-                    <div class="sliderNav left gia-left"></div>
-                    <div class="sliderNav right gia-right"></div>
-                </div>
+                          
             </div>
 
         </div>

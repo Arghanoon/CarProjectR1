@@ -118,7 +118,9 @@ namespace CarProject.Areas.Admin.Models.Dashboard
         {
             List<ValidationResult> result = new List<ValidationResult>();
 
-
+            if (SlideShow.Type == null || SlideShow.Type < 1)
+                result.Add(new ValidationResult("اسلاید شو تعیین نشده است", new string[] { "SlideShow.Type" }));
+           
             return result;
         }
     }

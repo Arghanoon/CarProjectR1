@@ -674,6 +674,7 @@
           <Property Name="Describe" Type="nvarchar(max)" />
           <Property Name="Image" Type="nvarchar" MaxLength="255" />
           <Property Name="Url" Type="nvarchar" MaxLength="255" />
+          <Property Name="Type" Type="tinyint" />
         </EntityType>
         <EntityType Name="SteeringSystem">
           <Key>
@@ -2923,6 +2924,7 @@
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Url" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Byte" />
         </EntityType>
         <EntityType Name="SteeringSystem">
           <Key>
@@ -5103,6 +5105,7 @@
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

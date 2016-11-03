@@ -814,6 +814,7 @@
     <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Url" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Byte" />
   </EntityType>
   <EntityType Name="SteeringSystem">
     <Key>

@@ -174,8 +174,8 @@ a:hover , a:focus{
 		}
 		.SliderType1 .sliderTitles > *
 		{
-			height:100%;
-			display:flex; justify-content:center; align-items:center;
+			/*height:100%;*/
+			display:flex; justify-content:center; align-items:center; flex-direction:column;
 			cursor:pointer;
 		}
 		.SliderType1 .sliderTitles .tile
@@ -314,6 +314,7 @@ a:hover , a:focus{
 	
 	display:flex; justify-content:center; align-items:stretch;
 	overflow:hidden;
+    height:250px;
 }
 .SliderType3 .sliderItems
 {
@@ -330,14 +331,25 @@ a:hover , a:focus{
 	padding:3px;
 	margin:0 5px;
 	height:100%;
+    width:200px;
 	display:flex; flex-direction:column;
 	justify-content:space-between;
 	align-items:center;
+    box-shadow:0 0 5px 0 #888 inset;
+    transition:0.5s;
 }
+    .SliderType3 .sliderItems .slideItem > * {
+        text-align: center;
+    }
+    .SliderType3 .sliderItems .slideItem:hover {
+        border: thin solid #888;
+        box-shadow:none;
+    }
 
 .SliderType3 .sliderItems .slideItem img
 {
-	height:100%;
+	max-height:100%;
+    max-width:100%;
 }
 
 .SliderType3 .sliderNav
