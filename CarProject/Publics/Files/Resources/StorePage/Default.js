@@ -25,6 +25,20 @@ function SliderType1ChangeSlide_byelement(el) {
     $(".SliderType1 .sliderItems .slideItem.active").removeClass('active');
     $(".SliderType1 .sliderItems .slideItem[data-slide=" + ds + "]").addClass("active");
 }
+
+var SLIDER_TYPE_1_CURRENTINDE = 0;
+var SLIDER_TYPE_1_TIMEOUT_CONTIANER = false;
+
+function SliderType1_DoSlideChange() {
+    SliderType1ChangeSlide_byindex(SLIDER_TYPE_1_CURRENTINDE++)
+    if (SLIDER_TYPE_1_CURRENTINDE >= $(".SliderType1 .sliderItems .slideItem").length)
+        SLIDER_TYPE_1_CURRENTINDE = 0;
+
+    if(SLIDER_TYPE_1_TIMEOUT_CONTIANER)
+        clearTimeout(SLIDER_TYPE_1_TIMEOUT_CONTIANER);
+    SLIDER_TYPE_1_TIMEOUT_CONTIANER = setTimeout(function () { SliderType1_DoSlideChange() }, 5000);
+}
+SliderType1_DoSlideChange();
 /*---------------------------------ENDSliderType1--------------------------------------------*/
 
 /*------------------------------------SliderType2--------------------------------------------*/
@@ -46,6 +60,21 @@ function SliderType2ChangeSlide_byelement(el) {
     $(".SliderType2 .sliderItems .slideItem.active").removeClass('active');
     $(".SliderType2 .sliderItems .slideItem[data-slide=" + ds + "]").addClass("active");
 }
+
+var SLIDER_TYPE_2_CURRENTINDE = 0;
+var SLIDER_TYPE_2_TIMEOUT_CONTIANER = false;
+
+function SliderType2_DoSlideChange() {
+    SliderType2ChangeSlide_byindex(SLIDER_TYPE_2_CURRENTINDE++)
+    if (SLIDER_TYPE_2_CURRENTINDE >= $(".SliderType2 .sliderItems .slideItem").length)
+        SLIDER_TYPE_2_CURRENTINDE = 0;
+
+    if(SLIDER_TYPE_2_TIMEOUT_CONTIANER)
+        clearTimeout(SLIDER_TYPE_2_TIMEOUT_CONTIANER);
+    SLIDER_TYPE_2_TIMEOUT_CONTIANER = setTimeout(function () { SliderType2_DoSlideChange() }, 5000);
+}
+SliderType2_DoSlideChange();
+
 /*---------------------------------ENDSliderType2--------------------------------------------*/
 
 /*------------------------------------SliderType3--------------------------------------------*/
