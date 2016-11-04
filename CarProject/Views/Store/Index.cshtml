@@ -10,6 +10,10 @@
 }
 
 
+@section style
+{
+    <link href="~/Publics/Files/Resources/StorePage/index.css" rel="stylesheet" />
+}
 
 <div style="margin: 10px;" >
     <div class="SliderType2" style="min-height: 500px; margin-bottom:10px;">
@@ -39,12 +43,21 @@
 
 
     <div class="flex-row-center-fstart" style="">
-        <div class="w30 flex-row-spacebetween-center flex-wrap" style="margin-left: 5px; margin-top: -2.5px;">
-            @for (int i2 = 0; i2 < 10; i2++)
-            {
-                <section style="width: 48%; height: 110px; margin: 2.5px;" class="item">
-                </section>
-            }
+        <div id="BrandsContainer" style="margin-left: 5px; margin-top: -2.5px;">
+            @{
+                var brands = dbs.CarBrands.Take(30);
+                foreach (var item in brands)
+                {
+                    DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Publics/Gallery/Brands"));
+                    var f = di.GetFiles(string.Format("{0}.*", item.CarBrandId));
+                    if(f.Length > 0)
+                    {
+                        <a href="#" data-title="@item.CarBrandName">
+                            <img src="Publics/Gallery/Brands/@f[0].Name" />
+                        </a>
+                    }
+                }
+             }
         </div>
         <div class="w70 flex-column-center-stretch">
             <div class="SliderType1" style="height: 400px; margin-right: 5px;">
@@ -63,9 +76,9 @@
                     @{i = 1; }
                     @foreach (var item in slides2)
                     {
-                        <div class="slideItem" data-slide="@i">
+                        <a href="@item.Url" class="slideItem" data-slide="@i">
                             <img src="@item.Image" alt="" />
-                        </div>
+                        </a>
                         i++;
                     }
                 </div>
@@ -114,7 +127,20 @@
             </div>
 
             <div style="margin-top: 5px; margin-right: 5px;">
-                          
+                <h4>آخرین بسته های خدماتی</h4>
+                <div class="ServicePacksContainer">
+                    @{
+                        var servicesPacks = dbs.AutoServicePacks.OrderByDescending(sp => sp.AutoServicePackId).Take(12);
+
+                        foreach (var item in servicesPacks)
+                        {
+                            <a href="#" class="item">
+                                <h2>@item.AutoServicePackName</h2>
+                                <small>@item.Details</small>
+                            </a>
+                        }
+                    }
+                </div>
             </div>
 
         </div>

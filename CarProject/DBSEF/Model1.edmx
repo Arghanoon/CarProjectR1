@@ -49,6 +49,7 @@
           <Property Name="AutoServicePackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AutoServicePackName" Type="nvarchar" MaxLength="50" />
           <Property Name="PackPrice" Type="nvarchar" MaxLength="50" />
+          <Property Name="Details" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="AutoServices">
           <Key>
@@ -2166,6 +2167,7 @@
           <Property Name="AutoServicePackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AutoServicePackName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PackPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoServices_AutoServicePack" FromRole="AutoServicePack" ToRole="AutoServices" />
           <NavigationProperty Name="PersonServicesPacks" Relationship="Self.FK_PersonServicesPack_AutoServicePack" FromRole="AutoServicePack" ToRole="PersonServicesPack" />
           <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_AutoServicePack" FromRole="AutoServicePack" ToRole="ProductDiscount" />
@@ -4425,6 +4427,7 @@
                 <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
                 <ScalarProperty Name="AutoServicePackName" ColumnName="AutoServicePackName" />
                 <ScalarProperty Name="PackPrice" ColumnName="PackPrice" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

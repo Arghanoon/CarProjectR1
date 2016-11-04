@@ -44,6 +44,7 @@
     <Property Name="AutoServicePackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AutoServicePackName" Type="nvarchar" MaxLength="50" />
     <Property Name="PackPrice" Type="nvarchar" MaxLength="50" />
+    <Property Name="Details" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="AutoServices">
     <Key>
