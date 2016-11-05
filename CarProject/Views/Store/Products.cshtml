@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "نمایش اطلاعات محصول";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+}
+
+
+@section style
+{
+    <link href="~/Publics/Files/Resources/StorePage/Products.css" rel="stylesheet" />
+}
+
+
+<div id="ProductsViewInformationPart1">
+    <div>
+        <div id="ProductImagesSection">
+            <img id="imageBigPreview" src="" />
+            <div id="imagesItems">
+                @{
+                    var images = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"]));
+                    if (images.Exists)
+                    {
+                        foreach (var item in images.GetFiles())
+                        {
+                    <a href="javascript:void()">
+                        <img onclick="imageBigPreview.src = this.src;" src="@Url.Content("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"] + "/" + item.Name)" />
+                    </a>
+                    }
+                }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div id="productInformation">
+        <table class="table">
+            @{ 
+                int id = 0;
+                int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+                
+                var product = dbs.Products.FirstOrDefault(p => p.ProductId == id); 
+             }
+            <tr>
+                <th>شماره محصول</th>
+                <td>@product.PartNumber</td>
+            </tr>
+            <tr>
+                <th>نام محصول</th>
+                <td>@product.ProductName</td>
+            </tr>
+            <tr>
+                <th>دسته بندی محصول</th>
+                <td><a href="#">@product.Category.CategoryName</a></td>
+            </tr>
+            <tr>
+                <th>قیمت محصول</th>
+                <td>@product.ProductPrices.Last().ProductPrice1</td>
+            </tr>
+            <tr>
+                <th>ارتفاع</th>
+                <td>@product.ProductHeight</td>
+            </tr>
+            <tr>
+                <th>عرض</th>
+                <td>@product.ProductWidth</td>
+            </tr>
+            <tr>
+                <th>وزن</th>
+                <td>@product.ProductWeight</td>
+            </tr>
+            <tr>
+                <th>طول</th>
+                <td>@product.ProductLength</td>
+            </tr>
+            <tr>
+                <th>شرکت سازنده</th>
+                @if(@product.Company != null)
+                {
+                    <td><a href="#">@product.Company.CompanyName</a></td>
+                }
+            </tr>
+            <tr>
+                <th>کشور تولید کننده</th>
+                @if(@product.Country != null)
+                {
+                    <td>@product.Country.CountryLongName</td>
+                }
+            </tr>
+            <tr>
+                <th>شرکت توضیع کننده</th>
+                @if(product.Manufacture != null)
+                {
+                    <td><a href="#">@product.Manufacture.ManufactureName</a></td>
+                }
+            </tr>
+            <tr>
+                <th>تگ محصول</th>
+                <td>@product.MetaTags</td>
+            </tr>
+            <tr>
+                <th>رتبه محصول</th>
+                <td>@product.ProductRating</td>
+            </tr>
+            <tr>
+                <th>توضیحات محصول</th>
+                <td>@product.ProductSecription</td>
+            </tr>
+        </table>
+        <hr />
+        <div>
+            <h3 style="border-bottom:thin solid #fff;">بررسی محصول</h3>
+            <div id="productsReview">
+                @Html.Raw(product.ProductReview.ProductReview1)
+            </div>
+        </div>
+    </div>
+</div>

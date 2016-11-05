@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-<title>خودرو کلینیک - @ViewBag.Title</title>
+<title>خودرو کلینیک@{if (ViewBag.Title != "") { Write(" - " + ViewBag.Title); }}</title>
 
     <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
     <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />

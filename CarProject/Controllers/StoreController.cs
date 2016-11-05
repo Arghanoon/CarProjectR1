@@ -16,5 +16,9 @@ namespace CarProject.Controllers
             return View();
         }
 
+        public ActionResult Products(int id)
+        {
+            return View(id);
+        }
     }
 }

@@ -427,6 +427,7 @@
     <Content Include="Publics\Files\Resources\StorePage\Default.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default.js" />
     <Content Include="Publics\Files\Resources\StorePage\index.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Products.css" />
     <Content Include="Publics\Gallery\CarImages\notfound.jpg" />
     <Content Include="Publics\Files\Images\back.jpg" />
     <Content Include="Publics\Files\Resources\HomePage\News\template_News.css" />
@@ -851,6 +852,7 @@
     <Content Include="Views\public\template_Sotre.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
     <None Include="Properties\PublishProfiles\s.pubxml" />
+    <Content Include="Views\Store\Products.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
