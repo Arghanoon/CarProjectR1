@@ -1,6 +1,13 @@
 ﻿@{
     ViewBag.Title = "نمایش اطلاعات محصول";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    int id = 0;
+    int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+
+    var product = dbs.Products.FirstOrDefault(p => p.ProductId == id);
+
+    Random rnd = new Random();
 }
 
 
@@ -12,33 +19,65 @@
 
 <div id="ProductsViewInformationPart1">
     <div>
+        <h3>تصاویر محصول</h3>
         <div id="ProductImagesSection">
-            <img id="imageBigPreview" src="" />
-            <div id="imagesItems">
-                @{
-                    var images = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"]));
-                    if (images.Exists)
+            @{ 
+                var images = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"]));
+                if(images.Exists)
+                {   
+                    var imagesFiles = images.GetFiles();
+                    if(imagesFiles.Length> 0)
                     {
-                        foreach (var item in images.GetFiles())
-                        {
-                    <a href="javascript:void()">
-                        <img onclick="imageBigPreview.src = this.src;" src="@Url.Content("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"] + "/" + item.Name)" />
-                    </a>
+                        <img id="imageBigPreview" src="@Url.Content("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"] + "/" + imagesFiles[0].Name)" />
+                    }
+                    else
+                    {
+                        <img id="imageBigPreview" src="" />
                     }
                 }
+             }
+            
+            <div id="imagesItems">
+                @{
+                    if (images.Exists)
+                    {
+                        var imagesFiles = images.GetFiles();
+                        foreach (var item in imagesFiles)
+                        {
+                            <a href="javascript:void()">
+                                <img onclick="imageBigPreview.src = this.src;" src="@Url.Content("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"] + "/" + item.Name)" />
+                            </a>
+                        }
+                    }
                 }
             </div>
+        </div>
+        
+        <h3>خودرهای مرتبط با محصول</h3>
+        <div id="CarsContianers">
+            @foreach (var item in product.ProductCars)
+            {
+                var carpicutres = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/CarImages/" + item.CarsId));
+                if(carpicutres.Exists)
+                {
+                    var carImages = carpicutres.GetFiles();
+                    if(carImages.Length > 0)
+                    {
+                        <a href="#">
+                            <img src="@Url.Content("~/Publics/Gallery/CarImages/" + item.CarsId + "/" + carImages[rnd.Next(0,carImages.Length)].Name)" />
+                            <section class="title">
+                                <strong>@item.Car.CarModel.CarBrand.CarBrandName</strong>
+                                <small>@item.Car.CarModel.CarModelName</small>
+                            </section>
+                        </a>
+                    }
+                }
+            }
         </div>
     </div>
 
     <div id="productInformation">
         <table class="table">
-            @{ 
-                int id = 0;
-                int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
-                
-                var product = dbs.Products.FirstOrDefault(p => p.ProductId == id); 
-             }
             <tr>
                 <th>شماره محصول</th>
                 <td>@product.PartNumber</td>
@@ -105,12 +144,18 @@
                 <td>@product.ProductSecription</td>
             </tr>
         </table>
-        <hr />
-        <div>
-            <h3 style="border-bottom:thin solid #fff;">بررسی محصول</h3>
-            <div id="productsReview">
-                @Html.Raw(product.ProductReview.ProductReview1)
-            </div>
+
+        <div id="productAction">
+            <a href="#" class="gia-cart button green">اضافه کردن به سبد خرید</a>
+            <a href="#" class="gia-heart button">اضافه کردن به لیست علاقه مندیها</a>
         </div>
+    </div>
+</div>
+
+<hr />
+<div style="width:100%;">
+    <h3 style="border-bottom:thin solid #fff;">بررسی محصول</h3>
+    <div id="productsReview">
+        @Html.Raw(product.ProductReview.ProductReview1)
     </div>
 </div>

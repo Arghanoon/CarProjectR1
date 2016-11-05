@@ -10,16 +10,20 @@
 #ProductImagesSection {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: stretch;
 
     margin:5px;
-    width: 500px;
-    height:500px;
+    width: 30vw;
 
     border:thin solid #888;
     padding:5px;
 }
+#imageBigPreview {
+    width:100%;
+    max-height:100%;
+}
+
 #imagesItems {
     width:100%;
 }
@@ -31,7 +35,7 @@
     }
         #ProductImagesSection #imagesItems a {
             width: 100px;
-            height: 100px;
+            height: 70px;
             margin:5px;
             overflow:hidden;
             border-radius:5px;
@@ -45,6 +49,44 @@
             #ProductImagesSection #imagesItems a:hover {
                 box-shadow:0 0 5px 0 #000;
             }
+
+#CarsContianers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+    #CarsContianers a {
+        width: 100px;
+        height: 70px;
+        margin:2.5px;
+
+        transition:0.5s;
+        color:white;
+        overflow:hidden;
+    }
+        #CarsContianers a:hover {
+            box-shadow:0 0 3px 0 #000;
+        }
+        #CarsContianers a img {
+            width: 100%;
+            height: 100%;
+        }
+
+    #CarsContianers a .title {
+        position:absolute;
+        height:100%; width:100%; top:-100%; left:0; right:0;
+        background:rgba(0,0,0,0.6);
+        transition: 0.5s;
+        display:flex; justify-content:center; align-items:center;
+        flex-direction:column;
+    }
+    #CarsContianers a:hover .title {
+        top: 0;
+    }
+        #CarsContianers .title > * {
+            text-align: center;
+        }
 
 #productInformation {
     margin:5px;
@@ -80,5 +122,45 @@ hr {
 
 #productsReview {
    width:100%;
-   overflow:auto;    
+   overflow:auto;   
+   background:white; 
+   padding:10px;
+   margin-bottom:10px;
 }
+
+
+#productAction {
+    display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap;
+}
+#productAction a {
+}
+
+
+.button {
+    border:thin solid #a8a8a8;
+    padding:5px;
+    font-size:100%;
+    margin:5px;
+
+    background:#fff;
+    color:black;
+
+    transition:0.5s;
+}
+    .button:hover 
+    {
+        color:white;
+        background:#888;
+    }
+
+
+    .button.green {
+        color: #4c9a00;
+        border: thin solid #5fc100;
+        background: #ccff9a;
+    }
+
+    .button:hover.green {
+        color: #ccff9a;
+        background: #4c9a00;
+    }

@@ -99,6 +99,8 @@
     <div id="itemsContainer">
         @foreach (var item in cars)
         {
+            if (item.CarModel == null)
+            { continue; }
             <div class="item">
                 <table>
                     <tr>
