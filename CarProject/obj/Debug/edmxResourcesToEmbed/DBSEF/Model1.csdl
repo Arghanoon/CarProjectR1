@@ -770,6 +770,7 @@
     </Key>
     <Property Name="ProdcutToViewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Viewd" Type="Int32" />
+    <Property Name="Favorite" Type="Int32" />
     <Property Name="ProductId" Type="Int32" />
     <NavigationProperty Name="Product" Relationship="Self.FK_ProductToView_Product" FromRole="ProductToView" ToRole="Product" />
   </EntityType>

@@ -684,6 +684,7 @@
         <MappingFragment StoreEntitySet="ProductToView">
           <ScalarProperty Name="ProdcutToViewId" ColumnName="ProdcutToViewId" />
           <ScalarProperty Name="Viewd" ColumnName="Viewd" />
+          <ScalarProperty Name="Favorite" ColumnName="Favorite" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
         </MappingFragment>
       </EntityTypeMapping>

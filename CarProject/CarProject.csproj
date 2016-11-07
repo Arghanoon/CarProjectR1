@@ -428,6 +428,8 @@
     <Content Include="Publics\Files\Resources\StorePage\Default.js" />
     <Content Include="Publics\Files\Resources\StorePage\index.css" />
     <Content Include="Publics\Files\Resources\StorePage\Products.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Products.js" />
+    <Content Include="Publics\Files\Resources\StorePage\ProductsList.css" />
     <Content Include="Publics\Gallery\CarImages\notfound.jpg" />
     <Content Include="Publics\Files\Images\back.jpg" />
     <Content Include="Publics\Files\Resources\HomePage\News\template_News.css" />

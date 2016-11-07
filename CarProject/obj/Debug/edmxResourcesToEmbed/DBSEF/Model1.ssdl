@@ -629,6 +629,7 @@
     </Key>
     <Property Name="ProdcutToViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Viewd" Type="int" />
+    <Property Name="Favorite" Type="int" />
     <Property Name="ProductId" Type="int" />
   </EntityType>
   <EntityType Name="SecuritySystems">

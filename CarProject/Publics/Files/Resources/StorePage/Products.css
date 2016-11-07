@@ -120,7 +120,33 @@ hr {
     background: #888;
 }
 
-#productsReview {
+
+#productActionAndInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#productViewsInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    #popularcountsection {
+        color: #ff003b;
+    }
+
+#productAction {
+    display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap;
+}
+#productAction a {
+}
+
+
+.productSections {
+    width: 100%;
+}
+.productSections .content {
    width:100%;
    overflow:auto;   
    background:white; 
@@ -128,11 +154,10 @@ hr {
    margin-bottom:10px;
 }
 
+.title {
+    padding:5px;
+    border-bottom:thin solid #888;
 
-#productAction {
-    display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap;
-}
-#productAction a {
 }
 
 
