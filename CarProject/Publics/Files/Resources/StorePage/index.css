@@ -24,6 +24,10 @@
              background:white;
         }
 
+        .ServicePacksContainer .item > * {
+            text-align: center;
+        }
+
 
 #BrandsContainer {
     flex:1;
