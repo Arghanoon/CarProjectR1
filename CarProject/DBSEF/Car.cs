@@ -46,6 +46,7 @@ namespace CarProject.DBSEF
             this.ProductCars = new HashSet<ProductCar>();
             this.SecuritySystems = new HashSet<SecuritySystem>();
             this.SteeringSystems = new HashSet<SteeringSystem>();
+            this.UserReviews = new HashSet<UserReview>();
         }
     
         public int CarsId { get; set; }
@@ -62,6 +63,7 @@ namespace CarProject.DBSEF
         public string CarUsage { get; set; }
         public Nullable<int> CarYearModel { get; set; }
         public string CarBodyType { get; set; }
+        public Nullable<int> CarCostPerYear { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AirConditioningSystem> AirConditioningSystems { get; set; }
@@ -122,5 +124,7 @@ namespace CarProject.DBSEF
         public virtual ICollection<SecuritySystem> SecuritySystems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SteeringSystem> SteeringSystems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserReview> UserReviews { get; set; }
     }
 }

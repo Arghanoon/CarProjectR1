@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
+  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
     <EntitySetMapping Name="AirConditioningSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
         <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -236,6 +236,7 @@
           <ScalarProperty Name="CarUsage" ColumnName="CarUsage" />
           <ScalarProperty Name="CarYearModel" ColumnName="CarYearModel" />
           <ScalarProperty Name="CarBodyType" ColumnName="CarBodyType" />
+          <ScalarProperty Name="CarCostPerYear" ColumnName="CarCostPerYear" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -744,6 +745,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CarAutomationModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ToBaskets">
       <EntityTypeMapping TypeName="CarAutomationModel.ToBasket">
         <MappingFragment StoreEntitySet="ToBasket">
@@ -791,6 +803,19 @@
           <ScalarProperty Name="Upass" ColumnName="Upass" />
           <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserReviews">
+      <EntityTypeMapping TypeName="CarAutomationModel.UserReview">
+        <MappingFragment StoreEntitySet="UserReview">
+          <ScalarProperty Name="UserReviewId" ColumnName="UserReviewId" />
+          <ScalarProperty Name="UserReview1" ColumnName="UserReview" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CarId" ColumnName="CarId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ServicesId" ColumnName="ServicesId" />
+          <ScalarProperty Name="ServicesPackId" ColumnName="ServicesPackId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

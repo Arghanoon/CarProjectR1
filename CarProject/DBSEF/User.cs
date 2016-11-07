@@ -23,6 +23,7 @@ namespace CarProject.DBSEF
             this.PersonProducts = new HashSet<PersonProduct>();
             this.PersonServices = new HashSet<PersonService>();
             this.PersonServicesPacks = new HashSet<PersonServicesPack>();
+            this.UserReviews = new HashSet<UserReview>();
         }
     
         public int UserId { get; set; }
@@ -44,5 +45,7 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonServicesPack> PersonServicesPacks { get; set; }
         public virtual UserRole UserRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserReview> UserReviews { get; set; }
     }
 }
