@@ -164,3 +164,15 @@ hr {
         color: #ccff9a;
         background: #4c9a00;
     }
+
+
+    .button.jigary {
+        color: #b30029;
+        border: thin solid #ff003b;
+        background: #ffd8e1;
+    }
+
+    .button:hover.jigary {
+        color: #ffd8e1;
+        background: #b30029;
+    }

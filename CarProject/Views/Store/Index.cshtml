@@ -53,7 +53,7 @@
                     if(f.Length > 0)
                     {
                         <a href="#" data-title="@item.CarBrandName">
-                            <img src="Publics/Gallery/Brands/@f[0].Name" />
+                            <img src="~/Publics/Gallery/Brands/@f[0].Name" />
                         </a>
                     }
                 }
@@ -102,7 +102,7 @@
                                         <section>
                                             <strong>@item.ProductName</strong><br />
                                             <small>@item.Category.CategoryName</small><br />
-                                            <small>@item.ProductPrices.Last().ProductPrice1 ریال</small>
+                                            <small class="price">@item.ProductPrices.Last().ProductPrice1 ریال</small>
                                         </section>
                                     </a>
                                 }
@@ -112,7 +112,8 @@
                                         <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
                                         <section>
                                             <strong>@item.ProductName</strong><br />
-                                            <small>@item.Category.CategoryName</small>
+                                            <small>@item.Category.CategoryName</small><br />
+                                            <small class="price">@item.ProductPrices.Last().ProductPrice1 ریال</small>
                                         </section>
                                     </a>
                                 }
@@ -137,7 +138,7 @@
                             <a href="#" class="item">
                                 <h2>@item.AutoServicePackName</h2>
                                 <small>@item.Details</small>
-                                <p>@item.PackPrice ریال</p>
+                                <p class="price" style="margin-top:auto;">@item.PackPrice ریال</p>
                             </a>
                         }
                     }

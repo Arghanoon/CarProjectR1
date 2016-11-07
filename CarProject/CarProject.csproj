@@ -853,6 +853,7 @@
     <Content Include="Views\Store\Index.cshtml" />
     <None Include="Properties\PublishProfiles\s.pubxml" />
     <Content Include="Views\Store\Products.cshtml" />
+    <Content Include="Views\Store\ProductsList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -20,5 +20,10 @@ namespace CarProject.Controllers
         {
             return View(id);
         }
+
+        public ActionResult ProductsList(int? id)
+        {
+            return View(id);
+        }
     }
 }

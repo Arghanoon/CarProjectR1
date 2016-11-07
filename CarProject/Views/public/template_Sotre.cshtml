@@ -53,51 +53,13 @@
             <h1>خودرو کلینیک | </h1>
         </section>
         <nav id="header2_menucontianer">
-        	<a href="#">منو شماره 1</a>
-            <a href="#">منو شماره 2</a>
-            <a href="#">منو شماره 3</a>
-            <a href="#">منو شماره 4</a>
-            <a href="#">منو شماره 5</a>
-            <section class="a">
-            	<a href="#">منو زیر مجموعه دار</a>
-                <nav>
-                	<a href="#">منو شماره 1</a>
-                    <a href="#">منو شماره 2</a>
-                    <a href="#">منو شماره 3</a>
-                    <a href="#">منو شماره 4</a>
-                    <a href="#">منو شماره 5</a>
-                    <section class="a">
-                        <a href="#">منو زیر مجموعه دار</a>
-                        <nav>
-                            <a href="#">منو شماره 1</a>
-                            <a href="#">منو شماره 2</a>
-                            <a href="#">منو شماره 3</a>
-                            <section class="a">
-                                <a href="#">منو زیر مجموعه دار</a>
-                                <nav>
-                                    <a href="#">منو شماره 1</a>
-                                    <a href="#">منو شماره 2</a>
-                                    <section class="a">
-                                        <a href="#">منو زیر مجموعه دار</a>
-                                        <nav>
-                                            <a href="#">منو شماره 1</a>
-                                            <a href="#">منو شماره 2</a>
-                                            <a href="#">منو شماره 3</a>
-                                            <a href="#">منو شماره 4</a>
-                                            <a href="#">منو شماره 5</a>
-                                        </nav>
-                                    </section>
-                                    <a href="#">منو شماره 3</a>
-                                    <a href="#">منو شماره 4</a>
-                                    <a href="#">منو شماره 5</a>
-                                </nav>
-                            </section>
-                            <a href="#">منو شماره 4</a>
-                            <a href="#">منو شماره 5</a>
-                        </nav>
-                    </section>
-                </nav>
-            </section>
+        	@{
+                var productsGroup = dbs.Categories.Where(c => c.ParentCategoryId == null || c.ParentCategoryId <= 0);
+                foreach (var item in productsGroup)
+                {
+                    <a href="#">@item.CategoryName</a>
+                }
+        	}
         </nav>
     </header>
 </header>
