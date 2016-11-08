@@ -26,7 +26,7 @@
                                 
             if(finfo.Exists && finfo.GetFiles().Count() > 0)
             {
-                <a href="@Url.Action("Products", "Store", new { id = item.ProductId })" class="item">
+                <a href="@Url.RouteUrl("productRoutes", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
                     <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
                     <section>
                         <strong>@item.ProductName</strong><br />
@@ -37,7 +37,7 @@
             }
             else
             {
-                <a href="@Url.Action("Products", "Store", new { id = item.ProductId })" class="item">
+                <a href="@Url.RouteUrl("productRoutes", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
                     <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
                     <section>
                         <strong>@item.ProductName</strong><br />

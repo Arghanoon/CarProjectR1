@@ -29,14 +29,17 @@
     Random rnd = new Random();
 }
 @using CarProject.App_Code
+@using CarProject.App_extension
 
 
 @section style
 {
     <link href="~/Publics/Files/Resources/StorePage/Products.css" rel="stylesheet" />
     <script src="~/Publics/Files/Resources/StorePage/Products.js"></script>
+    <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
 }
 
+@if (Request.Form.AllKeys.Contains("SendACommentRequest")) { <script>window.location = "#usersCommentsSection"</script> }
 
 <div id="ProductsViewInformationPart1">
     <div>
@@ -189,11 +192,58 @@
     </div>
 </div>
 
+
+ @{var comments = dbs.ProductComments.Where(c => c.ProductId == id).OrderBy(c => c.datetime);}
+@if(comments.Count() > 0)
+{
 <div class="productSections">
-    <h3 class="title">نظرات کاربران</h3>
+    <h3 class="title">پیام های کاربران درباره محصول</h3>
     <div class="content">
+        <div class="commentsContaniner">
+           
+            @foreach (var item in comments)
+            {
+                <div class="item">
+                    <section class="header">
+                        <span class="gia-chat">@item.Fullname</span>
+                        <span>@item.datetime.DateTime_Persian()</span>
+                    </section>
+                    <section class="body">@item.Comment</section>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+}
+
+<div class="productSections">
+    <h3 class="title">ثبت پیام</h3>
+    <div class="content" id="usersCommentsSection">
+        @try { ViewBag.error["success"] = "<span class='successMessage'>" + ViewBag.error["success"] + "</span>"; @Html.Raw(ViewBag.error["success"]) }
+        catch{
         <form method="post">
-            
+            <div class="form" id="commentForm">
+                <label>
+                    <span>نام و نام خانوادگی</span>
+                    <input type="text" name="fullname" placeholder="نام و نام خانوادگی" value="@Request.Form["fullname"]" />
+                    <span class="error">@try { @ViewBag.error["fullname"] } catch { }</span>
+                </label>
+                <label>
+                    <span>ایمیل</span>
+                    <input type="text" name="email" placeholder="username@server.com" dir="ltr" value="@Request.Form["email"]" />
+                    <span class="error">@try { @ViewBag.error["email"] } catch { }</span>
+                </label>
+                <label>
+                    <span>پیام</span>
+                    <textarea name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                    <span class="error">@try { @ViewBag.error["comment"] } catch { }</span>
+                </label>
+            </div>
+             
+            <div class="formAction">
+                <input type="submit" name="SendACommentRequest" class="button green" value="ثبت پیام" />
+            </div>
         </form>
+        }
     </div>
 </div>

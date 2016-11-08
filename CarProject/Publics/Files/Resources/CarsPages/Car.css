@@ -1,0 +1,185 @@
+﻿ .infoTable {
+        width:100%;
+        flex:1;
+    }
+        .infoTable th, 
+        .infoTable td {
+            padding:1px 5px;
+            border:thin solid #eaeaea;
+            text-align: right;
+        }
+        .infoTable th {
+            background:#eaeaea;
+            white-space:nowrap;
+        }
+        .infoTable td {
+            width:100%;
+        }
+
+
+#carShowContianer {
+    display:flex;
+    justify-content:space-between;
+    align-items:stretch;
+    flex-direction:row-reverse;
+}
+
+    #content {
+        flex:1;
+        margin:5px;
+    }
+
+.pagesection {
+    background: #fff;
+    padding:5px;
+    margin:5px;
+}
+
+    #navigation {
+        margin:5px;
+        padding:5px;
+
+        width:300px;
+    }
+
+     td section {
+            display:block;
+            padding:5px;
+            margin:5px;
+
+            background:#eee;
+        }
+
+        .infoHeader {
+            cursor: pointer;
+        }
+            .infoHeader:before {
+                font-family:giadmin;
+	            display:inline-block;
+	            margin:0 3px;
+	            direction:ltr;
+                font-size:70%;
+                content:'\0047';
+            }
+            .infoHeader.active:before {
+                content:'\0048';
+            }
+
+        .infoHeader + .infoTable,
+        .infoHeader + .grid1 {
+            display: none;
+        }
+
+        .infoHeader.active + .infoTable,
+        .infoHeader.active + .grid1 {
+            display: inherit;
+        }
+
+
+
+    #carImages {
+        
+        background:white;
+        animation:carImages;
+        animation-duration: 1s;
+        animation-timing-function:ease-in-out;
+    }
+    @@keyframes carImages{
+        from {
+            transform:scale(2,2);
+        }
+        to {
+            transform:scale(1,1);
+        }
+    }
+
+        #carImages.bigShow {
+            position:fixed;
+            width:90vw;
+            height:90vh;
+
+            top:0; bottom:0; left:0; right:0;
+            margin:auto;
+
+            padding:5px;
+            border:thin solid #888;
+            box-shadow:0 0 2px 0 #888;
+
+            display:flex;
+            justify-content:space-between;
+            
+            flex-direction:column;
+
+            animation:carImages_bigshow;
+            animation-duration: 1s;
+            animation-timing-function:ease-in-out;
+        } 
+        @@keyframes carImages_bigshow{
+        from {
+            transform:scale(0.1,0.1);
+        }
+        to {
+            transform:scale(1,1);
+        }
+    }
+
+    #bigImageShower {
+        width:290px;
+        height:auto;
+        cursor:url(Publics/Files/Images/zoomin.png), pointer;
+    }
+
+    #carImages.bigShow #bigImageShower {
+        width:100%;
+        max-height:100%;
+    }
+
+    #carImages.bigShow #imagesContianer {
+        position:absolute;
+        bottom:0; left:0; right:0;
+        background:rgba(0,0,0,0.6);
+        opacity:0.4;
+
+        transition:ease-in-out 0.2s;
+    }
+        #carImages.bigShow #imagesContianer:hover {
+            opacity:1;
+        }
+
+    #imagesContianer #images {
+        display:flex;
+        overflow:hidden;
+    }
+
+    #carImages.bigShow #imagesContianer #images {
+        justify-content:center;
+    }
+
+    #imagesContianer #images img {
+        display:inline-block;
+        width:68px;
+        height:48px;
+        margin:0 2.5px;
+
+        cursor:pointer;
+        border-radius:2px;
+        border:thin solid #888;
+    }
+        #imagesContianer .leftarrow,
+        #imagesContianer .rightarrow {
+            position:absolute; top:0; bottom:0; margin:auto;
+            display:flex; justify-content:center; align-items:center;
+            background:rgba(0,0,0,0.6);
+            opacity:0;
+            color:white;
+        }
+        #imagesContianer:hover .leftarrow,
+        #imagesContianer:hover .rightarrow {
+            opacity:1;
+        }
+        #imagesContianer .leftarrow {
+            left:0;
+        }
+        #imagesContianer .rightarrow {
+            right:0;
+        }

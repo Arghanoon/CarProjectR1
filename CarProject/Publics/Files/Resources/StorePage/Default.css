@@ -46,6 +46,10 @@ a:hover , a:focus{
 				display:flex; align-items:stretch;
 				min-height:40px;
 			}
+
+#section1part1munuIcon {
+    display: none;
+}
 				#header1 #section1 #part2 #searchSection{
 					display:flex; justify-content:center; align-items:stretch;
 					flex:1;
@@ -350,6 +354,7 @@ a:hover , a:focus{
 {
 	max-height:100%;
     max-width:100%;
+    flex:1;
 }
 
 .SliderType3 .sliderNav

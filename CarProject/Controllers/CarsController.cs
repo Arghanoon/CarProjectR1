@@ -87,8 +87,8 @@ namespace CarProject.Controllers
 
         public ActionResult Car(int id)
         {
-
-            return View();
+            var model = new Areas.Admin.Models.Cars.CarsModel(id);
+            return View(model);
         }
 
         public class tst

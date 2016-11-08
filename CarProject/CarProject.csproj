@@ -340,6 +340,9 @@
     <Compile Include="DBSEF\ProductCar.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\ProductComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\ProductDiscount.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -424,6 +427,8 @@
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\ItemsShowing.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\tinymce01.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\UsersDefault\Default.css" />
+    <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Default_MS.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default.js" />
     <Content Include="Publics\Files\Resources\StorePage\index.css" />
@@ -451,6 +456,7 @@
     <Content Include="Publics\Gallery\ProductImages\NotFound.png" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />
+    <Content Include="Publics\Styles\animate.css" />
     <Content Include="Publics\Styles\fonts\Fonts.css" />
     <Content Include="Publics\Styles\fonts\GIAdmin.css" />
     <Content Include="Publics\Scripts\tinymce\jquery.tinymce.min.js" />

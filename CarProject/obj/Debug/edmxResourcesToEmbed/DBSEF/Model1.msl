@@ -598,6 +598,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ProductComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.ProductComment">
+        <MappingFragment StoreEntitySet="ProductComments">
+          <ScalarProperty Name="ProductCommentId" ColumnName="ProductCommentId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="canshow" ColumnName="canshow" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ProductDiscounts">
       <EntityTypeMapping TypeName="CarAutomationModel.ProductDiscount">
         <MappingFragment StoreEntitySet="ProductDiscount">
