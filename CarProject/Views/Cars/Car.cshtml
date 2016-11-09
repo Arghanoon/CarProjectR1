@@ -4,11 +4,35 @@
 @using System.IO
 @{
     ViewBag.Title = "نمایش اطلاعات خودر";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var rand = new Random();
+    
+    if(dbs.CarsToViews.Count(c  => c.CarsId == Model.Car.CarsId) > 0)
+    {
+        var crtvw = dbs.CarsToViews.FirstOrDefault(c => c.CarsId == Model.Car.CarsId);
+        crtvw.View = (crtvw.View == null) ? 1 : crtvw.View += 1;
+        dbs.SaveChanges();
+    }
+    else
+    {
+        dbs.CarsToViews.Add(new CarProject.DBSEF.CarsToView { CarsId = Model.Car.CarsId, View = 1 });
+        dbs.SaveChanges();
+    }
+
+
+    var carstoviewobject = dbs.CarsToViews.FirstOrDefault(c => c.CarsId == Model.Car.CarsId);
 }
+
+@if (Request.Form.AllKeys.Contains("SendACommentRequest")) { <script>window.location = "#usersCommentsSection"</script> }
 
 
 <div id="carShowContianer">
     <div id="content">
+        <div id="viewsandpopularContianer">
+            <section class="gia-users">@carstoviewobject.View</section>
+            <a href="javascript:void();" onclick="MakeProductPopular('@Url.Action("Car_MakePopular","Cars")','@Model.Car.CarsId')" class="gia-heart" id="popularSectionCounter">@carstoviewobject.Favorite.GetValueOrDefault(0)</a>
+        </div>
         
         <div class="pagesection">
             <h2 class="infoHeader active">اطلاعات عمومی خودرو</h2>
@@ -144,7 +168,7 @@
             </table>
         </div>
 
-        @if(@Model.PhysicalDetail != null)
+        @if (@Model.PhysicalDetail != null)
         {
             <div class="pagesection">
                 <h2 class="infoHeader active">مشخصات فیزیکی</h2>
@@ -236,7 +260,7 @@
                         @foreach (var item in Model.DetailedBrakeSystems)
                         {
                             <section>@item.DetailedName</section>
-                    }
+                        }
                     </td>
                 </tr>
             </table>
@@ -332,7 +356,7 @@
                             <td style="font-weight: bold;">@item.AirConditioningSystemDetailSubject</td>
                             <td>@item.AirConditioningSystemDetail1</td>
                         </tr>
-                }
+                    }
                 </tbody>
             </table>
         </div>
@@ -616,7 +640,7 @@
                         @foreach (var item in @Model.Advantages)
                         {
                             <section>@item</section>
-                    }
+                        }
                     </td>
                 </tr>
                 <tr>
@@ -625,7 +649,7 @@
                         @foreach (var item in @Model.DisAdvatages)
                         {
                             <section>@item</section>
-                    }
+                        }
                     </td>
                 </tr>
             </table>
@@ -689,6 +713,7 @@
     <nav id="navigation">
         
         <div id="carImages" class="">
+            <h3>تصاویر خودور</h3>
             <img id="bigImageShower" alt="" onclick="$('#carImages').toggleClass('bigShow');" />
             <div id="imagesContianer">
                 <div id="images">
@@ -706,6 +731,146 @@
             </div>
         </div>
 
+
+        @{
+            var sameclasscars = dbs.Cars.Where(c => c.CarClassType == Model.Car.CarClassType && c.CarsId != Model.Car.CarsId).OrderBy(c => c.CarsId);
+            Dictionary<int, CarProject.DBSEF.Car> ListOfSameClassCars = new Dictionary<int, CarProject.DBSEF.Car>();
+
+            if (sameclasscars.Any() && sameclasscars.Count() > 0)
+            {
+                var sameclasscarsCount = sameclasscars.Count();
+                if (sameclasscarsCount <= 20)
+                { ListOfSameClassCars = sameclasscars.ToDictionary(c => c.CarsId, c => c); }
+                else
+                {
+                    while (ListOfSameClassCars.Count < 20)
+                    {
+                        var car = sameclasscars.Skip(rand.Next(0, sameclasscarsCount - 1)).First();
+                        if (!ListOfSameClassCars.ContainsKey(car.CarsId))
+                        { ListOfSameClassCars.Add(car.CarsId, car); }
+                    }
+                }
+                
+                <div class="rightpanelSection">
+                    <h3>خودرهای هم کلاس</h3>
+                    <div id="SameClassCars" class="rightPanelItemsShower">
+                       @foreach (var item in ListOfSameClassCars.Values)
+                       {
+                           if (item.CarModel == null)
+                           { continue; }
+                           var carpicutres = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/CarImages/" + item.CarsId));
+                           if (!carpicutres.Exists)
+                           { continue; }
+                           var carImages = carpicutres.GetFiles();
+                           if (carImages.Length <= 0)
+                           { continue; }
+                           
+                           <a href="@Url.RouteUrl("CarsRoutes", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })"  class="item" >
+                               <img src="@Url.Content("~/Publics/Gallery/CarImages/" + item.CarsId + "/" + carImages[rand.Next(0, carImages.Length)].Name)" />
+                               <section class="title">
+                                   <strong>@item.CarModel.CarModelName</strong>
+                                   <small>@item.CarModel.CarBrand.CarBrandName</small>
+                               </section>
+                           </a>
+                       }
+                    </div>
+                </div>       
+            }
+        }
+        
+
+        @{
+            var CarrealtedProduct = dbs.ProductCars.Where(pc => pc.CarsId == Model.Car.CarsId).Select(pc => pc.Product).OrderByDescending(p => p.ProductId);
+            if (CarrealtedProduct.Any())
+            {
+                Dictionary<int, CarProject.DBSEF.Product> prds = new Dictionary<int, CarProject.DBSEF.Product>();
+                var prcnt = CarrealtedProduct.Count();
+
+                if (prcnt <= 20)
+                { prds = CarrealtedProduct.ToDictionary(p => p.ProductId, p => p); }
+                else
+                {
+                    while (prds.Count < 20)
+                    {
+                        var p = CarrealtedProduct.Skip(rand.Next(0, prcnt - 1)).First();
+                        if (!prds.Keys.Contains(p.ProductId))
+                        { prds.Add(p.ProductId, p); }
+                    }
+                }
+                
+            <div class="rightpanelSection">
+                <h3>کالاهای مرتبط با خودرو</h3>
+                <div id="relatedProducts" class="rightPanelItemsShower">
+                    @foreach (var item in prds.Values)
+                    {
+
+                        var prpictures = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/ProductImages/" + item.ProductId));
+                        if (!prpictures.Exists)
+                        { continue; }
+                        var primages = prpictures.GetFiles();
+                        if (primages.Length <= 0)
+                        { continue; }
+                           
+                        <a href="@Url.RouteUrl("productRoutes", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                            <img src="@Url.Content("~/Publics/Gallery/ProductImages/" + item.ProductId + "/" + primages[rand.Next(0, primages.Length)].Name)" />
+                            <section class="title">
+                                <strong>@item.ProductName</strong>
+                                <small>@item.Category.CategoryName</small>
+                            </section>
+                        </a>
+                       }
+                </div>
+            </div>
+                
+            }
+        }
+         
+        
+        <div class="rightpanelSection">
+            <h3>نظرات کاربران</h3>
+        </div>
+
+        <div class="rightpanelSection"  id="usersCommentsSection">
+            <h3>ثبت نظر</h3>
+            <div>
+                @try
+                {
+                    ViewBag.error["success"] = "<span class='successMessage'>" + ViewBag.error["success"] + "</span>"; @Html.Raw(ViewBag.error["success"]) }
+                catch
+                {
+                    <form method="post">
+                        <div class="form" id="commentForm">
+                            <label>
+                                <span>نام و نام خانوادگی</span>
+                                <input type="text" name="fullname" placeholder="نام و نام خانوادگی" value="@Request.Form["fullname"]" />
+                                <span class="error">@try
+                                                    { @ViewBag.error["fullname"] }
+                                                    catch { }</span>
+                            </label>
+                            <label>
+                                <span>ایمیل</span>
+                                <input type="text" name="email" placeholder="username@server.com" dir="ltr" value="@Request.Form["email"]" />
+                                <span class="error">@try
+                                                    { @ViewBag.error["email"] }
+                                                    catch { }</span>
+                            </label>
+                            <label>
+                                <span>پیام</span>
+                                <textarea name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                                <span class="error">@try
+                                                    { @ViewBag.error["comment"] }
+                                                    catch { }</span>
+                            </label>
+                        </div>
+
+                        <div class="formAction">
+                            <input type="submit" name="SendACommentRequest" class="button green" value="ثبت پیام" />
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+
     </nav>
 </div>
 
@@ -713,6 +878,8 @@
 @section style
 {
     <link href="~/Publics/Files/Resources/CarsPages/Car.css" rel="stylesheet" />
+    <script src="~/Publics/Files/Resources/CarsPages/Car.js"></script>
+    <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
 }
 
 @section script

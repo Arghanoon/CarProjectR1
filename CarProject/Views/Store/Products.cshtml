@@ -87,7 +87,7 @@
                     var carImages = carpicutres.GetFiles();
                     if(carImages.Length > 0)
                     {
-                        <a href="#">
+                        <a href="@Url.RouteUrl("CarsRoutes", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.Car.CarModel.CarBrand.CarBrandName, info2 = item.Car.CarModel.CarModelName })">
                             <img src="@Url.Content("~/Publics/Gallery/CarImages/" + item.CarsId + "/" + carImages[rnd.Next(0,carImages.Length)].Name)" />
                             <section class="title">
                                 <strong>@item.Car.CarModel.CarBrand.CarBrandName</strong>

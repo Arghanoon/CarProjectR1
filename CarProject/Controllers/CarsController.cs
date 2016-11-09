@@ -10,6 +10,7 @@ using CarProject.CLS;
 using CarProject.CLS.Searchs;
 using CarProject.Models;
 using db = CarProject.DBSEF;
+using CarProject.App_extension;
 
 namespace CarProject.Controllers
 {
@@ -89,6 +90,54 @@ namespace CarProject.Controllers
         {
             var model = new Areas.Admin.Models.Cars.CarsModel(id);
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult Car(int id, FormCollection form)
+        {
+            ViewBag.error = new Dictionary<string, string>();
+            if (form.AllKeys.Contains("SendACommentRequest"))
+            {
+                if (form["fullname"] == "")
+                    ViewBag.error["fullname"] = "نام و نام خانوادگی تعیین نشده است";
+                if (form["email"] == "")
+                    ViewBag.error["email"] = "ایمیل وارد نشده است";
+                else if (!form["email"].String_IsEmail())
+                    ViewBag.error["email"] = "ایمیل وارد شده صحیح نیست";
+
+                if (form["comment"] == "")
+                    ViewBag.error["comment"] = "پیام وارد نشده است";
+
+                if (((Dictionary<string, string>)ViewBag.error).Count == 0)
+                {
+                    var dbs = new DBSEF.CarAutomationEntities();
+                    dbs.CarComments.Add(new DBSEF.CarComment { Comment = form["comment"], Email = form["email"], Fullname = form["fullname"], CarsId = id, datetime = DateTime.Now });
+                    dbs.SaveChanges();
+                    ViewBag.error["success"] = "پیام شما با موفقیت ثبت شد و پس از تایید به نمایش در خواهد آمد";
+                }
+            }
+
+            var model = new Areas.Admin.Models.Cars.CarsModel(id);
+            return View(model);
+        }
+        [HttpPost]
+        public int Car_MakePopular(int id)
+        {
+            int res = 0;
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (dbs.CarsToViews.Count(c => c.CarsId == id) > 0)
+            {
+                var crtvw = dbs.CarsToViews.FirstOrDefault(c => c.CarsId == id);
+                crtvw.Favorite = (crtvw.Favorite == null) ? 1 : crtvw.Favorite += 1;
+                res = crtvw.Favorite.Value;
+            }
+            else
+            {
+                dbs.CarsToViews.Add(new CarProject.DBSEF.CarsToView { CarsId = id, Favorite = 1 });
+                res = 1;
+            }
+
+            dbs.SaveChanges();
+            return res;
         }
 
         public class tst

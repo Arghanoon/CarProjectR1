@@ -120,6 +120,19 @@
     <Property Name="CarBrandName" Type="nvarchar" MaxLength="150" />
     <Property Name="CarBrandHistory" Type="ntext" />
   </EntityType>
+  <EntityType Name="CarComments">
+    <Key>
+      <PropertyRef Name="CarCommentsId" />
+    </Key>
+    <Property Name="CarCommentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarsId" Type="int" />
+    <Property Name="Fullname" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Comment" Type="ntext" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="canshow" Type="bit" />
+    <Property Name="datetime" Type="datetime" />
+  </EntityType>
   <EntityType Name="CarEngine">
     <Key>
       <PropertyRef Name="CarEngineId" />
@@ -298,6 +311,15 @@
     <Property Name="CarsReview" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" />
     <Property Name="LastPointId" Type="int" />
+  </EntityType>
+  <EntityType Name="CarsToView">
+    <Key>
+      <PropertyRef Name="CarsToViewId" />
+    </Key>
+    <Property Name="CarsToViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarsId" Type="int" />
+    <Property Name="View" Type="int" />
+    <Property Name="Favorite" Type="int" />
   </EntityType>
   <EntityType Name="CarWheels">
     <Key>
@@ -883,6 +905,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CarComments_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="CarComments" Type="Self.CarComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="CarComments">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="CarComments" Type="Self.CarComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="CarComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CarEngine_Cars">
     <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
     <End Role="CarEngine" Type="Self.CarEngine" Multiplicity="*" />
@@ -1084,6 +1130,18 @@
       </Principal>
       <Dependent Role="CarsReviewPoint1">
         <PropertyRef Name="LastPointId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarsToView_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="CarsToView" Type="Self.CarsToView" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="CarsToView">
+        <PropertyRef Name="CarsId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1759,6 +1817,7 @@
     <EntitySet Name="CarAirbags" EntityType="Self.CarAirbags" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarAudioSystem" EntityType="Self.CarAudioSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarBrand" EntityType="Self.CarBrand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarComments" EntityType="Self.CarComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarEngine" EntityType="Self.CarEngine" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarGearBox" EntityType="Self.CarGearBox" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarLightingSystem" EntityType="Self.CarLightingSystem" Schema="dbo" store:Type="Tables" />
@@ -1773,6 +1832,7 @@
     <EntitySet Name="CarsQnA" EntityType="Self.CarsQnA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarsReview" EntityType="Self.CarsReview" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarsReviewPoint" EntityType="Self.CarsReviewPoint" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarsToView" EntityType="Self.CarsToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarWheels" EntityType="Self.CarWheels" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
@@ -1859,6 +1919,14 @@
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarAudioSystem" EntitySet="CarAudioSystem" />
     </AssociationSet>
+    <AssociationSet Name="FK_CarComments_Cars" Association="Self.FK_CarComments_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarComments" EntitySet="CarComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarComments_User" Association="Self.FK_CarComments_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="CarComments" EntitySet="CarComments" />
+    </AssociationSet>
     <AssociationSet Name="FK_CarEngine_Cars" Association="Self.FK_CarEngine_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarEngine" EntitySet="CarEngine" />
@@ -1926,6 +1994,10 @@
     <AssociationSet Name="FK_CarsReviewPoint_CarsReviewPoint" Association="Self.FK_CarsReviewPoint_CarsReviewPoint">
       <End Role="CarsReviewPoint" EntitySet="CarsReviewPoint" />
       <End Role="CarsReviewPoint1" EntitySet="CarsReviewPoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarsToView_Cars" Association="Self.FK_CarsToView_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarsToView" EntitySet="CarsToView" />
     </AssociationSet>
     <AssociationSet Name="FK_CarWheels_Cars" Association="Self.FK_CarWheels_Cars">
       <End Role="Cars" EntitySet="Cars" />

@@ -132,6 +132,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CarComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarComment">
+        <MappingFragment StoreEntitySet="CarComments">
+          <ScalarProperty Name="CarCommentsId" ColumnName="CarCommentsId" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="canshow" ColumnName="canshow" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="CarEngines">
       <EntityTypeMapping TypeName="CarAutomationModel.CarEngine">
         <MappingFragment StoreEntitySet="CarEngine">
@@ -322,6 +336,16 @@
           <ScalarProperty Name="CarsReview" ColumnName="CarsReview" />
           <ScalarProperty Name="CarsId" ColumnName="CarsId" />
           <ScalarProperty Name="LastPointId" ColumnName="LastPointId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarsToViews">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarsToView">
+        <MappingFragment StoreEntitySet="CarsToView">
+          <ScalarProperty Name="CarsToViewId" ColumnName="CarsToViewId" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="View" ColumnName="View" />
+          <ScalarProperty Name="Favorite" ColumnName="Favorite" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
