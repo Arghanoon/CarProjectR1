@@ -56,6 +56,7 @@
     <Property Name="AutoServicePackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="AutoServicePackName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PackPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoServices_AutoServicePack" FromRole="AutoServicePack" ToRole="AutoServices" />
     <NavigationProperty Name="PersonServicesPacks" Relationship="Self.FK_PersonServicesPack_AutoServicePack" FromRole="AutoServicePack" ToRole="PersonServicesPack" />
     <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_AutoServicePack" FromRole="AutoServicePack" ToRole="ProductDiscount" />
@@ -143,6 +144,21 @@
     <Property Name="CarBrandName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="CarBrandHistory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="CarModels" Relationship="Self.FK_CarModel_CarBrand" FromRole="CarBrand" ToRole="CarModel" />
+  </EntityType>
+  <EntityType Name="CarComment">
+    <Key>
+      <PropertyRef Name="CarCommentsId" />
+    </Key>
+    <Property Name="CarCommentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarsId" Type="Int32" />
+    <Property Name="Fullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="canshow" Type="Boolean" />
+    <Property Name="datetime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Car" Relationship="Self.FK_CarComments_Cars" FromRole="CarComments" ToRole="Cars" />
+    <NavigationProperty Name="User" Relationship="Self.FK_CarComments_User" FromRole="CarComments" ToRole="User" />
   </EntityType>
   <EntityType Name="CarEngine">
     <Key>
@@ -258,6 +274,7 @@
     <NavigationProperty Name="BrakeSystems" Relationship="Self.FK_BrakeSystem_Cars" FromRole="Cars" ToRole="BrakeSystem" />
     <NavigationProperty Name="CarAirbags" Relationship="Self.FK_CarAirbags_Cars" FromRole="Cars" ToRole="CarAirbags" />
     <NavigationProperty Name="CarAudioSystems" Relationship="Self.FK_CarAudioSystem_Cars_CarsId" FromRole="Cars" ToRole="CarAudioSystem" />
+    <NavigationProperty Name="CarComments" Relationship="Self.FK_CarComments_Cars" FromRole="Cars" ToRole="CarComments" />
     <NavigationProperty Name="CarEngines" Relationship="Self.FK_CarEngine_Cars" FromRole="Cars" ToRole="CarEngine" />
     <NavigationProperty Name="CarGearBoxes" Relationship="Self.FK_CarGearBox_Cars" FromRole="Cars" ToRole="CarGearBox" />
     <NavigationProperty Name="CarLightingSystems" Relationship="Self.FK_CarLightingSystem_Cars" FromRole="Cars" ToRole="CarLightingSystem" />
@@ -272,6 +289,7 @@
     <NavigationProperty Name="CarsQnAs" Relationship="Self.FK_CarsQnA_Cars" FromRole="Cars" ToRole="CarsQnA" />
     <NavigationProperty Name="CarsReviews" Relationship="Self.FK_CarsReview_Cars" FromRole="Cars" ToRole="CarsReview" />
     <NavigationProperty Name="CarsReviewPoints" Relationship="Self.FK_CarsReviewPoint_Cars" FromRole="Cars" ToRole="CarsReviewPoint" />
+    <NavigationProperty Name="CarsToViews" Relationship="Self.FK_CarsToView_Cars" FromRole="Cars" ToRole="CarsToView" />
     <NavigationProperty Name="CarWheels" Relationship="Self.FK_CarWheels_Cars" FromRole="Cars" ToRole="CarWheels" />
     <NavigationProperty Name="DetailedBrakeSystems" Relationship="Self.FK_DetailedBrakeSystem_Cars" FromRole="Cars" ToRole="DetailedBrakeSystem" />
     <NavigationProperty Name="FuelConsumptions" Relationship="Self.FK_FuelConsumption_Cars" FromRole="Cars" ToRole="FuelConsumption" />
@@ -371,6 +389,16 @@
     <NavigationProperty Name="Car" Relationship="Self.FK_CarsReviewPoint_Cars" FromRole="CarsReviewPoint" ToRole="Cars" />
     <NavigationProperty Name="CarsReviewPoint1" Relationship="Self.FK_CarsReviewPoint_CarsReviewPoint" FromRole="CarsReviewPoint" ToRole="CarsReviewPoint1" />
     <NavigationProperty Name="CarsReviewPoint2" Relationship="Self.FK_CarsReviewPoint_CarsReviewPoint" FromRole="CarsReviewPoint1" ToRole="CarsReviewPoint" />
+  </EntityType>
+  <EntityType Name="CarsToView">
+    <Key>
+      <PropertyRef Name="CarsToViewId" />
+    </Key>
+    <Property Name="CarsToViewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarsId" Type="Int32" />
+    <Property Name="View" Type="Int32" />
+    <Property Name="Favorite" Type="Int32" />
+    <NavigationProperty Name="Car" Relationship="Self.FK_CarsToView_Cars" FromRole="CarsToView" ToRole="Cars" />
   </EntityType>
   <EntityType Name="CarWheel">
     <Key>
@@ -657,6 +685,7 @@
     <NavigationProperty Name="ProductQnA" Relationship="Self.FK_Product_ProductQnA" FromRole="Product" ToRole="ProductQnA" />
     <NavigationProperty Name="ProductReview" Relationship="Self.FK_Product_ProductReview" FromRole="Product" ToRole="ProductReview" />
     <NavigationProperty Name="ProductCars" Relationship="Self.FK_ProductCars_Product" FromRole="Product" ToRole="ProductCars" />
+    <NavigationProperty Name="ProductComments" Relationship="Self.FK_ProductComments_Product" FromRole="Product" ToRole="ProductComments" />
     <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_Product" FromRole="Product" ToRole="ProductDiscount" />
     <NavigationProperty Name="ProductInServices" Relationship="Self.FK_ProductInService_Product" FromRole="Product" ToRole="ProductInService" />
     <NavigationProperty Name="ProductPrices" Relationship="Self.FK_ProductPrice_Product" FromRole="Product" ToRole="ProductPrice" />
@@ -675,6 +704,21 @@
     <Property Name="CarsId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_ProductCars_Cars" FromRole="ProductCars" ToRole="Cars" />
     <NavigationProperty Name="Product" Relationship="Self.FK_ProductCars_Product" FromRole="ProductCars" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="ProductComment">
+    <Key>
+      <PropertyRef Name="ProductCommentId" />
+    </Key>
+    <Property Name="ProductCommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="Fullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="canshow" Type="Boolean" />
+    <Property Name="datetime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductComments_Product" FromRole="ProductComments" ToRole="Product" />
+    <NavigationProperty Name="User" Relationship="Self.FK_ProductComments_User" FromRole="ProductComments" ToRole="User" />
   </EntityType>
   <EntityType Name="ProductDiscount">
     <Key>
@@ -769,6 +813,7 @@
     </Key>
     <Property Name="ProdcutToViewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Viewd" Type="Int32" />
+    <Property Name="Favorite" Type="Int32" />
     <Property Name="ProductId" Type="Int32" />
     <NavigationProperty Name="Product" Relationship="Self.FK_ProductToView_Product" FromRole="ProductToView" ToRole="Product" />
   </EntityType>
@@ -814,6 +859,7 @@
     <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Url" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Byte" />
   </EntityType>
   <EntityType Name="SteeringSystem">
     <Key>
@@ -882,11 +928,13 @@
     <Property Name="UserRoleId" Type="Int32" />
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="Baskets" Relationship="Self.FK_Basket_User" FromRole="User" ToRole="Basket" />
+    <NavigationProperty Name="CarComments" Relationship="Self.FK_CarComments_User" FromRole="User" ToRole="CarComments" />
     <NavigationProperty Name="People" Relationship="Self.FK_Person_User" FromRole="User" ToRole="Person" />
     <NavigationProperty Name="PersonCars" Relationship="Self.FK_PersonCars_User" FromRole="User" ToRole="PersonCars" />
     <NavigationProperty Name="PersonProducts" Relationship="Self.FK_PersonProduct_User" FromRole="User" ToRole="PersonProduct" />
     <NavigationProperty Name="PersonServices" Relationship="Self.FK_PersonServices_User" FromRole="User" ToRole="PersonServices" />
     <NavigationProperty Name="PersonServicesPacks" Relationship="Self.FK_PersonServicesPack_User" FromRole="User" ToRole="PersonServicesPack" />
+    <NavigationProperty Name="ProductComments" Relationship="Self.FK_ProductComments_User" FromRole="User" ToRole="ProductComments" />
     <NavigationProperty Name="UserRole" Relationship="Self.FK_User_UserRole" FromRole="User" ToRole="UserRole" />
   </EntityType>
   <EntityType Name="UserRole">
@@ -1161,6 +1209,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CarComments_Cars">
+    <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
+    <End Role="CarComments" Type="Self.CarComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="CarComments">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="CarComments" Type="Self.CarComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="CarComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CarEngine_Cars">
     <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
     <End Role="CarEngine" Type="Self.CarEngine" Multiplicity="*" />
@@ -1325,6 +1397,18 @@
         <PropertyRef Name="CarsId" />
       </Principal>
       <Dependent Role="CarsReviewPoint">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarsToView_Cars">
+    <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
+    <End Role="CarsToView" Type="Self.CarsToView" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="CarsToView">
         <PropertyRef Name="CarsId" />
       </Dependent>
     </ReferentialConstraint>
@@ -1737,6 +1821,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProductComments_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductComments" Type="Self.ProductComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductComments">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ProductDiscount_Product">
     <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
     <End Role="ProductDiscount" Type="Self.ProductDiscount" Multiplicity="*" />
@@ -1833,6 +1929,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProductComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ProductComments" Type="Self.ProductComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ProductComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ProductQnA_ProductQnA">
     <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="0..1" />
     <End Role="ProductQnA1" Type="Self.ProductQnA" Multiplicity="*" />
@@ -1881,6 +1989,7 @@
     <EntitySet Name="CarAirbags" EntityType="Self.CarAirbag" />
     <EntitySet Name="CarAudioSystems" EntityType="Self.CarAudioSystem" />
     <EntitySet Name="CarBrands" EntityType="Self.CarBrand" />
+    <EntitySet Name="CarComments" EntityType="Self.CarComment" />
     <EntitySet Name="CarEngines" EntityType="Self.CarEngine" />
     <EntitySet Name="CarGearBoxes" EntityType="Self.CarGearBox" />
     <EntitySet Name="CarLightingSystems" EntityType="Self.CarLightingSystem" />
@@ -1895,6 +2004,7 @@
     <EntitySet Name="CarsQnAs" EntityType="Self.CarsQnA" />
     <EntitySet Name="CarsReviews" EntityType="Self.CarsReview" />
     <EntitySet Name="CarsReviewPoints" EntityType="Self.CarsReviewPoint" />
+    <EntitySet Name="CarsToViews" EntityType="Self.CarsToView" />
     <EntitySet Name="CarWheels" EntityType="Self.CarWheel" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Companies" EntityType="Self.Company" />
@@ -1917,6 +2027,7 @@
     <EntitySet Name="PersonServicesPacks" EntityType="Self.PersonServicesPack" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="ProductCars" EntityType="Self.ProductCar" />
+    <EntitySet Name="ProductComments" EntityType="Self.ProductComment" />
     <EntitySet Name="ProductDiscounts" EntityType="Self.ProductDiscount" />
     <EntitySet Name="ProductInServices" EntityType="Self.ProductInService" />
     <EntitySet Name="ProductPrices" EntityType="Self.ProductPrice" />
@@ -2024,6 +2135,14 @@
       <End Role="CarBrand" EntitySet="CarBrands" />
       <End Role="CarModel" EntitySet="CarModels" />
     </AssociationSet>
+    <AssociationSet Name="FK_CarComments_Cars" Association="Self.FK_CarComments_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarComments" EntitySet="CarComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarComments_User" Association="Self.FK_CarComments_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="CarComments" EntitySet="CarComments" />
+    </AssociationSet>
     <AssociationSet Name="FK_CarEngine_Cars" Association="Self.FK_CarEngine_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarEngine" EntitySet="CarEngines" />
@@ -2079,6 +2198,10 @@
     <AssociationSet Name="FK_CarsReviewPoint_Cars" Association="Self.FK_CarsReviewPoint_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarsReviewPoint" EntitySet="CarsReviewPoints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarsToView_Cars" Association="Self.FK_CarsToView_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarsToView" EntitySet="CarsToViews" />
     </AssociationSet>
     <AssociationSet Name="FK_CarWheels_Cars" Association="Self.FK_CarWheels_Cars">
       <End Role="Cars" EntitySet="Cars" />
@@ -2216,6 +2339,10 @@
       <End Role="Product" EntitySet="Products" />
       <End Role="ProductCars" EntitySet="ProductCars" />
     </AssociationSet>
+    <AssociationSet Name="FK_ProductComments_Product" Association="Self.FK_ProductComments_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductComments" EntitySet="ProductComments" />
+    </AssociationSet>
     <AssociationSet Name="FK_ProductDiscount_Product" Association="Self.FK_ProductDiscount_Product">
       <End Role="Product" EntitySet="Products" />
       <End Role="ProductDiscount" EntitySet="ProductDiscounts" />
@@ -2247,6 +2374,10 @@
     <AssociationSet Name="FK_Troubleshooting_Product" Association="Self.FK_Troubleshooting_Product">
       <End Role="Product" EntitySet="Products" />
       <End Role="Troubleshooting" EntitySet="Troubleshootings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductComments_User" Association="Self.FK_ProductComments_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ProductComments" EntitySet="ProductComments" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductQnA_ProductQnA" Association="Self.FK_ProductQnA_ProductQnA">
       <End Role="ProductQnA" EntitySet="ProductQnAs" />

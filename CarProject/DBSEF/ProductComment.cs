@@ -12,13 +12,18 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductToView
+    public partial class ProductComment
     {
-        public int ProdcutToViewId { get; set; }
-        public Nullable<int> Viewd { get; set; }
-        public Nullable<int> Favorite { get; set; }
+        public int ProductCommentId { get; set; }
         public Nullable<int> ProductId { get; set; }
+        public string Fullname { get; set; }
+        public string Email { get; set; }
+        public string Comment { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<bool> canshow { get; set; }
+        public Nullable<System.DateTime> datetime { get; set; }
     
         public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -9,12 +9,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-<title>خودرو کلینیک - @ViewBag.Title</title>
+<title>خودرو کلینیک@{if (ViewBag.Title != "") { Write(" - " + ViewBag.Title); }}</title>
 
     <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
     <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
     <link href="~/Publics/Files/Resources/StorePage/Default.css" rel="stylesheet" />
+    <link href="~/Publics/Files/Resources/StorePage/Default_MS.css" rel="stylesheet" media="(max-width:700px)" />
     <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
+
+    @RenderSection("style", false)
 </head>
 
 <body>
@@ -22,13 +25,15 @@
 <header id="headers">	
     <header id="header1">
     	<div id="section1">
+            <a href="javascript:void()" onclick="$('#part1').toggleClass('show')" class="gia-menuIcon" id="section1part1munuIcon"></a>
         	<section id="part1">
-            	<span> 
+            	 
                 	فروشگاه اینترنتی کلینیک خودرو |
                     <a href="/Login" class="gia-login">ورود کاربران</a>
                     <a href="/Login/Signup" class="gia-user"> ثبت نام کاربر</a>
                     <a href="#" class="gia-cart">سبد خرید</a>
-                </span>
+                    <a href="#" class="gia-heart">علاقه مندیها</a>
+                
             </section>
             
             <div id="part2">
@@ -50,51 +55,13 @@
             <h1>خودرو کلینیک | </h1>
         </section>
         <nav id="header2_menucontianer">
-        	<a href="#">منو شماره 1</a>
-            <a href="#">منو شماره 2</a>
-            <a href="#">منو شماره 3</a>
-            <a href="#">منو شماره 4</a>
-            <a href="#">منو شماره 5</a>
-            <section class="a">
-            	<a href="#">منو زیر مجموعه دار</a>
-                <nav>
-                	<a href="#">منو شماره 1</a>
-                    <a href="#">منو شماره 2</a>
-                    <a href="#">منو شماره 3</a>
-                    <a href="#">منو شماره 4</a>
-                    <a href="#">منو شماره 5</a>
-                    <section class="a">
-                        <a href="#">منو زیر مجموعه دار</a>
-                        <nav>
-                            <a href="#">منو شماره 1</a>
-                            <a href="#">منو شماره 2</a>
-                            <a href="#">منو شماره 3</a>
-                            <section class="a">
-                                <a href="#">منو زیر مجموعه دار</a>
-                                <nav>
-                                    <a href="#">منو شماره 1</a>
-                                    <a href="#">منو شماره 2</a>
-                                    <section class="a">
-                                        <a href="#">منو زیر مجموعه دار</a>
-                                        <nav>
-                                            <a href="#">منو شماره 1</a>
-                                            <a href="#">منو شماره 2</a>
-                                            <a href="#">منو شماره 3</a>
-                                            <a href="#">منو شماره 4</a>
-                                            <a href="#">منو شماره 5</a>
-                                        </nav>
-                                    </section>
-                                    <a href="#">منو شماره 3</a>
-                                    <a href="#">منو شماره 4</a>
-                                    <a href="#">منو شماره 5</a>
-                                </nav>
-                            </section>
-                            <a href="#">منو شماره 4</a>
-                            <a href="#">منو شماره 5</a>
-                        </nav>
-                    </section>
-                </nav>
-            </section>
+        	@{
+                var productsGroup = dbs.Categories.Where(c => c.ParentCategoryId == null || c.ParentCategoryId <= 0);
+                foreach (var item in productsGroup)
+                {
+                    <a href="#">@item.CategoryName</a>
+                }
+        	}
         </nav>
     </header>
 </header>
@@ -135,4 +102,5 @@
 </body>
 
 <script src="~/Publics/Files/Resources/StorePage/Default.js"></script>
+@RenderSection("script", false)
 </html>

@@ -5,6 +5,11 @@
 }
 @model CarProject.Areas.Admin.Models.Store.ServicePacksModel
 
+
+<div style="border-bottom:thin solid #888; margin-bottom:10px;">
+    
+</div>
+
 <div>
     <form method="post" onsubmit="submitFunction(event)">
         <div class="inputsContainer">
@@ -46,6 +51,8 @@
                 </div>
                 @Html.ValidationMessageFor(m => m.ServicesIds)
             </div>
+
+            @Html.input_TextArea(m => m.ServicePack.Details, "توضیحات")
         </div>
 
         <div class="inputAction">

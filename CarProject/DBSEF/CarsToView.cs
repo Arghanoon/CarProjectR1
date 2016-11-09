@@ -12,13 +12,13 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductToView
+    public partial class CarsToView
     {
-        public int ProdcutToViewId { get; set; }
-        public Nullable<int> Viewd { get; set; }
+        public int CarsToViewId { get; set; }
+        public Nullable<int> CarsId { get; set; }
+        public Nullable<int> View { get; set; }
         public Nullable<int> Favorite { get; set; }
-        public Nullable<int> ProductId { get; set; }
     
-        public virtual Product Product { get; set; }
+        public virtual Car Car { get; set; }
     }
 }

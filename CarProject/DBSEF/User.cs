@@ -18,11 +18,13 @@ namespace CarProject.DBSEF
         public User()
         {
             this.Baskets = new HashSet<Basket>();
+            this.CarComments = new HashSet<CarComment>();
             this.People = new HashSet<Person>();
             this.PersonCars = new HashSet<PersonCar>();
             this.PersonProducts = new HashSet<PersonProduct>();
             this.PersonServices = new HashSet<PersonService>();
             this.PersonServicesPacks = new HashSet<PersonServicesPack>();
+            this.ProductComments = new HashSet<ProductComment>();
         }
     
         public int UserId { get; set; }
@@ -34,6 +36,8 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Basket> Baskets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CarComment> CarComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Person> People { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonCar> PersonCars { get; set; }
@@ -43,6 +47,8 @@ namespace CarProject.DBSEF
         public virtual ICollection<PersonService> PersonServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonServicesPack> PersonServicesPacks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductComment> ProductComments { get; set; }
         public virtual UserRole UserRole { get; set; }
     }
 }

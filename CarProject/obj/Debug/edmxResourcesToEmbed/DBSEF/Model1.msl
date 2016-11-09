@@ -48,6 +48,7 @@
           <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
           <ScalarProperty Name="AutoServicePackName" ColumnName="AutoServicePackName" />
           <ScalarProperty Name="PackPrice" ColumnName="PackPrice" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -128,6 +129,20 @@
           <ScalarProperty Name="CarBrandId" ColumnName="CarBrandId" />
           <ScalarProperty Name="CarBrandName" ColumnName="CarBrandName" />
           <ScalarProperty Name="CarBrandHistory" ColumnName="CarBrandHistory" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarComment">
+        <MappingFragment StoreEntitySet="CarComments">
+          <ScalarProperty Name="CarCommentsId" ColumnName="CarCommentsId" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="canshow" ColumnName="canshow" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -321,6 +336,16 @@
           <ScalarProperty Name="CarsReview" ColumnName="CarsReview" />
           <ScalarProperty Name="CarsId" ColumnName="CarsId" />
           <ScalarProperty Name="LastPointId" ColumnName="LastPointId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarsToViews">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarsToView">
+        <MappingFragment StoreEntitySet="CarsToView">
+          <ScalarProperty Name="CarsToViewId" ColumnName="CarsToViewId" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="View" ColumnName="View" />
+          <ScalarProperty Name="Favorite" ColumnName="Favorite" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -597,6 +622,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ProductComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.ProductComment">
+        <MappingFragment StoreEntitySet="ProductComments">
+          <ScalarProperty Name="ProductCommentId" ColumnName="ProductCommentId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="canshow" ColumnName="canshow" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ProductDiscounts">
       <EntityTypeMapping TypeName="CarAutomationModel.ProductDiscount">
         <MappingFragment StoreEntitySet="ProductDiscount">
@@ -683,6 +722,7 @@
         <MappingFragment StoreEntitySet="ProductToView">
           <ScalarProperty Name="ProdcutToViewId" ColumnName="ProdcutToViewId" />
           <ScalarProperty Name="Viewd" ColumnName="Viewd" />
+          <ScalarProperty Name="Favorite" ColumnName="Favorite" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -728,6 +768,7 @@
           <ScalarProperty Name="Describe" ColumnName="Describe" />
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

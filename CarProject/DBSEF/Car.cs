@@ -24,6 +24,7 @@ namespace CarProject.DBSEF
             this.BrakeSystems = new HashSet<BrakeSystem>();
             this.CarAirbags = new HashSet<CarAirbag>();
             this.CarAudioSystems = new HashSet<CarAudioSystem>();
+            this.CarComments = new HashSet<CarComment>();
             this.CarEngines = new HashSet<CarEngine>();
             this.CarGearBoxes = new HashSet<CarGearBox>();
             this.CarLightingSystems = new HashSet<CarLightingSystem>();
@@ -37,6 +38,7 @@ namespace CarProject.DBSEF
             this.CarsQnAs = new HashSet<CarsQnA>();
             this.CarsReviews = new HashSet<CarsReview>();
             this.CarsReviewPoints = new HashSet<CarsReviewPoint>();
+            this.CarsToViews = new HashSet<CarsToView>();
             this.CarWheels = new HashSet<CarWheel>();
             this.DetailedBrakeSystems = new HashSet<DetailedBrakeSystem>();
             this.FuelConsumptions = new HashSet<FuelConsumption>();
@@ -78,6 +80,8 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarAudioSystem> CarAudioSystems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CarComment> CarComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarEngine> CarEngines { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarGearBox> CarGearBoxes { get; set; }
@@ -104,6 +108,8 @@ namespace CarProject.DBSEF
         public virtual ICollection<CarsReview> CarsReviews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarsReviewPoint> CarsReviewPoints { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CarsToView> CarsToViews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarWheel> CarWheels { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
