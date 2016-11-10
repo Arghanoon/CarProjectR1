@@ -444,3 +444,43 @@ a:hover , a:focus{
     background:white;
 }
 /*-------------------------ENDClasses--------------------------------*/
+
+
+
+/*----------------------------------------[ Messages ]----------------------------------------------------*/
+.message {
+    position:fixed;
+    top:0; left:0; right:0;
+    background:white;
+    border:thin solid #888;
+    box-shadow:0 3px 3px 0 #888;
+    display:flex;
+    align-items:center;
+    
+    animation:anim_messageInput;
+    animation-duration:1s;
+}
+
+@keyframes anim_messageInput {
+    from {
+        transform:translateY(-100%);
+    }
+    to {
+        transform:none;
+    }
+}
+
+
+    .message .action {
+        width:30px;
+        height:50px;
+        border-left:thin solid #888;
+        padding:5px;
+        display:flex; justify-content:center; align-items:center;
+        cursor:pointer;
+        background:#eaeaea;
+    }
+    .message .content {
+        padding:5px;
+    }
+/*----------------------------------------[ End of Messages ]---------------------------------------------*/

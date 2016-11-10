@@ -19,6 +19,17 @@ namespace CarProject.Controllers
             return View();
         }
 
+        public void AddToCart(int id, CartOfProducts.CartType type)
+        {
+            if (Session["UserCart"] == null && !(Session["UserCart"] is List<CartOfProducts>))
+                Session["UserCart"] = new List<CartOfProducts>();
+
+            var cartobje = new CartOfProducts { Id = id, TypeOfProduct = type };
+            if (!((List<CartOfProducts>)Session["UserCart"]).Contains(cartobje))
+                ((List<CartOfProducts>)Session["UserCart"]).Add(cartobje);
+
+        }
+
         public ActionResult Products(int id)
         {
             return View(id);
@@ -124,6 +135,36 @@ namespace CarProject.Controllers
 
             dbs.SaveChanges();
             return res;
+        }
+    }
+
+    public class CartOfProducts
+    {
+        public enum CartType
+        {
+            Product = 1,
+            AutoService = 2,
+            AutoServicePack = 3
+        };
+
+        public int Id { get; set; }
+        public CartType TypeOfProduct { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return (obj is CartOfProducts && ((CartOfProducts)obj) == this);
+        }
+        public override int GetHashCode()
+        {
+            return Id * (int)TypeOfProduct;
+        }
+        public static bool operator ==(CartOfProducts value1, CartOfProducts value2)
+        {
+            return value1.Id == value2.Id && value1.TypeOfProduct == value2.TypeOfProduct;
+        }
+        public static bool operator !=(CartOfProducts value1, CartOfProducts value2)
+        {
+            return value1.Id != value2.Id || value1.TypeOfProduct != value2.TypeOfProduct;
         }
     }
 }

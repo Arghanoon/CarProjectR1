@@ -176,7 +176,7 @@
                 <section class="gia-heart" id="popularcountsection">@if (productsToviewObject.Favorite != null) { @productsToviewObject.Favorite } else{ <span>0</span> } </section>
             </div>
             <div id="productAction">
-                <a href="#" class="gia-cart button green">اضافه کردن به سبد خرید</a>
+                <a href="javascript:void()" onclick="AddToCart('@product.ProductId','@CarProject.Controllers.CartOfProducts.CartType.Product')" class="gia-cart button green">اضافه کردن به سبد خرید</a>
                 <a href="javascript:void()" class="gia-heart button jigary" onclick="MakeProductPopular('@Url.Action("Products_makePopular","Store")','@id')">محبوب کردن کالا</a>
             </div>
         </div>

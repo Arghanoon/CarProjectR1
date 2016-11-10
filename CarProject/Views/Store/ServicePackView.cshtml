@@ -28,7 +28,7 @@
         <a class="gia-users">@viewservicpack.Viewd.GetValueOrDefault()</a>
         <a href="javascript:void()" onclick="MakeProductPopular('@Url.Action("ServicePackView_makePopular","Store")','@id')" id="popularCounter" class="gia-heart">@viewservicpack.Favorite.GetValueOrDefault()</a>
         |
-        <a href="#" class="gia-cart">اضافه کردن سبد خرید</a>
+        <a href="javascript:void();" class="gia-cart" onclick="AddToCart('@id','@CarProject.Controllers.CartOfProducts.CartType.AutoServicePack')">اضافه کردن سبد خرید</a>
     </div>
     <div id="serviceInfoSection">
         <div>
