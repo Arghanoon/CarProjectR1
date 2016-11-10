@@ -748,6 +748,7 @@
           <ScalarProperty Name="ServicesPackToViewId" ColumnName="ServicesPackToViewId" />
           <ScalarProperty Name="Viewd" ColumnName="Viewd" />
           <ScalarProperty Name="ServicesPackId" ColumnName="ServicesPackId" />
+          <ScalarProperty Name="Favorite" ColumnName="Favorite" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -757,6 +758,7 @@
           <ScalarProperty Name="ServiceToViewId" ColumnName="ServiceToViewId" />
           <ScalarProperty Name="Views" ColumnName="Views" />
           <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+          <ScalarProperty Name="Favorite" ColumnName="Favorite" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

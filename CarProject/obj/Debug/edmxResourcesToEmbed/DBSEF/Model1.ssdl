@@ -688,6 +688,7 @@
     <Property Name="ServicesPackToViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Viewd" Type="int" />
     <Property Name="ServicesPackId" Type="int" />
+    <Property Name="Favorite" Type="int" />
   </EntityType>
   <EntityType Name="ServiceToView">
     <Key>
@@ -696,6 +697,7 @@
     <Property Name="ServiceToViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Views" Type="int" />
     <Property Name="ServiceId" Type="int" />
+    <Property Name="Favorite" Type="int" />
   </EntityType>
   <EntityType Name="SlideShows">
     <Key>

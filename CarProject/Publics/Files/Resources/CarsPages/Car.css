@@ -300,3 +300,40 @@
 .successMessage {
     color: lawngreen;
 }
+
+
+.commentsContaniner {
+    display:flex; flex-direction:column;
+}
+
+    .commentsContaniner .item {
+        margin:5px 0;
+        border: thin solid #eee;  
+        
+        display:flex; flex-direction:column;  
+    }
+        .commentsContaniner .item .header {
+            display:flex; justify-content:space-between;
+            font-size:80%;
+            background:#888;
+            color:white;
+            padding:2px 5px;
+        }
+        .commentsContaniner .item .body {
+            padding:5px;
+        }
+
+.listviewoflinks {
+    display:block;
+}
+    .listviewoflinks a {
+        display: block;
+    }
+        .listviewoflinks a small {
+            font-size: 70%;
+        }
+
+#contentTopBarSection {
+    display:flex;
+    justify-content:space-between;
+}

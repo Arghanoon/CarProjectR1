@@ -23,7 +23,6 @@ namespace CarProject.Controllers
         {
             return View(id);
         }
-
         [HttpPost]
         public ActionResult Products(int id, FormCollection form)
         {
@@ -75,6 +74,56 @@ namespace CarProject.Controllers
         public ActionResult ProductsList(int? id)
         {
             return View(id);
+        }
+
+        public ActionResult ServiceView(int id)
+        {
+            return View(id);
+        }
+        [HttpPost]
+        public int ServiceView_makePopular(int id)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            int res = 0;
+
+            var x = dbs.ServiceToViews.FirstOrDefault(p => p.ServiceId == id);
+            if (x != null)
+            {
+                if (x.Favorite == null || x.Favorite <= 0)
+                { x.Favorite = 1; res = 1; }
+                else
+                { x.Favorite += 1; res = x.Favorite.Value; }
+            }
+
+
+            dbs.SaveChanges();
+            return res;
+        }
+
+
+
+        public ActionResult ServicePackView(int id)
+        {
+            return View(id);
+        }
+        [HttpPost]
+        public int ServicePackView_makePopular(int id)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            int res = 0;
+
+            var x = dbs.ServicesPackToViews.FirstOrDefault(p => p.ServicesPackId == id);
+            if (x != null)
+            {
+                if (x.Favorite == null || x.Favorite <= 0)
+                { x.Favorite = 1; res = 1; }
+                else
+                { x.Favorite += 1; res = x.Favorite.Value; }
+            }
+
+
+            dbs.SaveChanges();
+            return res;
         }
     }
 }

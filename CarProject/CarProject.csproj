@@ -679,7 +679,6 @@
     <Content Include="Publics\Scripts\tinymce\themes\modern\theme.min.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.min.js" />
-    <Content Include="Publics\Files\Resources\CarsPage.css" />
     <Content Include="Publics\Files\Resources\template.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -869,6 +868,8 @@
     <None Include="Properties\PublishProfiles\s.pubxml" />
     <Content Include="Views\Store\Products.cshtml" />
     <Content Include="Views\Store\ProductsList.cshtml" />
+    <Content Include="Views\Store\ServiceView.cshtml" />
+    <Content Include="Views\Store\ServicePackView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
