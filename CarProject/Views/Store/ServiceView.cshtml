@@ -50,7 +50,7 @@
                                 var services = dbs.AutoServices1.Where(c => c.AutoServiceId == id).Select(c => c.AutoServicePack);
                                 foreach (var item in services)
                                 {
-                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName }, Request.Url.Scheme)">@item.AutoServicePackName - <small>@item.PackPrice ریال</small></a>
+                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice ریال</small></a>
                                 }
                             }
                         </div>

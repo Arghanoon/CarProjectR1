@@ -870,6 +870,7 @@
     <Content Include="Views\Store\ProductsList.cshtml" />
     <Content Include="Views\Store\ServiceView.cshtml" />
     <Content Include="Views\Store\ServicePackView.cshtml" />
+    <Content Include="Views\Store\Cart.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

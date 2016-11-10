@@ -29,6 +29,13 @@ namespace CarProject.Controllers
                 ((List<CartOfProducts>)Session["UserCart"]).Add(cartobje);
 
         }
+        public ActionResult Cart()
+        {
+            if (Session["UserCart"] == null && !(Session["UserCart"] is List<CartOfProducts>))
+                Session["UserCart"] = new List<CartOfProducts>();
+
+            return View(((List<CartOfProducts>)Session["UserCart"]));
+        }
 
         public ActionResult Products(int id)
         {

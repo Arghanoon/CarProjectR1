@@ -1,0 +1,119 @@
+﻿@using CarProject.Controllers
+@model List<CartOfProducts>
+@{
+    ViewBag.Title = "سبد خرید کاربر";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    Func<int, CartOfProducts.CartType, string> GetnameOfCartObject = new Func<int, CartOfProducts.CartType, string>(
+        delegate(int id, CartOfProducts.CartType typeofcart)
+        {
+            switch (typeofcart)
+            {
+                case CartOfProducts.CartType.Product:
+                    {
+                        var x = dbs.Products.FirstOrDefault(c => c.ProductId == id);
+                        if (x != null)
+                            return x.ProductName;
+                        else
+                            return "";
+                    }
+                case CartOfProducts.CartType.AutoService:
+                    {
+                        var x = dbs.AutoServices.FirstOrDefault(c => c.AutoServiceId == id);
+                        if (x != null)
+                            return x.AutoServiceName;
+                        else
+                            return "";
+                    }
+                case CartOfProducts.CartType.AutoServicePack:
+                    {
+                        var x = dbs.AutoServicePacks.FirstOrDefault(c => c.AutoServicePackId == id);
+                        if (x != null)
+                            return x.AutoServicePackName;
+                        else
+                            return "";
+                    }
+                default:
+                    return "";
+            }
+        });
+
+
+    Func<CartOfProducts.CartType, string> getNameofCartType = new Func<CartOfProducts.CartType, string>(delegate(CartOfProducts.CartType ct) {
+        switch (ct)
+        {
+            case CartOfProducts.CartType.Product:
+                return "محصولات";
+            case CartOfProducts.CartType.AutoService:
+                return "سرویس ها";
+            case CartOfProducts.CartType.AutoServicePack:
+                return "سرویس پک ها";
+            default:
+                return "";
+        }
+    });
+}
+
+
+<div class="page">
+    <h3>سبد خرید کاربر</h3>
+    <hr />
+
+    <div>
+        <table id="cartTable">
+            <thead>
+                <tr>
+                    <th class="fix">شماره</th>
+                    <th>نام</th>
+                    <th class="fix">نوع</th>
+                    <th class="fix">تعداد</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int i  = 1; }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fix center">@i</td>
+                        <td>@GetnameOfCartObject(item.Id,item.TypeOfProduct)</td>
+                        <td class="fix center">@getNameofCartType(item.TypeOfProduct)</td>
+                        <td class="fix center">
+                            <input type="number" name="@item.Id" />
+                        </td>
+                    </tr>
+                    
+                    i += 1;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section style
+{
+    <style>
+        #cartTable {
+            width:100%;
+            padding:5px;
+            margin:5px;
+        }
+            #cartTable td,
+            #cartTable th {
+                padding:1px 5px;
+                border:thin solid #888;
+            }
+
+            #cartTable th {
+                background:#bbb;
+            }
+
+
+            #cartTable .fix {
+                width:0; 
+                white-space:nowrap;
+            }
+            #cartTable .center {
+                text-align: center;
+            }
+    </style>
+}
