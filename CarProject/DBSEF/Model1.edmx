@@ -693,6 +693,7 @@
           <Property Name="ServicesPackToViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Viewd" Type="int" />
           <Property Name="ServicesPackId" Type="int" />
+          <Property Name="Favorite" Type="int" />
         </EntityType>
         <EntityType Name="ServiceToView">
           <Key>
@@ -701,6 +702,7 @@
           <Property Name="ServiceToViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Views" Type="int" />
           <Property Name="ServiceId" Type="int" />
+          <Property Name="Favorite" Type="int" />
         </EntityType>
         <EntityType Name="SlideShows">
           <Key>
@@ -3069,6 +3071,7 @@
           <Property Name="ServicesPackToViewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Viewd" Type="Int32" />
           <Property Name="ServicesPackId" Type="Int32" />
+          <Property Name="Favorite" Type="Int32" />
           <NavigationProperty Name="AutoServicePack" Relationship="Self.FK_ServicesPackToView_AutoServicePack" FromRole="ServicesPackToView" ToRole="AutoServicePack" />
         </EntityType>
         <EntityType Name="ServiceToView">
@@ -3078,6 +3081,7 @@
           <Property Name="ServiceToViewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Views" Type="Int32" />
           <Property Name="ServiceId" Type="Int32" />
+          <Property Name="Favorite" Type="Int32" />
           <NavigationProperty Name="AutoService" Relationship="Self.FK_ServiceToView_AutoService" FromRole="ServiceToView" ToRole="AutoService" />
         </EntityType>
         <EntityType Name="SlideShow">
@@ -5375,6 +5379,7 @@
                 <ScalarProperty Name="ServicesPackToViewId" ColumnName="ServicesPackToViewId" />
                 <ScalarProperty Name="Viewd" ColumnName="Viewd" />
                 <ScalarProperty Name="ServicesPackId" ColumnName="ServicesPackId" />
+                <ScalarProperty Name="Favorite" ColumnName="Favorite" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5384,6 +5389,7 @@
                 <ScalarProperty Name="ServiceToViewId" ColumnName="ServiceToViewId" />
                 <ScalarProperty Name="Views" ColumnName="Views" />
                 <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="Favorite" ColumnName="Favorite" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -839,6 +839,7 @@
     <Property Name="ServicesPackToViewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Viewd" Type="Int32" />
     <Property Name="ServicesPackId" Type="Int32" />
+    <Property Name="Favorite" Type="Int32" />
     <NavigationProperty Name="AutoServicePack" Relationship="Self.FK_ServicesPackToView_AutoServicePack" FromRole="ServicesPackToView" ToRole="AutoServicePack" />
   </EntityType>
   <EntityType Name="ServiceToView">
@@ -848,6 +849,7 @@
     <Property Name="ServiceToViewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Views" Type="Int32" />
     <Property Name="ServiceId" Type="Int32" />
+    <Property Name="Favorite" Type="Int32" />
     <NavigationProperty Name="AutoService" Relationship="Self.FK_ServiceToView_AutoService" FromRole="ServiceToView" ToRole="AutoService" />
   </EntityType>
   <EntityType Name="SlideShow">

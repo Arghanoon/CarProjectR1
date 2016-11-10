@@ -436,5 +436,11 @@ a:hover , a:focus{
 	.w30{ width: 30%; }
 	.w33{ width: 33.3333333%; }
 	.w25{ width: 25%; }
-	
+
+
+.page {
+    margin:5px;
+    padding:5px;
+    background:white;
+}
 /*-------------------------ENDClasses--------------------------------*/

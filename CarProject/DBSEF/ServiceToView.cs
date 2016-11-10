@@ -17,6 +17,7 @@ namespace CarProject.DBSEF
         public int ServiceToViewId { get; set; }
         public Nullable<int> Views { get; set; }
         public Nullable<int> ServiceId { get; set; }
+        public Nullable<int> Favorite { get; set; }
     
         public virtual AutoService AutoService { get; set; }
     }
