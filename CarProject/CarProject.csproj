@@ -407,6 +407,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Home\ContactUsMessageModel.cs" />
+    <Compile Include="Models\Store\CartUsefull.cs" />
     <Compile Include="Models\User\UserInfo.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -870,6 +871,7 @@
     <Content Include="Views\Store\ProductsList.cshtml" />
     <Content Include="Views\Store\ServiceView.cshtml" />
     <Content Include="Views\Store\ServicePackView.cshtml" />
+    <Content Include="Views\Store\Cart.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

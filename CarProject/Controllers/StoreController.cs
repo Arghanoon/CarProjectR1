@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 using CarProject.App_extension;
 
@@ -17,6 +18,46 @@ namespace CarProject.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public void AddToCart(int id, CartOfProducts.CartType type)
+        {
+            var list = new List<CartOfProducts>();
+            var cartobje = new CartOfProducts { Id = id, TypeOfProduct = type };
+
+            if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
+            {
+                list = JsonConvert.DeserializeObject<List<CartOfProducts>>(Request.Cookies["UserCart"].Value);
+            }
+            
+            if (!list.Contains(cartobje))
+                list.Add(cartobje);
+
+
+            Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
+            Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
+
+        }
+        public ActionResult Cart()
+        {
+            var list = new List<CartOfProducts>();
+
+            if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
+                list = JsonConvert.DeserializeObject<List<CartOfProducts>>(Request.Cookies["UserCart"].Value);
+
+
+            return View(list);
+        }
+        [HttpPost]
+        public ActionResult Cart(List<CartOfProducts> list,bool clearForm)
+        {
+            if (clearForm)
+            {
+                list = new List<CartOfProducts>();
+                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
+                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
+            }
+            return View(list);
         }
 
         public ActionResult Products(int id)
@@ -124,6 +165,42 @@ namespace CarProject.Controllers
 
             dbs.SaveChanges();
             return res;
+        }
+    }
+
+    public class CartOfProducts
+    {
+        public enum CartType
+        {
+            Product = 1,
+            AutoService = 2,
+            AutoServicePack = 3
+        };
+
+        public int Id { get; set; }
+        public CartType TypeOfProduct { get; set; }
+        public int Count { get; set; }
+
+        public CartOfProducts()
+        {
+            Count = 1;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return (obj is CartOfProducts && ((CartOfProducts)obj) == this);
+        }
+        public override int GetHashCode()
+        {
+            return Id * (int)TypeOfProduct;
+        }
+        public static bool operator ==(CartOfProducts value1, CartOfProducts value2)
+        {
+            return value1.Id == value2.Id && value1.TypeOfProduct == value2.TypeOfProduct;
+        }
+        public static bool operator !=(CartOfProducts value1, CartOfProducts value2)
+        {
+            return value1.Id != value2.Id || value1.TypeOfProduct != value2.TypeOfProduct;
         }
     }
 }
