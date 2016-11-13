@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Title | خودرو کلینیک</title>
+
+    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
+    <link href="~/Areas/Users/resources/Styles/Default/Default.css" rel="stylesheet" />
+
+
+    @RenderSection("head", false)
+</head>
+<body>
+    <header>
+        <div id="header_section1">
+            <a href="#">خودرو کلینیک</a>
+
+            <nav>
+                <a href="#">لینک شماره 1</a>
+                <a href="#">لینک شماره 2</a>
+                <a href="#">لینک شماره 3</a>
+                <a href="#">لینک شماره 4</a>
+            </nav>
+
+            <a href="#" class="gia-logout"></a>
+        </div>        
+    </header>
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer>
+        footer
+    </footer>
+</body>
+</html>

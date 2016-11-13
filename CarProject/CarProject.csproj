@@ -169,9 +169,8 @@
     <Compile Include="Areas\Admin\Models\Store\Services.cs" />
     <Compile Include="Areas\Admin\Models\Store\StoreMVC.cs" />
     <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
-    <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
-    <Compile Include="Areas\Users\Controllers\PersonalityController.cs" />
-    <Compile Include="Areas\Users\Models\Personality\UserCars.cs" />
+    <Compile Include="Areas\Users\Controllers\profileController.cs" />
+    <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="CLS\Filters.cs" />
     <Compile Include="CLS\SearchClass.cs" />
     <Compile Include="CLS\Searchs\CarsSearchLogic.cs" />
@@ -409,7 +408,6 @@
     <Compile Include="Models\Home\ContactUsMessageModel.cs" />
     <Compile Include="Models\Store\CartUsefull.cs" />
     <Compile Include="Models\User\UserInfo.cs" />
-    <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -434,6 +432,7 @@
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\ItemsShowing.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\tinymce01.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\UsersDefault\Default.css" />
+    <Content Include="Areas\Users\resources\Styles\Default\Default.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
     <Content Include="Publics\Files\Resources\StorePage\Default_MS.css" />
@@ -694,6 +693,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Users\Models\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Gallery\Brands\" />
     <Folder Include="Publics\Gallery\CarTempImages\" />
@@ -783,12 +783,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\FileManager\Index.cshtml" />
-    <Content Include="Areas\Users\Views\Web.config" />
-    <Content Include="Areas\Users\Views\Shared\publicTemplate.cshtml" />
-    <Content Include="Areas\Users\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Users\Views\Dashboard\Index.cshtml" />
-    <Content Include="Areas\Users\Views\Personality\Index.cshtml" />
-    <Content Include="Areas\Users\Views\Personality\PersonalInformation.cshtml" />
     <Content Include="Areas\Admin\Views\User\newUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\NewCar.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\Brands.cshtml" />
@@ -833,9 +827,6 @@
     <Content Include="Areas\Admin\Views\Store\ServicePacks.cshtml" />
     <Content Include="Areas\Admin\Views\Store\ServicePacks_New.cshtml" />
     <Content Include="Areas\Admin\Views\Store\ServicePacks_Update.cshtml" />
-    <Content Include="Areas\Users\Views\Personality\UserCars.cshtml" />
-    <Content Include="Areas\Users\Views\Personality\UserCars_New.cshtml" />
-    <Content Include="Areas\Users\Views\Personality\UserCars_Update.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -853,6 +844,11 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Users\Views\Web.config" />
+    <Content Include="Areas\Users\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Users\Views\Shared\Default.cshtml" />
+    <Content Include="Areas\Users\Views\profile\Index.cshtml" />
+    <Content Include="Areas\Users\Views\profile\Signup.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
