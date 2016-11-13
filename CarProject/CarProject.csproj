@@ -407,6 +407,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Home\ContactUsMessageModel.cs" />
+    <Compile Include="Models\Store\CartUsefull.cs" />
     <Compile Include="Models\User\UserInfo.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />

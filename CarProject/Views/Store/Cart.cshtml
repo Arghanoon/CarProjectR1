@@ -3,89 +3,86 @@
 @{
     ViewBag.Title = "سبد خرید کاربر";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
-    Func<int, CartOfProducts.CartType, string> GetnameOfCartObject = new Func<int, CartOfProducts.CartType, string>(
-        delegate(int id, CartOfProducts.CartType typeofcart)
-        {
-            switch (typeofcart)
-            {
-                case CartOfProducts.CartType.Product:
-                    {
-                        var x = dbs.Products.FirstOrDefault(c => c.ProductId == id);
-                        if (x != null)
-                            return x.ProductName;
-                        else
-                            return "";
-                    }
-                case CartOfProducts.CartType.AutoService:
-                    {
-                        var x = dbs.AutoServices.FirstOrDefault(c => c.AutoServiceId == id);
-                        if (x != null)
-                            return x.AutoServiceName;
-                        else
-                            return "";
-                    }
-                case CartOfProducts.CartType.AutoServicePack:
-                    {
-                        var x = dbs.AutoServicePacks.FirstOrDefault(c => c.AutoServicePackId == id);
-                        if (x != null)
-                            return x.AutoServicePackName;
-                        else
-                            return "";
-                    }
-                default:
-                    return "";
-            }
-        });
 
-
-    Func<CartOfProducts.CartType, string> getNameofCartType = new Func<CartOfProducts.CartType, string>(delegate(CartOfProducts.CartType ct) {
-        switch (ct)
-        {
-            case CartOfProducts.CartType.Product:
-                return "محصولات";
-            case CartOfProducts.CartType.AutoService:
-                return "سرویس ها";
-            case CartOfProducts.CartType.AutoServicePack:
-                return "سرویس پک ها";
-            default:
-                return "";
-        }
-    });
+    var usfull = new CarProject.Models.Store.CartUsefull(); 
 }
 
 
 <div class="page">
-    <h3>سبد خرید کاربر</h3>
-    <hr />
 
-    <div>
-        <table id="cartTable">
-            <thead>
-                <tr>
-                    <th class="fix">شماره</th>
-                    <th>نام</th>
-                    <th class="fix">نوع</th>
-                    <th class="fix">تعداد</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{ int i  = 1; }
-                @foreach (var item in Model)
-                {
+    <form method="post" onsubmit="FormSumbitFunction(event)">
+        <h3>سبد خرید کاربر</h3>
+        <hr />
+        <div>
+            <table id="cartTable">
+                <thead>
                     <tr>
-                        <td class="fix center">@i</td>
-                        <td>@GetnameOfCartObject(item.Id,item.TypeOfProduct)</td>
-                        <td class="fix center">@getNameofCartType(item.TypeOfProduct)</td>
-                        <td class="fix center">
-                            <input type="number" name="@item.Id" />
-                        </td>
+                        <th class="fix">شماره</th>
+                        <th>نام</th>
+                        <th class="fix">نوع</th>
+                        <th class="fix">قیمت</th>
+                        <th class="fix">تعداد</th>
+                        <th class="fix">مبلغ کل</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @{ 
+                        int i = 1;
+                        int SumofAll = 0;
+                     }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fix center">@i</td>
+                            <td>
+                                <input type="hidden" value="@item.Id" name="Id" />
+                                @usfull.GetNameOfCartObject(item.Id, item.TypeOfProduct)
+                            </td>
+                            <td class="fix center">
+                                <input type="hidden" value="@item.TypeOfProduct" name="TypeOfProduct" />
+                                @usfull.GetNameofCartType(item.TypeOfProduct)
+                            </td>
+                             <td class="fix center">
+                               @usfull.GetPriceOfCartObject(item.Id, item.TypeOfProduct)
+                            </td>
+                            <td class="fix center">
+                                <input type="text" name="Count" value="@item.Count" class="center" data-itemprice="@usfull.GetPriceOfCartObject(item.Id,item.TypeOfProduct)" onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
+                            </td>
+                            <td class="fix center">
+                                <span class="totalprice">
+                                    @{
+                                           int price = 1;
+                                           int.TryParse(usfull.GetPriceOfCartObject(item.Id, item.TypeOfProduct), out price);
+                                           Write(price * item.Count);
+                                           SumofAll += (price * item.Count);
+                                    }
+                                </span>
+                            </td>
+                        </tr>
                     
                     i += 1;
                 }
-            </tbody>
-        </table>
-    </div>
+                    <tr>
+                        <td colspan="5">مجموع</td>
+                        <td>
+                            <span id="SumOfAllPrices">
+                                @SumofAll
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr />
+
+        <div class="formAction" dir="ltr">
+            <input type="hidden" name="clearForm" value="false" id="clearForm" />
+            <input type="submit" class="button green" value="ادامه و تکمیل فرایند خرید" name="ContinueShoping" />
+            <input type="button" class="button red" value="پاک کردن سبد خرید" onclick="document.getElementById('clearForm').value = 'true'; this.form.submit();"/>
+        </div>
+
+    </form>
+
 </div>
 
 
@@ -116,4 +113,43 @@
                 text-align: center;
             }
     </style>
+}
+
+@section script
+{
+    <script>
+        function FormSumbitFunction(e) {
+            e.preventDefault();
+            $('#cartTable tbody tr').each(function (index, element) {
+                $('input', element).each(function (index2, element2) {
+                    $(element2).attr('name', "[" + index + "]." + $(element2).attr('name'));
+                });
+            });
+
+            e.target.submit();
+        }
+
+        function ChangeTotalPriceValue(e) {
+            tr = $(e.target).parent('td').parent();
+            exh = $(e.target).attr('data-itemprice');
+            $('.totalprice', tr).html((exh * parseInt(e.target.value)));
+
+            sumofall = 0;
+            $("#cartTable tbody tr .totalprice").each(function (index, element) {
+                sumofall += parseInt($(element).html());
+            });
+            document.getElementById("SumOfAllPrices").innerHTML = sumofall;
+        }
+
+        function IntInputOnly(e) {
+            arf = ["Tab", "PageDown", "PageUp", "Delete","Home", "End", "ArrowLeft", "ArrowRight","F5","Backspace", "ArrowTop","0","1", "2","3","4","5","6","7","8","9"];
+            if (arf.indexOf(e.key) >= 0) {
+                return true;
+            }
+            else {
+                e.preventDefault();
+                return false;
+            }
+        }
+    </script>
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 using CarProject.App_extension;
 
@@ -21,20 +22,42 @@ namespace CarProject.Controllers
 
         public void AddToCart(int id, CartOfProducts.CartType type)
         {
-            if (Session["UserCart"] == null && !(Session["UserCart"] is List<CartOfProducts>))
-                Session["UserCart"] = new List<CartOfProducts>();
-
+            var list = new List<CartOfProducts>();
             var cartobje = new CartOfProducts { Id = id, TypeOfProduct = type };
-            if (!((List<CartOfProducts>)Session["UserCart"]).Contains(cartobje))
-                ((List<CartOfProducts>)Session["UserCart"]).Add(cartobje);
+
+            if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
+            {
+                list = JsonConvert.DeserializeObject<List<CartOfProducts>>(Request.Cookies["UserCart"].Value);
+            }
+            
+            if (!list.Contains(cartobje))
+                list.Add(cartobje);
+
+
+            Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
+            Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
 
         }
         public ActionResult Cart()
         {
-            if (Session["UserCart"] == null && !(Session["UserCart"] is List<CartOfProducts>))
-                Session["UserCart"] = new List<CartOfProducts>();
+            var list = new List<CartOfProducts>();
 
-            return View(((List<CartOfProducts>)Session["UserCart"]));
+            if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
+                list = JsonConvert.DeserializeObject<List<CartOfProducts>>(Request.Cookies["UserCart"].Value);
+
+
+            return View(list);
+        }
+        [HttpPost]
+        public ActionResult Cart(List<CartOfProducts> list,bool clearForm)
+        {
+            if (clearForm)
+            {
+                list = new List<CartOfProducts>();
+                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
+                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
+            }
+            return View(list);
         }
 
         public ActionResult Products(int id)
@@ -156,6 +179,12 @@ namespace CarProject.Controllers
 
         public int Id { get; set; }
         public CartType TypeOfProduct { get; set; }
+        public int Count { get; set; }
+
+        public CartOfProducts()
+        {
+            Count = 1;
+        }
 
         public override bool Equals(object obj)
         {

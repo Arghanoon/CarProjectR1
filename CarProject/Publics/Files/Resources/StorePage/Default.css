@@ -484,3 +484,34 @@ a:hover , a:focus{
         padding:5px;
     }
 /*----------------------------------------[ End of Messages ]---------------------------------------------*/
+
+/*--------------------------------[ Button ]--------------------------------------*/
+.button {
+    border:thin solid #888;
+    background:#eee;
+    font-family:yekan;
+    padding:2px 5px;
+    margin:2.5px;
+}
+    .button:hover {
+        background:#ddd;
+    }
+
+    .button.red {
+        color: #760000;
+        border-color: #b10000;
+        background: #ffd8d8;
+    }
+        .button.red:hover {
+            background:#ffc4c4;
+        }
+
+    .button.green {
+        color: #387300;
+        border-color: #55ae00;
+        background: #eaffd5;
+    }
+        .button.green:hover {
+            background:#c2ff86;
+        }
+/*--------------------------------[ END of Button ]-------------------------------*/
