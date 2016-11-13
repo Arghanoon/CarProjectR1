@@ -1,5 +1,7 @@
 *{ position:relative; margin:0; padding:0; box-sizing:border-box; }
-
+ul {
+    margin:5px 25px;
+}
 body{
 	direction:rtl;
 	font-family:yekan;
@@ -444,3 +446,74 @@ a:hover , a:focus{
     background:white;
 }
 /*-------------------------ENDClasses--------------------------------*/
+
+
+
+/*----------------------------------------[ Messages ]----------------------------------------------------*/
+.message {
+    position:fixed;
+    top:0; left:0; right:0;
+    background:white;
+    border:thin solid #888;
+    box-shadow:0 3px 3px 0 #888;
+    display:flex;
+    align-items:center;
+    
+    animation:anim_messageInput;
+    animation-duration:1s;
+}
+
+@keyframes anim_messageInput {
+    from {
+        transform:translateY(-100%);
+    }
+    to {
+        transform:none;
+    }
+}
+
+
+    .message .action {
+        width:30px;
+        height:50px;
+        border-left:thin solid #888;
+        padding:5px;
+        display:flex; justify-content:center; align-items:center;
+        cursor:pointer;
+        background:#eaeaea;
+    }
+    .message .content {
+        padding:5px;
+    }
+/*----------------------------------------[ End of Messages ]---------------------------------------------*/
+
+/*--------------------------------[ Button ]--------------------------------------*/
+.button {
+    border:thin solid #888;
+    background:#eee;
+    font-family:yekan;
+    padding:2px 5px;
+    margin:2.5px;
+}
+    .button:hover {
+        background:#ddd;
+    }
+
+    .button.red {
+        color: #760000;
+        border-color: #b10000;
+        background: #ffd8d8;
+    }
+        .button.red:hover {
+            background:#ffc4c4;
+        }
+
+    .button.green {
+        color: #387300;
+        border-color: #55ae00;
+        background: #eaffd5;
+    }
+        .button.green:hover {
+            background:#c2ff86;
+        }
+/*--------------------------------[ END of Button ]-------------------------------*/

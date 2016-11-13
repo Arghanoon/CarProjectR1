@@ -15,6 +15,7 @@
     <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
     <link href="~/Publics/Files/Resources/StorePage/Default.css" rel="stylesheet" />
     <link href="~/Publics/Files/Resources/StorePage/Default_MS.css" rel="stylesheet" media="(max-width:700px)" />
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/input1.css" rel="stylesheet" />
     <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
 
     @RenderSection("style", false)
@@ -31,7 +32,7 @@
                 	فروشگاه اینترنتی کلینیک خودرو |
                     <a href="/Login" class="gia-login">ورود کاربران</a>
                     <a href="/Login/Signup" class="gia-user"> ثبت نام کاربر</a>
-                    <a href="#" class="gia-cart">سبد خرید</a>
+                    <a href="@Url.Action("Cart","Store")" class="gia-cart">سبد خرید</a>
                     <a href="#" class="gia-heart">علاقه مندیها</a>
                 
             </section>
@@ -45,7 +46,7 @@
         </div>
         
         <div id="logoSection">
-            <img id="logo" src="~/Publics/Files/Resources/HomePage/logo.png" />
+            <img id="logo" src="~/Publics/Files/Resources/HomePage/logo.png" alt="وبسایت رسمی خودرو کلینیک"/>
             <section id="describe">توضیحات سایت</section>
         </div>
     </header>

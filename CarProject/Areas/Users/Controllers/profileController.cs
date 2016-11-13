@@ -6,14 +6,20 @@ using System.Web.Mvc;
 
 namespace CarProject.Areas.Users.Controllers
 {
-    public class DashboardController : Controller
+    public class profileController : Controller
     {
         //
-        // GET: /Users/Dashboard/
+        // GET: /Users/profile/
 
         public ActionResult Index()
         {
             return View();
         }
+
+        public ActionResult Signup()
+        {
+            return View();
+        }
+
     }
 }

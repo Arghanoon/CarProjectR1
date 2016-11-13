@@ -1,4 +1,4 @@
-/*------------------------------------SliderType1--------------------------------------------*/
+﻿/*------------------------------------SliderType1--------------------------------------------*/
 $(".SliderType1 .sliderTitles > *").append("<section class='tile'></section>")
 $(".SliderType1 .sliderTitles .tile").each(function (index, element) {
     h = $(element).height();
@@ -140,3 +140,31 @@ function SliderType3GoRight(el) {
     }
 }
 /*---------------------------------ENDSliderType3--------------------------------------------*/
+
+
+
+
+/*--------------[ RequstShowMessage ]--------------------------*/
+function MessageBoxShow(content) {
+    
+    $(document.body).append(
+                        '<div class="message">' +
+                            '<div class="action" onclick="$(\'.message\').remove()">' +
+                                '<a href="" >&times;</a>' +
+                            '</div>' +
+                            '<div class="content">' +
+                                content +
+                            '</div>' +
+                        '</div>' 
+                        );
+
+    setTimeout(function () { $('.message').remove(); }, 5000);
+}
+/*--------------[ End RequstShowMessage ]----------------------*/
+
+
+/*----------------------------------[ Add To CartRequest ]----------------------------------*/
+function AddToCart(id, type) {
+    $.post('/Store/AddToCart', { 'id': id, 'type': type }, function (res) { MessageBoxShow("محصول به سبد خرید اضافه شد"); });
+}
+/*----------------------------------[ END Add To CartRequest ]------------------------------*/

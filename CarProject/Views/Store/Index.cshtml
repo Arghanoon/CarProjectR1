@@ -53,7 +53,7 @@
                     if(f.Length > 0)
                     {
                         <a href="#" data-title="@item.CarBrandName">
-                            <img src="~/Publics/Gallery/Brands/@f[0].Name" />
+                            <img src="~/Publics/Gallery/Brands/@f[0].Name" alt="@item.CarBrandName"/>
                         </a>
                     }
                 }
@@ -98,7 +98,7 @@
                                 if(finfo.Exists && finfo.GetFiles().Count() > 0)
                                 {
                                     <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="slideItem">
-                                        <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                                        <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)"  alt="@item.Category.CategoryName @item.ProductName"/>
                                         <section>
                                             <strong>@item.ProductName</strong><br />
                                             <small>@item.Category.CategoryName</small><br />
@@ -109,7 +109,7 @@
                                 else
                                 {
                                     <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="slideItem">
-                                        <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
+                                        <img src="~/Publics/Gallery/ProductImages/NotFound.png" alt="@item.Category.CategoryName @item.ProductName" />
                                         <section>
                                             <strong>@item.ProductName</strong><br />
                                             <small>@item.Category.CategoryName</small><br />
@@ -135,7 +135,7 @@
 
                         foreach (var item in servicesPacks)
                         {
-                            <a href="#" class="item">
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })" class="item">
                                 <h2>@item.AutoServicePackName</h2>
                                 <small>@item.Details</small>
                                 <p class="price" style="margin-top:auto;">@item.PackPrice ریال</p>
