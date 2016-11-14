@@ -31,10 +31,15 @@
                 <tbody>
                     @{ 
                         int i = 1;
-                        int SumofAll = 0;
+                        int TotalPrice = 0;
                      }
                     @foreach (var item in Model)
                     {
+                        int pric = 0;
+                        int.TryParse(usfull.GetPriceOfCartObject(item.Id, item.TypeOfProduct), out pric);
+                        var ttpic = pric * item.Count;
+                        TotalPrice += ttpic;
+                        
                         <tr>
                             <td class="fix center   ">
                                 <input type="checkbox" class="SelectForRemove" data-id="@item.Id" data-type="@item.TypeOfProduct" data-json="@Server.HtmlEncode(Newtonsoft.Json.JsonConvert.SerializeObject(item))" />
@@ -49,7 +54,7 @@
                                 @usfull.GetNameofCartType(item.TypeOfProduct)
                             </td>
                              <td class="fix center">
-                               @usfull.GetPriceOfCartObject(item.Id, item.TypeOfProduct)
+                               @pric
                             </td>
                             <td class="fix center">
                                 <input type="text" name="Count" value="@item.Count" class="center" data-itemprice="@usfull.GetPriceOfCartObject(item.Id,item.TypeOfProduct)" onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
@@ -57,10 +62,7 @@
                             <td class="fix center">
                                 <span class="totalprice">
                                     @{
-                                           int price = 1;
-                                           int.TryParse(usfull.GetPriceOfCartObject(item.Id, item.TypeOfProduct), out price);
-                                           Write(price * item.Count);
-                                           SumofAll += (price * item.Count);
+                                           @ttpic
                                     }
                                 </span>
                             </td>
@@ -72,7 +74,7 @@
                         <td colspan="6">مجموع مبلغ قابل پرداخت</td>
                         <td>
                             <span id="SumOfAllPrices">
-                                @SumofAll
+                                @TotalPrice
                             </span>
                         </td>
                     </tr>
@@ -82,15 +84,17 @@
         <hr />
 
         <div class="formAction" dir="ltr">
-            <input type="hidden" name="clearForm" value="false" id="clearForm" />
-            <input type="hidden" name="RemoveList" id="RemoveList" />
-
             <input type="submit" class="button green" value="ادامه و تکمیل فرایند خرید" name="ContinueShoping" />
-            <input type="button" class="button red" value="پاک کردن سبد خرید" onclick="document.getElementById('clearForm').value = 'true'; this.form.submit();"/>
-            <input type="button" class="button red" value="حذف موارد انتخابی" onclick="RemoveSelectedItemRequest(this.form)" />
+            <input type="button" class="button red" value="پاک کردن سبد خرید" onclick="document.getElementById('removeBasketCompletly').submit();"/>
+            <input type="button" class="button red" value="حذف موارد انتخابی" onclick="RemoveSelectedItemRequest()" />
         </div>
 
     </form>
+
+    <form method="post" action="@Url.Action("Cart_remoSelection")" id="RemoveListForm">
+        <input type="hidden" name="RemoveList" id="RemoveList" />
+    </form>
+    <form method="post" action="@Url.Action("Cart_RemoveCopletly")" id="removeBasketCompletly"></form>
 
 </div>
 
@@ -162,13 +166,13 @@
         }
 
 
-        function RemoveSelectedItemRequest(form) {
+        function RemoveSelectedItemRequest() {
             var x = [];
             $(".SelectForRemove:checked").each(function (index, element) {
                 x[index] = $(element).attr('data-json');
             });
             document.getElementById("RemoveList").value = JSON.stringify(x);
-            form.submit();
+            document.getElementById("RemoveListForm").submit();
         }
     </script>
 }

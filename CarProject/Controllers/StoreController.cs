@@ -15,11 +15,12 @@ namespace CarProject.Controllers
         //
         // GET: /Store/
 
+
         public ActionResult Index()
         {
             return View();
         }
-
+        
         #region Cart
         public void AddToCart(int id, CartOfProducts.CartType type)
         {
@@ -91,94 +92,106 @@ namespace CarProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult Cart(bool clearForm, string RemoveList)
+        public ActionResult Cart(List<CartOfProducts> model)
+        {
+            if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                var user = Session["guestUser"] as DBSEF.User;
+
+                foreach (var item in model)
+                {
+                    switch (item.TypeOfProduct)
+                    {
+                        case CartOfProducts.CartType.Product:
+                            {
+                                var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.ProductId == item.Id);
+                                if (itm != null)
+                                    itm.ProductEntity = item.Count;
+                            }
+                            break;
+                        case CartOfProducts.CartType.AutoService:
+                            {
+                                var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServiceId == item.Id);
+                                if (itm != null)
+                                    itm.ProductEntity = item.Count;
+                            }
+                            break;
+                        case CartOfProducts.CartType.AutoServicePack:
+                            {
+                                var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id);
+                                if (itm != null)
+                                    itm.ProductEntity = item.Count;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                dbs.SaveChanges();
+            }
+            else
+            {
+                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(model);
+                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
+            }
+
+            return RedirectToAction("Cart_CartConfirmAddress");
+            
+        }
+        [HttpPost]
+        public ActionResult Cart_remoSelection(string RemoveList)
         {
             var list = CartOfProducts.GenerateList(Session, Request);
-            var removelistItems = new List<CartOfProducts>();
 
             if (!RemoveList.IsNullOrWhiteSpace())
             {
                 var removelistarray = JsonConvert.DeserializeObject<string[]>(RemoveList);
+                var dbs = new DBSEF.CarAutomationEntities();
+                var user = Session["guestUser"] as DBSEF.User;
+
                 foreach (var item in removelistarray)
                 {
                     var xitem = JsonConvert.DeserializeObject<CartOfProducts>(Server.HtmlDecode(item));
-                    removelistItems.Add(xitem);
-                    list.Remove(xitem);
-                }
-            }
-            
 
-
-            if (clearForm)
-            {
-                list = new List<CartOfProducts>();
-
-                if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-                {
-                    var user = Session["guestUser"] as DBSEF.User;
-                    var dbs = new DBSEF.CarAutomationEntities();
-                    dbs.ToBaskets.RemoveRange(dbs.ToBaskets.Where(c => c.UserId == user.UserId));
-                    dbs.SaveChanges();
-                }
-                else
-                {
-                    Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
-                    Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
-                }
-            }
-            else
-            {
-                if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-                {
-                    var user = Session["guestUser"] as DBSEF.User;
-                    var dbs = new DBSEF.CarAutomationEntities();
-                    var list2 = CartOfProducts.GenerateList(Session, Request);
-                    foreach (var item in list2)
+                    if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
                     {
-                        switch (item.TypeOfProduct)
+                        switch (xitem.TypeOfProduct)
                         {
                             case CartOfProducts.CartType.Product:
                                 {
-                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.ProductId == item.Id);
+                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.ProductId == xitem.Id && c.UserId == user.UserId);
                                     if (itm != null)
-                                    {
-                                        itm.ProductEntity = item.Count;
-
-                                        if (removelistItems.Contains(item))
-                                            dbs.ToBaskets.Remove(itm);
-                                    }
+                                        dbs.ToBaskets.Remove(itm);
                                 }
                                 break;
                             case CartOfProducts.CartType.AutoService:
                                 {
-                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServiceId == item.Id);
+                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.AutoServiceId == xitem.Id && c.UserId == user.UserId);
                                     if (itm != null)
-                                    {
-                                        itm.ProductEntity = item.Count;
-
-                                        if (removelistItems.Contains(item))
-                                            dbs.ToBaskets.Remove(itm);
-                                    }
+                                        dbs.ToBaskets.Remove(itm);
                                 }
                                 break;
                             case CartOfProducts.CartType.AutoServicePack:
                                 {
-                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id);
+                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.AutoServicePackId == xitem.Id && c.UserId == user.UserId);
                                     if (itm != null)
-                                    {
-                                        itm.ProductEntity = item.Count;
-
-                                        if (removelistItems.Contains(item))
-                                            dbs.ToBaskets.Remove(itm);
-                                    }
+                                        dbs.ToBaskets.Remove(itm);
                                 }
                                 break;
                             default:
                                 break;
                         }
                     }
-                    dbs.SaveChanges();
+                    else
+                    {
+                        if(list.Contains(xitem))
+                        list.Remove(xitem);
+                    }
                 }
+
+                if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
+                    dbs.SaveChanges();
                 else
                 {
                     Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
@@ -186,10 +199,25 @@ namespace CarProject.Controllers
                 }
             }
 
-            if (clearForm || removelistItems.Count > 0)
-                return View(list);
+           
+            return RedirectToAction("Cart");
+        }
+        [HttpPost]
+        public ActionResult Cart_RemoveCopletly()
+        {
+            if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                var user = Session["guestUser"] as DBSEF.User;
+                dbs.ToBaskets.RemoveRange(dbs.ToBaskets.Where(c => c.UserId == user.UserId));
+                dbs.SaveChanges();
+            }
             else
-                return RedirectToAction("Cart_CartConfirmAddress");
+            {
+                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(new List<CartOfProducts>());
+                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
+            }
+            return RedirectToAction("Cart");
         }
 
         [Areas.Users.UsersCLS.UsersAuthFilter]
@@ -197,14 +225,29 @@ namespace CarProject.Controllers
         {
             var user = Session["guestUser"] as DBSEF.User;
             var model = new Models.Store.CartConfirmBillAndAddressModel(user);
+            Session["Cart_CartConfirmAddress_model"] = model;
+
             return View(model);
         }
         [HttpPost]
-        public ActionResult Cart_CartConfirmAddress(FormCollection form)
+        [Areas.Users.UsersCLS.UsersAuthFilter]
+        public ActionResult Cart_CartConfirmAddress(Models.Store.CartConfirmBillAndAddressModel model)
         {
-            var user = Session["guestUser"] as DBSEF.User;
-            var model = new Models.Store.CartConfirmBillAndAddressModel(user);
-            return View(model);
+            if (ModelState.IsValid)
+            {
+                var m = Session["Cart_CartConfirmAddress_model"] as Models.Store.CartConfirmBillAndAddressModel;
+                TryUpdateModel(m);
+                m.saveChaneges();
+                return RedirectToAction("SelectePaymentType");
+            }
+            else
+                return View(model);
+        }
+
+        [Areas.Users.UsersCLS.UsersAuthFilter]
+        public ActionResult SelectePaymentType()
+        {
+            return View();
         }
         #endregion
 
@@ -371,13 +414,13 @@ namespace CarProject.Controllers
                     }
                     else if (item.AutoServiceId != null)
                     {
-                        crt.TypeOfProduct = CartOfProducts.CartType.Product;
+                        crt.TypeOfProduct = CartOfProducts.CartType.AutoService;
                         crt.Id = item.AutoServiceId.Value;
                         crt.Count = item.ProductEntity.Value;
                     }
                     else if (item.AutoServicePackId != null)
                     {
-                        crt.TypeOfProduct = CartOfProducts.CartType.Product;
+                        crt.TypeOfProduct = CartOfProducts.CartType.AutoServicePack;
                         crt.Id = item.AutoServicePackId.Value;
                         crt.Count = item.ProductEntity.Value;
                     }
