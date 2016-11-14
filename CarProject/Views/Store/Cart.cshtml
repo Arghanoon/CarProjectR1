@@ -4,7 +4,9 @@
     ViewBag.Title = "سبد خرید کاربر";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
 
-    var usfull = new CarProject.Models.Store.CartUsefull(); 
+    var usfull = new CarProject.Models.Store.CartUsefull();
+
+    
 }
 
 
@@ -17,6 +19,7 @@
             <table id="cartTable">
                 <thead>
                     <tr>
+                        <th class="fix">حذف</th>
                         <th class="fix">شماره</th>
                         <th>نام</th>
                         <th class="fix">نوع</th>
@@ -33,6 +36,9 @@
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td class="fix center   ">
+                                <input type="checkbox" class="SelectForRemove" data-id="@item.Id" data-type="@item.TypeOfProduct" data-json="@Server.HtmlEncode(Newtonsoft.Json.JsonConvert.SerializeObject(item))" />
+                            </td>
                             <td class="fix center">@i</td>
                             <td>
                                 <input type="hidden" value="@item.Id" name="Id" />
@@ -63,7 +69,7 @@
                     i += 1;
                 }
                     <tr>
-                        <td colspan="5">مجموع</td>
+                        <td colspan="6">مجموع مبلغ قابل پرداخت</td>
                         <td>
                             <span id="SumOfAllPrices">
                                 @SumofAll
@@ -77,8 +83,11 @@
 
         <div class="formAction" dir="ltr">
             <input type="hidden" name="clearForm" value="false" id="clearForm" />
+            <input type="hidden" name="RemoveList" id="RemoveList" />
+
             <input type="submit" class="button green" value="ادامه و تکمیل فرایند خرید" name="ContinueShoping" />
             <input type="button" class="button red" value="پاک کردن سبد خرید" onclick="document.getElementById('clearForm').value = 'true'; this.form.submit();"/>
+            <input type="button" class="button red" value="حذف موارد انتخابی" onclick="RemoveSelectedItemRequest(this.form)" />
         </div>
 
     </form>
@@ -150,6 +159,16 @@
                 e.preventDefault();
                 return false;
             }
+        }
+
+
+        function RemoveSelectedItemRequest(form) {
+            var x = [];
+            $(".SelectForRemove:checked").each(function (index, element) {
+                x[index] = $(element).attr('data-json');
+            });
+            document.getElementById("RemoveList").value = JSON.stringify(x);
+            form.submit();
         }
     </script>
 }

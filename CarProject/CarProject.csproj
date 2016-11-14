@@ -169,6 +169,7 @@
     <Compile Include="Areas\Admin\Models\Store\Services.cs" />
     <Compile Include="Areas\Admin\Models\Store\StoreMVC.cs" />
     <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
+    <Compile Include="Areas\Users\UsersCLS\Filters.cs" />
     <Compile Include="Areas\Users\Controllers\profileController.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="CLS\Filters.cs" />
@@ -869,6 +870,7 @@
     <Content Include="Views\Store\ServiceView.cshtml" />
     <Content Include="Views\Store\ServicePackView.cshtml" />
     <Content Include="Views\Store\Cart.cshtml" />
+    <Content Include="Views\Store\Cart_CartConfirmAddress.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

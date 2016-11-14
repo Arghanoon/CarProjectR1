@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 
 using CarProject.Controllers;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarProject.Models.Store
 {
@@ -89,6 +90,55 @@ namespace CarProject.Models.Store
                 default:
                     return "";
             }
+        }
+    }
+
+    public class CartConfirmBillAndAddressModel : IValidatableObject
+    {
+        DBSEF.CarAutomationEntities dbs = new DBSEF.CarAutomationEntities();
+
+        public string FullAddress { get; set; }
+        public List<Controllers.CartOfProducts> BillingList { get; set; }
+
+        public CartConfirmBillAndAddressModel(DBSEF.User user)
+        {
+            var prs = dbs.People.FirstOrDefault(c => c.UserId == user.UserId);
+            if (prs != null)
+                FullAddress = prs.PersonAddress;
+
+            BillingList = new List<CartOfProducts>();
+
+            var lsofbsk = dbs.ToBaskets.Where(c => c.UserId == user.UserId);
+            foreach (var item in lsofbsk)
+            {
+                CartOfProducts crt = new CartOfProducts();
+                if (item.ProductId != null)
+                {
+                    crt.TypeOfProduct = CartOfProducts.CartType.Product;
+                    crt.Id = item.ProductId.Value;
+                    crt.Count = item.ProductEntity.Value;
+                }
+                else if (item.AutoServiceId != null)
+                {
+                    crt.TypeOfProduct = CartOfProducts.CartType.Product;
+                    crt.Id = item.AutoServiceId.Value;
+                    crt.Count = item.ProductEntity.Value;
+                }
+                else if (item.AutoServicePackId != null)
+                {
+                    crt.TypeOfProduct = CartOfProducts.CartType.Product;
+                    crt.Id = item.AutoServicePackId.Value;
+                    crt.Count = item.ProductEntity.Value;
+                }
+                BillingList.Add(crt);
+            }
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> res = new List<ValidationResult>();
+
+            return res;
         }
     }
 }

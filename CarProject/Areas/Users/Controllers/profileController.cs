@@ -14,6 +14,7 @@ namespace CarProject.Areas.Users.Controllers
         //
         // GET: /Users/profile/
 
+        [UsersCLS.UsersAuthFilter]
         public ActionResult Index()
         {
             return View();
@@ -69,62 +70,88 @@ namespace CarProject.Areas.Users.Controllers
                     if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
                     {
                         list = JsonConvert.DeserializeObject<List<CarProject.Controllers.CartOfProducts>>(Request.Cookies["UserCart"].Value);
-                        foreach (var item in list)
+                        if (list is List<CarProject.Controllers.CartOfProducts>)
                         {
-                            DBSEF.ToBasket tbsk = new DBSEF.ToBasket();
-                            tbsk.UserId = user.UserId;
-
-                            bool istrue = true;
-
-                            switch (item.TypeOfProduct)
+                            foreach (var item in list)
                             {
-                                case CarProject.Controllers.CartOfProducts.CartType.Product:
-                                    if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.ProductId == item.Id) <= 0)
-                                    {
-                                        tbsk.ProductEntity = item.Count;
-                                        tbsk.ProductId = item.Id;
-                                    }
-                                    else
+                                DBSEF.ToBasket tbsk = new DBSEF.ToBasket();
+                                tbsk.UserId = user.UserId;
+
+                                bool istrue = true;
+
+                                switch (item.TypeOfProduct)
+                                {
+                                    case CarProject.Controllers.CartOfProducts.CartType.Product:
+                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.ProductId == item.Id) <= 0)
+                                        {
+                                            tbsk.ProductEntity = item.Count;
+                                            tbsk.ProductId = item.Id;
+                                        }
+                                        else
+                                        {
+                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.ProductId == item.Id);
+                                            if (itm != null)
+                                                itm.ProductEntity = item.Count;
+                                            istrue = false;
+                                        }
+                                        break;
+                                    case CarProject.Controllers.CartOfProducts.CartType.AutoService:
+                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServiceId == item.Id) <= 0)
+                                        {
+                                            tbsk.ProductEntity = item.Count;
+                                            tbsk.AutoServiceId = item.Id;
+                                        }
+                                        else
+                                        {
+                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServiceId == item.Id);
+                                            if (itm != null)
+                                                itm.ProductEntity = item.Count;
+                                            istrue = false;
+                                        }
+                                        break;
+                                    case CarProject.Controllers.CartOfProducts.CartType.AutoServicePack:
+                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id) <= 0)
+                                        {
+                                            tbsk.ProductEntity = item.Count;
+                                            tbsk.AutoServicePackId = item.Id;
+                                        }
+                                        else
+                                        {
+                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id);
+                                            if (itm != null)
+                                                itm.ProductEntity = item.Count;
+                                            istrue = false;
+                                        }
+                                        break;
+                                    default:
                                         istrue = false;
-                                    break;
-                                case CarProject.Controllers.CartOfProducts.CartType.AutoService:
-                                    if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServiceId == item.Id) <= 0)
-                                    {
-                                        tbsk.ProductEntity = item.Count;
-                                        tbsk.AutoServiceId = item.Id;
-                                    }
-                                    else
-                                        istrue = false;
-                                    break;
-                                case CarProject.Controllers.CartOfProducts.CartType.AutoServicePack:
-                                    if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id) <= 0)
-                                    {
-                                        tbsk.ProductEntity = item.Count;
-                                        tbsk.AutoServicePackId = item.Id;
-                                    }
-                                    else
-                                        istrue = false;
-                                    break;
-                                default:
-                                    istrue = false;
-                                    break;
+                                        break;
+                                }
+
+                                if (istrue)
+                                {
+                                    dbs.ToBaskets.Add(tbsk);
+                                }
                             }
 
-                            if (istrue)
-                            {
-                                dbs.ToBaskets.Add(tbsk);
-                                dbs.SaveChanges();
-                            }
+                            dbs.SaveChanges();
                         }
                     }
 
-                    Response.Cookies["UserCart"].Value = "";
+                    
                     Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(-2);
                     //end redirect cart
 
 
-                    if (Session["guestRedirect"] != null && !Session["guestRedirect"].ToString().IsNullOrWhiteSpace())
-                        return Redirect(Session["guestRedirect"].ToString());
+                    if (Session["guestRedirect"] != null && Session["guestRedirect"] is System.Web.Routing.RouteData)
+                    {
+                        var x = ((System.Web.Routing.RouteData)Session["guestRedirect"]);
+                        if (x.DataTokens.Keys.Contains("area"))
+                            x.Values.Add("area", x.DataTokens["area"]);
+                        else
+                            x.Values.Add("area", "");
+                        return RedirectToRoute(x.Values);
+                    }
                     else
                         return RedirectToAction("Index");
                 }
