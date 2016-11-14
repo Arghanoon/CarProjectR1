@@ -80,9 +80,9 @@
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.GearBox.GearBoxCode, "کد گیربکس")
                 @Html.input_ComboBox(m => m.GearBox.GearBoxType, "نوع گیربکس", Model.List_GearBoxType)
-                @Html.input_CheckBox(m => m.GearBox.GearBoxCanBeManual, "قابلیت تبدیل به دنده دستی")
+                @Html.input_ComboBox(m => m.GearBox.GearBoxCanBeManual, "قابلیت تبدیل به دنده دستی",Model.List_YesOrNo)
                 @Html.input_TextBox(m => m.GearBox.GearBoxShiftNumber, "تعداد دنده")
-                @Html.input_TextBox(m => m.GearBox.GearBoxAxel, "محور جابه‌جایی")
+                @Html.input_ComboBox(m => m.GearBox.GearBoxAxel, "محور جابه‌جایی",Model.List_gearBoxAxel)
                 @Html.input_CheckBox(m => m.GearBox.HasTransferCase, "آیا دارای کمک گیربکس است")
                 @Html.input_CheckBox(m => m.GearBox.GearBoxDiffrentionalLock, "قفل دفرانسیل")
                 @Html.input_TextBox(m => m.GearBox.GearBoxWdType, "نوع 4WD")
@@ -116,7 +116,7 @@
                 @Html.input_TextBox(m => m.BrakeSystem.FrontBrakeSystem, "سیستم ترمزهای چرخ های جلو")
                 @Html.input_TextBox(m => m.BrakeSystem.RearBrakeSystem, "سیستم ترمز چرخ های عقب")
                 @Html.input_TextBox(m => m.BrakeSystem.OtherSystem, "سیستم های دیگر")
-                @Html.input_TextBox(m => m.BrakeSystem.HandBrakeSystem, "سیستم ترمز دستی")
+                @Html.input_ComboBox(m => m.BrakeSystem.HandBrakeSystem, "سیستم ترمز دستی",Model.List_HandBrake)
                 @Html.input_TextArea(m => m.BrakeSystem.Details, "جزئیات")
             </div>
 
