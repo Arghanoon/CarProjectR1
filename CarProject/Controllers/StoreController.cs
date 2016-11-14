@@ -20,31 +20,106 @@ namespace CarProject.Controllers
             return View();
         }
 
+        #region Cart
         public void AddToCart(int id, CartOfProducts.CartType type)
         {
-            var list = new List<CartOfProducts>();
-            var cartobje = new CartOfProducts { Id = id, TypeOfProduct = type };
-
-            if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
+            if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
             {
-                list = JsonConvert.DeserializeObject<List<CartOfProducts>>(Request.Cookies["UserCart"].Value);
+                var user = Session["guestUser"] as DBSEF.User;
+                var dbs = new DBSEF.CarAutomationEntities();
+                var tobasket = new DBSEF.ToBasket();
+                tobasket.UserId = user.UserId;
+
+                bool istrue = true;
+                switch (type)
+                {
+                    case CartOfProducts.CartType.Product:
+                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.ProductId == id) <= 0)
+                            tobasket.ProductId = id;
+                        else
+                            istrue = false;
+                        break;
+                    case CartOfProducts.CartType.AutoService:
+                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServiceId == id) <= 0)
+                            tobasket.AutoServiceId = id;
+                        else
+                            istrue = false;
+                        break;
+                    case CartOfProducts.CartType.AutoServicePack:
+                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServicePackId == id) <= 0)
+                            tobasket.AutoServicePackId = id;
+                        else
+                            istrue = false;
+                        break;
+                    default:
+                        istrue = false;
+                        break;
+                }
+
+                if (istrue)
+                {
+                    tobasket.ProductEntity = 1;
+                    dbs.ToBaskets.Add(tobasket);
+                    dbs.SaveChanges();
+                }
+                
             }
-            
-            if (!list.Contains(cartobje))
-                list.Add(cartobje);
+            else
+            {
+                var list = new List<CartOfProducts>();
+                var cartobje = new CartOfProducts { Id = id, TypeOfProduct = type };
+
+                if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
+                {
+                    list = JsonConvert.DeserializeObject<List<CartOfProducts>>(Request.Cookies["UserCart"].Value);
+                }
+
+                if (!list.Contains(cartobje))
+                    list.Add(cartobje);
 
 
-            Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
-            Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
-
+                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
+                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
+            }
         }
         public ActionResult Cart()
         {
             var list = new List<CartOfProducts>();
 
-            if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
-                list = JsonConvert.DeserializeObject<List<CartOfProducts>>(Request.Cookies["UserCart"].Value);
-
+            if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
+            {
+                var user = Session["guestUser"] as DBSEF.User;
+                var dbs = new DBSEF.CarAutomationEntities();
+                var lsofbsk = dbs.ToBaskets.Where(c => c.UserId == user.UserId);
+                foreach (var item in lsofbsk)
+                {
+                    CartOfProducts crt = new CartOfProducts();
+                    if (item.ProductId != null)
+                    {
+                        crt.TypeOfProduct = CartOfProducts.CartType.Product;
+                        crt.Id = item.ProductId.Value;
+                        crt.Count = item.ProductEntity.Value;
+                    }
+                    else if (item.AutoServiceId != null)
+                    {
+                        crt.TypeOfProduct = CartOfProducts.CartType.Product;
+                        crt.Id = item.AutoServiceId.Value;
+                        crt.Count = item.ProductEntity.Value;
+                    }
+                    else if (item.AutoServicePackId != null)
+                    {
+                        crt.TypeOfProduct = CartOfProducts.CartType.Product;
+                        crt.Id = item.AutoServicePackId.Value;
+                        crt.Count = item.ProductEntity.Value;
+                    }
+                    list.Add(crt);
+                }
+            }
+            else
+            {
+                if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
+                    list = JsonConvert.DeserializeObject<List<CartOfProducts>>(Request.Cookies["UserCart"].Value);
+            }
 
             return View(list);
         }
@@ -54,11 +129,23 @@ namespace CarProject.Controllers
             if (clearForm)
             {
                 list = new List<CartOfProducts>();
-                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
-                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
+
+                if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
+                {
+                    var user = Session["guestUser"] as DBSEF.User;
+                    var dbs = new DBSEF.CarAutomationEntities();
+                    dbs.ToBaskets.RemoveRange(dbs.ToBaskets.Where(c => c.UserId == user.UserId));
+                    dbs.SaveChanges();
+                }
+                else
+                {
+                    Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
+                    Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
+                }
             }
             return View(list);
         }
+        #endregion
 
         public ActionResult Products(int id)
         {

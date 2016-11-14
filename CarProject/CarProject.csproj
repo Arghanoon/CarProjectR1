@@ -827,6 +827,12 @@
     <Content Include="Areas\Admin\Views\Store\ServicePacks.cshtml" />
     <Content Include="Areas\Admin\Views\Store\ServicePacks_New.cshtml" />
     <Content Include="Areas\Admin\Views\Store\ServicePacks_Update.cshtml" />
+    <Content Include="Areas\Users\Views\Web.config" />
+    <Content Include="Areas\Users\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Users\Views\Shared\Default.cshtml" />
+    <Content Include="Areas\Users\Views\profile\Index.cshtml" />
+    <Content Include="Areas\Users\Views\profile\Signup.cshtml" />
+    <Content Include="Areas\Users\Views\profile\Login.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -844,11 +850,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Users\Views\Web.config" />
-    <Content Include="Areas\Users\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Users\Views\Shared\Default.cshtml" />
-    <Content Include="Areas\Users\Views\profile\Index.cshtml" />
-    <Content Include="Areas\Users\Views\profile\Signup.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

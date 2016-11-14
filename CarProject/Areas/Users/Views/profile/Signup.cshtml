@@ -5,79 +5,33 @@
 @model CarProject.Models.User.UserInfo
 
 
-
-<div  id="signupsection">
-    <form method="post" class="page">
-        <input type="hidden" name="signuprequest" value="signuprequest" />
-        <h3>ثبت نام کاربر جدید</h3>
-        <small>
-            در صورتی که عضو سایت خودرو کلینیک نیستید هم اکنون عضو سایت شوید تا از خدمات آن بهره من شوید
-        </small>
-        <hr />
-        <div class="inputsContainer">
-            @Html.input_TextBox(m => m.Person.PersonFirtstName, "نام")
-            @Html.input_TextBox(m => m.Person.PersonLastName, "نام خانوادگی")
-            @Html.input_TextBox(m => m.Person.PersonEmail, "ایمیل")
-            @Html.input_TextBox(m=> m.Person.PersonPhone, "تلفن ثابت")
-            @Html.input_TextBox(m => m.Person.PersonMobile, "همراه")
-            @Html.input_TextBox(m => m.Person.PersonAddressCity, "شهر محل اقامت")
-            @Html.input_TextArea(m => m.Person.PersonAddress, "آدرس کامل")
+    <div  id="signupsection">
+        <form method="post" class="page">
+           
+            <h3>ثبت نام کاربر جدید</h3>
+            <small>
+                در صورتی که عضو سایت خودرو کلینیک نیستید هم اکنون عضو سایت شوید تا از خدمات آن بهره من شوید
+            </small>
             <hr />
-            @Html.input_TextBox(m => m.Person.User.Uname, "نام کاربری")
-            @Html.input_Password(m => m.Password, "کلمه عبور")
-            @Html.input_Password(m => m.PasswordConfirm, "تایید کلمه عبور")
-        </div>
-        <div class="inputAction">
-            <input type="submit" value="ثبت نام کاربر"  class="button green"/>
-        </div>
-    </form>
-
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.Person.PersonFirtstName, "نام")
+                @Html.input_TextBox(m => m.Person.PersonLastName, "نام خانوادگی")
+                @Html.input_TextBox(m => m.Person.PersonEmail, "ایمیل")
+                @Html.input_TextBox(m=> m.Person.PersonPhone, "تلفن ثابت")
+                @Html.input_TextBox(m => m.Person.PersonMobile, "همراه")
+                @Html.input_TextBox(m => m.Person.PersonAddressCity, "شهر محل اقامت")
+                @Html.input_TextArea(m => m.Person.PersonAddress, "آدرس کامل")
+                <hr />
+                @Html.input_TextBox(m => m.Person.User.Uname, "نام کاربری")
+                @Html.input_Password(m => m.Password, "کلمه عبور")
+                @Html.input_Password(m => m.PasswordConfirm, "تایید کلمه عبور")
+            </div>
+            <div class="inputAction">
+                <input type="submit" value="ثبت نام کاربر"  class="button green"/>
+            </div>
+        </form>
     
-    <form method="post" class="page">
-        <input type="hidden" name="loginrequest" value="loginrequest" />
-        <h3>ورود کاربر</h3>
-        <small>
-            برای ورود به حساب کاربری خود از فرم زیر استفاده کنید
-        </small>
-        <hr />
-        <div id="loginSectionform" class="inputsContainer">
-            <section class="input">
-                <label for="username">نام کاربری</label>
-                <input type="text" placeholder="نام کاربری" name="username" id="username" />
-                <span></span>
-            </section>
-            <section class="input">
-                <label for="password">کلمه عبور</label>
-                <input type="password" placeholder="کلمه عبور" name="username" id="password" />
-                <span></span>
-            </section>
-        </div>
-        <div class="inputAction">
-            <input type="submit" value="ورود کاربر" class="button green" />
-        </div>
-    </form>
-    
-</div>
+    </div>
 
 
-@section style
-{
-    <style>
-        #signupsection {
-            display:flex;
-            justify-content:space-between;
-            align-items:stretch;
-        }
 
-            #signupsection .page {
-                flex:1;
-                width:100%;
-            }
-
-        @@media (max-width:700px) {
-            #signupsection {
-                flex-direction:column-reverse;
-            }
-        }
-    </style>
-}

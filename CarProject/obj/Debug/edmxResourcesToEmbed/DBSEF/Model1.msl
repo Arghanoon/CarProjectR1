@@ -798,6 +798,7 @@
           <ScalarProperty Name="AutoServiceEntity" ColumnName="AutoServiceEntity" />
           <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
           <ScalarProperty Name="AutoSericePackEntity" ColumnName="AutoSericePackEntity" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
