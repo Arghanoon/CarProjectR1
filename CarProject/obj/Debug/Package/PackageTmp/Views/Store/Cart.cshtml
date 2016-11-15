@@ -1,0 +1,178 @@
+﻿@using CarProject.Controllers
+@model List<CarProject.Models.Store.CartOfProducts>
+@{
+    ViewBag.Title = "سبد خرید کاربر";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    var usfull = new CarProject.Models.Store.CartUsefull();
+
+    
+}
+
+
+<div class="page">
+
+    <form method="post" onsubmit="FormSumbitFunction(event)">
+        <h3>سبد خرید کاربر</h3>
+        <hr />
+        <div>
+            <table id="cartTable">
+                <thead>
+                    <tr>
+                        <th class="fix">حذف</th>
+                        <th class="fix">شماره</th>
+                        <th>نام</th>
+                        <th class="fix">نوع</th>
+                        <th class="fix">قیمت</th>
+                        <th class="fix">تعداد</th>
+                        <th class="fix">مبلغ کل</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ 
+                        int i = 1;
+                        int TotalPrice = 0;
+                     }
+                    @foreach (var item in Model)
+                    {
+                        int pric = 0;
+                        int.TryParse(usfull.GetPriceOfCartObject(item.Id, item.TypeOfProduct), out pric);
+                        var ttpic = pric * item.Count;
+                        TotalPrice += ttpic;
+                        
+                        <tr>
+                            <td class="fix center   ">
+                                <input type="checkbox" class="SelectForRemove" data-id="@item.Id" data-type="@item.TypeOfProduct" data-json="@Server.HtmlEncode(Newtonsoft.Json.JsonConvert.SerializeObject(item))" />
+                            </td>
+                            <td class="fix center">@i</td>
+                            <td>
+                                <input type="hidden" value="@item.Id" name="Id" />
+                                @usfull.GetNameOfCartObject(item.Id, item.TypeOfProduct)
+                            </td>
+                            <td class="fix center">
+                                <input type="hidden" value="@item.TypeOfProduct" name="TypeOfProduct" />
+                                @usfull.GetNameofCartType(item.TypeOfProduct)
+                            </td>
+                             <td class="fix center">
+                               @pric
+                            </td>
+                            <td class="fix center">
+                                <input type="text" name="Count" value="@item.Count" class="center" data-itemprice="@usfull.GetPriceOfCartObject(item.Id,item.TypeOfProduct)" onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
+                            </td>
+                            <td class="fix center">
+                                <span class="totalprice">
+                                    @{
+                                           @ttpic
+                                    }
+                                </span>
+                            </td>
+                        </tr>
+                    
+                    i += 1;
+                }
+                    <tr>
+                        <td colspan="6">مجموع مبلغ قابل پرداخت</td>
+                        <td>
+                            <span id="SumOfAllPrices">
+                                @TotalPrice
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr />
+
+        <div class="formAction" dir="ltr">
+            <input type="submit" class="button green" value="ادامه و تکمیل فرایند خرید" name="ContinueShoping" />
+            <input type="button" class="button red" value="پاک کردن سبد خرید" onclick="document.getElementById('removeBasketCompletly').submit();"/>
+            <input type="button" class="button red" value="حذف موارد انتخابی" onclick="RemoveSelectedItemRequest()" />
+        </div>
+
+    </form>
+
+    <form method="post" action="@Url.Action("Cart_remoSelection")" id="RemoveListForm">
+        <input type="hidden" name="RemoveList" id="RemoveList" />
+    </form>
+    <form method="post" action="@Url.Action("Cart_RemoveCopletly")" id="removeBasketCompletly"></form>
+
+</div>
+
+
+@section style
+{
+    <style>
+        #cartTable {
+            width:100%;
+            padding:5px;
+            margin:5px;
+        }
+            #cartTable td,
+            #cartTable th {
+                padding:1px 5px;
+                border:thin solid #888;
+            }
+
+            #cartTable th {
+                background:#bbb;
+            }
+
+
+            #cartTable .fix {
+                width:0; 
+                white-space:nowrap;
+            }
+            #cartTable .center {
+                text-align: center;
+            }
+    </style>
+}
+
+@section script
+{
+    <script>
+        function FormSumbitFunction(e) {
+            e.preventDefault();
+            $('#cartTable tbody tr').each(function (index, element) {
+                $('input', element).each(function (index2, element2) {
+                    $(element2).attr('name', "[" + index + "]." + $(element2).attr('name'));
+                });
+            });
+
+            e.target.submit();
+        }
+
+        function ChangeTotalPriceValue(e) {
+            tr = $(e.target).parent('td').parent();
+            exh = $(e.target).attr('data-itemprice');
+            $('.totalprice', tr).html((exh * parseInt(e.target.value)));
+
+            sumofall = 0;
+            $("#cartTable tbody tr .totalprice").each(function (index, element) {
+                sumofall += parseInt($(element).html());
+            });
+            document.getElementById("SumOfAllPrices").innerHTML = sumofall;
+        }
+
+        function IntInputOnly(e) {
+            arf = ["Tab", "PageDown", "PageUp", "Delete","Home", "End", "ArrowLeft", "ArrowRight","F5","Backspace", "ArrowTop","0","1", "2","3","4","5","6","7","8","9"];
+            if (arf.indexOf(e.key) >= 0) {
+                return true;
+            }
+            else {
+                e.preventDefault();
+                return false;
+            }
+        }
+
+
+        function RemoveSelectedItemRequest() {
+            var x = [];
+            $(".SelectForRemove:checked").each(function (index, element) {
+                x[index] = $(element).attr('data-json');
+            });
+            document.getElementById("RemoveList").value = JSON.stringify(x);
+            document.getElementById("RemoveListForm").submit();
+        }
+    </script>
+}

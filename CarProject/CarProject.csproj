@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E3200A96-1EF4-4265-9DFF-B90A260DA791}</ProjectGuid>
-    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CarProject</RootNamespace>
@@ -444,7 +444,6 @@
     <Content Include="Publics\Files\Resources\StorePage\Products.css" />
     <Content Include="Publics\Files\Resources\StorePage\Products.js" />
     <Content Include="Publics\Files\Resources\StorePage\ProductsList.css" />
-    <Content Include="Publics\Gallery\CarImages\notfound.jpg" />
     <Content Include="Publics\Files\Images\back.jpg" />
     <Content Include="Publics\Files\Resources\HomePage\News\template_News.css" />
     <Content Include="Publics\Files\Resources\HomePage\texture\btx.png" />
@@ -461,8 +460,6 @@
     <Content Include="Publics\Files\Settings\TopMenu.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Publics\Gallery\NewsImages\nophoto.png" />
-    <Content Include="Publics\Gallery\ProductImages\NotFound.png" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />
     <Content Include="Publics\Styles\animate.css" />
@@ -698,7 +695,10 @@
     <Folder Include="Areas\Users\Models\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Gallery\Brands\" />
+    <Folder Include="Publics\Gallery\CarImages\" />
     <Folder Include="Publics\Gallery\CarTempImages\" />
+    <Folder Include="Publics\Gallery\NewsImages\" />
+    <Folder Include="Publics\Gallery\ProductImages\" />
     <Folder Include="Publics\Scripts\Ajax\" />
     <Folder Include="Publics\Styles\PagesStyle\" />
   </ItemGroup>

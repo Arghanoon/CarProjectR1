@@ -1,3 +1,11 @@
 ﻿@{
-    Layout = "~/Areas/Users/Views/Shared/publicTemplate.cshtml";
+    if((Url.RequestContext.RouteData.Values["controller"].ToString() == "profile" && Url.RequestContext.RouteData.Values["action"].ToString() == "Signup") ||
+        (Url.RequestContext.RouteData.Values["controller"].ToString() == "profile" && Url.RequestContext.RouteData.Values["action"].ToString() == "Login"))
+    {
+        Layout = "~/Views/public/template_Sotre.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Users/Views/Shared/Default.cshtml";    
+    }
 }
