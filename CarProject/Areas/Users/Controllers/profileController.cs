@@ -82,42 +82,42 @@ namespace CarProject.Areas.Users.Controllers
                                 switch (item.TypeOfProduct)
                                 {
                                     case CarProject.Controllers.CartOfProducts.CartType.Product:
-                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.ProductId == item.Id) <= 0)
+                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.ProductId == item.Id && c.BasketId == null) <= 0)
                                         {
                                             tbsk.ProductEntity = item.Count;
                                             tbsk.ProductId = item.Id;
                                         }
                                         else
                                         {
-                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.ProductId == item.Id);
+                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.ProductId == item.Id && c.BasketId == null);
                                             if (itm != null)
                                                 itm.ProductEntity = item.Count;
                                             istrue = false;
                                         }
                                         break;
                                     case CarProject.Controllers.CartOfProducts.CartType.AutoService:
-                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServiceId == item.Id) <= 0)
+                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServiceId == item.Id && c.BasketId == null) <= 0)
                                         {
                                             tbsk.ProductEntity = item.Count;
                                             tbsk.AutoServiceId = item.Id;
                                         }
                                         else
                                         {
-                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServiceId == item.Id);
+                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServiceId == item.Id && c.BasketId == null);
                                             if (itm != null)
                                                 itm.ProductEntity = item.Count;
                                             istrue = false;
                                         }
                                         break;
                                     case CarProject.Controllers.CartOfProducts.CartType.AutoServicePack:
-                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id) <= 0)
+                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id && c.BasketId == null) <= 0)
                                         {
                                             tbsk.ProductEntity = item.Count;
                                             tbsk.AutoServicePackId = item.Id;
                                         }
                                         else
                                         {
-                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id);
+                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id && c.BasketId == null);
                                             if (itm != null)
                                                 itm.ProductEntity = item.Count;
                                             istrue = false;

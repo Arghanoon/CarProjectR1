@@ -872,6 +872,7 @@
     <Content Include="Views\Store\Cart.cshtml" />
     <Content Include="Views\Store\Cart_CartConfirmAddress.cshtml" />
     <Content Include="Views\Store\SelectePaymentType.cshtml" />
+    <Content Include="Views\Store\PaymentCart.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

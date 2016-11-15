@@ -517,3 +517,25 @@ a:hover , a:focus{
             background:#c2ff86;
         }
 /*--------------------------------[ END of Button ]-------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media print {
+    body > * {
+        display:none;
+    }
+    #renderBodySection {
+        display:block;
+    }
+}
