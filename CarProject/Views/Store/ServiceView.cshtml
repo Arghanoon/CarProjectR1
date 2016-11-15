@@ -28,7 +28,7 @@
         <a class="gia-users">@viewservic.Views</a>
         <a href="javascript:void()" onclick="MakeProductPopular('@Url.Action("ServiceView_makePopular","Store")','@id')" id="popularCounter" class="gia-heart">@viewservic.Favorite.GetValueOrDefault()</a>
         |
-        <a href="javascript:void();" onclick="AddToCart('@id','@CarProject.Controllers.CartOfProducts.CartType.AutoService')" class="gia-cart">اضافه کردن سبد خرید</a>
+        <a href="javascript:void();" onclick="AddToCart('@id','@CarProject.Models.Store.CartOfProducts.CartType.AutoService')" class="gia-cart">اضافه کردن سبد خرید</a>
     </div>
     <div id="serviceInfoSection">
         <div>

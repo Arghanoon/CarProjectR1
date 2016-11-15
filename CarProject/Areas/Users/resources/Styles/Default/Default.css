@@ -47,3 +47,12 @@ header {
 footer {
     margin-top:auto;
 }
+
+
+
+/*----------------------------------------------*/
+.page {
+    margin:5px;
+    padding:5px;
+    background:#fafafa;
+}
