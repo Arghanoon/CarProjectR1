@@ -22,10 +22,12 @@ namespace CarProject.DBSEF
         public Nullable<int> AutoServiceEntity { get; set; }
         public Nullable<int> AutoServicePackId { get; set; }
         public Nullable<int> AutoSericePackEntity { get; set; }
+        public Nullable<int> UserId { get; set; }
     
         public virtual AutoService AutoService { get; set; }
         public virtual AutoServicePack AutoServicePack { get; set; }
         public virtual Basket Basket { get; set; }
         public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
     }
 }

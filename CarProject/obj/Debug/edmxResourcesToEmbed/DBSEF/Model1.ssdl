@@ -734,6 +734,7 @@
     <Property Name="AutoServiceEntity" Type="int" />
     <Property Name="AutoServicePackId" Type="int" />
     <Property Name="AutoSericePackEntity" Type="int" />
+    <Property Name="UserId" Type="int" />
   </EntityType>
   <EntityType Name="TodaysSpecial">
     <Key>
@@ -1759,6 +1760,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ToBasket_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ToBasket" Type="Self.ToBasket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ToBasket">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TodaysSpecial_Product">
     <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
     <End Role="TodaysSpecial" Type="Self.TodaysSpecial" Multiplicity="*" />
@@ -2203,6 +2216,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_ToBasket_Product" Association="Self.FK_ToBasket_Product">
       <End Role="Product" EntitySet="Product" />
+      <End Role="ToBasket" EntitySet="ToBasket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ToBasket_User" Association="Self.FK_ToBasket_User">
+      <End Role="User" EntitySet="User" />
       <End Role="ToBasket" EntitySet="ToBasket" />
     </AssociationSet>
     <AssociationSet Name="FK_TodaysSpecial_Product" Association="Self.FK_TodaysSpecial_Product">
