@@ -88,8 +88,8 @@ namespace CarProject.Models.User
         {
             if (string.IsNullOrWhiteSpace(Person.PersonFirtstName))
                 yield return new ValidationResult("نام کاربر وارد نشده است", new string[] { "Person.PersonFirtstName" });
-            if (string.IsNullOrWhiteSpace(Person.PersonFirtstName))
-                yield return new ValidationResult("نام خانوادگی کاربر وارد نشده است", new string[] { "Person.PersonFirtstName" });
+            if (string.IsNullOrWhiteSpace(Person.PersonLastName))
+                yield return new ValidationResult("نام خانوادگی کاربر وارد نشده است", new string[] { "Person.PersonLastName" });
             if (string.IsNullOrWhiteSpace(Person.PersonMobile))
                 yield return new ValidationResult("موبایل کاربر وارد نشده است", new string[] { "Person.PersonMobile" });
 

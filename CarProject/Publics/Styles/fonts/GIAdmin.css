@@ -99,6 +99,9 @@
 .gia-brokenHeart:before{content:'\0079';}
 .gia-details:before{content:'\007A';}
 .gia-rss:before{content:'\007B';}
+.gia-paymentCash:before{content:'\007C';}
+.gia-paymentCard:before{content:'\007D';}
+.gia-paymentOnline:before{content:'\007E';}
 
 
 
