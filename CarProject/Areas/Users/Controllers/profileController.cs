@@ -20,6 +20,14 @@ namespace CarProject.Areas.Users.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult LogoutRequest()
+        {
+            Session["guestUser"] = null;
+            Session.Remove("guestUser");
+            return Redirect("/");
+        }
+
         public ActionResult Signup()
         {
             var model = new Models.User.UserInfo();
@@ -66,11 +74,11 @@ namespace CarProject.Areas.Users.Controllers
                     Session["guestUser"] = user;
 
                     //cart redirect
-                    var list = new List<CarProject.Controllers.CartOfProducts>();
+                    var list = new List<CarProject.Models.Store.CartOfProducts>();
                     if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
                     {
-                        list = JsonConvert.DeserializeObject<List<CarProject.Controllers.CartOfProducts>>(Request.Cookies["UserCart"].Value);
-                        if (list is List<CarProject.Controllers.CartOfProducts>)
+                        list = JsonConvert.DeserializeObject<List<CarProject.Models.Store.CartOfProducts>>(Request.Cookies["UserCart"].Value);
+                        if (list is List<CarProject.Models.Store.CartOfProducts>)
                         {
                             foreach (var item in list)
                             {
@@ -81,7 +89,7 @@ namespace CarProject.Areas.Users.Controllers
 
                                 switch (item.TypeOfProduct)
                                 {
-                                    case CarProject.Controllers.CartOfProducts.CartType.Product:
+                                    case CarProject.Models.Store.CartOfProducts.CartType.Product:
                                         if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.ProductId == item.Id && c.BasketId == null) <= 0)
                                         {
                                             tbsk.ProductEntity = item.Count;
@@ -95,7 +103,7 @@ namespace CarProject.Areas.Users.Controllers
                                             istrue = false;
                                         }
                                         break;
-                                    case CarProject.Controllers.CartOfProducts.CartType.AutoService:
+                                    case CarProject.Models.Store.CartOfProducts.CartType.AutoService:
                                         if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServiceId == item.Id && c.BasketId == null) <= 0)
                                         {
                                             tbsk.ProductEntity = item.Count;
@@ -109,7 +117,7 @@ namespace CarProject.Areas.Users.Controllers
                                             istrue = false;
                                         }
                                         break;
-                                    case CarProject.Controllers.CartOfProducts.CartType.AutoServicePack:
+                                    case CarProject.Models.Store.CartOfProducts.CartType.AutoServicePack:
                                         if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id && c.BasketId == null) <= 0)
                                         {
                                             tbsk.ProductEntity = item.Count;

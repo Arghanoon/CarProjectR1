@@ -169,6 +169,7 @@
     <Compile Include="Areas\Admin\Models\Store\Services.cs" />
     <Compile Include="Areas\Admin\Models\Store\StoreMVC.cs" />
     <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
+    <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Users\UsersCLS\Filters.cs" />
     <Compile Include="Areas\Users\Controllers\profileController.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
@@ -851,6 +852,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Users\Views\Dashboard\ShoppingHistory.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\BasketDetails.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
