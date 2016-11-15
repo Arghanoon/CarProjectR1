@@ -1,0 +1,73 @@
+﻿.ServicePacksContainer {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+    .ServicePacksContainer .item {
+        width:32%; margin:5px;
+        min-height:150px;
+        display:flex; 
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+
+        border:thin solid transparent;
+        box-shadow:0 0 5px 0 #888 inset;
+        background:#f9f9f9;
+
+        transition:0.5s;
+    }
+        .ServicePacksContainer .item:hover {
+             box-shadow:none;
+             border:thin solid #888;
+             background:white;
+        }
+
+        .ServicePacksContainer .item > * {
+            text-align: center;
+        }
+.price {
+    background: #ff4500;
+    color:rgba(255,255,255,1.0);
+    padding:5px;
+
+    border-radius:5px 5px 0 0 ;
+}
+
+
+#BrandsContainer {
+    flex:1;
+    display:flex; justify-content:space-between; align-items:stretch;
+    flex-wrap:wrap;
+}
+
+    #BrandsContainer a {
+        width:47%;
+        height:130px;
+        margin:5px;
+        background:white;
+        padding:2px;
+        overflow:hidden;
+        border:thin solid #888;
+        display:flex; justify-content:center; align-items:center;
+
+    }
+        #BrandsContainer a[data-title]:after {
+            content: attr(data-title);
+            background: rgba(0,0,0,0.7);
+
+            position:absolute; 
+            width:100%; height:100%; top:-100%; left:0; right:0;
+            color:white;
+            display:flex; justify-content:center; align-items:center;
+
+            transition:0.5s;
+        }
+        #BrandsContainer a[data-title]:hover:after {
+            top: 0;
+        }
+        #BrandsContainer a img {
+            width: 100%;
+            height: 100%;
+        }

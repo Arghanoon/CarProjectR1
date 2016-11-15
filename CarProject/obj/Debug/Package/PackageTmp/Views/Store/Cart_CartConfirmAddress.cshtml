@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "تایید و پرداخت";
+
+    var usfl = new CarProject.Models.Store.CartUsefull();
+}
+@model CarProject.Models.Store.CartConfirmBillAndAddressModel
+@using CarProject.App_Code
+
+<div class="page" id="billingInformation">
+    <h3>لیست محصولات درخواستی</h3>
+    <hr />
+    <table class="grid">
+        <thead>
+            <tr>
+                <th class="fix">شماره</th>
+                <th>نام محصول</th>
+                <th class="fix">نوع محصول</th>
+                <th class="fix">قیمت برای هر واحد</th>
+                <th class="fix">تعداد</th>
+                <th class="fix">قیمت کل</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1; int TotalPrice = 0; }
+            @foreach (var item in Model.BillingList)
+            {
+                int pric = 0;
+                int.TryParse(usfl.GetPriceOfCartObject(item.Id, item.TypeOfProduct),out pric);
+                var ttpic = pric * item.Count;
+                TotalPrice += ttpic;
+                <tr>
+                    <td class="fix center">@i</td>
+                    <td>@usfl.GetNameOfCartObject(item.Id, item.TypeOfProduct)</td>
+                    <td>@usfl.GetNameofCartType(item.TypeOfProduct)</td>
+                    <td class="fix center">@pric</td>
+                    <td class="fix center">@item.Count</td>
+                    <td class="fix center">@ttpic</td>
+                </tr>
+                i += 1;
+            }
+        </tbody>
+    </table>
+
+    <div id="totalpriceSectionContainer">
+        <section id="totalPrice">
+            <strong>مبلغ کل فاکتور</strong>
+            <small>@TotalPrice ریال</small>
+        </section>
+    </div>
+</div>
+
+
+<div class="page" id="AddressConfirm">
+    <h3>تایید آدرس</h3>
+    <hr />
+    <form method="post">
+        
+        <div class="inputsContainer">
+            @Html.input_TextBox(m => m.PersonInformation.PersonFirtstName, "نام")
+            @Html.input_TextBox(m => m.PersonInformation.PersonLastName, "نام خانوادگی")
+            @Html.input_TextBox(m => m.PersonInformation.PersonMobile, "تلفن همراه")
+            @Html.input_TextBox(m => m.PersonInformation.PersonAddressCity, "استان و شهر محل سکونت")
+            @Html.input_TextArea(m => m.PersonInformation.PersonAddress, "آدرس کامل")
+
+        </div>
+        <small>
+            اگر آدرس شما تغییر کرده و یا آدرس قبلا به درستی وارد نشده است در اینجا آدرس را دوباره وارد کنید. توجه کنید که آدرس باید کامل همراه با نام استان و شهر باشد و در انتها کد پستی را نیز وارد کنید
+        </small><br />
+        <small>آدرس و کد پستی را با یک علامت <q>-</q> از هم جدا کنید</small>
+        <section class="inputAction">
+            <a href="@Url.Action("Cart")" class="button yellow">برگشت و اصلاح سبد خرید</a>
+            <input type="submit" value="تایید و تعیین نحوه پرداخت" class="button green" />
+        </section>
+        
+    </form>
+    
+</div>
+
+
+
+@section style
+{
+    <style>
+        .grid {
+            width:100%;
+            padding:5px;
+            margin:5px;
+        }
+            .grid td,
+            .grid th {
+                padding:1px 5px;
+                border:thin solid #888;
+            }
+
+            .grid th {
+                background:#bbb;
+            }
+
+
+            .grid .fix {
+                width:0; 
+                white-space:nowrap;
+            }
+            .grid .center {
+                text-align: center;
+            }
+
+
+        #totalpriceSectionContainer {
+            display:flex;
+            justify-content:flex-end;
+            overflow:hidden;
+        }
+        #totalPrice {
+            display:flex;
+            align-items:center;
+        }
+            #totalPrice > * {
+                
+                padding:5px;
+                display:flex; justify-content:center; align-items:center;
+            }
+            #totalPrice > strong {
+                background:#6fe300;
+                box-shadow:-3px 0 4px -3px #000;
+                z-index:1;
+            }
+
+            #totalPrice > small {
+                background: #fc8000;
+                border:thin solid #e37300;
+                border-radius: 5px 0 0 5px;
+                animation:anim_totalPrice_small;
+                animation-duration:1s;
+            }
+
+        @@keyframes anim_totalPrice_small {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform:none;
+            }
+        }
+
+    </style>
+}

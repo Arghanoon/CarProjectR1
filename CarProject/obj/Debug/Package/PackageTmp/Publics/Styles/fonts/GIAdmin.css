@@ -91,6 +91,17 @@
 .gia-article:before{content:'\0071';}
 .gia-service:before{content:'\0072';}
 .gia-userInfo:before{content:'\0073';}
+.gia-heart:before{content:'\0074';}
+.gia-burse:before{content:'\0075';}
+.gia-retrive:before{content:'\0076';}
+.gia-visitors:before{content:'\0077';}
+.gia-messageSeen:before{content:'\0078';}
+.gia-brokenHeart:before{content:'\0079';}
+.gia-details:before{content:'\007A';}
+.gia-rss:before{content:'\007B';}
+.gia-paymentCash:before{content:'\007C';}
+.gia-paymentCard:before{content:'\007D';}
+.gia-paymentOnline:before{content:'\007E';}
 
 
 
