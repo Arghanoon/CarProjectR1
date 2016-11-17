@@ -18,6 +18,11 @@ namespace CarProject.Controllers
             return View();
         }
 
+        public ActionResult NewsShow(int? id)
+        {
+            return View();
+        }
+
     }
 
     public class NewsGroupLink

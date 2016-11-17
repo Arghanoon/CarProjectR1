@@ -432,6 +432,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ContetComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.ContetComment">
+        <MappingFragment StoreEntitySet="ContetComments">
+          <ScalarProperty Name="ContentCommentsId" ColumnName="ContentCommentsId" />
+          <ScalarProperty Name="ContentsId" ColumnName="ContentsId" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Countries">
       <EntityTypeMapping TypeName="CarAutomationModel.Country">
         <MappingFragment StoreEntitySet="Country">
