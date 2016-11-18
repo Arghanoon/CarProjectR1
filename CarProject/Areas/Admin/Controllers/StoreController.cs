@@ -187,6 +187,25 @@ namespace CarProject.Areas.Admin.Controllers
             var res = dbs.Products.Where(c => c.ProductName.Contains(search)).Select(c => new { id = c.ProductId, name = c.ProductName, cat = c.Category.CategoryName }).ToList();
             return Json(res, JsonRequestBehavior.DenyGet);
         }
+
+        public ActionResult ProductComments()
+        {
+            return View();
+        }
+        [HttpPost]
+        public int ChangeCanShowState(int? ID)
+        {
+            int res = 0;
+            var dbs = new DBSEF.CarAutomationEntities();
+            var pcm = dbs.ProductComments.FirstOrDefault(pc => pc.ProductCommentId == ID);
+            if (pcm != null)
+            {
+                pcm.canshow = !pcm.canshow.GetValueOrDefault(false);
+                res = (pcm.canshow.Value) ? 1 : 0;
+                dbs.SaveChanges();
+            }
+            return res;
+        }
         #endregion
 
         #region Services and servicePacks

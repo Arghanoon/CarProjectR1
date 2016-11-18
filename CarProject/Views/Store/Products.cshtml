@@ -118,6 +118,10 @@
                 <th>قیمت محصول</th>
                 <td>@product.ProductPrices.Last().ProductPrice1</td>
             </tr>
+             <tr>
+                <th>هزینه نصب محصول</th>
+                <td>@product.ProductPrices.Last().InstallPrice</td>
+            </tr>
             <tr>
                 <th>ارتفاع</th>
                 <td>@product.ProductHeight</td>
@@ -168,6 +172,14 @@
                 <td>@product.ProductSecription</td>
             </tr>
         </table>
+
+        <div id="totalPriceSection">
+            @{
+                var lastproductprice = product.ProductPrices.Last();
+                var lpp = lastproductprice.ProductPrice1.GetValueOrDefault(0) + lastproductprice.InstallPrice.GetValueOrDefault(0);
+            }
+            <section>مبلغ کل محصول : @lpp <small>ریال</small></section>
+        </div>
 
         <div id="productActionAndInfo">
             <div id="productViewsInfo">

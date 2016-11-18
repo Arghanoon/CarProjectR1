@@ -273,6 +273,26 @@ hr {
             padding:5px;
         }
 
+
+
+#totalPriceSection {
+    display:flex; flex-direction:row-reverse;
+}
+
+#totalPriceSection section {
+    background:orange;
+    color:white;
+
+    margin:5px;
+    margin-left:-5px;
+    padding:6px;
+
+    border-radius:0 5px 5px 0;
+    border:3px solid transparent;
+    border-left: 5px solid rgba(0,0,0,0.4);
+
+}
+
 @media (max-width:500px) {
     .form {
         min-width:0;
@@ -282,3 +302,4 @@ hr {
         display: block;
     }
 }
+

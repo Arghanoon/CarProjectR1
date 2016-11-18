@@ -95,7 +95,7 @@ namespace CarProject.Areas.Admin.Controllers
                 }
                 ViewBag.images = imgPath;
             }
-            return View();
+            return RedirectToAction("CarImagesGallery", new { id = id });
         }
         public ActionResult CarImageGalleryRemove(int id, string filename)
         {
