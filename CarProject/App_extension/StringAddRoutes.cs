@@ -87,6 +87,21 @@ namespace CarProject.App_extension
 
             return string.Format("{0:0000}/{1:00}/{2:00} {3:00}:{4:00}:{5:00}", PRS.GetYear(value), PRS.GetMonth(value), PRS.GetDayOfMonth(value), value.Hour, value.Minute, value.Second);
         }
+        public static string Date_Persian(this DateTime? value)
+        {
+            PersianCalendar PRS = new PersianCalendar();
+
+            if (value == null || value.GetValueOrDefault(DateTime.MinValue) == DateTime.MinValue)
+                return "";
+            return string.Format("{0:0000}/{1:00}/{2:00}", PRS.GetYear(value.GetValueOrDefault()), PRS.GetMonth(value.GetValueOrDefault()), PRS.GetDayOfMonth(value.GetValueOrDefault()));
+        }
+
+        public static string Date_Persian(this DateTime value)
+        {
+            PersianCalendar PRS = new PersianCalendar();
+
+            return string.Format("{0:0000}/{1:00}/{2:00}", PRS.GetYear(value), PRS.GetMonth(value), PRS.GetDayOfMonth(value));
+        }
 
         public static bool IsPersianDateTime(this string value)
         {

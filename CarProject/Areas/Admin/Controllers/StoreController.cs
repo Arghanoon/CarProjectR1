@@ -180,6 +180,31 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
+        public ActionResult Products_CostList(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Products_CostList(int? id,DBSEF.ProductPrice model)
+        {
+            if (model.ProductPrice1 == null)
+                ModelState.AddModelError("ProductPrice1", "مبلغ کالا تعیین نشده است");
+            if (model.InstallPrice == null)
+                ModelState.AddModelError("InstallPrice", "هزینه نصب کالا تعیین نشده است");
+
+            if (ModelState.IsValid)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                model.Date = DateTime.Now;
+                dbs.ProductPrices.Add(model);
+                dbs.SaveChanges();
+
+                return RedirectToAction("Products_CostList", new { id = id });
+            }
+
+            return View(model);
+        }
+
         [HttpPost]
         public ActionResult JsonProductsSearch(string search)
         {

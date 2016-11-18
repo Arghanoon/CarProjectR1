@@ -103,6 +103,8 @@
 .gia-paymentCard:before{content:'\007D';}
 .gia-paymentOnline:before{content:'\007E';}
 
+.gia-price:before{content:'\0980';}
+.gia-price2:before{content:'\0981';}
 
 
 

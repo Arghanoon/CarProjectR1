@@ -56,7 +56,7 @@ namespace CarProject.Areas.Admin.Models.Store
             //    item.Product = this.Product;
             //    dbs.ProductCars.Add(item);
             //}
-            dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price, InstallPrice = this.InstallPrice });
+            dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price, InstallPrice = this.InstallPrice, Date = DateTime.Now });
             
             dbs.SaveChanges();
         }
@@ -68,9 +68,16 @@ namespace CarProject.Areas.Admin.Models.Store
 
         public void Update()
         {
-            var lp = Product.ProductPrices.Last();
-            if (lp == null || lp.ProductPrice1 != Price || lp.InstallPrice != InstallPrice)
-                dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price, InstallPrice = this.InstallPrice });
+            if (Product.ProductPrices.Count > 0)
+            {
+                var lp = Product.ProductPrices.Last();
+                if (lp == null || lp.ProductPrice1 != Price || lp.InstallPrice != InstallPrice)
+                    dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price, InstallPrice = this.InstallPrice, Date = DateTime.Now });
+            }
+            else
+            {
+                dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price, InstallPrice = this.InstallPrice, Date = DateTime.Now });
+            }
 
             var xtmp = Cars.Select(c => c.CarsId);
             dbs.ProductCars.RemoveRange(Product.ProductCars.Where(c => !xtmp.Contains(c.CarsId)));

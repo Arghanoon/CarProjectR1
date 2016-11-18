@@ -134,6 +134,30 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
+        public ActionResult Cars_CostList(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Cars_CostList(int? id, DBSEF.CarPrice model)
+        {
+            if (model.Price == null)
+                ModelState.AddModelError("Price", "مبلغ کالا تعیین نشده است");
+            
+
+            if (ModelState.IsValid)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                model.Date = DateTime.Now;
+                dbs.CarPrices.Add(model);
+                dbs.SaveChanges();
+
+                return RedirectToAction("Cars_CostList", new { id = id });
+            }
+
+            return View(model);
+        }
+
 
         [HttpGet]
         public ActionResult Brands(int? id)
