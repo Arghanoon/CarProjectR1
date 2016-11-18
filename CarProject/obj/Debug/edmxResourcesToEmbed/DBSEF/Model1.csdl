@@ -474,6 +474,7 @@
     <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="ContentPresentation" Relationship="Self.FK_ContentPresentation_Contents" FromRole="Contents" ToRole="ContentPresentation" />
     <NavigationProperty Name="ContentsCategory" Relationship="Self.FK_Contents_ContentsCategory" FromRole="Contents" ToRole="ContentsCategory" />
+    <NavigationProperty Name="ContetComments" Relationship="Self.FK_ContetComments_Contents" FromRole="Contents" ToRole="ContetComments" />
   </EntityType>
   <EntityType Name="ContentsCategory">
     <Key>
@@ -486,6 +487,20 @@
     <NavigationProperty Name="Contents" Relationship="Self.FK_Contents_ContentsCategory" FromRole="ContentsCategory" ToRole="Contents" />
     <NavigationProperty Name="ContentsCategory1" Relationship="Self.FK_ContentsCategory_ContentsCategory" FromRole="ContentsCategory" ToRole="ContentsCategory1" />
     <NavigationProperty Name="ContentsCategory2" Relationship="Self.FK_ContentsCategory_ContentsCategory" FromRole="ContentsCategory1" ToRole="ContentsCategory" />
+  </EntityType>
+  <EntityType Name="ContetComment">
+    <Key>
+      <PropertyRef Name="ContentCommentsId" />
+    </Key>
+    <Property Name="ContentCommentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContentsId" Type="Int32" />
+    <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Content" Relationship="Self.FK_ContetComments_Contents" FromRole="ContetComments" ToRole="Contents" />
+    <NavigationProperty Name="User" Relationship="Self.FK_ContetComments_User" FromRole="ContetComments" ToRole="User" />
   </EntityType>
   <EntityType Name="Country">
     <Key>
@@ -933,6 +948,7 @@
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="Baskets" Relationship="Self.FK_Basket_User" FromRole="User" ToRole="Basket" />
     <NavigationProperty Name="CarComments" Relationship="Self.FK_CarComments_User" FromRole="User" ToRole="CarComments" />
+    <NavigationProperty Name="ContetComments" Relationship="Self.FK_ContetComments_User" FromRole="User" ToRole="ContetComments" />
     <NavigationProperty Name="People" Relationship="Self.FK_Person_User" FromRole="User" ToRole="Person" />
     <NavigationProperty Name="PersonCars" Relationship="Self.FK_PersonCars_User" FromRole="User" ToRole="PersonCars" />
     <NavigationProperty Name="PersonProducts" Relationship="Self.FK_PersonProduct_User" FromRole="User" ToRole="PersonProduct" />
@@ -1610,6 +1626,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ContetComments_Contents">
+    <End Role="Contents" Type="Self.Content" Multiplicity="0..1" />
+    <End Role="ContetComments" Type="Self.ContetComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contents">
+        <PropertyRef Name="ContenstId" />
+      </Principal>
+      <Dependent Role="ContetComments">
+        <PropertyRef Name="ContentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ContentsCategory_ContentsCategory">
     <End Role="ContentsCategory" Type="Self.ContentsCategory" Multiplicity="0..1" />
     <End Role="ContentsCategory1" Type="Self.ContentsCategory" Multiplicity="*" />
@@ -1619,6 +1647,18 @@
       </Principal>
       <Dependent Role="ContentsCategory1">
         <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContetComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ContetComments" Type="Self.ContetComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ContetComments">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2029,6 +2069,7 @@
     <EntitySet Name="ContentPresentations" EntityType="Self.ContentPresentation" />
     <EntitySet Name="Contents" EntityType="Self.Content" />
     <EntitySet Name="ContentsCategories" EntityType="Self.ContentsCategory" />
+    <EntitySet Name="ContetComments" EntityType="Self.ContetComment" />
     <EntitySet Name="Countries" EntityType="Self.Country" />
     <EntitySet Name="DetailedBrakeSystems" EntityType="Self.DetailedBrakeSystem" />
     <EntitySet Name="Discounts" EntityType="Self.Discount" />
@@ -2284,9 +2325,17 @@
       <End Role="ContentsCategory" EntitySet="ContentsCategories" />
       <End Role="Contents" EntitySet="Contents" />
     </AssociationSet>
+    <AssociationSet Name="FK_ContetComments_Contents" Association="Self.FK_ContetComments_Contents">
+      <End Role="Contents" EntitySet="Contents" />
+      <End Role="ContetComments" EntitySet="ContetComments" />
+    </AssociationSet>
     <AssociationSet Name="FK_ContentsCategory_ContentsCategory" Association="Self.FK_ContentsCategory_ContentsCategory">
       <End Role="ContentsCategory" EntitySet="ContentsCategories" />
       <End Role="ContentsCategory1" EntitySet="ContentsCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContetComments_User" Association="Self.FK_ContetComments_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ContetComments" EntitySet="ContetComments" />
     </AssociationSet>
     <AssociationSet Name="FK_Manufacture_Country" Association="Self.FK_Manufacture_Country">
       <End Role="Country" EntitySet="Countries" />

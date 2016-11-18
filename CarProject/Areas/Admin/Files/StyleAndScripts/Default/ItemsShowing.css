@@ -44,6 +44,7 @@
                     background: #eaeaea;
                     width:0;
                     white-space:nowrap;
+                    text-align:right;
                 }
 
                 .itemContainer .item .action {

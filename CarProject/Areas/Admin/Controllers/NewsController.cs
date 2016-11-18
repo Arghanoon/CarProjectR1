@@ -89,7 +89,7 @@ namespace CarProject.Areas.Admin.Controllers
                 }
                 ViewBag.images = imgPath;
             }
-            return View();
+            return RedirectToAction("NewsImagesGallery", new { id = id });
         }
         public ActionResult NewsImagesGalleryRemove(int id, string filename)
         {

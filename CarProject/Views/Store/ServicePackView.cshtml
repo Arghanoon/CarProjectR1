@@ -31,45 +31,83 @@
         <a href="javascript:void();" class="gia-cart" onclick="AddToCart('@id','@CarProject.Models.Store.CartOfProducts.CartType.AutoServicePack')">اضافه کردن سبد خرید</a>
     </div>
     <div id="serviceInfoSection">
-        <div>
-            <h3>اطلاعات سرویس</h3>
-            <table id="tblinfo">
-                <tr>
-                    <th>نام بسته</th>
-                    <td>@servicePack.AutoServicePackName</td>
-                </tr>
-                <tr>
-                    <th>قیمت بسته</th>
-                    <td>@servicePack.PackPrice ریال</td>
-                </tr>
-                <tr>
-                    <th>سرویس های بسته</th>
-                    <td>
-                        <div id="ServicesLinkContainer">
-                            @{
-                                var services = dbs.AutoServices1.Where(c => c.AutoServicePackId == id).Select(c => c.AutoService);
-                                var pdx = new Dictionary<int,CarProject.DBSEF.Product>();
-                                var pdx2 = new Dictionary<int, CarProject.DBSEF.Car>();
-                                foreach (var item in services)
-                                {
-                                    foreach (var ps in item.ProductInServices.Select(c => c.Product))
-                                    {
-                                        if (!pdx.ContainsKey(ps.ProductId))
-                                        { pdx.Add(ps.ProductId, ps); }
-                                    }
-                                    foreach (var ps in item.AutoServiceCars.Select(c => c.Car))
-                                    {
-                                        if (!pdx2.ContainsKey(ps.CarsId))
-                                        { pdx2.Add(ps.CarsId, ps); }
-                                    }
-                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@item.Price ریال</small></a>
-                                }
+
+        <div id="imagesAndInformation">
+            <div id="ImagesSections">
+                <a href="javascript:void()" onclick="$('#ImagesSections').toggleClass('bigView')">تصاویر</a>
+                @{ 
+                    var images = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/ServicePacks/" + ViewContext.RouteData.Values["id"]));
+                    if (images.Exists)
+                    {
+                        var imagesFiles = images.GetFiles();
+                        if (imagesFiles.Length > 0)
+                        {
+                    <img id="imageBigPreview" src="@Url.Content("~/Publics/Gallery/ServicePacks/" + ViewContext.RouteData.Values["id"] + "/" + imagesFiles[0].Name)" />
+                        }
+                        else
+                        {
+                    <img id="imageBigPreview" src="" />
+                    }
+                    }
+                }
+                <div id="imagesContianer">
+                    @{
+                        if (images.Exists)
+                        {
+                            var imagesFiles = images.GetFiles();
+                            foreach (var item in imagesFiles)
+                            {
+                        <a href="javascript:void()">
+                            <img onclick="imageBigPreview.src = this.src;" src="@Url.Content("~/Publics/Gallery/ServicePacks/" + ViewContext.RouteData.Values["id"] + "/" + item.Name)" />
+                        </a>
                             }
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div id="information">
+                <h3>اطلاعات سرویس</h3>
+                <table id="tblinfo">
+                    <tr>
+                        <th>نام بسته</th>
+                        <td>@servicePack.AutoServicePackName</td>
+                    </tr>
+                    <tr>
+                        <th>قیمت بسته</th>
+                        <td>@servicePack.PackPrice ریال</td>
+                    </tr>
+                    <tr>
+                        <th>سرویس های بسته</th>
+                        <td>
+                            <div id="ServicesLinkContainer">
+                                @{
+                                    var services = dbs.AutoServices1.Where(c => c.AutoServicePackId == id).Select(c => c.AutoService);
+                                    var pdx = new Dictionary<int, CarProject.DBSEF.Product>();
+                                    var pdx2 = new Dictionary<int, CarProject.DBSEF.Car>();
+                                    foreach (var item in services)
+                                    {
+                                        foreach (var ps in item.ProductInServices.Select(c => c.Product))
+                                        {
+                                            if (!pdx.ContainsKey(ps.ProductId))
+                                            { pdx.Add(ps.ProductId, ps); }
+                                        }
+                                        foreach (var ps in item.AutoServiceCars.Select(c => c.Car))
+                                        {
+                                            if (!pdx2.ContainsKey(ps.CarsId))
+                                            { pdx2.Add(ps.CarsId, ps); }
+                                        }
+                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@item.Price ریال</small></a>
+                                }
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
         </div>
+        
 
         <div>
             <h3>محصولات مرتبط</h3>
@@ -89,7 +127,7 @@
                         <section>
                             <strong>@item.ProductName</strong><br />
                             <small>@item.Category.CategoryName</small><br />
-                            <small class="price">@item.ProductPrices.Last().ProductPrice1 ریال</small>
+                            <small class="price">@if(@item.ProductPrices.Count > 0){@item.ProductPrices.Last().ProductPrice1}else{<span>0</span>} ریال</small>
                         </section>
                     </a>
                         }
@@ -251,6 +289,77 @@
         -webkit-filter: none; /* Safari 6.0 - 9.0 */
         filter: none;
     }
+
+    
+
+
+        #imagesAndInformation {
+            display:flex;
+            border:thin solid #888;
+        }
+        #information {
+            flex:1;
+        }
+        #ImagesSections {
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            align-items:stretch;
+
+            max-width:30%;
+            margin-left:5px;
+            padding:0 5px;
+
+            border-left:thin solid #888;
+
+        }
+            #ImagesSections.bigView {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                max-width: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                margin: 0;
+                z-index: 999;
+                align-items: center;
+                overflow: auto;
+            }
+
+        #imageBigPreview {
+            max-width:100%;
+        }
+        #ImagesSections.bigView #imageBigPreview {
+            max-width: 100%;
+            max-height: 80%;
+        }
+
+            #imagesContianer {
+                display:flex; justify-content:center; align-items:stretch;
+                flex-wrap:wrap;
+            }
+
+            #imagesContianer img {
+                width: 100px;
+                height: 70px;
+                margin:2px;
+                cursor:pointer;
+                border:thin solid #ddd;
+            }
+
+
+        @@media (max-width:700px) {
+            #imagesAndInformation {
+                flex-direction:column;
+            }
+            #ImagesSections {
+                max-width:100%;
+                border:none;
+                margin-left:0;
+            }
+        }
 
     </style>
 }

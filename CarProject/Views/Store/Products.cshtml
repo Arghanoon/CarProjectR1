@@ -43,21 +43,19 @@
 
 <div id="ProductsViewInformationPart1">
     <div>
-        <h3>تصاویر محصول</h3>
+        
         <div id="ProductImagesSection">
+            <a href="javascript:void()" onclick="$('#ProductImagesSection').toggleClass('bigView')">تصاویر محصول</a>
+            <hr />
             @{ 
                 var images = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"]));
                 if(images.Exists)
                 {   
                     var imagesFiles = images.GetFiles();
+                    var src = "";
                     if(imagesFiles.Length> 0)
-                    {
-                        <img id="imageBigPreview" src="@Url.Content("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"] + "/" + imagesFiles[0].Name)" />
-                    }
-                    else
-                    {
-                        <img id="imageBigPreview" src="" />
-                    }
+                    { src = Url.Content("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"] + "/" + imagesFiles[0].Name); }
+                    <img id="imageBigPreview" src="@src" onclick="$('#ProductImagesSection').toggleClass('bigView')" />
                 }
              }
             
@@ -116,7 +114,11 @@
             </tr>
             <tr>
                 <th>قیمت محصول</th>
-                <td>@product.ProductPrices.Last().ProductPrice1</td>
+                <td>@if (product.ProductPrices.Count > 0) { <span>@product.ProductPrices.Last().ProductPrice1</span> } else { <span>0</span> } <small>ریال</small></td>
+            </tr>
+             <tr>
+                <th>هزینه نصب محصول</th>
+                <td>@if (product.ProductPrices.Count > 0) { <span>@product.ProductPrices.Last().InstallPrice</span> } else { <span>0</span> } <small>ریال</small></td>
             </tr>
             <tr>
                 <th>ارتفاع</th>
@@ -169,6 +171,18 @@
             </tr>
         </table>
 
+        <div id="totalPriceSection">
+            @{
+                var lpp = 0;
+                if(product.ProductPrices.Count > 0)
+                {
+                    var lastproductprice = product.ProductPrices.Last();
+                    lpp = lastproductprice.ProductPrice1.GetValueOrDefault(0) + lastproductprice.InstallPrice.GetValueOrDefault(0);
+                }
+            }
+            <section>مبلغ کل محصول : @lpp <small>ریال</small></section>
+        </div>
+
         <div id="productActionAndInfo">
             <div id="productViewsInfo">
                 @{ var productsToviewObject = dbs.ProductToViews.FirstOrDefault(p => p.ProductId == id); }
@@ -193,7 +207,7 @@
 </div>
 
 
- @{var comments = dbs.ProductComments.Where(c => c.ProductId == id).OrderBy(c => c.datetime);}
+ @{var comments = dbs.ProductComments.Where(c => c.ProductId == id && c.canshow == true).OrderBy(c => c.datetime);}
 @if(comments.Count() > 0)
 {
 <div class="productSections">

@@ -397,6 +397,18 @@
     <Property Name="Describe" Type="nvarchar(max)" />
     <Property Name="ParentId" Type="int" />
   </EntityType>
+  <EntityType Name="ContetComments">
+    <Key>
+      <PropertyRef Name="ContentCommentsId" />
+    </Key>
+    <Property Name="ContentCommentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContentsId" Type="int" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Comment" Type="text" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
   <EntityType Name="Country">
     <Key>
       <PropertyRef Name="CountryId" />
@@ -1208,6 +1220,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ContetComments_Contents">
+    <End Role="Contents" Type="Self.Contents" Multiplicity="0..1" />
+    <End Role="ContetComments" Type="Self.ContetComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contents">
+        <PropertyRef Name="ContenstId" />
+      </Principal>
+      <Dependent Role="ContetComments">
+        <PropertyRef Name="ContentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContetComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ContetComments" Type="Self.ContetComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ContetComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_DetailedBrakeSystem_Cars">
     <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
     <End Role="DetailedBrakeSystem" Type="Self.DetailedBrakeSystem" Multiplicity="*" />
@@ -1855,6 +1891,7 @@
     <EntitySet Name="ContentPresentation" EntityType="Self.ContentPresentation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Contents" EntityType="Self.Contents" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContentsCategory" EntityType="Self.ContentsCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContetComments" EntityType="Self.ContetComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetailedBrakeSystem" EntityType="Self.DetailedBrakeSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
@@ -2033,6 +2070,14 @@
     <AssociationSet Name="FK_ContentsCategory_ContentsCategory" Association="Self.FK_ContentsCategory_ContentsCategory">
       <End Role="ContentsCategory" EntitySet="ContentsCategory" />
       <End Role="ContentsCategory1" EntitySet="ContentsCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContetComments_Contents" Association="Self.FK_ContetComments_Contents">
+      <End Role="Contents" EntitySet="Contents" />
+      <End Role="ContetComments" EntitySet="ContetComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContetComments_User" Association="Self.FK_ContetComments_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="ContetComments" EntitySet="ContetComments" />
     </AssociationSet>
     <AssociationSet Name="FK_DetailedBrakeSystem_Cars" Association="Self.FK_DetailedBrakeSystem_Cars">
       <End Role="Cars" EntitySet="Cars" />

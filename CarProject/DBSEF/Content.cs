@@ -14,6 +14,12 @@ namespace CarProject.DBSEF
     
     public partial class Content
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Content()
+        {
+            this.ContetComments = new HashSet<ContetComment>();
+        }
+    
         public int ContenstId { get; set; }
         public Nullable<int> ContentsCategoryId { get; set; }
         public string ContentSubject { get; set; }
@@ -27,5 +33,7 @@ namespace CarProject.DBSEF
     
         public virtual ContentPresentation ContentPresentation { get; set; }
         public virtual ContentsCategory ContentsCategory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContetComment> ContetComments { get; set; }
     }
 }

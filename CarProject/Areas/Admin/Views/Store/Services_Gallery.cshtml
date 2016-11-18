@@ -1,0 +1,143 @@
+﻿@{
+    ViewBag.Title = "گالری تصاویر سرویس";
+}
+
+
+<h3>آپلود عکس</h3>
+<form method="post" enctype="multipart/form-data">
+    <a href="javascript:void()" onclick="openFile()" class="button brown gia-add" >اضافه کردن تصویر</a>
+   
+    <div id="ForUploadImages">
+
+    </div>
+    <div>
+        <input type="submit" class="button green" value="آپلود تصاویر" />
+    </div>
+</form>
+
+<h3>تصاویر خودرو</h3>
+<div id="CarGalleryImages">
+    @foreach (var item in ViewBag.images as List<string>)
+    {
+        <div class="imgItems">
+            <img src="@Url.Content(item)" alt="" />
+            <div class="action">
+                <a href="javascript:void()" onclick="deleteFile('@Url.RequestContext.RouteData.Values["id"]','@this.Html.Encode(item)')" class="gia-remove"></a>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section style
+{
+    <style>
+        
+        #ForUploadImages, #CarGalleryImages {
+            position:relative;
+            display:flex; justify-content:center; align-items:stretch;
+            flex-wrap:wrap;
+            padding:5px;
+            border: thin solid #888;
+        }
+        .imgItems input[type=file]{
+            display:none;
+            opacity:0;
+        }
+        .imgItems {
+            width:200px;
+            height:120px;
+            margin:5px;
+
+            border:thin solid #888;
+            border-radius:5px;
+            overflow:hidden;
+        }
+            .imgItems .action {
+                position:absolute; top:-100%; left:0; right:0;
+                z-index:1;
+                background:rgba(255,255,255,0.8);
+
+                display:flex; justify-content:center; align-items:center;
+                transition:ease-in-out 0.3s;
+            }
+            .imgItems:hover .action {
+                top:0;
+            }
+
+            .imgItems img {
+               width:100%;
+               height:100%;
+            }
+
+        
+
+    </style>
+}
+
+@section script
+{
+    <script>
+        function openFile() {
+            f = document.createElement("input");
+            f.type = "file"
+            f.click();
+            f.name = "CarImages";
+            f.addEventListener("change", function () {
+
+                var reader = new FileReader();
+
+                reader.addEventListener("load", function () {
+                    div = document.createElement("div");
+                    div.classList.add("imgItems");
+
+                    preview = document.createElement("img");
+                    preview.src = reader.result;
+                    
+                    div.appendChild(f);
+                    div.appendChild(preview);
+
+                    divaction = document.createElement("div");
+                    divaction.classList.add("action");
+                    removbtn = document.createElement("a");
+                    removbtn.href = "javascript:void();";
+                    removbtn.classList.add("gia-remove");
+                    removbtn.onclick = function (e) { e.preventDefault(); this.offsetParent.offsetParent.remove(); };
+                    divaction.appendChild(removbtn);
+
+                    div.appendChild(divaction);
+                    document.getElementById("ForUploadImages").appendChild(div);
+
+                }, false);
+
+
+                if (f.files[0]) {
+                    reader.readAsDataURL(f.files[0]);
+                }
+
+            });
+        }
+        function deleteFile(id, name) {
+            frm = document.createElement("Form");
+            frm.method = "POST";
+            frm.action = "/Admin/Store/Services_GalleryRemove";
+            
+            inp1 = document.createElement("input");
+            inp1.type = "hidden";
+            inp1.name = "id";
+            inp1.value = id;
+
+            inp2 = document.createElement("input");
+            inp2.type = "hidden";
+            inp2.name = "filename";
+            inp2.value = name;
+
+            frm.appendChild(inp1);
+            frm.appendChild(inp2);
+
+            document.body.appendChild(frm);
+            frm.submit();
+
+        }
+    </script>
+}

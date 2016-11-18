@@ -2,8 +2,6 @@
     switch (Url.RequestContext.RouteData.Values["controller"].ToString().ToLower())
     {
         case "news":
-            Layout = "~/Views/public/template_News.cshtml";
-            break;
         case "store":
         case "cars":
             Layout = "~/Views/public/template_Sotre.cshtml";

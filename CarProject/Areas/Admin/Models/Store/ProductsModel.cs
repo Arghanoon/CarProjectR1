@@ -17,6 +17,8 @@ namespace CarProject.Areas.Admin.Models.Store
         public List<DBSEF.ProductCar> Cars { get; set; }
 
         public int? Price { get; set; }
+        public int? InstallPrice { get; set; }
+
         [AllowHtml]
         public string HtmlReview { get { return Product.ProductReview.ProductReview1; } set { Product.ProductReview.ProductReview1 = value; } }
 
@@ -32,7 +34,12 @@ namespace CarProject.Areas.Admin.Models.Store
             Product = dbs.Products.FirstOrDefault(p => p.ProductId == id);
 
             if (Product != null && Product.ProductPrices.Count > 0)
-                Price = Product.ProductPrices.Last().ProductPrice1;
+            {
+                var pr = Product.ProductPrices.Last();
+                Price = pr.ProductPrice1;
+                InstallPrice = pr.InstallPrice;
+                
+            }
             Cars = dbs.ProductCars.Where(pc => pc.ProductId == this.Product.ProductId).ToList();
         }
 
@@ -49,7 +56,7 @@ namespace CarProject.Areas.Admin.Models.Store
             //    item.Product = this.Product;
             //    dbs.ProductCars.Add(item);
             //}
-            dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price });
+            dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price, InstallPrice = this.InstallPrice, Date = DateTime.Now });
             
             dbs.SaveChanges();
         }
@@ -61,9 +68,16 @@ namespace CarProject.Areas.Admin.Models.Store
 
         public void Update()
         {
-            var lp = Product.ProductPrices.Last();
-            if(lp == null || lp.ProductPrice1 != Price)
-                dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price });
+            if (Product.ProductPrices.Count > 0)
+            {
+                var lp = Product.ProductPrices.Last();
+                if (lp == null || lp.ProductPrice1 != Price || lp.InstallPrice != InstallPrice)
+                    dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price, InstallPrice = this.InstallPrice, Date = DateTime.Now });
+            }
+            else
+            {
+                dbs.ProductPrices.Add(new DBSEF.ProductPrice { Product = this.Product, ProductPrice1 = Price, InstallPrice = this.InstallPrice, Date = DateTime.Now });
+            }
 
             var xtmp = Cars.Select(c => c.CarsId);
             dbs.ProductCars.RemoveRange(Product.ProductCars.Where(c => !xtmp.Contains(c.CarsId)));
@@ -85,6 +99,8 @@ namespace CarProject.Areas.Admin.Models.Store
                 result.Add(new ValidationResult("گروه تعیین نشده است", new string[] { "Product.CategoryId" }));
             if (Price == null || Price <= 0)
                 result.Add(new ValidationResult("قیمت وارد نشده است", new string[] { "Price" }));
+            if (InstallPrice == null || InstallPrice <= 0)
+                result.Add(new ValidationResult("هزینه نصب وارد نشده است", new string[] { "InstallPrice" }));
             return result;
         }
     }
