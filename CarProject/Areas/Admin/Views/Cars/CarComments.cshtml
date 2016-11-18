@@ -1,8 +1,8 @@
 ﻿@{
-    ViewBag.Title = "نظرات کاربران برای محصولات";
+    ViewBag.Title = "نظرات کاربران برای خودرو";
 
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
-    var comments = dbs.ProductComments;
+    var comments = dbs.CarComments;
 }
 @using CarProject.App_extension
 
@@ -12,7 +12,7 @@
     {
         <div class="item">
             <section class="title gia-chat">
-                @item.Product.ProductName | <small>@item.Product.Category.CategoryName</small>
+                @item.Car.CarModel.CarBrand.CarBrandName | @item.Car.CarModel.CarModelName
             </section>
             <table>
                 <tr>
@@ -28,12 +28,12 @@
                     <td>@item.datetime.DateTime_Persian()</td>
                 </tr>
                 <tr>
-                    <th>محصول</th>
-                    <td>@item.Product.ProductName</td>
+                    <th>برند خودرو</th>
+                    <td>@item.Car.CarModel.CarBrand.CarBrandName</td>
                 </tr>
                 <tr>
-                    <th>گروه محصول</th>
-                    <td>@item.Product.Category.CategoryName</td>
+                    <th>مدل خودرو</th>
+                    <td>@item.Car.CarModel.CarModelName</td>
                 </tr>
 
                 <tr>
@@ -54,14 +54,14 @@
             <section class="action">
                 @if (item.canshow.GetValueOrDefault(false))
                 {
-                    <a href="javascript:void()" class="gia-inactive" onclick="Request_ChangeCanShowState('@item.ProductCommentId',this)"></a>
+                    <a href="javascript:void()" class="gia-inactive" onclick="Request_ChangeCanShowState('@item.CarCommentsId',this)"></a>
                 }
                 else
                 {
-                    <a href="javascript:void()" class="gia-active" onclick="Request_ChangeCanShowState('@item.ProductCommentId',this)"></a>
+                    <a href="javascript:void()" class="gia-active" onclick="Request_ChangeCanShowState('@item.CarCommentsId',this)"></a>
                 }
-                <a href="@Url.Action("ProductCommentShow_delete", new { id = item.ProductCommentId })" class="gia-remove"></a>
-                <a href="@Url.Action("ProductCommentShow", new { id = item.ProductCommentId })" class="gia-details"></a>
+                <a href="@Url.Action("CarCommentShow_delete", new { id = item.CarCommentsId })" class="gia-remove"></a>
+                <a href="@Url.Action("CarCommentShow", new { id = item.CarCommentsId })" class="gia-details"></a>
             </section>
         </div>
         
@@ -74,7 +74,7 @@
 {
     <script>
         function Request_ChangeCanShowState(id, el) {
-            $.post('@Url.Action("ProductChangeCanShowState", "Store")', {"ID" : id}, function (res) {
+            $.post('@Url.Action("CarChangeCanShowState", "Cars")', {"ID" : id}, function (res) {
                 if (res == 1) {
                     el.className = "gia-inactive";
                 }

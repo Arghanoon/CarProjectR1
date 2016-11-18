@@ -34,7 +34,7 @@
 
         <div id="imagesAndInformation">
             <div id="ImagesSections">
-                <h3>تصاویر سرویس</h3>
+                <a href="javascript:void()" onclick="$('#ImagesSections').toggleClass('bigView')">تصاویر سرویس</a>
                 @{ 
                     var images = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/Services/" + ViewContext.RouteData.Values["id"]));
                     if (images.Exists)
@@ -185,7 +185,7 @@
     <meta name="description" content="خدمات خودرو @service.AutoServiceName " />
     <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
-    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = service.AutoServiceId, info1 = "سرویسها پکها" , info2 = service.AutoServiceName }, Request.Url.Scheme)" />
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = service.AutoServiceId, info1 = "سرویسها" , info2 = service.AutoServiceName }, Request.Url.Scheme)" />
 
     <style>
         #serviceInfoSection {
@@ -291,7 +291,7 @@
         #ImagesSections {
             display:flex;
             flex-direction:column;
-            justify-content:center;
+            justify-content:space-between;
             align-items:stretch;
 
             max-width:30%;
@@ -302,8 +302,27 @@
 
         }
 
+            #ImagesSections.bigView {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                max-width:100%;
+                left: 0;
+                right: 0;
+                background: white;
+                margin: 0;
+                z-index: 999;
+                align-items: center;
+                overflow: auto;
+            }
+
         #imageBigPreview {
             max-width:100%;
+        }
+        #ImagesSections.bigView #imageBigPreview {
+            max-width: 100%;
+            max-height: 80%;
         }
 
             #imagesContianer {

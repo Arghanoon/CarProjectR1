@@ -863,6 +863,11 @@
     <Content Include="Areas\Admin\Views\Cars\Cars_CostList.cshtml" />
     <Content Include="Areas\Admin\Views\Store\Services_Gallery.cshtml" />
     <Content Include="Areas\Admin\Views\Store\ServicePacks_Gallery.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductCommentShow.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductCommentShow_delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarCommentShow.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarCommentShow_delete.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

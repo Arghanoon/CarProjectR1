@@ -867,7 +867,7 @@
             }
         }
         
-        @{var comments = dbs.CarComments.Where(c => c.CarsId == Model.Car.CarsId).OrderBy(c => c.datetime);}
+        @{var comments = dbs.CarComments.Where(c => c.CarsId == Model.Car.CarsId && c.canshow == true).OrderBy(c => c.datetime);}
         @if(comments.Count() > 0)
         {
             <div class="rightpanelSection">

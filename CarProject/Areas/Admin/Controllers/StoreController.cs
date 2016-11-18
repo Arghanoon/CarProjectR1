@@ -9,7 +9,7 @@ using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class StoreController : Controller
     {
         //
@@ -217,8 +217,29 @@ namespace CarProject.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult ProductCommentShow(int? id)
+        {
+            return View();
+        }
+        public ActionResult ProductCommentShow_delete(int? id)
+        {
+            return View();
+        }
         [HttpPost]
-        public int ChangeCanShowState(int? ID)
+        public ActionResult ProductCommentShow_delete(int? id,FormCollection form)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var cm = dbs.ProductComments.FirstOrDefault(c => c.ProductCommentId == id);
+            if (cm != null)
+            {
+                dbs.ProductComments.Remove(cm);
+                dbs.SaveChanges();
+            }
+            return RedirectToAction("ProductComments");
+        }
+
+        [HttpPost]
+        public int ProductChangeCanShowState(int? ID)
         {
             int res = 0;
             var dbs = new DBSEF.CarAutomationEntities();

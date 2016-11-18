@@ -34,7 +34,7 @@
 
         <div id="imagesAndInformation">
             <div id="ImagesSections">
-                <h3>تصاویر</h3>
+                <a href="javascript:void()" onclick="$('#ImagesSections').toggleClass('bigView')">تصاویر</a>
                 @{ 
                     var images = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/ServicePacks/" + ViewContext.RouteData.Values["id"]));
                     if (images.Exists)
@@ -303,7 +303,7 @@
         #ImagesSections {
             display:flex;
             flex-direction:column;
-            justify-content:center;
+            justify-content:space-between;
             align-items:stretch;
 
             max-width:30%;
@@ -313,9 +313,27 @@
             border-left:thin solid #888;
 
         }
+            #ImagesSections.bigView {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                max-width: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                margin: 0;
+                z-index: 999;
+                align-items: center;
+                overflow: auto;
+            }
 
         #imageBigPreview {
             max-width:100%;
+        }
+        #ImagesSections.bigView #imageBigPreview {
+            max-width: 100%;
+            max-height: 80%;
         }
 
             #imagesContianer {
