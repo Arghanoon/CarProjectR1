@@ -31,33 +31,70 @@
         <a href="javascript:void();" onclick="AddToCart('@id','@CarProject.Models.Store.CartOfProducts.CartType.AutoService')" class="gia-cart">اضافه کردن سبد خرید</a>
     </div>
     <div id="serviceInfoSection">
-        <div>
-            <h3>اطلاعات سرویس</h3>
-            <table id="tblinfo">
-                <tr>
-                    <th>نام سرویس</th>
-                    <td>@service.AutoServiceName</td>
-                </tr>
-                <tr>
-                    <th>قیمت سرویس</th>
-                    <td>@service.Price ریال</td>
-                </tr>
-                <tr>
-                    <th>سرویس پک های شامل این سرویس</th>
-                    <td>
-                        <div id="ServicesLinkContainer">
-                            @{
-                                var services = dbs.AutoServices1.Where(c => c.AutoServiceId == id).Select(c => c.AutoServicePack);
-                                foreach (var item in services)
-                                {
-                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice ریال</small></a>
+
+        <div id="imagesAndInformation">
+            <div id="ImagesSections">
+                <h3>تصاویر سرویس</h3>
+                @{ 
+                    var images = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/Services/" + ViewContext.RouteData.Values["id"]));
+                    if (images.Exists)
+                    {
+                        var imagesFiles = images.GetFiles();
+                        if (imagesFiles.Length > 0)
+                        {
+                    <img id="imageBigPreview" src="@Url.Content("~/Publics/Gallery/Services/" + ViewContext.RouteData.Values["id"] + "/" + imagesFiles[0].Name)" />
+                    }
+                    else
+                    {
+                    <img id="imageBigPreview" src="" />
+                    }
+                }
+                }
+                <div id="imagesContianer">
+                    @{
+                        if (images.Exists)
+                        {
+                            var imagesFiles = images.GetFiles();
+                            foreach (var item in imagesFiles)
+                            {
+                        <a href="javascript:void()">
+                            <img onclick="imageBigPreview.src = this.src;" src="@Url.Content("~/Publics/Gallery/Services/" + ViewContext.RouteData.Values["id"] + "/" + item.Name)" />
+                        </a>
+                        }
+                    }
+                    }
+                </div>
+            </div>
+
+            <div id="information">
+                <h3>اطلاعات سرویس</h3>
+                <table id="tblinfo">
+                    <tr>
+                        <th>نام سرویس</th>
+                        <td>@service.AutoServiceName</td>
+                    </tr>
+                    <tr>
+                        <th>قیمت سرویس</th>
+                        <td>@service.Price ریال</td>
+                    </tr>
+                    <tr>
+                        <th>سرویس پک های شامل این سرویس</th>
+                        <td>
+                            <div id="ServicesLinkContainer">
+                                @{
+                                    var services = dbs.AutoServices1.Where(c => c.AutoServiceId == id).Select(c => c.AutoServicePack);
+                                    foreach (var item in services)
+                                    {
+                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها", info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice ریال</small></a>
                                 }
-                            }
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
+
 
         <div>
             <h3>محصولات مرتبط با سرویس</h3>
@@ -242,6 +279,57 @@
         -webkit-filter: none; /* Safari 6.0 - 9.0 */
         filter: none;
     }
+
+
+        #imagesAndInformation {
+            display:flex;
+            border:thin solid #888;
+        }
+        #information {
+            flex:1;
+        }
+        #ImagesSections {
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:stretch;
+
+            max-width:30%;
+            margin-left:5px;
+            padding:0 5px;
+
+            border-left:thin solid #888;
+
+        }
+
+        #imageBigPreview {
+            max-width:100%;
+        }
+
+            #imagesContianer {
+                display:flex; justify-content:center; align-items:stretch;
+                flex-wrap:wrap;
+            }
+
+            #imagesContianer img {
+                width: 100px;
+                height: 70px;
+                margin:2px;
+                cursor:pointer;
+                border:thin solid #ddd;
+            }
+
+
+        @@media (max-width:700px) {
+            #imagesAndInformation {
+                flex-direction:column;
+            }
+            #ImagesSections {
+                max-width:100%;
+                border:none;
+                margin-left:0;
+            }
+        }
 
     </style>
 }

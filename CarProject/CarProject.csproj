@@ -861,6 +861,8 @@
     <Content Include="Areas\Admin\Views\Store\ProductComments.cshtml" />
     <Content Include="Areas\Admin\Views\Store\Products_CostList.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\Cars_CostList.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Services_Gallery.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ServicePacks_Gallery.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

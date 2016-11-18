@@ -147,7 +147,7 @@ namespace CarProject.Areas.Admin.Controllers
                 }
                 ViewBag.images = imgPath;
             }
-            return View();
+            return RedirectToAction("Products_Gallery", new { id = id });
         }
         public ActionResult Products_GalleryRemove(int id, string filename)
         {
@@ -155,7 +155,7 @@ namespace CarProject.Areas.Admin.Controllers
             if (file.Exists)
                 file.Delete();
 
-            return RedirectToAction("CarImagesGallery", new { id = id });
+            return RedirectToAction("Products_Gallery", new { id = id });
         }
 
 
@@ -284,6 +284,66 @@ namespace CarProject.Areas.Admin.Controllers
             return Json(res, JsonRequestBehavior.DenyGet);
         }
 
+        public ActionResult Services_Gallery(int id)
+        {
+            ViewBag.images = new List<string>();
+            string folder = id.ToString().BaseRouts_ServicesImages();
+            DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
+            if (dic.Exists)
+            {
+                var imgs = dic.GetFiles();
+                List<string> imgPath = new List<string>();
+                foreach (var item in imgs)
+                {
+                    imgPath.Add(Path.Combine(id.ToString(), item.Name).BaseRouts_ServicesImages());
+                }
+                ViewBag.images = imgPath;
+            }
+            return View();
+        }
+        [HttpPost, ActionName("Services_Gallery")]
+        public ActionResult Services_GalleryPost(int id)
+        {
+            ViewBag.images = new List<string>();
+
+            string folder = id.ToString().BaseRouts_ServicesImages();
+            DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
+
+            if (ModelState.IsValid)
+            {
+                if (!dic.Exists)
+                    dic.Create();
+                long namitem = DateTime.Now.Ticks;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    if (Request.Files[i].ContentType.ContentTypeIsImage())
+                    {
+                        Request.Files[i].SaveAs(Server.MapPath(Path.Combine(folder, string.Format("{0:000000}{1}", namitem++, Request.Files[i].FileName.Substring(Request.Files[i].FileName.LastIndexOf('.'))))));
+                    }
+                }
+            }
+
+            if (dic.Exists)
+            {
+                var imgs = dic.GetFiles();
+                List<string> imgPath = new List<string>();
+                foreach (var item in imgs)
+                {
+                    imgPath.Add(Path.Combine(id.ToString(), item.Name).BaseRouts_ServicesImages());
+                }
+                ViewBag.images = imgPath;
+            }
+            return RedirectToAction("Services_Gallery", new { id = id });
+        }
+        public ActionResult Services_GalleryRemove(int id, string filename)
+        {
+            var file = new FileInfo(Server.MapPath(filename));
+            if (file.Exists)
+                file.Delete();
+
+            return RedirectToAction("Services_Gallery", new { id = id });
+        }
+
         /* Packs */
 
         public ActionResult ServicePacks()
@@ -325,6 +385,67 @@ namespace CarProject.Areas.Admin.Controllers
                 return RedirectToAction("ServicePacks");
             }
             return View(model);
+        }
+
+
+        public ActionResult ServicePacks_Gallery(int id)
+        {
+            ViewBag.images = new List<string>();
+            string folder = id.ToString().BaseRouts_ServicePacksImages();
+            DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
+            if (dic.Exists)
+            {
+                var imgs = dic.GetFiles();
+                List<string> imgPath = new List<string>();
+                foreach (var item in imgs)
+                {
+                    imgPath.Add(Path.Combine(id.ToString(), item.Name).BaseRouts_ServicePacksImages());
+                }
+                ViewBag.images = imgPath;
+            }
+            return View();
+        }
+        [HttpPost, ActionName("ServicePacks_Gallery")]
+        public ActionResult ServicePacks_GalleryPost(int id)
+        {
+            ViewBag.images = new List<string>();
+
+            string folder = id.ToString().BaseRouts_ServicePacksImages();
+            DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
+
+            if (ModelState.IsValid)
+            {
+                if (!dic.Exists)
+                    dic.Create();
+                long namitem = DateTime.Now.Ticks;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    if (Request.Files[i].ContentType.ContentTypeIsImage())
+                    {
+                        Request.Files[i].SaveAs(Server.MapPath(Path.Combine(folder, string.Format("{0:000000}{1}", namitem++, Request.Files[i].FileName.Substring(Request.Files[i].FileName.LastIndexOf('.'))))));
+                    }
+                }
+            }
+
+            if (dic.Exists)
+            {
+                var imgs = dic.GetFiles();
+                List<string> imgPath = new List<string>();
+                foreach (var item in imgs)
+                {
+                    imgPath.Add(Path.Combine(id.ToString(), item.Name).BaseRouts_ServicePacksImages());
+                }
+                ViewBag.images = imgPath;
+            }
+            return RedirectToAction("ServicePacks_Gallery", new { id = id });
+        }
+        public ActionResult ServicePacks_GalleryRemove(int id, string filename)
+        {
+            var file = new FileInfo(Server.MapPath(filename));
+            if (file.Exists)
+                file.Delete();
+
+            return RedirectToAction("ServicePacks_Gallery", new { id = id });
         }
         #endregion
     }
