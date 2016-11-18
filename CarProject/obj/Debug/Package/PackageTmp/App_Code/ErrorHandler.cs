@@ -32,6 +32,6 @@ using System.Web;
             var app = sender as HttpApplication;
 
             //app.Context.RewritePath("/");
-            app.Context.Response.Redirect("/");
+            //app.Context.Response.Redirect("/");
         }
     }
