@@ -17,22 +17,20 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Basket()
         {
-            this.ToBaskets = new HashSet<ToBasket>();
+            this.BasketItems = new HashSet<BasketItem>();
         }
     
         public int BasketId { get; set; }
+        public Nullable<byte> State { get; set; }
+        public Nullable<System.DateTime> FinisDate { get; set; }
+        public Nullable<System.DateTime> DelivaryDate { get; set; }
+        public Nullable<byte> PaymentType { get; set; }
+        public Nullable<int> DelivaryTypeId { get; set; }
         public Nullable<int> UserId { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
-        public string BasketCode { get; set; }
-        public Nullable<int> TotalPrice { get; set; }
-        public Nullable<bool> OnlineOrInPlace { get; set; }
-        public string BackCodeFromBank { get; set; }
-        public Nullable<System.DateTime> DateToDeliver { get; set; }
-        public Nullable<System.TimeSpan> HourToDeliver { get; set; }
-        public Nullable<bool> IsFinished { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToBasket> ToBaskets { get; set; }
+        public virtual ICollection<BasketItem> BasketItems { get; set; }
+        public virtual ProductsOrServicesDeliveryType ProductsOrServicesDeliveryType { get; set; }
+        public virtual User User { get; set; }
     }
 }

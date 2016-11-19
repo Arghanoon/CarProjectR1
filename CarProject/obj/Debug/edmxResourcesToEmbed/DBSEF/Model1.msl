@@ -61,19 +61,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BasketItems">
+      <EntityTypeMapping TypeName="CarAutomationModel.BasketItem">
+        <MappingFragment StoreEntitySet="BasketItems">
+          <ScalarProperty Name="BasketItemId" ColumnName="BasketItemId" />
+          <ScalarProperty Name="BasketId" ColumnName="BasketId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Baskets">
       <EntityTypeMapping TypeName="CarAutomationModel.Basket">
-        <MappingFragment StoreEntitySet="Basket">
+        <MappingFragment StoreEntitySet="Baskets">
           <ScalarProperty Name="BasketId" ColumnName="BasketId" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="FinisDate" ColumnName="FinisDate" />
+          <ScalarProperty Name="DelivaryDate" ColumnName="DelivaryDate" />
+          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+          <ScalarProperty Name="DelivaryTypeId" ColumnName="DelivaryTypeId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="date" ColumnName="date" />
-          <ScalarProperty Name="BasketCode" ColumnName="BasketCode" />
-          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-          <ScalarProperty Name="OnlineOrInPlace" ColumnName="OnlineOrInPlace" />
-          <ScalarProperty Name="BackCodeFromBank" ColumnName="BackCodeFromBank" />
-          <ScalarProperty Name="DateToDeliver" ColumnName="DateToDeliver" />
-          <ScalarProperty Name="HourToDeliver" ColumnName="HourToDeliver" />
-          <ScalarProperty Name="IsFinished" ColumnName="IsFinished" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -806,21 +814,6 @@
           <ScalarProperty Name="SteeringControlKey" ColumnName="SteeringControlKey" />
           <ScalarProperty Name="Details" ColumnName="Details" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ToBaskets">
-      <EntityTypeMapping TypeName="CarAutomationModel.ToBasket">
-        <MappingFragment StoreEntitySet="ToBasket">
-          <ScalarProperty Name="ToBasketId" ColumnName="ToBasketId" />
-          <ScalarProperty Name="BasketId" ColumnName="BasketId" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="ProductEntity" ColumnName="ProductEntity" />
-          <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
-          <ScalarProperty Name="AutoServiceEntity" ColumnName="AutoServiceEntity" />
-          <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
-          <ScalarProperty Name="AutoSericePackEntity" ColumnName="AutoSericePackEntity" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

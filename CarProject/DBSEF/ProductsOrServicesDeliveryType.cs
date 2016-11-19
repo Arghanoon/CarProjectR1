@@ -14,9 +14,18 @@ namespace CarProject.DBSEF
     
     public partial class ProductsOrServicesDeliveryType
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProductsOrServicesDeliveryType()
+        {
+            this.Baskets = new HashSet<Basket>();
+        }
+    
         public int DeliverTypeID { get; set; }
         public string Name { get; set; }
         public string Price { get; set; }
         public Nullable<int> Hour { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Basket> Baskets { get; set; }
     }
 }

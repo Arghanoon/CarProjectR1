@@ -197,7 +197,7 @@
             </div>
             <div id="productAction">
                 <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ProductForum", id = product.ProductId, info1 = product.Category.CategoryName , info2 = product.ProductName, info3 = product.PartNumber  })" class="gia-forum button blue">پرسش و پاسخ</a>
-                <a href="javascript:void()" onclick="AddToCart('@product.ProductId','@CarProject.Models.Store.CartOfProducts.CartType.Product')" class="gia-cart button green">اضافه کردن به سبد خرید</a>
+                <a href="javascript:void()" onclick="AddToCart('@product.ProductId','@CarProject.Models.Store.CartUsefull.Basket_ItemType.Product')" class="gia-cart button green">اضافه کردن به سبد خرید</a>
                 <a href="javascript:void()" class="gia-heart button jigary" onclick="MakeProductPopular('@Url.Action("Products_makePopular","Store")','@id')">محبوب کردن کالا</a>
             </div>
         </div>

@@ -54,20 +54,27 @@
     <Property Name="AutoServiceId" Type="int" />
     <Property Name="AutoServicePackId" Type="int" />
   </EntityType>
-  <EntityType Name="Basket">
+  <EntityType Name="BasketItems">
+    <Key>
+      <PropertyRef Name="BasketItemId" />
+    </Key>
+    <Property Name="BasketItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BasketId" Type="int" />
+    <Property Name="Id" Type="int" />
+    <Property Name="Type" Type="tinyint" />
+    <Property Name="Count" Type="int" />
+  </EntityType>
+  <EntityType Name="Baskets">
     <Key>
       <PropertyRef Name="BasketId" />
     </Key>
     <Property Name="BasketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="State" Type="tinyint" />
+    <Property Name="FinisDate" Type="datetime" />
+    <Property Name="DelivaryDate" Type="date" />
+    <Property Name="PaymentType" Type="tinyint" />
+    <Property Name="DelivaryTypeId" Type="int" />
     <Property Name="UserId" Type="int" />
-    <Property Name="date" Type="datetime" />
-    <Property Name="BasketCode" Type="nvarchar" MaxLength="50" />
-    <Property Name="TotalPrice" Type="int" />
-    <Property Name="OnlineOrInPlace" Type="bit" />
-    <Property Name="BackCodeFromBank" Type="nvarchar" MaxLength="100" />
-    <Property Name="DateToDeliver" Type="date" />
-    <Property Name="HourToDeliver" Type="time" Precision="7" />
-    <Property Name="IsFinished" Type="bit" />
   </EntityType>
   <EntityType Name="BrakeSystem">
     <Key>
@@ -742,20 +749,6 @@
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
   </EntityType>
-  <EntityType Name="ToBasket">
-    <Key>
-      <PropertyRef Name="ToBasketId" />
-    </Key>
-    <Property Name="ToBasketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="BasketId" Type="int" />
-    <Property Name="ProductId" Type="int" />
-    <Property Name="ProductEntity" Type="int" />
-    <Property Name="AutoServiceId" Type="int" />
-    <Property Name="AutoServiceEntity" Type="int" />
-    <Property Name="AutoServicePackId" Type="int" />
-    <Property Name="AutoSericePackEntity" Type="int" />
-    <Property Name="UserId" Type="int" />
-  </EntityType>
   <EntityType Name="TodaysSpecial">
     <Key>
       <PropertyRef Name="TodaysSpecialId" />
@@ -880,14 +873,38 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Basket_User">
+  <Association Name="FK_BasketItems_Baskets">
+    <End Role="Baskets" Type="Self.Baskets" Multiplicity="0..1" />
+    <End Role="BasketItems" Type="Self.BasketItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Baskets">
+        <PropertyRef Name="BasketId" />
+      </Principal>
+      <Dependent Role="BasketItems">
+        <PropertyRef Name="BasketId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baskets_Baskets">
+    <End Role="ProductsOrServicesDeliveryTypes" Type="Self.ProductsOrServicesDeliveryTypes" Multiplicity="0..1" />
+    <End Role="Baskets" Type="Self.Baskets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductsOrServicesDeliveryTypes">
+        <PropertyRef Name="DeliverTypeID" />
+      </Principal>
+      <Dependent Role="Baskets">
+        <PropertyRef Name="DelivaryTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baskets_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+    <End Role="Baskets" Type="Self.Baskets" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="UserId" />
       </Principal>
-      <Dependent Role="Basket">
+      <Dependent Role="Baskets">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
@@ -1756,66 +1773,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ToBasket_AutoService">
-    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
-    <End Role="ToBasket" Type="Self.ToBasket" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AutoService">
-        <PropertyRef Name="AutoServiceId" />
-      </Principal>
-      <Dependent Role="ToBasket">
-        <PropertyRef Name="AutoServiceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ToBasket_AutoServicePack">
-    <End Role="AutoServicePack" Type="Self.AutoServicePack" Multiplicity="0..1" />
-    <End Role="ToBasket" Type="Self.ToBasket" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AutoServicePack">
-        <PropertyRef Name="AutoServicePackId" />
-      </Principal>
-      <Dependent Role="ToBasket">
-        <PropertyRef Name="AutoServicePackId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ToBasket_Basket">
-    <End Role="Basket" Type="Self.Basket" Multiplicity="0..1" />
-    <End Role="ToBasket" Type="Self.ToBasket" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Basket">
-        <PropertyRef Name="BasketId" />
-      </Principal>
-      <Dependent Role="ToBasket">
-        <PropertyRef Name="BasketId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ToBasket_Product">
-    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="ToBasket" Type="Self.ToBasket" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="ProductId" />
-      </Principal>
-      <Dependent Role="ToBasket">
-        <PropertyRef Name="ProductId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ToBasket_User">
-    <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="ToBasket" Type="Self.ToBasket" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="ToBasket">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_TodaysSpecial_Product">
     <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
     <End Role="TodaysSpecial" Type="Self.TodaysSpecial" Multiplicity="*" />
@@ -1871,7 +1828,8 @@
     <EntitySet Name="AutoServiceCars" EntityType="Self.AutoServiceCars" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AutoServicePack" EntityType="Self.AutoServicePack" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoServices" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Basket" EntityType="Self.Basket" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BasketItems" EntityType="Self.BasketItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Baskets" EntityType="Self.Baskets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BrakeSystem" EntityType="Self.BrakeSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarAirbags" EntityType="Self.CarAirbags" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarAudioSystem" EntityType="Self.CarAudioSystem" Schema="dbo" store:Type="Tables" />
@@ -1931,7 +1889,6 @@
     <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ToBasket" EntityType="Self.ToBasket" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -1964,9 +1921,17 @@
       <End Role="AutoServicePack" EntitySet="AutoServicePack" />
       <End Role="AutoServices" EntitySet="AutoServices" />
     </AssociationSet>
-    <AssociationSet Name="FK_Basket_User" Association="Self.FK_Basket_User">
+    <AssociationSet Name="FK_BasketItems_Baskets" Association="Self.FK_BasketItems_Baskets">
+      <End Role="Baskets" EntitySet="Baskets" />
+      <End Role="BasketItems" EntitySet="BasketItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baskets_Baskets" Association="Self.FK_Baskets_Baskets">
+      <End Role="ProductsOrServicesDeliveryTypes" EntitySet="ProductsOrServicesDeliveryTypes" />
+      <End Role="Baskets" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baskets_User" Association="Self.FK_Baskets_User">
       <End Role="User" EntitySet="User" />
-      <End Role="Basket" EntitySet="Basket" />
+      <End Role="Baskets" EntitySet="Baskets" />
     </AssociationSet>
     <AssociationSet Name="FK_BrakeSystem_Cars" Association="Self.FK_BrakeSystem_Cars">
       <End Role="Cars" EntitySet="Cars" />
@@ -2255,26 +2220,6 @@
     <AssociationSet Name="FK_SteeringSystem_Cars" Association="Self.FK_SteeringSystem_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="SteeringSystem" EntitySet="SteeringSystem" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ToBasket_AutoService" Association="Self.FK_ToBasket_AutoService">
-      <End Role="AutoService" EntitySet="AutoService" />
-      <End Role="ToBasket" EntitySet="ToBasket" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ToBasket_AutoServicePack" Association="Self.FK_ToBasket_AutoServicePack">
-      <End Role="AutoServicePack" EntitySet="AutoServicePack" />
-      <End Role="ToBasket" EntitySet="ToBasket" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ToBasket_Basket" Association="Self.FK_ToBasket_Basket">
-      <End Role="Basket" EntitySet="Basket" />
-      <End Role="ToBasket" EntitySet="ToBasket" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ToBasket_Product" Association="Self.FK_ToBasket_Product">
-      <End Role="Product" EntitySet="Product" />
-      <End Role="ToBasket" EntitySet="ToBasket" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ToBasket_User" Association="Self.FK_ToBasket_User">
-      <End Role="User" EntitySet="User" />
-      <End Role="ToBasket" EntitySet="ToBasket" />
     </AssociationSet>
     <AssociationSet Name="FK_TodaysSpecial_Product" Association="Self.FK_TodaysSpecial_Product">
       <End Role="Product" EntitySet="Product" />

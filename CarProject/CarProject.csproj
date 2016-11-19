@@ -206,6 +206,9 @@
     <Compile Include="DBSEF\Basket.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\BasketItem.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\BrakeSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -396,9 +399,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\SteeringSystem.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBSEF\ToBasket.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\TodaysSpecial.cs">
@@ -859,6 +859,8 @@
     <Content Include="Areas\Admin\Views\Store\Product_Forum.cshtml" />
     <Content Include="Areas\Admin\Views\Store\Product_Forum_Question.cshtml" />
     <Content Include="Areas\Admin\Views\Store\DeliveryTypes_New.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DeliveryTypes.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DeliveryTypes_Update.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -876,8 +878,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Store\DeliveryTypes.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\DeliveryTypes_Update.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

@@ -22,226 +22,91 @@ namespace CarProject.Controllers
         }
         
         #region Cart
-        public void AddToCart(int id, Models.Store.CartOfProducts.CartType type)
+        public void AddToCart(int id, Models.Store.CartUsefull.Basket_ItemType type)
         {
-            if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-            {
-                var user = Session["guestUser"] as DBSEF.User;
-                var dbs = new DBSEF.CarAutomationEntities();
-                var tobasket = new DBSEF.ToBasket();
-                tobasket.UserId = user.UserId;
-
-                bool istrue = true;
-                switch (type)
-                {
-                    case Models.Store.CartOfProducts.CartType.Product:
-                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.ProductId == id && c.BasketId == null) <= 0)
-                            tobasket.ProductId = id;
-                        else
-                            istrue = false;
-                        break;
-                    case Models.Store.CartOfProducts.CartType.AutoService:
-                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServiceId == id && c.BasketId == null) <= 0)
-                            tobasket.AutoServiceId = id;
-                        else
-                            istrue = false;
-                        break;
-                    case Models.Store.CartOfProducts.CartType.AutoServicePack:
-                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServicePackId == id && c.BasketId == null) <= 0)
-                            tobasket.AutoServicePackId = id;
-                        else
-                            istrue = false;
-                        break;
-                    default:
-                        istrue = false;
-                        break;
-                }
-
-                if (istrue)
-                {
-                    tobasket.ProductEntity = 1;
-                    dbs.ToBaskets.Add(tobasket);
-                    dbs.SaveChanges();
-                }
-                
-            }
-            else
-            {
-                var list = new List<Models.Store.CartOfProducts>();
-                var cartobje = new Models.Store.CartOfProducts { Id = id, TypeOfProduct = type };
-
-                if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
-                {
-                    list = JsonConvert.DeserializeObject<List<Models.Store.CartOfProducts>>(Request.Cookies["UserCart"].Value);
-                    if (list == null)
-                        list = new List<Models.Store.CartOfProducts>();
-                }
-
-                if (!list.Contains(cartobje))
-                    list.Add(cartobje);
-
-
-                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
-                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
-            }
-        }
-        public ActionResult Cart()
-        {
-            var list = Models.Store.CartOfProducts.GenerateList(Session, Request);
-            return View(list);
-        }
-
-        [HttpPost]
-        public ActionResult Cart(List<Models.Store.CartOfProducts> model)
-        {
+            
             if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
             {
                 var dbs = new DBSEF.CarAutomationEntities();
                 var user = Session["guestUser"] as DBSEF.User;
-
-                foreach (var item in model)
+                var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.PaymentType == (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned);
+                if (cart == null)
                 {
-                    switch (item.TypeOfProduct)
-                    {
-                        case Models.Store.CartOfProducts.CartType.Product:
-                            {
-                                var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.ProductId == item.Id && c.BasketId == null);
-                                if (itm != null)
-                                    itm.ProductEntity = item.Count;
-                            }
-                            break;
-                        case Models.Store.CartOfProducts.CartType.AutoService:
-                            {
-                                var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServiceId == item.Id && c.BasketId == null);
-                                if (itm != null)
-                                    itm.ProductEntity = item.Count;
-                            }
-                            break;
-                        case Models.Store.CartOfProducts.CartType.AutoServicePack:
-                            {
-                                var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id && c.BasketId == null);
-                                if (itm != null)
-                                    itm.ProductEntity = item.Count;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
+                    cart = new DBSEF.Basket { UserId = user.UserId, PaymentType = (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned };
+                    dbs.Baskets.Add(cart);
                 }
+
+                if (cart.BasketItems.Count(c => c.Id == id && c.Type == (byte)type) <= 0)
+                    cart.BasketItems.Add(new DBSEF.BasketItem { Id = id, Type = (byte)type, Count = 1 });
                 dbs.SaveChanges();
             }
             else
             {
-                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(model);
-                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
-            }
+                var cart = new DBSEF.Basket();
+                if (Request.Cookies["Basket"] != null && !Request.Cookies["Basket"].Value.IsNullOrWhiteSpace())
+                {
+                    cart = JsonConvert.DeserializeObject<DBSEF.Basket>(Request.Cookies["Basket"].Value);
+                    if (cart == null)
+                        cart = new DBSEF.Basket();
+                }
 
-            return RedirectToAction("Cart_CartConfirmAddress");
-            
+                if (cart.BasketItems.Count(c => c.Id == id && c.Type == (byte)type) <= 0)
+                    cart.BasketItems.Add(new DBSEF.BasketItem { Id = id, Type = (byte)type, Count = 1 });
+                Response.Cookies["Basket"].Value = JsonConvert.SerializeObject(cart);
+                Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(1);
+
+            }
         }
+        
+        public ActionResult Cart()
+        {
+            var us = new Models.Store.CartUsefull();
+            return View(us.GetCurrentBasket());
+        }
+        [HttpPost]
+        public ActionResult Cart(FormCollection form)
+        {
+            var us = new Models.Store.CartUsefull();
+            var mdl = us.GetCurrentBasket();
+            foreach (var item in mdl.BasketItems)
+            {
+                string key = string.Format("Count[{0}][{1}]", item.Id, item.Type);
+                if (form.AllKeys.Contains(key))
+                {
+                    int cnt = 1;
+                    int.TryParse(form[key], out cnt);
+                    item.Count = cnt;
+                }
+            }
+            us.UpdateBasket(mdl);
+
+            return View(mdl);
+        }
+        /*
         [HttpPost]
         public ActionResult Cart_remoSelection(string RemoveList)
         {
-            var list = Models.Store.CartOfProducts.GenerateList(Session, Request);
-
-            if (!RemoveList.IsNullOrWhiteSpace())
-            {
-                var removelistarray = JsonConvert.DeserializeObject<string[]>(RemoveList);
-                var dbs = new DBSEF.CarAutomationEntities();
-                var user = Session["guestUser"] as DBSEF.User;
-
-                foreach (var item in removelistarray)
-                {
-                    var xitem = JsonConvert.DeserializeObject<Models.Store.CartOfProducts>(Server.HtmlDecode(item));
-
-                    if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-                    {
-                        switch (xitem.TypeOfProduct)
-                        {
-                            case Models.Store.CartOfProducts.CartType.Product:
-                                {
-                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.ProductId == xitem.Id && c.UserId == user.UserId && c.BasketId == null);
-                                    if (itm != null)
-                                        dbs.ToBaskets.Remove(itm);
-                                }
-                                break;
-                            case Models.Store.CartOfProducts.CartType.AutoService:
-                                {
-                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.AutoServiceId == xitem.Id && c.UserId == user.UserId && c.BasketId == null);
-                                    if (itm != null)
-                                        dbs.ToBaskets.Remove(itm);
-                                }
-                                break;
-                            case Models.Store.CartOfProducts.CartType.AutoServicePack:
-                                {
-                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.AutoServicePackId == xitem.Id && c.UserId == user.UserId && c.BasketId == null);
-                                    if (itm != null)
-                                        dbs.ToBaskets.Remove(itm);
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        if(list.Contains(xitem))
-                        list.Remove(xitem);
-                    }
-                }
-
-                if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-                    dbs.SaveChanges();
-                else
-                {
-                    Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
-                    Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
-                }
-            }
-
-           
+            
             return RedirectToAction("Cart");
         }
         [HttpPost]
         public ActionResult Cart_RemoveCopletly()
         {
-            if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-            {
-                var dbs = new DBSEF.CarAutomationEntities();
-                var user = Session["guestUser"] as DBSEF.User;
-                dbs.ToBaskets.RemoveRange(dbs.ToBaskets.Where(c => c.UserId == user.UserId && c.BasketId == null));
-                dbs.SaveChanges();
-            }
-            else
-            {
-                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(new List<Models.Store.CartOfProducts>());
-                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
-            }
+           
             return RedirectToAction("Cart");
         }
 
         [Areas.Users.UsersCLS.UsersAuthFilter]
         public ActionResult Cart_CartConfirmAddress()
         {
-            var user = Session["guestUser"] as DBSEF.User;
-            var model = new Models.Store.CartConfirmBillAndAddressModel(user);
-            Session["Cart_CartConfirmAddress_model"] = model;
-
+           
             return View(model);
         }
         [HttpPost]
         [Areas.Users.UsersCLS.UsersAuthFilter]
         public ActionResult Cart_CartConfirmAddress(Models.Store.CartConfirmBillAndAddressModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var m = Session["Cart_CartConfirmAddress_model"] as Models.Store.CartConfirmBillAndAddressModel;
-                TryUpdateModel(m);
-                m.saveChaneges();
-                return RedirectToAction("SelectePaymentType");
-            }
-            else
-                return View(model);
+            
         }
 
         [Areas.Users.UsersCLS.UsersAuthFilter]
@@ -275,7 +140,7 @@ namespace CarProject.Controllers
                 else
                     return RedirectToAction("Cart");
             }
-        }
+        }*/
         #endregion
 
         #region Products
