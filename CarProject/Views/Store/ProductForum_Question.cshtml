@@ -8,23 +8,23 @@
     }
 
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
-    var question = dbs.CarsQnAs.FirstOrDefault(c => c.CarsQnAId == id);
+    var question = dbs.ProductQnAs.FirstOrDefault(c => c.ProductQnAId == id);
     
     if(question == null)
     {
         Response.Redirect("/");
     }
 
-    var relatedQuestions = dbs.CarsQnAs.Where(c => c.QuestionId == question.CarsQnAId);
+    var relatedQuestions = dbs.ProductQnAs.Where(c => c.QuestionId == question.ProductQnAId);
 }
 
-@model CarProject.DBSEF.CarsQnA
+@model CarProject.DBSEF.ProductQnA
 @using CarProject.App_Code
 
 
 <div>
     <strong>پرسش های برای خودرو: </strong>
-    <small><a href="/Cars/CarForum/@question.Car.CarsId/@question.Car.CarModel.CarBrand.CarBrandName/@question.Car.CarModel.CarModelName">@question.Car.CarModel.CarBrand.CarBrandName - @question.Car.CarModel.CarModelName</a></small>
+    <small><a href="/Store/ProductForum/@question.Product.Category.CategoryName/@question.Product.ProductName/@question.Product.PartNumber">@question.Product.Category.CategoryName - @question.Product.ProductName</a></small>
 </div>
 <hr />
 
@@ -44,7 +44,7 @@
     <hr />
 
     <form method="post">
-        <input type="hidden" name="@Html.NameFor(m => m.QuestionId)" value="@question.CarsQnAId" />
+        <input type="hidden" name="@Html.NameFor(m => m.QuestionId)" value="@question.ProductQnAId" />
         <div class="inputsContainer">
             <section class="input">
                 <textarea placeholder="پرسش جدید را در این قسمت وارد کنید" name="@Html.NameFor(m => m.Question)"></textarea>

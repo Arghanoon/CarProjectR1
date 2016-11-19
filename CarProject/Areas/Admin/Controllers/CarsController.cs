@@ -280,6 +280,7 @@ namespace CarProject.Areas.Admin.Controllers
         }
 
 
+        #region Car_Forum
         public ActionResult Car_Forum(int? id)
         {
             return View();
@@ -303,5 +304,6 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View(model);
         }
+        #endregion
     }
 }

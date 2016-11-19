@@ -291,7 +291,7 @@
           <Property Name="CarsQnAId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CarsId" Type="int" />
           <Property Name="QuestionType" Type="nvarchar" MaxLength="150" />
-          <Property Name="Question" Type="nvarchar" MaxLength="450" />
+          <Property Name="Question" Type="ntext" />
           <Property Name="QuestionId" Type="int" />
         </EntityType>
         <EntityType Name="CarsReview">
@@ -636,11 +636,10 @@
             <PropertyRef Name="ProductQnAId" />
           </Key>
           <Property Name="ProductQnAId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductQuestion" Type="nvarchar" MaxLength="150" />
-          <Property Name="HasAnswer" Type="bit" />
-          <Property Name="HasFather" Type="bit" />
-          <Property Name="FatherId" Type="int" />
-          <Property Name="Answer" Type="nvarchar(max)" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="QuestionType" Type="nvarchar" MaxLength="150" />
+          <Property Name="Question" Type="ntext" />
+          <Property Name="QuestionId" Type="int" />
         </EntityType>
         <EntityType Name="ProductReview">
           <Key>
@@ -1489,18 +1488,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Product_ProductQnA">
-          <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductQnA">
-              <PropertyRef Name="ProductQnAId" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="ProductQnAId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Product_ProductReview">
           <End Role="ProductReview" Type="Self.ProductReview" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -1645,6 +1632,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductQnA_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ProductQnA">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductQnA_ProductQnA">
           <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="0..1" />
           <End Role="ProductQnA1" Type="Self.ProductQnA" Multiplicity="*" />
@@ -1653,7 +1652,7 @@
               <PropertyRef Name="ProductQnAId" />
             </Principal>
             <Dependent Role="ProductQnA1">
-              <PropertyRef Name="FatherId" />
+              <PropertyRef Name="QuestionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2164,10 +2163,6 @@
             <End Role="Manufacture" EntitySet="Manufacture" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="FK_Product_ProductQnA" Association="Self.FK_Product_ProductQnA">
-            <End Role="ProductQnA" EntitySet="ProductQnA" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
           <AssociationSet Name="FK_Product_ProductReview" Association="Self.FK_Product_ProductReview">
             <End Role="ProductReview" EntitySet="ProductReview" />
             <End Role="Product" EntitySet="Product" />
@@ -2215,6 +2210,10 @@
           <AssociationSet Name="FK_ProductPrice_Product" Association="Self.FK_ProductPrice_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductPrice" EntitySet="ProductPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductQnA_Product" Association="Self.FK_ProductQnA_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductQnA" EntitySet="ProductQnA" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductQnA_ProductQnA" Association="Self.FK_ProductQnA_ProductQnA">
             <End Role="ProductQnA" EntitySet="ProductQnA" />
@@ -2651,7 +2650,7 @@
           <Property Name="CarsQnAId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CarsId" Type="Int32" />
           <Property Name="QuestionType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Question" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="QuestionId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_CarsQnA_Cars" FromRole="CarsQnA" ToRole="Cars" />
           <NavigationProperty Name="CarsQnA1" Relationship="Self.FK_CarsQnA_CarsQnA" FromRole="CarsQnA" ToRole="CarsQnA1" />
@@ -2991,13 +2990,13 @@
           <NavigationProperty Name="Country" Relationship="Self.FK_Product_Country" FromRole="Product" ToRole="Country" />
           <NavigationProperty Name="Manufacture" Relationship="Self.FK_Product_Manufacture" FromRole="Product" ToRole="Manufacture" />
           <NavigationProperty Name="PersonProducts" Relationship="Self.FK_PersonProduct_Product" FromRole="Product" ToRole="PersonProduct" />
-          <NavigationProperty Name="ProductQnA" Relationship="Self.FK_Product_ProductQnA" FromRole="Product" ToRole="ProductQnA" />
           <NavigationProperty Name="ProductReview" Relationship="Self.FK_Product_ProductReview" FromRole="Product" ToRole="ProductReview" />
           <NavigationProperty Name="ProductCars" Relationship="Self.FK_ProductCars_Product" FromRole="Product" ToRole="ProductCars" />
           <NavigationProperty Name="ProductComments" Relationship="Self.FK_ProductComments_Product" FromRole="Product" ToRole="ProductComments" />
           <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_Product" FromRole="Product" ToRole="ProductDiscount" />
           <NavigationProperty Name="ProductInServices" Relationship="Self.FK_ProductInService_Product" FromRole="Product" ToRole="ProductInService" />
           <NavigationProperty Name="ProductPrices" Relationship="Self.FK_ProductPrice_Product" FromRole="Product" ToRole="ProductPrice" />
+          <NavigationProperty Name="ProductQnAs" Relationship="Self.FK_ProductQnA_Product" FromRole="Product" ToRole="ProductQnA" />
           <NavigationProperty Name="ProductStores" Relationship="Self.FK_ProductStore_Product" FromRole="Product" ToRole="ProductStore" />
           <NavigationProperty Name="ProductToViews" Relationship="Self.FK_ProductToView_Product" FromRole="Product" ToRole="ProductToView" />
           <NavigationProperty Name="ToBaskets" Relationship="Self.FK_ToBasket_Product" FromRole="Product" ToRole="ToBasket" />
@@ -3070,12 +3069,11 @@
             <PropertyRef Name="ProductQnAId" />
           </Key>
           <Property Name="ProductQnAId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductQuestion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="HasAnswer" Type="Boolean" />
-          <Property Name="HasFather" Type="Boolean" />
-          <Property Name="FatherId" Type="Int32" />
-          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Product_ProductQnA" FromRole="ProductQnA" ToRole="Product" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="QuestionType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionId" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductQnA_Product" FromRole="ProductQnA" ToRole="Product" />
           <NavigationProperty Name="ProductQnA1" Relationship="Self.FK_ProductQnA_ProductQnA" FromRole="ProductQnA" ToRole="ProductQnA1" />
           <NavigationProperty Name="ProductQnA2" Relationship="Self.FK_ProductQnA_ProductQnA" FromRole="ProductQnA1" ToRole="ProductQnA" />
         </EntityType>
@@ -4124,18 +4122,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Product_ProductQnA">
-          <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductQnA">
-              <PropertyRef Name="ProductQnAId" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="ProductQnAId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Product_ProductReview">
           <End Role="ProductReview" Type="Self.ProductReview" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -4204,6 +4190,18 @@
               <PropertyRef Name="ProductId" />
             </Principal>
             <Dependent Role="ProductPrice">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductQnA_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ProductQnA">
               <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4288,7 +4286,7 @@
               <PropertyRef Name="ProductQnAId" />
             </Principal>
             <Dependent Role="ProductQnA1">
-              <PropertyRef Name="FatherId" />
+              <PropertyRef Name="QuestionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4687,10 +4685,6 @@
             <End Role="PersonServicesPack" EntitySet="PersonServicesPacks" />
             <End Role="ProductServicePackUse" EntitySet="ProductServicePackUses" />
           </AssociationSet>
-          <AssociationSet Name="FK_Product_ProductQnA" Association="Self.FK_Product_ProductQnA">
-            <End Role="ProductQnA" EntitySet="ProductQnAs" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
           <AssociationSet Name="FK_Product_ProductReview" Association="Self.FK_Product_ProductReview">
             <End Role="ProductReview" EntitySet="ProductReviews" />
             <End Role="Product" EntitySet="Products" />
@@ -4714,6 +4708,10 @@
           <AssociationSet Name="FK_ProductPrice_Product" Association="Self.FK_ProductPrice_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductPrice" EntitySet="ProductPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductQnA_Product" Association="Self.FK_ProductQnA_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductQnA" EntitySet="ProductQnAs" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductStore_Product" Association="Self.FK_ProductStore_Product">
             <End Role="Product" EntitySet="Products" />
@@ -5446,11 +5444,10 @@
             <EntityTypeMapping TypeName="CarAutomationModel.ProductQnA">
               <MappingFragment StoreEntitySet="ProductQnA">
                 <ScalarProperty Name="ProductQnAId" ColumnName="ProductQnAId" />
-                <ScalarProperty Name="ProductQuestion" ColumnName="ProductQuestion" />
-                <ScalarProperty Name="HasAnswer" ColumnName="HasAnswer" />
-                <ScalarProperty Name="HasFather" ColumnName="HasFather" />
-                <ScalarProperty Name="FatherId" ColumnName="FatherId" />
-                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -685,11 +685,10 @@
       <EntityTypeMapping TypeName="CarAutomationModel.ProductQnA">
         <MappingFragment StoreEntitySet="ProductQnA">
           <ScalarProperty Name="ProductQnAId" ColumnName="ProductQnAId" />
-          <ScalarProperty Name="ProductQuestion" ColumnName="ProductQuestion" />
-          <ScalarProperty Name="HasAnswer" ColumnName="HasAnswer" />
-          <ScalarProperty Name="HasFather" ColumnName="HasFather" />
-          <ScalarProperty Name="FatherId" ColumnName="FatherId" />
-          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

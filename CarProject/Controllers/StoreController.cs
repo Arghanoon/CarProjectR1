@@ -278,6 +278,7 @@ namespace CarProject.Controllers
         }
         #endregion
 
+        #region Products
         public ActionResult Products(int id)
         {
             return View(id);
@@ -329,12 +330,15 @@ namespace CarProject.Controllers
             dbs.SaveChanges();
             return res;
         }
+        
 
         public ActionResult ProductsList(int? id)
         {
             return View(id);
         }
+        #endregion
 
+        #region Services
         public ActionResult ServiceView(int id)
         {
             return View(id);
@@ -384,6 +388,48 @@ namespace CarProject.Controllers
             dbs.SaveChanges();
             return res;
         }
+        #endregion
+
+        #region forum
+        public ActionResult ProductForum(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ProductForum(int? id, FormCollection form)
+        {
+            if (form.AllKeys.Contains("newQuestion") && !string.IsNullOrWhiteSpace(form["newQuestion"]))
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                dbs.ProductQnAs.Add(new DBSEF.ProductQnA { ProductId = id, Question = form["newQuestion"], QuestionType = "Q" });
+                dbs.SaveChanges();
+                ModelState.AddModelError("success", "پرسش شما با موفقیت ثبت شد");
+            }
+            else
+                ModelState.AddModelError("newQuestion", "پرسش وارد نشده است");
+            return View();
+        }
+        public ActionResult ProductForum_Question(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ProductForum_Question(int? id, DBSEF.ProductQnA model)
+        {
+            if (model.Question.IsNullOrWhiteSpace())
+                ViewData.ModelState.AddModelError("Question", "متن پرسش وارد نشده است");
+            if (ModelState.IsValid)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                model.QuestionType = "Q";
+                dbs.ProductQnAs.Add(model);
+                dbs.SaveChanges();
+
+                return RedirectToAction("ProductForum_Question", new { id = id });
+            }
+            return View(model);
+        }
+        #endregion
     }
 
    

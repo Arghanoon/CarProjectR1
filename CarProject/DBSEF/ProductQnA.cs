@@ -17,19 +17,16 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProductQnA()
         {
-            this.Products = new HashSet<Product>();
             this.ProductQnA1 = new HashSet<ProductQnA>();
         }
     
         public int ProductQnAId { get; set; }
-        public string ProductQuestion { get; set; }
-        public Nullable<bool> HasAnswer { get; set; }
-        public Nullable<bool> HasFather { get; set; }
-        public Nullable<int> FatherId { get; set; }
-        public string Answer { get; set; }
+        public Nullable<int> ProductId { get; set; }
+        public string QuestionType { get; set; }
+        public string Question { get; set; }
+        public Nullable<int> QuestionId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual Product Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductQnA> ProductQnA1 { get; set; }
         public virtual ProductQnA ProductQnA2 { get; set; }

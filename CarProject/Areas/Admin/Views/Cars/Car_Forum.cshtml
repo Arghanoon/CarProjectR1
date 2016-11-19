@@ -26,6 +26,8 @@
     <select id="FilterByCar">
         @foreach (var item in cars)
         {
+            if (item.id == null)
+            { continue; }
             <option value="@item.id" @if(id == item.id){ Write("selected=\"selected\""); }>@item.name</option>
         }
     </select>

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "نمایش پرسش ها و پاسخ ها";
+    ViewBag.Title = "نمایش سوال و جواب دادن به سوال";
 
     int id = 0;
     if(ViewContext.RouteData.Values["id"] != null)
@@ -8,27 +8,27 @@
     }
 
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
-    var question = dbs.CarsQnAs.FirstOrDefault(c => c.CarsQnAId == id);
+    var question = dbs.ProductQnAs.FirstOrDefault(c => c.ProductQnAId == id);
     
     if(question == null)
     {
-        Response.Redirect("/");
+        Response.Redirect("/Admin/Store/Product_Forum");
     }
 
-    var relatedQuestions = dbs.CarsQnAs.Where(c => c.QuestionId == question.CarsQnAId);
+    var relatedQuestions = dbs.ProductQnAs.Where(c => c.QuestionId == question.ProductQnAId);
 }
 
-@model CarProject.DBSEF.CarsQnA
+@model CarProject.DBSEF.ProductQnA
 @using CarProject.App_Code
 
 
 <div>
-    <strong>پرسش های برای خودرو: </strong>
-    <small><a href="/Cars/CarForum/@question.Car.CarsId/@question.Car.CarModel.CarBrand.CarBrandName/@question.Car.CarModel.CarModelName">@question.Car.CarModel.CarBrand.CarBrandName - @question.Car.CarModel.CarModelName</a></small>
+    <strong>پرسش های برای محصول: </strong>
+    <small><a href="/Admin/Store/Product_Forum/@question.ProductId">@question.Product.Category.CategoryName - @question.Product.ProductName [@question.Product.PartNumber]</a></small>
 </div>
 <hr />
 
-<div id="questionAnserContainer" class="page">
+<div id="questionAnserContainer">
     <section class="question">@question.Question</section>
 
     @foreach (var item in relatedQuestions)
@@ -39,15 +39,15 @@
 
 
 
-<div class="page">
-    <h3>ثبت سوال جدید</h3>
+<div>
+    <h3>ثبت پاسخ جدید</h3>
     <hr />
 
     <form method="post">
-        <input type="hidden" name="@Html.NameFor(m => m.QuestionId)" value="@question.CarsQnAId" />
+        <input type="hidden" name="@Html.NameFor(m => m.QuestionId)" value="@question.ProductQnAId" />
         <div class="inputsContainer">
             <section class="input">
-                <textarea placeholder="پرسش جدید را در این قسمت وارد کنید" name="@Html.NameFor(m => m.Question)"></textarea>
+                <textarea placeholder="پاسخ جدید را در این قسمت وارد کنید" name="@Html.NameFor(m => m.Question)"></textarea>
             </section>
         </div>
         <section style="color:red">
@@ -61,16 +61,6 @@
 
 @section style
 {
-    @{
-        var str = "";
-        if (question.Question.Length > 50)
-        { str = question.Question.Substring(0, 50); }
-        else
-        { str = question.Question; }
-    }
-    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car_Forum_Question", id = id, info1 = "Question", info2 = str, info3 = "details" }, Request.Url.Scheme)" />
-
-
     <style>
         #questionAnserContainer {
             display:flex;
@@ -94,7 +84,7 @@
                 align-self:flex-end;
                 border-radius:0 5px 5px 0;
                 max-width:80%;
-                background:#eef3fd;
+                background:#eff4fd;
             }
     </style>
 }

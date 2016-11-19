@@ -140,6 +140,7 @@ namespace CarProject.Controllers
             return res;
         }
 
+        #region Forum
         public ActionResult CarForum(int? id)
         {
             return View();
@@ -178,6 +179,8 @@ namespace CarProject.Controllers
             }
             return View(model);
         }
+        #endregion
+
 
         public class tst
         {

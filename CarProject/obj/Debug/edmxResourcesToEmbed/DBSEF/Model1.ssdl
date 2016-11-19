@@ -286,7 +286,7 @@
     <Property Name="CarsQnAId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarsId" Type="int" />
     <Property Name="QuestionType" Type="nvarchar" MaxLength="150" />
-    <Property Name="Question" Type="nvarchar" MaxLength="450" />
+    <Property Name="Question" Type="ntext" />
     <Property Name="QuestionId" Type="int" />
   </EntityType>
   <EntityType Name="CarsReview">
@@ -631,11 +631,10 @@
       <PropertyRef Name="ProductQnAId" />
     </Key>
     <Property Name="ProductQnAId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ProductQuestion" Type="nvarchar" MaxLength="150" />
-    <Property Name="HasAnswer" Type="bit" />
-    <Property Name="HasFather" Type="bit" />
-    <Property Name="FatherId" Type="int" />
-    <Property Name="Answer" Type="nvarchar(max)" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="QuestionType" Type="nvarchar" MaxLength="150" />
+    <Property Name="Question" Type="ntext" />
+    <Property Name="QuestionId" Type="int" />
   </EntityType>
   <EntityType Name="ProductReview">
     <Key>
@@ -1484,18 +1483,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Product_ProductQnA">
-    <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="0..1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ProductQnA">
-        <PropertyRef Name="ProductQnAId" />
-      </Principal>
-      <Dependent Role="Product">
-        <PropertyRef Name="ProductQnAId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Product_ProductReview">
     <End Role="ProductReview" Type="Self.ProductReview" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -1640,6 +1627,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProductQnA_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductQnA">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ProductQnA_ProductQnA">
     <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="0..1" />
     <End Role="ProductQnA1" Type="Self.ProductQnA" Multiplicity="*" />
@@ -1648,7 +1647,7 @@
         <PropertyRef Name="ProductQnAId" />
       </Principal>
       <Dependent Role="ProductQnA1">
-        <PropertyRef Name="FatherId" />
+        <PropertyRef Name="QuestionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2159,10 +2158,6 @@
       <End Role="Manufacture" EntitySet="Manufacture" />
       <End Role="Product" EntitySet="Product" />
     </AssociationSet>
-    <AssociationSet Name="FK_Product_ProductQnA" Association="Self.FK_Product_ProductQnA">
-      <End Role="ProductQnA" EntitySet="ProductQnA" />
-      <End Role="Product" EntitySet="Product" />
-    </AssociationSet>
     <AssociationSet Name="FK_Product_ProductReview" Association="Self.FK_Product_ProductReview">
       <End Role="ProductReview" EntitySet="ProductReview" />
       <End Role="Product" EntitySet="Product" />
@@ -2210,6 +2205,10 @@
     <AssociationSet Name="FK_ProductPrice_Product" Association="Self.FK_ProductPrice_Product">
       <End Role="Product" EntitySet="Product" />
       <End Role="ProductPrice" EntitySet="ProductPrice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductQnA_Product" Association="Self.FK_ProductQnA_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductQnA" EntitySet="ProductQnA" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductQnA_ProductQnA" Association="Self.FK_ProductQnA_ProductQnA">
       <End Role="ProductQnA" EntitySet="ProductQnA" />
