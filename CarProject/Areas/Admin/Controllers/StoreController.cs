@@ -496,5 +496,75 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
         #endregion
+
+
+        public ActionResult DeliveryTypes()
+        {
+            return View();
+        }
+        public ActionResult DeliveryTypes_New()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DeliveryTypes_New(DBSEF.ProductsOrServicesDeliveryType model)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (model.Name.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Name", "نامی برای پلن تعیین نشده است");
+            else if(dbs.ProductsOrServicesDeliveryTypes.Count(c => c.Name == model.Name) > 0)
+                ModelState.AddModelError("Name", "نامی وارد شده برای پلن تکراری است");
+            if (model.Hour == null)
+                ModelState.AddModelError("Hour", "زمان (ساعت) تحویل /انجام تعیین نشده است");
+            if (model.Price.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Price", "هزینه پلن تعیین نشده است");
+            else if(!model.Price.IsNumber())
+                ModelState.AddModelError("Price", "مقدار وارد شده صحیح نیست");
+
+            if (ModelState.IsValid)
+            {
+                dbs.ProductsOrServicesDeliveryTypes.Add(model);
+                dbs.SaveChanges();
+
+                return RedirectToAction("DeliveryTypes");
+            }
+            return View(model);
+        }
+
+        public ActionResult DeliveryTypes_Update(int? id)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var model = dbs.ProductsOrServicesDeliveryTypes.FirstOrDefault(c => c.DeliverTypeID == id);
+            if (model == null)
+                return RedirectToAction("DeliveryTypes");
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult DeliveryTypes_Update(int? id, DBSEF.ProductsOrServicesDeliveryType model)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (model.Name.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Name", "نامی برای پلن تعیین نشده است");
+            else if (dbs.ProductsOrServicesDeliveryTypes.Count(c => c.Name == model.Name) > 0)
+                ModelState.AddModelError("Name", "نامی وارد شده برای پلن تکراری است");
+            if (model.Hour == null)
+                ModelState.AddModelError("Hour", "زمان (ساعت) تحویل /انجام تعیین نشده است");
+            if (model.Price.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Price", "هزینه پلن تعیین نشده است");
+            else if (!model.Price.IsNumber())
+                ModelState.AddModelError("Price", "مقدار وارد شده صحیح نیست");
+
+            if (ModelState.IsValid)
+            {
+                var mdl = dbs.ProductsOrServicesDeliveryTypes.FirstOrDefault(c => c.DeliverTypeID == id);
+                TryUpdateModel(mdl);
+                dbs.SaveChanges();
+
+                return RedirectToAction("DeliveryTypes");
+            }
+
+            return View(model);
+        }
     }
 }

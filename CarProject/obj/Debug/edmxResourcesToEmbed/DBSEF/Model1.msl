@@ -720,6 +720,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ProductsOrServicesDeliveryTypes">
+      <EntityTypeMapping TypeName="CarAutomationModel.ProductsOrServicesDeliveryType">
+        <MappingFragment StoreEntitySet="ProductsOrServicesDeliveryTypes">
+          <ScalarProperty Name="DeliverTypeID" ColumnName="DeliverTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ProductStores">
       <EntityTypeMapping TypeName="CarAutomationModel.ProductStore">
         <MappingFragment StoreEntitySet="ProductStore">

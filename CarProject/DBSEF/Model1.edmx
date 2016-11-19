@@ -666,6 +666,15 @@
           <Property Name="DateUsed" Type="date" />
           <Property Name="EntityUsed" Type="int" />
         </EntityType>
+        <EntityType Name="ProductsOrServicesDeliveryTypes">
+          <Key>
+            <PropertyRef Name="DeliverTypeID" />
+          </Key>
+          <Property Name="DeliverTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Price" Type="nvarchar" MaxLength="255" />
+          <Property Name="Hour" Type="int" />
+        </EntityType>
         <EntityType Name="ProductStore">
           <Key>
             <PropertyRef Name="ProductStoreId" />
@@ -1919,6 +1928,7 @@
           <EntitySet Name="ProductReview" EntityType="Self.ProductReview" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductServicePackUse" EntityType="Self.ProductServicePackUse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductServiceUse" EntityType="Self.ProductServiceUse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductsOrServicesDeliveryTypes" EntityType="Self.ProductsOrServicesDeliveryTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductStore" EntityType="Self.ProductStore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductToView" EntityType="Self.ProductToView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystems" Schema="dbo" store:Type="Tables" />
@@ -3104,6 +3114,15 @@
           <Property Name="DateUsed" Type="DateTime" Precision="0" />
           <Property Name="EntityUsed" Type="Int32" />
           <NavigationProperty Name="PersonService" Relationship="Self.FK_ProductServiceUse_PersonServices" FromRole="ProductServiceUse" ToRole="PersonServices" />
+        </EntityType>
+        <EntityType Name="ProductsOrServicesDeliveryType">
+          <Key>
+            <PropertyRef Name="DeliverTypeID" />
+          </Key>
+          <Property Name="DeliverTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Hour" Type="Int32" />
         </EntityType>
         <EntityType Name="ProductStore">
           <Key>
@@ -4385,6 +4404,7 @@
           <EntitySet Name="ProductReviews" EntityType="Self.ProductReview" />
           <EntitySet Name="ProductServicePackUses" EntityType="Self.ProductServicePackUse" />
           <EntitySet Name="ProductServiceUses" EntityType="Self.ProductServiceUse" />
+          <EntitySet Name="ProductsOrServicesDeliveryTypes" EntityType="Self.ProductsOrServicesDeliveryType" />
           <EntitySet Name="ProductStores" EntityType="Self.ProductStore" />
           <EntitySet Name="ProductToViews" EntityType="Self.ProductToView" />
           <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystem" />
@@ -5476,6 +5496,16 @@
                 <ScalarProperty Name="PersonServicesId" ColumnName="PersonServicesId" />
                 <ScalarProperty Name="DateUsed" ColumnName="DateUsed" />
                 <ScalarProperty Name="EntityUsed" ColumnName="EntityUsed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsOrServicesDeliveryTypes">
+            <EntityTypeMapping TypeName="CarAutomationModel.ProductsOrServicesDeliveryType">
+              <MappingFragment StoreEntitySet="ProductsOrServicesDeliveryTypes">
+                <ScalarProperty Name="DeliverTypeID" ColumnName="DeliverTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

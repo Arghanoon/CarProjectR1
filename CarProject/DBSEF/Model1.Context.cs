@@ -83,6 +83,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<ProductReview> ProductReviews { get; set; }
         public virtual DbSet<ProductServicePackUse> ProductServicePackUses { get; set; }
         public virtual DbSet<ProductServiceUse> ProductServiceUses { get; set; }
+        public virtual DbSet<ProductsOrServicesDeliveryType> ProductsOrServicesDeliveryTypes { get; set; }
         public virtual DbSet<ProductStore> ProductStores { get; set; }
         public virtual DbSet<ProductToView> ProductToViews { get; set; }
         public virtual DbSet<SecuritySystem> SecuritySystems { get; set; }

@@ -661,6 +661,15 @@
     <Property Name="DateUsed" Type="date" />
     <Property Name="EntityUsed" Type="int" />
   </EntityType>
+  <EntityType Name="ProductsOrServicesDeliveryTypes">
+    <Key>
+      <PropertyRef Name="DeliverTypeID" />
+    </Key>
+    <Property Name="DeliverTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Price" Type="nvarchar" MaxLength="255" />
+    <Property Name="Hour" Type="int" />
+  </EntityType>
   <EntityType Name="ProductStore">
     <Key>
       <PropertyRef Name="ProductStoreId" />
@@ -1914,6 +1923,7 @@
     <EntitySet Name="ProductReview" EntityType="Self.ProductReview" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductServicePackUse" EntityType="Self.ProductServicePackUse" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductServiceUse" EntityType="Self.ProductServiceUse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductsOrServicesDeliveryTypes" EntityType="Self.ProductsOrServicesDeliveryTypes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductStore" EntityType="Self.ProductStore" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductToView" EntityType="Self.ProductToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystems" Schema="dbo" store:Type="Tables" />

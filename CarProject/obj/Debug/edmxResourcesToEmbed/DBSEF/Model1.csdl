@@ -812,6 +812,15 @@
     <Property Name="EntityUsed" Type="Int32" />
     <NavigationProperty Name="PersonService" Relationship="Self.FK_ProductServiceUse_PersonServices" FromRole="ProductServiceUse" ToRole="PersonServices" />
   </EntityType>
+  <EntityType Name="ProductsOrServicesDeliveryType">
+    <Key>
+      <PropertyRef Name="DeliverTypeID" />
+    </Key>
+    <Property Name="DeliverTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Hour" Type="Int32" />
+  </EntityType>
   <EntityType Name="ProductStore">
     <Key>
       <PropertyRef Name="ProductStoreId" />
@@ -2092,6 +2101,7 @@
     <EntitySet Name="ProductReviews" EntityType="Self.ProductReview" />
     <EntitySet Name="ProductServicePackUses" EntityType="Self.ProductServicePackUse" />
     <EntitySet Name="ProductServiceUses" EntityType="Self.ProductServiceUse" />
+    <EntitySet Name="ProductsOrServicesDeliveryTypes" EntityType="Self.ProductsOrServicesDeliveryType" />
     <EntitySet Name="ProductStores" EntityType="Self.ProductStore" />
     <EntitySet Name="ProductToViews" EntityType="Self.ProductToView" />
     <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystem" />
