@@ -264,7 +264,6 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return RedirectToAction("CarComments");
         }
-
         [HttpPost]
         public int CarChangeCanShowState(int? ID)
         {
@@ -278,6 +277,31 @@ namespace CarProject.Areas.Admin.Controllers
                 dbs.SaveChanges();
             }
             return res;
+        }
+
+
+        public ActionResult Car_Forum(int? id)
+        {
+            return View();
+        }
+        public ActionResult Car_Forum_Question(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Car_Forum_Question(int? id,DBSEF.CarsQnA model)
+        {
+            if (model.Question.IsNullOrWhiteSpace())
+                ViewData.ModelState.AddModelError("Question", "جوابی وارد نشده است");
+            if (ModelState.IsValid)
+            {
+                model.QuestionType = "A";
+                dbs.CarsQnAs.Add(model);
+                dbs.SaveChanges();
+                
+                return RedirectToAction("Car_Forum_Question", new { id = id });
+            }
+            return View(model);
         }
     }
 }

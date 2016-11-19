@@ -30,7 +30,11 @@
 <div id="carShowContianer">
     <div id="content">
         <div id="contentTopBarSection" class="pagesection">
-            <a href="#" class="gia-usercar">ثبت به عنوان خودروی کاربر</a>
+            <div>
+                <a href="#" class="gia-usercar">ثبت به عنوان خودروی کاربر</a>
+                |
+                <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarForum", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })" class="gia-forum">پرسش و پاسخ</a>
+            </div>
             <div id="viewsandpopularContianer">
                 <section class="gia-users">@carstoviewobject.View</section>
                 <a href="javascript:void();" onclick="MakeProductPopular('@Url.Action("Car_MakePopular", "Cars")','@Model.Car.CarsId')" class="gia-heart" id="popularSectionCounter">@carstoviewobject.Favorite.GetValueOrDefault(0)</a>

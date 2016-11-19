@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "پرسش و پاسخ ها";
+    
+    int id = 0;
+    if(ViewContext.RouteData.Values["id"] != null)
+    {
+        int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+    }
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var car = dbs.Cars.FirstOrDefault(c => c.CarsId == id);
+    var question = dbs.CarsQnAs.Where(c => c.QuestionId == null) ;
+    if(car != null)
+    {
+        question = dbs.CarsQnAs.Where(c => c.CarsId == car.CarsId && c.QuestionId == null);
+    }
+
+    question = question.OrderByDescending(c => c.CarsQnAId);
+
+    var cars = dbs.CarsQnAs.Select(c => new { id = c.CarsId, name = c.Car.CarModel.CarBrand.CarBrandName + " - " + c.Car.CarModel.CarModelName }).Distinct();
+    
+}
+
+
+<section>
+    <select id="FilterByCar">
+        @foreach (var item in cars)
+        {
+            <option value="@item.id" @if(id == item.id){ Write("selected=\"selected\""); }>@item.name</option>
+        }
+    </select>
+    <input type="button" value="فیلتر کردن براساس خودرو" onclick=" window.location = '/Admin/Cars/Car_Forum/' + (document.getElementById('FilterByCar').value);" />
+    <a href="/Admin/Cars/Car_Forum" >حذف فیلتر</a>
+</section>
+
+<hr />
+
+<div id="questions">
+    <ul>
+        @foreach (var item in question)
+        {
+            <li>
+                <a href="@Url.Action("Car_Forum", new { id = item.Car.CarsId })" >@item.Car.CarModel.CarBrand.CarBrandName - @item.Car.CarModel.CarModelName</a> |
+                <a href="/Admin/Cars/Car_Forum_Question/@item.CarsQnAId">@item.Question</a>
+            </li>
+        }
+    </ul>
+</div>
