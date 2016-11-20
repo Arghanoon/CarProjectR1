@@ -7,32 +7,29 @@
     <h3>شما می توانید به یکی از روش های زیر صورتحسات خود را پرداخت کنید:</h3>
     <hr />
     <div id="menuContainer">
-        <a href="@Url.Action("PaymentCart")" >
+        <a href="javascript:void();" onclick="ChangeSelectedPaymentType(this,'radio_InLocation');" >
             <span class="gia-paymentCash"></span>
             <span>پرداخت در محل</span>
         </a>
-         <a href="@Url.Action("PaymentCart")" >
+         <a href="javascript:void();" onclick="ChangeSelectedPaymentType(this,'radio_Online');" >
             <span class="gia-paymentOnline"></span>
             <span>پرداخت آنلاین</span>
         </a>
-         <a href="@Url.Action("PaymentCart")" >
-            <span class="gia-paymentCard"></span>
-            <span>کارت به کارت</span>
-        </a>
     </div>
 
+    <form method="post">
+        <input type="radio" name="PaymentType" value="@CarProject.Models.Store.CartUsefull.Basket_PaymentType.InLocation" id="radio_InLocation" />
+        <input type="radio" name="PaymentType" value="@CarProject.Models.Store.CartUsefull.Basket_PaymentType.Online" id="radio_Online" />
+        <section class="inputAction">
+            <input type="submit" value="تایید و ادامه" class="button green" />
+        </section>
+    </form>
+
+    <div style="color:red">@Html.ValidationMessage("PaymentType")</div>
 </div>
 
 <div class="page">
-    <h3>راهنمای پرداخت</h3>
-    <hr />
-    <ul>
-        <li>توضیحات درباره نحوه پرداخت</li>
-        <li>توضیحات درباره نحوه پرداخت</li>
-        <li>توضیحات درباره نحوه پرداخت</li>
-        <li>توضیحات درباره نحوه پرداخت</li>
-        <li>توضیحات درباره نحوه پرداخت</li>
-    </ul>
+    
 </div>
 
 
@@ -63,6 +60,8 @@
                     justify-content:center;
                     align-items:center;
 
+                    text-align:center;
+
                     transition:0.5s;
                 }
 
@@ -84,5 +83,24 @@
                 #menuContainer a:hover span:nth-child(2) {
                     top:0;
                 }
+
+                #menuContainer a.checked {
+                    outline:thick solid #59adff;
+                }
+
+        input[type=radio] {
+            display: none;
+        }
     </style>
+}
+
+@section script
+{
+    <script>
+        function ChangeSelectedPaymentType(el, id) {
+            document.getElementById(id).checked = true;
+            $("#menuContainer a.checked").removeClass("checked");
+            $(el).addClass("checked");
+        }
+    </script>
 }

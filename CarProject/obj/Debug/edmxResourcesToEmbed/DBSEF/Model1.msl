@@ -82,6 +82,8 @@
           <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
           <ScalarProperty Name="DelivaryTypeId" ColumnName="DelivaryTypeId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+          <ScalarProperty Name="LocalCode" ColumnName="LocalCode" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

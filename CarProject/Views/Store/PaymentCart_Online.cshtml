@@ -1,11 +1,12 @@
 ﻿@{
-    ViewBag.Title = "تایید و پرداخت";
+    ViewBag.Title = "تایید درخواست خرید و ارسال به بانک";
 
     var usfl = new CarProject.Models.Store.CartUsefull();
-    var viewBasket = usfl.GetCurrentBasket();
 }
-@model CarProject.DBSEF.Person
+@model CarProject.DBSEF.Basket
 @using CarProject.App_Code
+
+
 
 <div class="page" id="billingInformation">
     <h3>لیست محصولات درخواستی</h3>
@@ -25,9 +26,9 @@
             @{ 
                 int i = 1; int TotalPrice = 0;
 
-                int.TryParse(viewBasket.ProductsOrServicesDeliveryType.Price, out TotalPrice);
+                int.TryParse(Model.ProductsOrServicesDeliveryType.Price, out TotalPrice);
              }
-            @foreach (var item in viewBasket.BasketItems)
+            @foreach (var item in Model.BasketItems)
             {
                 int pric = 0;
                 
@@ -48,8 +49,8 @@
 
             <tr>
                 <td colspan="3">پلن انتخابی</td>
-                <td colspan="2" class="fix center">@viewBasket.ProductsOrServicesDeliveryType.Name</td>
-                <td class="center fix">@viewBasket.ProductsOrServicesDeliveryType.Price</td>
+                <td colspan="2" class="fix center">@Model.ProductsOrServicesDeliveryType.Name</td>
+                <td class="center fix">@Model.ProductsOrServicesDeliveryType.Price</td>
 
             </tr>
         </tbody>
@@ -61,34 +62,11 @@
             <small>@TotalPrice ریال</small>
         </section>
     </div>
-</div>
 
-
-<div class="page" id="AddressConfirm">
-    <h3>تایید آدرس</h3>
-    <hr />
-    <form method="post">
-        
-        <div class="inputsContainer">
-            
-            @Html.input_TextBox(m => m.PersonFirtstName, "نام")
-            @Html.input_TextBox(m => m.PersonLastName, "نام خانوادگی")
-            @Html.input_TextBox(m => m.PersonMobile, "تلفن همراه")
-            @Html.input_TextBox(m => m.PersonAddressCity, "استان و شهر محل سکونت")
-            @Html.input_TextArea(m => m.PersonAddress, "آدرس کامل")
-
-        </div>
-        <small>
-            اگر آدرس شما تغییر کرده و یا آدرس قبلا به درستی وارد نشده است در اینجا آدرس را دوباره وارد کنید. توجه کنید که آدرس باید کامل همراه با نام استان و شهر باشد و در انتها کد پستی را نیز وارد کنید
-        </small><br />
-        <small>آدرس و کد پستی را با یک علامت <q>-</q> از هم جدا کنید</small>
-        <section class="inputAction">
-            <a href="@Url.Action("Cart")" class="button yellow">برگشت و اصلاح سبد خرید</a>
-            <input type="submit" value="تایید و تعیین نحوه پرداخت" class="button green" />
-        </section>
-        
+    <form method="post" style="display:flex; flex-direction:row-reverse;">
+        <input type="button" value="تایید و ارسال درخواست به بانک" class="button green" />
     </form>
-    
+
 </div>
 
 

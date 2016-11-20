@@ -27,6 +27,8 @@ namespace CarProject.DBSEF
         public Nullable<byte> PaymentType { get; set; }
         public Nullable<int> DelivaryTypeId { get; set; }
         public Nullable<int> UserId { get; set; }
+        public string BankCode { get; set; }
+        public string LocalCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BasketItem> BasketItems { get; set; }

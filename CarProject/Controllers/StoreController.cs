@@ -29,10 +29,10 @@ namespace CarProject.Controllers
             {
                 var dbs = new DBSEF.CarAutomationEntities();
                 var user = Session["guestUser"] as DBSEF.User;
-                var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.PaymentType == (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned);
+                var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)Models.Store.CartUsefull.Basket_State.Openned);
                 if (cart == null)
                 {
-                    cart = new DBSEF.Basket { UserId = user.UserId, PaymentType = (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned };
+                    cart = new DBSEF.Basket { UserId = user.UserId, State = (byte)Models.Store.CartUsefull.Basket_State.Openned };
                     dbs.Baskets.Add(cart);
                 }
 
@@ -129,50 +129,77 @@ namespace CarProject.Controllers
         {
             var us = new Models.Store.CartUsefull();
             var user = Session["guestUser"] as DBSEF.User;
-            Tuple<DBSEF.Basket, DBSEF.Person> model = new Tuple<DBSEF.Basket, DBSEF.Person>(us.GetCurrentBasket(), us.dbs.People.FirstOrDefault(p => p.UserId == user.UserId));
 
-            return View(model);
+            return View(us.dbs.People.FirstOrDefault(p => p.UserId == user.UserId));
         }
-        /*
         [HttpPost]
         [Areas.Users.UsersCLS.UsersAuthFilter]
-        public ActionResult Cart_CartConfirmAddress(Tuple<DBSEF.Basket, DBSEF.Person> model)
+        public ActionResult Cart_CartConfirmAddress(DBSEF.Person model)
         {
             
+            var dbs = new DBSEF.CarAutomationEntities();
+            var user = Session["guestUser"] as DBSEF.User;
+
+            if (model.PersonFirtstName.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonFirtstName", "نام وارد نشده است");
+            if (model.PersonLastName.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonLastName", "نام خانوادگی وارد نشده است");
+
+            if (model.PersonMobile.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonMobile", "تلفن همراه وارد شود");
+            else if (!model.PersonMobile.IsNumber())
+                ModelState.AddModelError("PersonMobile", "مقدار وارد شده صحیح نیست");
+
+            if (model.PersonAddressCity.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonAddressCity", "استان و شهر محل سکونت وارد نشده است");
+            if (model.PersonAddress.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonAddress", "آدرس وارد نشده است");
+
+            if (ModelState.IsValid)
+            {
+                var person = dbs.People.FirstOrDefault(p => p.UserId == user.UserId);
+                TryUpdateModel(person);
+                dbs.SaveChanges();
+            }
+            return RedirectToAction("SelectePaymentType");
         }
 
+        
         [Areas.Users.UsersCLS.UsersAuthFilter]
         public ActionResult SelectePaymentType()
         {
             return View();
         }
+        [HttpPost,Areas.Users.UsersCLS.UsersAuthFilter]
+        public ActionResult SelectePaymentType(Nullable<Models.Store.CartUsefull.Basket_PaymentType> PaymentType)
+        {
+            if (PaymentType == null)
+                ModelState.AddModelError("PaymentType", "نوع پرداخت تعیین نشده است");
+            if (PaymentType == Models.Store.CartUsefull.Basket_PaymentType.InLocation)
+                return RedirectToAction("PaymentCart_InLocation");
+            else if (PaymentType == Models.Store.CartUsefull.Basket_PaymentType.Online)
+                return RedirectToAction("PaymentCart_Online");
+            return View();
+        }
+        
+        [Areas.Users.UsersCLS.UsersAuthFilter]
+        public ActionResult PaymentCart_InLocation()
+        {
+            var us = new Models.Store.CartUsefull();
+            var basket = us.GetCurrentBasket();
+            basket.State = (byte)Models.Store.CartUsefull.Basket_State.Finished;
+            basket.LocalCode = Guid.NewGuid().ToString();
+            us.UpdateBasket(basket);
+            return View(basket);
+        }
 
         [Areas.Users.UsersCLS.UsersAuthFilter]
-        public ActionResult PaymentCart(int? id)
+        public ActionResult PaymentCart_Online()
         {
-            if (id == null)
-            {
-                var x = new Models.Store.CartConfirmBillAndAddressModel();
-                if (x.BillingList.Count > 0)
-                {
-                    var bs = x.PaymentCartSuccessed(DateTime.Now.Ticks.ToString(), true);
-                    return View(bs);
-                }
-                else
-                    return RedirectToAction("Cart");
-            }
-            else
-            {
-                var dbs = new DBSEF.CarAutomationEntities();
-                var user = Session["guestUser"] as DBSEF.User;
-                var bs2 = dbs.Baskets.FirstOrDefault(bs => bs.BasketId == id && bs.UserId == user.UserId);
-
-                if (bs2 != null)
-                    return View(bs2);
-                else
-                    return RedirectToAction("Cart");
-            }
-        }*/
+            var us = new Models.Store.CartUsefull();
+            var basket = us.GetCurrentBasket();
+            return View(basket);
+        }
         #endregion
 
         #region Products
