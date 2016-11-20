@@ -12,7 +12,7 @@ namespace CarProject.Models.Store
 {
     public class CartUsefull
     {
-        DBSEF.CarAutomationEntities dbs = new DBSEF.CarAutomationEntities();
+        public DBSEF.CarAutomationEntities dbs = new DBSEF.CarAutomationEntities();
         HttpContext Context { get; set; }
 
         public CartUsefull()
@@ -49,6 +49,7 @@ namespace CarProject.Models.Store
                     dbs.Baskets.Add(cart);
                     dbs.SaveChanges();
                 }
+                res = cart;
             }
             else
             {
@@ -70,6 +71,9 @@ namespace CarProject.Models.Store
                 var user = Context.Session["guestUser"] as DBSEF.User;                
                 var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.PaymentType == (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned);
                 cart = basket;
+                dbs.SaveChanges();
+
+                dbs.BasketItems.RemoveRange(dbs.BasketItems.Where(c => c.BasketId == null));
                 dbs.SaveChanges();
             }
             else

@@ -74,7 +74,37 @@ namespace CarProject.Areas.Users.Controllers
                     Session["guestUser"] = user;
 
                     //cart redirect
-                   
+                    if (Request.Cookies["Basket"] != null && !Request.Cookies["Basket"].Value.IsNullOrWhiteSpace())
+                    {
+                        var basket = JsonConvert.DeserializeObject<DBSEF.Basket>(Request.Cookies["Basket"].Value);
+                        if (basket != null)
+                        {
+                            var userbasket = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.PaymentType == (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned);
+                            if (userbasket == null)
+                            {
+                                basket.UserId = user.UserId;
+                                basket.PaymentType = (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned;
+                                dbs.Baskets.Add(basket);
+                            }
+                            else
+                            {
+                                userbasket.DelivaryTypeId = basket.DelivaryTypeId;
+                                foreach (var item in basket.BasketItems)
+                                {
+                                    var itm = userbasket.BasketItems.FirstOrDefault(c => c.Id == item.Id && c.Type == item.Type);
+                                    if (itm == null)
+                                        userbasket.BasketItems.Add(item);
+                                    else
+                                        itm.Count = item.Count;
+                                }
+                            }
+                        }
+
+                        dbs.SaveChanges();
+
+
+                        Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(-1);
+                    }
                     //end redirect cart
 
 

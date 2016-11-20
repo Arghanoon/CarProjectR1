@@ -10,7 +10,7 @@
 
 <div class="page">
 
-    <form method="post">
+    <form method="post" id="CartForm">
         <h3>سبد خرید کاربر</h3>
         <hr />
         <div>
@@ -42,7 +42,7 @@
 
                         <tr>
                             <td class="fix center   ">
-                                <input type="checkbox" class="SelectForRemove" data-id="@item.Id" data-type="@item.Type" data-json="@Server.HtmlEncode(Newtonsoft.Json.JsonConvert.SerializeObject(item))" />
+                                <input type="checkbox" name="RemoveItem[@item.Id][@item.Type]" class="SelectForRemove" />
                             </td>
                             <td class="fix center">@i</td>
                             <td>
@@ -71,7 +71,7 @@
                     <tr>
                         <td colspan="4">پلن تحویل کالا / انجام خدمات</td>
                         <td colspan="2">
-                            <select name="" onchange="PlanComboBoxOnChange(this)">
+                            <select name="DelivaryTypeId" onchange="PlanComboBoxOnChange(this)">
                                 @{
                                     var xDeliveryTypes = dbs.ProductsOrServicesDeliveryTypes.AsQueryable();
                                     int DLTYP = 0;
@@ -118,9 +118,7 @@
 
     </form>
 
-    <form method="post" action="@Url.Action("Cart_remoSelection")" id="RemoveListForm">
-        <input type="hidden" name="RemoveList" id="RemoveList" />
-    </form>
+    
     <form method="post" action="@Url.Action("Cart_RemoveCopletly")" id="removeBasketCompletly"></form>
 
 </div>
@@ -194,12 +192,9 @@
 
 
         function RemoveSelectedItemRequest() {
-            var x = [];
-            $(".SelectForRemove:checked").each(function (index, element) {
-                x[index] = $(element).attr('data-json');
-            });
-            document.getElementById("RemoveList").value = JSON.stringify(x);
-            document.getElementById("RemoveListForm").submit();
+            frm = document.getElementById("CartForm");
+            frm.action = "@Url.Action("Cart_remoSelection")";
+            frm.submit();
         }
 
 

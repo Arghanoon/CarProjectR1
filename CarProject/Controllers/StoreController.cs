@@ -78,33 +78,65 @@ namespace CarProject.Controllers
                     item.Count = cnt;
                 }
             }
+
+            if (form.AllKeys.Contains("DelivaryTypeId") && !form["DelivaryTypeId"].IsNullOrWhiteSpace())
+            {
+                int deliverid = 0;
+                int.TryParse(form["DelivaryTypeId"], out deliverid);
+                if (deliverid > 0)
+                {
+                    mdl.DelivaryTypeId = deliverid;
+                    mdl.ProductsOrServicesDeliveryType = us.dbs.ProductsOrServicesDeliveryTypes.FirstOrDefault(c => c.DeliverTypeID == deliverid);
+                }
+            }
             us.UpdateBasket(mdl);
 
-            return View(mdl);
+            return RedirectToAction("Cart_CartConfirmAddress");
         }
-        /*
+        
         [HttpPost]
-        public ActionResult Cart_remoSelection(string RemoveList)
+        public ActionResult Cart_remoSelection(FormCollection form)
         {
+            var us = new Models.Store.CartUsefull();
+            var mdl = us.GetCurrentBasket();
+            var xlst = mdl.BasketItems.ToList();
+            foreach (var item in xlst)
+            {
+                string key = string.Format("RemoveItem[{0}][{1}]", item.Id, item.Type);
+                if (form.AllKeys.Contains(key))
+                {
+                    mdl.BasketItems.Remove(item);
+                }
+            }
+            us.UpdateBasket(mdl);
             
             return RedirectToAction("Cart");
         }
+
         [HttpPost]
-        public ActionResult Cart_RemoveCopletly()
+        public ActionResult Cart_RemoveCopletly(FormCollection form)
         {
-           
+            var us = new Models.Store.CartUsefull();
+            var mdl = us.GetCurrentBasket();
+            mdl.BasketItems.Clear();
+            us.UpdateBasket(mdl);
+
             return RedirectToAction("Cart");
         }
 
         [Areas.Users.UsersCLS.UsersAuthFilter]
         public ActionResult Cart_CartConfirmAddress()
         {
-           
+            var us = new Models.Store.CartUsefull();
+            var user = Session["guestUser"] as DBSEF.User;
+            Tuple<DBSEF.Basket, DBSEF.Person> model = new Tuple<DBSEF.Basket, DBSEF.Person>(us.GetCurrentBasket(), us.dbs.People.FirstOrDefault(p => p.UserId == user.UserId));
+
             return View(model);
         }
+        /*
         [HttpPost]
         [Areas.Users.UsersCLS.UsersAuthFilter]
-        public ActionResult Cart_CartConfirmAddress(Models.Store.CartConfirmBillAndAddressModel model)
+        public ActionResult Cart_CartConfirmAddress(Tuple<DBSEF.Basket, DBSEF.Person> model)
         {
             
         }
