@@ -74,80 +74,37 @@ namespace CarProject.Areas.Users.Controllers
                     Session["guestUser"] = user;
 
                     //cart redirect
-                    var list = new List<CarProject.Models.Store.CartOfProducts>();
-                    if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
+                    if (Request.Cookies["Basket"] != null && !Request.Cookies["Basket"].Value.IsNullOrWhiteSpace())
                     {
-                        list = JsonConvert.DeserializeObject<List<CarProject.Models.Store.CartOfProducts>>(Request.Cookies["UserCart"].Value);
-                        if (list is List<CarProject.Models.Store.CartOfProducts>)
+                        var basket = JsonConvert.DeserializeObject<DBSEF.Basket>(Request.Cookies["Basket"].Value);
+                        if (basket != null)
                         {
-                            foreach (var item in list)
+                            var userbasket = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.PaymentType == (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned);
+                            if (userbasket == null)
                             {
-                                DBSEF.ToBasket tbsk = new DBSEF.ToBasket();
-                                tbsk.UserId = user.UserId;
-
-                                bool istrue = true;
-
-                                switch (item.TypeOfProduct)
+                                basket.UserId = user.UserId;
+                                basket.PaymentType = (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned;
+                                dbs.Baskets.Add(basket);
+                            }
+                            else
+                            {
+                                userbasket.DelivaryTypeId = basket.DelivaryTypeId;
+                                foreach (var item in basket.BasketItems)
                                 {
-                                    case CarProject.Models.Store.CartOfProducts.CartType.Product:
-                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.ProductId == item.Id && c.BasketId == null) <= 0)
-                                        {
-                                            tbsk.ProductEntity = item.Count;
-                                            tbsk.ProductId = item.Id;
-                                        }
-                                        else
-                                        {
-                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.ProductId == item.Id && c.BasketId == null);
-                                            if (itm != null)
-                                                itm.ProductEntity = item.Count;
-                                            istrue = false;
-                                        }
-                                        break;
-                                    case CarProject.Models.Store.CartOfProducts.CartType.AutoService:
-                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServiceId == item.Id && c.BasketId == null) <= 0)
-                                        {
-                                            tbsk.ProductEntity = item.Count;
-                                            tbsk.AutoServiceId = item.Id;
-                                        }
-                                        else
-                                        {
-                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServiceId == item.Id && c.BasketId == null);
-                                            if (itm != null)
-                                                itm.ProductEntity = item.Count;
-                                            istrue = false;
-                                        }
-                                        break;
-                                    case CarProject.Models.Store.CartOfProducts.CartType.AutoServicePack:
-                                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id && c.BasketId == null) <= 0)
-                                        {
-                                            tbsk.ProductEntity = item.Count;
-                                            tbsk.AutoServicePackId = item.Id;
-                                        }
-                                        else
-                                        {
-                                            var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id && c.BasketId == null);
-                                            if (itm != null)
-                                                itm.ProductEntity = item.Count;
-                                            istrue = false;
-                                        }
-                                        break;
-                                    default:
-                                        istrue = false;
-                                        break;
-                                }
-
-                                if (istrue)
-                                {
-                                    dbs.ToBaskets.Add(tbsk);
+                                    var itm = userbasket.BasketItems.FirstOrDefault(c => c.Id == item.Id && c.Type == item.Type);
+                                    if (itm == null)
+                                        userbasket.BasketItems.Add(item);
+                                    else
+                                        itm.Count = item.Count;
                                 }
                             }
-
-                            dbs.SaveChanges();
                         }
-                    }
 
-                    
-                    Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(-2);
+                        dbs.SaveChanges();
+
+
+                        Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(-1);
+                    }
                     //end redirect cart
 
 

@@ -28,9 +28,9 @@ namespace CarProject.Areas.Users.Controllers
                 return RedirectToAction("ShoppingHistory");
 
             var User = Session["guestUser"] as DBSEF.User;
-            var model = CarProject.Models.Store.CartOfProducts.GenerateList_BasketDetails(id, User);
+            
 
-            return View(model);
+            return View();
         }
 
     }

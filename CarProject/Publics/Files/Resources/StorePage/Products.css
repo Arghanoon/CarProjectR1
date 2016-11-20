@@ -309,6 +309,11 @@ hr {
 }
 
 @media (max-width:500px) {
+    #productActionAndInfo {
+        flex-direction:column;
+    }
+    #productAction { flex-direction:column; align-items: stretch;}
+
     .form {
         min-width:0;
         width:100%;

@@ -37,6 +37,12 @@
     <link href="~/Publics/Files/Resources/StorePage/Products.css" rel="stylesheet" />
     <script src="~/Publics/Files/Resources/StorePage/Products.js"></script>
     <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
+
+    <meta name="description" content="مشخصات مصحول @product.Category.CategoryName @product.ProductName" />
+    <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+   
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = product.ProductId, info1 = product.Category.CategoryName, info2 = product.ProductName }, Request.Url.Scheme)" />
+
 }
 
 @if (Request.Form.AllKeys.Contains("SendACommentRequest")) { <script>window.location = "#usersCommentsSection"</script> }
@@ -190,7 +196,8 @@
                 <section class="gia-heart" id="popularcountsection">@if (productsToviewObject.Favorite != null) { @productsToviewObject.Favorite } else{ <span>0</span> } </section>
             </div>
             <div id="productAction">
-                <a href="javascript:void()" onclick="AddToCart('@product.ProductId','@CarProject.Models.Store.CartOfProducts.CartType.Product')" class="gia-cart button green">اضافه کردن به سبد خرید</a>
+                <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ProductForum", id = product.ProductId, info1 = product.Category.CategoryName , info2 = product.ProductName, info3 = product.PartNumber  })" class="gia-forum button blue">پرسش و پاسخ</a>
+                <a href="javascript:void()" onclick="AddToCart('@product.ProductId','@CarProject.Models.Store.CartUsefull.Basket_ItemType.Product')" class="gia-cart button green">اضافه کردن به سبد خرید</a>
                 <a href="javascript:void()" class="gia-heart button jigary" onclick="MakeProductPopular('@Url.Action("Products_makePopular","Store")','@id')">محبوب کردن کالا</a>
             </div>
         </div>

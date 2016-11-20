@@ -9,7 +9,7 @@ using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    //[CarProject.CLS.AuthFilter]
+    [CarProject.CLS.AuthFilter]
     public class StoreController : Controller
     {
         //
@@ -469,5 +469,102 @@ namespace CarProject.Areas.Admin.Controllers
             return RedirectToAction("ServicePacks_Gallery", new { id = id });
         }
         #endregion
+
+        #region Product_Forum
+        DBSEF.CarAutomationEntities dbsObject = new DBSEF.CarAutomationEntities();
+        public ActionResult Product_Forum(int? id)
+        {
+            return View();
+        }
+        public ActionResult Product_Forum_Question(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Product_Forum_Question(int? id, DBSEF.ProductQnA model)
+        {
+            if (model.Question.IsNullOrWhiteSpace())
+                ViewData.ModelState.AddModelError("Question", "جوابی وارد نشده است");
+            if (ModelState.IsValid)
+            {
+                model.QuestionType = "A";
+                dbsObject.ProductQnAs.Add(model);
+                dbsObject.SaveChanges();
+
+                return RedirectToAction("Product_Forum_Question", new { id = id });
+            }
+            return View(model);
+        }
+        #endregion
+
+
+        public ActionResult DeliveryTypes()
+        {
+            return View();
+        }
+        public ActionResult DeliveryTypes_New()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DeliveryTypes_New(DBSEF.ProductsOrServicesDeliveryType model)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (model.Name.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Name", "نامی برای پلن تعیین نشده است");
+            else if(dbs.ProductsOrServicesDeliveryTypes.Count(c => c.Name == model.Name) > 0)
+                ModelState.AddModelError("Name", "نامی وارد شده برای پلن تکراری است");
+            if (model.Hour == null)
+                ModelState.AddModelError("Hour", "زمان (ساعت) تحویل /انجام تعیین نشده است");
+            if (model.Price.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Price", "هزینه پلن تعیین نشده است");
+            else if(!model.Price.IsNumber())
+                ModelState.AddModelError("Price", "مقدار وارد شده صحیح نیست");
+
+            if (ModelState.IsValid)
+            {
+                dbs.ProductsOrServicesDeliveryTypes.Add(model);
+                dbs.SaveChanges();
+
+                return RedirectToAction("DeliveryTypes");
+            }
+            return View(model);
+        }
+
+        public ActionResult DeliveryTypes_Update(int? id)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var model = dbs.ProductsOrServicesDeliveryTypes.FirstOrDefault(c => c.DeliverTypeID == id);
+            if (model == null)
+                return RedirectToAction("DeliveryTypes");
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult DeliveryTypes_Update(int? id, DBSEF.ProductsOrServicesDeliveryType model)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (model.Name.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Name", "نامی برای پلن تعیین نشده است");
+            else if (dbs.ProductsOrServicesDeliveryTypes.Count(c => c.Name == model.Name) > 0)
+                ModelState.AddModelError("Name", "نامی وارد شده برای پلن تکراری است");
+            if (model.Hour == null)
+                ModelState.AddModelError("Hour", "زمان (ساعت) تحویل /انجام تعیین نشده است");
+            if (model.Price.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Price", "هزینه پلن تعیین نشده است");
+            else if (!model.Price.IsNumber())
+                ModelState.AddModelError("Price", "مقدار وارد شده صحیح نیست");
+
+            if (ModelState.IsValid)
+            {
+                var mdl = dbs.ProductsOrServicesDeliveryTypes.FirstOrDefault(c => c.DeliverTypeID == id);
+                TryUpdateModel(mdl);
+                dbs.SaveChanges();
+
+                return RedirectToAction("DeliveryTypes");
+            }
+
+            return View(model);
+        }
     }
 }

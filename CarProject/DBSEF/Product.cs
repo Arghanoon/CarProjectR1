@@ -23,9 +23,9 @@ namespace CarProject.DBSEF
             this.ProductDiscounts = new HashSet<ProductDiscount>();
             this.ProductInServices = new HashSet<ProductInService>();
             this.ProductPrices = new HashSet<ProductPrice>();
+            this.ProductQnAs = new HashSet<ProductQnA>();
             this.ProductStores = new HashSet<ProductStore>();
             this.ProductToViews = new HashSet<ProductToView>();
-            this.ToBaskets = new HashSet<ToBasket>();
             this.TodaysSpecials = new HashSet<TodaysSpecial>();
             this.Troubleshootings = new HashSet<Troubleshooting>();
         }
@@ -57,7 +57,6 @@ namespace CarProject.DBSEF
         public virtual Manufacture Manufacture { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonProduct> PersonProducts { get; set; }
-        public virtual ProductQnA ProductQnA { get; set; }
         public virtual ProductReview ProductReview { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductCar> ProductCars { get; set; }
@@ -70,11 +69,11 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductPrice> ProductPrices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductQnA> ProductQnAs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductStore> ProductStores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductToView> ProductToViews { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToBasket> ToBaskets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TodaysSpecial> TodaysSpecials { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

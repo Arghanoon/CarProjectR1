@@ -31,6 +31,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<AutoServiceCar> AutoServiceCars { get; set; }
         public virtual DbSet<AutoServicePack> AutoServicePacks { get; set; }
         public virtual DbSet<AutoService1> AutoServices1 { get; set; }
+        public virtual DbSet<BasketItem> BasketItems { get; set; }
         public virtual DbSet<Basket> Baskets { get; set; }
         public virtual DbSet<BrakeSystem> BrakeSystems { get; set; }
         public virtual DbSet<CarAirbag> CarAirbags { get; set; }
@@ -83,6 +84,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<ProductReview> ProductReviews { get; set; }
         public virtual DbSet<ProductServicePackUse> ProductServicePackUses { get; set; }
         public virtual DbSet<ProductServiceUse> ProductServiceUses { get; set; }
+        public virtual DbSet<ProductsOrServicesDeliveryType> ProductsOrServicesDeliveryTypes { get; set; }
         public virtual DbSet<ProductStore> ProductStores { get; set; }
         public virtual DbSet<ProductToView> ProductToViews { get; set; }
         public virtual DbSet<SecuritySystem> SecuritySystems { get; set; }
@@ -90,7 +92,6 @@ namespace CarProject.DBSEF
         public virtual DbSet<ServiceToView> ServiceToViews { get; set; }
         public virtual DbSet<SlideShow> SlideShows { get; set; }
         public virtual DbSet<SteeringSystem> SteeringSystems { get; set; }
-        public virtual DbSet<ToBasket> ToBaskets { get; set; }
         public virtual DbSet<TodaysSpecial> TodaysSpecials { get; set; }
         public virtual DbSet<Troubleshooting> Troubleshootings { get; set; }
         public virtual DbSet<User> Users { get; set; }

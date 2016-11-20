@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E3200A96-1EF4-4265-9DFF-B90A260DA791}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CarProject</RootNamespace>
@@ -206,6 +206,9 @@
     <Compile Include="DBSEF\Basket.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\BasketItem.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\BrakeSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -374,6 +377,9 @@
     <Compile Include="DBSEF\ProductServiceUse.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\ProductsOrServicesDeliveryType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\ProductStore.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -393,9 +399,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\SteeringSystem.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBSEF\ToBasket.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\TodaysSpecial.cs">
@@ -841,6 +844,23 @@
     <Content Include="Areas\Users\Views\profile\Login.cshtml" />
     <Content Include="Areas\Users\Views\Dashboard\ShoppingHistory.cshtml" />
     <Content Include="Areas\Users\Views\Dashboard\BasketDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Products_CostList.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\Cars_CostList.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Services_Gallery.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ServicePacks_Gallery.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductCommentShow.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductCommentShow_delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarCommentShow.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarCommentShow_delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\Car_Forum.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\Car_Forum_Question.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Product_Forum.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Product_Forum_Question.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DeliveryTypes_New.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DeliveryTypes.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DeliveryTypes_Update.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -858,16 +878,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Store\ProductComments.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\Products_CostList.cshtml" />
-    <Content Include="Areas\Admin\Views\Cars\Cars_CostList.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\Services_Gallery.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\ServicePacks_Gallery.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\ProductCommentShow.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\ProductCommentShow_delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Cars\CarComments.cshtml" />
-    <Content Include="Areas\Admin\Views\Cars\CarCommentShow.cshtml" />
-    <Content Include="Areas\Admin\Views\Cars\CarCommentShow_delete.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
@@ -890,6 +900,10 @@
     <Content Include="Views\Store\SelectePaymentType.cshtml" />
     <Content Include="Views\Store\PaymentCart.cshtml" />
     <Content Include="Views\News\NewsShow.cshtml" />
+    <Content Include="Views\Cars\CarForum.cshtml" />
+    <Content Include="Views\Cars\Car_Forum_Question.cshtml" />
+    <Content Include="Views\Store\ProductForum.cshtml" />
+    <Content Include="Views\Store\ProductForum_Question.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -12,25 +12,20 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class Basket
+    public partial class ProductsOrServicesDeliveryType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Basket()
+        public ProductsOrServicesDeliveryType()
         {
-            this.BasketItems = new HashSet<BasketItem>();
+            this.Baskets = new HashSet<Basket>();
         }
     
-        public int BasketId { get; set; }
-        public Nullable<byte> State { get; set; }
-        public Nullable<System.DateTime> FinisDate { get; set; }
-        public Nullable<System.DateTime> DelivaryDate { get; set; }
-        public Nullable<byte> PaymentType { get; set; }
-        public Nullable<int> DelivaryTypeId { get; set; }
-        public Nullable<int> UserId { get; set; }
+        public int DeliverTypeID { get; set; }
+        public string Name { get; set; }
+        public string Price { get; set; }
+        public Nullable<int> Hour { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BasketItem> BasketItems { get; set; }
-        public virtual ProductsOrServicesDeliveryType ProductsOrServicesDeliveryType { get; set; }
-        public virtual User User { get; set; }
+        public virtual ICollection<Basket> Baskets { get; set; }
     }
 }
