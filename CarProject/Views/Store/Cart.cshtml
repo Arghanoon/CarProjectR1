@@ -55,7 +55,9 @@
                                @pric
                             </td>
                             <td class="fix center">
-                                <input type="text" name="Count[@item.Id][@item.Type]" value="@item.Count" class="center" data-itemprice="@usfull.GetPriceOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value)" onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
+                                <div class="input">
+                                    <input type="text" name="Count[@item.Id][@item.Type]" value="@item.Count" class="center" data-itemprice="@usfull.GetPriceOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value)" onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
+                                </div>
                             </td>
                             <td class="fix center">
                                 <span class="totalprice">
@@ -68,30 +70,35 @@
                     
                     i += 1;
                 }
-                    <tr>
+
+                    <tr style="background:#a7d4ff;">
                         <td colspan="4">پلن تحویل کالا / انجام خدمات</td>
                         <td colspan="2">
-                            <select name="DelivaryTypeId" onchange="PlanComboBoxOnChange(this)">
-                                @{
-                                    var xDeliveryTypes = dbs.ProductsOrServicesDeliveryTypes.AsQueryable();
-                                    int DLTYP = 0;
-                                    if(Model.ProductsOrServicesDeliveryType == null && xDeliveryTypes.Count() > 0)
-                                    {
-                                        int.TryParse(xDeliveryTypes.First().Price, out DLTYP);
+                            <div class="input">
+                                <select name="DelivaryTypeId" onchange="PlanComboBoxOnChange(this)">
+                                    @{
+                                        var xDeliveryTypes = dbs.ProductsOrServicesDeliveryTypes.AsQueryable();
+                                        int DLTYP = 0;
+                                        if (Model.ProductsOrServicesDeliveryType == null && xDeliveryTypes.Count() > 0)
+                                        {
+                                            int.TryParse(xDeliveryTypes.First().Price, out DLTYP);
+                                        }
+                                        else
+                                        {
+                                            int.TryParse(Model.ProductsOrServicesDeliveryType.Price, out DLTYP);
+                                        }
+
+                                        TotalPrice += DLTYP;
+
+                                        int? selectedid = (Model.DelivaryTypeId == null) ? xDeliveryTypes.First().DeliverTypeID : Model.DelivaryTypeId;
+
+                                        foreach (var item in xDeliveryTypes)
+                                        {
+                                        <option @if (selectedid == item.DeliverTypeID) { Write("selected=\"selected\""); } value="@item.DeliverTypeID" data-price="@item.Price">@item.Name</option>
                                     }
-                                    else
-                                    {
-                                        int.TryParse(Model.ProductsOrServicesDeliveryType.Price, out DLTYP);
                                     }
-                                    
-                                    TotalPrice += DLTYP;
-                                                
-                                    foreach (var item in xDeliveryTypes)
-                                    {
-                                        <option @if(Model.ProductsOrServicesDeliveryType != null && item.DeliverTypeID == Model.ProductsOrServicesDeliveryType.DeliverTypeID) { Write("selected=\"selected\""); } value="@item.DeliverTypeID" data-price="@item.Price">@item.Name</option>
-                                    }
-                                }
-                            </select>
+                                </select>
+                            </div>
                         </td>
                         <td>
                             <section id="Plan_Selected_Price" class="center">@DLTYP</section>
@@ -150,6 +157,8 @@
             #cartTable .center {
                 text-align: center;
             }
+
+                
     </style>
 }
 
@@ -168,14 +177,16 @@
         }
 
         function ChangeTotalPriceValue(e) {
-            tr = $(e.target).parent('td').parent();
+            tr = $(e.target).parent().parent().parent();
+            
             exh = $(e.target).attr('data-itemprice');
             $('.totalprice', tr).html((exh * parseInt(e.target.value)));
-
+           
             sumofall = 0;
             $("#cartTable tbody tr .totalprice").each(function (index, element) {
                 sumofall += parseInt($(element).html());
             });
+            
             document.getElementById("SumOfAllPrices").innerHTML = sumofall;
         }
 

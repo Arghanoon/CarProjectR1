@@ -28,11 +28,17 @@ namespace CarProject.Models.Store
             AutoServicePack = 3
         };
 
-        public enum Basket_PaymentType
+        public enum Basket_State
         {
             Openned = 1,
             Finished = 2,
             Delivered = 3
+        };
+
+        public enum Basket_PaymentType
+        {
+            Online = 1,
+            InLocation = 2
         };
 
 
@@ -42,10 +48,10 @@ namespace CarProject.Models.Store
             if (Context.Session["guestUser"] != null && Context.Session["guestUser"] is DBSEF.User)
             {
                 var user = Context.Session["guestUser"] as DBSEF.User;
-                var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.PaymentType == (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned);
+                var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)Models.Store.CartUsefull.Basket_State.Openned);
                 if (cart == null)
                 {
-                    cart = new DBSEF.Basket { UserId = user.UserId, PaymentType = (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned };
+                    cart = new DBSEF.Basket { UserId = user.UserId, State = (byte)Models.Store.CartUsefull.Basket_State.Openned };
                     dbs.Baskets.Add(cart);
                     dbs.SaveChanges();
                 }
@@ -69,7 +75,7 @@ namespace CarProject.Models.Store
             if (Context.Session["guestUser"] != null && Context.Session["guestUser"] is DBSEF.User)
             {
                 var user = Context.Session["guestUser"] as DBSEF.User;                
-                var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.PaymentType == (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned);
+                var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)Models.Store.CartUsefull.Basket_State.Openned);
                 cart = basket;
                 dbs.SaveChanges();
 
@@ -78,8 +84,12 @@ namespace CarProject.Models.Store
             }
             else
             {
-                Context.Response.Cookies["Basket"].Value = JsonConvert.SerializeObject(basket);
-                Context.Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(1);
+                try
+                {
+                    Context.Response.Cookies["Basket"].Value = JsonConvert.SerializeObject(basket);
+                    Context.Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(1);
+                }
+                catch { }
             }
         }
 

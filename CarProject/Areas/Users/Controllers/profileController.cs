@@ -79,11 +79,12 @@ namespace CarProject.Areas.Users.Controllers
                         var basket = JsonConvert.DeserializeObject<DBSEF.Basket>(Request.Cookies["Basket"].Value);
                         if (basket != null)
                         {
-                            var userbasket = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.PaymentType == (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned);
+                            var userbasket = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)Models.Store.CartUsefull.Basket_State.Openned);
                             if (userbasket == null)
                             {
                                 basket.UserId = user.UserId;
-                                basket.PaymentType = (byte)Models.Store.CartUsefull.Basket_PaymentType.Openned;
+                                basket.ProductsOrServicesDeliveryType = null;
+                                basket.State = (byte)Models.Store.CartUsefull.Basket_State.Openned;
                                 dbs.Baskets.Add(basket);
                             }
                             else

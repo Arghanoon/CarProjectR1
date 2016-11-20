@@ -898,12 +898,13 @@
     <Content Include="Views\Store\Cart.cshtml" />
     <Content Include="Views\Store\Cart_CartConfirmAddress.cshtml" />
     <Content Include="Views\Store\SelectePaymentType.cshtml" />
-    <Content Include="Views\Store\PaymentCart.cshtml" />
     <Content Include="Views\News\NewsShow.cshtml" />
     <Content Include="Views\Cars\CarForum.cshtml" />
     <Content Include="Views\Cars\Car_Forum_Question.cshtml" />
     <Content Include="Views\Store\ProductForum.cshtml" />
     <Content Include="Views\Store\ProductForum_Question.cshtml" />
+    <Content Include="Views\Store\PaymentCart_InLocation.cshtml" />
+    <Content Include="Views\Store\PaymentCart_Online.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

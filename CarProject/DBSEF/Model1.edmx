@@ -80,6 +80,8 @@
           <Property Name="PaymentType" Type="tinyint" />
           <Property Name="DelivaryTypeId" Type="int" />
           <Property Name="UserId" Type="int" />
+          <Property Name="BankCode" Type="nvarchar" MaxLength="255" />
+          <Property Name="LocalCode" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="BrakeSystem">
           <Key>
@@ -2341,6 +2343,8 @@
           <Property Name="PaymentType" Type="Byte" />
           <Property Name="DelivaryTypeId" Type="Int32" />
           <Property Name="UserId" Type="Int32" />
+          <Property Name="BankCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LocalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BasketItems" Relationship="Self.FK_BasketItems_Baskets" FromRole="Baskets" ToRole="BasketItems" />
           <NavigationProperty Name="ProductsOrServicesDeliveryType" Relationship="Self.FK_Baskets_Baskets" FromRole="Baskets" ToRole="ProductsOrServicesDeliveryTypes" />
           <NavigationProperty Name="User" Relationship="Self.FK_Baskets_User" FromRole="Baskets" ToRole="User" />
@@ -4745,6 +4749,8 @@
                 <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
                 <ScalarProperty Name="DelivaryTypeId" ColumnName="DelivaryTypeId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+                <ScalarProperty Name="LocalCode" ColumnName="LocalCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
