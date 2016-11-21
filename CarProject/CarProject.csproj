@@ -170,6 +170,7 @@
     <Compile Include="Areas\Admin\Models\Store\StoreMVC.cs" />
     <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
     <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Users\Models\Dashboard\PersonCarsModel.cs" />
     <Compile Include="Areas\Users\UsersCLS\Filters.cs" />
     <Compile Include="Areas\Users\Controllers\profileController.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
@@ -699,7 +700,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Users\Models\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Gallery\Brands\" />
     <Folder Include="Publics\Gallery\CarImages\" />
@@ -878,6 +878,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Users\Views\Dashboard\InsertPersonCar.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

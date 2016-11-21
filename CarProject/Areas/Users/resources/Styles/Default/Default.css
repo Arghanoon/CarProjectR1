@@ -56,3 +56,19 @@ footer {
     padding:5px;
     background:#fafafa;
 }
+
+.infoTable {
+    width:100%;
+}
+    .infoTable td,
+    .infoTable th {
+        padding:1px 5px;
+        border:thin solid #fff;
+    }
+
+    .infoTable th {
+        text-align:right;
+        background:white;
+        width:0;
+        white-space:nowrap;
+    }
