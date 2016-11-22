@@ -41,7 +41,6 @@ namespace CarProject.Models.Store
             InLocation = 2
         };
 
-
         public DBSEF.Basket GetCurrentBasket()
         {
             var res = new DBSEF.Basket();
@@ -217,5 +216,22 @@ namespace CarProject.Models.Store
         
     }
 
+    public static class CartUsefullStatics
+    {
+        public static string Basket_State_ToString(this CartUsefull.Basket_State value)
+        {
+            switch (value)
+            {
+                case CartUsefull.Basket_State.Openned:
+                    return "درحال خرید (باز)";
+                case CartUsefull.Basket_State.Finished:
+                    return "اتمام خرید و ثبت درخواست";
+                case CartUsefull.Basket_State.Delivered:
+                    return "تحویل محصول";
+                default:
+                    return "";
+            }
+        }
+    }
    
 }
