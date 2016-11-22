@@ -77,7 +77,7 @@
         <MappingFragment StoreEntitySet="Baskets">
           <ScalarProperty Name="BasketId" ColumnName="BasketId" />
           <ScalarProperty Name="State" ColumnName="State" />
-          <ScalarProperty Name="FinisDate" ColumnName="FinisDate" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
           <ScalarProperty Name="DelivaryDate" ColumnName="DelivaryDate" />
           <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
           <ScalarProperty Name="DelivaryTypeId" ColumnName="DelivaryTypeId" />

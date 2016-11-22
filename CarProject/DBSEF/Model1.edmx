@@ -75,7 +75,7 @@
           </Key>
           <Property Name="BasketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="State" Type="tinyint" />
-          <Property Name="FinisDate" Type="datetime" />
+          <Property Name="FinishDate" Type="datetime" />
           <Property Name="DelivaryDate" Type="date" />
           <Property Name="PaymentType" Type="tinyint" />
           <Property Name="DelivaryTypeId" Type="int" />
@@ -2338,7 +2338,7 @@
           </Key>
           <Property Name="BasketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="State" Type="Byte" />
-          <Property Name="FinisDate" Type="DateTime" Precision="3" />
+          <Property Name="FinishDate" Type="DateTime" Precision="3" />
           <Property Name="DelivaryDate" Type="DateTime" Precision="0" />
           <Property Name="PaymentType" Type="Byte" />
           <Property Name="DelivaryTypeId" Type="Int32" />
@@ -4744,7 +4744,7 @@
               <MappingFragment StoreEntitySet="Baskets">
                 <ScalarProperty Name="BasketId" ColumnName="BasketId" />
                 <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="FinisDate" ColumnName="FinisDate" />
+                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
                 <ScalarProperty Name="DelivaryDate" ColumnName="DelivaryDate" />
                 <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
                 <ScalarProperty Name="DelivaryTypeId" ColumnName="DelivaryTypeId" />
