@@ -223,6 +223,11 @@ namespace CarProject.Controllers
                 if(form["comment"] == "")
                     ViewBag.error["comment"] = "پیام وارد نشده است";
 
+                if (form["captcha"] == "")
+                    ViewBag.error["captcha"] = "کد امنیتی وارد نشده است";
+                else if (!DefaultController.ValidationCaptcha(form["captcha"]))
+                    ViewBag.error["captcha"] = "کد امنیتی وارد شده صحیح نیست";
+
                 if (((Dictionary<string, string>)ViewBag.error).Count == 0)
                 {
                     var dbs = new DBSEF.CarAutomationEntities();

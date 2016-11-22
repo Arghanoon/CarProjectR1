@@ -30,12 +30,17 @@ namespace CarProject.Areas.Users.Controllers
 
         public ActionResult Signup()
         {
-            var model = new Models.User.UserInfo();
+            var model = new CarProject.Models.User.UserInfo();
             return View(model);
         }
         [HttpPost]
-        public ActionResult Signup(Models.User.UserInfo model)
+        public ActionResult Signup(CarProject.Models.User.UserInfo model, string captcha)
         {
+            if (captcha.IsNullOrWhiteSpace())
+                ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
+            else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(captcha))
+                ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نست");
+
             if (ModelState.IsValid)
             {
                 model.Person.User.IsActive = true;
@@ -79,12 +84,12 @@ namespace CarProject.Areas.Users.Controllers
                         var basket = JsonConvert.DeserializeObject<DBSEF.Basket>(Request.Cookies["Basket"].Value);
                         if (basket != null)
                         {
-                            var userbasket = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)Models.Store.CartUsefull.Basket_State.Openned);
+                            var userbasket = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)CarProject.Models.Store.CartUsefull.Basket_State.Openned);
                             if (userbasket == null)
                             {
                                 basket.UserId = user.UserId;
                                 basket.ProductsOrServicesDeliveryType = null;
-                                basket.State = (byte)Models.Store.CartUsefull.Basket_State.Openned;
+                                basket.State = (byte)CarProject.Models.Store.CartUsefull.Basket_State.Openned;
                                 dbs.Baskets.Add(basket);
                             }
                             else
@@ -130,6 +135,21 @@ namespace CarProject.Areas.Users.Controllers
 
             ViewBag.loginerror = error;
             return View();
+        }
+
+
+        public static DBSEF.User GetCurrentLoginedUser
+        {
+            get
+            {
+                var Session = System.Web.HttpContext.Current.Session;
+                if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
+                {
+                    return Session["guestUser"] as DBSEF.User;
+                }
+                else
+                    return null;
+            }
         }
     }
 }

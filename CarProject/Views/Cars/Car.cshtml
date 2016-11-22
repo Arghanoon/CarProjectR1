@@ -31,7 +31,7 @@
     <div id="content">
         <div id="contentTopBarSection" class="pagesection">
             <div>
-                <a href="#" class="gia-usercar">ثبت به عنوان خودروی کاربر</a>
+                <a href="/Users/Dashboard/InsertPersonCar/@Model.Car.CarsId" class="gia-usercar">ثبت به عنوان خودروی کاربر</a>
                 |
                 <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarForum", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })" class="gia-forum">پرسش و پاسخ</a>
             </div>
@@ -924,6 +924,16 @@
                                 <span class="error">@try
                                                     { @ViewBag.error["comment"] }
                                                     catch { }</span>
+                            </label>
+                            <label>
+                                <span>کد امنیتی</span>
+                                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                    <a href="javascript:void()" onclick="ReloadCaptcha('captcha')">
+                                        <img id="captcha" src="/default/index" /></a>
+                                    <small>برای تغییر کد روی تصویر کلیک کنید</small>
+                                    <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
+                                </div>
+                                <span class="error">@try { @ViewBag.error["captcha"] } catch { }</span>
                             </label>
                         </div>
 

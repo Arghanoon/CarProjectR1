@@ -498,6 +498,7 @@ namespace CarProject.Areas.Admin.Controllers
         #endregion
 
 
+        #region DeliveryType
         public ActionResult DeliveryTypes()
         {
             return View();
@@ -566,5 +567,6 @@ namespace CarProject.Areas.Admin.Controllers
 
             return View(model);
         }
+        #endregion
     }
 }

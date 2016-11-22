@@ -121,7 +121,7 @@ namespace CarProject.App_extension
             int y = 0, m = 0, d = 0;
             PersianCalendar prs = new PersianCalendar();
             var re = value.Split('/');
-            if (re.Length <= 3)
+            if (re.Length < 3)
                 return null;
             
             int.TryParse(re[0], out y);

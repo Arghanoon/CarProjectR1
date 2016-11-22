@@ -2,7 +2,7 @@
     ViewBag.Title = "نظرات کاربران برای محصولات";
 
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
-    var comments = dbs.ProductComments;
+    var comments = dbs.ProductComments.OrderByDescending(c => c.ProductCommentId);
 }
 @using CarProject.App_extension
 

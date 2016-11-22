@@ -63,6 +63,24 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to مقدار وارد شده صحیح نیست.
         /// </summary>
+        internal static string FieldMustBeDate {
+            get {
+                return ResourceManager.GetString("FieldMustBeDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to مقدار وارد شده صحیح نیست.
+        /// </summary>
+        internal static string FieldMustBeNumeric {
+            get {
+                return ResourceManager.GetString("FieldMustBeNumeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to مقدار وارد شده صحیح نیست.
+        /// </summary>
         internal static string PropertyValueInvalid {
             get {
                 return ResourceManager.GetString("PropertyValueInvalid", resourceCulture);

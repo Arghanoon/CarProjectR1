@@ -42,24 +42,50 @@
     </div>
 
 
-    <div class="flex-row-center-fstart" style="">
-        <div id="BrandsContainer" style="margin-left: 5px; margin-top: -2.5px;">
-            @{
-                var brands = dbs.CarBrands.Take(30);
-                foreach (var item in brands)
-                {
-                    DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Publics/Gallery/Brands"));
-                    var f = di.GetFiles(string.Format("{0}.*", item.CarBrandId));
-                    if(f.Length > 0)
+    <div id="Contianer1" style="">
+        <div style="margin-left: 5px; margin-top: -2.5px;" id="rightSideBar">
+            <div id="BrandsContainer" class="SideBarItemsContainer">
+                @{
+                    var brands = dbs.CarBrands.Take(30);
+                    foreach (var item in brands)
                     {
-                        <a href="#" data-title="@item.CarBrandName">
-                            <img src="~/Publics/Gallery/Brands/@f[0].Name" alt="@item.CarBrandName"/>
-                        </a>
+                        DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Publics/Gallery/Brands"));
+                        var f = di.GetFiles(string.Format("{0}.*", item.CarBrandId));
+                        if (f.Length > 0)
+                        {
+                    <a href="#" data-title="@item.CarBrandName">
+                        <img src="~/Publics/Gallery/Brands/@f[0].Name" alt="@item.CarBrandName"/>
+                    </a>
+                        }
                     }
                 }
-             }
+            </div>
+
+            <h3>خودروها</h3>
+            <div id="CarsContainer" class="SideBarItemsContainer">
+                @{
+                    var cars = dbs.Cars.OrderByDescending(c => c.CarsId).Take(30);
+                    foreach (var item in cars)
+                    {
+                        var imgpaht = "~/Publics/Gallery/CarImages/" + item.CarsId.ToString();
+                        var dicinfo = new DirectoryInfo(Server.MapPath(imgpaht));
+                        if(dicinfo.Exists)
+                        {
+                            var imgs = dicinfo.GetFiles();
+                            if(imgs.Length > 0)
+                            {
+                                var inrnd = rand.Next(0,imgs.Length);
+                                <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })" data-title="@item.CarModel.CarBrand.CarBrandName - @item.CarModel.CarModelName">
+                                    <img src="@Url.Content(@imgpaht + "/" + @imgs[inrnd].Name)" alt="@item.CarModel.CarBrand.CarBrandName - @item.CarModel.CarModelName"/>
+                                </a>
+                            }
+                        }
+                    }
+                }
+            </div>
         </div>
-        <div class="w70 flex-column-center-stretch">
+
+        <div id="itemsShowing1">
             <div class="SliderType1" style="height: 400px; margin-right: 5px;">
                 <div class="w25 sliderTitles">
                     @{i = 1; }
