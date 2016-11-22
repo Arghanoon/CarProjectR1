@@ -43,7 +43,9 @@
                             <strong>@user.Uname</strong> |
                         </span> 
                         <a href="/Users/profile" class="gia-user">پروفایل کاربر</a>
+                        <a href="javascript:void()" onclick="document.getElementById('logoutform').submit()" class="gia-logout">خروج کاربر</a>
                         
+                        <form method="post" id="logoutform" action="@Url.Action("LogoutRequest", "profile", new { area = "Users" })" ></form>
                     }
                     <a href="@Url.Action("Cart", "Store", new { area = "" })" class="gia-cart">سبد خرید</a>
                     @*<a href="#" class="gia-heart">علاقه مندیها</a>*@

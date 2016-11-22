@@ -9,17 +9,108 @@ using Newtonsoft.Json;
 
 namespace CarProject.Areas.Users.Controllers
 {
+    [UsersCLS.UsersAuthFilter]
     public class profileController : Controller
     {
         //
         // GET: /Users/profile/
 
-        [UsersCLS.UsersAuthFilter]
+        
         public ActionResult Index()
         {
             return View();
         }
 
+        public ActionResult ViewUserProfile()
+        {
+            return View();
+        }
+
+        public ActionResult UserChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UserChangePassword(FormCollection form)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var user = GetCurrentLoginedUser;
+            var userfromDb = dbs.Users.FirstOrDefault(c => c.UserId ==  user.UserId);
+
+            if (form["currentPassword"].IsNullOrWhiteSpace() || form["currentPassword"] == null)
+                ModelState.AddModelError("currentPassword", "کلمه عبور فعلی وارد نشده است");
+            else if (CLS.Usefulls.MD5Passwords(form["currentPassword"]) != userfromDb.Upass)
+                ModelState.AddModelError("currentPassword", "کلمه عبور فعلی وارد شده صحیح نیست");
+
+            if (form["newPassword1"].IsNullOrWhiteSpace() || form["newPassword1"] == null)
+                ModelState.AddModelError("newPassword1", "کلمه عبور جدید وارد نشده است");
+            if (form["newPassword2"].IsNullOrWhiteSpace() || form["newPassword2"] == null)
+                ModelState.AddModelError("newPassword2", "تایید کلمه عبور جدید وارد نشده است");
+
+            if (!form["newPassword1"].IsNullOrWhiteSpace() && !form["newPassword2"].IsNullOrWhiteSpace() && form["newPassword1"] != form["newPassword2"])
+            {
+                ModelState.AddModelError("newPassword2", "کلمه عبور جدید و تایید آن برابر نیستند");
+                ModelState.AddModelError("newPassword1", "کلمه عبور جدید و تایید آن برابر نیستند");
+            }
+
+            if (ModelState.IsValid)
+            {
+                userfromDb.Upass = CLS.Usefulls.MD5Passwords(form["newPassword1"]);
+                dbs.SaveChanges();
+
+                ModelState.AddModelError("success", "کلمه عبور با موفقیت تغییر یافت");
+            }
+
+            return View();
+        }
+
+        public ActionResult UserEditePersonInformation()
+        {
+            return View(GetCurrentLoginPerson);
+        }
+        [HttpPost]
+        public ActionResult UserEditePersonInformation(DBSEF.Person model)
+        {
+            if (model.PersonFirtstName.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonFirtstName", "نام کاربر وارد نشده است");
+            if (model.PersonLastName.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonLastName", "نام خانوادگی کاربر وارد نشده است");
+            
+            if (model.PersonEmail.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonEmail", "ایمیل کاربر وارد نشده است");
+            else if(!model.PersonEmail.String_IsEmail())
+                ModelState.AddModelError("PersonEmail", "ایمیل وارد شده صحیح نیست");
+
+            if (model.PersonMobile.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonMobile", "همراه وارد نشده است");
+            if (!model.PersonMobile.IsNumber())
+                ModelState.AddModelError("PersonMobile", "همراه وارد شده صحیح نیست");
+
+            if (!model.PersonPhone.IsNullOrWhiteSpace() && !model.PersonPhone.IsNumber())
+                ModelState.AddModelError("PersonPhone", "شماره وارد شده صحیح نیست");
+
+            if (model.PersonAddressCity.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonAddressCity", "شهر و استان محل اقامت وارد نشده است");
+
+            if (model.PersonAddress.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonAddress", "آدرس وارد نشده است");
+
+            if (ModelState.IsValid)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                var currentperson = dbs.People.FirstOrDefault(c => c.PersonId == GetCurrentLoginPerson.PersonId);
+
+                TryUpdateModel(currentperson);
+                dbs.SaveChanges();
+
+                ModelState.AddModelError("success", "ویرایش اطلاعات کاربر با موفقیت انجام شد");
+            }
+
+            return View(model);
+        }
+
+
+        #region Login and Logout and Current User
         [HttpPost]
         public ActionResult LogoutRequest()
         {
@@ -28,12 +119,14 @@ namespace CarProject.Areas.Users.Controllers
             return Redirect("/");
         }
 
+        [UsersCLS.Users_DontAuthFilter]
         public ActionResult Signup()
         {
             var model = new CarProject.Models.User.UserInfo();
             return View(model);
         }
         [HttpPost]
+        [UsersCLS.Users_DontAuthFilter]
         public ActionResult Signup(CarProject.Models.User.UserInfo model, string captcha)
         {
             if (captcha.IsNullOrWhiteSpace())
@@ -52,6 +145,7 @@ namespace CarProject.Areas.Users.Controllers
             return View(model);
         }
 
+        [UsersCLS.Users_DontAuthFilter]
         public ActionResult Login()
         {
             if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
@@ -59,6 +153,7 @@ namespace CarProject.Areas.Users.Controllers
             return View();
         }
         [HttpPost]
+        [UsersCLS.Users_DontAuthFilter]
         public ActionResult Login(FormCollection form)
         {
             var error = new List<string>();
@@ -151,5 +246,14 @@ namespace CarProject.Areas.Users.Controllers
                     return null;
             }
         }
+        public static DBSEF.Person GetCurrentLoginPerson
+        {
+            get
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                return dbs.People.FirstOrDefault(p => p.UserId == GetCurrentLoginedUser.UserId);
+            }
+        }
+        #endregion
     }
 }

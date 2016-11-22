@@ -24,13 +24,12 @@ namespace CarProject.Areas.Users.Controllers
 
         public ActionResult BasketDetails(int? id)
         {
-            if (id == null)
-                return RedirectToAction("ShoppingHistory");
-
             var User = Session["guestUser"] as DBSEF.User;
-            
-
-            return View();
+            var dbs = new CarProject.DBSEF.CarAutomationEntities();
+            var model = dbs.Baskets.FirstOrDefault(c => c.BasketId == id && c.UserId == User.UserId);
+            if (model == null)
+                return RedirectToAction("ShoppingHistory");
+            return View(model);
         }
 
 
