@@ -1,10 +1,12 @@
-﻿@{
+﻿@using CarProject.Models.Store
+@{
     ViewBag.Title = "جزئیات خرید";
-    var usfl = new CarProject.Models.Store.CartUsefull();
+    var usfl = new CartUsefull();
 }
 
-@model List<CarProject.Models.Store.CartOfProducts>
+@model CarProject.DBSEF.Basket
 @using CarProject.App_Code
+
 
 <div class="page" id="billingInformation">
     <h3>لیست محصولات درخواستی</h3>
@@ -22,16 +24,16 @@
         </thead>
         <tbody>
             @{ int i = 1; int TotalPrice = 0; }
-            @foreach (var item in Model)
+            @foreach (var item in Model.BasketItems)
             {
                 int pric = 0;
-                int.TryParse(usfl.GetPriceOfCartObject(item.Id, item.TypeOfProduct),out pric);
-                var ttpic = pric * item.Count;
+                int.TryParse(usfl.GetPriceOfCartObject(item.Id.Value, (CartUsefull.Basket_ItemType)item.Type),out pric);
+                var ttpic = pric * item.Count.GetValueOrDefault(0);
                 TotalPrice += ttpic;
                 <tr>
                     <td class="fix center">@i</td>
-                    <td>@usfl.GetNameOfCartObject(item.Id, item.TypeOfProduct)</td>
-                    <td>@usfl.GetNameofCartType(item.TypeOfProduct)</td>
+                    <td>@usfl.GetNameOfCartObject(item.Id.Value, (CartUsefull.Basket_ItemType)item.Type)</td>
+                    <td>@usfl.GetNameofCartType((CartUsefull.Basket_ItemType)item.Type)</td>
                     <td class="fix center">@pric</td>
                     <td class="fix center">@item.Count</td>
                     <td class="fix center">@ttpic</td>
@@ -47,6 +49,10 @@
             <small>@TotalPrice ریال</small>
         </section>
     </div>
+</div>
+
+<div class="page">
+    <a href="/Users/Dashboard/ShoppingHistory" class="gia-back">برگشت به تاریخچه خرید ها</a>
 </div>
 
 
