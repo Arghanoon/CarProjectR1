@@ -34,8 +34,13 @@ namespace CarProject.Areas.Users.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Signup(CarProject.Models.User.UserInfo model)
+        public ActionResult Signup(CarProject.Models.User.UserInfo model, string captcha)
         {
+            if (captcha.IsNullOrWhiteSpace())
+                ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
+            else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(captcha))
+                ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نست");
+
             if (ModelState.IsValid)
             {
                 model.Person.User.IsActive = true;

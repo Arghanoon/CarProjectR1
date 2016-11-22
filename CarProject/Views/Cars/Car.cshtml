@@ -925,6 +925,16 @@
                                                     { @ViewBag.error["comment"] }
                                                     catch { }</span>
                             </label>
+                            <label>
+                                <span>کد امنیتی</span>
+                                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                    <a href="javascript:void()" onclick="ReloadCaptcha('captcha')">
+                                        <img id="captcha" src="/default/index" /></a>
+                                    <small>برای تغییر کد روی تصویر کلیک کنید</small>
+                                    <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
+                                </div>
+                                <span class="error">@try { @ViewBag.error["captcha"] } catch { }</span>
+                            </label>
                         </div>
 
                         <div class="formAction">
