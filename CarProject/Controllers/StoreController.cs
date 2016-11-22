@@ -189,6 +189,7 @@ namespace CarProject.Controllers
             var basket = us.GetCurrentBasket();
             basket.State = (byte)Models.Store.CartUsefull.Basket_State.Finished;
             basket.LocalCode = Guid.NewGuid().ToString();
+            basket.FinishDate = DateTime.Now;
             us.UpdateBasket(basket);
             return View(basket);
         }
