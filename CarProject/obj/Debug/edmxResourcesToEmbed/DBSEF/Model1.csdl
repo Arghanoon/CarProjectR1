@@ -88,7 +88,7 @@
     </Key>
     <Property Name="BasketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="State" Type="Byte" />
-    <Property Name="FinisDate" Type="DateTime" Precision="3" />
+    <Property Name="FinishDate" Type="DateTime" Precision="3" />
     <Property Name="DelivaryDate" Type="DateTime" Precision="0" />
     <Property Name="PaymentType" Type="Byte" />
     <Property Name="DelivaryTypeId" Type="Int32" />
