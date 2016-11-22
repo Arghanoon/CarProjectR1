@@ -2,8 +2,9 @@
     ViewBag.Title = "تایید و پرداخت";
 
     var usfl = new CarProject.Models.Store.CartUsefull();
+    var viewBasket = usfl.GetCurrentBasket();
 }
-@model CarProject.Models.Store.CartConfirmBillAndAddressModel
+@model CarProject.DBSEF.Person
 @using CarProject.App_Code
 
 <div class="page" id="billingInformation">
@@ -21,23 +22,36 @@
             </tr>
         </thead>
         <tbody>
-            @{ int i = 1; int TotalPrice = 0; }
-            @foreach (var item in Model.BillingList)
+            @{ 
+                int i = 1; int TotalPrice = 0;
+
+                int.TryParse(viewBasket.ProductsOrServicesDeliveryType.Price, out TotalPrice);
+             }
+            @foreach (var item in viewBasket.BasketItems)
             {
                 int pric = 0;
-                int.TryParse(usfl.GetPriceOfCartObject(item.Id, item.TypeOfProduct),out pric);
-                var ttpic = pric * item.Count;
+                
+                int.TryParse(usfl.GetPriceOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type),out pric);
+                
+                var ttpic = pric * item.Count.Value;
                 TotalPrice += ttpic;
                 <tr>
                     <td class="fix center">@i</td>
-                    <td>@usfl.GetNameOfCartObject(item.Id, item.TypeOfProduct)</td>
-                    <td>@usfl.GetNameofCartType(item.TypeOfProduct)</td>
+                    <td>@usfl.GetNameOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type)</td>
+                    <td>@usfl.GetNameofCartType((CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type)</td>
                     <td class="fix center">@pric</td>
                     <td class="fix center">@item.Count</td>
                     <td class="fix center">@ttpic</td>
                 </tr>
                 i += 1;
             }
+
+            <tr>
+                <td colspan="3">پلن انتخابی</td>
+                <td colspan="2" class="fix center">@viewBasket.ProductsOrServicesDeliveryType.Name</td>
+                <td class="center fix">@viewBasket.ProductsOrServicesDeliveryType.Price</td>
+
+            </tr>
         </tbody>
     </table>
 
@@ -56,11 +70,12 @@
     <form method="post">
         
         <div class="inputsContainer">
-            @Html.input_TextBox(m => m.PersonInformation.PersonFirtstName, "نام")
-            @Html.input_TextBox(m => m.PersonInformation.PersonLastName, "نام خانوادگی")
-            @Html.input_TextBox(m => m.PersonInformation.PersonMobile, "تلفن همراه")
-            @Html.input_TextBox(m => m.PersonInformation.PersonAddressCity, "استان و شهر محل سکونت")
-            @Html.input_TextArea(m => m.PersonInformation.PersonAddress, "آدرس کامل")
+            
+            @Html.input_TextBox(m => m.PersonFirtstName, "نام")
+            @Html.input_TextBox(m => m.PersonLastName, "نام خانوادگی")
+            @Html.input_TextBox(m => m.PersonMobile, "تلفن همراه")
+            @Html.input_TextBox(m => m.PersonAddressCity, "استان و شهر محل سکونت")
+            @Html.input_TextArea(m => m.PersonAddress, "آدرس کامل")
 
         </div>
         <small>

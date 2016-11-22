@@ -22,262 +22,187 @@ namespace CarProject.Controllers
         }
         
         #region Cart
-        public void AddToCart(int id, Models.Store.CartOfProducts.CartType type)
+        public void AddToCart(int id, Models.Store.CartUsefull.Basket_ItemType type)
         {
+            
             if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
             {
-                var user = Session["guestUser"] as DBSEF.User;
                 var dbs = new DBSEF.CarAutomationEntities();
-                var tobasket = new DBSEF.ToBasket();
-                tobasket.UserId = user.UserId;
-
-                bool istrue = true;
-                switch (type)
+                var user = Session["guestUser"] as DBSEF.User;
+                var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)Models.Store.CartUsefull.Basket_State.Openned);
+                if (cart == null)
                 {
-                    case Models.Store.CartOfProducts.CartType.Product:
-                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.ProductId == id && c.BasketId == null) <= 0)
-                            tobasket.ProductId = id;
-                        else
-                            istrue = false;
-                        break;
-                    case Models.Store.CartOfProducts.CartType.AutoService:
-                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServiceId == id && c.BasketId == null) <= 0)
-                            tobasket.AutoServiceId = id;
-                        else
-                            istrue = false;
-                        break;
-                    case Models.Store.CartOfProducts.CartType.AutoServicePack:
-                        if (dbs.ToBaskets.Count(c => c.UserId == user.UserId && c.AutoServicePackId == id && c.BasketId == null) <= 0)
-                            tobasket.AutoServicePackId = id;
-                        else
-                            istrue = false;
-                        break;
-                    default:
-                        istrue = false;
-                        break;
+                    cart = new DBSEF.Basket { UserId = user.UserId, State = (byte)Models.Store.CartUsefull.Basket_State.Openned };
+                    dbs.Baskets.Add(cart);
                 }
 
-                if (istrue)
-                {
-                    tobasket.ProductEntity = 1;
-                    dbs.ToBaskets.Add(tobasket);
-                    dbs.SaveChanges();
-                }
-                
+                if (cart.BasketItems.Count(c => c.Id == id && c.Type == (byte)type) <= 0)
+                    cart.BasketItems.Add(new DBSEF.BasketItem { Id = id, Type = (byte)type, Count = 1 });
+                dbs.SaveChanges();
             }
             else
             {
-                var list = new List<Models.Store.CartOfProducts>();
-                var cartobje = new Models.Store.CartOfProducts { Id = id, TypeOfProduct = type };
-
-                if (Request.Cookies["UserCart"] != null && Request.Cookies["UserCart"].Value != "")
+                var cart = new DBSEF.Basket();
+                if (Request.Cookies["Basket"] != null && !Request.Cookies["Basket"].Value.IsNullOrWhiteSpace())
                 {
-                    list = JsonConvert.DeserializeObject<List<Models.Store.CartOfProducts>>(Request.Cookies["UserCart"].Value);
-                    if (list == null)
-                        list = new List<Models.Store.CartOfProducts>();
+                    cart = JsonConvert.DeserializeObject<DBSEF.Basket>(Request.Cookies["Basket"].Value);
+                    if (cart == null)
+                        cart = new DBSEF.Basket();
                 }
 
-                if (!list.Contains(cartobje))
-                    list.Add(cartobje);
+                if (cart.BasketItems.Count(c => c.Id == id && c.Type == (byte)type) <= 0)
+                    cart.BasketItems.Add(new DBSEF.BasketItem { Id = id, Type = (byte)type, Count = 1 });
+                Response.Cookies["Basket"].Value = JsonConvert.SerializeObject(cart);
+                Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(1);
 
-
-                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
-                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
             }
         }
+        
         public ActionResult Cart()
         {
-            var list = Models.Store.CartOfProducts.GenerateList(Session, Request);
-            return View(list);
+            var us = new Models.Store.CartUsefull();
+            return View(us.GetCurrentBasket());
         }
-
         [HttpPost]
-        public ActionResult Cart(List<Models.Store.CartOfProducts> model)
+        public ActionResult Cart(FormCollection form)
         {
-            if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
+            var us = new Models.Store.CartUsefull();
+            var mdl = us.GetCurrentBasket();
+            foreach (var item in mdl.BasketItems)
             {
-                var dbs = new DBSEF.CarAutomationEntities();
-                var user = Session["guestUser"] as DBSEF.User;
-
-                foreach (var item in model)
+                string key = string.Format("Count[{0}][{1}]", item.Id, item.Type);
+                if (form.AllKeys.Contains(key))
                 {
-                    switch (item.TypeOfProduct)
-                    {
-                        case Models.Store.CartOfProducts.CartType.Product:
-                            {
-                                var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.ProductId == item.Id && c.BasketId == null);
-                                if (itm != null)
-                                    itm.ProductEntity = item.Count;
-                            }
-                            break;
-                        case Models.Store.CartOfProducts.CartType.AutoService:
-                            {
-                                var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServiceId == item.Id && c.BasketId == null);
-                                if (itm != null)
-                                    itm.ProductEntity = item.Count;
-                            }
-                            break;
-                        case Models.Store.CartOfProducts.CartType.AutoServicePack:
-                            {
-                                var itm = dbs.ToBaskets.FirstOrDefault(c => c.UserId == user.UserId && c.AutoServicePackId == item.Id && c.BasketId == null);
-                                if (itm != null)
-                                    itm.ProductEntity = item.Count;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
+                    int cnt = 1;
+                    int.TryParse(form[key], out cnt);
+                    item.Count = cnt;
                 }
-                dbs.SaveChanges();
             }
-            else
+
+            if (form.AllKeys.Contains("DelivaryTypeId") && !form["DelivaryTypeId"].IsNullOrWhiteSpace())
             {
-                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(model);
-                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
+                int deliverid = 0;
+                int.TryParse(form["DelivaryTypeId"], out deliverid);
+                if (deliverid > 0)
+                {
+                    mdl.DelivaryTypeId = deliverid;
+                    mdl.ProductsOrServicesDeliveryType = us.dbs.ProductsOrServicesDeliveryTypes.FirstOrDefault(c => c.DeliverTypeID == deliverid);
+                }
             }
+            us.UpdateBasket(mdl);
 
             return RedirectToAction("Cart_CartConfirmAddress");
-            
         }
+        
         [HttpPost]
-        public ActionResult Cart_remoSelection(string RemoveList)
+        public ActionResult Cart_remoSelection(FormCollection form)
         {
-            var list = Models.Store.CartOfProducts.GenerateList(Session, Request);
-
-            if (!RemoveList.IsNullOrWhiteSpace())
+            var us = new Models.Store.CartUsefull();
+            var mdl = us.GetCurrentBasket();
+            var xlst = mdl.BasketItems.ToList();
+            foreach (var item in xlst)
             {
-                var removelistarray = JsonConvert.DeserializeObject<string[]>(RemoveList);
-                var dbs = new DBSEF.CarAutomationEntities();
-                var user = Session["guestUser"] as DBSEF.User;
-
-                foreach (var item in removelistarray)
+                string key = string.Format("RemoveItem[{0}][{1}]", item.Id, item.Type);
+                if (form.AllKeys.Contains(key))
                 {
-                    var xitem = JsonConvert.DeserializeObject<Models.Store.CartOfProducts>(Server.HtmlDecode(item));
-
-                    if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-                    {
-                        switch (xitem.TypeOfProduct)
-                        {
-                            case Models.Store.CartOfProducts.CartType.Product:
-                                {
-                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.ProductId == xitem.Id && c.UserId == user.UserId && c.BasketId == null);
-                                    if (itm != null)
-                                        dbs.ToBaskets.Remove(itm);
-                                }
-                                break;
-                            case Models.Store.CartOfProducts.CartType.AutoService:
-                                {
-                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.AutoServiceId == xitem.Id && c.UserId == user.UserId && c.BasketId == null);
-                                    if (itm != null)
-                                        dbs.ToBaskets.Remove(itm);
-                                }
-                                break;
-                            case Models.Store.CartOfProducts.CartType.AutoServicePack:
-                                {
-                                    var itm = dbs.ToBaskets.FirstOrDefault(c => c.AutoServicePackId == xitem.Id && c.UserId == user.UserId && c.BasketId == null);
-                                    if (itm != null)
-                                        dbs.ToBaskets.Remove(itm);
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        if(list.Contains(xitem))
-                        list.Remove(xitem);
-                    }
-                }
-
-                if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-                    dbs.SaveChanges();
-                else
-                {
-                    Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(list);
-                    Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
+                    mdl.BasketItems.Remove(item);
                 }
             }
-
-           
+            us.UpdateBasket(mdl);
+            
             return RedirectToAction("Cart");
         }
+
         [HttpPost]
-        public ActionResult Cart_RemoveCopletly()
+        public ActionResult Cart_RemoveCopletly(FormCollection form)
         {
-            if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-            {
-                var dbs = new DBSEF.CarAutomationEntities();
-                var user = Session["guestUser"] as DBSEF.User;
-                dbs.ToBaskets.RemoveRange(dbs.ToBaskets.Where(c => c.UserId == user.UserId && c.BasketId == null));
-                dbs.SaveChanges();
-            }
-            else
-            {
-                Response.Cookies["UserCart"].Value = JsonConvert.SerializeObject(new List<Models.Store.CartOfProducts>());
-                Response.Cookies["UserCart"].Expires = DateTime.Today.AddMonths(1);
-            }
+            var us = new Models.Store.CartUsefull();
+            var mdl = us.GetCurrentBasket();
+            mdl.BasketItems.Clear();
+            us.UpdateBasket(mdl);
+
             return RedirectToAction("Cart");
         }
 
         [Areas.Users.UsersCLS.UsersAuthFilter]
         public ActionResult Cart_CartConfirmAddress()
         {
+            var us = new Models.Store.CartUsefull();
             var user = Session["guestUser"] as DBSEF.User;
-            var model = new Models.Store.CartConfirmBillAndAddressModel(user);
-            Session["Cart_CartConfirmAddress_model"] = model;
 
-            return View(model);
+            return View(us.dbs.People.FirstOrDefault(p => p.UserId == user.UserId));
         }
         [HttpPost]
         [Areas.Users.UsersCLS.UsersAuthFilter]
-        public ActionResult Cart_CartConfirmAddress(Models.Store.CartConfirmBillAndAddressModel model)
+        public ActionResult Cart_CartConfirmAddress(DBSEF.Person model)
         {
+            
+            var dbs = new DBSEF.CarAutomationEntities();
+            var user = Session["guestUser"] as DBSEF.User;
+
+            if (model.PersonFirtstName.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonFirtstName", "نام وارد نشده است");
+            if (model.PersonLastName.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonLastName", "نام خانوادگی وارد نشده است");
+
+            if (model.PersonMobile.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonMobile", "تلفن همراه وارد شود");
+            else if (!model.PersonMobile.IsNumber())
+                ModelState.AddModelError("PersonMobile", "مقدار وارد شده صحیح نیست");
+
+            if (model.PersonAddressCity.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonAddressCity", "استان و شهر محل سکونت وارد نشده است");
+            if (model.PersonAddress.IsNullOrWhiteSpace())
+                ModelState.AddModelError("PersonAddress", "آدرس وارد نشده است");
+
             if (ModelState.IsValid)
             {
-                var m = Session["Cart_CartConfirmAddress_model"] as Models.Store.CartConfirmBillAndAddressModel;
-                TryUpdateModel(m);
-                m.saveChaneges();
-                return RedirectToAction("SelectePaymentType");
+                var person = dbs.People.FirstOrDefault(p => p.UserId == user.UserId);
+                TryUpdateModel(person);
+                dbs.SaveChanges();
             }
-            else
-                return View(model);
+            return RedirectToAction("SelectePaymentType");
         }
 
+        
         [Areas.Users.UsersCLS.UsersAuthFilter]
         public ActionResult SelectePaymentType()
         {
             return View();
         }
+        [HttpPost,Areas.Users.UsersCLS.UsersAuthFilter]
+        public ActionResult SelectePaymentType(Nullable<Models.Store.CartUsefull.Basket_PaymentType> PaymentType)
+        {
+            if (PaymentType == null)
+                ModelState.AddModelError("PaymentType", "نوع پرداخت تعیین نشده است");
+            if (PaymentType == Models.Store.CartUsefull.Basket_PaymentType.InLocation)
+                return RedirectToAction("PaymentCart_InLocation");
+            else if (PaymentType == Models.Store.CartUsefull.Basket_PaymentType.Online)
+                return RedirectToAction("PaymentCart_Online");
+            return View();
+        }
+        
+        [Areas.Users.UsersCLS.UsersAuthFilter]
+        public ActionResult PaymentCart_InLocation()
+        {
+            var us = new Models.Store.CartUsefull();
+            var basket = us.GetCurrentBasket();
+            basket.State = (byte)Models.Store.CartUsefull.Basket_State.Finished;
+            basket.LocalCode = Guid.NewGuid().ToString();
+            us.UpdateBasket(basket);
+            return View(basket);
+        }
 
         [Areas.Users.UsersCLS.UsersAuthFilter]
-        public ActionResult PaymentCart(int? id)
+        public ActionResult PaymentCart_Online()
         {
-            if (id == null)
-            {
-                var x = new Models.Store.CartConfirmBillAndAddressModel();
-                if (x.BillingList.Count > 0)
-                {
-                    var bs = x.PaymentCartSuccessed(DateTime.Now.Ticks.ToString(), true);
-                    return View(bs);
-                }
-                else
-                    return RedirectToAction("Cart");
-            }
-            else
-            {
-                var dbs = new DBSEF.CarAutomationEntities();
-                var user = Session["guestUser"] as DBSEF.User;
-                var bs2 = dbs.Baskets.FirstOrDefault(bs => bs.BasketId == id && bs.UserId == user.UserId);
-
-                if (bs2 != null)
-                    return View(bs2);
-                else
-                    return RedirectToAction("Cart");
-            }
+            var us = new Models.Store.CartUsefull();
+            var basket = us.GetCurrentBasket();
+            return View(basket);
         }
         #endregion
 
+        #region Products
         public ActionResult Products(int id)
         {
             return View(id);
@@ -297,6 +222,11 @@ namespace CarProject.Controllers
 
                 if(form["comment"] == "")
                     ViewBag.error["comment"] = "پیام وارد نشده است";
+
+                if (form["captcha"] == "")
+                    ViewBag.error["captcha"] = "کد امنیتی وارد نشده است";
+                else if (!DefaultController.ValidationCaptcha(form["captcha"]))
+                    ViewBag.error["captcha"] = "کد امنیتی وارد شده صحیح نیست";
 
                 if (((Dictionary<string, string>)ViewBag.error).Count == 0)
                 {
@@ -329,12 +259,15 @@ namespace CarProject.Controllers
             dbs.SaveChanges();
             return res;
         }
+        
 
         public ActionResult ProductsList(int? id)
         {
             return View(id);
         }
+        #endregion
 
+        #region Services
         public ActionResult ServiceView(int id)
         {
             return View(id);
@@ -384,6 +317,48 @@ namespace CarProject.Controllers
             dbs.SaveChanges();
             return res;
         }
+        #endregion
+
+        #region forum
+        public ActionResult ProductForum(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ProductForum(int? id, FormCollection form)
+        {
+            if (form.AllKeys.Contains("newQuestion") && !string.IsNullOrWhiteSpace(form["newQuestion"]))
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                dbs.ProductQnAs.Add(new DBSEF.ProductQnA { ProductId = id, Question = form["newQuestion"], QuestionType = "Q" });
+                dbs.SaveChanges();
+                ModelState.AddModelError("success", "پرسش شما با موفقیت ثبت شد");
+            }
+            else
+                ModelState.AddModelError("newQuestion", "پرسش وارد نشده است");
+            return View();
+        }
+        public ActionResult ProductForum_Question(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ProductForum_Question(int? id, DBSEF.ProductQnA model)
+        {
+            if (model.Question.IsNullOrWhiteSpace())
+                ViewData.ModelState.AddModelError("Question", "متن پرسش وارد نشده است");
+            if (ModelState.IsValid)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                model.QuestionType = "Q";
+                dbs.ProductQnAs.Add(model);
+                dbs.SaveChanges();
+
+                return RedirectToAction("ProductForum_Question", new { id = id });
+            }
+            return View(model);
+        }
+        #endregion
     }
 
    

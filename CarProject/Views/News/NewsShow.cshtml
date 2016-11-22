@@ -1,0 +1,99 @@
+﻿@{
+    
+
+    int id = 0;
+    int.TryParse(ViewContext.RouteData.Values["id"].ToString(),out id);
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var news = dbs.Contents.FirstOrDefault(n => n.ContenstId == id);
+
+    if (news == null)
+    { Response.Redirect("/"); }
+
+    ViewBag.Title = news.ContentSubject;
+}
+@using CarProject.App_extension
+@using CarProject.App_Code
+@model CarProject.Models.News.ContentCommentModel
+
+<div class="page newsSection">
+    <div class="newsTitle">
+        <div>
+            <strong>@news.ContentSubject</strong> -
+            <a href="#"><small>@news.ContentsCategory.Name</small></a>
+        </div>
+        <div>
+            @news.Date.DateTime_Persian()
+        </div>
+    </div>
+    <div class="newsBody">
+        @Html.Raw(news.ContentText)
+    </div>
+    <div class="newsFooter">
+        <div>
+            <h3>ثبت نظر جدید</h3>
+            <hr />
+            <form method="post">
+                <div class="inputsContainer">
+                    @Html.input_TextBox(m => m.Comment.FullName, "نام و نام خانوادگی")
+                    @Html.input_TextBox(m => m.Comment.Email, "ایمیل")
+                    @Html.input_TextArea(m => m.Comment.Comment, "متن پیام")
+                </div>
+                <div class="inputAction">
+                    <input type="reset" value="خالی کردن فرم" class="button yellow" />
+                    <input type="submit" value="ثبت نظر" class="button blue" />
+                </div>
+            </form>
+        </div>
+        
+
+        <div>
+            <h3>نظرات ثبت شده</h3>
+            <hr />
+            <div class="CommentsContainer">
+                @{
+                    var comments = dbs.ContetComments.Where(c => c.ContentsId == id).OrderByDescending(c => c.Date);
+                    foreach (var item in comments)
+                    {
+                        <div class="comentsItem">
+                            <section class="header"></section>
+                            <section class="body"></section>
+                            <section class="footer"></section>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section style
+{
+    <style>
+        .newsSection {
+        }
+        .newsTitle {
+            background: #e0e0e0;
+            margin: -5px;
+            margin-bottom: 5px;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .newsBody *{
+            max-width:100%;
+        }
+
+        .newsFooter {
+            background: #e0e0e0;
+            margin: -5px;
+            margin-top: 5px;
+            padding: 5px;
+            
+        }
+    </style>
+}

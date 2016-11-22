@@ -121,6 +121,7 @@
                     <a href="@Url.Action("UpdateCar", new { id = item.CarsId })" class="gia-edit" ></a>
                     <a href="@Url.Action("CarImagesGallery", new { id = item.CarsId })" class="gia-images" ></a>
                     <a href="javascript:void()" onclick="DeleteRequest('@item.CarsId','@item.CarModel.CarBrand.CarBrandName','@item.CarModel.CarModelName','@item.CarYearModel')" class="gia-remove"></a>
+                    <a href="@Url.Action("Cars_CostList", new { id = item.CarsId })" class="gia-price2" title="لیست قیمت های خودرو"></a>
                 </div>
             </div>
         }

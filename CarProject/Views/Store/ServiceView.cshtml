@@ -28,36 +28,73 @@
         <a class="gia-users">@viewservic.Views</a>
         <a href="javascript:void()" onclick="MakeProductPopular('@Url.Action("ServiceView_makePopular","Store")','@id')" id="popularCounter" class="gia-heart">@viewservic.Favorite.GetValueOrDefault()</a>
         |
-        <a href="javascript:void();" onclick="AddToCart('@id','@CarProject.Models.Store.CartOfProducts.CartType.AutoService')" class="gia-cart">اضافه کردن سبد خرید</a>
+        <a href="javascript:void();" onclick="AddToCart('@id','@CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService')" class="gia-cart">اضافه کردن سبد خرید</a>
     </div>
     <div id="serviceInfoSection">
-        <div>
-            <h3>اطلاعات سرویس</h3>
-            <table id="tblinfo">
-                <tr>
-                    <th>نام سرویس</th>
-                    <td>@service.AutoServiceName</td>
-                </tr>
-                <tr>
-                    <th>قیمت سرویس</th>
-                    <td>@service.Price ریال</td>
-                </tr>
-                <tr>
-                    <th>سرویس پک های شامل این سرویس</th>
-                    <td>
-                        <div id="ServicesLinkContainer">
-                            @{
-                                var services = dbs.AutoServices1.Where(c => c.AutoServiceId == id).Select(c => c.AutoServicePack);
-                                foreach (var item in services)
-                                {
-                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice ریال</small></a>
+
+        <div id="imagesAndInformation">
+            <div id="ImagesSections">
+                <a href="javascript:void()" onclick="$('#ImagesSections').toggleClass('bigView')">تصاویر سرویس</a>
+                @{ 
+                    var images = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/Services/" + ViewContext.RouteData.Values["id"]));
+                    if (images.Exists)
+                    {
+                        var imagesFiles = images.GetFiles();
+                        if (imagesFiles.Length > 0)
+                        {
+                    <img id="imageBigPreview" src="@Url.Content("~/Publics/Gallery/Services/" + ViewContext.RouteData.Values["id"] + "/" + imagesFiles[0].Name)" />
+                    }
+                    else
+                    {
+                    <img id="imageBigPreview" src="" />
+                    }
+                }
+                }
+                <div id="imagesContianer">
+                    @{
+                        if (images.Exists)
+                        {
+                            var imagesFiles = images.GetFiles();
+                            foreach (var item in imagesFiles)
+                            {
+                        <a href="javascript:void()">
+                            <img onclick="imageBigPreview.src = this.src;" src="@Url.Content("~/Publics/Gallery/Services/" + ViewContext.RouteData.Values["id"] + "/" + item.Name)" />
+                        </a>
+                        }
+                    }
+                    }
+                </div>
+            </div>
+
+            <div id="information">
+                <h3>اطلاعات سرویس</h3>
+                <table id="tblinfo">
+                    <tr>
+                        <th>نام سرویس</th>
+                        <td>@service.AutoServiceName</td>
+                    </tr>
+                    <tr>
+                        <th>قیمت سرویس</th>
+                        <td>@service.Price ریال</td>
+                    </tr>
+                    <tr>
+                        <th>سرویس پک های شامل این سرویس</th>
+                        <td>
+                            <div id="ServicesLinkContainer">
+                                @{
+                                    var services = dbs.AutoServices1.Where(c => c.AutoServiceId == id).Select(c => c.AutoServicePack);
+                                    foreach (var item in services)
+                                    {
+                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها", info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice ریال</small></a>
                                 }
-                            }
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
+
 
         <div>
             <h3>محصولات مرتبط با سرویس</h3>
@@ -77,7 +114,7 @@
                         <section>
                             <strong>@item.ProductName</strong><br />
                             <small>@item.Category.CategoryName</small><br />
-                            <small class="price">@item.ProductPrices.Last().ProductPrice1 ریال</small>
+                            <small class="price">@if(@item.ProductPrices.Count > 0){@item.ProductPrices.Last().ProductPrice1}else{<span>0</span>} ریال</small>
                         </section>
                     </a>
                         }
@@ -148,7 +185,7 @@
     <meta name="description" content="خدمات خودرو @service.AutoServiceName " />
     <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
-    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = service.AutoServiceId, info1 = "سرویسها پکها" , info2 = service.AutoServiceName }, Request.Url.Scheme)" />
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = service.AutoServiceId, info1 = "سرویسها" , info2 = service.AutoServiceName }, Request.Url.Scheme)" />
 
     <style>
         #serviceInfoSection {
@@ -242,6 +279,76 @@
         -webkit-filter: none; /* Safari 6.0 - 9.0 */
         filter: none;
     }
+
+
+        #imagesAndInformation {
+            display:flex;
+            border:thin solid #888;
+        }
+        #information {
+            flex:1;
+        }
+        #ImagesSections {
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            align-items:stretch;
+
+            max-width:30%;
+            margin-left:5px;
+            padding:0 5px;
+
+            border-left:thin solid #888;
+
+        }
+
+            #ImagesSections.bigView {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                max-width:100%;
+                left: 0;
+                right: 0;
+                background: white;
+                margin: 0;
+                z-index: 999;
+                align-items: center;
+                overflow: auto;
+            }
+
+        #imageBigPreview {
+            max-width:100%;
+        }
+        #ImagesSections.bigView #imageBigPreview {
+            max-width: 100%;
+            max-height: 80%;
+        }
+
+            #imagesContianer {
+                display:flex; justify-content:center; align-items:stretch;
+                flex-wrap:wrap;
+            }
+
+            #imagesContianer img {
+                width: 100px;
+                height: 70px;
+                margin:2px;
+                cursor:pointer;
+                border:thin solid #ddd;
+            }
+
+
+        @@media (max-width:700px) {
+            #imagesAndInformation {
+                flex-direction:column;
+            }
+            #ImagesSections {
+                max-width:100%;
+                border:none;
+                margin-left:0;
+            }
+        }
 
     </style>
 }

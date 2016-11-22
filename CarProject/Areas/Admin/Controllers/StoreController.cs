@@ -147,7 +147,7 @@ namespace CarProject.Areas.Admin.Controllers
                 }
                 ViewBag.images = imgPath;
             }
-            return View();
+            return RedirectToAction("Products_Gallery", new { id = id });
         }
         public ActionResult Products_GalleryRemove(int id, string filename)
         {
@@ -155,7 +155,7 @@ namespace CarProject.Areas.Admin.Controllers
             if (file.Exists)
                 file.Delete();
 
-            return RedirectToAction("CarImagesGallery", new { id = id });
+            return RedirectToAction("Products_Gallery", new { id = id });
         }
 
 
@@ -180,12 +180,77 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
+        public ActionResult Products_CostList(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Products_CostList(int? id,DBSEF.ProductPrice model)
+        {
+            if (model.ProductPrice1 == null)
+                ModelState.AddModelError("ProductPrice1", "مبلغ کالا تعیین نشده است");
+            if (model.InstallPrice == null)
+                ModelState.AddModelError("InstallPrice", "هزینه نصب کالا تعیین نشده است");
+
+            if (ModelState.IsValid)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                model.Date = DateTime.Now;
+                dbs.ProductPrices.Add(model);
+                dbs.SaveChanges();
+
+                return RedirectToAction("Products_CostList", new { id = id });
+            }
+
+            return View(model);
+        }
+
         [HttpPost]
         public ActionResult JsonProductsSearch(string search)
         {
             var dbs = new DBSEF.CarAutomationEntities();
             var res = dbs.Products.Where(c => c.ProductName.Contains(search)).Select(c => new { id = c.ProductId, name = c.ProductName, cat = c.Category.CategoryName }).ToList();
             return Json(res, JsonRequestBehavior.DenyGet);
+        }
+
+        public ActionResult ProductComments()
+        {
+            return View();
+        }
+        public ActionResult ProductCommentShow(int? id)
+        {
+            return View();
+        }
+        public ActionResult ProductCommentShow_delete(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ProductCommentShow_delete(int? id,FormCollection form)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var cm = dbs.ProductComments.FirstOrDefault(c => c.ProductCommentId == id);
+            if (cm != null)
+            {
+                dbs.ProductComments.Remove(cm);
+                dbs.SaveChanges();
+            }
+            return RedirectToAction("ProductComments");
+        }
+
+        [HttpPost]
+        public int ProductChangeCanShowState(int? ID)
+        {
+            int res = 0;
+            var dbs = new DBSEF.CarAutomationEntities();
+            var pcm = dbs.ProductComments.FirstOrDefault(pc => pc.ProductCommentId == ID);
+            if (pcm != null)
+            {
+                pcm.canshow = !pcm.canshow.GetValueOrDefault(false);
+                res = (pcm.canshow.Value) ? 1 : 0;
+                dbs.SaveChanges();
+            }
+            return res;
         }
         #endregion
 
@@ -240,6 +305,66 @@ namespace CarProject.Areas.Admin.Controllers
             return Json(res, JsonRequestBehavior.DenyGet);
         }
 
+        public ActionResult Services_Gallery(int id)
+        {
+            ViewBag.images = new List<string>();
+            string folder = id.ToString().BaseRouts_ServicesImages();
+            DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
+            if (dic.Exists)
+            {
+                var imgs = dic.GetFiles();
+                List<string> imgPath = new List<string>();
+                foreach (var item in imgs)
+                {
+                    imgPath.Add(Path.Combine(id.ToString(), item.Name).BaseRouts_ServicesImages());
+                }
+                ViewBag.images = imgPath;
+            }
+            return View();
+        }
+        [HttpPost, ActionName("Services_Gallery")]
+        public ActionResult Services_GalleryPost(int id)
+        {
+            ViewBag.images = new List<string>();
+
+            string folder = id.ToString().BaseRouts_ServicesImages();
+            DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
+
+            if (ModelState.IsValid)
+            {
+                if (!dic.Exists)
+                    dic.Create();
+                long namitem = DateTime.Now.Ticks;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    if (Request.Files[i].ContentType.ContentTypeIsImage())
+                    {
+                        Request.Files[i].SaveAs(Server.MapPath(Path.Combine(folder, string.Format("{0:000000}{1}", namitem++, Request.Files[i].FileName.Substring(Request.Files[i].FileName.LastIndexOf('.'))))));
+                    }
+                }
+            }
+
+            if (dic.Exists)
+            {
+                var imgs = dic.GetFiles();
+                List<string> imgPath = new List<string>();
+                foreach (var item in imgs)
+                {
+                    imgPath.Add(Path.Combine(id.ToString(), item.Name).BaseRouts_ServicesImages());
+                }
+                ViewBag.images = imgPath;
+            }
+            return RedirectToAction("Services_Gallery", new { id = id });
+        }
+        public ActionResult Services_GalleryRemove(int id, string filename)
+        {
+            var file = new FileInfo(Server.MapPath(filename));
+            if (file.Exists)
+                file.Delete();
+
+            return RedirectToAction("Services_Gallery", new { id = id });
+        }
+
         /* Packs */
 
         public ActionResult ServicePacks()
@@ -280,6 +405,166 @@ namespace CarProject.Areas.Admin.Controllers
 
                 return RedirectToAction("ServicePacks");
             }
+            return View(model);
+        }
+
+
+        public ActionResult ServicePacks_Gallery(int id)
+        {
+            ViewBag.images = new List<string>();
+            string folder = id.ToString().BaseRouts_ServicePacksImages();
+            DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
+            if (dic.Exists)
+            {
+                var imgs = dic.GetFiles();
+                List<string> imgPath = new List<string>();
+                foreach (var item in imgs)
+                {
+                    imgPath.Add(Path.Combine(id.ToString(), item.Name).BaseRouts_ServicePacksImages());
+                }
+                ViewBag.images = imgPath;
+            }
+            return View();
+        }
+        [HttpPost, ActionName("ServicePacks_Gallery")]
+        public ActionResult ServicePacks_GalleryPost(int id)
+        {
+            ViewBag.images = new List<string>();
+
+            string folder = id.ToString().BaseRouts_ServicePacksImages();
+            DirectoryInfo dic = new DirectoryInfo(Server.MapPath(folder));
+
+            if (ModelState.IsValid)
+            {
+                if (!dic.Exists)
+                    dic.Create();
+                long namitem = DateTime.Now.Ticks;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    if (Request.Files[i].ContentType.ContentTypeIsImage())
+                    {
+                        Request.Files[i].SaveAs(Server.MapPath(Path.Combine(folder, string.Format("{0:000000}{1}", namitem++, Request.Files[i].FileName.Substring(Request.Files[i].FileName.LastIndexOf('.'))))));
+                    }
+                }
+            }
+
+            if (dic.Exists)
+            {
+                var imgs = dic.GetFiles();
+                List<string> imgPath = new List<string>();
+                foreach (var item in imgs)
+                {
+                    imgPath.Add(Path.Combine(id.ToString(), item.Name).BaseRouts_ServicePacksImages());
+                }
+                ViewBag.images = imgPath;
+            }
+            return RedirectToAction("ServicePacks_Gallery", new { id = id });
+        }
+        public ActionResult ServicePacks_GalleryRemove(int id, string filename)
+        {
+            var file = new FileInfo(Server.MapPath(filename));
+            if (file.Exists)
+                file.Delete();
+
+            return RedirectToAction("ServicePacks_Gallery", new { id = id });
+        }
+        #endregion
+
+        #region Product_Forum
+        DBSEF.CarAutomationEntities dbsObject = new DBSEF.CarAutomationEntities();
+        public ActionResult Product_Forum(int? id)
+        {
+            return View();
+        }
+        public ActionResult Product_Forum_Question(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Product_Forum_Question(int? id, DBSEF.ProductQnA model)
+        {
+            if (model.Question.IsNullOrWhiteSpace())
+                ViewData.ModelState.AddModelError("Question", "جوابی وارد نشده است");
+            if (ModelState.IsValid)
+            {
+                model.QuestionType = "A";
+                dbsObject.ProductQnAs.Add(model);
+                dbsObject.SaveChanges();
+
+                return RedirectToAction("Product_Forum_Question", new { id = id });
+            }
+            return View(model);
+        }
+        #endregion
+
+
+        #region DeliveryType
+        public ActionResult DeliveryTypes()
+        {
+            return View();
+        }
+        public ActionResult DeliveryTypes_New()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DeliveryTypes_New(DBSEF.ProductsOrServicesDeliveryType model)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (model.Name.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Name", "نامی برای پلن تعیین نشده است");
+            else if(dbs.ProductsOrServicesDeliveryTypes.Count(c => c.Name == model.Name) > 0)
+                ModelState.AddModelError("Name", "نامی وارد شده برای پلن تکراری است");
+            if (model.Hour == null)
+                ModelState.AddModelError("Hour", "زمان (ساعت) تحویل /انجام تعیین نشده است");
+            if (model.Price.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Price", "هزینه پلن تعیین نشده است");
+            else if(!model.Price.IsNumber())
+                ModelState.AddModelError("Price", "مقدار وارد شده صحیح نیست");
+
+            if (ModelState.IsValid)
+            {
+                dbs.ProductsOrServicesDeliveryTypes.Add(model);
+                dbs.SaveChanges();
+
+                return RedirectToAction("DeliveryTypes");
+            }
+            return View(model);
+        }
+
+        public ActionResult DeliveryTypes_Update(int? id)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var model = dbs.ProductsOrServicesDeliveryTypes.FirstOrDefault(c => c.DeliverTypeID == id);
+            if (model == null)
+                return RedirectToAction("DeliveryTypes");
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult DeliveryTypes_Update(int? id, DBSEF.ProductsOrServicesDeliveryType model)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (model.Name.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Name", "نامی برای پلن تعیین نشده است");
+            else if (dbs.ProductsOrServicesDeliveryTypes.Count(c => c.Name == model.Name) > 0)
+                ModelState.AddModelError("Name", "نامی وارد شده برای پلن تکراری است");
+            if (model.Hour == null)
+                ModelState.AddModelError("Hour", "زمان (ساعت) تحویل /انجام تعیین نشده است");
+            if (model.Price.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Price", "هزینه پلن تعیین نشده است");
+            else if (!model.Price.IsNumber())
+                ModelState.AddModelError("Price", "مقدار وارد شده صحیح نیست");
+
+            if (ModelState.IsValid)
+            {
+                var mdl = dbs.ProductsOrServicesDeliveryTypes.FirstOrDefault(c => c.DeliverTypeID == id);
+                TryUpdateModel(mdl);
+                dbs.SaveChanges();
+
+                return RedirectToAction("DeliveryTypes");
+            }
+
             return View(model);
         }
         #endregion

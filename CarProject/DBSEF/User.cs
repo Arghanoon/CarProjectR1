@@ -19,13 +19,13 @@ namespace CarProject.DBSEF
         {
             this.Baskets = new HashSet<Basket>();
             this.CarComments = new HashSet<CarComment>();
+            this.ContetComments = new HashSet<ContetComment>();
             this.People = new HashSet<Person>();
             this.PersonCars = new HashSet<PersonCar>();
             this.PersonProducts = new HashSet<PersonProduct>();
             this.PersonServices = new HashSet<PersonService>();
             this.PersonServicesPacks = new HashSet<PersonServicesPack>();
             this.ProductComments = new HashSet<ProductComment>();
-            this.ToBaskets = new HashSet<ToBasket>();
         }
     
         public int UserId { get; set; }
@@ -39,6 +39,8 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarComment> CarComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContetComment> ContetComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Person> People { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonCar> PersonCars { get; set; }
@@ -50,8 +52,6 @@ namespace CarProject.DBSEF
         public virtual ICollection<PersonServicesPack> PersonServicesPacks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductComment> ProductComments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToBasket> ToBaskets { get; set; }
         public virtual UserRole UserRole { get; set; }
     }
 }

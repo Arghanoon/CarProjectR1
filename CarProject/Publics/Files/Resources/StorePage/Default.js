@@ -168,3 +168,15 @@ function AddToCart(id, type) {
     $.post('/Store/AddToCart', { 'id': id, 'type': type }, function (res) { MessageBoxShow("محصول به سبد خرید اضافه شد"); });
 }
 /*----------------------------------[ END Add To CartRequest ]------------------------------*/
+
+
+
+
+
+function ReloadCaptcha(id) {
+    el = document.getElementById(id);
+    el.src = "";
+    tim = new Date().getTime();
+
+    el.src = "/default/index/" + tim;
+}

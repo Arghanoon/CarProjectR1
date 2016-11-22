@@ -61,19 +61,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BasketItems">
+      <EntityTypeMapping TypeName="CarAutomationModel.BasketItem">
+        <MappingFragment StoreEntitySet="BasketItems">
+          <ScalarProperty Name="BasketItemId" ColumnName="BasketItemId" />
+          <ScalarProperty Name="BasketId" ColumnName="BasketId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Baskets">
       <EntityTypeMapping TypeName="CarAutomationModel.Basket">
-        <MappingFragment StoreEntitySet="Basket">
+        <MappingFragment StoreEntitySet="Baskets">
           <ScalarProperty Name="BasketId" ColumnName="BasketId" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="FinisDate" ColumnName="FinisDate" />
+          <ScalarProperty Name="DelivaryDate" ColumnName="DelivaryDate" />
+          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+          <ScalarProperty Name="DelivaryTypeId" ColumnName="DelivaryTypeId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="date" ColumnName="date" />
-          <ScalarProperty Name="BasketCode" ColumnName="BasketCode" />
-          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-          <ScalarProperty Name="OnlineOrInPlace" ColumnName="OnlineOrInPlace" />
-          <ScalarProperty Name="BackCodeFromBank" ColumnName="BackCodeFromBank" />
-          <ScalarProperty Name="DateToDeliver" ColumnName="DateToDeliver" />
-          <ScalarProperty Name="HourToDeliver" ColumnName="HourToDeliver" />
-          <ScalarProperty Name="IsFinished" ColumnName="IsFinished" />
+          <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+          <ScalarProperty Name="LocalCode" ColumnName="LocalCode" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -432,6 +442,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ContetComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.ContetComment">
+        <MappingFragment StoreEntitySet="ContetComments">
+          <ScalarProperty Name="ContentCommentsId" ColumnName="ContentCommentsId" />
+          <ScalarProperty Name="ContentsId" ColumnName="ContentsId" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Countries">
       <EntityTypeMapping TypeName="CarAutomationModel.Country">
         <MappingFragment StoreEntitySet="Country">
@@ -672,11 +695,10 @@
       <EntityTypeMapping TypeName="CarAutomationModel.ProductQnA">
         <MappingFragment StoreEntitySet="ProductQnA">
           <ScalarProperty Name="ProductQnAId" ColumnName="ProductQnAId" />
-          <ScalarProperty Name="ProductQuestion" ColumnName="ProductQuestion" />
-          <ScalarProperty Name="HasAnswer" ColumnName="HasAnswer" />
-          <ScalarProperty Name="HasFather" ColumnName="HasFather" />
-          <ScalarProperty Name="FatherId" ColumnName="FatherId" />
-          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -705,6 +727,16 @@
           <ScalarProperty Name="PersonServicesId" ColumnName="PersonServicesId" />
           <ScalarProperty Name="DateUsed" ColumnName="DateUsed" />
           <ScalarProperty Name="EntityUsed" ColumnName="EntityUsed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductsOrServicesDeliveryTypes">
+      <EntityTypeMapping TypeName="CarAutomationModel.ProductsOrServicesDeliveryType">
+        <MappingFragment StoreEntitySet="ProductsOrServicesDeliveryTypes">
+          <ScalarProperty Name="DeliverTypeID" ColumnName="DeliverTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -784,21 +816,6 @@
           <ScalarProperty Name="SteeringControlKey" ColumnName="SteeringControlKey" />
           <ScalarProperty Name="Details" ColumnName="Details" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ToBaskets">
-      <EntityTypeMapping TypeName="CarAutomationModel.ToBasket">
-        <MappingFragment StoreEntitySet="ToBasket">
-          <ScalarProperty Name="ToBasketId" ColumnName="ToBasketId" />
-          <ScalarProperty Name="BasketId" ColumnName="BasketId" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="ProductEntity" ColumnName="ProductEntity" />
-          <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
-          <ScalarProperty Name="AutoServiceEntity" ColumnName="AutoServiceEntity" />
-          <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
-          <ScalarProperty Name="AutoSericePackEntity" ColumnName="AutoSericePackEntity" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

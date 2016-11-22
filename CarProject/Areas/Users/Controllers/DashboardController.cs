@@ -28,10 +28,41 @@ namespace CarProject.Areas.Users.Controllers
                 return RedirectToAction("ShoppingHistory");
 
             var User = Session["guestUser"] as DBSEF.User;
-            var model = CarProject.Models.Store.CartOfProducts.GenerateList_BasketDetails(id, User);
+            
 
+            return View();
+        }
+
+
+
+        #region PersonCars
+        public ActionResult InsertPersonCar(int? id)
+        {
+            var m = new Models.Dashboard.PersonCarsModel(id);
+            return View(m);
+        }
+        [HttpPost]
+        public ActionResult InsertPersonCar(Models.Dashboard.PersonCarsModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                //update
+
+                if (model.Car.PersonCarsId != null && model.Car.PersonCarsId > 0 && model.Detail.PersonCarDetailId != null && model.Detail.PersonCarDetailId > 0)
+                {
+                    var mdl = new Models.Dashboard.PersonCarsModel(model.Car.PersonCarsId, model.Detail.PersonCarDetailId);
+                    TryUpdateModel(mdl);
+                    mdl.Update();
+                }
+                else
+                {
+                    model.Save();
+                }
+                ModelState.AddModelError("Success", "اطلاعات خودروی شما با موفقیت ثبت شد");
+            }
             return View(model);
         }
+        #endregion
 
     }
 }

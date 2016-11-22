@@ -107,6 +107,11 @@ namespace CarProject.Controllers
                 if (form["comment"] == "")
                     ViewBag.error["comment"] = "پیام وارد نشده است";
 
+                if (form["captcha"] == "")
+                    ViewBag.error["captcha"] = "کد امنیتی وارد نشده است";
+                else if (!DefaultController.ValidationCaptcha(form["captcha"]))
+                    ViewBag.error["captcha"] = "کد امنیتی وارد شده صحیح نیست";
+
                 if (((Dictionary<string, string>)ViewBag.error).Count == 0)
                 {
                     var dbs = new DBSEF.CarAutomationEntities();
@@ -139,6 +144,48 @@ namespace CarProject.Controllers
             dbs.SaveChanges();
             return res;
         }
+
+        #region Forum
+        public ActionResult CarForum(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CarForum(int? id,FormCollection form)
+        {
+            if (form.AllKeys.Contains("newQuestion") && !string.IsNullOrWhiteSpace(form["newQuestion"]))
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                dbs.CarsQnAs.Add(new db.CarsQnA { CarsId = id, Question = form["newQuestion"], QuestionType = "Q" });
+                dbs.SaveChanges();
+                ModelState.AddModelError("success", "پرسش شما با موفقیت ثبت شد");
+            }
+            else
+                ModelState.AddModelError("newQuestion", "پرسش وارد نشده است");
+            return View();
+        }
+        public ActionResult Car_Forum_Question(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Car_Forum_Question(int? id, DBSEF.CarsQnA model)
+        {
+            if (model.Question.IsNullOrWhiteSpace())
+                ViewData.ModelState.AddModelError("Question", "متن پرسش وارد نشده است");
+            if (ModelState.IsValid)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                model.QuestionType = "Q";
+                dbs.CarsQnAs.Add(model);
+                dbs.SaveChanges();
+
+                return RedirectToAction("Car_Forum_Question", new { id = id });
+            }
+            return View(model);
+        }
+        #endregion
+
 
         public class tst
         {
