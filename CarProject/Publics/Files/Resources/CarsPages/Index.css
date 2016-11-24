@@ -5,12 +5,15 @@
     align-items:flex-start;
 }
 
+#ItemsContentContainer {
+    flex: 1;
+    margin-top:15px;
+}
 
 #searchAndFilter {
-    width:30vw;
+    width:25vw;
     background:#fff;
     margin-top:15px;
-    margin-right:15px;
 
     border:thin solid #888;
 
@@ -62,3 +65,43 @@
     #searchAndFilter .checkboxContainer .checkbox {
         margin: 3px;
     }*/
+
+
+#searchsection {
+    margin:0 10px;
+    background:white;
+    padding:5px;
+    border-top:thin solid #888;
+}
+
+#searchInput {
+    display:flex;
+    justify-content:space-between;
+    align-items:stretch;
+}
+
+    #searchInput input {
+        border:thin solid #888;
+        flex:1;
+        font-family:yekan;
+        padding:1px 5px;
+    }
+    #searchInput button {
+        border:thin solid #888;
+        color:white;
+        background:#888;
+    }
+
+#searchsection select {
+    border:thin solid #888;
+    padding:2px 5px;
+    margin:3px;
+    font-family:yekan;
+}
+
+    #searchsection select option {
+        padding:1px 5px;
+    }
+#SearchOrderBy {
+    font-size: 80%;
+}
