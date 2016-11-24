@@ -2,28 +2,180 @@
     ViewBag.Title = "نمایش خودروها";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var rand = new Random();
+    
+    var carmodel = new  CarProject.Areas.Admin.Models.Cars.CarsModel();
+
+    var ListOfCars = dbs.Cars.AsQueryable();
+
+    ListOfCars = ListOfCars.OrderByDescending(c => c.CarsId).Take(50);
+
+
+    var brandFilters = Request.QueryString.GetValues("CarBrand");
+    var CarEngineType = Request.QueryString.GetValues("CarEngineType");
+    var CarCylenderNumber = Request.QueryString.GetValues("CarCylenderNumber");
+    var CarUsage = Request.QueryString.GetValues("CarUsage");
+    var CarBodyType = Request.QueryString.GetValues("CarBodyType");
+    var CarGearBoxType = Request.QueryString.GetValues("CarGearBoxType");
+    var CarGearBoxAxel = Request.QueryString.GetValues("CarGearBoxAxel");
 }
 
 
-@section style{ <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" /> }
+@section style
+{ 
+    <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" />
+    <link href="~/Publics/Files/Resources/CarsPages/Index.css" rel="stylesheet" />
+}
 
-<div class="listOfProducts">
-    @{
-        var pdx = dbs.Cars.Where(c => true);
-        
-        pdx = pdx.OrderByDescending(c => c.CarsId).Take(50);
-        
-        foreach (var item in pdx)
+<div id="MainContainerOfFilterAndContent">
+    <div>
+        <div id="searchAndFilter">
+
+            <div id="filter_brands">
+                <h4 class="title">فیلتر برندها</h4>
+                <div class="checkboxContainer">
+                    @foreach (var item in dbs.CarBrands)
+                    {
+                        <section class="checkbox">
+                            <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); }/>
+                            <label for="CarBrand_@item.CarBrandId">
+                                @item.CarBrandName
+                            </label>
+                        </section>
+                    }
+                </div>
+            </div>
+
+            <div id="filter_EngineType">
+                <h4 class="title">فیلتر نوع موتور</h4>
+                <div class="checkboxContainer">
+                    @{int ind = 0; }
+                    @foreach (var item in carmodel.List_EngineTypes)
+                    {
+                        <section class="checkbox">
+                            <input type="checkbox" name="CarEngineType" value="@item" id="CarBrandId_@ind" @if (CarEngineType != null && CarEngineType.Contains(item)) { Write("checked=\"checked\""); }/>
+                            <label for="CarBrandId_@ind">
+                                @item
+                            </label>
+                        </section>
+                        ind += 1;
+                    }
+                </div>
+            </div>
+
+            <div id="filter_CylenderNumber">
+                <h4 class="title">تعداد سیلندر</h4>
+                <div class="checkboxContainer">
+                    @{ ind = 0; }
+                    @foreach (var item in dbs.CarEngines.Select(c => c.EngineCylinderNumber).Distinct())
+                    {
+                        if (item == null)
+                        { continue; }
+                        <section class="checkbox">
+                            <input type="checkbox" name="CarCylenderNumber" value="@item" id="CarCylenderNumber_@ind" @if (CarCylenderNumber != null && CarCylenderNumber.Contains(item.ToString())) { Write("checked=\"checked\""); }/>
+                            <label for="CarCylenderNumber_@ind">
+                                @item
+                            </label>
+                        </section>
+                        ind += 1;
+                    }
+                </div>
+            </div>
+
+            <div id="filter_CarUsage">
+                <h4 class="title">کاربرد خودرو</h4>
+                <div class="checkboxContainer">
+                    @{ ind = 0; }
+                    @foreach (var item in carmodel.List_CarUsage)
+                    {
+                        if (item == null)
+                        { continue; }
+                        <section class="checkbox">
+                            <input type="checkbox" name="CarUsage" value="@item" id="CarUsage_@ind" @if (CarUsage != null && CarUsage.Contains(item)) { Write("checked=\"checked\""); }/>
+                            <label for="CarUsage_@ind">
+                                @item
+                            </label>
+                        </section>
+                        ind += 1;
+                    }
+                </div>
+            </div>
+
+            <div id="filter_CarBodyType">
+                <h4 class="title">نوع بدنه</h4>
+                <div class="checkboxContainer">
+                    @{ ind = 0; }
+                    @foreach (var item in carmodel.List_CarBodyTypes)
+                    {
+                        if (item == null)
+                        { continue; }
+                        <section class="checkbox">
+                            <input type="checkbox" name="CarBodyType" value="@item" id="CarBodyType_@ind" @if (CarBodyType != null && CarBodyType.Contains(item)) { Write("checked=\"checked\""); }/>
+                            <label for="CarBodyType_@ind">
+                                @item
+                            </label>
+                        </section>
+                        ind += 1;
+                    }
+                </div>
+            </div>
+
+            <div id="filter_CarGearBoxType">
+                <h4 class="title">نوع گیربکس</h4>
+                <div class="checkboxContainer">
+                    @{ ind = 0; }
+                    @foreach (var item in carmodel.List_GearBoxType)
+                    {
+                        if (item == null)
+                        { continue; }
+                        <section class="checkbox">
+                            <input type="checkbox" name="CarGearBoxType" value="@item" id="CarGearBoxType_@ind" @if (CarGearBoxType != null && CarGearBoxType.Contains(item)) { Write("checked=\"checked\""); }/>
+                            <label for="CarGearBoxType_@ind">
+                                @item
+                            </label>
+                        </section>
+                        ind += 1;
+                    }
+                </div>
+            </div>
+
+            <div id="filter_CarGearBoxAxel">
+                <h4 class="title">نوع محور</h4>
+                <div class="checkboxContainer">
+                    @{ ind = 0; }
+                    @foreach (var item in carmodel.List_gearBoxAxel)
+                    {
+                        if (item == null)
+                        { continue; }
+                        <section class="checkbox">
+                            <input type="checkbox" name="CarGearBoxAxel" value="@item" id="CarGearBoxAxel_@ind" @if (CarGearBoxAxel != null && CarGearBoxAxel.Contains(item)) { Write("checked=\"checked\""); }/>
+                            <label for="CarGearBoxAxel_@ind">
+                                @item
+                            </label>
+                        </section>
+                        ind += 1;
+                    }
+                </div>
+            </div>
+
+
+            <div class="inputAction">
+                <input type="button" value="فیلتر کردن نمایش" class="button green" />
+            </div>
+        </div>
+    </div>
+
+    <div class="listOfProducts">
+        @foreach (var item in ListOfCars)
         {
             if (item.CarModel == null)
             { continue; }
             var PicFileUrl = "~/Publics/Gallery/CarImages/" + item.CarsId;
             var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
-                                
-            if(finfo.Exists && finfo.GetFiles().Count() > 0)
+
+            if (finfo.Exists && finfo.GetFiles().Count() > 0)
             {
                 <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })" class="item">
-                    <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                    <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)" />
                     <section>
                         <strong>@item.CarModel.CarModelName</strong><br />
                         <small>@item.CarModel.CarBrand.CarBrandName</small><br />
@@ -43,5 +195,7 @@
                 </a>
             }
         }
-    }
+    </div>
+
 </div>
+

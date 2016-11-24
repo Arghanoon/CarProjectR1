@@ -1,0 +1,64 @@
+﻿#MainContainerOfFilterAndContent {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+
+#searchAndFilter {
+    width:30vw;
+    background:#fff;
+    margin-top:15px;
+    margin-right:15px;
+
+    border:thin solid #888;
+
+    font-size:80%
+}
+    #searchAndFilter .title {
+        background:#888;
+        color:#fff;
+        padding:5px;
+    }
+
+.checkboxContainer {
+    display:flex;
+    flex-direction:column;
+    padding:5px;
+}
+    .checkboxContainer .checkbox {
+        display:flex; align-items:center;
+    }
+        .checkboxContainer .checkbox:hover {
+            text-shadow:0 0 1px #6cb7ff;
+        }
+
+    .checkboxContainer input[type=checkbox] {
+        display: none;
+    }
+    .checkboxContainer input[type=checkbox] + label:before {
+        font-family:giadmin;
+	    display:inline-block;
+	    margin:0 3px;
+	    direction:ltr;
+        content:'\0057';
+    }
+    .checkboxContainer input[type=checkbox]:checked + label:before {
+        content:'\0058';
+    }
+
+
+#searchAndFilter .checkboxContainer {
+    border: thin solid #888;
+    /*max-height: 100px;
+    overflow: auto;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;*/
+}
+/*
+    #searchAndFilter .checkboxContainer .checkbox {
+        margin: 3px;
+    }*/
