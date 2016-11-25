@@ -396,3 +396,6 @@ G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\obj\Debug\CarP
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.pdb
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.xml
+E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.dll
+E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.pdb
+E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.xml
