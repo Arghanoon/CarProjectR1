@@ -896,7 +896,6 @@
     <Content Include="Publics\Styles\fonts\yekan.TTF" />
     <Content Include="Views\Cars\Index.cshtml" />
     <Content Include="Views\Cars\Car.cshtml" />
-    <Content Include="Views\Cars\SearchView.cshtml" />
     <Content Include="Views\Home\ContectUs.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
@@ -918,6 +917,7 @@
     <Content Include="Views\Store\PaymentCart_InLocation.cshtml" />
     <Content Include="Views\Store\PaymentCart_Online.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\Store\integratedSearch.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

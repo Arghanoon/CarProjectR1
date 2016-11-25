@@ -50,14 +50,25 @@ img {
 			
 			#header1 #section1 #part2{
 				display:flex; align-items:stretch;
+                flex-direction:column;
 				min-height:40px;
 			}
+                #header1 #section1 #part2 #tabcontainer {
+                    font-size:70%;
+                    display:flex;
+                    flex-direction:row-reverse;
+                }
+
+                    #header1 #section1 #part2 #tabcontainer > * {
+                        padding:0 2px
+                    }
 
 #section1part1munuIcon {
     display: none;
 }
 				#header1 #section1 #part2 #searchSection{
 					display:flex; justify-content:center; align-items:stretch;
+                    min-height:30px;
 					flex:1;
 				}
 				#header1 #section1 #part2 #searchSection input{
@@ -107,12 +118,10 @@ img {
 			justify-content:flex-start;
 			align-items:stretch;
 		}
-			#header2_menucontianer  a,
-			#header2_menucontianer .a{
+			#header2_menucontianer  a{
 				position:static;
 				color:black;
-				margin:0 5px;
-				padding:0 3px;
+				padding:0 5px;
 				display:flex; justify-content:center; align-items:center;
 				border-bottom:2px solid transparent;
 				
@@ -121,9 +130,7 @@ img {
 				cursor:pointer;
 			}
 			#header2_menucontianer  a:hover,
-			#header2_menucontianer  a:focus,
-			#header2_menucontianer  .a:hover,
-			#header2_menucontianer  .a:focus{
+			#header2_menucontianer  a:focus{
 				background:#f7f6fa;
 				border-bottom:2px solid #ff4500;
 			}
@@ -148,20 +155,25 @@ img {
 				opacity:1;
 			}*/
 			
-			#header2_menucontianer .a > nav
+			#header2_menucontianer .menuItem > nav
 			{
 				position:absolute;
-				top:100%; left:0; right:0;
-				border-top:thin solid #bababa; border-bottom:thin solid #bababa;
-				box-shadow:0 0 1px 2px 0 #888;
+				top:100%;  right:0;
+                min-width:100%;
+				border-top:thin solid #bababa;
+				box-shadow:0 3px 3px 0 #888;
 				display:none;
-				justify-content:center;
+                flex-direction:column;
 				background:white;
 				z-index:999;
 			}
-			#header2_menucontianer .a:hover > nav{
+			#header2_menucontianer .menuItem:hover > nav{
 				display:flex;
 			}
+
+            #header2_menucontianer .menuItem > nav a {
+                white-space:nowrap;
+            }
 /*----------------------ENDHeaders--------------------*/
 
 
