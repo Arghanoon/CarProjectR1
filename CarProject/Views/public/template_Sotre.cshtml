@@ -1,5 +1,32 @@
 ﻿@{
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    
+}
+
+@functions
+{
+    MvcHtmlString ProductMenuGenerator(int? id)
+    {
+        string res = "";
+        var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+        var productsGroup = dbs.Categories.Where(c => c.ParentCategoryId == id);
+        
+        foreach (var item in productsGroup)
+        {
+            res += string.Format("<section class=\"menuItem\">");
+            res += string.Format("<a href=\"{0}\">{1}</a>", "/Store/ProductsList/" + item.CategoryId.ToString(), item.CategoryName);
+
+            var nav = ProductMenuGenerator(item.CategoryId);
+
+            if (nav != null && !string.IsNullOrWhiteSpace(nav.ToString()))
+                res += string.Format("<nav>{0}</nav>", nav);
+            
+            res += string.Format("</section>");
+        }
+
+        return new MvcHtmlString(res);
+    }
 }
 
 <!doctype html>
@@ -43,18 +70,27 @@
                             <strong>@user.Uname</strong> |
                         </span> 
                         <a href="/Users/profile" class="gia-user">پروفایل کاربر</a>
+                        <a href="javascript:void()" onclick="document.getElementById('logoutform').submit()" class="gia-logout">خروج کاربر</a>
                         
+                        <form method="post" id="logoutform" style="display:inline-block;" action="@Url.Action("LogoutRequest", "profile", new { area = "Users" })" ></form>
                     }
                     <a href="@Url.Action("Cart", "Store", new { area = "" })" class="gia-cart">سبد خرید</a>
+                    |
                     @*<a href="#" class="gia-heart">علاقه مندیها</a>*@
-                
+                    <a href="/Cars" class="gia-car1">خودروها</a>
+                    <a href="/Cars" class="gia-product">محصولات</a>
+                    <a href="/Cars" class="gia-news">اخبار</a>
             </section>
             
             <div id="part2">
-                <section id="searchSection">
-                	<input type="text" placeholder="محصول، سرویس و ..." />
-                    <button type="button"><span class="gia-search"></span></button>
-                </section>
+                <form method="get" action="/Store/integratedSearch" id="searchSection">
+                	<input type="text" name="isearch" value="@if (Request.QueryString.AllKeys.Contains("isearch")) { @Request.QueryString["isearch"] }" placeholder="محصول، سرویس و ..." />
+                    <button type="submit"><span class="gia-search"></span></button>
+                </form>
+                @*<div id="tabcontainer">
+                    <a href="#" >جستجوی پیشرفته خودروها</a> |
+                    <a href="#" >جستجوی پیشرفته محصولات</a>
+                </div>*@
             </div>
         </div>
         
@@ -69,13 +105,7 @@
             <h1>خودرو کلینیک | </h1>
         </section>
         <nav id="header2_menucontianer">
-        	@{
-                var productsGroup = dbs.Categories.Where(c => c.ParentCategoryId == null || c.ParentCategoryId <= 0);
-                foreach (var item in productsGroup)
-                {
-                    <a href="#">@item.CategoryName</a>
-                }
-        	}
+        	@ProductMenuGenerator(null)
         </nav>
     </header>
 </header>

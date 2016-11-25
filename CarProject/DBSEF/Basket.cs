@@ -22,7 +22,7 @@ namespace CarProject.DBSEF
     
         public int BasketId { get; set; }
         public Nullable<byte> State { get; set; }
-        public Nullable<System.DateTime> FinisDate { get; set; }
+        public Nullable<System.DateTime> FinishDate { get; set; }
         public Nullable<System.DateTime> DelivaryDate { get; set; }
         public Nullable<byte> PaymentType { get; set; }
         public Nullable<int> DelivaryTypeId { get; set; }

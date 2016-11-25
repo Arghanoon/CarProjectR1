@@ -70,7 +70,7 @@
     </Key>
     <Property Name="BasketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="State" Type="tinyint" />
-    <Property Name="FinisDate" Type="datetime" />
+    <Property Name="FinishDate" Type="datetime" />
     <Property Name="DelivaryDate" Type="date" />
     <Property Name="PaymentType" Type="tinyint" />
     <Property Name="DelivaryTypeId" Type="int" />

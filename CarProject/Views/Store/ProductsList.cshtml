@@ -2,6 +2,8 @@
     ViewBag.Title = "نمایش محصولات";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var rand = new Random();
+    
+    
 }
 
 
@@ -9,7 +11,7 @@
 
 <div class="listOfProducts">
     @{
-        var pdx = dbs.Products.Where(c => true);
+        var pdx = dbs.Products.AsQueryable();
         if (ViewContext.RouteData.Values["id"] != null)
         {
             int catid = 0;
@@ -31,7 +33,7 @@
                     <section>
                         <strong>@item.ProductName</strong><br />
                         <small>@item.Category.CategoryName</small><br />
-                        <small class="price">@item.ProductPrices.Last().ProductPrice1 ریال</small>
+                        <small class="price">@if (item.ProductPrices.Any()) {<span>@item.ProductPrices.Last().ProductPrice1</span>}else {<span>0</span>} ریال</small>
                     </section>
                 </a>
             }

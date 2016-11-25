@@ -6,6 +6,7 @@
     var baskets = dbs.Baskets.Where(c => c.UserId == user.UserId);
 }
 @using CarProject.App_extension
+@using CarProject.Models.Store
 
 
 
@@ -14,7 +15,9 @@
         <thead>
             <tr>
                 <th class="fix">شماره</th>
-                <th class="fix">تاریخ</th>
+                <th class="fix">وضعیت</th>
+                <th class="fix">تاریخ ثبت خرید</th>
+                <th class="fix">تاریخ تحویل</th>
                 <th class="fix">کد پیگیر بانک</th>
                 <th>کد پیگیری</th>
                 <th>عملیات</th>
@@ -26,10 +29,11 @@
             {
                 <tr>
                     <td class="center">@i</td>
-                    <td class="fix">@item.date.DateTime_Persian()</td>
-                    <td>@item.BackCodeFromBank</td>
-                    <td>@item.BasketCode</td>
-
+                    <td class="fix">@{ var statestring = ((CartUsefull.Basket_State)item.State).Basket_State_ToString();} @statestring</td>
+                    <td class="fix">@if (item.FinishDate != null) { @item.FinishDate.DateTime_Persian() }</td>
+                    <td class="fix">@if (item.DelivaryDate != null) { @item.DelivaryDate.DateTime_Persian() }</td>
+                    <td>@item.BankCode</td>
+                    <td>@item.LocalCode</td>
                     <td class="center">
                         <a href="/Users/Dashboard/BasketDetails/@item.BasketId" class="gia-details" ></a>
                     </td>

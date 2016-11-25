@@ -450,6 +450,7 @@
     <Content Include="Areas\Users\resources\Styles\Default\Default.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
+    <Content Include="Publics\Files\Resources\CarsPages\Index.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default_MS.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default.js" />
@@ -866,6 +867,7 @@
     <Content Include="Areas\Admin\Views\Store\DeliveryTypes_New.cshtml" />
     <Content Include="Areas\Admin\Views\Store\DeliveryTypes.cshtml" />
     <Content Include="Areas\Admin\Views\Store\DeliveryTypes_Update.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\InsertPersonCar.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -883,14 +885,17 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Users\Views\Dashboard\InsertPersonCar.cshtml" />
+    <Content Include="Areas\Users\Views\profile\ViewUserProfile.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserChangePassword.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserEditePersonInformation.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCars.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCarsDeleteConfirm.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
     <Content Include="Publics\Styles\fonts\yekan.TTF" />
     <Content Include="Views\Cars\Index.cshtml" />
     <Content Include="Views\Cars\Car.cshtml" />
-    <Content Include="Views\Cars\SearchView.cshtml" />
     <Content Include="Views\Home\ContectUs.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
@@ -912,6 +917,7 @@
     <Content Include="Views\Store\PaymentCart_InLocation.cshtml" />
     <Content Include="Views\Store\PaymentCart_Online.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\Store\integratedSearch.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

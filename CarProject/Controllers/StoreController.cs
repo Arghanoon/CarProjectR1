@@ -20,6 +20,11 @@ namespace CarProject.Controllers
         {
             return View();
         }
+
+        public ActionResult integratedSearch()
+        {
+            return View();
+        }
         
         #region Cart
         public void AddToCart(int id, Models.Store.CartUsefull.Basket_ItemType type)
@@ -189,6 +194,7 @@ namespace CarProject.Controllers
             var basket = us.GetCurrentBasket();
             basket.State = (byte)Models.Store.CartUsefull.Basket_State.Finished;
             basket.LocalCode = Guid.NewGuid().ToString();
+            basket.FinishDate = DateTime.Now;
             us.UpdateBasket(basket);
             return View(basket);
         }

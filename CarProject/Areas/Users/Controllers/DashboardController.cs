@@ -17,6 +17,7 @@ namespace CarProject.Areas.Users.Controllers
             return View();
         }
 
+        #region shoping and baskets
         public ActionResult ShoppingHistory()
         {
             return View();
@@ -24,18 +25,43 @@ namespace CarProject.Areas.Users.Controllers
 
         public ActionResult BasketDetails(int? id)
         {
-            if (id == null)
-                return RedirectToAction("ShoppingHistory");
-
             var User = Session["guestUser"] as DBSEF.User;
-            
-
-            return View();
+            var dbs = new CarProject.DBSEF.CarAutomationEntities();
+            var model = dbs.Baskets.FirstOrDefault(c => c.BasketId == id && c.UserId == User.UserId);
+            if (model == null)
+                return RedirectToAction("ShoppingHistory");
+            return View(model);
         }
-
+        #endregion
 
 
         #region PersonCars
+        public ActionResult PersonCars()
+        {
+            return View();
+        }
+
+        public ActionResult PersonCarsDeleteConfirm(int? id)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var personcar = dbs.PersonCars.FirstOrDefault(pc => pc.PersonCarsId == id);
+            if (personcar == null)
+                return RedirectToAction("PersonCars");
+            return View(personcar);
+        }
+        [HttpPost]
+        public ActionResult PersonCarsDeleteConfirm(DBSEF.PersonCar model, int? id)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var personcar = dbs.PersonCars.FirstOrDefault(pc => pc.PersonCarsId == model.PersonCarsId);
+
+            dbs.PersonCarDetails.RemoveRange(dbs.PersonCarDetails.Where(pcd => pcd.PersonCarId == model.PersonCarsId));
+            dbs.PersonCars.Remove(personcar);
+            dbs.SaveChanges();
+
+            return RedirectToAction("PersonCars");
+        }
+
         public ActionResult InsertPersonCar(int? id)
         {
             var m = new Models.Dashboard.PersonCarsModel(id);
