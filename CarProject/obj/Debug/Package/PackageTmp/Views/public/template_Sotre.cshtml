@@ -1,0 +1,123 @@
+﻿@{
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+}
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>@{if (ViewBag.Title != "") { Write(ViewBag.Title + " | "); }}خودرو کلینیک</title>
+
+    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
+    <link href="~/Publics/Files/Resources/StorePage/Default.css" rel="stylesheet" />
+    <link href="~/Publics/Files/Resources/StorePage/Default_MS.css" rel="stylesheet" media="(max-width:700px)" />
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/input1.css" rel="stylesheet" />
+    <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
+
+    @RenderSection("style", false)
+</head>
+
+<body>
+
+<header id="headers">	
+    <header id="header1">
+    	<div id="section1">
+            <a href="javascript:void()" onclick="$('#part1').toggleClass('show')" class="gia-menuIcon" id="section1part1munuIcon"></a>
+        	<section id="part1">
+            	 
+                	فروشگاه اینترنتی کلینیک خودرو |
+                    @if(Session["guestUser"] == null)
+                    {
+                        <a href="/Users/profile/Login" class="gia-login">ورود کاربران</a>
+                        <a href="/Users/profile/Signup" class="gia-user"> ثبت نام کاربر</a>
+                    }
+                    else
+                    {
+                        var user = Session["guestUser"] as CarProject.DBSEF.User;
+                        <span>
+                            <span>کاربر:</span>
+                            <strong>@user.Uname</strong> |
+                        </span> 
+                        <a href="/Users/profile" class="gia-user">پروفایل کاربر</a>
+                        <a href="javascript:void()" onclick="document.getElementById('logoutform').submit()" class="gia-logout">خروج کاربر</a>
+                        
+                        <form method="post" id="logoutform" action="@Url.Action("LogoutRequest", "profile", new { area = "Users" })" ></form>
+                    }
+                    <a href="@Url.Action("Cart", "Store", new { area = "" })" class="gia-cart">سبد خرید</a>
+                    @*<a href="#" class="gia-heart">علاقه مندیها</a>*@
+                
+            </section>
+            
+            <div id="part2">
+                <section id="searchSection">
+                	<input type="text" placeholder="محصول، سرویس و ..." />
+                    <button type="button"><span class="gia-search"></span></button>
+                </section>
+            </div>
+        </div>
+        
+        <div id="logoSection">
+            <img id="logo" src="~/Publics/Files/Resources/HomePage/logo.png" alt="وبسایت رسمی خودرو کلینیک"/>
+            <section id="describe">توضیحات سایت</section>
+        </div>
+    </header>
+    <header id="header2">
+    	<section class="flex-row-center-center">
+        	@*<a href="#" class="gia-menuIcon" ></a>*@
+            <h1>خودرو کلینیک | </h1>
+        </section>
+        <nav id="header2_menucontianer">
+        	@{
+                var productsGroup = dbs.Categories.Where(c => c.ParentCategoryId == null || c.ParentCategoryId <= 0);
+                foreach (var item in productsGroup)
+                {
+                    <a href="#">@item.CategoryName</a>
+                }
+        	}
+        </nav>
+    </header>
+</header>
+
+
+<div id="renderBodySection">    
+@RenderBody()
+</div>
+
+@*<div class="SliderType1" style=" height:100vh;">
+	<div class="w25 sliderTitles">
+    	<section onClick="SliderType1ChangeSlide_byelement(this)" data-slide='1'>موضوع اسلاید شماره 1 </section>
+        <section onClick="SliderType1ChangeSlide_byelement(this)" data-slide='2' data-slide='1'>موضوع اسلاید شماره 2  </section>
+        <section onClick="SliderType1ChangeSlide_byelement(this)" data-slide='3'>اسلایدر 3 </section>
+        <section onClick="SliderType1ChangeSlide_byelement(this)" data-slide='4'>موضوع اسلاید شماره 4</section>
+        <section onClick="SliderType1ChangeSlide_byelement(this)" data-slide='5'>موضوع اسلاید شماره 5</section>
+        <section onClick="SliderType1ChangeSlide_byelement(this)" data-slide='6'>موضوع اسلاید شماره 6</section>
+        <section onClick="SliderType1ChangeSlide_byelement(this)" data-slide='7'>موضوع اسلاید شماره 7</section>
+        <section onClick="SliderType1ChangeSlide_byelement(this)" data-slide='8'>موضوع اسلاید شماره 7</section>
+        <section onClick="SliderType1ChangeSlide_byindex(8)" data-slide='9'>موضوع اسلاید شماره 9</section>
+        <section onClick="SliderType1ChangeSlide_byelement(this)" data-slide='10'>موضوع اسلاید شماره 7 </section>
+        <section onClick="SliderType1ChangeSlide_byelement(this)" data-slide='11'>موضوع اسلاید شماره 7</section>
+        <section onClick="SliderType1ChangeSlide_byelement(this)" data-slide='12'>موضوع اسلاید شماره 7 </section>
+    </div>
+    <div class="w75 sliderItems">
+    	<div class="slideItem" data-slide="1">
+        	<img src="../Cars/Images/img (1).jpg" alt=""/>
+        </div>
+        <div class="slideItem" data-slide="2">
+        	<img src="../Cars/Images/img (1).png" alt=""/>
+        </div>
+        <div class="slideItem" data-slide="9">
+        	<img src="../Cars/Images/img (3).jpg" alt=""/>
+        </div>
+    </div>
+</div>*@
+
+
+</body>
+
+<script src="~/Publics/Files/Resources/StorePage/Default.js"></script>
+@RenderSection("script", false)
+</html>

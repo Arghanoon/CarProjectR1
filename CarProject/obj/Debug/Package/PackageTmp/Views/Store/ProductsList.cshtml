@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "نمایش محصولات";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var rand = new Random();
+}
+
+
+@section style{ <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" /> }
+
+<div class="listOfProducts">
+    @{
+        var pdx = dbs.Products.Where(c => true);
+        if (ViewContext.RouteData.Values["id"] != null)
+        {
+            int catid = 0;
+            int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out catid);
+            pdx = pdx.Where(c => c.CategoryId.Value == catid);
+        }
+        
+        pdx = pdx.OrderByDescending(c => c.ProductId).Take(50);
+        
+        foreach (var item in pdx)
+        {
+            var PicFileUrl = "~/Publics/Gallery/ProductImages/"+ item.ProductId;
+            var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+                                
+            if(finfo.Exists && finfo.GetFiles().Count() > 0)
+            {
+                <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                    <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                    <section>
+                        <strong>@item.ProductName</strong><br />
+                        <small>@item.Category.CategoryName</small><br />
+                        <small class="price">@item.ProductPrices.Last().ProductPrice1 ریال</small>
+                    </section>
+                </a>
+            }
+            else
+            {
+                <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                    <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
+                    <section>
+                        <strong>@item.ProductName</strong><br />
+                        <small>@item.Category.CategoryName</small><br />
+                        <small class="price">@item.ProductPrices.Last().ProductPrice1 ریال</small>
+                    </section>
+                </a>
+            }
+        }
+    }
+</div>

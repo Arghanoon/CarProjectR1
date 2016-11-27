@@ -1,0 +1,46 @@
+﻿@using cntr = CarProject.Areas.Users.Controllers
+@{
+    ViewBag.Title = "نمایش اطلاعات کاربری";
+    var person = cntr.profileController.GetCurrentLoginPerson;
+    var user = cntr.profileController.GetCurrentLoginedUser;
+}
+
+
+<div class="page">
+    <h3>اطلاعات شخصی کاربر - <strong>@user.Uname</strong></h3>
+    <table class="infoTable">
+        <tr>
+            <th>نام</th>
+            <td>@person.PersonFirtstName</td>
+        </tr>
+        <tr>
+            <th>نام خانوادگی</th>
+            <td>@person.PersonLastName</td>
+        </tr>
+        <tr>
+            <th>ایمیل</th>
+            <td>@person.PersonEmail</td>
+        </tr>
+        <tr>
+            <th>تلفن ثابت</th>
+            <td>@person.PersonPhone</td>
+        </tr>
+        <tr>
+            <th>همراه</th>
+            <td>@person.PersonMobile</td>
+        </tr>
+        <tr>
+            <th>شهر محل اقامت</th>
+            <td>@person.PersonAddressCity</td>
+        </tr>
+        <tr>
+            <th>آدرس کامل</th>
+            <td>@person.PersonAddress</td>
+        </tr>
+    </table>
+
+    <div style="display:flex; flex-direction:row-reverse;">
+        <a href="/Users/profile/UserEditePersonInformation" class="button green gia-information">ویرایش اطلاعات کاربری</a>
+        <a href="/Users/profile/UserChangePassword" class="button purple gia-key">تغییر کلمه عبور</a>
+    </div>
+</div>

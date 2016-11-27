@@ -1,0 +1,22 @@
+﻿@using CarProject.App_Code
+@{
+    ViewBag.Title = "توضیحات محصول - "+ Model.Product.ProductName;
+}
+@model CarProject.Areas.Admin.Models.Store.ProductsModel
+
+<h2>ثبت بررسی برای محصول - <q>@Model.Product.ProductName</q> </h2>
+<div>
+    <form method="post">
+        @Html.HiddenFor(m => m.Product.ProductId)
+        @Html.HiddenFor(m => m.Product.ProductReview.ProductReviewId)
+        @Html.TextAreaFor(m => m.HtmlReview)
+
+        <center>
+            <input type="submit" class="button green" value="ثبت" />
+        </center>
+    </form>
+   
+</div>
+
+
+@Html.Action("tinymcefm", "FileManager", new { id = Html.IdFor(m => m.HtmlReview) })
