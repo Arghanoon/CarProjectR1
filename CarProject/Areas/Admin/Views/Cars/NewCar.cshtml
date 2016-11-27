@@ -38,14 +38,13 @@
         <div class="wizardPage" id="w1">
             <div class="inputsContainer">
                 @Html.input_ComboBox(m => m.Car.CarModel.CarBrandId, "برند", dbs.CarBrands.ToDictionary(b => b.CarBrandId, b => b.CarBrandName))
-
                 @Html.input_TextBox(m => m.Car.CarModel.CarModelName, "مدل")
 
                 @Html.input_ComboBox(m => m.Car.CarsClass, "کلاس خودرو", Model.List_CarClass)
                 @Html.input_Rating(m => m.Car.CarsClinicScore, "امتیاز کلینیک")
                 @Html.input_TextBox(m => m.Car.Price, "قیمت اولیه")
                 @Html.input_TextBox(m => m.Car.CarsVideoURL, "آدرس ویدئو")
-                @Html.input_ComboBox(m => m.Car.CarClassType, "اتاق خودرو", Model.List_CarType)
+                @Html.input_ComboBox(m => m.Car.CarClassType, "نوع خودرو", Model.List_CarType)
                @* @Html.input_TextBox(m => m.Car.CarCategory, "دسته بندی خودرو")*@
                 @Html.input_ComboBox(m => m.Car.CarUsage, "کاربرد خودرو", Model.List_CarUsage)
                 @Html.input_TextBox(m => m.Car.CarYearModel, "سال ساخت")
@@ -81,7 +80,7 @@
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.GearBox.GearBoxCode, "کد گیربکس")
                 @Html.input_ComboBox(m => m.GearBox.GearBoxType, "نوع گیربکس", Model.List_GearBoxType)
-                @Html.input_CheckBox(m => m.GearBox.GearBoxCanBeManual, "قابلیت تبدیل به دنده دستی")
+                @Html.input_ComboBox(m => m.GearBox.GearBoxCanBeManual, "قابلیت تبدیل به دنده دستی",Model.List_YesOrNo)
                 @Html.input_TextBox(m => m.GearBox.GearBoxShiftNumber, "تعداد دنده")
                 @Html.input_ComboBox(m => m.GearBox.GearBoxAxel, "محور جابه‌جایی",Model.List_gearBoxAxel)
                 @Html.input_CheckBox(m => m.GearBox.HasTransferCase, "آیا دارای کمک گیربکس است")
