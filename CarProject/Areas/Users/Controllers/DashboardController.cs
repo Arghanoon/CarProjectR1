@@ -62,6 +62,21 @@ namespace CarProject.Areas.Users.Controllers
             return RedirectToAction("PersonCars");
         }
 
+        public ActionResult PersonCarCurrentMillage(int? id)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var PersonCar = dbs.PersonCars.FirstOrDefault(c => c.PersonCarsId == id);
+
+            return View(PersonCar);
+        }
+        [HttpPost]
+        public ActionResult PersonCarCurrentMillage(DBSEF.PersonCar model)
+        {
+
+
+            return View(model);
+        }
+
         public ActionResult InsertPersonCar(int? id)
         {
             var m = new Models.Dashboard.PersonCarsModel(id);

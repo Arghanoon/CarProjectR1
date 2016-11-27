@@ -7,7 +7,7 @@
 
     var ListOfCars = dbs.Cars.AsQueryable();
 
-    ListOfCars = ListOfCars.OrderByDescending(c => c.CarsId).Take(50);
+    //ListOfCars = ListOfCars.OrderByDescending(c => c.CarsId).Take(50);
 
 
     var brandFilters = Request.QueryString.GetValues("CarBrand");
@@ -120,7 +120,6 @@
 @section style
 { 
     <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" />
-    <link href="~/Publics/Files/Resources/CarsPages/Index.css" rel="stylesheet" />
 }
 
 <form method="get">
