@@ -17,7 +17,14 @@ namespace CarProject.Areas.Users.Models.Dashboard
         public DBSEF.PersonCarDetail Detail { get; set; }
 
         public string LastOilChange { get; set; }
-        public string LastFilterChange { get; set; }
+        public string LastOilFiltersChange { get; set; }
+        public string LastAirFilterChange { get; set; }
+        public string LastGearBoxOilChange { get; set; }
+        public string LastTiresChange { get; set; }
+        public string LastTimingbeltChange { get; set; }
+        public string LastOtherBeltsChange { get; set; }
+        public string LastFrontBrakePadsChange { get; set; }
+        public string LastRearBreakePadsChange { get; set; }
 
         public PersonCarsModel()
         {
@@ -41,8 +48,15 @@ namespace CarProject.Areas.Users.Models.Dashboard
                     Detail = new DBSEF.PersonCarDetail();
                 else
                 {
-                    LastFilterChange = Detail.LastFiltersChange.Date_Persian();
                     LastOilChange = Detail.LastOilChange.Date_Persian();
+                    LastOilFiltersChange = Detail.LastOilFiltersChange.Date_Persian();
+                    LastAirFilterChange = Detail.LastAirFilterChange.Date_Persian();
+                    LastGearBoxOilChange  = Detail.LastGearBoxOilChange.Date_Persian();
+                    LastTiresChange = Detail.LastTiresChange.Date_Persian();
+                    LastTimingbeltChange = Detail.LastTimingbeltChange.Date_Persian();
+                    LastOtherBeltsChange = Detail.LastOtherBeltsChange.Date_Persian();
+                    LastFrontBrakePadsChange = Detail.LastFrontBrakePadsChange.Date_Persian();
+                    LastRearBreakePadsChange = Detail.LastRearBreakePadsChange.Date_Persian();
                 }
             }
             else
@@ -62,8 +76,22 @@ namespace CarProject.Areas.Users.Models.Dashboard
         {
             if (LastOilChange.IsPersianDateTime())
             { Detail.LastOilChange = LastOilChange.Persian_ToDateTime(); }
-            if (LastFilterChange.IsPersianDateTime())
-            { Detail.LastFiltersChange = LastFilterChange.Persian_ToDateTime(); }
+            if (LastOilFiltersChange.IsPersianDateTime())
+            { Detail.LastOilFiltersChange = LastOilFiltersChange.Persian_ToDateTime(); }
+            if (LastAirFilterChange.IsPersianDateTime())
+            { Detail.LastAirFilterChange = LastAirFilterChange.Persian_ToDateTime(); }
+            if (LastGearBoxOilChange.IsPersianDateTime())
+            { Detail.LastGearBoxOilChange = LastGearBoxOilChange.Persian_ToDateTime(); }
+            if (LastTiresChange.IsPersianDateTime())
+            { Detail.LastTiresChange = LastTiresChange.Persian_ToDateTime(); }
+            if (LastTimingbeltChange.IsPersianDateTime())
+            { Detail.LastTimingbeltChange = LastTimingbeltChange.Persian_ToDateTime(); }
+            if (LastOtherBeltsChange.IsPersianDateTime())
+            { Detail.LastOtherBeltsChange = LastOtherBeltsChange.Persian_ToDateTime(); }
+            if (LastFrontBrakePadsChange.IsPersianDateTime())
+            { Detail.LastFrontBrakePadsChange = LastFrontBrakePadsChange.Persian_ToDateTime(); }
+            if (LastRearBreakePadsChange.IsPersianDateTime())
+            { Detail.LastRearBreakePadsChange = LastRearBreakePadsChange.Persian_ToDateTime(); }
 
             Car.UserId = Controllers.profileController.GetCurrentLoginedUser.UserId;
             dbs.PersonCars.Add(Car);
@@ -77,8 +105,22 @@ namespace CarProject.Areas.Users.Models.Dashboard
         {
             if (LastOilChange.IsPersianDateTime())
             { Detail.LastOilChange = LastOilChange.Persian_ToDateTime(); }
-            if (LastFilterChange.IsPersianDateTime())
-            { Detail.LastFiltersChange = LastFilterChange.Persian_ToDateTime(); }
+            if (LastOilFiltersChange.IsPersianDateTime())
+            { Detail.LastOilFiltersChange = LastOilFiltersChange.Persian_ToDateTime(); }
+            if (LastAirFilterChange.IsPersianDateTime())
+            { Detail.LastAirFilterChange = LastAirFilterChange.Persian_ToDateTime(); }
+            if (LastGearBoxOilChange.IsPersianDateTime())
+            { Detail.LastGearBoxOilChange = LastGearBoxOilChange.Persian_ToDateTime(); }
+            if (LastTiresChange.IsPersianDateTime())
+            { Detail.LastTiresChange = LastTiresChange.Persian_ToDateTime(); }
+            if (LastTimingbeltChange.IsPersianDateTime())
+            { Detail.LastTimingbeltChange = LastTimingbeltChange.Persian_ToDateTime(); }
+            if (LastOtherBeltsChange.IsPersianDateTime())
+            { Detail.LastOtherBeltsChange = LastOtherBeltsChange.Persian_ToDateTime(); }
+            if (LastFrontBrakePadsChange.IsPersianDateTime())
+            { Detail.LastFrontBrakePadsChange = LastFrontBrakePadsChange.Persian_ToDateTime(); }
+            if (LastRearBreakePadsChange.IsPersianDateTime())
+            { Detail.LastRearBreakePadsChange = LastRearBreakePadsChange.Persian_ToDateTime(); }
 
             dbs.SaveChanges();
         }
@@ -97,15 +139,51 @@ namespace CarProject.Areas.Users.Models.Dashboard
                 res.Add(new ValidationResult("مقدار وارد شده صحیح نیست.سال به صورت عدد چهار رقمی باید باشد", new string[] { "Car.CarCreationDate" }));
 
 
-            if (LastFilterChange.IsNullOrWhiteSpace())
-                res.Add(new ValidationResult("تاریخ آخرین تعویض فیلتر تعیین نشده است", new string[] { "LastFilterChange" }));
-            else if(!LastFilterChange.IsPersianDateTime())
-                res.Add(new ValidationResult("تاریخ آخرین تعویض فیلتر صحیح نیست", new string[] { "LastFilterChange" }));
-
             if (LastOilChange.IsNullOrWhiteSpace())
                 res.Add(new ValidationResult("تاریخ آخرین تعویض روغن تعیین نشده است", new string[] { "LastOilChange" }));
             else if (!LastOilChange.IsPersianDateTime())
                 res.Add(new ValidationResult("تاریخ آخرین تعویض روغن صحیح نیست", new string[] { "LastOilChange" }));
+
+            if (LastOilFiltersChange.IsNullOrWhiteSpace())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض فیلتر روغن تعیین نشده است", new string[] { "LastOilFiltersChange" }));
+            else if (!LastOilFiltersChange.IsPersianDateTime())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض فیلتر روغن صحیح نیست", new string[] { "LastOilFiltersChange" }));
+
+            if (LastAirFilterChange.IsNullOrWhiteSpace())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض فیلتر تعیین نشده است", new string[] { "LastAirFilterChange" }));
+            else if(!LastAirFilterChange.IsPersianDateTime())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض فیلتر صحیح نیست", new string[] { "LastAirFilterChange" }));
+
+            if (LastGearBoxOilChange.IsNullOrWhiteSpace())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض روغن گیربکس تعیین نشده است", new string[] { "LastGearBoxOilChange" }));
+            else if (!LastGearBoxOilChange.IsPersianDateTime())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض روغن گیربکس صحیح نیست", new string[] { "LastGearBoxOilChange" }));
+
+            if (LastTiresChange.IsNullOrWhiteSpace())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض تایر تعیین نشده است", new string[] { "LastTiresChange" }));
+            else if (!LastTiresChange.IsPersianDateTime())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض تایر صحیح نیست", new string[] { "LastTiresChange" }));
+
+            if (LastTimingbeltChange.IsNullOrWhiteSpace())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض تسمه تایم تعیین نشده است", new string[] { "LastTimingbeltChange" }));
+            else if (!LastTimingbeltChange.IsPersianDateTime())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض تسمه تایم صحیح نیست", new string[] { "LastTimingbeltChange" }));
+
+            if (LastOtherBeltsChange.IsNullOrWhiteSpace())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض تسمه دینام / واترپمپ تعیین نشده است", new string[] { "LastOtherBeltsChange" }));
+            else if (!LastOtherBeltsChange.IsPersianDateTime())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض تسمه دینام / واتر پمپ صحیح نیست", new string[] { "LastOtherBeltsChange" }));
+
+            if (LastFrontBrakePadsChange.IsNullOrWhiteSpace())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض لنت ترمز های جلو تعیین نشده است", new string[] { "LastFrontBrakePadsChange" }));
+            else if (!LastFrontBrakePadsChange.IsPersianDateTime())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض لنت ترمز های جلو پمپ صحیح نیست", new string[] { "LastFrontBrakePadsChange" }));
+
+            if (LastRearBreakePadsChange.IsNullOrWhiteSpace())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض لنت ترمز های جلو تعیین نشده است", new string[] { "LastRearBreakePadsChange" }));
+            else if (!LastRearBreakePadsChange.IsPersianDateTime())
+                res.Add(new ValidationResult("تاریخ آخرین تعویض لنت ترمز های جلو پمپ صحیح نیست", new string[] { "LastRearBreakePadsChange" }));
+
 
             if (Car.CarPlate.IsNullOrWhiteSpace())
                 res.Add(new ValidationResult("پلاک خودرو وارد نشده است", new string[] { "Car.CarPlate" }));

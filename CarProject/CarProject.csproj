@@ -867,6 +867,12 @@
     <Content Include="Areas\Admin\Views\Store\DeliveryTypes.cshtml" />
     <Content Include="Areas\Admin\Views\Store\DeliveryTypes_Update.cshtml" />
     <Content Include="Areas\Users\Views\Dashboard\InsertPersonCar.cshtml" />
+    <Content Include="Areas\Users\Views\profile\ViewUserProfile.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserChangePassword.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserEditePersonInformation.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCars.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCarsDeleteConfirm.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCarCurrentMillage.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -884,12 +890,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Users\Views\profile\ViewUserProfile.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserChangePassword.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserEditePersonInformation.cshtml" />
-    <Content Include="Areas\Users\Views\Dashboard\PersonCars.cshtml" />
-    <Content Include="Areas\Users\Views\Dashboard\PersonCarsDeleteConfirm.cshtml" />
-    <Content Include="Areas\Users\Views\Dashboard\PersonCarCurrentMillage.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
