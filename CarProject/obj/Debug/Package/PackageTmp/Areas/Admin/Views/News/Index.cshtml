@@ -1,0 +1,123 @@
+﻿@using db = CarProject.DBSEF;
+@using CarProject.App_extension
+
+@{
+    ViewBag.Title = "اخبار";
+    var DBS = new db.CarAutomationEntities();
+
+    IQueryable<db.Content> Contents = null;
+
+    Contents = DBS.Contents;
+}
+
+
+<div>
+    <table class="grid1">
+        <thead>
+            <tr>
+                <th style="width:0; white-space:nowrap;">شناسه</th>
+                <th>عنوان</th>
+                <th>گروه</th>
+                <th style="width:0; white-space:nowrap;">تاریخ ثبت</th>
+                <th style="width:0; white-space:nowrap;">تاریخ آخرین تغییر</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            @foreach (var item in Contents)
+            {
+                <tr>
+                    <td>@item.ContenstId</td>
+                    <td style="text-align:right;">@item.ContentSubject</td>
+                    <td style="width:0; white-space:nowrap;">@item.ContentsCategory.Name</td>
+                    <td style="width:0; white-space:nowrap;">@item.Date.DateTime_Persian()</td>
+                    <td style="width:0; white-space:nowrap;">@item.LastUpdateDate.DateTime_Persian()</td>
+                    <td style="width:0; white-space:nowrap;">
+                        <a href="@Url.Action("Update_Publish", "News", new { id = item.ContenstId })" class="gia-edit"></a>
+                        <a href="@Url.Action("NewsImagesGallery", "News", new { id = item.ContenstId })" class="gia-images"></a>
+                        <a href="javascript: void(0)" onclick="DeleteNewsRequest('@item.ContenstId')" class="gia-remove"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<div id="dlBack">
+    <form method="post" action="@Url.Action("News_Delete","News")" id="dlMessage">
+        <input type="hidden" name="id" id="deletedNewsId" />
+        <strong id="dlTitle">حذف خبر</strong>
+        <section id="deMSG">
+            آیا از حذف خبر انتخابی اطمینان دارید؟
+        </section>
+        <section id="dlAction">
+            <input type="button" class="button blue" value="انصراف" onclick="$('#dlBack').toggleClass('show');" />
+            <input type="submit" class="button red"  value="حذف خبر"/>
+        </section>
+    </form>
+</div>
+
+
+@section style
+{
+    <style>
+        #dlBack {
+            position:fixed;
+            top:0; left:0; right:0; bottom:0;
+
+            background:rgba(0,0,0,0.6);
+            z-index:9999;
+            display:none;
+        }
+            #dlBack.show {
+                display:block;
+            }
+
+        #dlMessage {
+            padding:5px;
+            border:thin solid #888;
+            border-radius:5px;
+            margin:auto;
+            margin-top:10%;
+            background:white;
+            box-shadow:0 0 3px 0 #000;
+
+            width:70%;
+            overflow:hidden;
+        }
+        #dlTitle {
+            margin:-5px;
+            margin-bottom:5px;
+            padding:0 5px;
+
+            color:white;
+            background:#888;
+            display:block;
+        }
+
+        #dlAction {
+            display:flex;
+            justify-content:center; align-items:center;
+        }
+
+        @@media (max-width:500px) {
+            #dlMessage {
+                width:100%;
+            }
+        }
+    </style>
+}
+
+
+@section script
+{
+    <script>
+        function DeleteNewsRequest(id) {
+            document.getElementById("deletedNewsId").value = id;
+            $("#dlBack").toggleClass('show');
+        }
+    </script>
+}

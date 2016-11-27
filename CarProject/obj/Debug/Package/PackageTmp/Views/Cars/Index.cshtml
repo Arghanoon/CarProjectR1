@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "نمایش خودروها";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var rand = new Random();
+}
+
+
+@section style{ <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" /> }
+
+<div class="listOfProducts">
+    @{
+        var pdx = dbs.Cars.Where(c => true);
+        
+        pdx = pdx.OrderByDescending(c => c.CarsId).Take(50);
+        
+        foreach (var item in pdx)
+        {
+            if (item.CarModel == null)
+            { continue; }
+            var PicFileUrl = "~/Publics/Gallery/CarImages/" + item.CarsId;
+            var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+                                
+            if(finfo.Exists && finfo.GetFiles().Count() > 0)
+            {
+                <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })" class="item">
+                    <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                    <section>
+                        <strong>@item.CarModel.CarModelName</strong><br />
+                        <small>@item.CarModel.CarBrand.CarBrandName</small><br />
+                        @*<small class="price">@item.CarPrices.Last().Price ریال</small>*@
+                    </section>
+                </a>
+            }
+            else
+            {
+                <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })" class="item">
+                    <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
+                    <section>
+                        <strong>@item.CarModel.CarModelName</strong><br />
+                        <small>@item.CarModel.CarBrand.CarBrandName</small><br />
+                        @*<small class="price">@item.CarPrices.Last().Price ریال</small>*@
+                    </section>
+                </a>
+            }
+        }
+    }
+</div>
