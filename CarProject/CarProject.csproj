@@ -450,7 +450,6 @@
     <Content Include="Areas\Users\resources\Styles\Default\Default.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
-    <Content Include="Publics\Files\Resources\CarsPages\Index.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default_MS.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default.js" />
@@ -890,6 +889,7 @@
     <Content Include="Areas\Users\Views\profile\UserEditePersonInformation.cshtml" />
     <Content Include="Areas\Users\Views\Dashboard\PersonCars.cshtml" />
     <Content Include="Areas\Users\Views\Dashboard\PersonCarsDeleteConfirm.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCarCurrentMillage.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
