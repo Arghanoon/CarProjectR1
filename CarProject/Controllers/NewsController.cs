@@ -20,7 +20,24 @@ namespace CarProject.Controllers
 
         public ActionResult NewsShow(int? id)
         {
-            return View();
+            var model = new Models.News.ContentCommentModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult NewsShow(int? id,Models.News.ContentCommentModel model)
+        {
+            if (Request.Form["captcha"].IsNullOrWhiteSpace())
+                ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
+            else if (!Controllers.DefaultController.ValidationCaptcha(Request.Form["captcha"]))
+                ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نیست");
+
+            if (ModelState.IsValid)
+            {
+                model.Save();
+                return View();
+            }
+            
+            return View(model);
         }
 
     }
