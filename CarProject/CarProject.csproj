@@ -694,6 +694,8 @@
     <Content Include="Publics\Scripts\tinymce\tinymce.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.min.js" />
     <Content Include="Publics\Files\Resources\template.css" />
+    <Content Include="Views\Store\ProductSitemap.aspx" />
+    <Content Include="Views\Store\ProductsRss.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

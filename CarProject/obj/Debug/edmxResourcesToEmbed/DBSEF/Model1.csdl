@@ -505,7 +505,7 @@
     <Property Name="ContentsId" Type="Int32" />
     <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="UserId" Type="Int32" />
     <Property Name="Date" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Content" Relationship="Self.FK_ContetComments_Contents" FromRole="ContetComments" ToRole="Contents" />

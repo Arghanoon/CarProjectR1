@@ -33,8 +33,11 @@ namespace CarProject.Controllers
 
             if (ModelState.IsValid)
             {
+                model.Comment.ContentsId = id;
+                model.Comment.Date = DateTime.Now;
                 model.Save();
-                return View();
+                model = new Models.News.ContentCommentModel();
+                return RedirectToAction("NewsShow", new { id = id });
             }
             
             return View(model);

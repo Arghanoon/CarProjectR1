@@ -55,20 +55,20 @@
                 <h3>ثبت نظر جدید</h3>
                 <hr />
                 <form method="post">
-                    <div class="inputsContainer">
+                    <div class="inputsContainer2">
                         @Html.input_TextBox(m => m.Comment.FullName, "نام و نام خانوادگی")
                         @Html.input_TextBox(m => m.Comment.Email, "ایمیل")
                         @Html.input_TextArea(m => m.Comment.Comment, "متن پیام")
 
                         <section class="input">
                             <label>کد امنیتی</label>
-                            <div class="inputElement" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <center class="inputElement" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                                 <a href="javascript:void()" onclick="ReloadCaptcha('captcha')">
-                                    <img id="captcha" src="/default/index" /></a>
+                                    <img id="captcha" src="/default/index" /></a><br />
                                 <small>برای تغییر کد روی تصویر کلیک کنید</small>
                                 <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
-                            </div>
-                            <span>@try{ @ViewBag.error["captcha"] }catch { }</span>
+                            </center>
+                            <span>@Html.ValidationMessage("captcha")</span>
                         </section>
 
                     </div>
@@ -85,12 +85,15 @@
                 <hr />
                 <div class="CommentsContainer">
                     @{
-                        var comments = dbs.ContetComments.Where(c => c.ContentsId == id).OrderByDescending(c => c.Date);
+                        var comments = dbs.ContetComments.Where(c => c.ContentsId == id).OrderByDescending(c => c.ContentCommentsId);
                         foreach (var item in comments)
                         {
                         <div class="comentsItem">
-                            <section class="header"></section>
-                            <section class="body"></section>
+                            <section class="header">
+                                <span>@item.FullName</span> 
+                                <small style="font-size:60%;">@item.Date.DateTime_Persian()</small style="font-size:60%;">
+                            </section>
+                            <section class="body">@item.Comment</section>
                             <section class="footer"></section>
                         </div>
                         }
