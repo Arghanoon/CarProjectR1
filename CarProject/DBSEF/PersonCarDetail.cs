@@ -17,9 +17,23 @@ namespace CarProject.DBSEF
         public int PersonCarDetailId { get; set; }
         public Nullable<int> PersonCarId { get; set; }
         public Nullable<System.DateTime> LastOilChange { get; set; }
-        public Nullable<System.DateTime> LastFiltersChange { get; set; }
         public Nullable<int> LastOilChangeMilage { get; set; }
-        public Nullable<int> LastFilterChangeMilage { get; set; }
+        public Nullable<System.DateTime> LastOilFiltersChange { get; set; }
+        public Nullable<int> LastOilFilterChangeMilage { get; set; }
+        public Nullable<System.DateTime> LastGearBoxOilChange { get; set; }
+        public Nullable<int> LastGearBoxOilChangeMilage { get; set; }
+        public Nullable<System.DateTime> LastAirFilterChange { get; set; }
+        public Nullable<int> LastAirFilterChangeMilage { get; set; }
+        public Nullable<System.DateTime> LastTiresChange { get; set; }
+        public Nullable<int> LastTiresChangeMilage { get; set; }
+        public Nullable<System.DateTime> LastTimingbeltChange { get; set; }
+        public Nullable<int> LastTimingbeltChangeMilage { get; set; }
+        public Nullable<System.DateTime> LastOtherBeltsChange { get; set; }
+        public Nullable<int> LastOtherBeltsChangeMilage { get; set; }
+        public Nullable<System.DateTime> LastFrontBrakePadsChange { get; set; }
+        public Nullable<int> LastFrontBrakePadsChangeMilage { get; set; }
+        public Nullable<System.DateTime> LastRearBreakePadsChange { get; set; }
+        public Nullable<int> LastRearBrakePadsChangeMilage { get; set; }
     
         public virtual PersonCar PersonCar { get; set; }
     }

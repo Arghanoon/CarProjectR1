@@ -76,6 +76,10 @@ namespace CarProject.App_extension
         {
             return !value.IsNullOrWhiteSpace() && Regex.IsMatch(value, "^[0-9]*$");
         }
+        public static bool IsFloat(this string value)
+        {
+            return !value.IsNullOrWhiteSpace() && Regex.IsMatch(value, "^[0-9]*\\.?[0-9]+$");
+        }
     }
 
     public static class DateTimeExtensions

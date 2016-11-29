@@ -168,6 +168,7 @@
     <Compile Include="Areas\Admin\Models\News\CategoryModel.cs" />
     <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
     <Compile Include="Areas\Admin\Models\Store\Category.cs" />
+    <Compile Include="Areas\Admin\Models\Store\ProductDiscountModel.cs" />
     <Compile Include="Areas\Admin\Models\Store\ProductsModel.cs" />
     <Compile Include="Areas\Admin\Models\Store\ServicePacks.cs" />
     <Compile Include="Areas\Admin\Models\Store\Services.cs" />
@@ -450,6 +451,8 @@
     <Content Include="Areas\Users\resources\Styles\Default\Default.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
+    <Content Include="Publics\Files\Resources\NewsPage\Index.css" />
+    <Content Include="Publics\Files\Resources\NewsPage\NewsShow.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default_MS.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default.js" />
@@ -692,6 +695,8 @@
     <Content Include="Publics\Scripts\tinymce\tinymce.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.min.js" />
     <Content Include="Publics\Files\Resources\template.css" />
+    <Content Include="Views\Store\ProductSitemap.aspx" />
+    <Content Include="Views\Store\ProductsRss.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -867,6 +872,16 @@
     <Content Include="Areas\Admin\Views\Store\DeliveryTypes.cshtml" />
     <Content Include="Areas\Admin\Views\Store\DeliveryTypes_Update.cshtml" />
     <Content Include="Areas\Users\Views\Dashboard\InsertPersonCar.cshtml" />
+    <Content Include="Areas\Users\Views\profile\ViewUserProfile.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserChangePassword.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserEditePersonInformation.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCars.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCarsDeleteConfirm.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCarCurrentMillage.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductDiscount_new.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\productDiscounts.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductDiscount_DeleteConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductDiscount_update.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -884,12 +899,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Users\Views\profile\ViewUserProfile.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserChangePassword.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserEditePersonInformation.cshtml" />
-    <Content Include="Areas\Users\Views\Dashboard\PersonCars.cshtml" />
-    <Content Include="Areas\Users\Views\Dashboard\PersonCarsDeleteConfirm.cshtml" />
-    <Content Include="Areas\Users\Views\Dashboard\PersonCarCurrentMillage.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

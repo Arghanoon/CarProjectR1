@@ -505,7 +505,7 @@
     <Property Name="ContentsId" Type="Int32" />
     <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="UserId" Type="Int32" />
     <Property Name="Date" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Content" Relationship="Self.FK_ContetComments_Contents" FromRole="ContetComments" ToRole="Contents" />
@@ -537,7 +537,7 @@
     </Key>
     <Property Name="DiscountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DiscountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Discount1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Discount1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_Discount" FromRole="Discount" ToRole="ProductDiscount" />
   </EntityType>
   <EntityType Name="FuelConsumption">
@@ -607,9 +607,23 @@
     <Property Name="PersonCarDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PersonCarId" Type="Int32" />
     <Property Name="LastOilChange" Type="DateTime" Precision="0" />
-    <Property Name="LastFiltersChange" Type="DateTime" Precision="0" />
     <Property Name="LastOilChangeMilage" Type="Int32" />
-    <Property Name="LastFilterChangeMilage" Type="Int32" />
+    <Property Name="LastOilFiltersChange" Type="DateTime" Precision="0" />
+    <Property Name="LastOilFilterChangeMilage" Type="Int32" />
+    <Property Name="LastGearBoxOilChange" Type="DateTime" Precision="0" />
+    <Property Name="LastGearBoxOilChangeMilage" Type="Int32" />
+    <Property Name="LastAirFilterChange" Type="DateTime" Precision="0" />
+    <Property Name="LastAirFilterChangeMilage" Type="Int32" />
+    <Property Name="LastTiresChange" Type="DateTime" Precision="0" />
+    <Property Name="LastTiresChangeMilage" Type="Int32" />
+    <Property Name="LastTimingbeltChange" Type="DateTime" Precision="0" />
+    <Property Name="LastTimingbeltChangeMilage" Type="Int32" />
+    <Property Name="LastOtherBeltsChange" Type="DateTime" Precision="0" />
+    <Property Name="LastOtherBeltsChangeMilage" Type="Int32" />
+    <Property Name="LastFrontBrakePadsChange" Type="DateTime" Precision="0" />
+    <Property Name="LastFrontBrakePadsChangeMilage" Type="Int32" />
+    <Property Name="LastRearBreakePadsChange" Type="DateTime" Precision="0" />
+    <Property Name="LastRearBrakePadsChangeMilage" Type="Int32" />
     <NavigationProperty Name="PersonCar" Relationship="Self.FK_PersonCarDetail_PersonCars" FromRole="PersonCarDetail" ToRole="PersonCars" />
   </EntityType>
   <EntityType Name="PersonCar">

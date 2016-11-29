@@ -2,8 +2,10 @@
     ViewBag.Title = "اعلام کیلومتر فعلی خودرو";
 }
 @model CarProject.DBSEF.PersonCar
+@using CarProject.App_Code
 
 
+<a href="/Users/Dashboard/PersonCars" class="gia-back">برگشت به قسمت خودروهای کاربر</a>
 <div class="page">
     <h3>اطلاعات خودرو</h3>
     <hr />
@@ -30,7 +32,10 @@
     <hr />
     <form method="post">
         <div class="inputsContainer">
-
+            @Html.input_TextBox(m => m.CarMilage, "کیلومتر فعلی")
+        </div>
+        <div class="inputAction">
+            <input type="submit" class="button green" value="ثبت کیلومتر فعلی" />
         </div>
     </form>
 </div>

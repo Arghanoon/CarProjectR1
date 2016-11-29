@@ -414,7 +414,7 @@
     <Property Name="ContentsId" Type="int" />
     <Property Name="FullName" Type="nvarchar" MaxLength="255" />
     <Property Name="Email" Type="nvarchar" MaxLength="255" />
-    <Property Name="Comment" Type="text" />
+    <Property Name="Comment" Type="ntext" />
     <Property Name="UserId" Type="int" />
     <Property Name="Date" Type="datetime" />
   </EntityType>
@@ -441,7 +441,7 @@
     </Key>
     <Property Name="DiscountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DiscountCode" Type="nvarchar" MaxLength="50" />
-    <Property Name="Discount" Type="nchar" MaxLength="10" />
+    <Property Name="Discount" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="FuelConsumption">
     <Key>
@@ -505,9 +505,23 @@
     <Property Name="PersonCarDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PersonCarId" Type="int" />
     <Property Name="LastOilChange" Type="date" />
-    <Property Name="LastFiltersChange" Type="date" />
     <Property Name="LastOilChangeMilage" Type="int" />
-    <Property Name="LastFilterChangeMilage" Type="int" />
+    <Property Name="LastOilFiltersChange" Type="date" />
+    <Property Name="LastOilFilterChangeMilage" Type="int" />
+    <Property Name="LastGearBoxOilChange" Type="date" />
+    <Property Name="LastGearBoxOilChangeMilage" Type="int" />
+    <Property Name="LastAirFilterChange" Type="date" />
+    <Property Name="LastAirFilterChangeMilage" Type="int" />
+    <Property Name="LastTiresChange" Type="date" />
+    <Property Name="LastTiresChangeMilage" Type="int" />
+    <Property Name="LastTimingbeltChange" Type="date" />
+    <Property Name="LastTimingbeltChangeMilage" Type="int" />
+    <Property Name="LastOtherBeltsChange" Type="date" />
+    <Property Name="LastOtherBeltsChangeMilage" Type="int" />
+    <Property Name="LastFrontBrakePadsChange" Type="date" />
+    <Property Name="LastFrontBrakePadsChangeMilage" Type="int" />
+    <Property Name="LastRearBreakePadsChange" Type="date" />
+    <Property Name="LastRearBrakePadsChangeMilage" Type="int" />
   </EntityType>
   <EntityType Name="PersonCars">
     <Key>

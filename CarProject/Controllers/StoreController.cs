@@ -271,6 +271,16 @@ namespace CarProject.Controllers
         {
             return View(id);
         }
+
+        public ActionResult ProductsRss(int? id)
+        {
+            return View();
+        }
+
+        public ActionResult ProductSitemap(int? id)
+        {
+            return View();
+        }
         #endregion
 
         #region Services

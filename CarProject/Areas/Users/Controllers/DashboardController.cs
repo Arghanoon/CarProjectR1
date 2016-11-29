@@ -70,11 +70,21 @@ namespace CarProject.Areas.Users.Controllers
             return View(PersonCar);
         }
         [HttpPost]
-        public ActionResult PersonCarCurrentMillage(DBSEF.PersonCar model)
+        public ActionResult PersonCarCurrentMillage(int? id,DBSEF.PersonCar model)
         {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var PersonCar = dbs.PersonCars.FirstOrDefault(c => c.PersonCarsId == id);
+            TryUpdateModel(PersonCar);
 
-
-            return View(model);
+            if (PersonCar.CarMilage == null)
+                ModelState.AddModelError("CarMilage", "کیلوتر تعیین نشده است");
+            if (ModelState.IsValid)
+            {
+                dbs.SaveChanges();
+                return View("PersonCars");
+            }
+            
+            return View(PersonCar);
         }
 
         public ActionResult InsertPersonCar(int? id)
