@@ -43,6 +43,24 @@ namespace CarProject.Areas.Admin.Models.Store
             dbs.SaveChanges();
         }
 
+        public void Update()
+        {
+            var todelete = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId && !Products.Contains(pdis.ProductId.Value));
+            dbs.ProductDiscounts.RemoveRange(todelete);
+
+            var listOftProductInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.ProductId.Value).ToList();
+            var insertIds = Products.Where(p => !listOftProductInDatabase.Contains(p));
+
+            foreach (var item in insertIds)
+            {
+                var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
+                if (pr != null)
+                    dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { Product = pr, Discount = this.Discount });
+            }
+
+            dbs.SaveChanges();
+        }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var res = new List<ValidationResult>();

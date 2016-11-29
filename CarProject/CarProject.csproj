@@ -878,6 +878,10 @@
     <Content Include="Areas\Users\Views\Dashboard\PersonCars.cshtml" />
     <Content Include="Areas\Users\Views\Dashboard\PersonCarsDeleteConfirm.cshtml" />
     <Content Include="Areas\Users\Views\Dashboard\PersonCarCurrentMillage.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductDiscount_new.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\productDiscounts.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductDiscount_DeleteConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductDiscount_update.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -895,7 +899,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Store\ProductDiscount.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

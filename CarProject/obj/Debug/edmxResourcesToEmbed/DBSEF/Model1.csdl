@@ -537,7 +537,7 @@
     </Key>
     <Property Name="DiscountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DiscountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Discount1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Discount1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_Discount" FromRole="Discount" ToRole="ProductDiscount" />
   </EntityType>
   <EntityType Name="FuelConsumption">

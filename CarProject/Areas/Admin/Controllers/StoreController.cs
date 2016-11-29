@@ -9,12 +9,14 @@ using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    //[CarProject.CLS.AuthFilter]
+    [CarProject.CLS.AuthFilter]
     public class StoreController : Controller
     {
         //
         // GET: /Admin/Store/
 
+
+        DBSEF.CarAutomationEntities dbsObject = new DBSEF.CarAutomationEntities();
         
         public ActionResult Index()
         {
@@ -261,14 +263,21 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return res;
         }
+        #endregion
+        
+        #region Product Discounts
+        public ActionResult productDiscounts()
+        {
+            return View();
+        }
 
-        public ActionResult ProductDiscount()
+        public ActionResult ProductDiscount_new()
         {
             var model = new Models.Store.ProductDiscountModel();
             return View(model);
         }
         [HttpPost]
-        public ActionResult ProductDiscount(Models.Store.ProductDiscountModel model)
+        public ActionResult ProductDiscount_new(Models.Store.ProductDiscountModel model)
         {
             var xitems = Request.Form.GetValues("ProuductsId");
             if (xitems != null)
@@ -288,10 +297,68 @@ namespace CarProject.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 model.Save();
-                return RedirectToAction("ProductDiscount");
+                return RedirectToAction("productDiscounts");
             }
 
             return View(model);
+        }
+
+        public ActionResult ProductDiscount_DeleteConfirm(int? id)
+        {
+            if (id == null)
+                return RedirectToAction("productDiscounts");
+
+            var model = new Models.Store.ProductDiscountModel(id);
+            return View(model);
+        }
+        [HttpPost,ActionName("ProductDiscount_DeleteConfirm")]
+        public ActionResult ProductDiscount_DeleteConfirm_Confirmed(int? id)
+        {
+            dbsObject.ProductDiscounts.RemoveRange(dbsObject.ProductDiscounts.Where(pdis => pdis.DiscountId == id));
+            dbsObject.Discounts.RemoveRange(dbsObject.Discounts.Where(dis => dis.DiscountId == id));
+            dbsObject.SaveChanges();
+            return RedirectToAction("productDiscounts");
+        }
+
+        public ActionResult ProductDiscount_update(int? id)
+        {
+            if (id == null)
+                return RedirectToAction("productDiscounts");
+            var model = new Models.Store.ProductDiscountModel(id);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ProductDiscount_update(int? id,Models.Store.ProductDiscountModel model)
+        {
+
+            if (id == null)
+                return RedirectToAction("productDiscounts");
+            var md2 = new Models.Store.ProductDiscountModel(id);
+            TryUpdateModel(md2);
+            md2.Products.Clear();
+
+            var xitems = Request.Form.GetValues("ProuductsId");
+            if (xitems != null)
+            {
+                foreach (var item in xitems)
+                {
+                    int x = 0;
+                    int.TryParse(item, out x);
+                    if (x > 0)
+                        md2.Products.Add(x);
+                }
+            }
+
+            if (md2.Products.Count == 0)
+                ModelState.AddModelError("Products", "محصولات شامل تخفیف تعیین نشده اند");
+
+            if (ModelState.IsValid)
+            {
+                md2.Update();
+                return RedirectToAction("productDiscounts");
+            }
+
+            return View(md2);
         }
         #endregion
 
@@ -512,7 +579,6 @@ namespace CarProject.Areas.Admin.Controllers
         #endregion
 
         #region Product_Forum
-        DBSEF.CarAutomationEntities dbsObject = new DBSEF.CarAutomationEntities();
         public ActionResult Product_Forum(int? id)
         {
             return View();

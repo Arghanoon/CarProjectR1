@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "ثبت کد تخفیف برای محصولات";
+    ViewBag.Title = "ویرایش کد تخفیف برای محصولات";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
 }
 @model CarProject.Areas.Admin.Models.Store.ProductDiscountModel
@@ -13,7 +13,11 @@
 
     <div>
         <form method="post">
-
+            <section id="randomGeneratorContainer">
+                <input type="number" id="randomLengthInput" value="10" style="text-align:center;" />
+                <input type="button" onclick="RandomCodeGenerate()" value="تولید کد رندم" />
+            </section>
+            
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.Discount.DiscountCode, "کد تخفیف")
                 @Html.input_TextBox(m => m.Discount.Discount1, "درصد تخفیف")
@@ -54,6 +58,7 @@
             </div>
 
             <div class="inputAction">
+                <a href="/Admin/Store/productDiscounts" class="button blue">انصراف</a>
                 <input type="submit" value="ثبت" class="button green" />
             </div>
         </form>
@@ -109,6 +114,14 @@
                 border:none;
                 background:#d4d4d4;
             }
+
+        #randomGeneratorContainer {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            max-width:130px;
+        }
     </style>
 }
 
@@ -186,6 +199,12 @@
                 p = p.offsetParent;
             }
             return p;
+        }
+
+        function RandomCodeGenerate() {
+            
+            incoun = parseInt(document.getElementById('randomLengthInput').value);
+            $.get('/Default/CodeGenerator/' + incoun, function (res) { document.getElementById('@Html.IdFor(m => m.Discount.DiscountCode)').value = res;});
         }
     </script>
 }

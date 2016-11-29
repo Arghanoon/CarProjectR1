@@ -20,6 +20,10 @@ namespace CarProject.Controllers
             return View();
         }
 
+        public string CodeGenerator(int? id)
+        {
+            return SessionGenrator(id.GetValueOrDefault(5));
+        }
         
         public static string SessionGenrator(int count)
         {

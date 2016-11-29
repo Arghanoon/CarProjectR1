@@ -441,7 +441,7 @@
     </Key>
     <Property Name="DiscountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DiscountCode" Type="nvarchar" MaxLength="50" />
-    <Property Name="Discount" Type="nchar" MaxLength="10" />
+    <Property Name="Discount" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="FuelConsumption">
     <Key>
