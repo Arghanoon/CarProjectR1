@@ -168,6 +168,7 @@
     <Compile Include="Areas\Admin\Models\News\CategoryModel.cs" />
     <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
     <Compile Include="Areas\Admin\Models\Store\Category.cs" />
+    <Compile Include="Areas\Admin\Models\Store\ProductDiscountModel.cs" />
     <Compile Include="Areas\Admin\Models\Store\ProductsModel.cs" />
     <Compile Include="Areas\Admin\Models\Store\ServicePacks.cs" />
     <Compile Include="Areas\Admin\Models\Store\Services.cs" />
@@ -894,6 +895,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\Store\ProductDiscount.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

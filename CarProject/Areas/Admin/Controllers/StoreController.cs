@@ -9,7 +9,7 @@ using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class StoreController : Controller
     {
         //
@@ -209,7 +209,16 @@ namespace CarProject.Areas.Admin.Controllers
         public ActionResult JsonProductsSearch(string search)
         {
             var dbs = new DBSEF.CarAutomationEntities();
-            var res = dbs.Products.Where(c => c.ProductName.Contains(search)).Select(c => new { id = c.ProductId, name = c.ProductName, cat = c.Category.CategoryName }).ToList();
+            var res = dbs.Products.Where(c => c.ProductName.Contains(search)).Select(c => new { id = c.ProductId, num = c.PartNumber, name = c.ProductName, cat = c.Category.CategoryName }).ToList();
+            return Json(res, JsonRequestBehavior.DenyGet);
+        }
+        [HttpPost]
+        public ActionResult JsonProductsSearch2(string search, List<int> notinId)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (notinId == null) { notinId = new List<int>(); }
+
+            var res = dbs.Products.Where(c => c.ProductName.Contains(search) && !notinId.Contains(c.ProductId)).Select(c => new { id = c.ProductId, num = c.PartNumber, name = c.ProductName, cat = c.Category.CategoryName }).ToList();
             return Json(res, JsonRequestBehavior.DenyGet);
         }
 
@@ -251,6 +260,38 @@ namespace CarProject.Areas.Admin.Controllers
                 dbs.SaveChanges();
             }
             return res;
+        }
+
+        public ActionResult ProductDiscount()
+        {
+            var model = new Models.Store.ProductDiscountModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ProductDiscount(Models.Store.ProductDiscountModel model)
+        {
+            var xitems = Request.Form.GetValues("ProuductsId");
+            if (xitems != null)
+            {
+                foreach (var item in xitems)
+                {
+                    int x = 0;
+                    int.TryParse(item, out x);
+                    if (x > 0)
+                        model.Products.Add(x);
+                }
+            }
+
+            if (model.Products.Count == 0)
+                ModelState.AddModelError("Products", "محصولات شامل تخفیف تعیین نشده اند");
+
+            if (ModelState.IsValid)
+            {
+                model.Save();
+                return RedirectToAction("ProductDiscount");
+            }
+
+            return View(model);
         }
         #endregion
 
