@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "حذف پیام پیغام";
+
+    int id = 0;
+    int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+    if(id <= 0)
+    { Response.Redirect("/Admin/Cars/CarComments"); }
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var comment = dbs.CarComments.FirstOrDefault(c => c.CarCommentsId == id);
+    if(comment == null)
+    { Response.Redirect("/Admin/Cars/CarComments"); }
+        
+}
+@using CarProject.App_extension
+
+
+<div>
+    <h3>آیا از حذف پیام انتخابی اطمینان دارید؟</h3>
+
+</div>
+<form method="post" id="CommentShowContainer">
+    <input type="hidden" name="id" value="@comment.CarCommentsId" />
+
+    <div class="header">
+        <section>
+            <strong>@comment.Car.CarModel.CarBrand.CarBrandName</strong> | <small>@comment.Car.CarModel.CarModelName</small>
+        </section>
+
+        <section>@comment.datetime.DateTime_Persian()</section>
+    </div>
+
+
+    <div class="body">
+        <table class="infoTable">
+            <tr>
+                <th>نام و نام خانوادگی</th>
+                <td>@comment.Fullname</td>
+            </tr>
+            <tr>
+                <th>ایمیل</th>
+                <td>@comment.Email</td>
+            </tr>
+            <tr>
+                <th>متن پیام</th>
+                <td>@comment.Comment</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="footer">
+        <input type="submit" value="حذف پیام" class="button red" />
+        <a href="/Admin/Cars/CarComments" class="button blue">انصراف</a>
+    </div>
+</form>
+
+
+
+@section style
+{
+    <style>
+        #CommentShowContainer {
+            border:thin solid #000;
+            border-radius:5px;
+            overflow:hidden;
+        }
+            #CommentShowContainer .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: black;
+                color: white;
+                padding: 5px;
+            }
+
+            #CommentShowContainer .body {
+                padding:5px;
+            }
+
+            #CommentShowContainer .footer {
+                display:flex; 
+                flex-direction:row-reverse;
+            }
+    </style>
+}
+

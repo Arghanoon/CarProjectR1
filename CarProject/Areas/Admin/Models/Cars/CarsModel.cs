@@ -209,6 +209,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         {
             var DBS = new db.CarAutomationEntities();
 
+            DBS.CarsQnAs.RemoveRange(DBS.CarsQnAs.Where(cqs => cqs.CarsId == CarsId));
+
             DBS.CarEngines.Remove(DBS.CarEngines.FirstOrDefault(c => c.CarsId == CarsId));
 
             DBS.CarGearBoxes.Remove(DBS.CarGearBoxes.FirstOrDefault(c => c.CarsId == CarsId));

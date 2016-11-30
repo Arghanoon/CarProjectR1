@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "ویرایش اطلاعات کاربر";
+}
+@model CarProject.DBSEF.Person
+@using CarProject.App_Code
+
+@if(ViewData.ModelState.IsValidField("success"))
+{
+    <div class="page">
+        <form method="post">
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.PersonFirtstName, "نام")
+                @Html.input_TextBox(m => m.PersonLastName, "نام خانوادگی")
+                @Html.input_TextBox(m => m.PersonEmail, "ایمیل")
+                @Html.input_TextBox(m => m.PersonPhone, "تلفن ثابت")
+                @Html.input_TextBox(m => m.PersonMobile, "همراه")
+                @Html.input_TextBox(m => m.PersonAddressCity, "استان و شهر محل اقامت")
+                @Html.input_TextArea(m => m.PersonAddress, "آدرس کامل")
+            </div>
+
+            <div class="inputAction">
+                <input type="submit" value="بروز رسانی اطلاعات" class="button green" />
+            </div>
+        </form>
+    </div>
+}
+else
+{
+    <div class="page" style="text-align:center; color:lawngreen;">
+        <h3>اطلاعات شما با موفقیت تغییر یافت</h3>
+    </div>
+}

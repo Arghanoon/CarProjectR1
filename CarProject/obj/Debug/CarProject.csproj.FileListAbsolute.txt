@@ -392,10 +392,10 @@ G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\System.Web
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\obj\Debug\CarProject.csproj.App.config
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\obj\Debug\CarProject.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\obj\Debug\CarProject.pdb
-G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\obj\Debug\CarProject.csprojResolveAssemblyReference.cache
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.pdb
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.xml
 E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.dll
 E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.pdb
 E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.xml
+G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\obj\Debug\CarProject.csprojResolveAssemblyReference.cache

@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using CarProject.App_extension;
 using Newtonsoft.Json;
 
+using System.Net.Mail;
+
 namespace CarProject.Areas.Users.Controllers
 {
     [UsersCLS.UsersAuthFilter]
@@ -136,9 +138,35 @@ namespace CarProject.Areas.Users.Controllers
 
             if (ModelState.IsValid)
             {
-                model.Person.User.IsActive = true;
+                //model.Person.User.IsActive = true;
+                model.Person.User.ActiveRecoveryCode = Guid.NewGuid().ToString();
+                model.Person.User.ActiveORecovery = (byte)DBSEF.User.Enum_ActiveORecoveryEnum.Activation;
+
                 model.Person.User.UserRoleId = 2;
                 model.Save();
+
+                {//Send Activation Email to User
+                    MailMessage message = new MailMessage();
+                    message.To.Add(new MailAddress(model.Person.PersonEmail));
+                    message.IsBodyHtml = true;
+
+                    var ActivationEmailContent = new Areas.Admin.Models.Dashboard.MailsMessage_Signup_SendActivationcode();
+                    ActivationEmailContent.Load();
+                    string messageBody = ActivationEmailContent.Message.Replace("[codeonly]", model.Person.User.ActiveRecoveryCode);
+                    messageBody = messageBody.Replace("[codelink]", string.Format("<a href=\"{0}\">{0}</a>", model.Person.User.ActiveRecoveryCode));
+
+                    messageBody = messageBody.Replace("[userfullname]", model.Person.PersonFirtstName + " " + model.Person.PersonLastName);
+                    messageBody = messageBody.Replace("[username]", model.Person.User.Uname);
+                    messageBody = messageBody.Replace("[password]", model.Password);
+
+
+                    message.Body = messageBody;
+                    message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
+
+
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Send(message);
+                }
 
                 return RedirectToAction("Login");
             }

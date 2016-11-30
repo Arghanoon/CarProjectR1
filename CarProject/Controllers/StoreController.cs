@@ -81,6 +81,12 @@ namespace CarProject.Controllers
                     int cnt = 1;
                     int.TryParse(form[key], out cnt);
                     item.Count = cnt;
+                    
+                    item.ProductEachPrice = us.GetPriceOfCartObject(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value);
+
+                    decimal discountprice = us.GetPriceOfCartObject_withDiscount(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, mdl.Discount);
+                    item.ProductEachPaidPrice = discountprice.ToString();
+                    item.ToatoalPaidPrice = (discountprice * item.Count).ToString();
                 }
             }
 
@@ -94,9 +100,24 @@ namespace CarProject.Controllers
                     mdl.ProductsOrServicesDeliveryType = us.dbs.ProductsOrServicesDeliveryTypes.FirstOrDefault(c => c.DeliverTypeID == deliverid);
                 }
             }
+
+            if (form.AllKeys.Contains("InputDiscountCod") && !form["InputDiscountCod"].IsNullOrWhiteSpace())
+            {
+                var discountcode = form["InputDiscountCod"];
+                var discout = us.dbs.Discounts.FirstOrDefault(dis => dis.DiscountCode == discountcode);
+                if (discout != null)
+                    mdl.DiscountId = discout.DiscountId;
+                else
+                    ModelState.AddModelError("InputDiscountCod", "کد وارد شده صحیح نیست");
+            }
+            else mdl.DiscountId = null;
+
             us.UpdateBasket(mdl);
 
-            return RedirectToAction("Cart_CartConfirmAddress");
+            if (ModelState.IsValid)
+                return RedirectToAction("Cart_CartConfirmAddress");
+            else
+                return View(mdl);
         }
         
         [HttpPost]

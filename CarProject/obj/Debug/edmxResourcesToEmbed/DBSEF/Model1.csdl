@@ -80,6 +80,9 @@
     <Property Name="Id" Type="Int32" />
     <Property Name="Type" Type="Byte" />
     <Property Name="Count" Type="Int32" />
+    <Property Name="ProductEachPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductEachPaidPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ToatoalPaidPrice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Basket" Relationship="Self.FK_BasketItems_Baskets" FromRole="BasketItems" ToRole="Baskets" />
   </EntityType>
   <EntityType Name="Basket">
@@ -95,8 +98,10 @@
     <Property Name="UserId" Type="Int32" />
     <Property Name="BankCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="LocalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DiscountId" Type="Int32" />
     <NavigationProperty Name="BasketItems" Relationship="Self.FK_BasketItems_Baskets" FromRole="Baskets" ToRole="BasketItems" />
     <NavigationProperty Name="ProductsOrServicesDeliveryType" Relationship="Self.FK_Baskets_Baskets" FromRole="Baskets" ToRole="ProductsOrServicesDeliveryTypes" />
+    <NavigationProperty Name="Discount" Relationship="Self.FK_Baskets_Discount" FromRole="Baskets" ToRole="Discount" />
     <NavigationProperty Name="User" Relationship="Self.FK_Baskets_User" FromRole="Baskets" ToRole="User" />
   </EntityType>
   <EntityType Name="BrakeSystem">
@@ -538,6 +543,7 @@
     <Property Name="DiscountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DiscountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Discount1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Baskets" Relationship="Self.FK_Baskets_Discount" FromRole="Discount" ToRole="Baskets" />
     <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_Discount" FromRole="Discount" ToRole="ProductDiscount" />
   </EntityType>
   <EntityType Name="FuelConsumption">
@@ -958,6 +964,8 @@
     <Property Name="Upass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="UserRoleId" Type="Int32" />
     <Property Name="IsActive" Type="Boolean" />
+    <Property Name="ActiveRecoveryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ActiveORecovery" Type="Byte" />
     <NavigationProperty Name="Baskets" Relationship="Self.FK_Baskets_User" FromRole="User" ToRole="Baskets" />
     <NavigationProperty Name="CarComments" Relationship="Self.FK_CarComments_User" FromRole="User" ToRole="CarComments" />
     <NavigationProperty Name="ContetComments" Relationship="Self.FK_ContetComments_User" FromRole="User" ToRole="ContetComments" />
@@ -1166,6 +1174,18 @@
       </Principal>
       <Dependent Role="Baskets">
         <PropertyRef Name="DelivaryTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baskets_Discount">
+    <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+    <End Role="Baskets" Type="Self.Basket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discount">
+        <PropertyRef Name="DiscountId" />
+      </Principal>
+      <Dependent Role="Baskets">
+        <PropertyRef Name="DiscountId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2143,6 +2163,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_Baskets" Association="Self.FK_Baskets_Baskets">
       <End Role="ProductsOrServicesDeliveryTypes" EntitySet="ProductsOrServicesDeliveryTypes" />
+      <End Role="Baskets" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baskets_Discount" Association="Self.FK_Baskets_Discount">
+      <End Role="Discount" EntitySet="Discounts" />
       <End Role="Baskets" EntitySet="Baskets" />
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_User" Association="Self.FK_Baskets_User">

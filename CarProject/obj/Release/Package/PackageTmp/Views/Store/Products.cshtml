@@ -1,0 +1,280 @@
+﻿@{
+    ViewBag.Title = "نمایش اطلاعات محصول";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    int id = 0;
+    int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+
+    var product = dbs.Products.FirstOrDefault(p => p.ProductId == id);
+    
+    if(dbs.ProductToViews.Count(p => p.ProductId == id) > 0)
+    {
+        var x = dbs.ProductToViews.FirstOrDefault(p => p.ProductId == id);
+        if (x != null)
+        {
+            if (x.Viewd == null || x.Viewd <= 0)
+            {x.Viewd = 1;}
+            else
+            { x.Viewd += 1; }
+        }
+        
+        dbs.SaveChanges();
+    }
+    else
+    {
+        dbs.ProductToViews.Add(new CarProject.DBSEF.ProductToView { Viewd = 1, ProductId = id });
+        dbs.SaveChanges();
+    }
+
+    Random rnd = new Random();
+}
+@using CarProject.App_Code
+@using CarProject.App_extension
+
+
+@section style
+{
+    <link href="~/Publics/Files/Resources/StorePage/Products.css" rel="stylesheet" />
+    <script src="~/Publics/Files/Resources/StorePage/Products.js"></script>
+    <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
+
+    <meta name="description" content="مشخصات مصحول @product.Category.CategoryName @product.ProductName" />
+    <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+   
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = product.ProductId, info1 = product.Category.CategoryName, info2 = product.ProductName }, Request.Url.Scheme)" />
+
+}
+
+@if (Request.Form.AllKeys.Contains("SendACommentRequest")) { <script>window.location = "#usersCommentsSection"</script> }
+
+<div id="ProductsViewInformationPart1">
+    <div>
+        
+        <div id="ProductImagesSection">
+            <a href="javascript:void()" onclick="$('#ProductImagesSection').toggleClass('bigView')">تصاویر محصول</a>
+            <hr />
+            @{ 
+                var images = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"]));
+                if(images.Exists)
+                {   
+                    var imagesFiles = images.GetFiles();
+                    var src = "";
+                    if(imagesFiles.Length> 0)
+                    { src = Url.Content("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"] + "/" + imagesFiles[0].Name); }
+                    <img id="imageBigPreview" src="@src" onclick="$('#ProductImagesSection').toggleClass('bigView')" />
+                }
+             }
+            
+            <div id="imagesItems">
+                @{
+                    if (images.Exists)
+                    {
+                        var imagesFiles = images.GetFiles();
+                        foreach (var item in imagesFiles)
+                        {
+                            <a href="javascript:void()">
+                                <img onclick="imageBigPreview.src = this.src;" src="@Url.Content("~/Publics/Gallery/ProductImages/" + ViewContext.RouteData.Values["id"] + "/" + item.Name)" />
+                            </a>
+                        }
+                    }
+                }
+            </div>
+        </div>
+        
+        <h3>خودرهای مرتبط با محصول</h3>
+        <div id="CarsContianers">
+            @foreach (var item in product.ProductCars)
+            {
+                var carpicutres = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/CarImages/" + item.CarsId));
+                if(carpicutres.Exists)
+                {
+                    var carImages = carpicutres.GetFiles();
+                    if(carImages.Length > 0)
+                    {
+                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.Car.CarModel.CarBrand.CarBrandName, info2 = item.Car.CarModel.CarModelName })">
+                            <img src="@Url.Content("~/Publics/Gallery/CarImages/" + item.CarsId + "/" + carImages[rnd.Next(0,carImages.Length)].Name)" />
+                            <section class="title">
+                                <strong>@item.Car.CarModel.CarBrand.CarBrandName</strong>
+                                <small>@item.Car.CarModel.CarModelName</small>
+                            </section>
+                        </a>
+                    }
+                }
+            }
+        </div>
+    </div>
+
+    <div id="productInformation">
+        <table class="table">
+            <tr>
+                <th>شماره محصول</th>
+                <td>@product.PartNumber</td>
+            </tr>
+            <tr>
+                <th>نام محصول</th>
+                <td>@product.ProductName</td>
+            </tr>
+            <tr>
+                <th>دسته بندی محصول</th>
+                <td><a href="#">@product.Category.CategoryName</a></td>
+            </tr>
+            <tr>
+                <th>قیمت محصول</th>
+                <td>@if (product.ProductPrices.Count > 0) { <span>@product.ProductPrices.Last().ProductPrice1</span> } else { <span>0</span> } <small>ریال</small></td>
+            </tr>
+             <tr>
+                <th>هزینه نصب محصول</th>
+                <td>@if (product.ProductPrices.Count > 0) { <span>@product.ProductPrices.Last().InstallPrice</span> } else { <span>0</span> } <small>ریال</small></td>
+            </tr>
+            <tr>
+                <th>ارتفاع</th>
+                <td>@product.ProductHeight</td>
+            </tr>
+            <tr>
+                <th>عرض</th>
+                <td>@product.ProductWidth</td>
+            </tr>
+            <tr>
+                <th>وزن</th>
+                <td>@product.ProductWeight</td>
+            </tr>
+            <tr>
+                <th>طول</th>
+                <td>@product.ProductLength</td>
+            </tr>
+            <tr>
+                <th>شرکت سازنده</th>
+                @if(@product.Company != null)
+                {
+                    <td><a href="#">@product.Company.CompanyName</a></td>
+                }
+            </tr>
+            <tr>
+                <th>کشور تولید کننده</th>
+                @if(@product.Country != null)
+                {
+                    <td>@product.Country.CountryLongName</td>
+                }
+            </tr>
+            <tr>
+                <th>شرکت توضیع کننده</th>
+                @if(product.Manufacture != null)
+                {
+                    <td><a href="#">@product.Manufacture.ManufactureName</a></td>
+                }
+            </tr>
+            <tr>
+                <th>تگ محصول</th>
+                <td>@product.MetaTags</td>
+            </tr>
+            <tr>
+                <th>رتبه محصول</th>
+                <td>@product.ProductRating</td>
+            </tr>
+            <tr>
+                <th>توضیحات محصول</th>
+                <td>@product.ProductSecription</td>
+            </tr>
+        </table>
+
+        <div id="totalPriceSection">
+            @{
+                var lpp = 0;
+                if(product.ProductPrices.Count > 0)
+                {
+                    var lastproductprice = product.ProductPrices.Last();
+                    lpp = lastproductprice.ProductPrice1.GetValueOrDefault(0) + lastproductprice.InstallPrice.GetValueOrDefault(0);
+                }
+            }
+            <section>مبلغ کل محصول : @lpp <small>ریال</small></section>
+        </div>
+
+        <div id="productActionAndInfo">
+            <div id="productViewsInfo">
+                @{ var productsToviewObject = dbs.ProductToViews.FirstOrDefault(p => p.ProductId == id); }
+                <section class="gia-users">@if (productsToviewObject.Viewd != null) { @productsToviewObject.Viewd }</section> 
+                <section class="gia-heart" id="popularcountsection">@if (productsToviewObject.Favorite != null) { @productsToviewObject.Favorite } else{ <span>0</span> } </section>
+            </div>
+            <div id="productAction">
+                <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ProductForum", id = product.ProductId, info1 = product.Category.CategoryName , info2 = product.ProductName, info3 = product.PartNumber  })" class="gia-forum button blue">پرسش و پاسخ</a>
+                <a href="javascript:void()" onclick="AddToCart('@product.ProductId','@CarProject.Models.Store.CartUsefull.Basket_ItemType.Product')" class="gia-cart button green">اضافه کردن به سبد خرید</a>
+                <a href="javascript:void()" class="gia-heart button jigary" onclick="MakeProductPopular('@Url.Action("Products_makePopular","Store")','@id')">محبوب کردن کالا</a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<hr />
+<div class="productSections">
+    <h3 class="title">بررسی محصول</h3>
+    <div class="content">
+        @Html.Raw(product.ProductReview.ProductReview1)
+    </div>
+</div>
+
+
+ @{var comments = dbs.ProductComments.Where(c => c.ProductId == id && c.canshow == true).OrderBy(c => c.datetime);}
+@if(comments.Count() > 0)
+{
+<div class="productSections">
+    <h3 class="title">پیام های کاربران درباره محصول</h3>
+    <div class="content">
+        <div class="commentsContaniner">
+           
+            @foreach (var item in comments)
+            {
+                <div class="item">
+                    <section class="header">
+                        <span class="gia-chat">@item.Fullname</span>
+                        <span>@item.datetime.DateTime_Persian()</span>
+                    </section>
+                    <section class="body">@item.Comment</section>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+}
+
+<div class="productSections">
+    <h3 class="title">ثبت پیام</h3>
+    <div class="content" id="usersCommentsSection">
+        @try { ViewBag.error["success"] = "<span class='successMessage'>" + ViewBag.error["success"] + "</span>"; @Html.Raw(ViewBag.error["success"]) }
+        catch{
+        <form method="post">
+            <div class="form" id="commentForm">
+                <label>
+                    <span>نام و نام خانوادگی</span>
+                    <input type="text" name="fullname" placeholder="نام و نام خانوادگی" value="@Request.Form["fullname"]" />
+                    <span class="error">@try { @ViewBag.error["fullname"] } catch { }</span>
+                </label>
+                <label>
+                    <span>ایمیل</span>
+                    <input type="text" name="email" placeholder="username@server.com" dir="ltr" value="@Request.Form["email"]" />
+                    <span class="error">@try { @ViewBag.error["email"] } catch { }</span>
+                </label>
+                <label>
+                    <span>پیام</span>
+                    <textarea name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                    <span class="error">@try { @ViewBag.error["comment"] } catch { }</span>
+                </label>
+                <label>
+                    <span>کد امنیتی</span>
+                    <div style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                        <a href="javascript:void()" onclick="ReloadCaptcha('captcha')" ><img id="captcha" src="/default/index" /></a>
+                        <small>برای تغییر کد روی تصویر کلیک کنید</small>
+                        <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
+                    </div>
+                    <span class="error">@try { @ViewBag.error["captcha"] } catch { }</span>
+                </label>
+            </div>
+             
+            <div class="formAction">
+                <input type="submit" name="SendACommentRequest" class="button green" value="ثبت پیام" />
+            </div>
+        </form>
+        }
+    </div>
+</div>
+

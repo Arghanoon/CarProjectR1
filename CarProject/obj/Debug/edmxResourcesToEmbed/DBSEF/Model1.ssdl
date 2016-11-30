@@ -63,6 +63,9 @@
     <Property Name="Id" Type="int" />
     <Property Name="Type" Type="tinyint" />
     <Property Name="Count" Type="int" />
+    <Property Name="ProductEachPrice" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProductEachPaidPrice" Type="nvarchar" MaxLength="50" />
+    <Property Name="ToatoalPaidPrice" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="Baskets">
     <Key>
@@ -77,6 +80,7 @@
     <Property Name="UserId" Type="int" />
     <Property Name="BankCode" Type="nvarchar" MaxLength="255" />
     <Property Name="LocalCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="DiscountId" Type="int" />
   </EntityType>
   <EntityType Name="BrakeSystem">
     <Key>
@@ -797,6 +801,8 @@
     <Property Name="Upass" Type="nvarchar" MaxLength="50" />
     <Property Name="UserRoleId" Type="int" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="ActiveRecoveryCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="ActiveORecovery" Type="tinyint" />
   </EntityType>
   <EntityType Name="UserRole">
     <Key>
@@ -910,6 +916,18 @@
       </Principal>
       <Dependent Role="Baskets">
         <PropertyRef Name="DelivaryTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baskets_Discount">
+    <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+    <End Role="Baskets" Type="Self.Baskets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discount">
+        <PropertyRef Name="DiscountId" />
+      </Principal>
+      <Dependent Role="Baskets">
+        <PropertyRef Name="DiscountId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1943,6 +1961,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_Baskets" Association="Self.FK_Baskets_Baskets">
       <End Role="ProductsOrServicesDeliveryTypes" EntitySet="ProductsOrServicesDeliveryTypes" />
+      <End Role="Baskets" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baskets_Discount" Association="Self.FK_Baskets_Discount">
+      <End Role="Discount" EntitySet="Discount" />
       <End Role="Baskets" EntitySet="Baskets" />
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_User" Association="Self.FK_Baskets_User">

@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "تاریخچه خرید";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var user = Session["guestUser"] as CarProject.DBSEF.User;
+    var baskets = dbs.Baskets.Where(c => c.UserId == user.UserId);
+}
+@using CarProject.App_extension
+@using CarProject.Models.Store
+
+
+
+<div class="page">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="fix">شماره</th>
+                <th class="fix">وضعیت</th>
+                <th class="fix">تاریخ ثبت خرید</th>
+                <th class="fix">تاریخ تحویل</th>
+                <th class="fix">کد پیگیر بانک</th>
+                <th>کد پیگیری</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int i = 1; }
+            @foreach (var item in baskets)
+            {
+                <tr>
+                    <td class="center">@i</td>
+                    <td class="fix">@{ var statestring = ((CartUsefull.Basket_State)item.State).Basket_State_ToString();} @statestring</td>
+                    <td class="fix">@if (item.FinishDate != null) { @item.FinishDate.DateTime_Persian() }</td>
+                    <td class="fix">@if (item.DelivaryDate != null) { @item.DelivaryDate.DateTime_Persian() }</td>
+                    <td>@item.BankCode</td>
+                    <td>@item.LocalCode</td>
+                    <td class="center">
+                        <a href="/Users/Dashboard/BasketDetails/@item.BasketId" class="gia-details" ></a>
+                    </td>
+                </tr>
+                
+                i += 1;
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+@section head
+{
+    <style>
+        .table {
+            width:100%;
+        }
+
+            .table td,
+            .table th {
+                padding:1px 3px;
+                border:thin solid #eaeaea;
+            }
+
+            .table thead {
+                background:#eaeaea;
+            }
+
+            .table .fix {
+                width:0;
+                white-space:nowrap;
+            }
+
+            .table .center {
+                text-align:center;
+            }
+
+    </style>
+}

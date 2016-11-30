@@ -33,6 +33,8 @@ namespace CarProject.DBSEF
         public string Upass { get; set; }
         public Nullable<int> UserRoleId { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string ActiveRecoveryCode { get; set; }
+        public Nullable<byte> ActiveORecovery { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Basket> Baskets { get; set; }

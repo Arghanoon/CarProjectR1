@@ -1,0 +1,131 @@
+﻿@using CarProject.DBSEF
+@using CarProject.App_extension
+@{
+    ViewBag.Title = "تماس با ما - پیام های دریافتی";
+    var dbs = new CarAutomationEntities();
+    var messages = dbs.ContactUsMessages.OrderByDescending(c => c.MessagID).ToList();
+}
+
+<div>
+
+    <div id="messages">
+        <table class="grid1">
+            <thead>
+                <tr>
+                    <th>تاریخ</th>
+                    <th>موضوع</th>
+                    <th>فرستنده</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody style="font-size:80%;">
+                @foreach (var item in messages)
+                {
+                    <tr @if (item.Seen == null) { Write("data-unread='data-unread'"); } data-message-id="@item.MessagID">
+                        <td onclick="GoToPage('@item.MessagID')" style="width:0; white-space:nowrap;">@item.Date.GetValueOrDefault().DateTime_Persian()</td>
+                        <td onclick="GoToPage('@item.MessagID')" style="text-align:right;">@item.Subject</td>
+                        <td onclick="GoToPage('@item.MessagID')" style="width:0; white-space:nowrap;">@item.FullName</td>
+
+                        <td  style="width:0; white-space:nowrap;">
+                            <a href="@Url.Action("ContactUsMessagesShow", "DashBoard", new { id = item.MessagID })" class="gia-active"></a>
+                            <a href="javascript:void(0)" onclick="DeleteMessageRequest('@item.MessagID')" class="gia-remove"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<div id="dlBack">
+    <form method="post" action="@Url.Action("ContactUsMessages_Delete","DashBoard")" id="dlMessage">
+        <input type="hidden" name="id" id="deletemessageid" />
+        <strong id="dlTitle">حذف پیام</strong>
+        <section id="deMSG">
+            آیا از حذف پیام اطمینان دارید؟
+        </section>
+        <section id="dlAction">
+            <input type="button" class="button blue" value="انصراف" onclick="$('#dlBack').toggleClass('show');" />
+            <input type="submit" class="button red"  value="حذف پیام"/>
+        </section>
+    </form>
+</div>
+
+@section style
+{
+    <style>
+        tbody tr {
+            cursor:pointer;
+        }
+            tbody tr[data-unread] {
+                font-weight:bold;
+            }
+
+
+        #dlBack {
+            position:fixed;
+            top:0; left:0; right:0; bottom:0;
+
+            background:rgba(0,0,0,0.6);
+            z-index:9999;
+            display:none;
+        }
+            #dlBack.show {
+                display:block;
+            }
+
+        #dlMessage {
+            padding:5px;
+            border:thin solid #888;
+            border-radius:5px;
+            margin:auto;
+            margin-top:10%;
+            background:white;
+            box-shadow:0 0 3px 0 #000;
+
+            width:70%;
+            overflow:hidden;
+        }
+        #dlTitle {
+            margin:-5px;
+            margin-bottom:5px;
+            padding:0 5px;
+
+            color:white;
+            background:#888;
+            display:block;
+        }
+
+        #dlAction {
+            display:flex;
+            justify-content:center; align-items:center;
+        }
+
+        @@media (max-width:500px) {
+            #dlMessage {
+                width:100%;
+            }
+        }
+
+    </style>
+}
+
+@section script
+{
+    <script>
+        //$("tbody tr").click(function (e) { rep = '@Url.Action("ContactUsMessagesShow", "DashBoard")/' + $(this).attr('data-message-id'); window.location = rep; window.location.replace(rep); });
+
+        function GoToPage(id) {
+            rep = '@Url.Action("ContactUsMessagesShow", "DashBoard")/' + id;
+            window.location = rep;
+            window.location.replace(rep);
+        }
+
+        function DeleteMessageRequest(id) {
+            document.getElementById("deletemessageid").value = id;
+            $("#dlBack").toggleClass('show');
+        }
+    </script>
+}

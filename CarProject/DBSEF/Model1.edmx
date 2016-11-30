@@ -68,6 +68,9 @@
           <Property Name="Id" Type="int" />
           <Property Name="Type" Type="tinyint" />
           <Property Name="Count" Type="int" />
+          <Property Name="ProductEachPrice" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductEachPaidPrice" Type="nvarchar" MaxLength="50" />
+          <Property Name="ToatoalPaidPrice" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Baskets">
           <Key>
@@ -82,6 +85,7 @@
           <Property Name="UserId" Type="int" />
           <Property Name="BankCode" Type="nvarchar" MaxLength="255" />
           <Property Name="LocalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiscountId" Type="int" />
         </EntityType>
         <EntityType Name="BrakeSystem">
           <Key>
@@ -802,6 +806,8 @@
           <Property Name="Upass" Type="nvarchar" MaxLength="50" />
           <Property Name="UserRoleId" Type="int" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="ActiveRecoveryCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActiveORecovery" Type="tinyint" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -915,6 +921,18 @@
             </Principal>
             <Dependent Role="Baskets">
               <PropertyRef Name="DelivaryTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Baskets_Discount">
+          <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+          <End Role="Baskets" Type="Self.Baskets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="DiscountId" />
+            </Principal>
+            <Dependent Role="Baskets">
+              <PropertyRef Name="DiscountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1950,6 +1968,10 @@
             <End Role="ProductsOrServicesDeliveryTypes" EntitySet="ProductsOrServicesDeliveryTypes" />
             <End Role="Baskets" EntitySet="Baskets" />
           </AssociationSet>
+          <AssociationSet Name="FK_Baskets_Discount" Association="Self.FK_Baskets_Discount">
+            <End Role="Discount" EntitySet="Discount" />
+            <End Role="Baskets" EntitySet="Baskets" />
+          </AssociationSet>
           <AssociationSet Name="FK_Baskets_User" Association="Self.FK_Baskets_User">
             <End Role="User" EntitySet="User" />
             <End Role="Baskets" EntitySet="Baskets" />
@@ -2344,6 +2366,9 @@
           <Property Name="Id" Type="Int32" />
           <Property Name="Type" Type="Byte" />
           <Property Name="Count" Type="Int32" />
+          <Property Name="ProductEachPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductEachPaidPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ToatoalPaidPrice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Basket" Relationship="Self.FK_BasketItems_Baskets" FromRole="BasketItems" ToRole="Baskets" />
         </EntityType>
         <EntityType Name="Basket">
@@ -2359,8 +2384,10 @@
           <Property Name="UserId" Type="Int32" />
           <Property Name="BankCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="LocalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiscountId" Type="Int32" />
           <NavigationProperty Name="BasketItems" Relationship="Self.FK_BasketItems_Baskets" FromRole="Baskets" ToRole="BasketItems" />
           <NavigationProperty Name="ProductsOrServicesDeliveryType" Relationship="Self.FK_Baskets_Baskets" FromRole="Baskets" ToRole="ProductsOrServicesDeliveryTypes" />
+          <NavigationProperty Name="Discount" Relationship="Self.FK_Baskets_Discount" FromRole="Baskets" ToRole="Discount" />
           <NavigationProperty Name="User" Relationship="Self.FK_Baskets_User" FromRole="Baskets" ToRole="User" />
         </EntityType>
         <EntityType Name="BrakeSystem">
@@ -2802,6 +2829,7 @@
           <Property Name="DiscountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DiscountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Discount1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Baskets" Relationship="Self.FK_Baskets_Discount" FromRole="Discount" ToRole="Baskets" />
           <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_Discount" FromRole="Discount" ToRole="ProductDiscount" />
         </EntityType>
         <EntityType Name="FuelConsumption">
@@ -3222,6 +3250,8 @@
           <Property Name="Upass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserRoleId" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ActiveRecoveryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActiveORecovery" Type="Byte" />
           <NavigationProperty Name="Baskets" Relationship="Self.FK_Baskets_User" FromRole="User" ToRole="Baskets" />
           <NavigationProperty Name="CarComments" Relationship="Self.FK_CarComments_User" FromRole="User" ToRole="CarComments" />
           <NavigationProperty Name="ContetComments" Relationship="Self.FK_ContetComments_User" FromRole="User" ToRole="ContetComments" />
@@ -3430,6 +3460,18 @@
             </Principal>
             <Dependent Role="Baskets">
               <PropertyRef Name="DelivaryTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Baskets_Discount">
+          <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+          <End Role="Baskets" Type="Self.Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="DiscountId" />
+            </Principal>
+            <Dependent Role="Baskets">
+              <PropertyRef Name="DiscountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4409,6 +4451,10 @@
             <End Role="ProductsOrServicesDeliveryTypes" EntitySet="ProductsOrServicesDeliveryTypes" />
             <End Role="Baskets" EntitySet="Baskets" />
           </AssociationSet>
+          <AssociationSet Name="FK_Baskets_Discount" Association="Self.FK_Baskets_Discount">
+            <End Role="Discount" EntitySet="Discounts" />
+            <End Role="Baskets" EntitySet="Baskets" />
+          </AssociationSet>
           <AssociationSet Name="FK_Baskets_User" Association="Self.FK_Baskets_User">
             <End Role="User" EntitySet="Users" />
             <End Role="Baskets" EntitySet="Baskets" />
@@ -4764,6 +4810,9 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="ProductEachPrice" ColumnName="ProductEachPrice" />
+                <ScalarProperty Name="ProductEachPaidPrice" ColumnName="ProductEachPaidPrice" />
+                <ScalarProperty Name="ToatoalPaidPrice" ColumnName="ToatoalPaidPrice" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4779,6 +4828,7 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="BankCode" ColumnName="BankCode" />
                 <ScalarProperty Name="LocalCode" ColumnName="LocalCode" />
+                <ScalarProperty Name="DiscountId" ColumnName="DiscountId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5561,6 +5611,8 @@
                 <ScalarProperty Name="Upass" ColumnName="Upass" />
                 <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ActiveRecoveryCode" ColumnName="ActiveRecoveryCode" />
+                <ScalarProperty Name="ActiveORecovery" ColumnName="ActiveORecovery" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
