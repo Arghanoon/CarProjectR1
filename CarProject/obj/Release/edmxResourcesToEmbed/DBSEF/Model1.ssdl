@@ -27,9 +27,15 @@
     <Property Name="HasCarId" Type="bit" />
     <Property Name="CarId" Type="int" />
     <Property Name="HasProduct" Type="bit" />
-    <Property Name="ProductId" Type="int" />
     <Property Name="Price" Type="nvarchar" MaxLength="50" />
-    <Property Name="DiscountId" Type="int" />
+  </EntityType>
+  <EntityType Name="AutoServiceCars">
+    <Key>
+      <PropertyRef Name="AutoServiceCarsId" />
+    </Key>
+    <Property Name="AutoServiceCarsId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarsId" Type="int" />
+    <Property Name="AutoServiceId" Type="int" />
   </EntityType>
   <EntityType Name="AutoServicePack">
     <Key>
@@ -38,8 +44,7 @@
     <Property Name="AutoServicePackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AutoServicePackName" Type="nvarchar" MaxLength="50" />
     <Property Name="PackPrice" Type="nvarchar" MaxLength="50" />
-    <Property Name="HasDiscount" Type="bit" />
-    <Property Name="DicsountId" Type="int" />
+    <Property Name="Details" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="AutoServices">
     <Key>
@@ -49,17 +54,29 @@
     <Property Name="AutoServiceId" Type="int" />
     <Property Name="AutoServicePackId" Type="int" />
   </EntityType>
-  <EntityType Name="Basket">
+  <EntityType Name="BasketItems">
+    <Key>
+      <PropertyRef Name="BasketItemId" />
+    </Key>
+    <Property Name="BasketItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BasketId" Type="int" />
+    <Property Name="Id" Type="int" />
+    <Property Name="Type" Type="tinyint" />
+    <Property Name="Count" Type="int" />
+  </EntityType>
+  <EntityType Name="Baskets">
     <Key>
       <PropertyRef Name="BasketId" />
     </Key>
     <Property Name="BasketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="State" Type="tinyint" />
+    <Property Name="FinishDate" Type="datetime" />
+    <Property Name="DelivaryDate" Type="date" />
+    <Property Name="PaymentType" Type="tinyint" />
+    <Property Name="DelivaryTypeId" Type="int" />
     <Property Name="UserId" Type="int" />
-    <Property Name="ProductId" Type="int" />
-    <Property Name="date" Type="datetime" />
-    <Property Name="ProductPrice" Type="float" />
-    <Property Name="ProductEntity" Type="int" />
-    <Property Name="BasketCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="BankCode" Type="nvarchar" MaxLength="255" />
+    <Property Name="LocalCode" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="BrakeSystem">
     <Key>
@@ -103,6 +120,27 @@
     <Property Name="HasGps" Type="bit" />
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CarBrand">
+    <Key>
+      <PropertyRef Name="CarBrandId" />
+    </Key>
+    <Property Name="CarBrandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarBrandName" Type="nvarchar" MaxLength="150" />
+    <Property Name="CarBrandHistory" Type="ntext" />
+  </EntityType>
+  <EntityType Name="CarComments">
+    <Key>
+      <PropertyRef Name="CarCommentsId" />
+    </Key>
+    <Property Name="CarCommentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarsId" Type="int" />
+    <Property Name="Fullname" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Comment" Type="ntext" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="canshow" Type="bit" />
+    <Property Name="datetime" Type="datetime" />
   </EntityType>
   <EntityType Name="CarEngine">
     <Key>
@@ -154,6 +192,14 @@
     <Property Name="CarsId" Type="int" />
     <Property Name="ThirdLightStop" Type="bit" />
   </EntityType>
+  <EntityType Name="CarModel">
+    <Key>
+      <PropertyRef Name="CarModelId" />
+    </Key>
+    <Property Name="CarModelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarModelName" Type="nvarchar" MaxLength="150" />
+    <Property Name="CarBrandId" Type="int" />
+  </EntityType>
   <EntityType Name="CarPhysicalDetails">
     <Key>
       <PropertyRef Name="CarPhysicalDetailsId" />
@@ -173,7 +219,7 @@
     <Key>
       <PropertyRef Name="CarPriceId" />
     </Key>
-    <Property Name="CarPriceId" Type="int" Nullable="false" />
+    <Property Name="CarPriceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarsId" Type="int" />
     <Property Name="Price" Type="float" />
     <Property Name="Date" Type="datetime" />
@@ -183,9 +229,8 @@
       <PropertyRef Name="CarsId" />
     </Key>
     <Property Name="CarsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CarsBrandName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CarModelId" Type="int" />
     <Property Name="CarsClass" Type="nvarchar" MaxLength="50" />
-    <Property Name="CarsModel" Type="nvarchar" MaxLength="50" />
     <Property Name="CarsUserScore" Type="float" />
     <Property Name="CarsClinicScore" Type="float" />
     <Property Name="Price" Type="int" />
@@ -195,6 +240,8 @@
     <Property Name="CarClassType" Type="nvarchar" MaxLength="50" />
     <Property Name="CarCategory" Type="nvarchar" MaxLength="50" />
     <Property Name="CarUsage" Type="nvarchar" MaxLength="100" />
+    <Property Name="CarYearModel" Type="int" />
+    <Property Name="CarBodyType" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="CarSeatOptions">
     <Key>
@@ -245,10 +292,10 @@
     <Key>
       <PropertyRef Name="CarsQnAId" />
     </Key>
-    <Property Name="CarsQnAId" Type="int" Nullable="false" />
+    <Property Name="CarsQnAId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarsId" Type="int" />
-    <Property Name="QuestionType" Type="nvarchar" MaxLength="50" />
-    <Property Name="Question" Type="nvarchar" MaxLength="50" />
+    <Property Name="QuestionType" Type="nvarchar" MaxLength="150" />
+    <Property Name="Question" Type="ntext" />
     <Property Name="QuestionId" Type="int" />
   </EntityType>
   <EntityType Name="CarsReview">
@@ -272,6 +319,16 @@
     <Property Name="CarsReviewSubject" Type="nvarchar" MaxLength="50" />
     <Property Name="CarsReview" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" />
+    <Property Name="LastPointId" Type="int" />
+  </EntityType>
+  <EntityType Name="CarsToView">
+    <Key>
+      <PropertyRef Name="CarsToViewId" />
+    </Key>
+    <Property Name="CarsToViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarsId" Type="int" />
+    <Property Name="View" Type="int" />
+    <Property Name="Favorite" Type="int" />
   </EntityType>
   <EntityType Name="CarWheels">
     <Key>
@@ -304,11 +361,68 @@
     <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
     <Property Name="CompanyAddress" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="ContactUsMessages">
+    <Key>
+      <PropertyRef Name="MessagID" />
+    </Key>
+    <Property Name="MessagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Seen" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ContentPresentation">
+    <Key>
+      <PropertyRef Name="ContentId" />
+    </Key>
+    <Property Name="ContentId" Type="int" Nullable="false" />
+    <Property Name="ShowCount" Type="int" />
+    <Property Name="Like" Type="int" />
+    <Property Name="Dislike" Type="int" />
+  </EntityType>
+  <EntityType Name="Contents">
+    <Key>
+      <PropertyRef Name="ContenstId" />
+    </Key>
+    <Property Name="ContenstId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContentsCategoryId" Type="int" />
+    <Property Name="ContentSubject" Type="nvarchar" MaxLength="150" />
+    <Property Name="ContentDescribe" Type="nvarchar(max)" />
+    <Property Name="ContentText" Type="ntext" />
+    <Property Name="VideoUrl" Type="nvarchar" MaxLength="255" />
+    <Property Name="ContentType" Type="nchar" MaxLength="10" />
+    <Property Name="tags" Type="nvarchar" MaxLength="350" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="LastUpdateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ContentsCategory">
+    <Key>
+      <PropertyRef Name="ContentsCategoryId" />
+    </Key>
+    <Property Name="ContentsCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Describe" Type="nvarchar(max)" />
+    <Property Name="ParentId" Type="int" />
+  </EntityType>
+  <EntityType Name="ContetComments">
+    <Key>
+      <PropertyRef Name="ContentCommentsId" />
+    </Key>
+    <Property Name="ContentCommentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContentsId" Type="int" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Comment" Type="ntext" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
   <EntityType Name="Country">
     <Key>
       <PropertyRef Name="CountryId" />
     </Key>
-    <Property Name="CountryId" Type="int" Nullable="false" />
+    <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CountryShortName" Type="nvarchar" MaxLength="50" />
     <Property Name="CountryLongName" Type="nvarchar(max)" />
   </EntityType>
@@ -327,7 +441,7 @@
     </Key>
     <Property Name="DiscountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DiscountCode" Type="nvarchar" MaxLength="50" />
-    <Property Name="Discount" Type="nchar" MaxLength="10" />
+    <Property Name="Discount" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="FuelConsumption">
     <Key>
@@ -384,6 +498,44 @@
     <Property Name="PersonAddress" Type="nvarchar(max)" />
     <Property Name="UserId" Type="int" />
   </EntityType>
+  <EntityType Name="PersonCarDetail">
+    <Key>
+      <PropertyRef Name="PersonCarDetailId" />
+    </Key>
+    <Property Name="PersonCarDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonCarId" Type="int" />
+    <Property Name="LastOilChange" Type="date" />
+    <Property Name="LastOilChangeMilage" Type="int" />
+    <Property Name="LastOilFiltersChange" Type="date" />
+    <Property Name="LastOilFilterChangeMilage" Type="int" />
+    <Property Name="LastGearBoxOilChange" Type="date" />
+    <Property Name="LastGearBoxOilChangeMilage" Type="int" />
+    <Property Name="LastAirFilterChange" Type="date" />
+    <Property Name="LastAirFilterChangeMilage" Type="int" />
+    <Property Name="LastTiresChange" Type="date" />
+    <Property Name="LastTiresChangeMilage" Type="int" />
+    <Property Name="LastTimingbeltChange" Type="date" />
+    <Property Name="LastTimingbeltChangeMilage" Type="int" />
+    <Property Name="LastOtherBeltsChange" Type="date" />
+    <Property Name="LastOtherBeltsChangeMilage" Type="int" />
+    <Property Name="LastFrontBrakePadsChange" Type="date" />
+    <Property Name="LastFrontBrakePadsChangeMilage" Type="int" />
+    <Property Name="LastRearBreakePadsChange" Type="date" />
+    <Property Name="LastRearBrakePadsChangeMilage" Type="int" />
+  </EntityType>
+  <EntityType Name="PersonCars">
+    <Key>
+      <PropertyRef Name="PersonCarsId" />
+    </Key>
+    <Property Name="PersonCarsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="CarId" Type="int" />
+    <Property Name="CarMilage" Type="int" />
+    <Property Name="CarCreationDate" Type="nvarchar" MaxLength="50" />
+    <Property Name="CarColor" Type="nvarchar" MaxLength="50" />
+    <Property Name="CarPlate" Type="nvarchar" MaxLength="50" />
+    <Property Name="CarPlateCityCode" Type="int" />
+  </EntityType>
   <EntityType Name="PersonProduct">
     <Key>
       <PropertyRef Name="PersonProductId" />
@@ -391,11 +543,37 @@
     <Property Name="PersonProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserId" Type="int" />
     <Property Name="ProductId" Type="int" />
-    <Property Name="UsedProduct" Type="bit" />
-    <Property Name="AutoServiceId" Type="int" />
-    <Property Name="UsedService" Type="bit" />
-    <Property Name="AutoServicePackId" Type="int" />
-    <Property Name="UsedPack" Type="bit" />
+    <Property Name="ProductCurrentEntity" Type="int" />
+    <Property Name="DateAdded" Type="date" />
+  </EntityType>
+  <EntityType Name="PersonProductEntity">
+    <Key>
+      <PropertyRef Name="PersonProductEntityId" />
+    </Key>
+    <Property Name="PersonProductEntityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonProductId" Type="int" />
+    <Property Name="DateUsed" Type="date" />
+    <Property Name="EntityUsed" Type="int" />
+  </EntityType>
+  <EntityType Name="PersonServices">
+    <Key>
+      <PropertyRef Name="PersonServicesId" />
+    </Key>
+    <Property Name="PersonServicesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="ServicesId" Type="int" />
+    <Property Name="ServicesCurrentEntity" Type="int" />
+    <Property Name="DateAdded" Type="date" />
+  </EntityType>
+  <EntityType Name="PersonServicesPack">
+    <Key>
+      <PropertyRef Name="PersonServicesPackId" />
+    </Key>
+    <Property Name="PersonServicesPackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="ServicesPackId" Type="int" />
+    <Property Name="ServicesPackCurrentEntity" Type="int" />
+    <Property Name="DateAdded" Type="date" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -410,7 +588,6 @@
     <Property Name="CompanyId" Type="int" />
     <Property Name="ProductWeight" Type="float" />
     <Property Name="ProductLength" Type="float" />
-    <Property Name="ProductTypeId" Type="int" />
     <Property Name="CountryId" Type="int" />
     <Property Name="ManufactureId" Type="int" />
     <Property Name="ProductSecription" Type="nvarchar(max)" />
@@ -419,6 +596,29 @@
     <Property Name="ProductRating" Type="float" />
     <Property Name="ProductReviewId" Type="int" />
     <Property Name="ProductQnAId" Type="int" />
+    <Property Name="DiscountId" Type="int" />
+    <Property Name="WithInstall" Type="bit" />
+  </EntityType>
+  <EntityType Name="ProductCars">
+    <Key>
+      <PropertyRef Name="ProductCarsId" />
+    </Key>
+    <Property Name="ProductCarsId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="CarsId" Type="int" />
+  </EntityType>
+  <EntityType Name="ProductComments">
+    <Key>
+      <PropertyRef Name="ProductCommentId" />
+    </Key>
+    <Property Name="ProductCommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="Fullname" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Comment" Type="ntext" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="canshow" Type="bit" />
+    <Property Name="datetime" Type="datetime" />
   </EntityType>
   <EntityType Name="ProductDiscount">
     <Key>
@@ -428,6 +628,16 @@
     <Property Name="ProductDiscount" Type="int" />
     <Property Name="ProductId" Type="int" />
     <Property Name="DiscountId" Type="int" />
+    <Property Name="AutoServiceId" Type="int" />
+    <Property Name="AutoServicePackId" Type="int" />
+  </EntityType>
+  <EntityType Name="ProductInService">
+    <Key>
+      <PropertyRef Name="ProductInServiceId" />
+    </Key>
+    <Property Name="ProductInServiceId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="ProductId" Type="int" />
   </EntityType>
   <EntityType Name="ProductPrice">
     <Key>
@@ -437,17 +647,17 @@
     <Property Name="ProductId" Type="int" />
     <Property Name="ProductPrice" Type="int" />
     <Property Name="Date" Type="date" />
+    <Property Name="InstallPrice" Type="int" />
   </EntityType>
   <EntityType Name="ProductQnA">
     <Key>
       <PropertyRef Name="ProductQnAId" />
     </Key>
     <Property Name="ProductQnAId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ProductQuestion" Type="nvarchar" MaxLength="150" />
-    <Property Name="HasAnswer" Type="bit" />
-    <Property Name="HasFather" Type="bit" />
-    <Property Name="FatherId" Type="int" />
-    <Property Name="Answer" Type="nvarchar(max)" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="QuestionType" Type="nvarchar" MaxLength="150" />
+    <Property Name="Question" Type="ntext" />
+    <Property Name="QuestionId" Type="int" />
   </EntityType>
   <EntityType Name="ProductReview">
     <Key>
@@ -456,6 +666,33 @@
     <Property Name="ProductReviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductReview" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="ProductServicePackUse">
+    <Key>
+      <PropertyRef Name="ProductServicePackUseId" />
+    </Key>
+    <Property Name="ProductServicePackUseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonServicesPackId" Type="int" />
+    <Property Name="DateUsed" Type="date" />
+    <Property Name="EntityUsed" Type="int" />
+  </EntityType>
+  <EntityType Name="ProductServiceUse">
+    <Key>
+      <PropertyRef Name="ProductServiceUseId" />
+    </Key>
+    <Property Name="ProductServiceUseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonServicesId" Type="int" />
+    <Property Name="DateUsed" Type="date" />
+    <Property Name="EntityUsed" Type="int" />
+  </EntityType>
+  <EntityType Name="ProductsOrServicesDeliveryTypes">
+    <Key>
+      <PropertyRef Name="DeliverTypeID" />
+    </Key>
+    <Property Name="DeliverTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Price" Type="nvarchar" MaxLength="255" />
+    <Property Name="Hour" Type="int" />
+  </EntityType>
   <EntityType Name="ProductStore">
     <Key>
       <PropertyRef Name="ProductStoreId" />
@@ -463,6 +700,15 @@
     <Property Name="ProductStoreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductId" Type="int" />
     <Property Name="ProductEntity" Type="int" />
+  </EntityType>
+  <EntityType Name="ProductToView">
+    <Key>
+      <PropertyRef Name="ProdcutToViewId" />
+    </Key>
+    <Property Name="ProdcutToViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Viewd" Type="int" />
+    <Property Name="Favorite" Type="int" />
+    <Property Name="ProductId" Type="int" />
   </EntityType>
   <EntityType Name="SecuritySystems">
     <Key>
@@ -478,6 +724,35 @@
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
   </EntityType>
+  <EntityType Name="ServicesPackToView">
+    <Key>
+      <PropertyRef Name="ServicesPackToViewId" />
+    </Key>
+    <Property Name="ServicesPackToViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Viewd" Type="int" />
+    <Property Name="ServicesPackId" Type="int" />
+    <Property Name="Favorite" Type="int" />
+  </EntityType>
+  <EntityType Name="ServiceToView">
+    <Key>
+      <PropertyRef Name="ServiceToViewId" />
+    </Key>
+    <Property Name="ServiceToViewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Views" Type="int" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="Favorite" Type="int" />
+  </EntityType>
+  <EntityType Name="SlideShows">
+    <Key>
+      <PropertyRef Name="SlideShowId" />
+    </Key>
+    <Property Name="SlideShowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+    <Property Name="Describe" Type="nvarchar(max)" />
+    <Property Name="Image" Type="nvarchar" MaxLength="255" />
+    <Property Name="Url" Type="nvarchar" MaxLength="255" />
+    <Property Name="Type" Type="tinyint" />
+  </EntityType>
   <EntityType Name="SteeringSystem">
     <Key>
       <PropertyRef Name="SteeringSystemId" />
@@ -489,16 +764,6 @@
     <Property Name="SteeringControlKey" Type="bit" />
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="TodaysSpecial">
     <Key>
@@ -516,6 +781,7 @@
     <Property Name="TroubleshootingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Question" Type="nvarchar" MaxLength="150" />
     <Property Name="Answer" Type="nvarchar(max)" />
+    <Property Name="AnswerYesOrNo" Type="bit" />
     <Property Name="HasFather" Type="bit" />
     <Property Name="FatherId" Type="int" />
     <Property Name="HasProduct" Type="bit" />
@@ -529,9 +795,10 @@
     <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Uname" Type="nvarchar" MaxLength="50" />
     <Property Name="Upass" Type="nvarchar" MaxLength="50" />
-    <Property Name="CarId" Type="int" />
     <Property Name="UserRoleId" Type="int" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="ActiveRecoveryCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="ActiveORecovery" Type="tinyint" />
   </EntityType>
   <EntityType Name="UserRole">
     <Key>
@@ -576,27 +843,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_AutoService_Discount">
-    <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
-    <End Role="AutoService" Type="Self.AutoService" Multiplicity="*" />
+  <Association Name="FK_AutoServiceCars_AutoService">
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
+    <End Role="AutoServiceCars" Type="Self.AutoServiceCars" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Discount">
-        <PropertyRef Name="DiscountId" />
+      <Principal Role="AutoService">
+        <PropertyRef Name="AutoServiceId" />
       </Principal>
-      <Dependent Role="AutoService">
-        <PropertyRef Name="DiscountId" />
+      <Dependent Role="AutoServiceCars">
+        <PropertyRef Name="AutoServiceId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_AutoServicePack_Discount">
-    <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
-    <End Role="AutoServicePack" Type="Self.AutoServicePack" Multiplicity="*" />
+  <Association Name="FK_AutoServiceCars_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="AutoServiceCars" Type="Self.AutoServiceCars" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Discount">
-        <PropertyRef Name="DiscountId" />
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
       </Principal>
-      <Dependent Role="AutoServicePack">
-        <PropertyRef Name="DicsountId" />
+      <Dependent Role="AutoServiceCars">
+        <PropertyRef Name="CarsId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -624,26 +891,38 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Basket_Product">
-    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+  <Association Name="FK_BasketItems_Baskets">
+    <End Role="Baskets" Type="Self.Baskets" Multiplicity="0..1" />
+    <End Role="BasketItems" Type="Self.BasketItems" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="ProductId" />
+      <Principal Role="Baskets">
+        <PropertyRef Name="BasketId" />
       </Principal>
-      <Dependent Role="Basket">
-        <PropertyRef Name="ProductId" />
+      <Dependent Role="BasketItems">
+        <PropertyRef Name="BasketId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Basket_User">
+  <Association Name="FK_Baskets_Baskets">
+    <End Role="ProductsOrServicesDeliveryTypes" Type="Self.ProductsOrServicesDeliveryTypes" Multiplicity="0..1" />
+    <End Role="Baskets" Type="Self.Baskets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductsOrServicesDeliveryTypes">
+        <PropertyRef Name="DeliverTypeID" />
+      </Principal>
+      <Dependent Role="Baskets">
+        <PropertyRef Name="DelivaryTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baskets_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+    <End Role="Baskets" Type="Self.Baskets" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="UserId" />
       </Principal>
-      <Dependent Role="Basket">
+      <Dependent Role="Baskets">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
@@ -684,6 +963,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CarComments_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="CarComments" Type="Self.CarComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="CarComments">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="CarComments" Type="Self.CarComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="CarComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CarEngine_Cars">
     <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
     <End Role="CarEngine" Type="Self.CarEngine" Multiplicity="*" />
@@ -720,6 +1023,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CarModel_CarBrand">
+    <End Role="CarBrand" Type="Self.CarBrand" Multiplicity="0..1" />
+    <End Role="CarModel" Type="Self.CarModel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarBrand">
+        <PropertyRef Name="CarBrandId" />
+      </Principal>
+      <Dependent Role="CarModel">
+        <PropertyRef Name="CarBrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CarPhysicalDetails_Cars">
     <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
     <End Role="CarPhysicalDetails" Type="Self.CarPhysicalDetails" Multiplicity="*" />
@@ -741,6 +1056,18 @@
       </Principal>
       <Dependent Role="CarPrice">
         <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_CarModel">
+    <End Role="CarModel" Type="Self.CarModel" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarModel">
+        <PropertyRef Name="CarModelId" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="CarModelId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -816,6 +1143,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CarsQnA_CarsQnA">
+    <End Role="CarsQnA" Type="Self.CarsQnA" Multiplicity="0..1" />
+    <End Role="CarsQnA1" Type="Self.CarsQnA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarsQnA">
+        <PropertyRef Name="CarsQnAId" />
+      </Principal>
+      <Dependent Role="CarsQnA1">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CarsReview_Cars">
     <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
     <End Role="CarsReview" Type="Self.CarsReview" Multiplicity="*" />
@@ -836,6 +1175,30 @@
         <PropertyRef Name="CarsId" />
       </Principal>
       <Dependent Role="CarsReviewPoint">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarsReviewPoint_CarsReviewPoint">
+    <End Role="CarsReviewPoint" Type="Self.CarsReviewPoint" Multiplicity="0..1" />
+    <End Role="CarsReviewPoint1" Type="Self.CarsReviewPoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarsReviewPoint">
+        <PropertyRef Name="CarsReviewPointId" />
+      </Principal>
+      <Dependent Role="CarsReviewPoint1">
+        <PropertyRef Name="LastPointId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarsToView_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="CarsToView" Type="Self.CarsToView" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="CarsToView">
         <PropertyRef Name="CarsId" />
       </Dependent>
     </ReferentialConstraint>
@@ -861,6 +1224,66 @@
       </Principal>
       <Dependent Role="Category1">
         <PropertyRef Name="ParentCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContentPresentation_Contents">
+    <End Role="Contents" Type="Self.Contents" Multiplicity="1" />
+    <End Role="ContentPresentation" Type="Self.ContentPresentation" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Contents">
+        <PropertyRef Name="ContenstId" />
+      </Principal>
+      <Dependent Role="ContentPresentation">
+        <PropertyRef Name="ContentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contents_ContentsCategory">
+    <End Role="ContentsCategory" Type="Self.ContentsCategory" Multiplicity="0..1" />
+    <End Role="Contents" Type="Self.Contents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContentsCategory">
+        <PropertyRef Name="ContentsCategoryId" />
+      </Principal>
+      <Dependent Role="Contents">
+        <PropertyRef Name="ContentsCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContentsCategory_ContentsCategory">
+    <End Role="ContentsCategory" Type="Self.ContentsCategory" Multiplicity="0..1" />
+    <End Role="ContentsCategory1" Type="Self.ContentsCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContentsCategory">
+        <PropertyRef Name="ContentsCategoryId" />
+      </Principal>
+      <Dependent Role="ContentsCategory1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContetComments_Contents">
+    <End Role="Contents" Type="Self.Contents" Multiplicity="0..1" />
+    <End Role="ContetComments" Type="Self.ContetComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contents">
+        <PropertyRef Name="ContenstId" />
+      </Principal>
+      <Dependent Role="ContetComments">
+        <PropertyRef Name="ContentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContetComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ContetComments" Type="Self.ContetComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ContetComments">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -924,27 +1347,39 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PersonProduct_AutoService">
-    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
-    <End Role="PersonProduct" Type="Self.PersonProduct" Multiplicity="*" />
+  <Association Name="FK_PersonCarDetail_PersonCars">
+    <End Role="PersonCars" Type="Self.PersonCars" Multiplicity="0..1" />
+    <End Role="PersonCarDetail" Type="Self.PersonCarDetail" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="AutoService">
-        <PropertyRef Name="AutoServiceId" />
+      <Principal Role="PersonCars">
+        <PropertyRef Name="PersonCarsId" />
       </Principal>
-      <Dependent Role="PersonProduct">
-        <PropertyRef Name="AutoServiceId" />
+      <Dependent Role="PersonCarDetail">
+        <PropertyRef Name="PersonCarId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PersonProduct_AutoServicePack">
-    <End Role="AutoServicePack" Type="Self.AutoServicePack" Multiplicity="0..1" />
-    <End Role="PersonProduct" Type="Self.PersonProduct" Multiplicity="*" />
+  <Association Name="FK_PersonCars_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="PersonCars" Type="Self.PersonCars" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="AutoServicePack">
-        <PropertyRef Name="AutoServicePackId" />
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
       </Principal>
-      <Dependent Role="PersonProduct">
-        <PropertyRef Name="AutoServicePackId" />
+      <Dependent Role="PersonCars">
+        <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonCars_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="PersonCars" Type="Self.PersonCars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="PersonCars">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -968,6 +1403,66 @@
         <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="PersonProduct">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonProductEntity_PersonProduct">
+    <End Role="PersonProduct" Type="Self.PersonProduct" Multiplicity="0..1" />
+    <End Role="PersonProductEntity" Type="Self.PersonProductEntity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonProduct">
+        <PropertyRef Name="PersonProductId" />
+      </Principal>
+      <Dependent Role="PersonProductEntity">
+        <PropertyRef Name="PersonProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonServices_AutoService">
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
+    <End Role="PersonServices" Type="Self.PersonServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Principal>
+      <Dependent Role="PersonServices">
+        <PropertyRef Name="ServicesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonServices_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="PersonServices" Type="Self.PersonServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="PersonServices">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonServicesPack_AutoServicePack">
+    <End Role="AutoServicePack" Type="Self.AutoServicePack" Multiplicity="0..1" />
+    <End Role="PersonServicesPack" Type="Self.PersonServicesPack" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoServicePack">
+        <PropertyRef Name="AutoServicePackId" />
+      </Principal>
+      <Dependent Role="PersonServicesPack">
+        <PropertyRef Name="ServicesPackId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonServicesPack_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="PersonServicesPack" Type="Self.PersonServicesPack" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="PersonServicesPack">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
@@ -1032,18 +1527,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Product_ProductQnA">
-    <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="0..1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ProductQnA">
-        <PropertyRef Name="ProductQnAId" />
-      </Principal>
-      <Dependent Role="Product">
-        <PropertyRef Name="ProductQnAId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Product_ProductReview">
     <End Role="ProductReview" Type="Self.ProductReview" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -1053,6 +1536,78 @@
       </Principal>
       <Dependent Role="Product">
         <PropertyRef Name="ProductReviewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductCars_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="ProductCars" Type="Self.ProductCars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="ProductCars">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductCars_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductCars" Type="Self.ProductCars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductCars">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductComments_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductComments" Type="Self.ProductComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductComments">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ProductComments" Type="Self.ProductComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ProductComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductDiscount_AutoService">
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
+    <End Role="ProductDiscount" Type="Self.ProductDiscount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Principal>
+      <Dependent Role="ProductDiscount">
+        <PropertyRef Name="AutoServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductDiscount_AutoServicePack">
+    <End Role="AutoServicePack" Type="Self.AutoServicePack" Multiplicity="0..1" />
+    <End Role="ProductDiscount" Type="Self.ProductDiscount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoServicePack">
+        <PropertyRef Name="AutoServicePackId" />
+      </Principal>
+      <Dependent Role="ProductDiscount">
+        <PropertyRef Name="AutoServicePackId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1080,6 +1635,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProductInService_AutoService">
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
+    <End Role="ProductInService" Type="Self.ProductInService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Principal>
+      <Dependent Role="ProductInService">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductInService_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductInService" Type="Self.ProductInService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductInService">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ProductPrice_Product">
     <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
     <End Role="ProductPrice" Type="Self.ProductPrice" Multiplicity="*" />
@@ -1092,6 +1671,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProductQnA_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductQnA">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ProductQnA_ProductQnA">
     <End Role="ProductQnA" Type="Self.ProductQnA" Multiplicity="0..1" />
     <End Role="ProductQnA1" Type="Self.ProductQnA" Multiplicity="*" />
@@ -1100,7 +1691,31 @@
         <PropertyRef Name="ProductQnAId" />
       </Principal>
       <Dependent Role="ProductQnA1">
-        <PropertyRef Name="FatherId" />
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductServicePackUse_PersonServicesPack">
+    <End Role="PersonServicesPack" Type="Self.PersonServicesPack" Multiplicity="0..1" />
+    <End Role="ProductServicePackUse" Type="Self.ProductServicePackUse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonServicesPack">
+        <PropertyRef Name="PersonServicesPackId" />
+      </Principal>
+      <Dependent Role="ProductServicePackUse">
+        <PropertyRef Name="PersonServicesPackId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductServiceUse_PersonServices">
+    <End Role="PersonServices" Type="Self.PersonServices" Multiplicity="0..1" />
+    <End Role="ProductServiceUse" Type="Self.ProductServiceUse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonServices">
+        <PropertyRef Name="PersonServicesId" />
+      </Principal>
+      <Dependent Role="ProductServiceUse">
+        <PropertyRef Name="PersonServicesId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1116,6 +1731,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProductToView_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductToView" Type="Self.ProductToView" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductToView">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SecuritySystems_Cars">
     <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
     <End Role="SecuritySystems" Type="Self.SecuritySystems" Multiplicity="*" />
@@ -1125,6 +1752,30 @@
       </Principal>
       <Dependent Role="SecuritySystems">
         <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServicesPackToView_AutoServicePack">
+    <End Role="AutoServicePack" Type="Self.AutoServicePack" Multiplicity="0..1" />
+    <End Role="ServicesPackToView" Type="Self.ServicesPackToView" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoServicePack">
+        <PropertyRef Name="AutoServicePackId" />
+      </Principal>
+      <Dependent Role="ServicesPackToView">
+        <PropertyRef Name="ServicesPackId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceToView_AutoService">
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
+    <End Role="ServiceToView" Type="Self.ServiceToView" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Principal>
+      <Dependent Role="ServiceToView">
+        <PropertyRef Name="ServiceId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1176,18 +1827,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_User_Cars">
-    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Cars">
-        <PropertyRef Name="CarsId" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="CarId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_User_UserRole">
     <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -1204,15 +1843,20 @@
     <EntitySet Name="AirConditioningSystem" EntityType="Self.AirConditioningSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AirConditioningSystemDetail" EntityType="Self.AirConditioningSystemDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AutoService" EntityType="Self.AutoService" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AutoServiceCars" EntityType="Self.AutoServiceCars" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AutoServicePack" EntityType="Self.AutoServicePack" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoServices" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Basket" EntityType="Self.Basket" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BasketItems" EntityType="Self.BasketItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Baskets" EntityType="Self.Baskets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BrakeSystem" EntityType="Self.BrakeSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarAirbags" EntityType="Self.CarAirbags" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarAudioSystem" EntityType="Self.CarAudioSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarBrand" EntityType="Self.CarBrand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarComments" EntityType="Self.CarComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarEngine" EntityType="Self.CarEngine" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarGearBox" EntityType="Self.CarGearBox" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarLightingSystem" EntityType="Self.CarLightingSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarModel" EntityType="Self.CarModel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarPhysicalDetails" EntityType="Self.CarPhysicalDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarPrice" EntityType="Self.CarPrice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
@@ -1223,9 +1867,15 @@
     <EntitySet Name="CarsQnA" EntityType="Self.CarsQnA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarsReview" EntityType="Self.CarsReview" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarsReviewPoint" EntityType="Self.CarsReviewPoint" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarsToView" EntityType="Self.CarsToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarWheels" EntityType="Self.CarWheels" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContactUsMessages" EntityType="Self.ContactUsMessages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentPresentation" EntityType="Self.ContentPresentation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contents" EntityType="Self.Contents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentsCategory" EntityType="Self.ContentsCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContetComments" EntityType="Self.ContetComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetailedBrakeSystem" EntityType="Self.DetailedBrakeSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
@@ -1233,16 +1883,30 @@
     <EntitySet Name="GlassAndMirrors" EntityType="Self.GlassAndMirrors" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Manufacture" EntityType="Self.Manufacture" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonCarDetail" EntityType="Self.PersonCarDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonCars" EntityType="Self.PersonCars" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonProduct" EntityType="Self.PersonProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonProductEntity" EntityType="Self.PersonProductEntity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonServices" EntityType="Self.PersonServices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonServicesPack" EntityType="Self.PersonServicesPack" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductCars" EntityType="Self.ProductCars" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductComments" EntityType="Self.ProductComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductDiscount" EntityType="Self.ProductDiscount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductInService" EntityType="Self.ProductInService" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductPrice" EntityType="Self.ProductPrice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductQnA" EntityType="Self.ProductQnA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductReview" EntityType="Self.ProductReview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductServicePackUse" EntityType="Self.ProductServicePackUse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductServiceUse" EntityType="Self.ProductServiceUse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductsOrServicesDeliveryTypes" EntityType="Self.ProductsOrServicesDeliveryTypes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductStore" EntityType="Self.ProductStore" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductToView" EntityType="Self.ProductToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServicesPackToView" EntityType="Self.ServicesPackToView" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -1259,13 +1923,13 @@
       <End Role="Cars" EntitySet="Cars" />
       <End Role="AutoService" EntitySet="AutoService" />
     </AssociationSet>
-    <AssociationSet Name="FK_AutoService_Discount" Association="Self.FK_AutoService_Discount">
-      <End Role="Discount" EntitySet="Discount" />
+    <AssociationSet Name="FK_AutoServiceCars_AutoService" Association="Self.FK_AutoServiceCars_AutoService">
       <End Role="AutoService" EntitySet="AutoService" />
+      <End Role="AutoServiceCars" EntitySet="AutoServiceCars" />
     </AssociationSet>
-    <AssociationSet Name="FK_AutoServicePack_Discount" Association="Self.FK_AutoServicePack_Discount">
-      <End Role="Discount" EntitySet="Discount" />
-      <End Role="AutoServicePack" EntitySet="AutoServicePack" />
+    <AssociationSet Name="FK_AutoServiceCars_Cars" Association="Self.FK_AutoServiceCars_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="AutoServiceCars" EntitySet="AutoServiceCars" />
     </AssociationSet>
     <AssociationSet Name="FK_AutoServices_AutoService" Association="Self.FK_AutoServices_AutoService">
       <End Role="AutoService" EntitySet="AutoService" />
@@ -1275,13 +1939,17 @@
       <End Role="AutoServicePack" EntitySet="AutoServicePack" />
       <End Role="AutoServices" EntitySet="AutoServices" />
     </AssociationSet>
-    <AssociationSet Name="FK_Basket_Product" Association="Self.FK_Basket_Product">
-      <End Role="Product" EntitySet="Product" />
-      <End Role="Basket" EntitySet="Basket" />
+    <AssociationSet Name="FK_BasketItems_Baskets" Association="Self.FK_BasketItems_Baskets">
+      <End Role="Baskets" EntitySet="Baskets" />
+      <End Role="BasketItems" EntitySet="BasketItems" />
     </AssociationSet>
-    <AssociationSet Name="FK_Basket_User" Association="Self.FK_Basket_User">
+    <AssociationSet Name="FK_Baskets_Baskets" Association="Self.FK_Baskets_Baskets">
+      <End Role="ProductsOrServicesDeliveryTypes" EntitySet="ProductsOrServicesDeliveryTypes" />
+      <End Role="Baskets" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baskets_User" Association="Self.FK_Baskets_User">
       <End Role="User" EntitySet="User" />
-      <End Role="Basket" EntitySet="Basket" />
+      <End Role="Baskets" EntitySet="Baskets" />
     </AssociationSet>
     <AssociationSet Name="FK_BrakeSystem_Cars" Association="Self.FK_BrakeSystem_Cars">
       <End Role="Cars" EntitySet="Cars" />
@@ -1295,6 +1963,14 @@
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarAudioSystem" EntitySet="CarAudioSystem" />
     </AssociationSet>
+    <AssociationSet Name="FK_CarComments_Cars" Association="Self.FK_CarComments_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarComments" EntitySet="CarComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarComments_User" Association="Self.FK_CarComments_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="CarComments" EntitySet="CarComments" />
+    </AssociationSet>
     <AssociationSet Name="FK_CarEngine_Cars" Association="Self.FK_CarEngine_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarEngine" EntitySet="CarEngine" />
@@ -1307,6 +1983,10 @@
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarLightingSystem" EntitySet="CarLightingSystem" />
     </AssociationSet>
+    <AssociationSet Name="FK_CarModel_CarBrand" Association="Self.FK_CarModel_CarBrand">
+      <End Role="CarBrand" EntitySet="CarBrand" />
+      <End Role="CarModel" EntitySet="CarModel" />
+    </AssociationSet>
     <AssociationSet Name="FK_CarPhysicalDetails_Cars" Association="Self.FK_CarPhysicalDetails_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarPhysicalDetails" EntitySet="CarPhysicalDetails" />
@@ -1314,6 +1994,10 @@
     <AssociationSet Name="FK_CarPrice_Cars" Association="Self.FK_CarPrice_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarPrice" EntitySet="CarPrice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_CarModel" Association="Self.FK_Cars_CarModel">
+      <End Role="CarModel" EntitySet="CarModel" />
+      <End Role="Cars" EntitySet="Cars" />
     </AssociationSet>
     <AssociationSet Name="FK_CarSeatOptions_Cars" Association="Self.FK_CarSeatOptions_Cars">
       <End Role="Cars" EntitySet="Cars" />
@@ -1339,6 +2023,10 @@
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarsQnA" EntitySet="CarsQnA" />
     </AssociationSet>
+    <AssociationSet Name="FK_CarsQnA_CarsQnA" Association="Self.FK_CarsQnA_CarsQnA">
+      <End Role="CarsQnA" EntitySet="CarsQnA" />
+      <End Role="CarsQnA1" EntitySet="CarsQnA" />
+    </AssociationSet>
     <AssociationSet Name="FK_CarsReview_Cars" Association="Self.FK_CarsReview_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarsReview" EntitySet="CarsReview" />
@@ -1347,6 +2035,14 @@
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarsReviewPoint" EntitySet="CarsReviewPoint" />
     </AssociationSet>
+    <AssociationSet Name="FK_CarsReviewPoint_CarsReviewPoint" Association="Self.FK_CarsReviewPoint_CarsReviewPoint">
+      <End Role="CarsReviewPoint" EntitySet="CarsReviewPoint" />
+      <End Role="CarsReviewPoint1" EntitySet="CarsReviewPoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarsToView_Cars" Association="Self.FK_CarsToView_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarsToView" EntitySet="CarsToView" />
+    </AssociationSet>
     <AssociationSet Name="FK_CarWheels_Cars" Association="Self.FK_CarWheels_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarWheels" EntitySet="CarWheels" />
@@ -1354,6 +2050,26 @@
     <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
       <End Role="Category" EntitySet="Category" />
       <End Role="Category1" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContentPresentation_Contents" Association="Self.FK_ContentPresentation_Contents">
+      <End Role="Contents" EntitySet="Contents" />
+      <End Role="ContentPresentation" EntitySet="ContentPresentation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contents_ContentsCategory" Association="Self.FK_Contents_ContentsCategory">
+      <End Role="ContentsCategory" EntitySet="ContentsCategory" />
+      <End Role="Contents" EntitySet="Contents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContentsCategory_ContentsCategory" Association="Self.FK_ContentsCategory_ContentsCategory">
+      <End Role="ContentsCategory" EntitySet="ContentsCategory" />
+      <End Role="ContentsCategory1" EntitySet="ContentsCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContetComments_Contents" Association="Self.FK_ContetComments_Contents">
+      <End Role="Contents" EntitySet="Contents" />
+      <End Role="ContetComments" EntitySet="ContetComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContetComments_User" Association="Self.FK_ContetComments_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="ContetComments" EntitySet="ContetComments" />
     </AssociationSet>
     <AssociationSet Name="FK_DetailedBrakeSystem_Cars" Association="Self.FK_DetailedBrakeSystem_Cars">
       <End Role="Cars" EntitySet="Cars" />
@@ -1375,13 +2091,17 @@
       <End Role="User" EntitySet="User" />
       <End Role="Person" EntitySet="Person" />
     </AssociationSet>
-    <AssociationSet Name="FK_PersonProduct_AutoService" Association="Self.FK_PersonProduct_AutoService">
-      <End Role="AutoService" EntitySet="AutoService" />
-      <End Role="PersonProduct" EntitySet="PersonProduct" />
+    <AssociationSet Name="FK_PersonCarDetail_PersonCars" Association="Self.FK_PersonCarDetail_PersonCars">
+      <End Role="PersonCars" EntitySet="PersonCars" />
+      <End Role="PersonCarDetail" EntitySet="PersonCarDetail" />
     </AssociationSet>
-    <AssociationSet Name="FK_PersonProduct_AutoServicePack" Association="Self.FK_PersonProduct_AutoServicePack">
-      <End Role="AutoServicePack" EntitySet="AutoServicePack" />
-      <End Role="PersonProduct" EntitySet="PersonProduct" />
+    <AssociationSet Name="FK_PersonCars_Cars" Association="Self.FK_PersonCars_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="PersonCars" EntitySet="PersonCars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonCars_User" Association="Self.FK_PersonCars_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="PersonCars" EntitySet="PersonCars" />
     </AssociationSet>
     <AssociationSet Name="FK_PersonProduct_Product" Association="Self.FK_PersonProduct_Product">
       <End Role="Product" EntitySet="Product" />
@@ -1390,6 +2110,26 @@
     <AssociationSet Name="FK_PersonProduct_User" Association="Self.FK_PersonProduct_User">
       <End Role="User" EntitySet="User" />
       <End Role="PersonProduct" EntitySet="PersonProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonProductEntity_PersonProduct" Association="Self.FK_PersonProductEntity_PersonProduct">
+      <End Role="PersonProduct" EntitySet="PersonProduct" />
+      <End Role="PersonProductEntity" EntitySet="PersonProductEntity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonServices_AutoService" Association="Self.FK_PersonServices_AutoService">
+      <End Role="AutoService" EntitySet="AutoService" />
+      <End Role="PersonServices" EntitySet="PersonServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonServices_User" Association="Self.FK_PersonServices_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="PersonServices" EntitySet="PersonServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonServicesPack_AutoServicePack" Association="Self.FK_PersonServicesPack_AutoServicePack">
+      <End Role="AutoServicePack" EntitySet="AutoServicePack" />
+      <End Role="PersonServicesPack" EntitySet="PersonServicesPack" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonServicesPack_User" Association="Self.FK_PersonServicesPack_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="PersonServicesPack" EntitySet="PersonServicesPack" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_Cars" Association="Self.FK_Product_Cars">
       <End Role="Cars" EntitySet="Cars" />
@@ -1411,13 +2151,33 @@
       <End Role="Manufacture" EntitySet="Manufacture" />
       <End Role="Product" EntitySet="Product" />
     </AssociationSet>
-    <AssociationSet Name="FK_Product_ProductQnA" Association="Self.FK_Product_ProductQnA">
-      <End Role="ProductQnA" EntitySet="ProductQnA" />
-      <End Role="Product" EntitySet="Product" />
-    </AssociationSet>
     <AssociationSet Name="FK_Product_ProductReview" Association="Self.FK_Product_ProductReview">
       <End Role="ProductReview" EntitySet="ProductReview" />
       <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductCars_Cars" Association="Self.FK_ProductCars_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="ProductCars" EntitySet="ProductCars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductCars_Product" Association="Self.FK_ProductCars_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductCars" EntitySet="ProductCars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductComments_Product" Association="Self.FK_ProductComments_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductComments" EntitySet="ProductComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductComments_User" Association="Self.FK_ProductComments_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="ProductComments" EntitySet="ProductComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductDiscount_AutoService" Association="Self.FK_ProductDiscount_AutoService">
+      <End Role="AutoService" EntitySet="AutoService" />
+      <End Role="ProductDiscount" EntitySet="ProductDiscount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductDiscount_AutoServicePack" Association="Self.FK_ProductDiscount_AutoServicePack">
+      <End Role="AutoServicePack" EntitySet="AutoServicePack" />
+      <End Role="ProductDiscount" EntitySet="ProductDiscount" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductDiscount_Discount" Association="Self.FK_ProductDiscount_Discount">
       <End Role="Discount" EntitySet="Discount" />
@@ -1427,21 +2187,53 @@
       <End Role="Product" EntitySet="Product" />
       <End Role="ProductDiscount" EntitySet="ProductDiscount" />
     </AssociationSet>
+    <AssociationSet Name="FK_ProductInService_AutoService" Association="Self.FK_ProductInService_AutoService">
+      <End Role="AutoService" EntitySet="AutoService" />
+      <End Role="ProductInService" EntitySet="ProductInService" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductInService_Product" Association="Self.FK_ProductInService_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductInService" EntitySet="ProductInService" />
+    </AssociationSet>
     <AssociationSet Name="FK_ProductPrice_Product" Association="Self.FK_ProductPrice_Product">
       <End Role="Product" EntitySet="Product" />
       <End Role="ProductPrice" EntitySet="ProductPrice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductQnA_Product" Association="Self.FK_ProductQnA_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductQnA" EntitySet="ProductQnA" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductQnA_ProductQnA" Association="Self.FK_ProductQnA_ProductQnA">
       <End Role="ProductQnA" EntitySet="ProductQnA" />
       <End Role="ProductQnA1" EntitySet="ProductQnA" />
     </AssociationSet>
+    <AssociationSet Name="FK_ProductServicePackUse_PersonServicesPack" Association="Self.FK_ProductServicePackUse_PersonServicesPack">
+      <End Role="PersonServicesPack" EntitySet="PersonServicesPack" />
+      <End Role="ProductServicePackUse" EntitySet="ProductServicePackUse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductServiceUse_PersonServices" Association="Self.FK_ProductServiceUse_PersonServices">
+      <End Role="PersonServices" EntitySet="PersonServices" />
+      <End Role="ProductServiceUse" EntitySet="ProductServiceUse" />
+    </AssociationSet>
     <AssociationSet Name="FK_ProductStore_Product" Association="Self.FK_ProductStore_Product">
       <End Role="Product" EntitySet="Product" />
       <End Role="ProductStore" EntitySet="ProductStore" />
     </AssociationSet>
+    <AssociationSet Name="FK_ProductToView_Product" Association="Self.FK_ProductToView_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductToView" EntitySet="ProductToView" />
+    </AssociationSet>
     <AssociationSet Name="FK_SecuritySystems_Cars" Association="Self.FK_SecuritySystems_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="SecuritySystems" EntitySet="SecuritySystems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServicesPackToView_AutoServicePack" Association="Self.FK_ServicesPackToView_AutoServicePack">
+      <End Role="AutoServicePack" EntitySet="AutoServicePack" />
+      <End Role="ServicesPackToView" EntitySet="ServicesPackToView" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceToView_AutoService" Association="Self.FK_ServiceToView_AutoService">
+      <End Role="AutoService" EntitySet="AutoService" />
+      <End Role="ServiceToView" EntitySet="ServiceToView" />
     </AssociationSet>
     <AssociationSet Name="FK_SteeringSystem_Cars" Association="Self.FK_SteeringSystem_Cars">
       <End Role="Cars" EntitySet="Cars" />
@@ -1458,10 +2250,6 @@
     <AssociationSet Name="FK_Troubleshooting_Troubleshooting" Association="Self.FK_Troubleshooting_Troubleshooting">
       <End Role="Troubleshooting" EntitySet="Troubleshooting" />
       <End Role="Troubleshooting1" EntitySet="Troubleshooting" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_Cars" Association="Self.FK_User_Cars">
-      <End Role="Cars" EntitySet="Cars" />
-      <End Role="User" EntitySet="User" />
     </AssociationSet>
     <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
       <End Role="UserRole" EntitySet="UserRole" />

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 using System.IO;
+using CarProject.App_extension;
 
 
 namespace CarProject.Areas.Admin.Models.Dashboard
@@ -53,6 +54,54 @@ namespace CarProject.Areas.Admin.Models.Dashboard
 
 
             return result;
+        }
+    }
+
+    public class MailsMessage_Signup_SendActivationcode : IValidatableObject
+    {
+        HttpContext Context { get; set; }
+        public string FileLocation
+        {
+            get { return "~/Publics/Files/Settings/MailsMessage_Signup_SendActivationcode.xml"; }
+        }
+
+        public MailsMessage_Signup_SendActivationcode()
+        {
+            Context = HttpContext.Current;
+
+           
+        }
+        [AllowHtml]
+        public string Message { get; set; }
+
+        public void Save()
+        {
+            MySerializer ms = new MySerializer();
+            if (File.Exists(Context.Server.MapPath(FileLocation)))
+                File.Delete(Context.Server.MapPath(FileLocation));
+
+            ms.SaveXml(Context.Server.MapPath(FileLocation), this);
+        }
+
+        public void Load()
+        {
+            if (File.Exists(Context.Server.MapPath(FileLocation)))
+            {
+                MySerializer ms = new MySerializer();
+                var obj = (MailsMessage_Signup_SendActivationcode)ms.LoadXml(Context.Server.MapPath(FileLocation), this.GetType());
+                if (obj != null)
+                {
+                    this.Message = obj.Message;
+                }
+            }
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Message.IsNullOrWhiteSpace())
+                yield return new ValidationResult("متن پیام خالی است", new string[] { "Message" });
+            else if (!Message.Contains("[codelink]") && !Message.Contains("[codeonly]"))
+                yield return new ValidationResult("متن پیام فاقد کد یا لنک فعال سازی است", new string[] { "Message" });
         }
     }
 

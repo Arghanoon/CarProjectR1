@@ -29,10 +29,12 @@ namespace CarProject.DBSEF
         public Nullable<int> UserId { get; set; }
         public string BankCode { get; set; }
         public string LocalCode { get; set; }
+        public Nullable<int> DiscountId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BasketItem> BasketItems { get; set; }
         public virtual ProductsOrServicesDeliveryType ProductsOrServicesDeliveryType { get; set; }
+        public virtual Discount Discount { get; set; }
         public virtual User User { get; set; }
     }
 }

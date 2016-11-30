@@ -1,0 +1,100 @@
+﻿@model CarProject.Areas.Users.Models.Dashboard.PersonCarsModel
+@{
+    ViewBag.Title = "ثبت اطلاعات خودروی کاربر";
+
+    var carid = ViewContext.RouteData.Values["id"];
+    var car = Model.dbs.Cars.FirstOrDefault(c => c.CarsId == Model.Car.CarId);
+}
+@using CarProject.App_Code
+
+
+
+@if (ViewData.ModelState.IsValidField("Success"))
+{
+    <form method="post">
+
+        @Html.HiddenFor(m => m.Car.CarId)
+        @Html.HiddenFor(m => m.Car.PersonCarsId)
+        @Html.HiddenFor(m => m.Detail.PersonCarDetailId)
+
+        <div id="SelectedCarInfo" class="page">
+            <h3>اطلاعات خودروی انتخابی</h3>
+            <hr />
+
+            <table class="infoTable">
+                <tr>
+                    <th>برند</th>
+                    <td>@car.CarModel.CarBrand.CarBrandName</td>
+                </tr>
+                <tr>
+                    <th>مدل</th>
+                    <td>@car.CarModel.CarModelName</td>
+                </tr>
+                <tr>
+                    <th>کلاس خودرو</th>
+                    <td>@car.CarsClass</td>
+                </tr>
+                <tr>
+                    <th>کاربرد</th>
+                    <td>@car.CarUsage</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="page" id="userCarInformationSection">
+            <h3>اطلاعات خودروی کاربر</h3>
+            <hr />
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.Car.CarMilage, "کارکرد خودرو")
+                @Html.input_TextBox(m => m.Car.CarCreationDate, "سال تولید")
+                @Html.input_TextBox(m => m.Car.CarColor, "رنگ")
+                @Html.input_TextBox(m => m.Car.CarPlate, "شماره پلاک")
+                @Html.input_TextBox(m => m.Car.CarPlateCityCode, "شماره شهر")
+            </div>
+        </div>
+
+        <div class="page" id="userCarDetailsInformationSection">
+            <h3>جزئیات خودروی کاربر</h3>
+            <hr />
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.LastOilChange, "تاریخ آخرین تعویض روغن")
+                @Html.input_TextBox(m => m.Detail.LastOilChangeMilage, "کیلومتر آخرین تعویض روغن")
+
+                @Html.input_TextBox(m => m.LastOilFiltersChange, "تاریخ آخرین تعویض فیلتر روغن")
+                @Html.input_TextBox(m => m.Detail.LastOilFilterChangeMilage, "کیلومتر آخرین تعویض فیلتر روغن")
+
+                @Html.input_TextBox(m => m.LastAirFilterChange, "تاریخ آخرین تعویض فیلتر")
+                @Html.input_TextBox(m => m.Detail.LastAirFilterChangeMilage, "کیلومتر آخرین تعویض فیلتر")
+
+                @Html.input_TextBox(m => m.LastGearBoxOilChange, "تاریخ آخرین تعویض روغن گیربکس")
+                @Html.input_TextBox(m => m.Detail.LastGearBoxOilChangeMilage, "کیلومتر آخرین تعویض روغن گیربکس")
+
+                @Html.input_TextBox(m => m.LastTiresChange, "تاریخ آخرین تعویض تایر")
+                @Html.input_TextBox(m => m.Detail.LastTiresChangeMilage, "کیلومتر آخرین تعویض تایر")
+
+                @Html.input_TextBox(m => m.LastTimingbeltChange, "تاریخ آخرین تعویض تسمه تایم")
+                @Html.input_TextBox(m => m.Detail.LastTimingbeltChangeMilage, "کیلومتر آخرین تعویض تسمه تایم")
+
+                @Html.input_TextBox(m => m.LastOtherBeltsChange, "تاریخ آخرین تعویض تسمه دینام / واترپمپ")
+                @Html.input_TextBox(m => m.Detail.LastOtherBeltsChangeMilage, "کیلومتر آخرین تعویض تسمه دینام / واترپمپ")
+
+                @Html.input_TextBox(m => m.LastFrontBrakePadsChange, "تاریخ آخرین تعویض لنت ترمزهای جلو")
+                @Html.input_TextBox(m => m.Detail.LastFrontBrakePadsChangeMilage, "کیلومتر آخرین تعویض لنت ترمزهای جلو")
+
+                @Html.input_TextBox(m => m.LastRearBreakePadsChange, "تاریخ آخرین تعویض لنت ترمزهای عقب")
+                @Html.input_TextBox(m => m.Detail.LastRearBrakePadsChangeMilage, "کیلومتر آخرین تعویض لنت ترمزهای عقب")
+            </div>
+        </div>
+
+        <div class="inputAction">
+            <input type="submit" value="ثبت اطلاعات خودروی کاربر" class="button green" />
+        </div>
+
+    </form>
+}
+else
+{
+    <div style="color:lawngreen; text-align:center;" class="page">
+        <h3>اطلاعات خودرو شما با موفقیت ثبت شد</h3>
+    </div>
+}

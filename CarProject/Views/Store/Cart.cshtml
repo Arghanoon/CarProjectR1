@@ -5,14 +5,40 @@
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
 
     var usfull = new CarProject.Models.Store.CartUsefull();
-}
 
+    var discountstr = "";
+    CarProject.DBSEF.Discount DiscountObject = null;
+    if (Model.DiscountId != null)
+    {
+        DiscountObject = dbs.Discounts.FirstOrDefault(dis => dis.DiscountId == Model.DiscountId);
+        if(DiscountObject != null)
+        {
+            discountstr = DiscountObject.DiscountCode;
+        }
+    }
+}
+@using CarProject.App_Code
 
 <div class="page">
 
     <form method="post" id="CartForm">
         <h3>سبد خرید کاربر</h3>
         <hr />
+        <div class="inputsContainer">
+            <section class="input">
+                <label>کد تفخیف</label>
+                <input type="text" name="InputDiscountCod" placeholder="کد تخفیف" value="@discountstr" />
+                @Html.HiddenFor(m => m.DiscountId)
+                <span>@Html.ValidationMessage("InputDiscountCod")</span>
+            </section>
+        </div>
+
+
+        @if (DiscountObject != null)
+        {
+            <section>کد تخفیف شما شامل <q>@DiscountObject.Discount1</q> درصد تخفیف میباشد.</section>
+        }
+
         <div>
             <table id="cartTable">
                 <thead>
@@ -22,6 +48,7 @@
                         <th>نام</th>
                         <th class="fix">نوع</th>
                         <th class="fix">قیمت</th>
+                        <th class="fix">قیمت + تخفیف</th>
                         <th class="fix">تعداد</th>
                         <th class="fix">مبلغ کل</th>
                     </tr>
@@ -29,13 +56,13 @@
                 <tbody>
                     @{ 
                         int i = 1;
-                        int TotalPrice = 0;
+                        decimal TotalPrice = 0;
                      }
                     @foreach (var item in Model.BasketItems)
                     {
-                        int pric = 0;
-                        int.TryParse(usfull.GetPriceOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value), out pric);
-                        var ttpic = pric * item.Count.GetValueOrDefault(0);
+                        int pric = usfull.GetPriceOfCartObject_int(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value);
+                        var discountprice = usfull.GetPriceOfCartObject_withDiscount(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, DiscountObject);
+                        var ttpic = discountprice * item.Count.GetValueOrDefault(0);
                         TotalPrice += ttpic;
                         
                        
@@ -51,12 +78,15 @@
                             <td class="fix center">
                                 @usfull.GetNameofCartType((CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type)
                             </td>
-                             <td class="fix center">
+                            <td class="fix center">
                                @pric
                             </td>
                             <td class="fix center">
+                               @discountprice
+                            </td>
+                            <td class="fix center">
                                 <div class="input">
-                                    <input type="text" name="Count[@item.Id][@item.Type]" value="@item.Count" class="center" data-itemprice="@usfull.GetPriceOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value)" onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
+                                    <input type="text" name="Count[@item.Id][@item.Type]" value="@item.Count" class="center" data-itemprice="@discountprice" onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
                                 </div>
                             </td>
                             <td class="fix center">
@@ -72,7 +102,7 @@
                 }
 
                     <tr style="background:#a7d4ff;">
-                        <td colspan="4">پلن تحویل کالا / انجام خدمات</td>
+                        <td colspan="5">پلن تحویل کالا / انجام خدمات</td>
                         <td colspan="2">
                             <div class="input">
                                 <select name="DelivaryTypeId" onchange="PlanComboBoxOnChange(this)">
@@ -105,7 +135,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="6">مجموع مبلغ قابل پرداخت</td>
+                        <td colspan="7">مجموع مبلغ قابل پرداخت</td>
                         <td>
                             <span id="SumOfAllPrices">
                                 @TotalPrice
@@ -116,7 +146,7 @@
             </table>
         </div>
         <hr />
-
+        
         <div class="formAction" dir="ltr">
             <input type="submit" class="button green" value="ادامه و تکمیل فرایند خرید" name="ContinueShoping" />
             <input type="button" class="button red" value="پاک کردن سبد خرید" onclick="document.getElementById('removeBasketCompletly').submit();"/>

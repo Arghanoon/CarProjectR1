@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "نمایش سوال و جواب دادن به سوال";
+
+    int id = 0;
+    if(ViewContext.RouteData.Values["id"] != null)
+    {
+        int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+    }
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var question = dbs.CarsQnAs.FirstOrDefault(c => c.CarsQnAId == id);
+    
+    if(question == null)
+    {
+        Response.Redirect("/Admin/Cars/Car_Forum");
+    }
+
+    var relatedQuestions = dbs.CarsQnAs.Where(c => c.QuestionId == question.CarsQnAId);
+}
+
+@model CarProject.DBSEF.CarsQnA
+@using CarProject.App_Code
+
+
+<div>
+    <strong>پرسش های برای خودرو: </strong>
+    <small><a href="/Admin/Cars/Car_Forum/@question.Car.CarsId">@question.Car.CarModel.CarBrand.CarBrandName - @question.Car.CarModel.CarModelName</a></small>
+</div>
+<hr />
+
+<div id="questionAnserContainer">
+    <section class="question">@question.Question</section>
+
+    @foreach (var item in relatedQuestions)
+    {
+        <section class="@if (item.QuestionType == "Q") { Write("question"); } else { Write("answer"); }">@item.Question</section>
+    }
+</div>
+
+
+
+<div>
+    <h3>ثبت پاسخ جدید</h3>
+    <hr />
+
+    <form method="post">
+        <input type="hidden" name="@Html.NameFor(m => m.QuestionId)" value="@question.CarsQnAId" />
+        <div class="inputsContainer">
+            <section class="input">
+                <textarea placeholder="پاسخ جدید را در این قسمت وارد کنید" name="@Html.NameFor(m => m.Question)"></textarea>
+            </section>
+        </div>
+        <section style="color:red">
+            @Html.ValidationMessageFor(m => m.Question)
+        </section>
+        <div class="inputAction">
+            <input type="submit" value="ارسال پاسخ" class="button green" />
+        </div>
+    </form>
+</div>
+
+@section style
+{
+    <style>
+        #questionAnserContainer {
+            display:flex;
+            flex-direction:column;
+            margin:10px 1px;
+        }
+
+            #questionAnserContainer .question {
+                padding:5px;
+                margin:1px 0;
+                border:thin solid #888;
+                align-self:flex-start;
+                border-radius:5px 0 0 5px;
+                max-width:80%;
+                background:#fdf8ef;
+            }
+            #questionAnserContainer .answer {
+                padding:5px;
+                margin:1px 0;
+                border:thin solid #888;
+                align-self:flex-end;
+                border-radius:0 5px 5px 0;
+                max-width:80%;
+                background:#eff4fd;
+            }
+    </style>
+}

@@ -69,6 +69,9 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="ProductEachPrice" ColumnName="ProductEachPrice" />
+          <ScalarProperty Name="ProductEachPaidPrice" ColumnName="ProductEachPaidPrice" />
+          <ScalarProperty Name="ToatoalPaidPrice" ColumnName="ToatoalPaidPrice" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -84,6 +87,7 @@
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="BankCode" ColumnName="BankCode" />
           <ScalarProperty Name="LocalCode" ColumnName="LocalCode" />
+          <ScalarProperty Name="DiscountId" ColumnName="DiscountId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -866,6 +870,8 @@
           <ScalarProperty Name="Upass" ColumnName="Upass" />
           <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ActiveRecoveryCode" ColumnName="ActiveRecoveryCode" />
+          <ScalarProperty Name="ActiveORecovery" ColumnName="ActiveORecovery" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

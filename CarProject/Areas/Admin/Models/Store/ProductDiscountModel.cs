@@ -66,6 +66,9 @@ namespace CarProject.Areas.Admin.Models.Store
             var res = new List<ValidationResult>();
             if (Discount.DiscountCode.IsNullOrWhiteSpace())
                 res.Add(new ValidationResult("کد تخفیف وارد نشد است", new string[] { "Discount.DiscountCode" }));
+            else if(dbs.Discounts.Count(dis => dis.DiscountCode == this.Discount.DiscountCode) > 0)
+                res.Add(new ValidationResult("کد تخفیف وارد شده تکراری است", new string[] { "Discount.DiscountCode" }));
+
             if (Discount.Discount1.IsNullOrWhiteSpace())
                 res.Add(new ValidationResult("درصد تخفیف وارد نشده است", new string[] { "Discount.Discount1" }));
             else if (!Discount.Discount1.IsFloat())

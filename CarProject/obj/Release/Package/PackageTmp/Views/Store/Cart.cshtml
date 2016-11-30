@@ -1,0 +1,223 @@
+﻿@using CarProject.Controllers
+@model CarProject.DBSEF.Basket
+@{
+    ViewBag.Title = "سبد خرید کاربر";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    var usfull = new CarProject.Models.Store.CartUsefull();
+}
+
+
+<div class="page">
+
+    <form method="post" id="CartForm">
+        <h3>سبد خرید کاربر</h3>
+        <hr />
+        <div>
+            <table id="cartTable">
+                <thead>
+                    <tr>
+                        <th class="fix">حذف</th>
+                        <th class="fix">شماره</th>
+                        <th>نام</th>
+                        <th class="fix">نوع</th>
+                        <th class="fix">قیمت</th>
+                        <th class="fix">تعداد</th>
+                        <th class="fix">مبلغ کل</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ 
+                        int i = 1;
+                        int TotalPrice = 0;
+                     }
+                    @foreach (var item in Model.BasketItems)
+                    {
+                        int pric = 0;
+                        int.TryParse(usfull.GetPriceOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value), out pric);
+                        var ttpic = pric * item.Count.GetValueOrDefault(0);
+                        TotalPrice += ttpic;
+                        
+                       
+
+                        <tr>
+                            <td class="fix center   ">
+                                <input type="checkbox" name="RemoveItem[@item.Id][@item.Type]" class="SelectForRemove" />
+                            </td>
+                            <td class="fix center">@i</td>
+                            <td>
+                                @usfull.GetNameOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value)
+                            </td>
+                            <td class="fix center">
+                                @usfull.GetNameofCartType((CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type)
+                            </td>
+                             <td class="fix center">
+                               @pric
+                            </td>
+                            <td class="fix center">
+                                <div class="input">
+                                    <input type="text" name="Count[@item.Id][@item.Type]" value="@item.Count" class="center" data-itemprice="@usfull.GetPriceOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value)" onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
+                                </div>
+                            </td>
+                            <td class="fix center">
+                                <span class="totalprice">
+                                    @{
+                                           @ttpic
+                                    }
+                                </span>
+                            </td>
+                        </tr>
+                    
+                    i += 1;
+                }
+
+                    <tr style="background:#a7d4ff;">
+                        <td colspan="4">پلن تحویل کالا / انجام خدمات</td>
+                        <td colspan="2">
+                            <div class="input">
+                                <select name="DelivaryTypeId" onchange="PlanComboBoxOnChange(this)">
+                                    @{
+                                        var xDeliveryTypes = dbs.ProductsOrServicesDeliveryTypes.AsQueryable();
+                                        int DLTYP = 0;
+                                        if (Model.ProductsOrServicesDeliveryType == null && xDeliveryTypes.Count() > 0)
+                                        {
+                                            int.TryParse(xDeliveryTypes.First().Price, out DLTYP);
+                                        }
+                                        else
+                                        {
+                                            int.TryParse(Model.ProductsOrServicesDeliveryType.Price, out DLTYP);
+                                        }
+
+                                        TotalPrice += DLTYP;
+
+                                        int? selectedid = (Model.DelivaryTypeId == null) ? xDeliveryTypes.First().DeliverTypeID : Model.DelivaryTypeId;
+
+                                        foreach (var item in xDeliveryTypes)
+                                        {
+                                        <option @if (selectedid == item.DeliverTypeID) { Write("selected=\"selected\""); } value="@item.DeliverTypeID" data-price="@item.Price">@item.Name</option>
+                                    }
+                                    }
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <section id="Plan_Selected_Price" class="center">@DLTYP</section>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">مجموع مبلغ قابل پرداخت</td>
+                        <td>
+                            <span id="SumOfAllPrices">
+                                @TotalPrice
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr />
+
+        <div class="formAction" dir="ltr">
+            <input type="submit" class="button green" value="ادامه و تکمیل فرایند خرید" name="ContinueShoping" />
+            <input type="button" class="button red" value="پاک کردن سبد خرید" onclick="document.getElementById('removeBasketCompletly').submit();"/>
+            <input type="button" class="button red" value="حذف موارد انتخابی" onclick="RemoveSelectedItemRequest()" />
+        </div>
+
+    </form>
+
+    
+    <form method="post" action="@Url.Action("Cart_RemoveCopletly")" id="removeBasketCompletly"></form>
+
+</div>
+
+
+@section style
+{
+    <style>
+        #cartTable {
+            width:100%;
+            padding:5px;
+            margin:5px;
+        }
+            #cartTable td,
+            #cartTable th {
+                padding:1px 5px;
+                border:thin solid #888;
+            }
+
+            #cartTable th {
+                background:#bbb;
+            }
+
+
+            #cartTable .fix {
+                width:0; 
+                white-space:nowrap;
+            }
+            #cartTable .center {
+                text-align: center;
+            }
+
+                
+    </style>
+}
+
+@section script
+{
+    <script>
+        function FormSumbitFunction(e) {
+            //e.preventDefault();
+            //$('#cartTable tbody tr').each(function (index, element) {
+            //    $('input', element).each(function (index2, element2) {
+            //        $(element2).attr('name', "[" + index + "]." + $(element2).attr('name'));
+            //    });
+            //});
+
+            //e.target.submit();
+        }
+
+        function ChangeTotalPriceValue(e) {
+            tr = $(e.target).parent().parent().parent();
+            
+            exh = $(e.target).attr('data-itemprice');
+            $('.totalprice', tr).html((exh * parseInt(e.target.value)));
+           
+            sumofall = 0;
+            $("#cartTable tbody tr .totalprice").each(function (index, element) {
+                sumofall += parseInt($(element).html());
+            });
+            
+            document.getElementById("SumOfAllPrices").innerHTML = sumofall;
+        }
+
+        function IntInputOnly(e) {
+            arf = ["Tab", "PageDown", "PageUp", "Delete","Home", "End", "ArrowLeft", "ArrowRight","F5","Backspace", "ArrowTop","0","1", "2","3","4","5","6","7","8","9"];
+            if (arf.indexOf(e.key) >= 0) {
+                return true;
+            }
+            else {
+                e.preventDefault();
+                return false;
+            }
+        }
+
+
+        function RemoveSelectedItemRequest() {
+            frm = document.getElementById("CartForm");
+            frm.action = "@Url.Action("Cart_remoSelection")";
+            frm.submit();
+        }
+
+
+        function PlanComboBoxOnChange(obj) {
+            var x = obj.options[obj.selectedIndex].getAttribute('data-price');
+            document.getElementById('Plan_Selected_Price').innerHTML = x;
+
+            sumofall = 0;
+            $("#cartTable tbody tr .totalprice").each(function (index, element) {
+                sumofall += parseInt($(element).html());
+            });
+            document.getElementById("SumOfAllPrices").innerHTML = (sumofall + parseInt(x));
+        }
+    </script>
+}

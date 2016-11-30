@@ -19,6 +19,9 @@ namespace CarProject.DBSEF
         public Nullable<int> Id { get; set; }
         public Nullable<byte> Type { get; set; }
         public Nullable<int> Count { get; set; }
+        public string ProductEachPrice { get; set; }
+        public string ProductEachPaidPrice { get; set; }
+        public string ToatoalPaidPrice { get; set; }
     
         public virtual Basket Basket { get; set; }
     }

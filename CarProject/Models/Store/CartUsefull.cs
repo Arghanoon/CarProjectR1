@@ -125,6 +125,21 @@ namespace CarProject.Models.Store
                     return "";
             }
         }
+        public string GetNameofCartType(Basket_ItemType ct)
+        {
+            switch (ct)
+            {
+                case Basket_ItemType.Product:
+                    return "محصولات";
+                case Basket_ItemType.AutoService:
+                    return "سرویس ها";
+                case Basket_ItemType.AutoServicePack:
+                    return "سرویس پک ها";
+                default:
+                    return "";
+            }
+        }
+
         public string GetPriceOfCartObject(int id, Basket_ItemType typeofcart)
         {
             switch (typeofcart)
@@ -133,7 +148,7 @@ namespace CarProject.Models.Store
                     {
                         var x = dbs.Products.FirstOrDefault(c => c.ProductId == id);
                         if (x != null && x.ProductPrices.Count > 0)
-                            return x.ProductPrices.Last().ProductPrice1.Value.ToString();
+                            return (x.ProductPrices.Last().ProductPrice1.GetValueOrDefault(0) + x.ProductPrices.Last().InstallPrice.GetValueOrDefault(0)).ToString();
                         else
                             return "";
                     }
@@ -165,7 +180,7 @@ namespace CarProject.Models.Store
                     {
                         var x = dbs.Products.FirstOrDefault(c => c.ProductId == id);
                         if (x != null && x.ProductPrices.Count > 0)
-                            return x.ProductPrices.Last().ProductPrice1.Value;
+                            return x.ProductPrices.Last().ProductPrice1.GetValueOrDefault(0) + x.ProductPrices.Last().InstallPrice.GetValueOrDefault(0);
                         else
                             return 0;
                     }
@@ -197,21 +212,60 @@ namespace CarProject.Models.Store
                     return 0;
             }
         }
-        public string GetNameofCartType(Basket_ItemType ct)
+
+
+        public decimal GetPriceOfCartObject_withDiscount(int id, Basket_ItemType typeofcart,DBSEF.Discount discount = null)
         {
-            switch (ct)
+            switch (typeofcart)
             {
                 case Basket_ItemType.Product:
-                    return "محصولات";
+                    {
+                        decimal res = 0;
+                        var x = dbs.Products.FirstOrDefault(c => c.ProductId == id);
+                        if (x != null && x.ProductPrices.Count > 0)
+                        {
+                            var lastpric = x.ProductPrices.Last();
+                            res = lastpric.InstallPrice.GetValueOrDefault(0) + lastpric.ProductPrice1.GetValueOrDefault(0);
+
+                            if (discount != null)
+                            {
+                                decimal rate = 0;
+                                decimal.TryParse(discount.Discount1, out rate);
+                                decimal discountprice = decimal.Ceiling((res * rate) / 100);
+                                res = res - discountprice;
+                            }
+                        }
+
+                        return res;
+                    }
                 case Basket_ItemType.AutoService:
-                    return "سرویس ها";
+                    {
+                        var x = dbs.AutoServices.FirstOrDefault(c => c.AutoServiceId == id);
+                        if (x != null)
+                        {
+                            int r = 0;
+                            int.TryParse(x.Price, out r);
+                            return r;
+                        }
+                        else
+                            return 0;
+                    }
                 case Basket_ItemType.AutoServicePack:
-                    return "سرویس پک ها";
+                    {
+                        var x = dbs.AutoServicePacks.FirstOrDefault(c => c.AutoServicePackId == id);
+                        if (x != null)
+                        {
+                            int r = 0;
+                            int.TryParse(x.PackPrice, out r);
+                            return r;
+                        }
+                        else
+                            return 0;
+                    }
                 default:
-                    return "";
+                    return 0;
             }
         }
-
 
         
     }

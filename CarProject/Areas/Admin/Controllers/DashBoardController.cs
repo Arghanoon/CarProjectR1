@@ -23,6 +23,22 @@ namespace CarProject.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult MailsMessage_Signup_SendActivationcode()
+        {
+            var model = new Models.Dashboard.MailsMessage_Signup_SendActivationcode();
+            model.Load();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult MailsMessage_Signup_SendActivationcode(Models.Dashboard.MailsMessage_Signup_SendActivationcode model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+            }
+            return View(model);
+        }
+
         public ActionResult AboutMe()
         {
             var model = new Models.Dashboard.AboutMe();
