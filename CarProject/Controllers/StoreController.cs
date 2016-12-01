@@ -73,6 +73,23 @@ namespace CarProject.Controllers
         {
             var us = new Models.Store.CartUsefull();
             var mdl = us.GetCurrentBasket();
+
+            //discount 
+            if (form.AllKeys.Contains("InputDiscountCod") && !form["InputDiscountCod"].IsNullOrWhiteSpace())
+            {
+                var discountcode = form["InputDiscountCod"];
+                var discout = us.dbs.Discounts.FirstOrDefault(dis => dis.DiscountCode == discountcode);
+                if (discout != null)
+                {
+                    mdl.DiscountId = discout.DiscountId;
+                    mdl.Discount = discout;
+                }
+                else
+                    ModelState.AddModelError("InputDiscountCod", "کد وارد شده صحیح نیست");
+            }
+            else mdl.DiscountId = null;
+
+            //items
             foreach (var item in mdl.BasketItems)
             {
                 string key = string.Format("Count[{0}][{1}]", item.Id, item.Type);
@@ -90,6 +107,7 @@ namespace CarProject.Controllers
                 }
             }
 
+
             if (form.AllKeys.Contains("DelivaryTypeId") && !form["DelivaryTypeId"].IsNullOrWhiteSpace())
             {
                 int deliverid = 0;
@@ -101,16 +119,6 @@ namespace CarProject.Controllers
                 }
             }
 
-            if (form.AllKeys.Contains("InputDiscountCod") && !form["InputDiscountCod"].IsNullOrWhiteSpace())
-            {
-                var discountcode = form["InputDiscountCod"];
-                var discout = us.dbs.Discounts.FirstOrDefault(dis => dis.DiscountCode == discountcode);
-                if (discout != null)
-                    mdl.DiscountId = discout.DiscountId;
-                else
-                    ModelState.AddModelError("InputDiscountCod", "کد وارد شده صحیح نیست");
-            }
-            else mdl.DiscountId = null;
 
             us.UpdateBasket(mdl);
 
