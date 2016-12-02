@@ -10,7 +10,7 @@ using System.IO;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class DashBoardController : Controller
     {
         //
@@ -23,6 +23,7 @@ namespace CarProject.Areas.Admin.Controllers
             return View();
         }
 
+        #region Mails Message
         public ActionResult MailsMessage_Signup_SendActivationcode()
         {
             var model = new Models.Dashboard.MailsMessage_Signup_SendActivationcode();
@@ -39,6 +40,26 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
+        public ActionResult MaillsMessage_Marketing()
+        {
+            return View();
+        }
+
+        public JsonResult MailsMessage_Marketing_Emails(int? Type)
+        {
+            var dbs = new CarProject.DBSEF.CarAutomationEntities();
+            var res = dbs.People.Where(p => p.User.UserRoleId == 2).Select(p => new { email = p.PersonEmail, name = p.PersonFirtstName + " " + p.PersonLastName, username = p.User.Uname, pid = p.PersonId });
+            
+            if (Type == 2)
+            {
+                res = dbs.People.Select(p => new { email = p.PersonEmail, name = p.PersonFirtstName + " " + p.PersonLastName, username = p.User.Uname, pid = p.PersonId });
+            }
+            
+            return Json(res.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region about me and contact us
         public ActionResult AboutMe()
         {
             var model = new Models.Dashboard.AboutMe();
@@ -98,9 +119,9 @@ namespace CarProject.Areas.Admin.Controllers
 
             return View(model);
         }
+        #endregion
 
-
-
+        #region Slidershows
         public ActionResult SlideShower_Slides()
         {
             return View();
@@ -142,8 +163,9 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View(model);
         }
+        #endregion
 
-
+        #region Countries and Companies and manufactures
         public ActionResult CountryManagment()
         {
             var model = new Models.Dashboard.CountryModel();
@@ -253,7 +275,7 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View(model);
         }
-
+        #endregion
 
 
         [HttpPost]
