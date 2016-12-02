@@ -38,6 +38,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<CarAudioSystem> CarAudioSystems { get; set; }
         public virtual DbSet<CarBrand> CarBrands { get; set; }
         public virtual DbSet<CarComment> CarComments { get; set; }
+        public virtual DbSet<CarDetail> CarDetails { get; set; }
         public virtual DbSet<CarEngine> CarEngines { get; set; }
         public virtual DbSet<CarGearBox> CarGearBoxes { get; set; }
         public virtual DbSet<CarLightingSystem> CarLightingSystems { get; set; }
