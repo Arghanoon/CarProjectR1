@@ -146,6 +146,31 @@
     <Property Name="canshow" Type="bit" />
     <Property Name="datetime" Type="datetime" />
   </EntityType>
+  <EntityType Name="CarDetails">
+    <Key>
+      <PropertyRef Name="CarDetailsId" />
+    </Key>
+    <Property Name="CarDetailsId" Type="int" Nullable="false" />
+    <Property Name="CarsId" Type="int" />
+    <Property Name="OilChangeDate" Type="int" />
+    <Property Name="OilChangeMilage" Type="int" />
+    <Property Name="OilFiltersChangeDate" Type="int" />
+    <Property Name="OilFilterChangeMilage" Type="int" />
+    <Property Name="GearBoxOilChangeDate" Type="int" />
+    <Property Name="GearBoxOilChangeMilage" Type="int" />
+    <Property Name="AirFilterChangeDate" Type="int" />
+    <Property Name="AirFilterChangeMilage" Type="int" />
+    <Property Name="TiresChangeDate" Type="int" />
+    <Property Name="TiresChangeMilage" Type="int" />
+    <Property Name="TimingbeltChangeDate" Type="int" />
+    <Property Name="TimingbeltChangeMilage" Type="int" />
+    <Property Name="OtherBeltsChangeDate" Type="int" />
+    <Property Name="OtherBeltsChangeMilage" Type="int" />
+    <Property Name="FrontBrakePadsChangeDate" Type="int" />
+    <Property Name="FrontBrakePadsChangeMilage" Type="int" />
+    <Property Name="RearBreakePadsChangeDate" Type="int" />
+    <Property Name="RearBrakePadsChangeMilage" Type="int" />
+  </EntityType>
   <EntityType Name="CarEngine">
     <Key>
       <PropertyRef Name="CarEngineId" />
@@ -1000,6 +1025,18 @@
       </Principal>
       <Dependent Role="CarComments">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarDetails_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="CarDetails" Type="Self.CarDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="CarDetails">
+        <PropertyRef Name="CarsId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1869,6 +1906,7 @@
     <EntitySet Name="CarAudioSystem" EntityType="Self.CarAudioSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarBrand" EntityType="Self.CarBrand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarComments" EntityType="Self.CarComments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarDetails" EntityType="Self.CarDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarEngine" EntityType="Self.CarEngine" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarGearBox" EntityType="Self.CarGearBox" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarLightingSystem" EntityType="Self.CarLightingSystem" Schema="dbo" store:Type="Tables" />
@@ -1990,6 +2028,10 @@
     <AssociationSet Name="FK_CarComments_User" Association="Self.FK_CarComments_User">
       <End Role="User" EntitySet="User" />
       <End Role="CarComments" EntitySet="CarComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarDetails_Cars" Association="Self.FK_CarDetails_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarDetails" EntitySet="CarDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_CarEngine_Cars" Association="Self.FK_CarEngine_Cars">
       <End Role="Cars" EntitySet="Cars" />

@@ -18,6 +18,9 @@ namespace CarProject.Areas.Admin.Models.Cars
         public List<string> List_CarClass { get { return new List<string> { "بسیار کوچک", "کامپکت کوچک", "کامپکت متوسط", "کامپکت بزرگ", "کوچک", "متوسط", "بزرگ", "لوکس کوچک", "لوکس متوسط", "لوکس بزرگ", "سوپر لوکس", "اسپرت", "سوپر اسپرت", "کروکی", "رودسر", "ون", "SUV کوچک", "SUV متوسط", "SUV بزرگ", "SUV فول سایز", "SUV اسپرت" }; } }
 
         //      public List<string> CarClass { get { return new List<string> { }; } }
+
+        public db.CarDetail CarDetail { get; set; }
+
         public List<string> List_CarUsage { get { return new List<string> { "شهری", "خانوادگی", "ترکیبی", "آفرود" }; } }
 
         public List<string> List_YesOrNo { get { return new List<string> { "بله", "خیر" }; } }
@@ -68,6 +71,7 @@ namespace CarProject.Areas.Admin.Models.Cars
             Car = new db.Car();
 
             CarEngine = new db.CarEngine();
+            CarDetail = new db.CarDetail();
 
             GearBox = new db.CarGearBox();
             BrakeSystem = new db.BrakeSystem();
@@ -97,6 +101,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarsModel(int? CarsId)
         {
             Car = DBS.Cars.FirstOrDefault(c => c.CarsId == CarsId);
+
+            CarDetail = DBS.CarDetails.FirstOrDefault(c => c.CarsId == CarsId);
 
             CarEngine = DBS.CarEngines.FirstOrDefault(c => c.CarsId == CarsId);
 
@@ -128,6 +134,9 @@ namespace CarProject.Areas.Admin.Models.Cars
         public void Save()
         {
             DBS.Cars.Add(this.Car);
+
+            CarDetail.Car = this.Car;
+            DBS.CarDetails.Add(CarDetail);
 
             this.CarEngine.Car = this.Car;
             DBS.CarEngines.Add(this.CarEngine);
@@ -208,6 +217,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public static void DeleteCar(int? CarsId)
         {
             var DBS = new db.CarAutomationEntities();
+
+            DBS.CarDetails.Remove(DBS.CarDetails.FirstOrDefault(c => c.CarsId == CarsId));
 
             DBS.CarsQnAs.RemoveRange(DBS.CarsQnAs.Where(cqs => cqs.CarsId == CarsId));
 

@@ -160,6 +160,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CarDetails">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarDetail">
+        <MappingFragment StoreEntitySet="CarDetails">
+          <ScalarProperty Name="CarDetailsId" ColumnName="CarDetailsId" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="OilChangeDate" ColumnName="OilChangeDate" />
+          <ScalarProperty Name="OilChangeMilage" ColumnName="OilChangeMilage" />
+          <ScalarProperty Name="OilFiltersChangeDate" ColumnName="OilFiltersChangeDate" />
+          <ScalarProperty Name="OilFilterChangeMilage" ColumnName="OilFilterChangeMilage" />
+          <ScalarProperty Name="GearBoxOilChangeDate" ColumnName="GearBoxOilChangeDate" />
+          <ScalarProperty Name="GearBoxOilChangeMilage" ColumnName="GearBoxOilChangeMilage" />
+          <ScalarProperty Name="AirFilterChangeDate" ColumnName="AirFilterChangeDate" />
+          <ScalarProperty Name="AirFilterChangeMilage" ColumnName="AirFilterChangeMilage" />
+          <ScalarProperty Name="TiresChangeDate" ColumnName="TiresChangeDate" />
+          <ScalarProperty Name="TiresChangeMilage" ColumnName="TiresChangeMilage" />
+          <ScalarProperty Name="TimingbeltChangeDate" ColumnName="TimingbeltChangeDate" />
+          <ScalarProperty Name="TimingbeltChangeMilage" ColumnName="TimingbeltChangeMilage" />
+          <ScalarProperty Name="OtherBeltsChangeDate" ColumnName="OtherBeltsChangeDate" />
+          <ScalarProperty Name="OtherBeltsChangeMilage" ColumnName="OtherBeltsChangeMilage" />
+          <ScalarProperty Name="FrontBrakePadsChangeDate" ColumnName="FrontBrakePadsChangeDate" />
+          <ScalarProperty Name="FrontBrakePadsChangeMilage" ColumnName="FrontBrakePadsChangeMilage" />
+          <ScalarProperty Name="RearBreakePadsChangeDate" ColumnName="RearBreakePadsChangeDate" />
+          <ScalarProperty Name="RearBrakePadsChangeMilage" ColumnName="RearBrakePadsChangeMilage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="CarEngines">
       <EntityTypeMapping TypeName="CarAutomationModel.CarEngine">
         <MappingFragment StoreEntitySet="CarEngine">

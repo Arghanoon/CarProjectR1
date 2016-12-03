@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "ارسال ایمیل تبلیغاتی";
+}
+
+
+<div>
+    <form method="post">
+
+        <div class="inputsContainer">
+            <section class="input">
+                <label>دریافت کنندگان</label>
+                <div class="inputElement" > 
+                    <div id="receptionListControl">
+                        <a href="javascript:void();" onclick="GetUserByType(1)">تمام کاربران</a> -
+                        <a href="javascript:void();" onclick="GetUserByType(2)">تمام افراد</a> |
+                        <a href="javascript:void();" onclick="$('#ReceptionList input[type=checkbox]').attr('checked',true);">انتخاب همه</a> -
+                        <a href="javascript:void();" onclick="$('#ReceptionList input[type=checkbox]').attr('checked',false);">حذف انتخابها</a>
+                    </div>
+
+                    <div id="ReceptionList">
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </form>
+</div>
+
+
+
+@section style
+{
+    <style>
+        #receptionListControl {
+            display:flex; justify-content:center; align-items:center;
+            border-bottom:thin solid #888;
+        }
+            #receptionListControl > * {
+                margin:0 3px;
+            }
+
+        #ReceptionList {
+            max-height:150px;
+            overflow:auto;
+        }
+            #ReceptionList label {
+                display:flex; justify-content:flex-start; align-items:center;
+            }
+                #ReceptionList label > * {
+                    margin: 0 5px;
+                }
+    </style>
+}
+
+
+@section script
+{
+    <script>
+        function GetUserByType(type) {
+            document.getElementById("ReceptionList").innerHTML = "";
+            $.get("/Admin/Dashboard/MailsMessage_Marketing_Emails", { "Type": type }, function (res) {
+                for (i in res) {
+                    AttachItemToRecptionList(res[i]['email'], res[i]['name'], res[i]['username'], res[i]['pid']);
+                }
+            });
+        }
+
+        function AttachItemToRecptionList(email, fullnam, username, pid) {
+            itemhtml = "<label>";
+            itemhtml += "<input type='checkbox' name='email' value='" + pid + "' />";
+            itemhtml += "<section>" + fullnam + "</section>";
+            itemhtml += "</label>";
+
+            document.getElementById("ReceptionList").innerHTML += itemhtml;
+        }
+    </script>
+}

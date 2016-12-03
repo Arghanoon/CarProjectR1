@@ -138,14 +138,14 @@ a {
 	
 	
 	
-@media  (min-width:500px) 
+@media  (min-width:700px) 
 {
 	#header_menuIcon { display:none; }
 	#header_menu_nav{display:flex; justify-content:center; align-items:center; flex-wrap:wrap;}
 	#header_menu{ display:inline-block; }
 }
 
-@media (max-width:500px) 
+@media (max-width:700px) 
 {
 	#header_menuIcon
 	{

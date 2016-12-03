@@ -234,6 +234,9 @@
     <Compile Include="DBSEF\CarComment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\CarDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\CarEngine.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -902,6 +905,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\DashBoard\MaillsMessage_Marketing.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

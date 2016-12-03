@@ -151,6 +151,31 @@
           <Property Name="canshow" Type="bit" />
           <Property Name="datetime" Type="datetime" />
         </EntityType>
+        <EntityType Name="CarDetails">
+          <Key>
+            <PropertyRef Name="CarDetailsId" />
+          </Key>
+          <Property Name="CarDetailsId" Type="int" Nullable="false" />
+          <Property Name="CarsId" Type="int" />
+          <Property Name="OilChangeDate" Type="int" />
+          <Property Name="OilChangeMilage" Type="int" />
+          <Property Name="OilFiltersChangeDate" Type="int" />
+          <Property Name="OilFilterChangeMilage" Type="int" />
+          <Property Name="GearBoxOilChangeDate" Type="int" />
+          <Property Name="GearBoxOilChangeMilage" Type="int" />
+          <Property Name="AirFilterChangeDate" Type="int" />
+          <Property Name="AirFilterChangeMilage" Type="int" />
+          <Property Name="TiresChangeDate" Type="int" />
+          <Property Name="TiresChangeMilage" Type="int" />
+          <Property Name="TimingbeltChangeDate" Type="int" />
+          <Property Name="TimingbeltChangeMilage" Type="int" />
+          <Property Name="OtherBeltsChangeDate" Type="int" />
+          <Property Name="OtherBeltsChangeMilage" Type="int" />
+          <Property Name="FrontBrakePadsChangeDate" Type="int" />
+          <Property Name="FrontBrakePadsChangeMilage" Type="int" />
+          <Property Name="RearBreakePadsChangeDate" Type="int" />
+          <Property Name="RearBrakePadsChangeMilage" Type="int" />
+        </EntityType>
         <EntityType Name="CarEngine">
           <Key>
             <PropertyRef Name="CarEngineId" />
@@ -1005,6 +1030,18 @@
             </Principal>
             <Dependent Role="CarComments">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CarDetails_Cars">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+          <End Role="CarDetails" Type="Self.CarDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarsId" />
+            </Principal>
+            <Dependent Role="CarDetails">
+              <PropertyRef Name="CarsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1874,6 +1911,7 @@
           <EntitySet Name="CarAudioSystem" EntityType="Self.CarAudioSystem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CarBrand" EntityType="Self.CarBrand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CarComments" EntityType="Self.CarComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarDetails" EntityType="Self.CarDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CarEngine" EntityType="Self.CarEngine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CarGearBox" EntityType="Self.CarGearBox" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CarLightingSystem" EntityType="Self.CarLightingSystem" Schema="dbo" store:Type="Tables" />
@@ -1995,6 +2033,10 @@
           <AssociationSet Name="FK_CarComments_User" Association="Self.FK_CarComments_User">
             <End Role="User" EntitySet="User" />
             <End Role="CarComments" EntitySet="CarComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CarDetails_Cars" Association="Self.FK_CarDetails_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="CarDetails" EntitySet="CarDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_CarEngine_Cars" Association="Self.FK_CarEngine_Cars">
             <End Role="Cars" EntitySet="Cars" />
@@ -2460,6 +2502,32 @@
           <NavigationProperty Name="Car" Relationship="Self.FK_CarComments_Cars" FromRole="CarComments" ToRole="Cars" />
           <NavigationProperty Name="User" Relationship="Self.FK_CarComments_User" FromRole="CarComments" ToRole="User" />
         </EntityType>
+        <EntityType Name="CarDetail">
+          <Key>
+            <PropertyRef Name="CarDetailsId" />
+          </Key>
+          <Property Name="CarDetailsId" Type="Int32" Nullable="false" />
+          <Property Name="CarsId" Type="Int32" />
+          <Property Name="OilChangeDate" Type="Int32" />
+          <Property Name="OilChangeMilage" Type="Int32" />
+          <Property Name="OilFiltersChangeDate" Type="Int32" />
+          <Property Name="OilFilterChangeMilage" Type="Int32" />
+          <Property Name="GearBoxOilChangeDate" Type="Int32" />
+          <Property Name="GearBoxOilChangeMilage" Type="Int32" />
+          <Property Name="AirFilterChangeDate" Type="Int32" />
+          <Property Name="AirFilterChangeMilage" Type="Int32" />
+          <Property Name="TiresChangeDate" Type="Int32" />
+          <Property Name="TiresChangeMilage" Type="Int32" />
+          <Property Name="TimingbeltChangeDate" Type="Int32" />
+          <Property Name="TimingbeltChangeMilage" Type="Int32" />
+          <Property Name="OtherBeltsChangeDate" Type="Int32" />
+          <Property Name="OtherBeltsChangeMilage" Type="Int32" />
+          <Property Name="FrontBrakePadsChangeDate" Type="Int32" />
+          <Property Name="FrontBrakePadsChangeMilage" Type="Int32" />
+          <Property Name="RearBreakePadsChangeDate" Type="Int32" />
+          <Property Name="RearBrakePadsChangeMilage" Type="Int32" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_CarDetails_Cars" FromRole="CarDetails" ToRole="Cars" />
+        </EntityType>
         <EntityType Name="CarEngine">
           <Key>
             <PropertyRef Name="CarEngineId" />
@@ -2575,6 +2643,7 @@
           <NavigationProperty Name="CarAirbags" Relationship="Self.FK_CarAirbags_Cars" FromRole="Cars" ToRole="CarAirbags" />
           <NavigationProperty Name="CarAudioSystems" Relationship="Self.FK_CarAudioSystem_Cars_CarsId" FromRole="Cars" ToRole="CarAudioSystem" />
           <NavigationProperty Name="CarComments" Relationship="Self.FK_CarComments_Cars" FromRole="Cars" ToRole="CarComments" />
+          <NavigationProperty Name="CarDetails" Relationship="Self.FK_CarDetails_Cars" FromRole="Cars" ToRole="CarDetails" />
           <NavigationProperty Name="CarEngines" Relationship="Self.FK_CarEngine_Cars" FromRole="Cars" ToRole="CarEngine" />
           <NavigationProperty Name="CarGearBoxes" Relationship="Self.FK_CarGearBox_Cars" FromRole="Cars" ToRole="CarGearBox" />
           <NavigationProperty Name="CarLightingSystems" Relationship="Self.FK_CarLightingSystem_Cars" FromRole="Cars" ToRole="CarLightingSystem" />
@@ -3559,6 +3628,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CarDetails_Cars">
+          <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="CarDetails" Type="Self.CarDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarsId" />
+            </Principal>
+            <Dependent Role="CarDetails">
+              <PropertyRef Name="CarsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CarEngine_Cars">
           <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
           <End Role="CarEngine" Type="Self.CarEngine" Multiplicity="*" />
@@ -4329,6 +4410,7 @@
           <EntitySet Name="CarAudioSystems" EntityType="Self.CarAudioSystem" />
           <EntitySet Name="CarBrands" EntityType="Self.CarBrand" />
           <EntitySet Name="CarComments" EntityType="Self.CarComment" />
+          <EntitySet Name="CarDetails" EntityType="Self.CarDetail" />
           <EntitySet Name="CarEngines" EntityType="Self.CarEngine" />
           <EntitySet Name="CarGearBoxes" EntityType="Self.CarGearBox" />
           <EntitySet Name="CarLightingSystems" EntityType="Self.CarLightingSystem" />
@@ -4482,6 +4564,10 @@
           <AssociationSet Name="FK_CarComments_User" Association="Self.FK_CarComments_User">
             <End Role="User" EntitySet="Users" />
             <End Role="CarComments" EntitySet="CarComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CarDetails_Cars" Association="Self.FK_CarDetails_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="CarDetails" EntitySet="CarDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_CarEngine_Cars" Association="Self.FK_CarEngine_Cars">
             <End Role="Cars" EntitySet="Cars" />
@@ -4898,6 +4984,32 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="canshow" ColumnName="canshow" />
                 <ScalarProperty Name="datetime" ColumnName="datetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarDetails">
+            <EntityTypeMapping TypeName="CarAutomationModel.CarDetail">
+              <MappingFragment StoreEntitySet="CarDetails">
+                <ScalarProperty Name="CarDetailsId" ColumnName="CarDetailsId" />
+                <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+                <ScalarProperty Name="OilChangeDate" ColumnName="OilChangeDate" />
+                <ScalarProperty Name="OilChangeMilage" ColumnName="OilChangeMilage" />
+                <ScalarProperty Name="OilFiltersChangeDate" ColumnName="OilFiltersChangeDate" />
+                <ScalarProperty Name="OilFilterChangeMilage" ColumnName="OilFilterChangeMilage" />
+                <ScalarProperty Name="GearBoxOilChangeDate" ColumnName="GearBoxOilChangeDate" />
+                <ScalarProperty Name="GearBoxOilChangeMilage" ColumnName="GearBoxOilChangeMilage" />
+                <ScalarProperty Name="AirFilterChangeDate" ColumnName="AirFilterChangeDate" />
+                <ScalarProperty Name="AirFilterChangeMilage" ColumnName="AirFilterChangeMilage" />
+                <ScalarProperty Name="TiresChangeDate" ColumnName="TiresChangeDate" />
+                <ScalarProperty Name="TiresChangeMilage" ColumnName="TiresChangeMilage" />
+                <ScalarProperty Name="TimingbeltChangeDate" ColumnName="TimingbeltChangeDate" />
+                <ScalarProperty Name="TimingbeltChangeMilage" ColumnName="TimingbeltChangeMilage" />
+                <ScalarProperty Name="OtherBeltsChangeDate" ColumnName="OtherBeltsChangeDate" />
+                <ScalarProperty Name="OtherBeltsChangeMilage" ColumnName="OtherBeltsChangeMilage" />
+                <ScalarProperty Name="FrontBrakePadsChangeDate" ColumnName="FrontBrakePadsChangeDate" />
+                <ScalarProperty Name="FrontBrakePadsChangeMilage" ColumnName="FrontBrakePadsChangeMilage" />
+                <ScalarProperty Name="RearBreakePadsChangeDate" ColumnName="RearBreakePadsChangeDate" />
+                <ScalarProperty Name="RearBrakePadsChangeMilage" ColumnName="RearBrakePadsChangeMilage" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
