@@ -153,3 +153,8 @@
             padding:5px;
             font-size:80%;
         }
+
+
+#topMainSlideShower {
+    flex:1;
+}

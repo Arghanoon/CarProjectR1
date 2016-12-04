@@ -518,6 +518,16 @@
           <Property Name="ManufacturePhon" Type="nvarchar" MaxLength="50" />
           <Property Name="CountryId" Type="int" />
         </EntityType>
+        <EntityType Name="MarketingMails">
+          <Key>
+            <PropertyRef Name="MarketingMailId" />
+          </Key>
+          <Property Name="MarketingMailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Recivers" Type="ntext" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+          <Property Name="Body" Type="ntext" />
+          <Property Name="DateTime" Type="datetime" />
+        </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -1941,6 +1951,7 @@
           <EntitySet Name="FuelConsumption" EntityType="Self.FuelConsumption" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GlassAndMirrors" EntityType="Self.GlassAndMirrors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Manufacture" EntityType="Self.Manufacture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarketingMails" EntityType="Self.MarketingMails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonCarDetail" EntityType="Self.PersonCarDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonCars" EntityType="Self.PersonCars" Schema="dbo" store:Type="Tables" />
@@ -2945,6 +2956,16 @@
           <Property Name="CountryId" Type="Int32" />
           <NavigationProperty Name="Country" Relationship="Self.FK_Manufacture_Country" FromRole="Manufacture" ToRole="Country" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Manufacture" FromRole="Manufacture" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="MarketingMail">
+          <Key>
+            <PropertyRef Name="MarketingMailId" />
+          </Key>
+          <Property Name="MarketingMailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Recivers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -4440,6 +4461,7 @@
           <EntitySet Name="FuelConsumptions" EntityType="Self.FuelConsumption" />
           <EntitySet Name="GlassAndMirrors" EntityType="Self.GlassAndMirror" />
           <EntitySet Name="Manufactures" EntityType="Self.Manufacture" />
+          <EntitySet Name="MarketingMails" EntityType="Self.MarketingMail" />
           <EntitySet Name="People" EntityType="Self.Person" />
           <EntitySet Name="PersonCarDetails" EntityType="Self.PersonCarDetail" />
           <EntitySet Name="PersonCars" EntityType="Self.PersonCar" />
@@ -5381,6 +5403,17 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="ManufacturePhon" ColumnName="ManufacturePhon" />
                 <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarketingMails">
+            <EntityTypeMapping TypeName="CarAutomationModel.MarketingMail">
+              <MappingFragment StoreEntitySet="MarketingMails">
+                <ScalarProperty Name="MarketingMailId" ColumnName="MarketingMailId" />
+                <ScalarProperty Name="Recivers" ColumnName="Recivers" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

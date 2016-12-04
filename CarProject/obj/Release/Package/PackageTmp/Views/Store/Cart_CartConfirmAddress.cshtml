@@ -17,29 +17,30 @@
                 <th>نام محصول</th>
                 <th class="fix">نوع محصول</th>
                 <th class="fix">قیمت برای هر واحد</th>
+                <th class="fix">قیمت + تخفیف</th>
                 <th class="fix">تعداد</th>
                 <th class="fix">قیمت کل</th>
             </tr>
         </thead>
         <tbody>
             @{ 
-                int i = 1; int TotalPrice = 0;
+                int i = 1; decimal TotalPrice = 0;
 
-                int.TryParse(viewBasket.ProductsOrServicesDeliveryType.Price, out TotalPrice);
+                decimal.TryParse(viewBasket.ProductsOrServicesDeliveryType.Price, out TotalPrice);
              }
             @foreach (var item in viewBasket.BasketItems)
             {
-                int pric = 0;
+               
+                var discountprice = usfl.GetPriceOfCartObject_withDiscount(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type, viewBasket.Discount);
                 
-                int.TryParse(usfl.GetPriceOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type),out pric);
-                
-                var ttpic = pric * item.Count.Value;
+                var ttpic = discountprice * item.Count.Value;
                 TotalPrice += ttpic;
                 <tr>
                     <td class="fix center">@i</td>
                     <td>@usfl.GetNameOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type)</td>
                     <td>@usfl.GetNameofCartType((CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type)</td>
-                    <td class="fix center">@pric</td>
+                    <td class="fix center">@item.ProductEachPrice</td>
+                    <td class="fix center">@item.ProductEachPaidPrice</td>
                     <td class="fix center">@item.Count</td>
                     <td class="fix center">@ttpic</td>
                 </tr>
@@ -47,7 +48,7 @@
             }
 
             <tr>
-                <td colspan="3">پلن انتخابی</td>
+                <td colspan="4">پلن انتخابی</td>
                 <td colspan="2" class="fix center">@viewBasket.ProductsOrServicesDeliveryType.Name</td>
                 <td class="center fix">@viewBasket.ProductsOrServicesDeliveryType.Price</td>
 

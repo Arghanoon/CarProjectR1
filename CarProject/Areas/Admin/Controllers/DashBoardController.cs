@@ -10,7 +10,7 @@ using System.IO;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    //[CarProject.CLS.AuthFilter]
+    [CarProject.CLS.AuthFilter]
     public class DashBoardController : Controller
     {
         //
@@ -40,9 +40,25 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
-        public ActionResult MaillsMessage_Marketing()
+
+        public ActionResult MaillsMessage_MarketingHistory()
         {
             return View();
+        }
+
+        public ActionResult MaillsMessage_Marketing()
+        {
+            var model = new Models.Dashboard.MailsMessage_Marketing_Model();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult MaillsMessage_Marketing(Models.Dashboard.MailsMessage_Marketing_Model model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.SaveMessage();
+            }
+            return View(model);
         }
 
         public JsonResult MailsMessage_Marketing_Emails(int? Type)

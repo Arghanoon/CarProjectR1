@@ -513,6 +513,16 @@
     <Property Name="ManufacturePhon" Type="nvarchar" MaxLength="50" />
     <Property Name="CountryId" Type="int" />
   </EntityType>
+  <EntityType Name="MarketingMails">
+    <Key>
+      <PropertyRef Name="MarketingMailId" />
+    </Key>
+    <Property Name="MarketingMailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Recivers" Type="ntext" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+    <Property Name="Body" Type="ntext" />
+    <Property Name="DateTime" Type="datetime" />
+  </EntityType>
   <EntityType Name="Person">
     <Key>
       <PropertyRef Name="PersonId" />
@@ -1936,6 +1946,7 @@
     <EntitySet Name="FuelConsumption" EntityType="Self.FuelConsumption" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GlassAndMirrors" EntityType="Self.GlassAndMirrors" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Manufacture" EntityType="Self.Manufacture" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MarketingMails" EntityType="Self.MarketingMails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonCarDetail" EntityType="Self.PersonCarDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonCars" EntityType="Self.PersonCars" Schema="dbo" store:Type="Tables" />

@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "ثبت محتوای ایمیل فعال سازی حساب کاربری";
+}
+@model CarProject.Areas.Admin.Models.Dashboard.MailsMessage_Signup_SendActivationcode
+
+
+<h3>ثبت محتوای ایمیل فعال سازی حساب کاربری <small style="font-size:60%; font-weight:normal;">پیامی که پس از ثبت نام کاربر، برای فعال سازی حساب کاربری، برایش ارسال خواهد شد</small></h3>
+<hr />
+
+<small>
+    <strong>توجه:</strong> برای قرار دادن کد فعال سازی در متن از عبارت [codeonly] استفاده کنید و برای قرار دادن لینک و کد فعال سازی از از عبارت [codelink] استفاده کنید. وجود یکی از این دو عبارت در متن پیام الزامی است
+</small>
+
+<br />
+<form method="post">
+    @Html.TextAreaFor(m => m.Message)
+    <section style="color:red;">@Html.ValidationMessageFor(m => m.Message)</section>
+
+    <div class="inputAction">
+        <input type="submit" value="ثبت ایمیل" class="button green" />
+    </div>
+</form>
+
+<br />
+<h3>راهنمای ثبت ایمیل</h3>
+<hr />
+<div>
+    <table class="grid1">
+        <thead>
+            <tr>
+                <th>راهنما</th>
+                <th>عبارت</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="tright">کد فعال سازی</td>
+                <td class="tleft">[codeonly]</td>
+            </tr>
+            <tr>
+                <td class="tright">کد و لینک فعال سازی</td>
+                <td class="tleft">[codelink]</td>
+            </tr>
+            <tr>
+                <td class="tright">نام و نام خانوادگی</td>
+                <td class="tleft">[userfullname]</td>
+            </tr>
+            <tr>
+                <td class="tright">نام کاربری</td>
+                <td class="tleft">[username]</td>
+            </tr>
+            <tr>
+                <td class="tright">کلمه عبور</td>
+                <td class="tleft">[password]</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+@Html.Action("tinymcefm", "FileManager", new { id = Html.IdFor(m => m.Message) })

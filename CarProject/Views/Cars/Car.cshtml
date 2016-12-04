@@ -728,9 +728,12 @@
                     @{
                         var carpath = Model.Car.CarsId.ToString().BaseRouts_CarImages();
                         var dir = new DirectoryInfo(Server.MapPath(Model.Car.CarsId.ToString().BaseRouts_CarImages()));
-                        foreach (var item in dir.GetFiles())
+                        if(dir.Exists)
                         {
-                        <img src="@Url.Content(Path.Combine(carpath, item.Name))" alt="" />
+                            foreach (var item in dir.GetFiles())
+                            {
+                            <img src="@Url.Content(Path.Combine(carpath, item.Name))" alt="" />
+                            }
                         }
                     }
                 </div>

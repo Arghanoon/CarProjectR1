@@ -117,6 +117,13 @@
         display: block !important;
     }
     
+.inputsContainer3 {
+    display:block;
+}
+    .inputsContainer3 .input > *:not(hr) {
+        display: block !important;
+        width:100%;
+    }
 /*-----------------------------------------Rating Section--------------------------*/
 .input.rating
 {
