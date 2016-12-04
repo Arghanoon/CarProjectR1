@@ -557,6 +557,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="MarketingMails">
+      <EntityTypeMapping TypeName="CarAutomationModel.MarketingMail">
+        <MappingFragment StoreEntitySet="MarketingMails">
+          <ScalarProperty Name="MarketingMailId" ColumnName="MarketingMailId" />
+          <ScalarProperty Name="Recivers" ColumnName="Recivers" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="People">
       <EntityTypeMapping TypeName="CarAutomationModel.Person">
         <MappingFragment StoreEntitySet="Person">

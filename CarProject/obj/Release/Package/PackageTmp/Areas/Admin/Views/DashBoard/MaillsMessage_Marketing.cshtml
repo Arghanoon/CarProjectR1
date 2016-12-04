@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "ارسال ایمیل تبلیغاتی";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
 }
 @model CarProject.Areas.Admin.Models.Dashboard.MailsMessage_Marketing_Model
 @using CarProject.App_Code
@@ -20,12 +21,23 @@
                     </div>
 
                     <div id="ReceptionList">
-
+                        @foreach (var item in Model.Emails)
+                        {
+                            var pr = dbs.People.FirstOrDefault(p => p.PersonId == item);
+                            if (pr != null)
+                            {
+                                <label>
+                                    <input type="checkbox" checked="checked" name="Emails" value="@pr.PersonId" />
+                                    <section><q>@pr.User.Uname</q> | @pr.PersonFirtstName @pr.PersonLastName</section>
+                                </label>
+                            }
+                        }
                     </div>
                 </div>
                 <span>@Html.ValidationMessageFor(m => m.Emails)</span>
             </section>
 
+            @Html.input_TextBox(m => m.Subject, "موضوع پیام")
             @Html.input_TextArea(m => m.MessageHtml, "متن پیام")
         </div>
 

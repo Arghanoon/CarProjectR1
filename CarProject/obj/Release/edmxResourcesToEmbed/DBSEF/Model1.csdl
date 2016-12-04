@@ -618,6 +618,16 @@
     <NavigationProperty Name="Country" Relationship="Self.FK_Manufacture_Country" FromRole="Manufacture" ToRole="Country" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Product_Manufacture" FromRole="Manufacture" ToRole="Product" />
   </EntityType>
+  <EntityType Name="MarketingMail">
+    <Key>
+      <PropertyRef Name="MarketingMailId" />
+    </Key>
+    <Property Name="MarketingMailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Recivers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
+  </EntityType>
   <EntityType Name="Person">
     <Key>
       <PropertyRef Name="PersonId" />
@@ -2112,6 +2122,7 @@
     <EntitySet Name="FuelConsumptions" EntityType="Self.FuelConsumption" />
     <EntitySet Name="GlassAndMirrors" EntityType="Self.GlassAndMirror" />
     <EntitySet Name="Manufactures" EntityType="Self.Manufacture" />
+    <EntitySet Name="MarketingMails" EntityType="Self.MarketingMail" />
     <EntitySet Name="People" EntityType="Self.Person" />
     <EntitySet Name="PersonCarDetails" EntityType="Self.PersonCarDetail" />
     <EntitySet Name="PersonCars" EntityType="Self.PersonCar" />

@@ -126,7 +126,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/18/2016 13:46:52</publishTime>
     </File>
     <File Include="Areas/Admin/Views/DashBoard/MaillsMessage_Marketing.cshtml">
-      <publishTime>12/03/2016 14:08:49</publishTime>
+      <publishTime>12/04/2016 06:41:31</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/DashBoard/MaillsMessage_MarketingHistory.cshtml">
+      <publishTime>12/04/2016 06:55:27</publishTime>
     </File>
     <File Include="Areas/Admin/Views/DashBoard/MailsMessage_Signup_SendActivationcode.cshtml">
       <publishTime>11/30/2016 14:14:22</publishTime>
@@ -195,7 +198,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/30/2016 14:17:50</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/default_Store.cshtml">
-      <publishTime>12/03/2016 21:14:35</publishTime>
+      <publishTime>12/04/2016 06:45:56</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/CategoryManagment.cshtml">
       <publishTime>11/02/2016 14:06:01</publishTime>
@@ -396,7 +399,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/21/2016 23:31:05</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>12/03/2016 21:46:21</publishTime>
+      <publishTime>12/04/2016 12:37:09</publishTime>
     </File>
     <File Include="bin/Devart.Data.Linq.dll">
       <publishTime>11/02/2016 14:06:03</publishTime>
@@ -456,13 +459,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/02/2016 14:06:14</publishTime>
     </File>
     <File Include="DBSEF/Model1.Context.tt">
-      <publishTime>12/02/2016 10:43:06</publishTime>
+      <publishTime>12/04/2016 06:39:27</publishTime>
     </File>
     <File Include="DBSEF/Model1.edmx.diagram">
-      <publishTime>12/02/2016 10:43:07</publishTime>
+      <publishTime>12/04/2016 06:39:27</publishTime>
     </File>
     <File Include="DBSEF/Model1.tt">
-      <publishTime>12/02/2016 10:43:06</publishTime>
+      <publishTime>12/04/2016 06:39:27</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>11/02/2016 14:06:01</publishTime>
@@ -1305,7 +1308,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/01/2016 00:20:58</publishTime>
     </File>
     <File Include="Views/Store/Cart.cshtml">
-      <publishTime>11/30/2016 17:49:02</publishTime>
+      <publishTime>12/04/2016 12:28:36</publishTime>
     </File>
     <File Include="Views/Store/Cart_CartConfirmAddress.cshtml">
       <publishTime>12/01/2016 10:51:17</publishTime>
@@ -1356,7 +1359,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/01/2016 00:12:33</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/03/2016 21:46:25</publishTime>
+      <publishTime>12/04/2016 12:37:11</publishTime>
     </File>
   </ItemGroup>
 </Project>

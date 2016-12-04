@@ -69,7 +69,8 @@
 
                         <tr>
                             <td class="fix center   ">
-                                <input type="checkbox" name="RemoveItem[@item.Id][@item.Type]" class="SelectForRemove" />
+                                @*<input type="checkbox" name="RemoveItem[@item.Id][@item.Type]" class="SelectForRemove" />*@
+                                <a href="javascript:void()" onclick="RemoveSelectedOneItemRequest('RemoveItem[@item.Id][@item.Type]')" class="gia-remove"></a>
                             </td>
                             <td class="fix center">@i</td>
                             <td>
@@ -150,7 +151,7 @@
         <div class="formAction" dir="ltr">
             <input type="submit" class="button green" value="ادامه و تکمیل فرایند خرید" name="ContinueShoping" />
             <input type="button" class="button red" value="پاک کردن سبد خرید" onclick="document.getElementById('removeBasketCompletly').submit();"/>
-            <input type="button" class="button red" value="حذف موارد انتخابی" onclick="RemoveSelectedItemRequest()" />
+            @*<input type="button" class="button red" value="حذف موارد انتخابی" onclick="RemoveSelectedItemRequest()" />*@
         </div>
 
     </form>
@@ -238,6 +239,20 @@
             frm.submit();
         }
 
+        function RemoveSelectedOneItemRequest(objename) {
+            frm = document.createElement("form");
+            frm.method = "Post";
+            frm.action = "@Url.Action("Cart_remoSelection")";
+            document.body.appendChild(frm);
+            
+
+            inp = document.createElement("input");
+            inp.type = "hidden";
+            inp.name = objename;
+            inp.value = true;
+            frm.appendChild(inp);
+            frm.submit();
+        }
 
         function PlanComboBoxOnChange(obj) {
             var x = obj.options[obj.selectedIndex].getAttribute('data-price');
