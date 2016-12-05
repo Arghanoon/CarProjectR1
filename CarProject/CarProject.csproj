@@ -174,7 +174,7 @@
     <Compile Include="Areas\Admin\Models\Store\ServicePacks.cs" />
     <Compile Include="Areas\Admin\Models\Store\Services.cs" />
     <Compile Include="Areas\Admin\Models\Store\StoreMVC.cs" />
-    <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
+    <Compile Include="Areas\Admin\Models\Troubleshooting\TSModel.cs" />
     <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Users\Models\Dashboard\PersonCarsModel.cs" />
     <Compile Include="Areas\Users\UsersCLS\Filters.cs" />
@@ -814,9 +814,6 @@
     <Content Include="Areas\Admin\Views\User\newUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\NewCar.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\Brands.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\New.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\Update.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\CarImagesGallery.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\UpdateCar.cshtml" />
@@ -893,6 +890,7 @@
     <Content Include="Areas\Admin\Views\Store\ProductDiscount_update.cshtml" />
     <Content Include="Areas\Admin\Views\DashBoard\MailsMessage_Signup_SendActivationcode.cshtml" />
     <Content Include="Areas\Admin\Views\DashBoard\MaillsMessage_Marketing.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MaillsMessage_MarketingHistory.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -910,7 +908,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\DashBoard\MaillsMessage_MarketingHistory.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\MakeAQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\DefineAnswer.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

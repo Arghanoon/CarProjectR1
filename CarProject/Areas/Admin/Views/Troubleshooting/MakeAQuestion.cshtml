@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "تعریف سوال جدید";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+}
+@using CarProject.App_Code
+@model CarProject.Areas.Admin.Models.Troubleshooting.TSModel
+
+<div>
+    <h3>تعریف سوال جدید:</h3>
+    <hr />
+
+    <div>
+        <form method="post">
+            <div class="inputsContainer">
+                @if (Model.Troubleshooting.TroubleshootinParentId != null)
+                {
+                    var parrentAnswer = dbs.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == Model.Troubleshooting.TroubleshootinParentId);
+                    if(parrentAnswer  != null)
+                    {
+                        <div class="input">
+                            <label>سوال برای جواب</label>
+                            <section class="inputElement">
+                                @parrentAnswer.Subject
+                            </section>
+                        </div>
+                    }
+                }
+
+                @Html.input_TextBox(m => m.Troubleshooting.Subject, "عنوان سوال")
+                @Html.input_TextArea(m => m.Troubleshooting.Describe, "توضیحات درباره سوال")
+            </div>
+
+            <div class="inputAction">
+                <input type="submit" value="ثبت سوال" class="button green" />
+            </div>
+        </form>
+    </div>
+</div>

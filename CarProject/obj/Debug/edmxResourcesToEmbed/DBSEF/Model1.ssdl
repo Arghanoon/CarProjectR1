@@ -818,14 +818,18 @@
       <PropertyRef Name="TroubleshootingId" />
     </Key>
     <Property Name="TroubleshootingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Question" Type="nvarchar" MaxLength="150" />
-    <Property Name="Answer" Type="nvarchar(max)" />
-    <Property Name="AnswerYesOrNo" Type="bit" />
-    <Property Name="HasFather" Type="bit" />
-    <Property Name="FatherId" Type="int" />
-    <Property Name="HasProduct" Type="bit" />
-    <Property Name="ProductId" Type="int" />
-    <Property Name="ServicePrice" Type="int" />
+    <Property Name="Subject" Type="nvarchar(max)" />
+    <Property Name="Describe" Type="ntext" />
+    <Property Name="TroubleshootinParentId" Type="int" />
+    <Property Name="Price" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="TroubleshootingProducts">
+    <Key>
+      <PropertyRef Name="TroubleshootingId" />
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="TroubleshootingId" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -1866,27 +1870,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Troubleshooting_Product">
-    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
+  <Association Name="FK_TroubleshootingProducts_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="TroubleshootingProducts" Type="Self.TroubleshootingProducts" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Product">
         <PropertyRef Name="ProductId" />
       </Principal>
-      <Dependent Role="Troubleshooting">
+      <Dependent Role="TroubleshootingProducts">
         <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Troubleshooting_Troubleshooting">
-    <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="0..1" />
-    <End Role="Troubleshooting1" Type="Self.Troubleshooting" Multiplicity="*" />
+  <Association Name="FK_TroubleshootingProducts_Troubleshooting">
+    <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="1" />
+    <End Role="TroubleshootingProducts" Type="Self.TroubleshootingProducts" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Troubleshooting">
         <PropertyRef Name="TroubleshootingId" />
       </Principal>
-      <Dependent Role="Troubleshooting1">
-        <PropertyRef Name="FatherId" />
+      <Dependent Role="TroubleshootingProducts">
+        <PropertyRef Name="TroubleshootingId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1974,6 +1978,7 @@
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TroubleshootingProducts" EntityType="Self.TroubleshootingProducts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_AirConditioningSystem_Cars" Association="Self.FK_AirConditioningSystem_Cars">
@@ -2316,13 +2321,13 @@
       <End Role="Product" EntitySet="Product" />
       <End Role="TodaysSpecial" EntitySet="TodaysSpecial" />
     </AssociationSet>
-    <AssociationSet Name="FK_Troubleshooting_Product" Association="Self.FK_Troubleshooting_Product">
+    <AssociationSet Name="FK_TroubleshootingProducts_Product" Association="Self.FK_TroubleshootingProducts_Product">
       <End Role="Product" EntitySet="Product" />
-      <End Role="Troubleshooting" EntitySet="Troubleshooting" />
+      <End Role="TroubleshootingProducts" EntitySet="TroubleshootingProducts" />
     </AssociationSet>
-    <AssociationSet Name="FK_Troubleshooting_Troubleshooting" Association="Self.FK_Troubleshooting_Troubleshooting">
+    <AssociationSet Name="FK_TroubleshootingProducts_Troubleshooting" Association="Self.FK_TroubleshootingProducts_Troubleshooting">
       <End Role="Troubleshooting" EntitySet="Troubleshooting" />
-      <End Role="Troubleshooting1" EntitySet="Troubleshooting" />
+      <End Role="TroubleshootingProducts" EntitySet="TroubleshootingProducts" />
     </AssociationSet>
     <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
       <End Role="UserRole" EntitySet="UserRole" />
