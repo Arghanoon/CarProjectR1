@@ -193,6 +193,7 @@
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\TroubleshootingController.cs" />
     <Compile Include="DBSEF\AirConditioningSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
