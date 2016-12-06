@@ -944,6 +944,7 @@
     <Content Include="Views\Store\PaymentCart_Online.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Store\integratedSearch.cshtml" />
+    <Content Include="Views\Home\EmailTest.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
