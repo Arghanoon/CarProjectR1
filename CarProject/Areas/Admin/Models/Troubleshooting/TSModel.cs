@@ -47,8 +47,31 @@ namespace CarProject.Areas.Admin.Models.Troubleshooting
             {
                 Troubleshooting.Products.Add(dbs.Products.FirstOrDefault(p => p.ProductId == item));
             }
+            Troubleshooting.Type = (byte)this.ModelType;
+
             dbs.Troubleshootings.Add(Troubleshooting);
             dbs.SaveChanges();
+        }
+        public void Update()
+        {
+            //this.Troubleshooting.Type = (byte)ModelType;
+            this.Troubleshooting.Products.Clear();
+            foreach (var item in Products)
+            {
+                this.Troubleshooting.Products.Add(dbs.Products.FirstOrDefault(p => p.ProductId == item));
+            }
+
+            dbs.SaveChanges();
+        }
+        public static void Delete(DBSEF.CarAutomationEntities dbs, int id)
+        {
+            foreach (var item in dbs.Troubleshootings.Where(t => t.TroubleshootinParentId == id))
+            {
+                Delete(dbs, item.TroubleshootingId);
+            }
+            var trouble = dbs.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == id);
+            trouble.Products.Clear();
+            dbs.Troubleshootings.Remove(trouble);
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -72,5 +95,6 @@ namespace CarProject.Areas.Admin.Models.Troubleshooting
             }
             return res;
         }
+
     }
 }

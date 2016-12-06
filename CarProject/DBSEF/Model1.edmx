@@ -823,6 +823,7 @@
             <PropertyRef Name="TroubleshootingId" />
           </Key>
           <Property Name="TroubleshootingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="tinyint" />
           <Property Name="Subject" Type="nvarchar(max)" />
           <Property Name="Describe" Type="ntext" />
           <Property Name="TroubleshootinParentId" Type="int" />
@@ -3324,6 +3325,7 @@
             <PropertyRef Name="TroubleshootingId" />
           </Key>
           <Property Name="TroubleshootingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Byte" />
           <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TroubleshootinParentId" Type="Int32" />
@@ -5712,6 +5714,7 @@
             <EntityTypeMapping TypeName="CarAutomationModel.Troubleshooting">
               <MappingFragment StoreEntitySet="Troubleshooting">
                 <ScalarProperty Name="TroubleshootingId" ColumnName="TroubleshootingId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
                 <ScalarProperty Name="TroubleshootinParentId" ColumnName="TroubleshootinParentId" />

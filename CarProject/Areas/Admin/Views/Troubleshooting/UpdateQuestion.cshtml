@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "تعریف پرسش جدید";
+    ViewBag.Title = "ویرایش پرسش";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
 }
 @using CarProject.App_Code
@@ -31,20 +31,13 @@
                 }
 
                 @Html.input_TextBox(m => m.Troubleshooting.Subject, "عنوان پرسش")
-                @Html.input_TextArea(m => m.Troubleshooting.Describe, "توضیحات درباره پرسش")
+                @Html.input_TextArea(m => m.Troubleshooting.Describe, "توضیحات درباره سوال")
 
-                <div class="input">
-                    <label>روش انجام فرایند</label>
-                    <section class="inputElement" id="InsertTypes">
-                         <input type="radio" name="InsertType" value="1" id="InsertType1" checked="checked" /><label for="InsertType1">ثبت و اضافه کردن پرسش بعدی به پرسش جاری</label>
-                         <input type="radio" name="InsertType" value="2" id="InsertType2" /><label for="InsertType2">ثبت و اضافه کردن پرسش بعدی به ریشه پرسش جاری</label>
-                         <input type="radio" name="InsertType" value="3" id="InsertType3" /><label for="InsertType3">ثبت و اضافه کردن پاسخ به پرسش جاری</label>
-                    </section>
-                </div>
+                
             </div>
                         
             <div class="inputAction">
-                <input type="submit" value="ثبت" class="button green" />
+                <input type="submit" value="ویرایش" class="button green" />
             </div>
         </form>
     </div>

@@ -21,6 +21,7 @@ namespace CarProject.DBSEF
         }
     
         public int TroubleshootingId { get; set; }
+        public Nullable<byte> Type { get; set; }
         public string Subject { get; set; }
         public string Describe { get; set; }
         public Nullable<int> TroubleshootinParentId { get; set; }

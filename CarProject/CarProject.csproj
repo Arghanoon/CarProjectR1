@@ -891,6 +891,9 @@
     <Content Include="Areas\Admin\Views\DashBoard\MailsMessage_Signup_SendActivationcode.cshtml" />
     <Content Include="Areas\Admin\Views\DashBoard\MaillsMessage_Marketing.cshtml" />
     <Content Include="Areas\Admin\Views\DashBoard\MaillsMessage_MarketingHistory.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\MakeAQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\DefineAnswer.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -908,9 +911,11 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Troubleshooting\MakeAQuestion.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\DefineAnswer.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\ShowAnswer.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\UpdateQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\UpdateAnswer.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\RemoveQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\RemoveAnswer.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

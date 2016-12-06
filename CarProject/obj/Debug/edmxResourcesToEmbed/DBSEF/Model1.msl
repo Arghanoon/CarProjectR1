@@ -888,6 +888,7 @@
       <EntityTypeMapping TypeName="CarAutomationModel.Troubleshooting">
         <MappingFragment StoreEntitySet="Troubleshooting">
           <ScalarProperty Name="TroubleshootingId" ColumnName="TroubleshootingId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Subject" ColumnName="Subject" />
           <ScalarProperty Name="Describe" ColumnName="Describe" />
           <ScalarProperty Name="TroubleshootinParentId" ColumnName="TroubleshootinParentId" />

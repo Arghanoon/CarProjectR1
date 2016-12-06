@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "ثبت پاسخ";
+    ViewBag.Title = "ویرایش پاسخ";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
 }
 @using CarProject.App_Code
@@ -22,7 +22,7 @@
                     if(parrentAnswer  != null)
                     {
                         <div class="input">
-                            <label>سوال</label>
+                            <label>پرسش</label>
                             <section class="inputElement">
                                 @parrentAnswer.Subject
                             </section>
@@ -30,8 +30,8 @@
                     }
                 }
 
-                @Html.input_TextBox(m => m.Troubleshooting.Subject, "جواب مختصر")
-                @Html.input_TextArea(m => m.Troubleshooting.Describe, "توضیحات درباره جواب")
+                @Html.input_TextBox(m => m.Troubleshooting.Subject, "پاسخ مختصر")
+                @Html.input_TextArea(m => m.Troubleshooting.Describe, "توضیحات درباره پاسخ")
                 @Html.input_TextBox(m => m.Troubleshooting.Price, "هزینه تعمیرات/رفع عیب")
             </div>
 

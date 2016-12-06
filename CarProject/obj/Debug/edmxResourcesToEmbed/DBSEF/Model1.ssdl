@@ -818,6 +818,7 @@
       <PropertyRef Name="TroubleshootingId" />
     </Key>
     <Property Name="TroubleshootingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="tinyint" />
     <Property Name="Subject" Type="nvarchar(max)" />
     <Property Name="Describe" Type="ntext" />
     <Property Name="TroubleshootinParentId" Type="int" />

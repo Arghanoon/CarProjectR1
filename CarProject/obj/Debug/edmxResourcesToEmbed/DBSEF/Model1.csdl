@@ -980,6 +980,7 @@
       <PropertyRef Name="TroubleshootingId" />
     </Key>
     <Property Name="TroubleshootingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="Byte" />
     <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="TroubleshootinParentId" Type="Int32" />
