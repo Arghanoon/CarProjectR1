@@ -5,7 +5,8 @@
     var slides = dbs.SlideShows.Where(s => s.Type == 1).ToList();
     var slides2 = dbs.SlideShows.Where(s => s.Type == 2).ToList();
 
-
+    var lastnews = dbs.Contents.OrderByDescending(c => c.ContenstId).Take(10);
+    
     var rand = new Random();
 }
 
@@ -16,28 +17,69 @@
 }
 
 <div style="margin: 10px;" >
-    <div class="SliderType2" style="min-height: 500px; margin-bottom:10px;">
-        <div class="sliderItems">
-            @{int i = 1; }
-            @foreach (var item in slides)
-            {
-                <a href="@item.Url" class="slideItem" data-slide="@i">
-                    <img src="@item.Image" alt=""/>
-                </a>   
+    
+    <div id="TopSliderAndNews">
+        <div id="newsBar">
+            <div class="newsContainer" id="LastNews">
+
+                @foreach (var item in lastnews)
+                {
+                    var imagelink = "~/Publics/Gallery/ProductImages/NotFound.png";
+                    var path = "~/Publics/Gallery/NewsImages/" + item.ContenstId;
+                    var dicinfo = new DirectoryInfo(Server.MapPath(path));
+                    if (dicinfo.Exists)
+                    {
+                        var files = dicinfo.GetFiles();
+                        if (files.Length > 0)
+                        {
+                            imagelink = path + "/" + files[rand.Next(0, files.Length)].Name;
+                        }
+                    }
+                    <div class="newsItem">
+
+                        <img src="@Url.Content(imagelink)" alt="@item.ContentSubject" />
+
+                        <div class="newsItemInfo">
+                            <strong class="title">@item.ContentSubject</strong>
+
+                            <section class="briefshow">
+                                @item.ContentDescribe
+                            </section>
+
+                            <section class="footer">
+                                <a href="@Url.RouteUrl("infoRoute", new { controller = "News", action = "NewsShow", id = item.ContenstId, info1 = item.ContentsCategory.Name, info2 = item.ContentSubject })" >ادامه ... </a>
+                            </section>
+                        </div>
+
+
+                    </div>
+            }
+            </div>
+        </div>
+
+        <div class="SliderType2" style="min-height: 500px; margin-bottom: 10px;" id="topMainSlideShower">
+            <div class="sliderItems">
+                @{int i = 1; }
+                @foreach (var item in slides)
+                {
+                    <a href="@item.Url" class="slideItem" data-slide="@i">
+                        <img src="@item.Image" alt=""/>
+                    </a>   
                 i++;
             }
-        </div>
-        <div class="sliderTitles">
-            @{ i = 1; }
-            @foreach (var item in slides)
-            {
-                <section onClick="SliderType2ChangeSlide_byelement(this)" data-slide='@i' class="flex-column-center-stretch">
-                    <h3>@item.Subject </h3>
-                    <small>@item.Describe</small>
-                </section>
+            </div>
+            <div class="sliderTitles">
+                @{ i = 1; }
+                @foreach (var item in slides)
+                {
+                    <section onClick="SliderType2ChangeSlide_byelement(this)" data-slide='@i' class="flex-column-center-stretch">
+                        <h3>@item.Subject </h3>
+                        <small>@item.Describe</small>
+                    </section>
                 i++;
             }
 
+            </div>
         </div>
     </div>
 

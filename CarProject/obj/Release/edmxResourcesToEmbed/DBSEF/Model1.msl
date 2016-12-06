@@ -69,6 +69,9 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="ProductEachPrice" ColumnName="ProductEachPrice" />
+          <ScalarProperty Name="ProductEachPaidPrice" ColumnName="ProductEachPaidPrice" />
+          <ScalarProperty Name="ToatoalPaidPrice" ColumnName="ToatoalPaidPrice" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -84,6 +87,7 @@
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="BankCode" ColumnName="BankCode" />
           <ScalarProperty Name="LocalCode" ColumnName="LocalCode" />
+          <ScalarProperty Name="DiscountId" ColumnName="DiscountId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -153,6 +157,32 @@
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="canshow" ColumnName="canshow" />
           <ScalarProperty Name="datetime" ColumnName="datetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarDetails">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarDetail">
+        <MappingFragment StoreEntitySet="CarDetails">
+          <ScalarProperty Name="CarDetailsId" ColumnName="CarDetailsId" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="OilChangeDate" ColumnName="OilChangeDate" />
+          <ScalarProperty Name="OilChangeMilage" ColumnName="OilChangeMilage" />
+          <ScalarProperty Name="OilFiltersChangeDate" ColumnName="OilFiltersChangeDate" />
+          <ScalarProperty Name="OilFilterChangeMilage" ColumnName="OilFilterChangeMilage" />
+          <ScalarProperty Name="GearBoxOilChangeDate" ColumnName="GearBoxOilChangeDate" />
+          <ScalarProperty Name="GearBoxOilChangeMilage" ColumnName="GearBoxOilChangeMilage" />
+          <ScalarProperty Name="AirFilterChangeDate" ColumnName="AirFilterChangeDate" />
+          <ScalarProperty Name="AirFilterChangeMilage" ColumnName="AirFilterChangeMilage" />
+          <ScalarProperty Name="TiresChangeDate" ColumnName="TiresChangeDate" />
+          <ScalarProperty Name="TiresChangeMilage" ColumnName="TiresChangeMilage" />
+          <ScalarProperty Name="TimingbeltChangeDate" ColumnName="TimingbeltChangeDate" />
+          <ScalarProperty Name="TimingbeltChangeMilage" ColumnName="TimingbeltChangeMilage" />
+          <ScalarProperty Name="OtherBeltsChangeDate" ColumnName="OtherBeltsChangeDate" />
+          <ScalarProperty Name="OtherBeltsChangeMilage" ColumnName="OtherBeltsChangeMilage" />
+          <ScalarProperty Name="FrontBrakePadsChangeDate" ColumnName="FrontBrakePadsChangeDate" />
+          <ScalarProperty Name="FrontBrakePadsChangeMilage" ColumnName="FrontBrakePadsChangeMilage" />
+          <ScalarProperty Name="RearBreakePadsChangeDate" ColumnName="RearBreakePadsChangeDate" />
+          <ScalarProperty Name="RearBrakePadsChangeMilage" ColumnName="RearBrakePadsChangeMilage" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -524,6 +554,17 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="ManufacturePhon" ColumnName="ManufacturePhon" />
           <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MarketingMails">
+      <EntityTypeMapping TypeName="CarAutomationModel.MarketingMail">
+        <MappingFragment StoreEntitySet="MarketingMails">
+          <ScalarProperty Name="MarketingMailId" ColumnName="MarketingMailId" />
+          <ScalarProperty Name="Recivers" ColumnName="Recivers" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

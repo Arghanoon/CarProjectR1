@@ -12,7 +12,7 @@
 
 
 
-<div id="DescribePageShowing">
+<div id="DescribePageShowing" class="page">
     @if(cus != null)
     {
         @Html.Raw(cus.Html)
@@ -20,7 +20,7 @@
 </div>
 
 
-<div id="ContactUsForm">
+<div id="ContactUsForm" class="page">
     <h3>فرم تماس با ما</h3>
    @try
     {
@@ -55,7 +55,7 @@
 
 
 
-@section style
+@*@section style
 {
     <style>
         #ContactUsForm {
@@ -75,4 +75,4 @@
             }
         }
     </style>
-}
+}*@

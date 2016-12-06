@@ -13,6 +13,11 @@
         vertical-align:middle;
     }
 
+    .input > *:nth-child(1) {
+        vertical-align:text-top;
+        min-width: 30%;
+    }
+
 	.input input:not([type=submit]):not([type=button]):not([type=reset]):not([type=checkbox]),
 		.input textarea,
         .input select,
@@ -112,6 +117,13 @@
         display: block !important;
     }
     
+.inputsContainer3 {
+    display:block;
+}
+    .inputsContainer3 .input > *:not(hr) {
+        display: block !important;
+        width:100%;
+    }
 /*-----------------------------------------Rating Section--------------------------*/
 .input.rating
 {

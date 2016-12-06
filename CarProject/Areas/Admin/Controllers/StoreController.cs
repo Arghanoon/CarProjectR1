@@ -9,7 +9,7 @@ using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class StoreController : Controller
     {
         //
@@ -220,7 +220,7 @@ namespace CarProject.Areas.Admin.Controllers
             var dbs = new DBSEF.CarAutomationEntities();
             if (notinId == null) { notinId = new List<int>(); }
 
-            var res = dbs.Products.Where(c => c.ProductName.Contains(search) && !notinId.Contains(c.ProductId)).Select(c => new { id = c.ProductId, num = c.PartNumber, name = c.ProductName, cat = c.Category.CategoryName }).ToList();
+            var res = dbs.Products.Where(c => c.ProductName.Contains(search) && !notinId.Contains(c.ProductId)).Select(c => new { id = c.ProductId, num = c.PartNumber.ToString(), name = c.ProductName, cat = c.Category.CategoryName }).ToList();
             return Json(res, JsonRequestBehavior.DenyGet);
         }
 

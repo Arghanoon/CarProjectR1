@@ -34,7 +34,7 @@ namespace CarProject.Areas.Admin.Controllers
             }
             foreach (var item in dic.GetFiles())
             {
-                images.Add(new { name = item.Name, path = Url.Content(Path.Combine(rtdirel, item.Name).Replace('\\', '/')) });
+                images.Add(new { name = item.Name, path = Url.Content(Path.Combine(rtdirel, item.Name).Replace('\\', '/')), path2 = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content(Path.Combine(rtdirel, item.Name).Replace('\\', '/'))) });
             }
             return Json(new { DIR = dirs, IMGS = images }, JsonRequestBehavior.AllowGet);
         }

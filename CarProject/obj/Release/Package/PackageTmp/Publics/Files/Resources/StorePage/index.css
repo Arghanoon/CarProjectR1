@@ -1,4 +1,13 @@
-﻿.ServicePacksContainer {
+﻿#TopSliderAndNews {
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+#newsBar {
+    max-width:30vw;
+}
+
+.ServicePacksContainer {
     display: flex;
     justify-content: center;
     align-items: stretch;
@@ -85,6 +94,14 @@
         }
 
 @media (max-width:700px) {
+    #TopSliderAndNews {
+        flex-direction:column-reverse;
+    }
+    #newsBar {
+        max-width:100%;
+        margin:5px;
+    }
+
     #Contianer1 {
         flex-direction:column-reverse;
     }
@@ -95,4 +112,49 @@
     .SideBarItemsContainer {
         justify-content: center;
     }
+}
+
+
+
+/*------------------------------[ Slider show ]------------------------------*/
+.newsContainer {
+    display:flex;
+    flex-direction:column;
+}
+
+    .newsContainer .newsItem {
+        display:flex;
+        margin:1px 5px;
+        border:thin solid #d4d4d4;
+        background:white;
+    }
+        .newsContainer .newsItem .newsItemInfo {
+            flex:1;
+            display:flex; flex-direction:column;
+            margin-right:5px;
+        }
+        .newsContainer .newsItem > img {
+            width:25%;
+            align-self:center;
+        }
+        .newsContainer .newsItem .title {
+            padding: 2px;
+        }
+
+        .newsContainer .newsItem .briefshow {
+            padding:3px;
+            display:flex;
+            flex:1;
+            font-size:80%;
+        }
+
+        .newsContainer .newsItem .footer {
+            display:flex; flex-direction:row-reverse;
+            padding:5px;
+            font-size:80%;
+        }
+
+
+#topMainSlideShower {
+    flex:1;
 }

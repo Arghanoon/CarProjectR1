@@ -14,24 +14,25 @@
     <div class="wizardContainer">
         <div class="wizardNav">
             <a href="#w1">اطلاعات خودرو</a>
-            <a href="#w2">موتور</a>
-            <a href="#w3">گیر بکس</a>
-            <a href="#w4">مشخصات فیزیکی</a>
-            <a href="#w5">سیستم ترمز</a>
-            <a href="#w6">مصرف سوخت</a>
-            <a href="#w7">سیستم های امنیتی خودرو</a>
-            <a href="#w8">سیستم فرمان خودرو</a>
-            <a href="#w9">سیستم تهویه</a>
-            <a href="#w10">سیستم صوتی</a>
-            <a href="#w11">صندلی ها</a>
-            <a href="#w12">شیشه و آینه</a>
-            <a href="#w13">روشنایی</a>
-            <a href="#w14">سنسورها</a>
-            <a href="#w15">کیسه هوا</a>
-            <a href="#w16">چرخها</a>
-            <a href="#w17">مزایا</a>
-            <a href="#w18">معایب</a>
-            <a href="#w19">بررسی</a>
+            <a href="#w2">جزئیات خودرو</a>
+            <a href="#w3">موتور</a>
+            <a href="#w4">گیر بکس</a>
+            <a href="#w5">مشخصات فیزیکی</a>
+            <a href="#w6">سیستم ترمز</a>
+            <a href="#w7">مصرف سوخت</a>
+            <a href="#w8">سیستم های امنیتی خودرو</a>
+            <a href="#w9">سیستم فرمان خودرو</a>
+            <a href="#w10">سیستم تهویه</a>
+            <a href="#w11">سیستم صوتی</a>
+            <a href="#w12">صندلی ها</a>
+            <a href="#w13">شیشه و آینه</a>
+            <a href="#w14">روشنایی</a>
+            <a href="#w15">سنسورها</a>
+            <a href="#w16">کیسه هوا</a>
+            <a href="#w17">چرخها</a>
+            <a href="#w18">مزایا</a>
+            <a href="#w19">معایب</a>
+            <a href="#w20">بررسی</a>
         </div>
 
 
@@ -58,6 +59,41 @@
 
         <div class="wizardPage" id="w2">
             <div class="inputsContainer">
+                @Html.input_TextBox(m => m.CarDetail.OilChangeDate, "ماه تعویض روغن")
+                @Html.input_TextBox(m => m.CarDetail.OilChangeMilage, "کیلومتر تعویض روغن")
+                
+                @Html.input_TextBox(m => m.CarDetail.GearBoxOilChangeDate, "ماه تعویض روغن گیربکس")
+                @Html.input_TextBox(m => m.CarDetail.GearBoxOilChangeMilage, "کیلومتر تعویض روغن گیربکس")
+
+                @Html.input_TextBox(m => m.CarDetail.OilFiltersChangeDate, "ماه تعویض فیلتر روغن")
+                @Html.input_TextBox(m => m.CarDetail.OilFilterChangeMilage, "کیلومتر تعویض فیلتر روغن")
+
+                @Html.input_TextBox(m => m.CarDetail.AirFilterChangeDate, "ماه تعویض فیلتر هوا")
+                @Html.input_TextBox(m => m.CarDetail.AirFilterChangeMilage, "کیلومتر تعویض فیلتر هوا")
+
+                @Html.input_TextBox(m => m.CarDetail.TiresChangeDate, "ماه تعویض تایر")
+                @Html.input_TextBox(m => m.CarDetail.TiresChangeMilage, "کیلومتر تعویض تایر")
+
+                @Html.input_TextBox(m => m.CarDetail.TimingbeltChangeDate, "ماه تعویض تسمه تایم")
+                @Html.input_TextBox(m => m.CarDetail.TimingbeltChangeMilage, "کیلومتر تعویض تسمه تایم")
+
+                @Html.input_TextBox(m => m.CarDetail.OtherBeltsChangeDate, "ماه تعویض تسمه دینام / واترپمپ")
+                @Html.input_TextBox(m => m.CarDetail.OtherBeltsChangeMilage, "کیلومتر تعویض دینام / واترپمپ")
+
+                @Html.input_TextBox(m => m.CarDetail.FrontBrakePadsChangeDate, "ماه تعویض لینت ترمزهای جلو")
+                @Html.input_TextBox(m => m.CarDetail.FrontBrakePadsChangeMilage, "کیلومتر تعویض لنت ترمزهای جلو")
+
+                @Html.input_TextBox(m => m.CarDetail.RearBreakePadsChangeDate, "ماه تعویض لنت ترمزهای عقب")
+                @Html.input_TextBox(m => m.CarDetail.RearBrakePadsChangeMilage, "کیلومتر تعویض لنت ترمزهای عقب")
+            </div>
+            <div class="footer" style="direction: ltr;">
+                <input type="button" class="button blue" onclick="wizardNextPage(this)" value="ادامه" />
+                <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
+            </div>
+        </div>
+
+        <div class="wizardPage" id="w3">
+            <div class="inputsContainer">
                 @Html.input_ComboBox(m => m.CarEngine.EngineType, "نوع موتور", Model.List_EngineTypes)
                 @Html.input_TextBox(m => m.CarEngine.EngineCylinderNumber, "تعداد سیلندر")
                 @Html.input_TextBox(m => m.CarEngine.EnginePowerHpRpm, "قدرت (اسب بخار بر دور بر دقیقه)")
@@ -76,7 +112,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w3">
+        <div class="wizardPage" id="w4">
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.GearBox.GearBoxCode, "کد گیربکس")
                 @Html.input_ComboBox(m => m.GearBox.GearBoxType, "نوع گیربکس", Model.List_GearBoxType)
@@ -94,7 +130,7 @@
             </div>
         </div>
 
-        <div class="wizardPage" id="w4">
+        <div class="wizardPage" id="w5">
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.PhysicalDetail.CarLength, "طول خودرو")
                 @Html.input_TextBox(m => m.PhysicalDetail.Carwidth, "عرض خودرو")
@@ -111,7 +147,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w5">
+        <div class="wizardPage" id="w6">
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.BrakeSystem.FrontBrakeSystem, "سیستم ترمزهای چرخ های جلو")
                 @Html.input_TextBox(m => m.BrakeSystem.RearBrakeSystem, "سیستم ترمز چرخ های عقب")
@@ -138,7 +174,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w6">
+        <div class="wizardPage" id="w7">
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.FuelConsumption.LphCity, "مصرف سوخت داخل شهر")
                 @Html.input_TextBox(m => m.FuelConsumption.LphRoad, "مصرف سوخت جاده")
@@ -151,7 +187,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w7">
+        <div class="wizardPage" id="w8">
             <div class="inputsContainer">
                 @Html.input_CheckBox(m => m.SecuritySystem.RemoteControl, "آیا دارای ریموت کنترل است ؟")
                 @Html.input_CheckBox(m => m.SecuritySystem.BurglarAlarm, "آیا دارای دزدگیر است ؟")
@@ -167,7 +203,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w8">
+        <div class="wizardPage" id="w9">
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.SteeringSystem.SteeringSystemType, "نوع سیستم فرمان")
                 @Html.input_TextBox(m => m.SteeringSystem.SteeringType, "مدل فرمان ")
@@ -181,7 +217,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w9">
+        <div class="wizardPage" id="w10">
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.AirConditioningSystem.AirConditioningType, "نوع تهویه")
                 @Html.input_TextBox(m => m.AirConditioningSystem.Details, "جزئیات")
@@ -211,7 +247,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w10">
+        <div class="wizardPage" id="w11">
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.CarAudioSystem.AudioSystemType ,"نوع سیستم صوتی خودرو")
                 @Html.input_TextBox(m => m.CarAudioSystem.AudioSystemBrand ,"برند سیستم صوتی")
@@ -232,7 +268,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w11">
+        <div class="wizardPage" id="w12">
             <div class="inputsContainer">
                 @Html.input_CheckBox(m => m.CarSeatOption.LongitudinalDisplacement ,"آیا دارای جابه‌جایی طولی است ؟")
                 @Html.input_CheckBox(m => m.CarSeatOption.BezelSet ,"آیا دارای تنظیم گودی کمر است ؟")
@@ -247,7 +283,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w12">
+        <div class="wizardPage" id="w13">
             <div class="inputsContainer">
                 @Html.input_ComboBox(m => m.GlassAndMirror.FrontWindscreens, "سیستم شیشه های جلو", Model.List_WindscreensTypes)
                 @Html.input_ComboBox(m => m.GlassAndMirror.RearWindscreens, "سیستم شیشه های عقب", Model.List_WindscreensTypes)
@@ -266,7 +302,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w13">
+        <div class="wizardPage" id="w14">
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.CarLightingSystem.FrontLights, "سیستم روشنایی جلو")
                 @Html.input_TextBox(m => m.CarLightingSystem.RearLights, "سیستم روشنایی عقب")
@@ -284,7 +320,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w14">
+        <div class="wizardPage" id="w15">
             <div class="inputsContainer">
                 @Html.input_CheckBox(m => m.CarSensorsSystem.DayLightSensor, "آیا دارای سیستم سنسور روشنایی روز است ؟")
                 @Html.input_CheckBox(m => m.CarSensorsSystem.RainSensor, "آیا دارای سیستم سنسور باران است ؟")
@@ -301,7 +337,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w15">
+        <div class="wizardPage" id="w16">
             <div class="inputsContainer">
                 @Html.input_CheckBox(m => m.CarAirbag.DriverAirBag, "آیا دارای کیسه هوای راننده است ؟")
                 @Html.input_CheckBox(m => m.CarAirbag.FrontAirBag, "آیا دارای کیسه هوای شاگرد است ؟")
@@ -315,7 +351,7 @@
             </div>
         </div>
         
-        <div class="wizardPage" id="w16">
+        <div class="wizardPage" id="w17">
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.CarWheel.TireType, "نوع لاستیک")
                 @Html.input_TextBox(m => m.CarWheel.RingStandardSize, "سایز استاندارد رینگ")
@@ -333,7 +369,7 @@
 
         
         
-        <div class="wizardPage" id="w17">
+        <div class="wizardPage" id="w18">
 
             <div class="underline">مزایا <a href="javascript: void();" onclick="InsertNew_Textbox('AdvantagesDivs')" class="gia-add"></a></div>
             <div class="detailsContainer">
@@ -352,7 +388,7 @@
                 <input type="button" class="button yellow" onclick="wizardPreviousPage(this)" value="قبلی" />
             </div>
         </div>
-        <div class="wizardPage" id="w18">
+        <div class="wizardPage" id="w19">
 
             <div class="underline">معایب <a href="javascript: void();" onclick="InsertNew_Textbox('DisAdvantagesDivs')" class="gia-add"></a></div>
             <div class="detailsContainer">
@@ -373,7 +409,7 @@
         </div>
 
 
-        <div class="wizardPage" id="w19">
+        <div class="wizardPage" id="w20">
             <div class="inputsContainer">
                 @Html.input_TextArea(m => m.CarsRviewHtml, "نقد و بررسی")
                 @Html.input_Rating(m => m.CarsReview.CarScore, "امتیاز خودرو")

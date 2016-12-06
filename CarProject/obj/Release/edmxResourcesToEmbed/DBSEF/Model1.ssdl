@@ -63,6 +63,9 @@
     <Property Name="Id" Type="int" />
     <Property Name="Type" Type="tinyint" />
     <Property Name="Count" Type="int" />
+    <Property Name="ProductEachPrice" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProductEachPaidPrice" Type="nvarchar" MaxLength="50" />
+    <Property Name="ToatoalPaidPrice" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="Baskets">
     <Key>
@@ -77,6 +80,7 @@
     <Property Name="UserId" Type="int" />
     <Property Name="BankCode" Type="nvarchar" MaxLength="255" />
     <Property Name="LocalCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="DiscountId" Type="int" />
   </EntityType>
   <EntityType Name="BrakeSystem">
     <Key>
@@ -141,6 +145,31 @@
     <Property Name="UserId" Type="int" />
     <Property Name="canshow" Type="bit" />
     <Property Name="datetime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="CarDetails">
+    <Key>
+      <PropertyRef Name="CarDetailsId" />
+    </Key>
+    <Property Name="CarDetailsId" Type="int" Nullable="false" />
+    <Property Name="CarsId" Type="int" />
+    <Property Name="OilChangeDate" Type="int" />
+    <Property Name="OilChangeMilage" Type="int" />
+    <Property Name="OilFiltersChangeDate" Type="int" />
+    <Property Name="OilFilterChangeMilage" Type="int" />
+    <Property Name="GearBoxOilChangeDate" Type="int" />
+    <Property Name="GearBoxOilChangeMilage" Type="int" />
+    <Property Name="AirFilterChangeDate" Type="int" />
+    <Property Name="AirFilterChangeMilage" Type="int" />
+    <Property Name="TiresChangeDate" Type="int" />
+    <Property Name="TiresChangeMilage" Type="int" />
+    <Property Name="TimingbeltChangeDate" Type="int" />
+    <Property Name="TimingbeltChangeMilage" Type="int" />
+    <Property Name="OtherBeltsChangeDate" Type="int" />
+    <Property Name="OtherBeltsChangeMilage" Type="int" />
+    <Property Name="FrontBrakePadsChangeDate" Type="int" />
+    <Property Name="FrontBrakePadsChangeMilage" Type="int" />
+    <Property Name="RearBreakePadsChangeDate" Type="int" />
+    <Property Name="RearBrakePadsChangeMilage" Type="int" />
   </EntityType>
   <EntityType Name="CarEngine">
     <Key>
@@ -483,6 +512,16 @@
     <Property Name="Address" Type="nvarchar(max)" />
     <Property Name="ManufacturePhon" Type="nvarchar" MaxLength="50" />
     <Property Name="CountryId" Type="int" />
+  </EntityType>
+  <EntityType Name="MarketingMails">
+    <Key>
+      <PropertyRef Name="MarketingMailId" />
+    </Key>
+    <Property Name="MarketingMailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Recivers" Type="ntext" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+    <Property Name="Body" Type="ntext" />
+    <Property Name="DateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="Person">
     <Key>
@@ -915,6 +954,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Baskets_Discount">
+    <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+    <End Role="Baskets" Type="Self.Baskets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discount">
+        <PropertyRef Name="DiscountId" />
+      </Principal>
+      <Dependent Role="Baskets">
+        <PropertyRef Name="DiscountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Baskets_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="Baskets" Type="Self.Baskets" Multiplicity="*" />
@@ -984,6 +1035,18 @@
       </Principal>
       <Dependent Role="CarComments">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarDetails_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="CarDetails" Type="Self.CarDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="CarDetails">
+        <PropertyRef Name="CarsId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1853,6 +1916,7 @@
     <EntitySet Name="CarAudioSystem" EntityType="Self.CarAudioSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarBrand" EntityType="Self.CarBrand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarComments" EntityType="Self.CarComments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarDetails" EntityType="Self.CarDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarEngine" EntityType="Self.CarEngine" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarGearBox" EntityType="Self.CarGearBox" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarLightingSystem" EntityType="Self.CarLightingSystem" Schema="dbo" store:Type="Tables" />
@@ -1882,6 +1946,7 @@
     <EntitySet Name="FuelConsumption" EntityType="Self.FuelConsumption" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GlassAndMirrors" EntityType="Self.GlassAndMirrors" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Manufacture" EntityType="Self.Manufacture" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MarketingMails" EntityType="Self.MarketingMails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonCarDetail" EntityType="Self.PersonCarDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonCars" EntityType="Self.PersonCars" Schema="dbo" store:Type="Tables" />
@@ -1947,6 +2012,10 @@
       <End Role="ProductsOrServicesDeliveryTypes" EntitySet="ProductsOrServicesDeliveryTypes" />
       <End Role="Baskets" EntitySet="Baskets" />
     </AssociationSet>
+    <AssociationSet Name="FK_Baskets_Discount" Association="Self.FK_Baskets_Discount">
+      <End Role="Discount" EntitySet="Discount" />
+      <End Role="Baskets" EntitySet="Baskets" />
+    </AssociationSet>
     <AssociationSet Name="FK_Baskets_User" Association="Self.FK_Baskets_User">
       <End Role="User" EntitySet="User" />
       <End Role="Baskets" EntitySet="Baskets" />
@@ -1970,6 +2039,10 @@
     <AssociationSet Name="FK_CarComments_User" Association="Self.FK_CarComments_User">
       <End Role="User" EntitySet="User" />
       <End Role="CarComments" EntitySet="CarComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarDetails_Cars" Association="Self.FK_CarDetails_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarDetails" EntitySet="CarDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_CarEngine_Cars" Association="Self.FK_CarEngine_Cars">
       <End Role="Cars" EntitySet="Cars" />
