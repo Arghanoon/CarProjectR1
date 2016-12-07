@@ -1,0 +1,130 @@
+﻿* {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    direction:rtl;
+    font-family:yekan;
+    font-size:90%;
+    background:#fafafa url('/Publics/Files/Images/white-leather.png');
+}
+
+a {
+    text-decoration:none;
+    color:#2b2a2a;
+
+    transition:0.2s;
+}
+    a:hover {
+        color:#8d0000;
+    }
+
+
+li{
+    margin-right:20px;
+}
+
+
+#MainContainer {
+    display:flex;
+    align-items:flex-start;
+    padding:5px;
+}
+
+/*-----------------------------[rightBar]-----------------------------*/
+#rightBar {
+    width:20%;
+    background:white;
+    padding:5px;
+}
+
+#ProfileSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+#userInformation {
+    width: 100%;
+    margin-bottom: 5px;
+    background: #2b2a2a;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#UserProfileImage {
+    background: #fff;
+    padding: 1px;
+    border: thin solid #000;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 90%;
+    height: auto;
+}
+#logoutform {
+    position:fixed;
+    top:-1000px;
+    display: none;
+    visibility: collapse;
+    width: 0;
+    height: 0;
+}
+
+
+#NavigationsInRightBar {
+    display: flex;
+    flex-direction: column;
+    margin-top:5px;
+    padding-top:5px;
+    border-top:thin solid #d4d4d4;
+}
+    #NavigationsInRightBar > * {
+        margin:2px;
+    }
+
+/*---------------------------[Content]---------------------------*/
+#Content {
+    flex:1;
+    background: white;
+    margin: 0 5px;
+    padding:5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*----------------------------------------------------------------*/
+.infoTable {
+    width:100%;
+}
+    .infoTable td,
+    .infoTable th {
+        padding:1px 5px;
+        border:thin solid #fff;
+    }
+
+    .infoTable th {
+        text-align:right;
+        background:white;
+        width:0;
+        white-space:nowrap;
+    }

@@ -3,11 +3,22 @@
 }
 @model CarProject.DBSEF.Person
 @using CarProject.App_Code
+@using CarProject.App_extension
 
 @if(ViewData.ModelState.IsValidField("success"))
 {
     <div class="page">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
+            <div id="EditeUserProfileImageSection">
+                
+                <img src="@Url.Content(CarProject.Areas.Users.Controllers.profileController.GetCurrentUserImage)" id="EditeUserProfileImage"/>
+
+                <input type="file"  name="userImage"   onchange="readURL(this);" />
+
+                <section style="color:red;">
+                    @Html.ValidationMessage("userImage")
+                </section>
+            </div>
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.PersonFirtstName, "نام")
                 @Html.input_TextBox(m => m.PersonLastName, "نام خانوادگی")
@@ -29,4 +40,42 @@ else
     <div class="page" style="text-align:center; color:lawngreen;">
         <h3>اطلاعات شما با موفقیت تغییر یافت</h3>
     </div>
+}
+
+
+@section head
+{
+    <style>
+        #EditeUserProfileImageSection {
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+        }
+        #EditeUserProfileImage {
+            width: 30%;
+            height:auto;
+            border:thin solid #888;
+            border-radius:5px;
+            padding:2px;
+        }
+    </style>
+}
+
+@section script
+{
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    document.getElementById('EditeUserProfileImage').src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    </script>
 }
