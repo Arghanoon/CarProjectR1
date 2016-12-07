@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    //[CLS.AuthFilter]
+    [CLS.AuthFilter]
     public class TroubleshootingController : Controller
     {
         //

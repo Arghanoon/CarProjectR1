@@ -193,6 +193,7 @@
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\TroubleshootingController.cs" />
     <Compile Include="DBSEF\AirConditioningSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -457,6 +458,9 @@
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\tinymce01.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\UsersDefault\Default.css" />
     <Content Include="Areas\Users\resources\Styles\Default\Default.css" />
+    <Content Include="Areas\Users\resources\Styles\Default\Default2.css" />
+    <Content Include="Publics\Files\Images\generic.png" />
+    <Content Include="Publics\Files\Images\white-leather.png" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
     <Content Include="Publics\Files\Resources\NewsPage\Index.css" />
@@ -481,6 +485,7 @@
     <Content Include="Publics\Files\Resources\HomePage\logo.png" />
     <Content Include="Publics\Files\Resources\PublicClasses.css" />
     <Content Include="Publics\Files\Resources\template.js" />
+    <Content Include="Publics\Files\Resources\Troubleshooting\Index\style.css" />
     <Content Include="Publics\Files\Settings\TopMenu.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -916,6 +921,7 @@
     <Content Include="Areas\Admin\Views\Troubleshooting\UpdateAnswer.cshtml" />
     <Content Include="Areas\Admin\Views\Troubleshooting\RemoveQuestion.cshtml" />
     <Content Include="Areas\Admin\Views\Troubleshooting\RemoveAnswer.cshtml" />
+    <Content Include="Areas\Users\Views\Shared\Default2.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
@@ -944,6 +950,8 @@
     <Content Include="Views\Store\PaymentCart_Online.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Store\integratedSearch.cshtml" />
+    <Content Include="Views\Home\EmailTest.cshtml" />
+    <Content Include="Views\Troubleshooting\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
