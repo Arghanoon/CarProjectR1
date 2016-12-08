@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace CarProject.Areas.Users.Controllers
 {
-    //[UsersCLS.UsersAuthFilter]
+    [UsersCLS.UsersAuthFilter]
     public class DashboardController : Controller
     {
         //
