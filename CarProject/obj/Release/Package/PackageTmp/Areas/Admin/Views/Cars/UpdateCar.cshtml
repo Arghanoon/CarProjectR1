@@ -59,31 +59,31 @@
 
         <div class="wizardPage" id="w2">
             <div class="inputsContainer">
-                @Html.input_TextBox(m => m.CarDetail.OilChangeDate, "ماه تعویض روغن")
+                @Html.input_ComboBox(m => m.CarDetail.OilChangeDate, "ماه تعویض روغن", Model.MonthList)
                 @Html.input_TextBox(m => m.CarDetail.OilChangeMilage, "کیلومتر تعویض روغن")
-                
-                @Html.input_TextBox(m => m.CarDetail.GearBoxOilChangeDate, "ماه تعویض روغن گیربکس")
+
+                @Html.input_ComboBox(m => m.CarDetail.GearBoxOilChangeDate, "ماه تعویض روغن گیربکس", Model.MonthList)
                 @Html.input_TextBox(m => m.CarDetail.GearBoxOilChangeMilage, "کیلومتر تعویض روغن گیربکس")
 
-                @Html.input_TextBox(m => m.CarDetail.OilFiltersChangeDate, "ماه تعویض فیلتر روغن")
+                @Html.input_ComboBox(m => m.CarDetail.OilFiltersChangeDate, "ماه تعویض فیلتر روغن", Model.MonthList)
                 @Html.input_TextBox(m => m.CarDetail.OilFilterChangeMilage, "کیلومتر تعویض فیلتر روغن")
 
-                @Html.input_TextBox(m => m.CarDetail.AirFilterChangeDate, "ماه تعویض فیلتر هوا")
+                @Html.input_ComboBox(m => m.CarDetail.AirFilterChangeDate, "ماه تعویض فیلتر هوا", Model.MonthList)
                 @Html.input_TextBox(m => m.CarDetail.AirFilterChangeMilage, "کیلومتر تعویض فیلتر هوا")
 
-                @Html.input_TextBox(m => m.CarDetail.TiresChangeDate, "ماه تعویض تایر")
+                @Html.input_ComboBox(m => m.CarDetail.TiresChangeDate, "ماه تعویض تایر", Model.MonthList)
                 @Html.input_TextBox(m => m.CarDetail.TiresChangeMilage, "کیلومتر تعویض تایر")
 
-                @Html.input_TextBox(m => m.CarDetail.TimingbeltChangeDate, "ماه تعویض تسمه تایم")
+                @Html.input_ComboBox(m => m.CarDetail.TimingbeltChangeDate, "ماه تعویض تسمه تایم", Model.MonthList)
                 @Html.input_TextBox(m => m.CarDetail.TimingbeltChangeMilage, "کیلومتر تعویض تسمه تایم")
 
-                @Html.input_TextBox(m => m.CarDetail.OtherBeltsChangeDate, "ماه تعویض تسمه دینام / واترپمپ")
+                @Html.input_ComboBox(m => m.CarDetail.OtherBeltsChangeDate, "ماه تعویض تسمه دینام / واترپمپ", Model.MonthList)
                 @Html.input_TextBox(m => m.CarDetail.OtherBeltsChangeMilage, "کیلومتر تعویض دینام / واترپمپ")
 
-                @Html.input_TextBox(m => m.CarDetail.FrontBrakePadsChangeDate, "ماه تعویض لینت ترمزهای جلو")
+                @Html.input_ComboBox(m => m.CarDetail.FrontBrakePadsChangeDate, "ماه تعویض لینت ترمزهای جلو", Model.MonthList)
                 @Html.input_TextBox(m => m.CarDetail.FrontBrakePadsChangeMilage, "کیلومتر تعویض لنت ترمزهای جلو")
 
-                @Html.input_TextBox(m => m.CarDetail.RearBreakePadsChangeDate, "ماه تعویض لنت ترمزهای عقب")
+                @Html.input_ComboBox(m => m.CarDetail.RearBreakePadsChangeDate, "ماه تعویض لنت ترمزهای عقب", Model.MonthList)
                 @Html.input_TextBox(m => m.CarDetail.RearBrakePadsChangeMilage, "کیلومتر تعویض لنت ترمزهای عقب")
             </div>
             <div class="footer" style="direction: ltr;">

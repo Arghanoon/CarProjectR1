@@ -17,6 +17,7 @@ namespace CarProject.Areas.Admin.Models.Cars
         public List<string> List_CarType { get { return new List<string> { "هاچ بک", "سدان", "کوپه", "SUV", "کراس اوور", "وانت" }; } }
         public List<string> List_CarClass { get { return new List<string> { "بسیار کوچک", "کامپکت کوچک", "کامپکت متوسط", "کامپکت بزرگ", "کوچک", "متوسط", "بزرگ", "لوکس کوچک", "لوکس متوسط", "لوکس بزرگ", "سوپر لوکس", "اسپرت", "سوپر اسپرت", "کروکی", "رودسر", "ون", "SUV کوچک", "SUV متوسط", "SUV بزرگ", "SUV فول سایز", "SUV اسپرت" }; } }
 
+        public List<string> MonthList { get { return new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }; } }
         //      public List<string> CarClass { get { return new List<string> { }; } }
 
         public db.CarDetail CarDetail { get; set; }
@@ -63,7 +64,7 @@ namespace CarProject.Areas.Admin.Models.Cars
         public List<string> Advantages { get; set; }
         public List<string> DisAdvatages { get; set; }
 
-       
+
 
         public db.CarsReview CarsReview { get; set; }
         [AllowHtml]
@@ -75,7 +76,7 @@ namespace CarProject.Areas.Admin.Models.Cars
 
             CarEngine = new db.CarEngine();
             CarDetail = new db.CarDetail();
-            
+
             GearBox = new db.CarGearBox();
             BrakeSystem = new db.BrakeSystem();
             DetailedBrakeSystems = new List<db.DetailedBrakeSystem>();
@@ -132,7 +133,7 @@ namespace CarProject.Areas.Admin.Models.Cars
             Pros = DBS.CarsProes.Where(c => c.CarsId == CarsId).ToList();
             Cros = DBS.CarsProes.Where(c => c.CarsId == CarsId).ToList();
 
-            
+
 
             Advantages = DBS.CarsProes.Where(c => c.CarsProOrCro == true).Select(c => c.CarProCro).ToList();
             DisAdvatages = DBS.CarsProes.Where(c => c.CarsProOrCro == false).Select(c => c.CarProCro).ToList();
@@ -208,8 +209,8 @@ namespace CarProject.Areas.Admin.Models.Cars
 
             foreach (var item in Advantages)
             {
-                
-                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = true,CarsId = this.Car.CarsId});
+
+                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = true, CarsId = this.Car.CarsId });
             }
             foreach (var item in DisAdvatages)
             {
