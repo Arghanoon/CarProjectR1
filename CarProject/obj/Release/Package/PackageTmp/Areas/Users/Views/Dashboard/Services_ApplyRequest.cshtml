@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "درخواست استفاده از سرویس";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    int id = 0;
+    if(ViewContext.RouteData.Values["id"] !=null)
+    {
+        int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+    }
+
+    var selectedServied = dbs.PersonServices.FirstOrDefault(ps => ps.PersonServicesId == id);
+}
+
+@using CarProject.App_Code
+
+<div>
+    <h3>درخواست استفاده از سرویس</h3>
+    <hr />
+
+    <table class="infoTable">
+        <thead>
+            <tr>
+                <th colspan="2" style="text-align:center;">مشخصات سرویس</th>
+            </tr>
+            <tr>
+                <th>نام سرویس</th>
+                <td>@selectedServied.AutoService.AutoServiceName</td>
+            </tr>
+            <tr>
+                <th>محصولات مورد استفاده در سرویس</th>
+                <td>
+                    <div class="listOfProducts">
+                            @{        
+                                Random rand = new Random();
+                                foreach (var item in selectedServied.AutoService.ProductInServices)
+                                {
+                                    var PicFileUrl = "~/Publics/Gallery/ProductImages/"+ item.ProductId;
+                                    var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+                                
+                                    if(finfo.Exists && finfo.GetFiles().Count() > 0)
+                                    {
+                                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Product.Category.CategoryName, info2 = item.Product.ProductName })" class="item">
+                                            <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                                            <section>
+                                                <strong>@item.Product.ProductName</strong><br />
+                                                <small>@item.Product.Category.CategoryName</small><br />
+                                                <small class="price">@if (item.Product.ProductPrices.Any()){<span>@item.Product.ProductPrices.Last().ProductPrice1</span>}else {<span>0</span>} ریال</small>
+                                            </section>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Product.Category.CategoryName, info2 = item.Product.ProductName })" class="item">
+                                            <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
+                                            <section>
+                                                <strong>@item.Product.ProductName</strong><br />
+                                                <small>@item.Product.Category.CategoryName</small><br />
+                                                <small class="price">@item.Product.ProductPrices.Last().ProductPrice1 ریال</small>
+                                            </section>
+                                        </a>
+                                    }
+                                }
+                            }
+                    </div>
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<div>
+    <h3>ثبت درخواست</h3>
+    <form method="post">
+
+    </form>
+</div>

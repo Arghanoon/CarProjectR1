@@ -11,6 +11,7 @@ namespace CarProject.Areas.Users.Controllers
     {
         //
         // GET: /Users/Dashboard/
+        DBSEF.CarAutomationEntities DBSObject = new DBSEF.CarAutomationEntities();
 
         public ActionResult Index()
         {
@@ -31,6 +32,23 @@ namespace CarProject.Areas.Users.Controllers
             if (model == null)
                 return RedirectToAction("ShoppingHistory");
             return View(model);
+        }
+
+        public ActionResult Services()
+        {
+            return View();
+        }
+
+        public ActionResult Services_ApplyRequest(int? id)
+        {
+            if (id == null || DBSObject.PersonServices.Count(ps => ps.PersonServicesId == id && ps.UserId == profileController.GetCurrentLoginedUser.UserId) <= 0)
+                return RedirectToAction("Services");
+            return View();
+        }
+
+        public ActionResult ServicesPacks()
+        {
+            return View();
         }
         #endregion
 

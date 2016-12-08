@@ -12,7 +12,7 @@ using System.IO;
 
 namespace CarProject.Areas.Users.Controllers
 {
-    //[UsersCLS.UsersAuthFilter]
+    [UsersCLS.UsersAuthFilter]
     public class profileController : Controller
     {
         //
@@ -301,7 +301,7 @@ namespace CarProject.Areas.Users.Controllers
                     return null;
 
                 //var dbs = new DBSEF.CarAutomationEntities();
-                //return dbs.Users.FirstOrDefault(u => u.UserRoleId == 2);
+                //return dbs.Users.FirstOrDefault(u => u.UserId == 3);
             }
         }
         public static DBSEF.Person GetCurrentLoginPerson
