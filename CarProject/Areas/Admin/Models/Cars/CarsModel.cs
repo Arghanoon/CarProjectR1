@@ -46,7 +46,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public db.SteeringSystem SteeringSystem { get; set; }
         public db.AirConditioningSystem AirConditioningSystem { get; set; }
         public List<db.AirConditioningSystemDetail> AirConditioningSystemDetails { get; set; }
-
+        public List<db.CarsPro> Pros { get; set; }
+        public List<db.CarsPro> Cros { get; set; }
         public db.CarAudioSystem CarAudioSystem { get; set; }
         public db.CarSeatOption CarSeatOption { get; set; }
         public db.GlassAndMirror GlassAndMirror { get; set; }
@@ -62,6 +63,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public List<string> Advantages { get; set; }
         public List<string> DisAdvatages { get; set; }
 
+       
+
         public db.CarsReview CarsReview { get; set; }
         [AllowHtml]
         public string CarsRviewHtml { get { return this.CarsReview.Review; } set { this.CarsReview.Review = value; } }
@@ -72,7 +75,7 @@ namespace CarProject.Areas.Admin.Models.Cars
 
             CarEngine = new db.CarEngine();
             CarDetail = new db.CarDetail();
-
+            
             GearBox = new db.CarGearBox();
             BrakeSystem = new db.BrakeSystem();
             DetailedBrakeSystems = new List<db.DetailedBrakeSystem>();
@@ -91,7 +94,8 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarSensorsSystem = new db.CarSensorsSystem();
             CarAirbag = new db.CarAirbag();
             CarWheel = new db.CarWheel();
-
+            Pros = new List<db.CarsPro>();
+            Cros = new List<db.CarsPro>();
             Advantages = new List<string>();
             DisAdvatages = new List<string>();
 
@@ -125,8 +129,14 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarAirbag = DBS.CarAirbags.FirstOrDefault(c => c.CarsId == CarsId);
             CarWheel = DBS.CarWheels.FirstOrDefault(c => c.CarsId == CarsId);
 
+            Pros = DBS.CarsProes.Where(c => c.CarsId == CarsId).ToList();
+            Cros = DBS.CarsProes.Where(c => c.CarsId == CarsId).ToList();
+
+            
+
             Advantages = DBS.CarsProes.Where(c => c.CarsProOrCro == true).Select(c => c.CarProCro).ToList();
             DisAdvatages = DBS.CarsProes.Where(c => c.CarsProOrCro == false).Select(c => c.CarProCro).ToList();
+
 
             CarsReview = DBS.CarsReviews.FirstOrDefault(c => c.CarsId == CarsId);
         }
@@ -195,13 +205,15 @@ namespace CarProject.Areas.Admin.Models.Cars
             this.CarWheel.Car = this.Car;
             DBS.CarWheels.Add(this.CarWheel);
 
+
             foreach (var item in Advantages)
             {
-                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = true });
+                
+                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = true,CarsId = this.Car.CarsId});
             }
             foreach (var item in DisAdvatages)
             {
-                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = false });
+                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = false, CarsId = this.Car.CarsId });
             }
 
             this.CarsReview.Car = this.Car;

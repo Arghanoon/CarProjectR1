@@ -645,7 +645,7 @@
                 <tr>
                     <th>مزایا</th>
                     <td>
-                        @foreach (var item in @Model.Advantages)
+                        @foreach (var item in @Model.Pros)
                         {
                             <section>@item</section>
                         }
@@ -654,7 +654,7 @@
                 <tr>
                     <th>معایب</th>
                     <td>
-                        @foreach (var item in @Model.DisAdvatages)
+                        @foreach (var item in @Model.Cros)
                         {
                             <section>@item</section>
                         }
@@ -744,7 +744,7 @@
 
 
         @{
-            var sameclasscars = dbs.Cars.Where(c => c.CarClassType == Model.Car.CarClassType && c.CarsId != Model.Car.CarsId).OrderBy(c => c.CarsId);
+            var sameclasscars = dbs.Cars.Where(c => c.CarClassType == Model.Car.CarsClass && c.CarsId != Model.Car.CarsId).OrderBy(c => c.CarsId);
             Dictionary<int, CarProject.DBSEF.Car> ListOfSameClassCars = new Dictionary<int, CarProject.DBSEF.Car>();
 
             if (sameclasscars.Any() && sameclasscars.Count() > 0)
