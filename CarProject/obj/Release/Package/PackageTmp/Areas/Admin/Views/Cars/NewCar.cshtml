@@ -116,7 +116,7 @@
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.GearBox.GearBoxCode, "کد گیربکس")
                 @Html.input_ComboBox(m => m.GearBox.GearBoxType, "نوع گیربکس", Model.List_GearBoxType)
-                @Html.input_ComboBox(m => m.GearBox.GearBoxCanBeManual, "قابلیت تبدیل به دنده دستی",Model.List_YesOrNo)
+                @Html.input_CheckBox(m => m.GearBox.GearBoxCanBeManual, "قابلیت تبدیل به دنده دستی")
                 @Html.input_TextBox(m => m.GearBox.GearBoxShiftNumber, "تعداد دنده")
                 @Html.input_ComboBox(m => m.GearBox.GearBoxAxel, "محور جابه‌جایی",Model.List_gearBoxAxel)
                 @Html.input_CheckBox(m => m.GearBox.HasTransferCase, "آیا دارای کمک گیربکس است")

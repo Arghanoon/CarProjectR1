@@ -66,11 +66,12 @@ namespace CarProject.Controllers
         {
             
 
+
             SmtpClient smtp = new SmtpClient("mail.khodroclinic.com");
-            smtp.Credentials = new NetworkCredential("emailtest@khodroclinic.com", "testPasSS234234@#pas");
+            smtp.Credentials = new NetworkCredential("noreply@khodroclinic.com", "testPasSS234234@#pas");
 
             MailMessage msg = new MailMessage();
-            msg.From = new MailAddress("emailtest@khodroclinic.com");
+            msg.From = new MailAddress("noreply@khodroclinic.com");
             msg.To.Add(new MailAddress("jakiobiueche@emeil.ir"));
             msg.Body = "پیام تست تست ستست";
 
