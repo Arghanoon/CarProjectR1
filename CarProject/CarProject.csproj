@@ -417,6 +417,9 @@
     <Compile Include="DBSEF\SteeringSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\TodaysSpecial.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -459,6 +462,18 @@
     <Content Include="Areas\Admin\Files\StyleAndScripts\UsersDefault\Default.css" />
     <Content Include="Areas\Users\resources\Styles\Default\Default.css" />
     <Content Include="Areas\Users\resources\Styles\Default\Default2.css" />
+    <Content Include="Content\PersianDatePicker.css" />
+    <Content Include="Content\PersianDatePicker.min.css" />
+    <Content Include="DBSEF\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBSEF\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <Content Include="Publics\Files\Images\generic.png" />
     <Content Include="Publics\Files\Images\white-leather.png" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
@@ -708,6 +723,8 @@
     <Content Include="Publics\Scripts\tinymce\tinymce.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.min.js" />
     <Content Include="Publics\Files\Resources\template.css" />
+    <Content Include="Scripts\PersianDatePicker.js" />
+    <Content Include="Scripts\PersianDatePicker.min.js" />
     <Content Include="Views\Store\ProductSitemap.aspx" />
     <Content Include="Views\Store\ProductsRss.aspx" />
     <Content Include="Web.config">
@@ -899,23 +916,6 @@
     <Content Include="Areas\Admin\Views\Troubleshooting\MakeAQuestion.cshtml" />
     <Content Include="Areas\Admin\Views\Troubleshooting\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Troubleshooting\DefineAnswer.cshtml" />
-    <EntityDeploy Include="DBSEF\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DBSEF\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DBSEF\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
-    <Content Include="DBSEF\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
     <Content Include="Areas\Admin\Views\Troubleshooting\ShowAnswer.cshtml" />
     <Content Include="Areas\Admin\Views\Troubleshooting\UpdateQuestion.cshtml" />
     <Content Include="Areas\Admin\Views\Troubleshooting\UpdateAnswer.cshtml" />
@@ -923,6 +923,13 @@
     <Content Include="Areas\Admin\Views\Troubleshooting\RemoveAnswer.cshtml" />
     <Content Include="Areas\Users\Views\Shared\Default2.cshtml" />
     <Content Include="Areas\Admin\Views\User\UsersView.cshtml" />
+    <EntityDeploy Include="DBSEF\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DBSEF\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

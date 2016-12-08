@@ -150,7 +150,7 @@
     <Key>
       <PropertyRef Name="CarDetailsId" />
     </Key>
-    <Property Name="CarDetailsId" Type="int" Nullable="false" />
+    <Property Name="CarDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarsId" Type="int" />
     <Property Name="OilChangeDate" Type="int" />
     <Property Name="OilChangeMilage" Type="int" />
@@ -804,6 +804,16 @@
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="TodaysSpecial">
     <Key>
       <PropertyRef Name="TodaysSpecialId" />
@@ -818,10 +828,10 @@
       <PropertyRef Name="TroubleshootingId" />
     </Key>
     <Property Name="TroubleshootingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Type" Type="tinyint" />
     <Property Name="Subject" Type="nvarchar(max)" />
-    <Property Name="Describe" Type="ntext" />
     <Property Name="TroubleshootinParentId" Type="int" />
+    <Property Name="Type" Type="tinyint" />
+    <Property Name="Describe" Type="ntext" />
     <Property Name="Price" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="TroubleshootingProducts">
@@ -1977,6 +1987,7 @@
     <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TroubleshootingProducts" EntityType="Self.TroubleshootingProducts" Schema="dbo" store:Type="Tables" />

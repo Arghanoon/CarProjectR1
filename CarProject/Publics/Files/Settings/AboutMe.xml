@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
-<AboutMe xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ShortDescribe>توضیحات درباره ما در پایین صفحه 
-برای ویرایش این صفحه به قسمت مدیریت سایت مراجعه کنید</ShortDescribe>
-  <Html>&lt;p&gt;توضیحات درباره ما در صفحه درباره ما &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;برای ویرایش این صفحه به قسمت مدیریت سایت مراجعه کنید&lt;/strong&gt;&lt;/p&gt;</Html>
+<AboutMe xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ShortDescribe>تیم خودرو کلینیک متشکل از مهندسان IT و خودرو، قصد دارد تا با سماندهی بازار خدمات خودرو، سامانه ای را برای سفارش آنلاین خدمات راه اندازی کند.</ShortDescribe>
+  <Html>&lt;p&gt;تیم خودرو کلینیک متشکل از مهندسان IT و خودرو، قصد دارد تا با سماندهی بازار خدمات خودرو، سامانه ای را برای سفارش آنلاین خدمات راه اندازی کند.&lt;/p&gt;</Html>
   <LastUpdate>0001-01-01T00:00:00</LastUpdate>
 </AboutMe>
