@@ -18,6 +18,10 @@
         min-width: 30%;
     }
 
+    .input > *:nth-child(3) {
+        white-space:nowrap;
+    }
+
 	.input input:not([type=submit]):not([type=button]):not([type=reset]):not([type=checkbox]),
 		.input textarea,
         .input select,

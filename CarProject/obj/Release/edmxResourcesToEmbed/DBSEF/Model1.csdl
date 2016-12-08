@@ -773,7 +773,7 @@
     <NavigationProperty Name="ProductStores" Relationship="Self.FK_ProductStore_Product" FromRole="Product" ToRole="ProductStore" />
     <NavigationProperty Name="ProductToViews" Relationship="Self.FK_ProductToView_Product" FromRole="Product" ToRole="ProductToView" />
     <NavigationProperty Name="TodaysSpecials" Relationship="Self.FK_TodaysSpecial_Product" FromRole="Product" ToRole="TodaysSpecial" />
-    <NavigationProperty Name="Troubleshootings" Relationship="Self.FK_Troubleshooting_Product" FromRole="Product" ToRole="Troubleshooting" />
+    <NavigationProperty Name="Troubleshootings" Relationship="Self.TroubleshootingProducts" FromRole="Product" ToRole="Troubleshooting" />
   </EntityType>
   <EntityType Name="ProductCar">
     <Key>
@@ -980,17 +980,12 @@
       <PropertyRef Name="TroubleshootingId" />
     </Key>
     <Property Name="TroubleshootingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Question" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="AnswerYesOrNo" Type="Boolean" />
-    <Property Name="HasFather" Type="Boolean" />
-    <Property Name="FatherId" Type="Int32" />
-    <Property Name="HasProduct" Type="Boolean" />
-    <Property Name="ProductId" Type="Int32" />
-    <Property Name="ServicePrice" Type="Int32" />
-    <NavigationProperty Name="Product" Relationship="Self.FK_Troubleshooting_Product" FromRole="Troubleshooting" ToRole="Product" />
-    <NavigationProperty Name="Troubleshooting1" Relationship="Self.FK_Troubleshooting_Troubleshooting" FromRole="Troubleshooting" ToRole="Troubleshooting1" />
-    <NavigationProperty Name="Troubleshooting2" Relationship="Self.FK_Troubleshooting_Troubleshooting" FromRole="Troubleshooting1" ToRole="Troubleshooting" />
+    <Property Name="Type" Type="Byte" />
+    <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TroubleshootinParentId" Type="Int32" />
+    <Property Name="Price" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.TroubleshootingProducts" FromRole="Troubleshooting" ToRole="Product" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -2018,18 +2013,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Troubleshooting_Product">
-    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="ProductId" />
-      </Principal>
-      <Dependent Role="Troubleshooting">
-        <PropertyRef Name="ProductId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_ProductComments_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="ProductComments" Type="Self.ProductComment" Multiplicity="*" />
@@ -2054,18 +2037,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Troubleshooting_Troubleshooting">
-    <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="0..1" />
-    <End Role="Troubleshooting1" Type="Self.Troubleshooting" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Troubleshooting">
-        <PropertyRef Name="TroubleshootingId" />
-      </Principal>
-      <Dependent Role="Troubleshooting1">
-        <PropertyRef Name="FatherId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_User_UserRole">
     <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -2077,6 +2048,10 @@
         <PropertyRef Name="UserRoleId" />
       </Dependent>
     </ReferentialConstraint>
+  </Association>
+  <Association Name="TroubleshootingProducts">
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
   </Association>
   <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
@@ -2484,10 +2459,6 @@
       <End Role="Product" EntitySet="Products" />
       <End Role="TodaysSpecial" EntitySet="TodaysSpecials" />
     </AssociationSet>
-    <AssociationSet Name="FK_Troubleshooting_Product" Association="Self.FK_Troubleshooting_Product">
-      <End Role="Product" EntitySet="Products" />
-      <End Role="Troubleshooting" EntitySet="Troubleshootings" />
-    </AssociationSet>
     <AssociationSet Name="FK_ProductComments_User" Association="Self.FK_ProductComments_User">
       <End Role="User" EntitySet="Users" />
       <End Role="ProductComments" EntitySet="ProductComments" />
@@ -2496,13 +2467,13 @@
       <End Role="ProductQnA" EntitySet="ProductQnAs" />
       <End Role="ProductQnA1" EntitySet="ProductQnAs" />
     </AssociationSet>
-    <AssociationSet Name="FK_Troubleshooting_Troubleshooting" Association="Self.FK_Troubleshooting_Troubleshooting">
-      <End Role="Troubleshooting" EntitySet="Troubleshootings" />
-      <End Role="Troubleshooting1" EntitySet="Troubleshootings" />
-    </AssociationSet>
     <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
       <End Role="UserRole" EntitySet="UserRoles" />
       <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="TroubleshootingProducts" Association="Self.TroubleshootingProducts">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Troubleshooting" EntitySet="Troubleshootings" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
