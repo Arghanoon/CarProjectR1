@@ -178,7 +178,7 @@
     <Key>
       <PropertyRef Name="CarDetailsId" />
     </Key>
-    <Property Name="CarDetailsId" Type="Int32" Nullable="false" />
+    <Property Name="CarDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CarsId" Type="Int32" />
     <Property Name="OilChangeDate" Type="Int32" />
     <Property Name="OilChangeMilage" Type="Int32" />
@@ -965,6 +965,16 @@
     <Property Name="CarId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_SteeringSystem_Cars" FromRole="SteeringSystem" ToRole="Cars" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
   <EntityType Name="TodaysSpecial">
     <Key>
       <PropertyRef Name="TodaysSpecialId" />
@@ -980,10 +990,10 @@
       <PropertyRef Name="TroubleshootingId" />
     </Key>
     <Property Name="TroubleshootingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Type" Type="Byte" />
     <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="TroubleshootinParentId" Type="Int32" />
+    <Property Name="Type" Type="Byte" />
+    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Price" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Products" Relationship="Self.TroubleshootingProducts" FromRole="Troubleshooting" ToRole="Product" />
   </EntityType>
@@ -2053,7 +2063,7 @@
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
     <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
@@ -2123,6 +2133,7 @@
     <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShow" />
     <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />
     <EntitySet Name="Troubleshootings" EntityType="Self.Troubleshooting" />
     <EntitySet Name="Users" EntityType="Self.User" />
