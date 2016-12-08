@@ -923,6 +923,9 @@
     <Content Include="Areas\Admin\Views\Troubleshooting\RemoveAnswer.cshtml" />
     <Content Include="Areas\Users\Views\Shared\Default2.cshtml" />
     <Content Include="Areas\Admin\Views\User\UsersView.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\Services.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\ServicesPacks.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\Services_ApplyRequest.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

@@ -128,3 +128,74 @@ li{
         width:0;
         white-space:nowrap;
     }
+
+    /*------------------------------Info Table -----------------------------------*/
+
+.infoTable {
+    width:100%;
+    margin:10px 0;
+    border:thin solid #777;
+}
+
+    .infoTable th {
+        text-align:right;
+        background:#aaa;
+        white-space:nowrap;
+        vertical-align:text-top;
+    }
+
+    .infoTable th, .infoTable td {
+        border:thin solid #aaa;
+        padding:2px 5px;
+    }
+    .infoTable td {
+        width:100%;
+    }
+
+
+
+/*---------------------------------------------listOfProducts--------------------------------------------------*/
+
+    .listOfProducts {
+    display:flex; justify-content:center; align-items:stretch; flex-wrap:wrap;
+    padding:10px;
+}
+
+    .listOfProducts .item {
+        border:thin solid #eaeaea;
+        margin:5px;
+        width:200px;
+        height:300px;
+        display:flex; justify-content:center; align-items:center; flex-direction:column;
+        background:white;
+
+        overflow:hidden;
+    }
+
+        .listOfProducts .item * {
+            text-align: center;
+        }
+
+        .listOfProducts .item .price {
+            color:#fff;
+            background:#ff4500;
+            padding:5px;
+            border-radius:5px 5px 0 0 ;
+        }
+
+    .listOfProducts .item img {
+        flex:1;
+        max-width: 100%;
+        max-height: 100%;
+
+        transition:0.5s;
+
+        -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
+        filter: grayscale(50%);
+    }
+
+    .listOfProducts .item:hover img {
+        -webkit-filter: none; /* Safari 6.0 - 9.0 */
+        filter: none;
+    }
+
