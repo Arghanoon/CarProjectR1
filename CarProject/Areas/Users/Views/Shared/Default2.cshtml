@@ -1,0 +1,68 @@
+﻿@{
+    var person = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
+}
+<!doctype html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>@person.User.Uname | کلینیک خودرو</title>
+    
+    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
+
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/input1.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/ItemsShowing.css" rel="stylesheet" />
+
+    <link href="~/Areas/Users/resources/Styles/Default/Default2.css" rel="stylesheet" />
+    
+    <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
+
+@RenderSection("head",false)
+</head>
+
+<body>
+
+    <div id="MainContainer">
+        <div id="rightBar">
+            <div id="ProfileSection">
+                <section id="userInformation">
+                    <strong>@person.User.Uname</strong>
+                    <small>@person.PersonFirtstName @person.PersonLastName</small>
+                </section>
+
+                <img id="UserProfileImage" src="@Url.Content(CarProject.Areas.Users.Controllers.profileController.GetCurrentUserImage)" />
+                <section id="userProfileActions">
+                    <a href="/Users/Profile/ViewUserProfile" class="gia-userInfo">پروفایل کاربر</a>
+                    |
+                <a href="javascript:void()" onclick="document.getElementById('logoutform').submit()" class="gia-logout">خروج کاربر</a>
+                <form method="post" id="logoutform" action="@Url.Action("LogoutRequest", "profile", new { area = "Users" })" ></form>
+                </section>
+            </div>
+            
+            <div id="NavigationsInRightBar">
+                <a href="/" class="gia-home">صفحه اصلی</a>
+                <a href="/Store" class="gia-cart">فروشگاه</a>
+                <a href="/Users/profile" class="gia-user">پروفایل</a>
+                <a href="/Store/Cart" class="gia-cart">سبد خرید کاربر</a>
+                <a href="/Users/Dashboard/ShoppingHistory" class="gia-details">تاریخچه خریدها</a>
+                <a href="/Users/Dashboard/PersonCars" class="gia-usercar">خودرو کاربر</a>
+                <hr />
+                <a href="/Users/Dashboard/Services" >سرویس های کاربر</a>
+                <a href="/Users/Dashboard/ServicesPacks" >سرویس پک های کاربر</a>
+            </div>
+
+        </div>
+
+        <div id="Content">
+            @RenderBody()
+        </div>
+    </div>
+
+</body>
+
+    @RenderSection("script", false)
+
+</html>

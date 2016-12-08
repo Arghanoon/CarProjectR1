@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "سرویس های خریداری شده";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var currentPerson = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
+
+    var services = dbs.PersonServices.Where(ps => ps.UserId == currentPerson.UserId).OrderByDescending(ps => ps.PersonServicesId);
+
+}
+@using CarProject.App_extension
+
+<div>
+    <h3>سرویس های خریداری شده توسط کاربر</h3>
+    <hr />
+
+    <div class="itemContainer">
+        @foreach (var item in services)
+        {
+            <section class="item">
+                <section class="title">@item.AutoService.AutoServiceName</section>
+                <table>
+                    <tr>
+                        <th>نام سرویس</th>
+                        <td>@item.AutoService.AutoServiceName</td>
+                    </tr>
+                    <tr>
+                        <th>تاریخ آخرین خرید</th>
+                        <td>@item.DateAdded.Date_Persian()</td>
+                    </tr>
+                    <tr>
+                        <th>موجودی</th>
+                        <td>@item.ServicesCurrentEntity</td>
+                    </tr>
+                </table>
+
+                <section class="action">
+                    <a href="/Users/Dashboard/Services_ApplyRequest/@item.PersonServicesId" class="button blue">درخواست استفاده</a>
+                </section>
+            </section>
+        }
+    </div>
+</div>

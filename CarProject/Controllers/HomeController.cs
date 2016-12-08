@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using CarProject.DBSEF;
 
+using System.Net;
+using System.Net.Mail;
+
 
 namespace CarProject.Controllers
 {
@@ -56,6 +59,24 @@ namespace CarProject.Controllers
         {
             ViewBag.error = new List<string>();
             return View();
+        }
+
+
+        public ActionResult EmailTest()
+        {
+            
+
+            SmtpClient smtp = new SmtpClient("mail.khodroclinic.com");
+            smtp.Credentials = new NetworkCredential("emailtest@khodroclinic.com", "testPasSS234234@#pas");
+
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress("emailtest@khodroclinic.com");
+            msg.To.Add(new MailAddress("jakiobiueche@emeil.ir"));
+            msg.Body = "پیام تست تست ستست";
+
+            smtp.Send(msg);
+            return View();
+
         }
 
     }

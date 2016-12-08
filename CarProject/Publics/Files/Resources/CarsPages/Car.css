@@ -39,6 +39,7 @@
     #navigation {
         margin:5px;
         padding:5px;
+        max-width:30%;
 
         display:flex; flex-direction:column;
         align-items:stretch; justify-content:flex-start;
@@ -80,7 +81,6 @@
 
 
     #carImages {
-        
         animation:carImages;
         animation-duration: 1s;
         animation-timing-function:ease-in-out;
@@ -151,9 +151,13 @@
             opacity:1;
         }
 
+    #imagesContianer {
+        width:100%;
+        overflow:hidden;
+        max-width:100%;
+    }
     #imagesContianer #images {
         display:flex;
-        overflow:hidden;
     }
 
     #carImages.bigShow #imagesContianer #images {

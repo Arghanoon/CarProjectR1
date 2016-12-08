@@ -48,6 +48,11 @@ namespace CarProject.App_extension
         {
             return Path.Combine("~/Publics/Gallery/ServicePacks/", value).Replace('\\', '/');
         }
+
+        public static string BaseRouts_UserProfileImages(this string value)
+        {
+            return Path.Combine("~/Publics/Gallery/UserProfile/", value).Replace('\\', '/');
+        }
         #endregion
 
         public static bool ContentTypeIsImage(this string value)

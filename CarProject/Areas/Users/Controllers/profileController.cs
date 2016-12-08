@@ -8,6 +8,7 @@ using CarProject.App_extension;
 using Newtonsoft.Json;
 
 using System.Net.Mail;
+using System.IO;
 
 namespace CarProject.Areas.Users.Controllers
 {
@@ -77,10 +78,10 @@ namespace CarProject.Areas.Users.Controllers
                 ModelState.AddModelError("PersonFirtstName", "نام کاربر وارد نشده است");
             if (model.PersonLastName.IsNullOrWhiteSpace())
                 ModelState.AddModelError("PersonLastName", "نام خانوادگی کاربر وارد نشده است");
-            
+
             if (model.PersonEmail.IsNullOrWhiteSpace())
                 ModelState.AddModelError("PersonEmail", "ایمیل کاربر وارد نشده است");
-            else if(!model.PersonEmail.String_IsEmail())
+            else if (!model.PersonEmail.String_IsEmail())
                 ModelState.AddModelError("PersonEmail", "ایمیل وارد شده صحیح نیست");
 
             if (model.PersonMobile.IsNullOrWhiteSpace())
@@ -97,10 +98,36 @@ namespace CarProject.Areas.Users.Controllers
             if (model.PersonAddress.IsNullOrWhiteSpace())
                 ModelState.AddModelError("PersonAddress", "آدرس وارد نشده است");
 
+            if (Request.Files.AllKeys.Contains("userImage"))
+            {
+                if (!Request.Files["userImage"].ContentType.ContentTypeIsImage())
+                    ModelState.AddModelError("userImage", "فرمت فایل آپلود شده مورد تایید نیست");
+                if (Request.Files["userImage"].ContentLength > (100 * (1024)))
+                    ModelState.AddModelError("userImage", "حجم فایل آپلود شده بیشتر از 100 کیلوبایت است");
+            }
+
             if (ModelState.IsValid)
             {
                 var dbs = new DBSEF.CarAutomationEntities();
                 var currentperson = dbs.People.FirstOrDefault(c => c.PersonId == GetCurrentLoginPerson.PersonId);
+
+                if (Request.Files.AllKeys.Contains("userImage"))
+                {
+                    var uimgpath = Server.MapPath("".BaseRouts_UserProfileImages());
+                    DirectoryInfo dic = new DirectoryInfo(uimgpath);
+                    if (!dic.Exists)
+                        dic.Create();
+                    var OldFile = dic.GetFiles(currentperson.UserId.ToString() + ".*");
+                    foreach (var item in OldFile)
+                    {
+                        item.Delete();
+                    }
+                    var filext = Request.Files["userImage"].FileName.Split('.').Last();
+                    uimgpath = Server.MapPath((currentperson.UserId.ToString() + "." + filext).BaseRouts_UserProfileImages());
+
+                    Request.Files["userImage"].SaveAs(uimgpath);
+                }
+
 
                 TryUpdateModel(currentperson);
                 dbs.SaveChanges();
@@ -272,6 +299,9 @@ namespace CarProject.Areas.Users.Controllers
                 }
                 else
                     return null;
+
+                //var dbs = new DBSEF.CarAutomationEntities();
+                //return dbs.Users.FirstOrDefault(u => u.UserId == 3);
             }
         }
         public static DBSEF.Person GetCurrentLoginPerson
@@ -280,6 +310,27 @@ namespace CarProject.Areas.Users.Controllers
             {
                 var dbs = new DBSEF.CarAutomationEntities();
                 return dbs.People.FirstOrDefault(p => p.UserId == GetCurrentLoginedUser.UserId);
+            }
+        }
+        public static string GetCurrentUserImage
+        {
+            get
+            {
+                string result = "/Publics/Files/Images/generic.png";
+
+                var path = "".BaseRouts_UserProfileImages();
+                var dinf = new DirectoryInfo(System.Web.HttpContext.Current.Server.MapPath(path));
+                if (dinf.Exists)
+                {
+                    var files = dinf.GetFiles(GetCurrentLoginedUser.UserId + ".*");
+                    if (files.Length > 0)
+                    {
+                        result = files[0].Name.BaseRouts_UserProfileImages();
+                    }
+                }
+
+
+                return result;
             }
         }
         #endregion

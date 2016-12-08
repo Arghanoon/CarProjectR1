@@ -96,87 +96,93 @@
             </table>
         </div>
 
-        <div class="pagesection">
-            <h2 class="infoHeader active">موتور</h2>
-            <table class="infoTable">
-                <tr>
-                    <th>نوع موتور</th>
-                    <td>@Model.CarEngine.EngineType</td>
-                </tr>
-                <tr>
-                    <th>تعداد سیلندر</th>
-                    <td>@Model.CarEngine.EngineCylinderNumber</td>
-                </tr>
-                <tr>
-                    <th>قدرت موتور</th>
-                    <td>@Model.CarEngine.EnginePowerHpRpm</td>
-                </tr>
-                <tr>
-                    <th>گشتاور</th>
-                    <td>@Model.CarEngine.EngineTorque</td>
-                </tr>
-                <tr>
-                    <th>توان وزنی</th>
-                    <td>@Model.CarEngine.EnginePowerHpTon</td>
-                </tr>
-                <tr>
-                    <th>توان خروجی</th>
-                    <td>@Model.CarEngine.EnginePowerHpLitr</td>
-                </tr>
-                <tr>
-                    <th>0 تا 100</th>
-                    <td>@Model.CarEngine.EngineZeroToH</td>
-                </tr>
-                <tr>
-                    <th>توضیحات</th>
-                    <td>@Model.CarEngine.EngineDescription</td>
-                </tr>
-            </table>
-        </div>
+        @if(!Model.CarEngine.IsNull)
+        {
+            <div class="pagesection">
+                <h2 class="infoHeader active">موتور</h2>
+                <table class="infoTable">
+                    <tr>
+                        <th>نوع موتور</th>
+                        <td>@Model.CarEngine.EngineType</td>
+                    </tr>
+                    <tr>
+                        <th>تعداد سیلندر</th>
+                        <td>@Model.CarEngine.EngineCylinderNumber</td>
+                    </tr>
+                    <tr>
+                        <th>قدرت موتور</th>
+                        <td>@Model.CarEngine.EnginePowerHpRpm</td>
+                    </tr>
+                    <tr>
+                        <th>گشتاور</th>
+                        <td>@Model.CarEngine.EngineTorque</td>
+                    </tr>
+                    <tr>
+                        <th>توان وزنی</th>
+                        <td>@Model.CarEngine.EnginePowerHpTon</td>
+                    </tr>
+                    <tr>
+                        <th>توان خروجی</th>
+                        <td>@Model.CarEngine.EnginePowerHpLitr</td>
+                    </tr>
+                    <tr>
+                        <th>0 تا 100</th>
+                        <td>@Model.CarEngine.EngineZeroToH</td>
+                    </tr>
+                    <tr>
+                        <th>توضیحات</th>
+                        <td>@Model.CarEngine.EngineDescription</td>
+                    </tr>
+                </table>
+            </div>
+        }
 
-        <div class="pagesection">
-            <h2 class="infoHeader active">گیربکس</h2>
-            <table class="infoTable">
-                <tr>
-                    <th>کد گیربکس</th>
-                    <td>@Model.GearBox.GearBoxCode</td>
-                </tr>
-                <tr>
-                    <th>نوع</th>
-                    <td>@Model.GearBox.GearBoxType</td>
-                </tr>
-                <tr>
-                    <th>آیا میتواند به صورت دستی تنظیم شود؟</th>
-                    <td>@Model.GearBox.GearBoxCanBeManual.YesNoString()</td>
-                </tr>
-                <tr>
-                    <th>تعداد دنده</th>
-                    <td>@Model.GearBox.GearBoxShiftNumber</td>
-                </tr>
-                <tr>
-                    <th>محور متحرک</th>
-                    <td>@Model.GearBox.GearBoxAxel</td>
-                </tr>
-                <tr>
-                    <th>آیا دارای کمک گیربکس است؟</th>
-                    <td>@Model.GearBox.HasTransferCase.YesNoString()</td>
-                </tr>
-                <tr>
-                    <th>آیا دارای قفل دیفرانسیل است؟</th>
-                    <td>@Model.GearBox.GearBoxDiffrentionalLock.YesNoString()</td>
-                </tr>
-                <tr>
-                    <th>4WD</th>
-                    <td>@Model.GearBox.GearBoxWdType</td>
-                </tr>
-                <tr>
-                    <th>توضیحات</th>
-                    <td>@Model.GearBox.GearBoxDescription</td>
-                </tr>
-            </table>
-        </div>
-
-        @if (@Model.PhysicalDetail != null)
+        @if(!Model.GearBox.IsNull)
+        {
+            <div class="pagesection">
+                <h2 class="infoHeader active">گیربکس</h2>
+                <table class="infoTable">
+                    <tr>
+                        <th>کد گیربکس</th>
+                        <td>@Model.GearBox.GearBoxCode</td>
+                    </tr>
+                    <tr>
+                        <th>نوع</th>
+                        <td>@Model.GearBox.GearBoxType</td>
+                    </tr>
+                    <tr>
+                        <th>آیا میتواند به صورت دستی تنظیم شود؟</th>
+                        <td>@Model.GearBox.GearBoxCanBeManual.YesNoString()</td>
+                    </tr>
+                    <tr>
+                        <th>تعداد دنده</th>
+                        <td>@Model.GearBox.GearBoxShiftNumber</td>
+                    </tr>
+                    <tr>
+                        <th>محور متحرک</th>
+                        <td>@Model.GearBox.GearBoxAxel</td>
+                    </tr>
+                    <tr>
+                        <th>آیا دارای کمک گیربکس است؟</th>
+                        <td>@Model.GearBox.HasTransferCase.YesNoString()</td>
+                    </tr>
+                    <tr>
+                        <th>آیا دارای قفل دیفرانسیل است؟</th>
+                        <td>@Model.GearBox.GearBoxDiffrentionalLock.YesNoString()</td>
+                    </tr>
+                    <tr>
+                        <th>4WD</th>
+                        <td>@Model.GearBox.GearBoxWdType</td>
+                    </tr>
+                    <tr>
+                        <th>توضیحات</th>
+                        <td>@Model.GearBox.GearBoxDescription</td>
+                    </tr>
+                </table>
+            </div>
+        }
+            
+        @if (Model.PhysicalDetail != null)
         {
             <div class="pagesection">
                 <h2 class="infoHeader active">مشخصات فیزیکی</h2>
@@ -217,62 +223,68 @@
             </div>
         }
 
-        <div class="pagesection">
-            <h2 class="infoHeader active">سیستم سوخت رسانی</h2>
-            <table class="infoTable">
-                <tr>
-                    <th>مصرف در شهر</th>
-                    <td>@Model.FuelConsumption.LphCity</td>
-                </tr>
-                <tr>
-                    <th>مصرف در جاده</th>
-                    <td>@Model.FuelConsumption.LphRoad</td>
-                </tr>
-                <tr>
-                    <th>سیکل ترکیبی</th>
-                    <td>@Model.FuelConsumption.LphMix</td>
-                </tr>
-                <tr>
-                    <th>توضیحات</th>
-                    <td>@Model.FuelConsumption.Details</td>
-                </tr>
-            </table>
-        </div>
+        @if(!Model.FuelConsumption.IsNull)
+        {
+            <div class="pagesection">
+                <h2 class="infoHeader active">سیستم سوخت رسانی</h2>
+                <table class="infoTable">
+                    <tr>
+                        <th>مصرف در شهر</th>
+                        <td>@Model.FuelConsumption.LphCity</td>
+                    </tr>
+                    <tr>
+                        <th>مصرف در جاده</th>
+                        <td>@Model.FuelConsumption.LphRoad</td>
+                    </tr>
+                    <tr>
+                        <th>سیکل ترکیبی</th>
+                        <td>@Model.FuelConsumption.LphMix</td>
+                    </tr>
+                    <tr>
+                        <th>توضیحات</th>
+                        <td>@Model.FuelConsumption.Details</td>
+                    </tr>
+                </table>
+            </div>
+        }
 
-        <div class="pagesection">
-            <h2 class="infoHeader active">سیستم ترمز</h2>
-            <table class="infoTable">
-                <tr>
-                    <th>سیستم ترمز جلو</th>
-                    <td>@Model.BrakeSystem.FrontBrakeSystem</td>
-                </tr>
-                <tr>
-                    <th>سیستم ترمز عقب</th>
-                    <td>@Model.BrakeSystem.RearBrakeSystem</td>
-                </tr>
-                <tr>
-                    <th>سیستم های دیگر</th>
-                    <td>@Model.BrakeSystem.OtherSystem</td>
-                </tr>
-                <tr>
-                    <th>سیستم ترمز دستی</th>
-                    <td>@Model.BrakeSystem.HandBrakeSystem</td>
-                </tr>
-                <tr>
-                    <th>توضیحات</th>
-                    <td>@Model.BrakeSystem.Details</td>
-                </tr>
-                <tr>
-                    <th>جزئیات دیگر</th>
-                    <td>
-                        @foreach (var item in Model.DetailedBrakeSystems)
-                        {
-                            <section>@item.DetailedName</section>
-                        }
-                    </td>
-                </tr>
-            </table>
-        </div>
+        @if(!Model.BrakeSystem.IsNull && Model.DetailedBrakeSystems.Count > 0)
+        {
+            <div class="pagesection">
+                <h2 class="infoHeader active">سیستم ترمز</h2>
+                <table class="infoTable">
+                    <tr>
+                        <th>سیستم ترمز جلو</th>
+                        <td>@Model.BrakeSystem.FrontBrakeSystem</td>
+                    </tr>
+                    <tr>
+                        <th>سیستم ترمز عقب</th>
+                        <td>@Model.BrakeSystem.RearBrakeSystem</td>
+                    </tr>
+                    <tr>
+                        <th>سیستم های دیگر</th>
+                        <td>@Model.BrakeSystem.OtherSystem</td>
+                    </tr>
+                    <tr>
+                        <th>سیستم ترمز دستی</th>
+                        <td>@Model.BrakeSystem.HandBrakeSystem</td>
+                    </tr>
+                    <tr>
+                        <th>توضیحات</th>
+                        <td>@Model.BrakeSystem.Details</td>
+                    </tr>
+                    <tr>
+                        <th>جزئیات دیگر</th>
+                        <td>
+                            @foreach (var item in Model.DetailedBrakeSystems)
+                            {
+                                <section>@item.DetailedName</section>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
 
         <div class="pagesection">
             <h2 class="infoHeader active">سیستم امنیتی</h2>
