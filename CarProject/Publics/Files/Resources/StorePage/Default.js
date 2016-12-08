@@ -169,6 +169,54 @@ function AddToCart(id, type) {
 }
 /*----------------------------------[ END Add To CartRequest ]------------------------------*/
 
+/*---------------------------------------Input Rating Section---------------------*/
+
+$(".input.rating").each(function (index, element) {
+    $(".ratingSectionSlider", element).css(
+	    "width",
+	    (parseFloat($("input", element).attr('value')) * 10) + "%"
+	    );
+});
+$(".input.rating  .ratingSection[data-value]").each(function (index, element) {
+    $(".ratingSectionSlider", element).css(
+	    "width",
+	    (parseFloat($(element).attr('data-value')) * 10) + "%"
+	    );
+});
+
+function ratint_Onclick(e) {
+    tw = e.target.clientWidth;
+    ox = e.offsetX + 3;
+    ro = (ox * 100) / tw;
+    if (ro > 100)
+        ro = 100;
+    $("input", e.target.offsetParent).attr("value", parseFloat(ro / 10).toFixed(2));
+    $(".ratingSectionSlider", e.target).css("width", ro + "%");
+}
+
+function ratint_OnMouseMove(e) {
+    tw = e.target.clientWidth;
+    ox = e.offsetX + 3;
+    ro = (ox * 100) / tw;
+    if (ro > 100)
+        ro = 100;
+    $(".ratingSectionFakeSlider", e.target).css("width", ro + "%");
+}
+
+function Input_ChangeRating(e) {
+    var v = e.target.value * 10;
+    if (v > 100)
+        v = 100;
+    $(".ratingSectionSlider", e.target.offsetParent).css("width", v + "%");
+}
+
+function floatNumber(e) {
+    var arr = ["Backspace", "Delete", "Home", "End", ".", "Tab", "Enter", "F5"];
+    return ((e.key >= 0 && e.key <= 9) || arr.indexOf(e.key) >= 0)
+
+}
+
+/*---------------------------------------Input Rating Section---------------------*/
 
 
 

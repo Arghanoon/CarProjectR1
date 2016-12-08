@@ -1,9 +1,12 @@
 ﻿@{
     ViewBag.Title = "پروفایل کاربر";
+    var person = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
 }
 
+
+
 <div>
-    <h1>پروفایل کاربر</h1>
+    <h3>دسترسی سریع</h3>
 
     <div class="menu1Container">
         <a href="/Store/Cart">
@@ -40,6 +43,15 @@
 @section head
 {
     <style>
+        #UserProfile {
+            padding:5px;
+        }
+        #userProfilePicture {
+            background:url('/Publics/Files/Images/generic.png') no-repeat center;
+            background-size:90% auto;
+            width:300px; height:400px;
+        }
+
         .menu1Container {
             display:flex; 
             justify-content:center;

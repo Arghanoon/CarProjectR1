@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using CarProject.Models.User;
 
+using CarProject.App_extension;
+
 namespace CarProject.Areas.Admin.Controllers
 {
     [CarProject.CLS.AuthFilter]
@@ -132,6 +134,44 @@ namespace CarProject.Areas.Admin.Controllers
                 return View(dbs.People.Where(u => u.User.Uname.Contains(searchUser) || u.PersonFirtstName.Contains(searchUser) || u.PersonLastName.Contains(searchUser)).ToList());
             else
                 return View();
+        }
+
+        public ActionResult UsersView(string searchuser, int? Role, int? searchIn)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var res = dbs.People.AsQueryable();
+            if (!searchuser.IsNullOrWhiteSpace())
+            {
+                switch (searchIn)
+                {
+                    case 1:
+                        res = res.Where(p => p.User.Uname.Contains(searchuser));
+                        break;
+                    case 2:
+                        res = res.Where(p => p.PersonFirtstName.Contains(searchuser) || p.PersonLastName.Contains(searchuser));
+                        break;
+                    case 3:
+                        res = res.Where(p => p.PersonFirtstName.Contains(searchuser));
+                        break;
+                    case 4:
+                        res = res.Where(p => p.PersonLastName.Contains(searchuser));
+                        break;
+                    case 5:
+                        res = res.Where(p => p.PersonEmail.Contains(searchuser));
+                        break;
+                    case 6:
+                        res = res.Where(p => p.PersonAddressCity.Contains(searchuser));
+                        break;
+                    
+                    case 0:                       
+                    default:
+                        res = res.Where(p => p.User.Uname.Contains(searchuser) || p.PersonFirtstName.Contains(searchuser) || p.PersonLastName.Contains(searchuser));
+                        break;
+                }
+            }
+            if (Role != null && Role > 0)
+                res = res.Where(p => p.User.UserRoleId == Role);
+            return View(res);
         }
     }
 }
