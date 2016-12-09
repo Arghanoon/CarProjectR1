@@ -4,7 +4,7 @@
     var usfl = new CarProject.Models.Store.CartUsefull();
     var viewBasket = usfl.GetCurrentBasket();
 }
-@model CarProject.DBSEF.Person
+@model CarProject.DBSEF.Basket
 @using CarProject.App_Code
 
 <div class="page" id="billingInformation">
@@ -72,16 +72,13 @@
         
         <div class="inputsContainer">
             
-            @Html.input_TextBox(m => m.PersonFirtstName, "نام")
-            @Html.input_TextBox(m => m.PersonLastName, "نام خانوادگی")
-            @Html.input_TextBox(m => m.PersonMobile, "تلفن همراه")
-            @Html.input_TextBox(m => m.PersonAddressCity, "استان و شهر محل سکونت")
-            @Html.input_TextArea(m => m.PersonAddress, "آدرس کامل")
+            @Html.input_TextBox(m => m.ReciverFullname, "نام و نام خانوادگی")
+            @Html.input_TextBox(m => m.ReciverMobile, "همراه")
+            @Html.input_TextBox(m => m.ReciverTell, "تلفن ثابت")
+            @Html.input_TextBox(m => m.ReciverAddress, "آدرس کامل محل دریافت")
+            @Html.input_TextArea(m => m.ReciverWorkplace, "آدرس محل کار")
 
         </div>
-        <small>
-            اگر آدرس شما تغییر کرده و یا آدرس قبلا به درستی وارد نشده است در اینجا آدرس را دوباره وارد کنید. توجه کنید که آدرس باید کامل همراه با نام استان و شهر باشد و در انتها کد پستی را نیز وارد کنید
-        </small><br />
         <small>آدرس و کد پستی را با یک علامت <q>-</q> از هم جدا کنید</small>
         <section class="inputAction">
             <a href="@Url.Action("Cart")" class="button yellow">برگشت و اصلاح سبد خرید</a>

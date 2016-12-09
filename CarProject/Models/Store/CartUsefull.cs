@@ -31,15 +31,71 @@ namespace CarProject.Models.Store
         public enum Basket_State
         {
             Openned = 1,
-            Finished = 2,
-            Delivered = 3
+            BuyFinished = 2,
+            SendToCustomer = 3,
+            Delivered = 4,
+            Return = 5,
+            SendAgain = 6,
+            Cancel = 7
         };
+        public string Basket_State_ToString(byte? BasketState)
+        {
+            var bskst = (Basket_State)BasketState.GetValueOrDefault(00);
+            string res = "";
+            switch (bskst)
+            {
+                case Basket_State.Openned:
+                    res = "در حال خرید";
+                    break;
+                case Basket_State.BuyFinished:
+                    res = "پایان خرید";
+                    break;
+                case Basket_State.SendToCustomer:
+                    res = "ارسال کالا برای مشتری - تحویل به پست";
+                    break;
+                case Basket_State.Delivered:
+                    res = "تحویل کالا به مشتری";
+                    break;
+                case Basket_State.Return:
+                    res = "بازگشت کالا";
+                    break;
+                case Basket_State.SendAgain:
+                    res = "ارسال مجدد کالا";
+                    break;
+                case Basket_State.Cancel:
+                    res = "انصراف";
+                    break;
+                default:
+                    break;
+            }
+
+            return res;
+        }
 
         public enum Basket_PaymentType
         {
             Online = 1,
             InLocation = 2
         };
+        public string Basket_PaymentType_ToString(byte? PaymentType)
+        {
+            string res = "";
+
+            var bpt = (Basket_PaymentType)PaymentType.Value;
+            switch (bpt)
+            {
+                case Basket_PaymentType.Online:
+                    res = "پرداخت آنلاین";
+                    break;
+                case Basket_PaymentType.InLocation:
+                    res = "پرداخت در محل";
+                    break;
+                default:
+                    break;
+            }
+
+            return res;
+        }
 
         public DBSEF.Basket GetCurrentBasket()
         {
@@ -75,7 +131,38 @@ namespace CarProject.Models.Store
             {
                 var user = Context.Session["guestUser"] as DBSEF.User;                
                 var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)Models.Store.CartUsefull.Basket_State.Openned);
-                cart = basket;
+
+                if (basket.BasketItems != null)
+                    cart.BasketItems = basket.BasketItems;
+                if (basket.State != null)
+                    cart.State = basket.State;
+                if (basket.FinishDate != null)
+                    cart.FinishDate = basket.FinishDate;
+                if (basket.DelivaryDate != null)
+                    cart.DelivaryDate = basket.DelivaryDate;
+                if (basket.PaymentType != null)
+                    cart.PaymentType = basket.PaymentType;
+                if (basket.DelivaryTypeId != null)
+                    cart.DelivaryTypeId = basket.DelivaryTypeId;
+                if (basket.UserId != null)
+                    cart.UserId = basket.UserId;
+                if (basket.BankCode != null)
+                    cart.BankCode = basket.BankCode;
+                if (basket.LocalCode != null)
+                    cart.LocalCode = basket.LocalCode;
+                if (basket.DiscountId != null)
+                    cart.DiscountId = basket.DiscountId;
+                if (basket.ReciverAddress != null)
+                    cart.ReciverAddress = basket.ReciverAddress;
+                if (basket.ReciverFullname != null)
+                    cart.ReciverFullname = basket.ReciverFullname;
+                if (basket.ReciverMobile != null)
+                    cart.ReciverMobile = basket.ReciverMobile;
+                if (basket.ReciverTell != null)
+                    cart.ReciverTell = basket.ReciverTell;
+                if (basket.ReciverWorkplace != null)
+                    cart.ReciverWorkplace = basket.ReciverWorkplace;
+
                 dbs.SaveChanges();
 
                 dbs.BasketItems.RemoveRange(dbs.BasketItems.Where(c => c.BasketId == null));
@@ -85,6 +172,7 @@ namespace CarProject.Models.Store
             {
                 try
                 {
+                    basket.ProductsOrServicesDeliveryType = null;
                     Context.Response.Cookies["Basket"].Value = JsonConvert.SerializeObject(basket);
                     Context.Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(1);
                 }
@@ -274,17 +362,8 @@ namespace CarProject.Models.Store
     {
         public static string Basket_State_ToString(this CartUsefull.Basket_State value)
         {
-            switch (value)
-            {
-                case CartUsefull.Basket_State.Openned:
-                    return "درحال خرید (باز)";
-                case CartUsefull.Basket_State.Finished:
-                    return "اتمام خرید و ثبت درخواست";
-                case CartUsefull.Basket_State.Delivered:
-                    return "تحویل محصول";
-                default:
-                    return "";
-            }
+            var ctusf = new CartUsefull();
+            return ctusf.Basket_State_ToString((byte)value);
         }
     }
    

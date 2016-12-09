@@ -32,8 +32,8 @@
         <div id="contentTopBarSection" class="pagesection">
             <div>
                 <a href="/Users/Dashboard/InsertPersonCar/@Model.Car.CarsId" class="gia-usercar">ثبت به عنوان خودروی کاربر</a>
-                |
-                <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarForum", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })" class="gia-forum">پرسش و پاسخ</a>
+                @*|
+                <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarForum", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })" class="gia-forum">پرسش و پاسخ</a>*@
             </div>
             <div id="viewsandpopularContianer">
                 <section class="gia-users">@carstoviewobject.View</section>
@@ -774,6 +774,95 @@
             </tbody>
         </table>*@
 
+
+
+        
+        
+        <hr />
+        <div class="pagesection">
+            @{var comments = dbs.CarComments.Where(c => c.CarsId == Model.Car.CarsId && c.canshow == true).OrderByDescending(c => c.CarCommentsId).Take(10); }
+            @if(comments.Count() > 0)
+            {
+                <div>
+                    <h3><a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarsComments", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName, info3 = "نظرات کاربران" })">نظرات کاربران</a></h3>
+                    <div class="content">
+                        <div class="commentsContaniner">
+
+                            @foreach (var item in comments)
+                            {
+                                <div class="item">
+                                    <section class="header">
+                                        <span class="gia-chat">@item.Fullname</span>
+                                        <span>@item.datetime.DateTime_Persian()</span>
+                                    </section>
+                                    <section class="body">
+                                        <section>@item.Comment</section>
+                                        @if (item.Response != null)
+                                        {
+                                            <section class="response">@item.Response</section>
+                                        }
+                                    </section>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            <hr />
+            <div  id="usersCommentsSection">
+                <h3>ثبت نظر</h3>
+                <div>
+                    @try
+                    {
+                        ViewBag.error["success"] = "<span class='successMessage'>" + ViewBag.error["success"] + "</span>"; @Html.Raw(ViewBag.error["success"]) }
+                    catch
+                    {
+                        <form method="post">
+                            <div class="form" id="commentForm">
+                                <label>
+                                    <span>نام و نام خانوادگی</span>
+                                    <input type="text" name="fullname" placeholder="نام و نام خانوادگی" value="@Request.Form["fullname"]" />
+                                    <span class="error">@try
+                                                        { @ViewBag.error["fullname"] }
+                                                        catch { }</span>
+                                </label>
+                                <label>
+                                    <span>ایمیل</span>
+                                    <input type="text" name="email" placeholder="username@server.com" dir="ltr" value="@Request.Form["email"]" />
+                                    <span class="error">@try
+                                                        { @ViewBag.error["email"] }
+                                                        catch { }</span>
+                                </label>
+                                <label>
+                                    <span>پیام</span>
+                                    <textarea name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                                    <span class="error">@try
+                                                        { @ViewBag.error["comment"] }
+                                                        catch { }</span>
+                                </label>
+                                <label>
+                                    <span>کد امنیتی</span>
+                                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                        <a href="javascript:void()" onclick="ReloadCaptcha('captcha')">
+                                            <img id="captcha" src="/default/index" /></a>
+                                        <small>برای تغییر کد روی تصویر کلیک کنید</small>
+                                        <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
+                                    </div>
+                                    <span class="error">@try { @ViewBag.error["captcha"] } catch { }</span>
+                                </label>
+                            </div>
+
+                            <div class="formAction">
+                                <input type="submit" name="SendACommentRequest" class="button green" value="ثبت پیام" />
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+
+        </div>
+        
+        
     </div>
 
     <nav id="navigation">
@@ -932,11 +1021,11 @@
             }
         }
         
-        @{var comments = dbs.CarComments.Where(c => c.CarsId == Model.Car.CarsId && c.canshow == true).OrderBy(c => c.datetime);}
+        @*{var comments = dbs.CarComments.Where(c => c.CarsId == Model.Car.CarsId && c.canshow == true).OrderByDescending(c => c.CarCommentsId).Take(10); }
         @if(comments.Count() > 0)
         {
             <div class="rightpanelSection">
-                <h3>نظرات کاربران</h3>
+                <h3><a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarsComments", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName, info3 = "نظرات کاربران" })">نظرات کاربران</a></h3>
                 <div class="content">
                     <div class="commentsContaniner">
 
@@ -947,9 +1036,15 @@
                                     <span class="gia-chat">@item.Fullname</span>
                                     <span>@item.datetime.DateTime_Persian()</span>
                                 </section>
-                                <section class="body">@item.Comment</section>
+                                <section class="body">
+                                    <section>@item.Comment</section>
+                                    @if (item.Response != null)
+                                    {
+                                        <section class="response">@item.Response</section>
+                                    }
+                                </section>
                             </div>
-            }
+                        }
                     </div>
                 </div>
             </div>
@@ -1004,7 +1099,7 @@
                     </form>
                 }
             </div>
-        </div>
+        </div>*@
 
     </nav>
 </div>

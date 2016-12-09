@@ -246,8 +246,25 @@ namespace CarProject.Areas.Admin.Controllers
         }
         public ActionResult CarCommentShow(int? id)
         {
-            return View();
+            var model = dbs.CarComments.FirstOrDefault(cc => cc.CarCommentsId == id);
+            if(model == null)
+                return RedirectToAction("CarComments");
+            return View(model);
         }
+        [HttpPost]
+        public ActionResult CarCommentShow(int? id,DBSEF.CarComment model)
+        {
+            var mdl = dbs.CarComments.FirstOrDefault(cc => cc.CarCommentsId == id);
+            if (mdl != null)
+            {
+                TryUpdateModel(mdl);
+                mdl.ResponseDateTime = DateTime.Now;
+                dbs.SaveChanges();
+                return RedirectToAction("CarComments");
+            }
+            return View(model);
+        }
+
         public ActionResult CarCommentShow_delete(int? id)
         {
             return View();

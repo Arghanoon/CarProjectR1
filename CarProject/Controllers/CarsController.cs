@@ -21,6 +21,8 @@ namespace CarProject.Controllers
         //
         // GET: /Cars/
 
+        DBSEF.CarAutomationEntities DBSObj = new db.CarAutomationEntities();
+
         public ActionResult Index()
         {
             return View();
@@ -65,6 +67,16 @@ namespace CarProject.Controllers
             var model = new Areas.Admin.Models.Cars.CarsModel(id);
             return View(model);
         }
+
+        public ActionResult CarsComments(int? id)
+        {
+            var car = DBSObj.Cars.FirstOrDefault(c => c.CarsId == id);
+            if (car == null)
+                return RedirectToAction("Index");
+            var carcomments = DBSObj.CarComments.Where(c => c.CarsId == id).OrderByDescending(c => c.CarCommentsId);
+            return View(new Tuple<DBSEF.Car, IQueryable<DBSEF.CarComment>>(car, carcomments));
+        }
+
         [HttpPost]
         public int Car_MakePopular(int id)
         {

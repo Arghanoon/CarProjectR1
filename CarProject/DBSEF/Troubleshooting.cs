@@ -21,10 +21,10 @@ namespace CarProject.DBSEF
         }
     
         public int TroubleshootingId { get; set; }
-        public string Subject { get; set; }
-        public Nullable<int> TroubleshootinParentId { get; set; }
         public Nullable<byte> Type { get; set; }
+        public string Subject { get; set; }
         public string Describe { get; set; }
+        public Nullable<int> TroubleshootinParentId { get; set; }
         public string Price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

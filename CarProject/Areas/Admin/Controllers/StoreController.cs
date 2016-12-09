@@ -604,7 +604,6 @@ namespace CarProject.Areas.Admin.Controllers
         }
         #endregion
 
-
         #region DeliveryType
         public ActionResult DeliveryTypes()
         {
@@ -673,6 +672,21 @@ namespace CarProject.Areas.Admin.Controllers
             }
 
             return View(model);
+        }
+        #endregion
+
+        #region Cart
+        public ActionResult Baskets()
+        {
+            return View();
+        }
+        public ActionResult BasketsDetails(int? id)
+        {
+            var basket = dbsObject.Baskets.FirstOrDefault(b => b.BasketId == id);
+            if (basket == null)
+                return RedirectToAction("Baskets");
+
+            return View(basket);
         }
         #endregion
     }
