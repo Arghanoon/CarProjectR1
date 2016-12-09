@@ -374,12 +374,15 @@
             <div class="underline">مزایا <a href="javascript: void();" onclick="InsertNew_Textbox('AdvantagesDivs')" class="gia-add"></a></div>
             <div class="detailsContainer">
                 <div class="controls" id="AdvantagesDivs">
-                    @foreach (var item in Model.Advantages)
+                    @foreach (var item in Model.Pros)
                     {
-                        <div class="input">
-                            <input type="text" value="@item" />
-                            <a href="javascript:void()" onclick="this.offsetParent.remove();" class="gia-remove" ></a>
-                        </div>
+                        if (item.CarsProOrCro == true)
+                         {
+                             <div class="input">
+                                 <input type="text" value="@item.CarProCro"/>
+                                 <a href="javascript:void()" onclick="this.offsetParent.remove();" class="gia-remove"></a>
+                             </div>
+                         }
                     }
                 </div>
             </div>
@@ -393,12 +396,15 @@
             <div class="underline">معایب <a href="javascript: void();" onclick="InsertNew_Textbox('DisAdvantagesDivs')" class="gia-add"></a></div>
             <div class="detailsContainer">
                 <div class="controls" id="DisAdvantagesDivs">
-                    @foreach (var item in Model.DisAdvatages)
+                    @foreach (var item in Model.Cros)
                     {
-                        <div class="input">
-                            <input type="text" value="@item" />
-                            <a href="javascript:void()" onclick="this.offsetParent.remove();" class="gia-remove" ></a>
-                        </div>
+                        if (item.CarsProOrCro == false)
+                        {
+                            <div class="input">
+                                <input type="text" value="@item.CarProCro"/>
+                                <a href="javascript:void()" onclick="this.offsetParent.remove();" class="gia-remove"></a>
+                            </div>
+                        }
                     }
                 </div>
             </div>
