@@ -129,8 +129,8 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarAirbag = DBS.CarAirbags.FirstOrDefault(c => c.CarsId == CarsId);
             CarWheel = DBS.CarWheels.FirstOrDefault(c => c.CarsId == CarsId);
 
-            Pros = DBS.CarsProes.Where(c => c.CarsId == CarsId).ToList();
-            Cros = DBS.CarsProes.Where(c => c.CarsId == CarsId).ToList();
+            Pros = DBS.CarsProes.Where(c => c.CarsId == CarsId && c.CarsProOrCro == true).ToList();
+            Cros = DBS.CarsProes.Where(c => c.CarsId == CarsId && c.CarsProOrCro == true).ToList();
 
             
 
