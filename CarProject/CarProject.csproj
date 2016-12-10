@@ -180,6 +180,7 @@
     <Compile Include="Areas\Users\UsersCLS\Filters.cs" />
     <Compile Include="Areas\Users\Controllers\profileController.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
+    <Compile Include="Areas\Users\UsersCLS\Notifications\UserCarsNotifications.cs" />
     <Compile Include="CLS\Filters.cs" />
     <Compile Include="CLS\SearchClass.cs" />
     <Compile Include="CLS\Searchs\CarsSearchLogic.cs" />

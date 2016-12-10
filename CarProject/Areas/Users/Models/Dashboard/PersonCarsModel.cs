@@ -26,6 +26,10 @@ namespace CarProject.Areas.Users.Models.Dashboard
         public string LastFrontBrakePadsChange { get; set; }
         public string LastRearBreakePadsChange { get; set; }
 
+        public string Carplate_part1 { get; set; }
+        public string Carplate_part2 { get; set; }
+        public string Carplate_part3 { get; set; }
+
         public PersonCarsModel()
         {
             Car = new DBSEF.PersonCar();
@@ -43,6 +47,14 @@ namespace CarProject.Areas.Users.Models.Dashboard
             Car =dbs.PersonCars.FirstOrDefault(c => c.UserId == user.UserId && c.CarId == carid);
             if (Car != null && Car.CarId != null)
             {
+                var carplates = Car.CarPlate.Split('|');
+                if (carplates.Length == 3)
+                {
+                    Carplate_part1 = carplates[0];
+                    Carplate_part2 = carplates[1];
+                    Carplate_part3 = carplates[2];
+                }
+
                 Detail = dbs.PersonCarDetails.FirstOrDefault(c => c.PersonCarId == Car.PersonCarsId);
                 if (Detail == null)
                     Detail = new DBSEF.PersonCarDetail();
@@ -94,6 +106,7 @@ namespace CarProject.Areas.Users.Models.Dashboard
             { Detail.LastRearBreakePadsChange = LastRearBreakePadsChange.Persian_ToDateTime(); }
 
             Car.UserId = Controllers.profileController.GetCurrentLoginedUser.UserId;
+            Car.CarPlate = string.Format("{0}|{1}|{2}", Carplate_part1, Carplate_part2, Carplate_part3);
             dbs.PersonCars.Add(Car);
 
             Detail.PersonCar = Car;            
@@ -121,7 +134,8 @@ namespace CarProject.Areas.Users.Models.Dashboard
             { Detail.LastFrontBrakePadsChange = LastFrontBrakePadsChange.Persian_ToDateTime(); }
             if (LastRearBreakePadsChange.IsPersianDateTime())
             { Detail.LastRearBreakePadsChange = LastRearBreakePadsChange.Persian_ToDateTime(); }
-
+            
+            Car.CarPlate = string.Format("{0}|{1}|{2}", Carplate_part1, Carplate_part2, Carplate_part3);
             dbs.SaveChanges();
         }
 
@@ -185,8 +199,8 @@ namespace CarProject.Areas.Users.Models.Dashboard
                 res.Add(new ValidationResult("تاریخ آخرین تعویض لنت ترمز های جلو پمپ صحیح نیست", new string[] { "LastRearBreakePadsChange" }));
 
 
-            if (Car.CarPlate.IsNullOrWhiteSpace())
-                res.Add(new ValidationResult("پلاک خودرو وارد نشده است", new string[] { "Car.CarPlate" }));
+            if (Carplate_part1.IsNullOrWhiteSpace() || (!Carplate_part1.IsNullOrWhiteSpace() && !Carplate_part1.IsNumber()) || Carplate_part2.IsNullOrWhiteSpace() || Carplate_part3.IsNullOrWhiteSpace() || (!Carplate_part3.IsNullOrWhiteSpace() && !Carplate_part3.IsNumber()) || Car.CarPlateCityCode == null)
+                res.Add(new ValidationResult("پلاک خودرو بدرستی وارد نشده است", new string[] { "Car.CarPlate" }));
             if (Car.CarPlateCityCode == null)
                 res.Add(new ValidationResult("نمره شهر وارد نشده است", new string[] { "Car.CarPlateCityCode" }));
             

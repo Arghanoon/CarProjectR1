@@ -162,7 +162,7 @@
           <Key>
             <PropertyRef Name="CarDetailsId" />
           </Key>
-          <Property Name="CarDetailsId" Type="int" Nullable="false" />
+          <Property Name="CarDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CarsId" Type="int" />
           <Property Name="OilChangeDate" Type="int" />
           <Property Name="OilChangeMilage" Type="int" />
@@ -2537,7 +2537,7 @@
           <Key>
             <PropertyRef Name="CarDetailsId" />
           </Key>
-          <Property Name="CarDetailsId" Type="Int32" Nullable="false" />
+          <Property Name="CarDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CarsId" Type="Int32" />
           <Property Name="OilChangeDate" Type="Int32" />
           <Property Name="OilChangeMilage" Type="Int32" />

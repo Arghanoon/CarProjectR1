@@ -157,7 +157,7 @@
     <Key>
       <PropertyRef Name="CarDetailsId" />
     </Key>
-    <Property Name="CarDetailsId" Type="int" Nullable="false" />
+    <Property Name="CarDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarsId" Type="int" />
     <Property Name="OilChangeDate" Type="int" />
     <Property Name="OilChangeMilage" Type="int" />

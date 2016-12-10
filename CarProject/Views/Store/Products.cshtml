@@ -120,11 +120,11 @@
             </tr>
             <tr>
                 <th>قیمت محصول</th>
-                <td>@if (product.ProductPrices.Count > 0) { <span>@product.ProductPrices.Last().ProductPrice1</span> } else { <span>0</span> } <small>ریال</small></td>
+                <td>@if (product.ProductPrices.Count > 0) { <span>@product.ProductPrices.Last().ProductPrice1</span> } else { <span>0</span> } <small>تومان</small></td>
             </tr>
              <tr>
                 <th>هزینه نصب محصول</th>
-                <td>@if (product.ProductPrices.Count > 0) { <span>@product.ProductPrices.Last().InstallPrice</span> } else { <span>0</span> } <small>ریال</small></td>
+                <td>@if (product.ProductPrices.Count > 0) { <span>@product.ProductPrices.Last().InstallPrice</span> } else { <span>0</span> } <small>تومان</small></td>
             </tr>
             <tr>
                 <th>ارتفاع</th>
@@ -180,13 +180,19 @@
         <div id="totalPriceSection">
             @{
                 var lpp = 0;
+                var lppInstall = 0;
                 if(product.ProductPrices.Count > 0)
                 {
                     var lastproductprice = product.ProductPrices.Last();
-                    lpp = lastproductprice.ProductPrice1.GetValueOrDefault(0) + lastproductprice.InstallPrice.GetValueOrDefault(0);
+                    lpp = lastproductprice.ProductPrice1.GetValueOrDefault(0);
+                    if(lastproductprice.InstallPrice.GetValueOrDefault(0) > 0)
+                    { lppInstall = lastproductprice.ProductPrice1.GetValueOrDefault(0) + lastproductprice.InstallPrice.GetValueOrDefault(0); }
                 }
             }
-            <section>مبلغ کل محصول : @lpp <small>ریال</small></section>
+            <section>
+                <section>قیمت محصول : <strong>@lpp</strong> <small>تومان</small></section>
+                <section>قیمت محصول + هزینه نصب : <strong>@lppInstall</strong> <small>تومان</small></section>
+            </section>
         </div>
 
         <div id="productActionAndInfo">
