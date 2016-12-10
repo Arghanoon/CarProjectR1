@@ -161,39 +161,41 @@ namespace CarProject.Controllers
         [Areas.Users.UsersCLS.UsersAuthFilter]
         public ActionResult Cart_CartConfirmAddress()
         {
-            var us = new Models.Store.CartUsefull();
-            var user = Session["guestUser"] as DBSEF.User;
+            var model = new Models.Store.CartUsefull().GetCurrentBasket();
+            
+            var person = Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
+            model.ReciverFullname = person.PersonFirtstName + " " + person.PersonLastName;
+            model.ReciverMobile = person.PersonMobile;
+            model.ReciverTell = person.PersonPhone;
+            model.ReciverAddress = person.PersonAddress;
 
-            return View(us.dbs.People.FirstOrDefault(p => p.UserId == user.UserId));
+            return View(model);
         }
         [HttpPost]
         [Areas.Users.UsersCLS.UsersAuthFilter]
-        public ActionResult Cart_CartConfirmAddress(DBSEF.Person model)
+        public ActionResult Cart_CartConfirmAddress(DBSEF.Basket model)
         {
+            var crusf = new Models.Store.CartUsefull();
+
+            if (model.ReciverFullname.IsNullOrWhiteSpace())
+                ModelState.AddModelError("ReciverFullname", "نام و نام خانوادگی  وارد نشده است");
+
+            if (model.ReciverMobile.IsNullOrWhiteSpace())
+                ModelState.AddModelError("ReciverMobile", "همراه وارد نشده است");
+            else if (!model.ReciverMobile.IsNumber())
+                ModelState.AddModelError("ReciverMobile", "مقدار وارد شده صحیح نیست");
+
+            if (model.ReciverTell.IsNullOrWhiteSpace())
+                ModelState.AddModelError("ReciverTell", "تلفن ثابت وارد نشده است");
+            else if (!model.ReciverTell.IsNumber())
+                ModelState.AddModelError("ReciverTell", "مقدار وارد شده صحیح نیست");
             
-            var dbs = new DBSEF.CarAutomationEntities();
-            var user = Session["guestUser"] as DBSEF.User;
-
-            if (model.PersonFirtstName.IsNullOrWhiteSpace())
-                ModelState.AddModelError("PersonFirtstName", "نام وارد نشده است");
-            if (model.PersonLastName.IsNullOrWhiteSpace())
-                ModelState.AddModelError("PersonLastName", "نام خانوادگی وارد نشده است");
-
-            if (model.PersonMobile.IsNullOrWhiteSpace())
-                ModelState.AddModelError("PersonMobile", "تلفن همراه وارد شود");
-            else if (!model.PersonMobile.IsNumber())
-                ModelState.AddModelError("PersonMobile", "مقدار وارد شده صحیح نیست");
-
-            if (model.PersonAddressCity.IsNullOrWhiteSpace())
-                ModelState.AddModelError("PersonAddressCity", "استان و شهر محل سکونت وارد نشده است");
-            if (model.PersonAddress.IsNullOrWhiteSpace())
-                ModelState.AddModelError("PersonAddress", "آدرس وارد نشده است");
+            if (model.ReciverAddress.IsNullOrWhiteSpace())
+                ModelState.AddModelError("ReciverAddress", "آدرس وارد نشده است");
 
             if (ModelState.IsValid)
             {
-                var person = dbs.People.FirstOrDefault(p => p.UserId == user.UserId);
-                TryUpdateModel(person);
-                dbs.SaveChanges();
+                crusf.UpdateBasket(model);
             }
             return RedirectToAction("SelectePaymentType");
         }
@@ -209,10 +211,25 @@ namespace CarProject.Controllers
         {
             if (PaymentType == null)
                 ModelState.AddModelError("PaymentType", "نوع پرداخت تعیین نشده است");
-            if (PaymentType == Models.Store.CartUsefull.Basket_PaymentType.InLocation)
-                return RedirectToAction("PaymentCart_InLocation");
-            else if (PaymentType == Models.Store.CartUsefull.Basket_PaymentType.Online)
-                return RedirectToAction("PaymentCart_Online");
+            else
+            {
+                var us = new Models.Store.CartUsefull();
+                var basket = us.GetCurrentBasket();
+                if (PaymentType == Models.Store.CartUsefull.Basket_PaymentType.InLocation)
+                {
+                    basket.PaymentType = (byte)Models.Store.CartUsefull.Basket_PaymentType.InLocation;
+                    us.UpdateBasket(basket);
+
+                    return RedirectToAction("PaymentCart_InLocation");
+                }
+                else if (PaymentType == Models.Store.CartUsefull.Basket_PaymentType.Online)
+                {
+                    basket.PaymentType = (byte)Models.Store.CartUsefull.Basket_PaymentType.Online;
+                    us.UpdateBasket(basket);
+
+                    return RedirectToAction("PaymentCart_Online");
+                }
+            }
             return View();
         }
         
@@ -221,7 +238,7 @@ namespace CarProject.Controllers
         {
             var us = new Models.Store.CartUsefull();
             var basket = us.GetCurrentBasket();
-            basket.State = (byte)Models.Store.CartUsefull.Basket_State.Finished;
+            basket.State = (byte)Models.Store.CartUsefull.Basket_State.BuyFinished;
             basket.LocalCode = Guid.NewGuid().ToString();
             basket.FinishDate = DateTime.Now;
             us.UpdateBasket(basket);

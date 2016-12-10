@@ -86,6 +86,11 @@
           <Property Name="BankCode" Type="nvarchar" MaxLength="255" />
           <Property Name="LocalCode" Type="nvarchar" MaxLength="50" />
           <Property Name="DiscountId" Type="int" />
+          <Property Name="ReciverFullname" Type="nvarchar" MaxLength="255" />
+          <Property Name="ReciverTell" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReciverMobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReciverAddress" Type="ntext" />
+          <Property Name="ReciverWorkplace" Type="ntext" />
         </EntityType>
         <EntityType Name="BrakeSystem">
           <Key>
@@ -150,6 +155,8 @@
           <Property Name="UserId" Type="int" />
           <Property Name="canshow" Type="bit" />
           <Property Name="datetime" Type="datetime" />
+          <Property Name="Response" Type="ntext" />
+          <Property Name="ResponseDateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="CarDetails">
           <Key>
@@ -809,16 +816,6 @@
           <Property Name="Details" Type="nvarchar(max)" />
           <Property Name="CarId" Type="int" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="TodaysSpecial">
           <Key>
             <PropertyRef Name="TodaysSpecialId" />
@@ -833,10 +830,10 @@
             <PropertyRef Name="TroubleshootingId" />
           </Key>
           <Property Name="TroubleshootingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Subject" Type="nvarchar(max)" />
-          <Property Name="TroubleshootinParentId" Type="int" />
           <Property Name="Type" Type="tinyint" />
+          <Property Name="Subject" Type="nvarchar(max)" />
           <Property Name="Describe" Type="ntext" />
+          <Property Name="TroubleshootinParentId" Type="int" />
           <Property Name="Price" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="TroubleshootingProducts">
@@ -1992,7 +1989,6 @@
           <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TroubleshootingProducts" EntityType="Self.TroubleshootingProducts" Schema="dbo" store:Type="Tables" />
@@ -2455,6 +2451,11 @@
           <Property Name="BankCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="LocalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DiscountId" Type="Int32" />
+          <Property Name="ReciverFullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ReciverTell" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReciverMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReciverAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReciverWorkplace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BasketItems" Relationship="Self.FK_BasketItems_Baskets" FromRole="Baskets" ToRole="BasketItems" />
           <NavigationProperty Name="ProductsOrServicesDeliveryType" Relationship="Self.FK_Baskets_Baskets" FromRole="Baskets" ToRole="ProductsOrServicesDeliveryTypes" />
           <NavigationProperty Name="Discount" Relationship="Self.FK_Baskets_Discount" FromRole="Baskets" ToRole="Discount" />
@@ -2527,6 +2528,8 @@
           <Property Name="UserId" Type="Int32" />
           <Property Name="canshow" Type="Boolean" />
           <Property Name="datetime" Type="DateTime" Precision="3" />
+          <Property Name="Response" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseDateTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Car" Relationship="Self.FK_CarComments_Cars" FromRole="CarComments" ToRole="Cars" />
           <NavigationProperty Name="User" Relationship="Self.FK_CarComments_User" FromRole="CarComments" ToRole="User" />
         </EntityType>
@@ -3321,16 +3324,6 @@
           <Property Name="CarId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_SteeringSystem_Cars" FromRole="SteeringSystem" ToRole="Cars" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="TodaysSpecial">
           <Key>
             <PropertyRef Name="TodaysSpecialId" />
@@ -3346,10 +3339,10 @@
             <PropertyRef Name="TroubleshootingId" />
           </Key>
           <Property Name="TroubleshootingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TroubleshootinParentId" Type="Int32" />
           <Property Name="Type" Type="Byte" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TroubleshootinParentId" Type="Int32" />
           <Property Name="Price" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Products" Relationship="Self.TroubleshootingProducts" FromRole="Troubleshooting" ToRole="Product" />
         </EntityType>
@@ -4419,7 +4412,7 @@
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
           <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
           <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
@@ -4489,7 +4482,6 @@
           <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
           <EntitySet Name="SlideShows" EntityType="Self.SlideShow" />
           <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />
           <EntitySet Name="Troubleshootings" EntityType="Self.Troubleshooting" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -4848,7 +4840,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
           <EntitySetMapping Name="AirConditioningSystems">
             <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
               <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -4936,6 +4928,11 @@
                 <ScalarProperty Name="BankCode" ColumnName="BankCode" />
                 <ScalarProperty Name="LocalCode" ColumnName="LocalCode" />
                 <ScalarProperty Name="DiscountId" ColumnName="DiscountId" />
+                <ScalarProperty Name="ReciverFullname" ColumnName="ReciverFullname" />
+                <ScalarProperty Name="ReciverTell" ColumnName="ReciverTell" />
+                <ScalarProperty Name="ReciverMobile" ColumnName="ReciverMobile" />
+                <ScalarProperty Name="ReciverAddress" ColumnName="ReciverAddress" />
+                <ScalarProperty Name="ReciverWorkplace" ColumnName="ReciverWorkplace" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5005,6 +5002,8 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="canshow" ColumnName="canshow" />
                 <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="Response" ColumnName="Response" />
+                <ScalarProperty Name="ResponseDateTime" ColumnName="ResponseDateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5722,17 +5721,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="CarAutomationModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TodaysSpecials">
             <EntityTypeMapping TypeName="CarAutomationModel.TodaysSpecial">
               <MappingFragment StoreEntitySet="TodaysSpecial">
@@ -5747,10 +5735,10 @@
             <EntityTypeMapping TypeName="CarAutomationModel.Troubleshooting">
               <MappingFragment StoreEntitySet="Troubleshooting">
                 <ScalarProperty Name="TroubleshootingId" ColumnName="TroubleshootingId" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="TroubleshootinParentId" ColumnName="TroubleshootinParentId" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="TroubleshootinParentId" ColumnName="TroubleshootinParentId" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>

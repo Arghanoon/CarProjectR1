@@ -1,5 +1,7 @@
 ﻿@{
     var person = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
+    var personcarnotification = new CarProject.Areas.Users.UsersCLS.Notifications.UserCarsNotifications();
+    var NotificationsCount = personcarnotification.Notifications.Count;
 }
 <!doctype html>
 <html>
@@ -40,6 +42,20 @@
                 <a href="javascript:void()" onclick="document.getElementById('logoutform').submit()" class="gia-logout">خروج کاربر</a>
                 <form method="post" id="logoutform" action="@Url.Action("LogoutRequest", "profile", new { area = "Users" })" ></form>
                 </section>
+            </div>
+
+            <div id="rightBar_Notifications">
+                
+                <a href="#" class="item">
+                    <span class="icon gia-alert"></span>
+                    <span class="count">@if (NotificationsCount > 99) { <span>+99</span> }else{ <span>@NotificationsCount</span> }</span>
+                </a>
+
+                 <a href="#" class="item">
+                    <span class="icon gia-message"></span>
+                    <span class="count">0</span>
+                </a>
+
             </div>
             
             <div id="NavigationsInRightBar">

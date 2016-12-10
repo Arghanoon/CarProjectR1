@@ -180,6 +180,7 @@
     <Compile Include="Areas\Users\UsersCLS\Filters.cs" />
     <Compile Include="Areas\Users\Controllers\profileController.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
+    <Compile Include="Areas\Users\UsersCLS\Notifications\UserCarsNotifications.cs" />
     <Compile Include="CLS\Filters.cs" />
     <Compile Include="CLS\SearchClass.cs" />
     <Compile Include="CLS\Searchs\CarsSearchLogic.cs" />
@@ -463,6 +464,7 @@
     <Content Include="Publics\Files\Images\white-leather.png" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
+    <Content Include="Publics\Files\Resources\CarsPages\CarsComments.css" />
     <Content Include="Publics\Files\Resources\NewsPage\Index.css" />
     <Content Include="Publics\Files\Resources\NewsPage\NewsShow.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default_MS.css" />
@@ -899,6 +901,18 @@
     <Content Include="Areas\Admin\Views\Troubleshooting\MakeAQuestion.cshtml" />
     <Content Include="Areas\Admin\Views\Troubleshooting\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Troubleshooting\DefineAnswer.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\ShowAnswer.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\UpdateQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\UpdateAnswer.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\RemoveQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\RemoveAnswer.cshtml" />
+    <Content Include="Areas\Users\Views\Shared\Default2.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UsersView.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\Services.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\ServicesPacks.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\Services_ApplyRequest.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Baskets.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\BasketsDetails.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -916,16 +930,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Troubleshooting\ShowAnswer.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\UpdateQuestion.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\UpdateAnswer.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\RemoveQuestion.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\RemoveAnswer.cshtml" />
-    <Content Include="Areas\Users\Views\Shared\Default2.cshtml" />
-    <Content Include="Areas\Admin\Views\User\UsersView.cshtml" />
-    <Content Include="Areas\Users\Views\Dashboard\Services.cshtml" />
-    <Content Include="Areas\Users\Views\Dashboard\ServicesPacks.cshtml" />
-    <Content Include="Areas\Users\Views\Dashboard\Services_ApplyRequest.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
@@ -956,6 +960,7 @@
     <Content Include="Views\Store\integratedSearch.cshtml" />
     <Content Include="Views\Home\EmailTest.cshtml" />
     <Content Include="Views\Troubleshooting\Index.cshtml" />
+    <Content Include="Views\Cars\CarsComments.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

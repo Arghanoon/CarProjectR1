@@ -30,6 +30,11 @@ namespace CarProject.DBSEF
         public string BankCode { get; set; }
         public string LocalCode { get; set; }
         public Nullable<int> DiscountId { get; set; }
+        public string ReciverFullname { get; set; }
+        public string ReciverTell { get; set; }
+        public string ReciverMobile { get; set; }
+        public string ReciverAddress { get; set; }
+        public string ReciverWorkplace { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BasketItem> BasketItems { get; set; }

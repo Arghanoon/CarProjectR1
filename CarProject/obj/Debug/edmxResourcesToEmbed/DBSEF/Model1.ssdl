@@ -81,6 +81,11 @@
     <Property Name="BankCode" Type="nvarchar" MaxLength="255" />
     <Property Name="LocalCode" Type="nvarchar" MaxLength="50" />
     <Property Name="DiscountId" Type="int" />
+    <Property Name="ReciverFullname" Type="nvarchar" MaxLength="255" />
+    <Property Name="ReciverTell" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReciverMobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReciverAddress" Type="ntext" />
+    <Property Name="ReciverWorkplace" Type="ntext" />
   </EntityType>
   <EntityType Name="BrakeSystem">
     <Key>
@@ -145,6 +150,8 @@
     <Property Name="UserId" Type="int" />
     <Property Name="canshow" Type="bit" />
     <Property Name="datetime" Type="datetime" />
+    <Property Name="Response" Type="ntext" />
+    <Property Name="ResponseDateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="CarDetails">
     <Key>
@@ -804,16 +811,6 @@
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="TodaysSpecial">
     <Key>
       <PropertyRef Name="TodaysSpecialId" />
@@ -828,10 +825,10 @@
       <PropertyRef Name="TroubleshootingId" />
     </Key>
     <Property Name="TroubleshootingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Subject" Type="nvarchar(max)" />
-    <Property Name="TroubleshootinParentId" Type="int" />
     <Property Name="Type" Type="tinyint" />
+    <Property Name="Subject" Type="nvarchar(max)" />
     <Property Name="Describe" Type="ntext" />
+    <Property Name="TroubleshootinParentId" Type="int" />
     <Property Name="Price" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="TroubleshootingProducts">
@@ -1987,7 +1984,6 @@
     <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TroubleshootingProducts" EntityType="Self.TroubleshootingProducts" Schema="dbo" store:Type="Tables" />

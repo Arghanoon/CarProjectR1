@@ -22,6 +22,8 @@ namespace CarProject.DBSEF
         public Nullable<int> UserId { get; set; }
         public Nullable<bool> canshow { get; set; }
         public Nullable<System.DateTime> datetime { get; set; }
+        public string Response { get; set; }
+        public Nullable<System.DateTime> ResponseDateTime { get; set; }
     
         public virtual Car Car { get; set; }
         public virtual User User { get; set; }

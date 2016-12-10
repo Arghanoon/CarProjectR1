@@ -40,6 +40,11 @@ li{
     background:white;
     padding:5px;
 }
+    #rightBar > div:nth-child(n+2) {
+        border-top: thin solid #d4d4d4;
+        margin-top: 5px;
+        padding-top: 5px;
+    }
 
 #ProfileSection {
     display: flex;
@@ -79,22 +84,56 @@ li{
 
 #NavigationsInRightBar {
     display: flex;
-    flex-direction: column;
-    margin-top:5px;
-    padding-top:5px;
-    border-top:thin solid #d4d4d4;
+    flex-direction: column;   
 }
     #NavigationsInRightBar > * {
         margin:2px;
     }
 
+
+#rightBar_Notifications {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+    #rightBar_Notifications .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding:5px;
+        margin:2.5px;
+        border:thin solid;
+        border-radius:5px;
+    }
+
+        #rightBar_Notifications .item .icon {
+            font-size:300%;
+            display:flex; justify-content:center; align-items:center;
+        }
+        #rightBar_Notifications .item .count {
+           position:absolute;
+           right:-2.5px; top:-2.5px;
+           margin:auto;
+           padding:3px;
+           font-size:80%;
+           border-radius:50%;
+           color:#ff4500;
+           width:20px; height:20px;
+           display:flex; justify-content:center; align-items:center;
+
+           transition:0.5s;
+        }
+
 /*---------------------------[Content]---------------------------*/
 #Content {
-    flex:1;
-    background: white;
+    flex: 1;
     margin: 0 5px;
-    padding:5px;
 }
+    #Content .item {
+        background: #fff;
+        margin-bottom: 5px;
+        padding: 5px;
+    }
 
 
 
@@ -199,3 +238,29 @@ li{
         filter: none;
     }
 
+/*------------------------------------NOTIFICATATIONS-------------------------------------*/
+
+.NotificationShow {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+    .NotificationShow .item {
+        margin: 5px;
+        border: thin solid #ff4500;
+        border-right: thick solid #ff4500;
+        background: #fff1eb;
+        padding:5px;
+    }
+        .NotificationShow .item .subject {
+        }
+
+        .NotificationShow .item .message {
+            font-size: 85%;
+        }
+
+        .NotificationShow .item .action {
+            display: flex;
+            flex-direction: row-reverse;
+        }

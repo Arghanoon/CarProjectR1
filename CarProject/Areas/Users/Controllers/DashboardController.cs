@@ -26,7 +26,7 @@ namespace CarProject.Areas.Users.Controllers
 
         public ActionResult BasketDetails(int? id)
         {
-            var User = Session["guestUser"] as DBSEF.User;
+            var User = profileController.GetCurrentLoginedUser;
             var dbs = new CarProject.DBSEF.CarAutomationEntities();
             var model = dbs.Baskets.FirstOrDefault(c => c.BasketId == id && c.UserId == User.UserId);
             if (model == null)
@@ -117,7 +117,7 @@ namespace CarProject.Areas.Users.Controllers
             {
                 //update
 
-                if (model.Car.PersonCarsId != null && model.Car.PersonCarsId > 0 && model.Detail.PersonCarDetailId != null && model.Detail.PersonCarDetailId > 0)
+                if ( model.Car.PersonCarsId > 0 && model.Detail.PersonCarDetailId > 0)
                 {
                     var mdl = new Models.Dashboard.PersonCarsModel(model.Car.PersonCarsId, model.Detail.PersonCarDetailId);
                     TryUpdateModel(mdl);

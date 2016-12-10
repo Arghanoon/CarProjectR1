@@ -325,6 +325,18 @@
         }
         .commentsContaniner .item .body {
             padding:5px;
+            display:flex;
+            flex-direction:column;
+            justify-content:flex-start;
+            align-items:stretch;
+        }
+
+        .commentsContaniner .item .response {
+            border:thin solid #72e800;
+            border-right:5px solid #72e800;
+            color:#428600;
+            padding:5px;
+            background:#f4ffe8
         }
 
 .listviewoflinks {
