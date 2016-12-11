@@ -138,6 +138,11 @@ namespace CarProject.Areas.Users.Controllers
             return View(model);
         }
 
+        public ActionResult UserNotifications()
+        {
+            return View();
+        }
+
 
         #region Login and Logout and Current User
         [HttpPost]

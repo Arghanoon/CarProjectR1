@@ -70,8 +70,16 @@
                 <a href="@Url.Action("Products","Store")" class="gia-products">محصولات</a>
                 <a href="@Url.Action("ProductComments","Store")" class="gia-chat">پیام های کاربران</a>
                 <a href="@Url.Action("Product_Forum","Store")" class="gia-forum">پرسش و پاسخ</a>
+                <hr />
+                <a href="@Url.Action("ProductsInventory","Store")">مدیریت موجودی محصولات</a>
+                <a href="@Url.Action("SelectProductForIncreaseEntity","Store")">افزایش موجودی محصولات</a>
             </nav>
-
+            
+            <nav>
+                <strong class="gia-cart title">خرید مشتریان</strong>
+                <a href="@Url.Action("Baskets","Store")" class="gia-service">اضافه کردن سرویس</a>
+            </nav>
+            
             <nav>
                 <strong class="gia-sparePart title">مدیریت سرویس ها</strong>
                 <a href="@Url.Action("Services_New","Store")" class="gia-service">اضافه کردن سرویس</a>

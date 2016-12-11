@@ -350,12 +350,16 @@ E:\KhodroClinic\CarProjectR1\CarProject\obj\Debug\CarProject.csproj.App.config
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Debug\CarProject.csprojResolveAssemblyReference.cache
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Debug\CarProject.dll
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Debug\CarProject.pdb
+E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.dll
+E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.pdb
+E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.xml
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\Areas\Admin\Files\StyleAndScripts\Default\d00.js
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\Areas\Admin\Files\StyleAndScripts\Default\default.css
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CarProject.dll.config
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CarProject.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CarProject.pdb
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\Antlr3.Runtime.dll
+G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\EntityFramework.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\EntityFramework.SqlServer.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\Microsoft.Web.Infrastructure.dll
@@ -374,6 +378,8 @@ G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\System.Web
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\System.Web.WebPages.Razor.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\WebGrease.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\Antlr3.Runtime.pdb
+G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.pdb
+G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.xml
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\EntityFramework.xml
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\EntityFramework.SqlServer.xml
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\Newtonsoft.Json.xml
@@ -392,10 +398,4 @@ G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\System.Web
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\obj\Debug\CarProject.csproj.App.config
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\obj\Debug\CarProject.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\obj\Debug\CarProject.pdb
-G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.dll
-G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.pdb
-G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\bin\CaptchaMvc.xml
-E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.dll
-E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.pdb
-E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.xml
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR1\CarProject\obj\Debug\CarProject.csprojResolveAssemblyReference.cache
