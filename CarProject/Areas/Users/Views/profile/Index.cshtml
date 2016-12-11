@@ -42,16 +42,13 @@
 </div>
 
 <div class="item">
-    <div class="NotificationShow" id="userNotifications">
+    <h3>هشدارها</h3>
+    <ul class="notificationShortViewMessage">
         @foreach (var item in personcarnotification.Notifications)
         {
-            <div class="item">
-                <h3 class="subject">@item.Subject</h3>
-                <p class="message">@item.Message</p>
-                <a href="#" class="action">جزئیات</a>
-            </div>
+            <li><a href="#">@item.Message</a></li>
         }
-    </div>
+    </ul>
 </div>
 
 

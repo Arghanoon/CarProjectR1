@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E3200A96-1EF4-4265-9DFF-B90A260DA791}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CarProject</RootNamespace>
@@ -458,8 +458,11 @@
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\ItemsShowing.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\tinymce01.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\UsersDefault\Default.css" />
+    <Content Include="Areas\Users\resources\Styles\Default\Default2_mm.css" />
+    <Content Include="Areas\Users\resources\Styles\Default\Default2_ms.css" />
     <Content Include="Areas\Users\resources\Styles\Default\Default.css" />
     <Content Include="Areas\Users\resources\Styles\Default\Default2.css" />
+    <Content Include="Areas\Users\resources\Styles\Default\Default2.js" />
     <Content Include="Publics\Files\Images\generic.png" />
     <Content Include="Publics\Files\Images\white-leather.png" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
@@ -930,6 +933,10 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Users\Views\profile\UserNotifications.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductsInventory.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\SelectProductForIncreaseEntity.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\SelectedProductIncreaseEntity.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

@@ -1,67 +1,80 @@
-﻿@using CarProject.Models.Store
-@using CarProject.App_extension
-@{
-    ViewBag.Title = "سفارشات مشتریان";
-    var crtufl = new CartUsefull();
-    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+﻿@{
+    ViewBag.Title = "انتخاب محصول برای افزایش موجودی";
 
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var resultview = dbs.Products.AsQueryable();
+
+    string search = "";
+    
+    if(Request.QueryString.AllKeys.Contains("search"))
+    {
+        search = Request.QueryString["search"];
+    }
+    
     int page = 0;
     int showInPage = 10;
     int totalcount = 0;
-    string search = "";
-
-    if (Request.QueryString.AllKeys.Contains("page"))
+    
+    if(Request.QueryString.AllKeys.Contains("page"))
     {
         int.TryParse(Request.QueryString["page"], out page);
     }
-    if (Request.QueryString.AllKeys.Contains("showInPage"))
+    if (Request.QueryString.AllKeys.Contains("showinpage"))
     {
-        int.TryParse(Request.QueryString["showInPage"], out showInPage);
+        int.TryParse(Request.QueryString["showinpage"], out showInPage);
     }
-    if (Request.QueryString.AllKeys.Contains("username"))
-    {
-        search = Request.QueryString["username"];
-    }
-    
-    var baskets = dbs.Baskets.AsQueryable();
-    baskets = baskets.Where(b => b.State > 1);
-    baskets = baskets.OrderByDescending(b => b.BasketId);
-    if (!search.IsNullOrWhiteSpace())
-    { baskets = baskets.Where(b => b.User.Uname == search); }
-    totalcount = baskets.Count();
 
-    baskets = baskets.Skip(page * showInPage).Take(showInPage);
+
+    resultview = resultview.Where(p => p.PartNumber.Value.ToString().Contains(search) || p.ProductName.Contains(search));
+
+    totalcount = resultview.Count();
+    resultview = resultview.OrderBy(p => p.ProductId).Skip(page * showInPage).Take(showInPage);
+    
 }
 
 
-
 <div>
-    <form method="get" id="searchform" >
+    <h3>@ViewBag.Title</h3>
+    <hr />
+
+
+    <form method="get" id="searchform">
         <input type="hidden" name="page" id="pagehiddeninput" value="@page" />
         <section id="searchInput">
-            <input type="text" id="searchText" name="username" value="@search" placeholder="جستجو در نام کاربری" />
+            <input type="text" id="searchText" name="search" value="@search" placeholder="جستجو در نام و یا شماره کالا" />
             <button type="submit" ><span class="gia-search"></span></button>
         </section>
     </form>
 
+
     <table class="grid1">
         <thead>
             <tr>
-                <th class="min_nw tcenter">کاربر</th>
-                <th>تاریخ پایان خرید</th>
-                <th class="min_nw tcenter">وضعیت</th>
-                <th class="min_nw tcenter">جزئیات</th>
+                <th class="min_nw tcenter">شماره</th>
+                <th class="min_nw tcenter">گروه</th>
+                <th>نام کالا</th>
+                <th class="min_nw tcenter">موجودی</th>
+                <th class="min_nw tcenter">انتخاب</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach (var item in baskets)
+        <tbody id="productSearchresult">
+            @foreach (var item in resultview)
             {
                 <tr>
-                    <td class="min_nw tcenter"><a href="javascript:void()" onclick="document.getElementById('searchText').value = '@item.User.Uname'; document.getElementById('searchform').submit(); ">@item.User.Uname</a></td>
-                    <td>@item.FinishDate.DateTime_Persian()</td>
-                    <td class="min_nw tcenter">@crtufl.Basket_State_ToString(item.State)</td>
+                    <td class="min_nw tcenter">@item.PartNumber</td>
+                    <td class="min_nw tcenter">@item.Category.CategoryName</td>
+                    <td class="tright">@item.ProductName</td>
                     <td class="min_nw tcenter">
-                        <a href="/Admin/Store/BasketsDetails/@item.BasketId">نمایش جزئیات خرید</a>
+                        @{
+                            var pso = dbs.ProductStores.FirstOrDefault(ps => ps.ProductId == item.ProductId);
+                            if (pso == null)
+                            { Write("0"); }
+                            else
+                            { Write(pso.ProductEntity); }
+                        }
+                    </td>
+                    <td class="min_nw tcenter">
+                        <a href="/Admin/Store/SelectedProductIncreaseEntity/@item.ProductId">افزایش موجودی</a>
                     </td>
                 </tr>
             }
@@ -88,13 +101,13 @@
 </div>
 
 
+
 @section style
 {
     <style>
         #searchform {
             border-bottom:thin solid #d4d4d4;
             margin-bottom:10px;
-            display:none;
         }
         #searchInput {
             display:flex; justify-content:space-between; align-items:stretch;

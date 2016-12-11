@@ -9,7 +9,7 @@ using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class StoreController : Controller
     {
         //
@@ -687,6 +687,62 @@ namespace CarProject.Areas.Admin.Controllers
                 return RedirectToAction("Baskets");
 
             return View(basket);
+        }
+        #endregion
+
+        #region Inventory
+        public ActionResult ProductsInventory()
+        {
+            return View();
+        }
+
+        public ActionResult SelectProductForIncreaseEntity()
+        {
+            return View();
+        }
+
+        public ActionResult SelectedProductIncreaseEntity(int? id)
+        {
+            var product = dbsObject.Products.FirstOrDefault(c => c.ProductId == id);
+            if (product == null)
+                return RedirectToAction("SelectProductForIncreaseEntity");
+
+            return View(product);
+        }
+        [HttpPost]
+        public ActionResult SelectedProductIncreaseEntity(int? id, FormCollection form)
+        {
+            var product = dbsObject.Products.FirstOrDefault(c => c.ProductId == id);
+            if (product == null)
+                return RedirectToAction("SelectProductForIncreaseEntity");
+
+            if (!form.AllKeys.Contains("IncreaseCount") && form["IncreaseCount"].IsNullOrWhiteSpace())
+                ModelState.AddModelError("IncreaseCount", "موجودی جدید وارد نشده است");
+            else if (!form["IncreaseCount"].IsNumber())
+                ModelState.AddModelError("IncreaseCount", "مقدار وارد شده صحیح نیست");
+
+            if (ModelState.IsValid)
+            {
+                int newcount = 0;
+                int.TryParse(form["IncreaseCount"], out newcount);
+                var pso = dbsObject.ProductStores.FirstOrDefault(ps => ps.ProductId == id);
+                if (pso == null)
+                {
+                    pso = new DBSEF.ProductStore();
+                    pso.ProductId = id;
+                    pso.ProductEntity = newcount;
+                    dbsObject.ProductStores.Add(pso);
+                }
+                else
+                {
+                    pso.ProductEntity = newcount + pso.ProductEntity.GetValueOrDefault(0);
+                }
+                dbsObject.SaveChanges();
+
+                return RedirectToAction("SelectProductForIncreaseEntity");
+            }
+
+            return View(product);
         }
         #endregion
     }

@@ -28,6 +28,10 @@ li{
 }
 
 
+#TopHeader {
+    display: none;
+}
+
 #MainContainer {
     display:flex;
     align-items:flex-start;
@@ -36,6 +40,7 @@ li{
 
 /*-----------------------------[rightBar]-----------------------------*/
 #rightBar {
+    min-width:250px;
     width:20%;
     background:white;
     padding:5px;
@@ -91,38 +96,7 @@ li{
     }
 
 
-#rightBar_Notifications {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-    #rightBar_Notifications .item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding:5px;
-        margin:2.5px;
-        border:thin solid;
-        border-radius:5px;
-    }
 
-        #rightBar_Notifications .item .icon {
-            font-size:300%;
-            display:flex; justify-content:center; align-items:center;
-        }
-        #rightBar_Notifications .item .count {
-           position:absolute;
-           right:-2.5px; top:-2.5px;
-           margin:auto;
-           padding:3px;
-           font-size:80%;
-           border-radius:50%;
-           color:#ff4500;
-           width:20px; height:20px;
-           display:flex; justify-content:center; align-items:center;
-
-           transition:0.5s;
-        }
 
 /*---------------------------[Content]---------------------------*/
 #Content {
@@ -238,6 +212,55 @@ li{
         filter: none;
     }
 
+/*-----------------------------------Footer_StatusBar-------------------------------------*/
+#footerStatusBar {
+    position:fixed;
+    bottom:0; left:0; right:0;
+    background:white;
+    box-shadow:0 -1px 2px 0 #888;
+}
+
+#Statusbar_Notifications {
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+}
+    #Statusbar_Notifications .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding:5px;
+        margin:2.5px;
+        border:thin solid;
+        border-radius:5px;
+        background:white;
+    }
+
+        #Statusbar_Notifications .item .icon {
+            font-size:100%;
+            display:flex; justify-content:center; align-items:center;
+        }
+        #Statusbar_Notifications .item .count {
+           position:absolute;
+           top:0%; left:0; right:0;
+           width:100%; height:100%;
+           margin:auto;
+           padding:3px;
+           border-radius:50% 50% 0 0; 
+           color:#fff;
+           background:#ff4500;
+           display:flex; justify-content:center; align-items:flex-start;
+           font-size:80%;
+           transition:0.5s;
+           z-index:-1;
+        }
+        #Statusbar_Notifications .item.haveMessage .count {
+            top:-70%;
+        }
+        #Statusbar_Notifications .item:hover .count {
+            top:-100%;
+        }
+
 /*------------------------------------NOTIFICATATIONS-------------------------------------*/
 
 .NotificationShow {
@@ -264,3 +287,15 @@ li{
             display: flex;
             flex-direction: row-reverse;
         }
+ul.notificationShortViewMessage li {
+   list-style:none;
+   margin-right:0;
+   padding-right:0;
+}
+    ul.notificationShortViewMessage li:before {
+        font-family: giadmin;
+        display: inline-block;
+        margin: 0 3px;
+        direction: ltr;
+        content: '\0986';
+    }
