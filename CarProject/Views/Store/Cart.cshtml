@@ -1,5 +1,4 @@
 ﻿@using CarProject.Controllers
-@using CarProject.Models.Store
 @model CarProject.DBSEF.Basket
 @{
     ViewBag.Title = "سبد خرید کاربر";
@@ -76,13 +75,6 @@
                             <td class="fix center">@i</td>
                             <td>
                                 @usfull.GetNameOfCartObject(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value)
-                                @if (item.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.Product)
-                                {
-                                    <select name="PriceFlag[@item.Id][@item.Type]">
-                                        <option value="@CartUsefull.BasketItems_PriceFlag.Product_PricePlusInstallation">محاسبه قیمت همراه با نصب کالا</option>
-                                        <option value="@CartUsefull.BasketItems_PriceFlag.Product_PriceOnly">فقط قیمت کالا</option>
-                                    </select>
-                                }
                             </td>
                             <td class="fix center">
                                 @usfull.GetNameofCartType((CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type)
@@ -95,7 +87,7 @@
                             </td>
                             <td class="fix center">
                                 <div class="input">
-                                    <input type="text" name="Count[@item.Id][@item.Type]" value="@item.Count" class="center" data-itemprice="@discountprice" data-itemprice2="" onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
+                                    <input type="text" name="Count[@item.Id][@item.Type]" value="@item.Count" class="center" data-itemprice="@discountprice" onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
                                 </div>
                             </td>
                             <td class="fix center">

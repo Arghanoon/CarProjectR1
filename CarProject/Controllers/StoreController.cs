@@ -92,11 +92,11 @@ namespace CarProject.Controllers
             //items
             foreach (var item in mdl.BasketItems)
             {
-                string countKey = string.Format("Count[{0}][{1}]", item.Id, item.Type);
-                if (form.AllKeys.Contains(countKey))
+                string key = string.Format("Count[{0}][{1}]", item.Id, item.Type);
+                if (form.AllKeys.Contains(key))
                 {
                     int cnt = 1;
-                    int.TryParse(form[countKey], out cnt);
+                    int.TryParse(form[key], out cnt);
                     item.Count = cnt;
                     
                     item.ProductEachPrice = us.GetPriceOfCartObject(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value);
@@ -104,14 +104,6 @@ namespace CarProject.Controllers
                     decimal discountprice = us.GetPriceOfCartObject_withDiscount(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, mdl.Discount);
                     item.ProductEachPaidPrice = discountprice.ToString();
                     item.ToatoalPaidPrice = (discountprice * item.Count).ToString();
-                }
-
-                string PriceFlagKey = string.Format("PriceFlag[{0}][{1}]", item.Id, item.Type);
-                if (form.AllKeys.Contains(PriceFlagKey))
-                {
-                    Models.Store.CartUsefull.BasketItems_PriceFlag flag = Models.Store.CartUsefull.BasketItems_PriceFlag.Product_PricePlusInstallation;
-                    Enum.TryParse<Models.Store.CartUsefull.BasketItems_PriceFlag>(form[PriceFlagKey], out flag);
-                    item.PriceFlag = (byte)flag;
                 }
             }
 

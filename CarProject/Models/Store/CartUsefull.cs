@@ -20,18 +20,6 @@ namespace CarProject.Models.Store
             Context = HttpContext.Current;
         }
 
-        
-        public enum BasketItems_PriceFlag
-        {
-            /// <summary>
-            /// Calculate Product Price and Installation Price
-            /// </summary>
-            Product_PricePlusInstallation = 0,
-            /// <summary>
-            /// Calculate Price Only Without Installation price
-            /// </summary>
-            Product_PriceOnly = 1
-        };
 
         public enum Basket_ItemType
         {
@@ -312,46 +300,8 @@ namespace CarProject.Models.Store
                     return 0;
             }
         }
-        public int GetPriceOfCartObject_WitoutInstallation(int id, Basket_ItemType typeofcart)
-        {
-            switch (typeofcart)
-            {
-                case Basket_ItemType.Product:
-                    {
-                        var x = dbs.Products.FirstOrDefault(c => c.ProductId == id);
-                        if (x != null && x.ProductPrices.Count > 0)
-                            return x.ProductPrices.Last().ProductPrice1.GetValueOrDefault(0);
-                        else
-                            return 0;
-                    }
-                case Basket_ItemType.AutoService:
-                    {
-                        var x = dbs.AutoServices.FirstOrDefault(c => c.AutoServiceId == id);
-                        if (x != null)
-                        {
-                            int r = 0;
-                            int.TryParse(x.Price, out r);
-                            return r;
-                        }
-                        else
-                            return 0;
-                    }
-                case Basket_ItemType.AutoServicePack:
-                    {
-                        var x = dbs.AutoServicePacks.FirstOrDefault(c => c.AutoServicePackId == id);
-                        if (x != null)
-                        {
-                            int r = 0;
-                            int.TryParse(x.PackPrice, out r);
-                            return r;
-                        }
-                        else
-                            return 0;
-                    }
-                default:
-                    return 0;
-            }
-        }
+
+
         public decimal GetPriceOfCartObject_withDiscount(int id, Basket_ItemType typeofcart,DBSEF.Discount discount = null)
         {
             switch (typeofcart)
