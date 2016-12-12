@@ -22,6 +22,7 @@ namespace CarProject.DBSEF
         public string ProductEachPrice { get; set; }
         public string ProductEachPaidPrice { get; set; }
         public string ToatoalPaidPrice { get; set; }
+        public Nullable<byte> PriceFlag { get; set; }
     
         public virtual Basket Basket { get; set; }
     }
