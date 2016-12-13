@@ -30,8 +30,9 @@
              }
             @foreach (var item in viewBasket.BasketItems)
             {
-               
-                var discountprice = usfl.GetPriceOfCartObject_withDiscount(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type, viewBasket.Discount);
+
+                decimal discountprice = 0;
+                decimal.TryParse(item.ProductEachPaidPrice, out discountprice);
                 
                 var ttpic = discountprice * item.Count.Value;
                 TotalPrice += ttpic;
