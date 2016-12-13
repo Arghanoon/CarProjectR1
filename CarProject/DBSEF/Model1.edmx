@@ -71,6 +71,7 @@
           <Property Name="ProductEachPrice" Type="nvarchar" MaxLength="50" />
           <Property Name="ProductEachPaidPrice" Type="nvarchar" MaxLength="50" />
           <Property Name="ToatoalPaidPrice" Type="nvarchar" MaxLength="250" />
+          <Property Name="PriceFlag" Type="tinyint" />
         </EntityType>
         <EntityType Name="Baskets">
           <Key>
@@ -2435,6 +2436,7 @@
           <Property Name="ProductEachPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ProductEachPaidPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ToatoalPaidPrice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PriceFlag" Type="Byte" />
           <NavigationProperty Name="Basket" Relationship="Self.FK_BasketItems_Baskets" FromRole="BasketItems" ToRole="Baskets" />
         </EntityType>
         <EntityType Name="Basket">
@@ -4912,6 +4914,7 @@
                 <ScalarProperty Name="ProductEachPrice" ColumnName="ProductEachPrice" />
                 <ScalarProperty Name="ProductEachPaidPrice" ColumnName="ProductEachPaidPrice" />
                 <ScalarProperty Name="ToatoalPaidPrice" ColumnName="ToatoalPaidPrice" />
+                <ScalarProperty Name="PriceFlag" ColumnName="PriceFlag" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
