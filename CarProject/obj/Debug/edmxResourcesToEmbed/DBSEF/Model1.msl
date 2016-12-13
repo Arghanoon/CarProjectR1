@@ -72,6 +72,7 @@
           <ScalarProperty Name="ProductEachPrice" ColumnName="ProductEachPrice" />
           <ScalarProperty Name="ProductEachPaidPrice" ColumnName="ProductEachPaidPrice" />
           <ScalarProperty Name="ToatoalPaidPrice" ColumnName="ToatoalPaidPrice" />
+          <ScalarProperty Name="PriceFlag" ColumnName="PriceFlag" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

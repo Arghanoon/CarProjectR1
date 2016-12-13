@@ -97,6 +97,13 @@ namespace CarProject.Models.Store
             return res;
         }
 
+        public enum BasketImte_PriceFlag
+        {
+            UnKnown = 0,
+            Product_PricePlusInstallation = 1,
+            Product_PriceOnly = 2
+        };
+
         public DBSEF.Basket GetCurrentBasket()
         {
             var res = new DBSEF.Basket();
@@ -300,7 +307,46 @@ namespace CarProject.Models.Store
                     return 0;
             }
         }
-
+        public int GetPriceOfCartObject_int_WitoutInstallation(int id, Basket_ItemType typeofcart)
+        {
+            switch (typeofcart)
+            {
+                case Basket_ItemType.Product:
+                    {
+                        var x = dbs.Products.FirstOrDefault(c => c.ProductId == id);
+                        if (x != null && x.ProductPrices.Count > 0)
+                            return x.ProductPrices.Last().ProductPrice1.GetValueOrDefault(0);
+                        else
+                            return 0;
+                    }
+                case Basket_ItemType.AutoService:
+                    {
+                        var x = dbs.AutoServices.FirstOrDefault(c => c.AutoServiceId == id);
+                        if (x != null)
+                        {
+                            int r = 0;
+                            int.TryParse(x.Price, out r);
+                            return r;
+                        }
+                        else
+                            return 0;
+                    }
+                case Basket_ItemType.AutoServicePack:
+                    {
+                        var x = dbs.AutoServicePacks.FirstOrDefault(c => c.AutoServicePackId == id);
+                        if (x != null)
+                        {
+                            int r = 0;
+                            int.TryParse(x.PackPrice, out r);
+                            return r;
+                        }
+                        else
+                            return 0;
+                    }
+                default:
+                    return 0;
+            }
+        }
 
         public decimal GetPriceOfCartObject_withDiscount(int id, Basket_ItemType typeofcart,DBSEF.Discount discount = null)
         {
@@ -314,6 +360,58 @@ namespace CarProject.Models.Store
                         {
                             var lastpric = x.ProductPrices.Last();
                             res = lastpric.InstallPrice.GetValueOrDefault(0) + lastpric.ProductPrice1.GetValueOrDefault(0);
+
+                            if (discount != null)
+                            {
+                                decimal rate = 0;
+                                decimal.TryParse(discount.Discount1, out rate);
+                                decimal discountprice = decimal.Ceiling((res * rate) / 100);
+                                res = res - discountprice;
+                            }
+                        }
+
+                        return res;
+                    }
+                case Basket_ItemType.AutoService:
+                    {
+                        var x = dbs.AutoServices.FirstOrDefault(c => c.AutoServiceId == id);
+                        if (x != null)
+                        {
+                            int r = 0;
+                            int.TryParse(x.Price, out r);
+                            return r;
+                        }
+                        else
+                            return 0;
+                    }
+                case Basket_ItemType.AutoServicePack:
+                    {
+                        var x = dbs.AutoServicePacks.FirstOrDefault(c => c.AutoServicePackId == id);
+                        if (x != null)
+                        {
+                            int r = 0;
+                            int.TryParse(x.PackPrice, out r);
+                            return r;
+                        }
+                        else
+                            return 0;
+                    }
+                default:
+                    return 0;
+            }
+        }
+        public decimal GetPriceOfCartObject_withDiscount_WintoutInstallation(int id, Basket_ItemType typeofcart, DBSEF.Discount discount = null)
+        {
+            switch (typeofcart)
+            {
+                case Basket_ItemType.Product:
+                    {
+                        decimal res = 0;
+                        var x = dbs.Products.FirstOrDefault(c => c.ProductId == id);
+                        if (x != null && x.ProductPrices.Count > 0)
+                        {
+                            var lastpric = x.ProductPrices.Last();
+                            res = lastpric.ProductPrice1.GetValueOrDefault(0);
 
                             if (discount != null)
                             {

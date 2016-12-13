@@ -66,6 +66,7 @@
     <Property Name="ProductEachPrice" Type="nvarchar" MaxLength="50" />
     <Property Name="ProductEachPaidPrice" Type="nvarchar" MaxLength="50" />
     <Property Name="ToatoalPaidPrice" Type="nvarchar" MaxLength="250" />
+    <Property Name="PriceFlag" Type="tinyint" />
   </EntityType>
   <EntityType Name="Baskets">
     <Key>
