@@ -182,6 +182,7 @@
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="Areas\Users\UsersCLS\Notifications\UserCarsNotifications.cs" />
     <Compile Include="CLS\Filters.cs" />
+    <Compile Include="CLS\MailsServers\Mails.cs" />
     <Compile Include="CLS\SearchClass.cs" />
     <Compile Include="CLS\Searchs\CarsSearchLogic.cs" />
     <Compile Include="CLS\Searchs\ProductSearchModel.cs" />
@@ -728,7 +729,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="CLS\MailsServers\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Gallery\Brands\" />
     <Folder Include="Publics\Gallery\CarImages\" />
@@ -937,6 +937,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\FileManager\tinymcefm2.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

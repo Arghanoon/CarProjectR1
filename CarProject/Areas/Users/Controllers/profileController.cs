@@ -175,30 +175,33 @@ namespace CarProject.Areas.Users.Controllers
                 model.Person.User.ActiveORecovery = (byte)DBSEF.User.Enum_ActiveORecoveryEnum.Activation;
 
                 model.Person.User.UserRoleId = 2;
+
+                {//Send Activation Email to User
+                    MailMessage message = new MailMessage();
+                    message.To.Add(new MailAddress(model.Person.PersonEmail));
+                    message.IsBodyHtml = true;
+
+                    var ActivationEmailContent = new Areas.Admin.Models.Dashboard.MailsMessage_Signup_SendActivationcode();
+                    ActivationEmailContent.Load();
+                    string messageBody = ActivationEmailContent.Message.Replace("[codeonly]", model.Person.User.ActiveRecoveryCode);
+                    messageBody = messageBody.Replace("[codelink]", string.Format("<a href=\"{0}\">{0}</a>", model.Person.User.ActiveRecoveryCode));
+
+                    messageBody = messageBody.Replace("[userfullname]", model.Person.PersonFirtstName + " " + model.Person.PersonLastName);
+                    messageBody = messageBody.Replace("[username]", model.Person.User.Uname);
+                    messageBody = messageBody.Replace("[password]", model.Password);
+
+                    messageBody = string.Format("\n\r<html><body>{0}</body></html>\n\r", messageBody);
+
+                    message.Body = messageBody;
+                    message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
+
+
+                    var nr = new CLS.MailsServers.Mail_noreply();
+                    nr.SendMessage(message);
+                }
+
+                //saveChanges if Allthin be correct
                 model.Save();
-
-                //{//Send Activation Email to User
-                //    MailMessage message = new MailMessage();
-                //    message.To.Add(new MailAddress(model.Person.PersonEmail));
-                //    message.IsBodyHtml = true;
-
-                //    var ActivationEmailContent = new Areas.Admin.Models.Dashboard.MailsMessage_Signup_SendActivationcode();
-                //    ActivationEmailContent.Load();
-                //    string messageBody = ActivationEmailContent.Message.Replace("[codeonly]", model.Person.User.ActiveRecoveryCode);
-                //    messageBody = messageBody.Replace("[codelink]", string.Format("<a href=\"{0}\">{0}</a>", model.Person.User.ActiveRecoveryCode));
-
-                //    messageBody = messageBody.Replace("[userfullname]", model.Person.PersonFirtstName + " " + model.Person.PersonLastName);
-                //    messageBody = messageBody.Replace("[username]", model.Person.User.Uname);
-                //    messageBody = messageBody.Replace("[password]", model.Password);
-
-
-                //    message.Body = messageBody;
-                //    message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
-
-
-                //    SmtpClient smtp = new SmtpClient();
-                //    smtp.Send(message);
-                //}
 
                 return RedirectToAction("Login");
             }
@@ -297,16 +300,16 @@ namespace CarProject.Areas.Users.Controllers
         {
             get
             {
-                //var Session = System.Web.HttpContext.Current.Session;
-                //if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-                //{
-                //    return Session["guestUser"] as DBSEF.User;
-                //}
-                //else
-                //    return null;
+                var Session = System.Web.HttpContext.Current.Session;
+                if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
+                {
+                    return Session["guestUser"] as DBSEF.User;
+                }
+                else
+                    return null;
 
-                var dbs = new DBSEF.CarAutomationEntities();
-                return dbs.Users.FirstOrDefault(u => u.UserId == 3);
+                //var dbs = new DBSEF.CarAutomationEntities();
+                //return dbs.Users.FirstOrDefault(u => u.UserId == 3);
             }
         }
         public static DBSEF.Person GetCurrentLoginPerson
