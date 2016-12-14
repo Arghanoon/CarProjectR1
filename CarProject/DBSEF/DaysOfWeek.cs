@@ -17,6 +17,7 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DaysOfWeek()
         {
+            this.Baskets = new HashSet<Basket>();
             this.TimeOfDays = new HashSet<TimeOfDay>();
         }
     
@@ -25,6 +26,8 @@ namespace CarProject.DBSEF
         public string DayOfWeek { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Basket> Baskets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TimeOfDay> TimeOfDays { get; set; }
     }
