@@ -949,6 +949,8 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Admin\Views\Store\DaliveryDateTime_Define.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DaliveryDateTime.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DaliveryDateTime_Update.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

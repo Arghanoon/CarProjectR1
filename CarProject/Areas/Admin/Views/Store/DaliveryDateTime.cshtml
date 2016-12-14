@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.Title = "روزها و ساعتهای تحویل کالا";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    
+    var daysofweek = dbs.DaysOfWeeks.OrderByDescending(d => d.DayOfWeek).AsQueryable();
+
+    int page = 0;
+    int showInPage = 10;
+    int totalcount = 0;
+
+    if (Request.QueryString.AllKeys.Contains("page"))
+    {
+        int.TryParse(Request.QueryString["page"], out page);
+    }
+    if (Request.QueryString.AllKeys.Contains("showInPage"))
+    {
+        int.TryParse(Request.QueryString["showInPage"], out showInPage);
+    }
+
+
+    totalcount = daysofweek.Count();
+    daysofweek = daysofweek.Skip(showInPage * page).Take(showInPage);
+    
+}
+@using CarProject.App_extension
+
+<div>
+    <h3>@ViewBag.Title</h3>
+    <hr />
+    <a href="/Admin/Store/DaliveryDateTime_Define">ثبت روز جدید</a>
+
+    <form method="get" id="searchform" >
+        <input type="hidden" name="page" id="pagehiddeninput" value="@page" />
+    </form>
+
+    <table class="infoTable">
+        <thead>
+            <tr>
+                <th>تاریخ</th>
+                <th>بازه ها</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in daysofweek)
+            {
+                <tr>
+                    <td>@item.DayOfWeek @item.DayOfWeek.Persian_ToDateTime().NameOfDaysInWeek()</td>
+                    <td>
+                        @foreach (var tsitem in item.TimeOfDays.ToList())
+                        {
+                            <span class="timespanitem">@tsitem.TimePeriod</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.DayOfWeek.Persian_ToDateTime() > DateTime.Today)
+                        {
+                            <a href="/Admin/Store/DaliveryDateTime_Update/@item.DaysOfWeekId" class="gia-edit"></a>
+                            <a href="#" class="gia-remove"></a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <div id="pagingSection">
+        @{
+            var pagecount = Math.Ceiling((decimal)totalcount/showInPage);
+            for (int i = 1; i <= pagecount; i++)
+            {
+                if(page == (i- 1))
+                {
+                    <span>@i</span>
+                }
+                else
+                {
+                    <a href="javascript:void" onclick="document.getElementById('pagehiddeninput').value = '@{Write(i - 1);}'; document.getElementById('searchform').submit();" >@i</a>
+                }
+            }
+        }
+    </div>
+</div>
+
+
+
+
+@section style
+{
+    <style>
+        #searchform {
+            border-bottom:thin solid #d4d4d4;
+            margin-bottom:10px;
+            display:none;
+        }
+        #searchInput {
+            display:flex; justify-content:space-between; align-items:stretch;
+            margin:5px;
+            border:thin solid #888;
+            border-radius:5px;
+            overflow:hidden;
+        }
+            #searchInput input {
+                flex:1; 
+                width:100%;
+                border:none;
+                background:none;
+                padding:5px;
+            }
+            #searchInput button {
+                border:none;
+                background:none;
+                background:#888;
+                cursor:pointer;
+                color:white;
+            }
+                #searchInput button:hover {
+                    background:#d4d4d4;
+                }
+
+        #pagingSection {
+            display:flex;
+            justify-content:center;
+            align-items:stretch;
+            flex-wrap:wrap;
+
+            border-top:thin solid #d4d4d4;
+            margin-top:10px;
+        }
+            #pagingSection > * {
+                margin:5px;
+                min-width:10px;
+            }
+            #pagingSection > span {
+                cursor: default;
+            }
+
+
+        .timespanitem {
+            
+        }
+    </style>
+}

@@ -100,11 +100,17 @@
             </nav> 
             
             
-            <nav>
+            @*<nav>
                 <strong class="title">مدیریت پلن های تحویل کالا/ انجام سرویس</strong>
                 <a href="@Url.Action("DeliveryTypes_New","Store")" class="">اضافه کردن پلن</a>
                 <a href="@Url.Action("DeliveryTypes","Store")" class="">مدیریت پلن ها</a>
-            </nav>    
+            </nav>   *@
+            
+            <nav>
+                <strong class="title">مدیریت برنامه زمانی تحویل کالا</strong>
+                <a href="@Url.Action("DaliveryDateTime","Store")" class="">برنامه زمانی تحویل کالا</a>
+                <a href="@Url.Action("DaliveryDateTime_Define","Store")" class="">ثبت روز و بازه زمانی</a>
+            </nav>   
             
             <nav>
                 <strong class="title">بازاریابی</strong>

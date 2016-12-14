@@ -112,6 +112,28 @@ namespace CarProject.App_extension
                 return "";
             return string.Format("{0:0000}/{1:00}/{2:00}", PRS.GetYear(value.GetValueOrDefault()), PRS.GetMonth(value.GetValueOrDefault()), PRS.GetDayOfMonth(value.GetValueOrDefault()));
         }
+        public static string NameOfDaysInWeek(this DateTime? value)
+        {
+            switch (value.Value.DayOfWeek)
+            {
+                case DayOfWeek.Friday:
+                    return "جمعه";
+                case DayOfWeek.Monday:
+                    return "دوشنبه";
+                case DayOfWeek.Saturday:
+                    return "شنبه";
+                case DayOfWeek.Sunday:
+                    return "یک شنبه";
+                case DayOfWeek.Thursday:
+                    return "پنج شنبه";
+                case DayOfWeek.Tuesday:
+                    return "سه شنبه";
+                case DayOfWeek.Wednesday:
+                    return "چهارشنبه";
+                default:
+                    return "";
+            }
+        }
 
         public static string Date_Persian(this DateTime value)
         {

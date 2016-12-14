@@ -3,6 +3,7 @@
 }
 @using CarProject.App_Code
 @using CarProject.App_extension
+@model CarProject.DBSEF.DaysOfWeek
 
 <div>
     <h3>@ViewBag.Title</h3>
@@ -12,7 +13,7 @@
         <div class="inputsContainer">
             <section class="input">
                 <label>تاریخ</label>
-                <input type="text" name="DayOfWeek" value="@Request.Form["DayOfWeek"]" onclick="PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDateString()');" />
+                <input type="text" name="DayOfWeek" value="@if(Request.Form.AllKeys.Contains("DayOfWeek")){@Request.Form["DayOfWeek"]}else{@Model.DayOfWeek}" onclick="PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDateString()');" />
                 <span>@Html.ValidationMessage("DayOfWeek")</span>
             </section>
 
@@ -35,11 +36,15 @@
                     }
                     else
                     {
-                        <section class="TimeSpanSection">
-                            <label>از <input type="text" name="from"  onchange="TimeChangeCorrection(this)"/></label>
-                            <label>تا <input type="text" name="to"  onchange="TimeChangeCorrection(this)"/></label>
-                            <a href="javascript:void()" onclick="$(this).parent().remove()" class="gia-remove"></a>
-                        </section>   
+                        foreach (var item in Model.TimeOfDays)
+                        {
+                            var x = item.TimePeriod.Split('-');
+                            <section class="TimeSpanSection">
+                                <label>از <input type="text" name="from" value="@x[0]"  onchange="TimeChangeCorrection(this)"/></label>
+                                <label>تا <input type="text" name="to" value="@x[1]"  onchange="TimeChangeCorrection(this)"/></label>
+                                <a href="javascript:void()" onclick="$(this).parent().remove()" class="gia-remove"></a>
+                            </section>  
+                        } 
                     }                 
                 </div>
                 <span>@Html.ValidationMessage("timespan")</span>
