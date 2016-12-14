@@ -125,6 +125,11 @@ namespace CarProject.App_extension
             string ptrn = "^[0-9]{4}\\/(0[0-9]|1[0-2])\\/([0-2][0-9]|3[0-1])$";
             return Regex.IsMatch(value, ptrn);
         }
+        public static bool IsTime(this string value)
+        {
+            return Regex.IsMatch(value, "^([0-1][0-9]|2[0-3]):([0-5][0-9])$");
+        }
+
         public static DateTime? Persian_ToDateTime(this string value)
         {
             int y = 0, m = 0, d = 0;

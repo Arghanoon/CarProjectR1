@@ -310,6 +310,9 @@
     <Compile Include="DBSEF\Country.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\DaysOfWeek.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\DBSEnums.cs" />
     <Compile Include="DBSEF\DetailedBrakeSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -419,6 +422,9 @@
     <Compile Include="DBSEF\SteeringSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\TimeOfDay.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\TodaysSpecial.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -495,6 +501,10 @@
     <Content Include="Publics\Files\Settings\TopMenu.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Publics\Scripts\PersianDateTimePicker\Content\PersianDatePicker.css" />
+    <Content Include="Publics\Scripts\PersianDateTimePicker\Content\PersianDatePicker.min.css" />
+    <Content Include="Publics\Scripts\PersianDateTimePicker\Scripts\PersianDatePicker.js" />
+    <Content Include="Publics\Scripts\PersianDateTimePicker\Scripts\PersianDatePicker.min.js" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />
     <Content Include="Publics\Styles\animate.css" />
@@ -920,6 +930,7 @@
     <Content Include="Areas\Admin\Views\Store\ProductsInventory.cshtml" />
     <Content Include="Areas\Admin\Views\Store\SelectProductForIncreaseEntity.cshtml" />
     <Content Include="Areas\Admin\Views\Store\SelectedProductIncreaseEntity.cshtml" />
+    <Content Include="Areas\Admin\Views\FileManager\tinymcefm2.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -937,7 +948,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\FileManager\tinymcefm2.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DaliveryDateTime_Define.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

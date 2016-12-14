@@ -502,6 +502,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DaysOfWeeks">
+      <EntityTypeMapping TypeName="CarAutomationModel.DaysOfWeek">
+        <MappingFragment StoreEntitySet="DaysOfWeek">
+          <ScalarProperty Name="DaysOfWeekId" ColumnName="DaysOfWeekId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="DetailedBrakeSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.DetailedBrakeSystem">
         <MappingFragment StoreEntitySet="DetailedBrakeSystem">
@@ -879,6 +889,16 @@
           <ScalarProperty Name="SteeringControlKey" ColumnName="SteeringControlKey" />
           <ScalarProperty Name="Details" ColumnName="Details" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeOfDays">
+      <EntityTypeMapping TypeName="CarAutomationModel.TimeOfDay">
+        <MappingFragment StoreEntitySet="TimeOfDay">
+          <ScalarProperty Name="TimeOfDayId" ColumnName="TimeOfDayId" />
+          <ScalarProperty Name="TimePeriod" ColumnName="TimePeriod" />
+          <ScalarProperty Name="DaysOfWeekId" ColumnName="DaysOfWeekId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

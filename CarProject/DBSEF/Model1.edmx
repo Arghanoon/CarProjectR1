@@ -468,6 +468,15 @@
           <Property Name="CountryShortName" Type="nvarchar" MaxLength="50" />
           <Property Name="CountryLongName" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="DaysOfWeek">
+          <Key>
+            <PropertyRef Name="DaysOfWeekId" />
+          </Key>
+          <Property Name="DaysOfWeekId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="DayOfWeek" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="DetailedBrakeSystem">
           <Key>
             <PropertyRef Name="DetailedBrakeSystemId" />
@@ -816,6 +825,15 @@
           <Property Name="SteeringControlKey" Type="bit" />
           <Property Name="Details" Type="nvarchar(max)" />
           <Property Name="CarId" Type="int" />
+        </EntityType>
+        <EntityType Name="TimeOfDay">
+          <Key>
+            <PropertyRef Name="TimeOfDayId" />
+          </Key>
+          <Property Name="TimeOfDayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimePeriod" Type="nvarchar" MaxLength="50" />
+          <Property Name="DaysOfWeekId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="TodaysSpecial">
           <Key>
@@ -1872,6 +1890,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TimeOfDay_DaysOfWeek">
+          <End Role="DaysOfWeek" Type="Self.DaysOfWeek" Multiplicity="0..1" />
+          <End Role="TimeOfDay" Type="Self.TimeOfDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DaysOfWeek">
+              <PropertyRef Name="DaysOfWeekId" />
+            </Principal>
+            <Dependent Role="TimeOfDay">
+              <PropertyRef Name="DaysOfWeekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TodaysSpecial_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="TodaysSpecial" Type="Self.TodaysSpecial" Multiplicity="*" />
@@ -1959,6 +1989,7 @@
           <EntitySet Name="ContentsCategory" EntityType="Self.ContentsCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContetComments" EntityType="Self.ContetComments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DaysOfWeek" EntityType="Self.DaysOfWeek" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetailedBrakeSystem" EntityType="Self.DetailedBrakeSystem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FuelConsumption" EntityType="Self.FuelConsumption" Schema="dbo" store:Type="Tables" />
@@ -1990,6 +2021,7 @@
           <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeOfDay" EntityType="Self.TimeOfDay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TroubleshootingProducts" EntityType="Self.TroubleshootingProducts" Schema="dbo" store:Type="Tables" />
@@ -2330,6 +2362,10 @@
           <AssociationSet Name="FK_SteeringSystem_Cars" Association="Self.FK_SteeringSystem_Cars">
             <End Role="Cars" EntitySet="Cars" />
             <End Role="SteeringSystem" EntitySet="SteeringSystem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimeOfDay_DaysOfWeek" Association="Self.FK_TimeOfDay_DaysOfWeek">
+            <End Role="DaysOfWeek" EntitySet="DaysOfWeek" />
+            <End Role="TimeOfDay" EntitySet="TimeOfDay" />
           </AssociationSet>
           <AssociationSet Name="FK_TodaysSpecial_Product" Association="Self.FK_TodaysSpecial_Product">
             <End Role="Product" EntitySet="Product" />
@@ -2914,6 +2950,16 @@
           <NavigationProperty Name="Manufactures" Relationship="Self.FK_Manufacture_Country" FromRole="Country" ToRole="Manufacture" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Country" FromRole="Country" ToRole="Product" />
         </EntityType>
+        <EntityType Name="DaysOfWeek">
+          <Key>
+            <PropertyRef Name="DaysOfWeekId" />
+          </Key>
+          <Property Name="DaysOfWeekId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="DayOfWeek" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="TimeOfDays" Relationship="Self.FK_TimeOfDay_DaysOfWeek" FromRole="DaysOfWeek" ToRole="TimeOfDay" />
+        </EntityType>
         <EntityType Name="DetailedBrakeSystem">
           <Key>
             <PropertyRef Name="DetailedBrakeSystemId" />
@@ -3325,6 +3371,16 @@
           <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CarId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_SteeringSystem_Cars" FromRole="SteeringSystem" ToRole="Cars" />
+        </EntityType>
+        <EntityType Name="TimeOfDay">
+          <Key>
+            <PropertyRef Name="TimeOfDayId" />
+          </Key>
+          <Property Name="TimeOfDayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimePeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DaysOfWeekId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="DaysOfWeek" Relationship="Self.FK_TimeOfDay_DaysOfWeek" FromRole="TimeOfDay" ToRole="DaysOfWeek" />
         </EntityType>
         <EntityType Name="TodaysSpecial">
           <Key>
@@ -4110,6 +4166,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TimeOfDay_DaysOfWeek">
+          <End Role="DaysOfWeek" Type="Self.DaysOfWeek" Multiplicity="0..1" />
+          <End Role="TimeOfDay" Type="Self.TimeOfDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DaysOfWeek">
+              <PropertyRef Name="DaysOfWeekId" />
+            </Principal>
+            <Dependent Role="TimeOfDay">
+              <PropertyRef Name="DaysOfWeekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductDiscount_Discount">
           <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
           <End Role="ProductDiscount" Type="Self.ProductDiscount" Multiplicity="*" />
@@ -4453,6 +4521,7 @@
           <EntitySet Name="ContentsCategories" EntityType="Self.ContentsCategory" />
           <EntitySet Name="ContetComments" EntityType="Self.ContetComment" />
           <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="DaysOfWeeks" EntityType="Self.DaysOfWeek" />
           <EntitySet Name="DetailedBrakeSystems" EntityType="Self.DetailedBrakeSystem" />
           <EntitySet Name="Discounts" EntityType="Self.Discount" />
           <EntitySet Name="FuelConsumptions" EntityType="Self.FuelConsumption" />
@@ -4484,6 +4553,7 @@
           <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
           <EntitySet Name="SlideShows" EntityType="Self.SlideShow" />
           <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
+          <EntitySet Name="TimeOfDays" EntityType="Self.TimeOfDay" />
           <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />
           <EntitySet Name="Troubleshootings" EntityType="Self.Troubleshooting" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -4731,6 +4801,10 @@
           <AssociationSet Name="FK_Product_Country" Association="Self.FK_Product_Country">
             <End Role="Country" EntitySet="Countries" />
             <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimeOfDay_DaysOfWeek" Association="Self.FK_TimeOfDay_DaysOfWeek">
+            <End Role="DaysOfWeek" EntitySet="DaysOfWeeks" />
+            <End Role="TimeOfDay" EntitySet="TimeOfDays" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductDiscount_Discount" Association="Self.FK_ProductDiscount_Discount">
             <End Role="Discount" EntitySet="Discounts" />
@@ -5344,6 +5418,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DaysOfWeeks">
+            <EntityTypeMapping TypeName="CarAutomationModel.DaysOfWeek">
+              <MappingFragment StoreEntitySet="DaysOfWeek">
+                <ScalarProperty Name="DaysOfWeekId" ColumnName="DaysOfWeekId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DetailedBrakeSystems">
             <EntityTypeMapping TypeName="CarAutomationModel.DetailedBrakeSystem">
               <MappingFragment StoreEntitySet="DetailedBrakeSystem">
@@ -5721,6 +5805,16 @@
                 <ScalarProperty Name="SteeringControlKey" ColumnName="SteeringControlKey" />
                 <ScalarProperty Name="Details" ColumnName="Details" />
                 <ScalarProperty Name="CarId" ColumnName="CarId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeOfDays">
+            <EntityTypeMapping TypeName="CarAutomationModel.TimeOfDay">
+              <MappingFragment StoreEntitySet="TimeOfDay">
+                <ScalarProperty Name="TimeOfDayId" ColumnName="TimeOfDayId" />
+                <ScalarProperty Name="TimePeriod" ColumnName="TimePeriod" />
+                <ScalarProperty Name="DaysOfWeekId" ColumnName="DaysOfWeekId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

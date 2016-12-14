@@ -9,7 +9,7 @@ using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class StoreController : Controller
     {
         //
@@ -687,6 +687,13 @@ namespace CarProject.Areas.Admin.Controllers
                 return RedirectToAction("Baskets");
 
             return View(basket);
+        }
+        #endregion
+
+        #region Delivery Days And Times
+        public ActionResult DaliveryDateTime_Define()
+        {
+            return View();
         }
         #endregion
 
