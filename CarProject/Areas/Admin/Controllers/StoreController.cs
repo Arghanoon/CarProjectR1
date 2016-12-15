@@ -690,6 +690,111 @@ namespace CarProject.Areas.Admin.Controllers
         }
         #endregion
 
+        #region Delivery Days And Times
+        public ActionResult DaliveryDateTime()
+        {
+            return View();
+        }
+        public ActionResult DaliveryDateTime_Define()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DaliveryDateTime_Define(FormCollection form)
+        {
+            List<string> from = new List<string>();
+            List<string> to = new List<string>();
+
+            string dayOfWeek = form["DayOfWeek"];
+
+            if (!form.AllKeys.Contains("DayOfWeek") || form["DayOfWeek"].IsNullOrWhiteSpace())
+                ModelState.AddModelError("DayOfWeek", "تاریخ تعیین نشده است");
+            else if( !form["DayOfWeek"].IsPersianDateTime())
+                ModelState.AddModelError("DayOfWeek", "تاریخ وارد شده صحیح نیست");
+            else if (dbsObject.DaysOfWeeks.Count(c => c.DayOfWeek == dayOfWeek) > 0)
+                ModelState.AddModelError("DayOfWeek", "تاریخ وارد شده تکراری است");
+            else if( dayOfWeek.Persian_ToDateTime().Value < DateTime.Today)
+                ModelState.AddModelError("DayOfWeek", "تاریخ وارد شده برای روز های قبل از امروز است");
+
+            if (!form.AllKeys.Contains("from") || !form.AllKeys.Contains("to"))
+                ModelState.AddModelError("timespan", "بازه زمانی تعیین نشده است");
+            else
+            {
+                from = form.GetValues("from").ToList();
+                to = form.GetValues("to").ToList();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var dyow = new DBSEF.DaysOfWeek();
+                dyow.Date = form["DayOfWeek"].Persian_ToDateTime();
+
+                for (int i = 0; i < from.Count; i++)
+                {
+                    dyow.TimeOfDays.Add(new DBSEF.TimeOfDay { TimePeriod = string.Format("{0}-{1}", from[i], to[i]) });
+                }
+
+                dbsObject.DaysOfWeeks.Add(dyow);
+                dbsObject.SaveChanges();
+
+                return RedirectToAction("DaliveryDateTime");
+            }
+            
+            return View();
+        }
+
+        public ActionResult DaliveryDateTime_Update(int? id)
+        {
+            var model = dbsObject.DaysOfWeeks.FirstOrDefault(d => d.DaysOfWeekId == id);
+            if (model == null || model.Date <= DateTime.Now)
+                return RedirectToAction("DaliveryDateTime");
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult DaliveryDateTime_Update(int? id, FormCollection form)
+        {
+            List<string> from = new List<string>();
+            List<string> to = new List<string>();
+
+            string dayOfWeek = form["DayOfWeek"];
+
+            if (!form.AllKeys.Contains("DayOfWeek") || form["DayOfWeek"].IsNullOrWhiteSpace())
+                ModelState.AddModelError("DayOfWeek", "تاریخ تعیین نشده است");
+            else if (!form["DayOfWeek"].IsPersianDateTime())
+                ModelState.AddModelError("DayOfWeek", "تاریخ وارد شده صحیح نیست");
+            else if (dbsObject.DaysOfWeeks.Count(c => c.DayOfWeek == dayOfWeek && c.DaysOfWeekId != id) > 0)
+                ModelState.AddModelError("DayOfWeek", "تاریخ وارد شده تکراری است");
+            else if (dayOfWeek.Persian_ToDateTime().Value < DateTime.Today)
+                ModelState.AddModelError("DayOfWeek", "تاریخ وارد شده برای روز های قبل از امروز است");
+
+            if (!form.AllKeys.Contains("from") || !form.AllKeys.Contains("to"))
+                ModelState.AddModelError("timespan", "بازه زمانی تعیین نشده است");
+            else
+            {
+                from = form.GetValues("from").ToList();
+                to = form.GetValues("to").ToList();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var dyow = dbsObject.DaysOfWeeks.FirstOrDefault(d => d.DaysOfWeekId == id);
+                
+                dyow.Date = form["DayOfWeek"].Persian_ToDateTime();                
+                dbsObject.TimeOfDays.RemoveRange(dyow.TimeOfDays);
+                for (int i = 0; i < from.Count; i++)
+                {
+                    dyow.TimeOfDays.Add(new DBSEF.TimeOfDay { TimePeriod = string.Format("{0}-{1}", from[i], to[i]) });
+                }
+
+                dbsObject.SaveChanges();
+
+                return RedirectToAction("DaliveryDateTime");
+            }
+
+            return View();
+        }
+        #endregion
+
         #region Inventory
         public ActionResult ProductsInventory()
         {

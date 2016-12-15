@@ -87,6 +87,7 @@
     <Property Name="ReciverMobile" Type="nvarchar" MaxLength="50" />
     <Property Name="ReciverAddress" Type="ntext" />
     <Property Name="ReciverWorkplace" Type="ntext" />
+    <Property Name="TimeOfDayId" Type="int" />
   </EntityType>
   <EntityType Name="BrakeSystem">
     <Key>
@@ -463,6 +464,15 @@
     <Property Name="CountryShortName" Type="nvarchar" MaxLength="50" />
     <Property Name="CountryLongName" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="DaysOfWeek">
+    <Key>
+      <PropertyRef Name="DaysOfWeekId" />
+    </Key>
+    <Property Name="DaysOfWeekId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="date" />
+    <Property Name="DayOfWeek" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
   <EntityType Name="DetailedBrakeSystem">
     <Key>
       <PropertyRef Name="DetailedBrakeSystemId" />
@@ -812,6 +822,15 @@
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
   </EntityType>
+  <EntityType Name="TimeOfDay">
+    <Key>
+      <PropertyRef Name="TimeOfDayId" />
+    </Key>
+    <Property Name="TimeOfDayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TimePeriod" Type="nvarchar" MaxLength="50" />
+    <Property Name="DaysOfWeekId" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
   <EntityType Name="TodaysSpecial">
     <Key>
       <PropertyRef Name="TodaysSpecialId" />
@@ -964,6 +983,18 @@
       </Principal>
       <Dependent Role="Baskets">
         <PropertyRef Name="DelivaryTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baskets_DaysOfWeek">
+    <End Role="TimeOfDay" Type="Self.TimeOfDay" Multiplicity="0..1" />
+    <End Role="Baskets" Type="Self.Baskets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeOfDay">
+        <PropertyRef Name="TimeOfDayId" />
+      </Principal>
+      <Dependent Role="Baskets">
+        <PropertyRef Name="TimeOfDayId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1867,6 +1898,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_TimeOfDay_DaysOfWeek">
+    <End Role="DaysOfWeek" Type="Self.DaysOfWeek" Multiplicity="0..1" />
+    <End Role="TimeOfDay" Type="Self.TimeOfDay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DaysOfWeek">
+        <PropertyRef Name="DaysOfWeekId" />
+      </Principal>
+      <Dependent Role="TimeOfDay">
+        <PropertyRef Name="DaysOfWeekId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TodaysSpecial_Product">
     <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
     <End Role="TodaysSpecial" Type="Self.TodaysSpecial" Multiplicity="*" />
@@ -1954,6 +1997,7 @@
     <EntitySet Name="ContentsCategory" EntityType="Self.ContentsCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContetComments" EntityType="Self.ContetComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DaysOfWeek" EntityType="Self.DaysOfWeek" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetailedBrakeSystem" EntityType="Self.DetailedBrakeSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FuelConsumption" EntityType="Self.FuelConsumption" Schema="dbo" store:Type="Tables" />
@@ -1985,6 +2029,7 @@
     <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TimeOfDay" EntityType="Self.TimeOfDay" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TroubleshootingProducts" EntityType="Self.TroubleshootingProducts" Schema="dbo" store:Type="Tables" />
@@ -2024,6 +2069,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_Baskets" Association="Self.FK_Baskets_Baskets">
       <End Role="ProductsOrServicesDeliveryTypes" EntitySet="ProductsOrServicesDeliveryTypes" />
+      <End Role="Baskets" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baskets_DaysOfWeek" Association="Self.FK_Baskets_DaysOfWeek">
+      <End Role="TimeOfDay" EntitySet="TimeOfDay" />
       <End Role="Baskets" EntitySet="Baskets" />
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_Discount" Association="Self.FK_Baskets_Discount">
@@ -2325,6 +2374,10 @@
     <AssociationSet Name="FK_SteeringSystem_Cars" Association="Self.FK_SteeringSystem_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="SteeringSystem" EntitySet="SteeringSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimeOfDay_DaysOfWeek" Association="Self.FK_TimeOfDay_DaysOfWeek">
+      <End Role="DaysOfWeek" EntitySet="DaysOfWeek" />
+      <End Role="TimeOfDay" EntitySet="TimeOfDay" />
     </AssociationSet>
     <AssociationSet Name="FK_TodaysSpecial_Product" Association="Self.FK_TodaysSpecial_Product">
       <End Role="Product" EntitySet="Product" />

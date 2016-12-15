@@ -6,6 +6,7 @@
 }
 @model CarProject.DBSEF.Basket
 @using CarProject.App_Code
+@using CarProject.App_extension
 
 <div class="page" id="billingInformation">
     <h3>لیست محصولات درخواستی</h3>
@@ -26,7 +27,10 @@
             @{ 
                 int i = 1; decimal TotalPrice = 0;
 
-                decimal.TryParse(viewBasket.ProductsOrServicesDeliveryType.Price, out TotalPrice);
+                if(viewBasket.ProductsOrServicesDeliveryType != null)
+                {
+                    decimal.TryParse(viewBasket.ProductsOrServicesDeliveryType.Price, out TotalPrice);
+                }
              }
             @foreach (var item in viewBasket.BasketItems)
             {
@@ -48,11 +52,15 @@
                 i += 1;
             }
 
-            <tr>
+           @* <tr>
                 <td colspan="4">پلن انتخابی</td>
                 <td colspan="2" class="fix center">@viewBasket.ProductsOrServicesDeliveryType.Name</td>
                 <td class="center fix">@viewBasket.ProductsOrServicesDeliveryType.Price</td>
 
+            </tr>*@
+            <tr>
+                <td colspan="2"><strong>روز و زمان تحویل کالا</strong></td>
+                <td colspan="6">@Model.TimeOfDay.DaysOfWeek.Date.NameOfDaysInWeek() - @Model.TimeOfDay.DaysOfWeek.Date.Date_Persian() : @Model.TimeOfDay.TimePeriod</td>
             </tr>
         </tbody>
     </table>

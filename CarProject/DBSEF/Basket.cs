@@ -35,10 +35,12 @@ namespace CarProject.DBSEF
         public string ReciverMobile { get; set; }
         public string ReciverAddress { get; set; }
         public string ReciverWorkplace { get; set; }
+        public Nullable<int> TimeOfDayId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BasketItem> BasketItems { get; set; }
         public virtual ProductsOrServicesDeliveryType ProductsOrServicesDeliveryType { get; set; }
+        public virtual TimeOfDay TimeOfDay { get; set; }
         public virtual Discount Discount { get; set; }
         public virtual User User { get; set; }
     }
