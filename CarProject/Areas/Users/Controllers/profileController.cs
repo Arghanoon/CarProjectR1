@@ -18,7 +18,7 @@ namespace CarProject.Areas.Users.Controllers
         //
         // GET: /Users/profile/
 
-        
+
         public ActionResult Index()
         {
             return View();
@@ -38,7 +38,7 @@ namespace CarProject.Areas.Users.Controllers
         {
             var dbs = new DBSEF.CarAutomationEntities();
             var user = GetCurrentLoginedUser;
-            var userfromDb = dbs.Users.FirstOrDefault(c => c.UserId ==  user.UserId);
+            var userfromDb = dbs.Users.FirstOrDefault(c => c.UserId == user.UserId);
 
             if (form["currentPassword"].IsNullOrWhiteSpace() || form["currentPassword"] == null)
                 ModelState.AddModelError("currentPassword", "کلمه عبور فعلی وارد نشده است");
@@ -183,18 +183,30 @@ namespace CarProject.Areas.Users.Controllers
 
                     var ActivationEmailContent = new Areas.Admin.Models.Dashboard.MailsMessage_Signup_SendActivationcode();
                     ActivationEmailContent.Load();
+
+                    message.Subject = "activation";
                     string messageBody = ActivationEmailContent.Message.Replace("[codeonly]", model.Person.User.ActiveRecoveryCode);
+
+                   // messageBody = "کاربر گرامی [username]  < br />< br /> ثبت نام شما با موفقیت در سایت انجام شد < br />< br /> برای فعال سازی حساب کاربری خود به لینک زیر مراجعه فرمایید < br />< br />[codelink] < br />< br /> سایت خودرو کلینیک";
+
                     messageBody = messageBody.Replace("[codelink]", string.Format("<a href=\"{0}\">{0}</a>", model.Person.User.ActiveRecoveryCode));
 
                     messageBody = messageBody.Replace("[userfullname]", model.Person.PersonFirtstName + " " + model.Person.PersonLastName);
                     messageBody = messageBody.Replace("[username]", model.Person.User.Uname);
                     messageBody = messageBody.Replace("[password]", model.Password);
 
-                    messageBody = string.Format("\n\r<html><body>{0}</body></html>\n\r", messageBody);
+                   // messageBody = string.Format("<html><body>{0}</body></html>", messageBody);
 
+
+                //    messageBody = ("This email sent by the PSSP system<br />");
+
+
+                    string body = "Hello " + model.Person.User.Uname + ",";
+                    body += "<br /><br />Please click the following link to activate your account";
+                    body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace("CS.aspx", "CS_Activation.aspx?ActivationCode=" + model.Person.User.ActiveRecoveryCode) + "'>Click here to activate your account.</a>";
+                    body += "<br /><br />Thanks";
                     message.Body = messageBody;
                     message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
-
 
                     var nr = new CLS.MailsServers.Mail_noreply();
                     nr.SendMessage(message);
@@ -289,7 +301,7 @@ namespace CarProject.Areas.Users.Controllers
                     error.Add("کاربری با مشخصات وارد شده یافت نشد");
                 }
             }
-            
+
 
             ViewBag.loginerror = error;
             return View();
