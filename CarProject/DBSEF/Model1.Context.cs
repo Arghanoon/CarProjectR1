@@ -63,6 +63,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<ContentsCategory> ContentsCategories { get; set; }
         public virtual DbSet<ContetComment> ContetComments { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<DaysOfWeek> DaysOfWeeks { get; set; }
         public virtual DbSet<DetailedBrakeSystem> DetailedBrakeSystems { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }
         public virtual DbSet<FuelConsumption> FuelConsumptions { get; set; }
@@ -94,6 +95,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<ServiceToView> ServiceToViews { get; set; }
         public virtual DbSet<SlideShow> SlideShows { get; set; }
         public virtual DbSet<SteeringSystem> SteeringSystems { get; set; }
+        public virtual DbSet<TimeOfDay> TimeOfDays { get; set; }
         public virtual DbSet<TodaysSpecial> TodaysSpecials { get; set; }
         public virtual DbSet<Troubleshooting> Troubleshootings { get; set; }
         public virtual DbSet<User> Users { get; set; }

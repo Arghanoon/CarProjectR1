@@ -139,6 +139,26 @@ namespace CarProject.Controllers
             }
 
 
+            //timming
+            if (!form.AllKeys.Contains("radioTimming"))
+                ModelState.AddModelError("timmingErrors", "روز و زمان تحویل کالا تعیین نشده است");
+            else
+            {
+                int timeofdayid = 0;
+                int.TryParse(form["radioTimming"], out timeofdayid);
+                if (timeofdayid > 0)
+                {
+                    var timming = us.dbs.TimeOfDays.FirstOrDefault(t => t.TimeOfDayId == timeofdayid);
+                    if (timming == null || timming.DaysOfWeek.Date < DateTime.Today)
+                        ModelState.AddModelError("timmingErrors", "روز و زمان تحویل کالا تعیین نشده است");
+                    else
+                        mdl.TimeOfDayId = timeofdayid;
+                }
+                else
+                    ModelState.AddModelError("timmingErrors", "روز و زمان تحویل کالا تعیین نشده است");
+            }
+
+
             us.UpdateBasket(mdl);
 
             if (ModelState.IsValid)

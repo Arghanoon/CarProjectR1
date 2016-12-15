@@ -170,6 +170,9 @@ namespace CarProject.Models.Store
                 if (basket.ReciverWorkplace != null)
                     cart.ReciverWorkplace = basket.ReciverWorkplace;
 
+                if (basket.TimeOfDayId != null)
+                    cart.TimeOfDayId = basket.TimeOfDayId;
+
                 dbs.SaveChanges();
 
                 dbs.BasketItems.RemoveRange(dbs.BasketItems.Where(c => c.BasketId == null));
