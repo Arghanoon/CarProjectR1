@@ -94,6 +94,7 @@
           <ScalarProperty Name="ReciverMobile" ColumnName="ReciverMobile" />
           <ScalarProperty Name="ReciverAddress" ColumnName="ReciverAddress" />
           <ScalarProperty Name="ReciverWorkplace" ColumnName="ReciverWorkplace" />
+          <ScalarProperty Name="TimeOfDayId" ColumnName="TimeOfDayId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

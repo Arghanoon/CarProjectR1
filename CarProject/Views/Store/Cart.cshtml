@@ -18,6 +18,7 @@
     }
 }
 @using CarProject.App_Code
+@using CarProject.App_extension
 @using CarProject.Models.Store
 
 <div class="page">
@@ -110,8 +111,8 @@
                             <td class="fix center">
                                     @if (item.Type == (byte)CartUsefull.Basket_ItemType.Product)
                                     {
-                                        <section>@pric</section>
-                                        <small>+ هزینه نصب = @pric_i</small>
+                                        <section>@pric_i</section>
+                                        <small>+ هزینه نصب = @pric</small>
                                     }
                                     else
                                     {
@@ -146,7 +147,41 @@
                     i += 1;
                 }
 
-                    <tr style="background:#a7d4ff;">
+
+                    <tr>
+                        <th colspan="8">تعیین روز و زمان تحویل</th>
+                    </tr>
+                    <tr>
+                        <td colspan="8">
+                            <div id="DiveryDateAndTimeContainer">
+                                @{
+                                    var DaysOfWeeks = dbs.DaysOfWeeks.Where(d => d.Date >= DateTime.Today);
+                                    var maxcount = DaysOfWeeks.Max(d => d.TimeOfDays.Count);
+                                    
+                                    <table id="DeliverytimmingTable">
+                                        @foreach (var item in DaysOfWeeks)
+                                        {
+                                            <tr>
+                                                <td>@item.Date.NameOfDaysInWeek() - @item.Date.Date_Persian()</td>
+                                                @for (int ioftim = 0; ioftim < maxcount; ioftim++)
+                                                {
+                                                    <td>
+                                                        @if (ioftim < item.TimeOfDays.Count)
+                                                        {
+                                                            <label><input type="radio" name="radioTimming" value="@item.TimeOfDays.ElementAt(ioftim).TimeOfDayId" @if (@item.TimeOfDays.ElementAt(ioftim).TimeOfDayId == Model.TimeOfDayId) { Write("checked=\"checked\""); } /> @item.TimeOfDays.ElementAt(ioftim).TimePeriod</label>
+                                                        }
+                                                    </td>
+                                                }
+                                            </tr>
+                                        }
+                                    </table>
+                                    <span style="color:red;">@Html.ValidationMessage("timmingErrors")</span>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+
+                    @*<tr style="background:#a7d4ff;">
                         <td colspan="5">پلن تحویل کالا / انجام خدمات</td>
                         <td colspan="2">
                             <div class="input">
@@ -178,7 +213,7 @@
                         <td>
                             <section id="Plan_Selected_Price" class="center">@DLTYP</section>
                         </td>
-                    </tr>
+                    </tr>*@
                     <tr>
                         <td colspan="7">مجموع مبلغ قابل پرداخت</td>
                         <td>
@@ -233,6 +268,24 @@
                 text-align: center;
             }
 
+
+        #DeliverytimmingTable {
+            width:100%;
+        }
+            #DeliverytimmingTable tr:nth-child(2n+1) {
+                background:#d8d8ff;
+            }
+            #DeliverytimmingTable tr:nth-child(2n+2) {
+                background:#f2edfb;
+            }
+            #DeliverytimmingTable td,
+            #DeliverytimmingTable th {
+                border: none;
+            }
+
+                #DeliverytimmingTable td:nth-child(n + 2) {
+                    text-align:center;
+                }
                 
     </style>
 }

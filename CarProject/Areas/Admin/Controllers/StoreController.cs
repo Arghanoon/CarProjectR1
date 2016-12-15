@@ -727,7 +727,7 @@ namespace CarProject.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dyow = new DBSEF.DaysOfWeek();
-                dyow.DayOfWeek = form["DayOfWeek"];
+                dyow.Date = form["DayOfWeek"].Persian_ToDateTime();
 
                 for (int i = 0; i < from.Count; i++)
                 {
@@ -746,7 +746,7 @@ namespace CarProject.Areas.Admin.Controllers
         public ActionResult DaliveryDateTime_Update(int? id)
         {
             var model = dbsObject.DaysOfWeeks.FirstOrDefault(d => d.DaysOfWeekId == id);
-            if (model == null || model.DayOfWeek.Persian_ToDateTime().Value <= DateTime.Now)
+            if (model == null || model.Date <= DateTime.Now)
                 return RedirectToAction("DaliveryDateTime");
             return View(model);
         }
@@ -779,7 +779,7 @@ namespace CarProject.Areas.Admin.Controllers
             {
                 var dyow = dbsObject.DaysOfWeeks.FirstOrDefault(d => d.DaysOfWeekId == id);
                 
-                dyow.DayOfWeek = form["DayOfWeek"];                
+                dyow.Date = form["DayOfWeek"].Persian_ToDateTime();                
                 dbsObject.TimeOfDays.RemoveRange(dyow.TimeOfDays);
                 for (int i = 0; i < from.Count; i++)
                 {

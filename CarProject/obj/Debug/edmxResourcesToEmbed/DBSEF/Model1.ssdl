@@ -87,6 +87,7 @@
     <Property Name="ReciverMobile" Type="nvarchar" MaxLength="50" />
     <Property Name="ReciverAddress" Type="ntext" />
     <Property Name="ReciverWorkplace" Type="ntext" />
+    <Property Name="TimeOfDayId" Type="int" />
   </EntityType>
   <EntityType Name="BrakeSystem">
     <Key>
@@ -982,6 +983,18 @@
       </Principal>
       <Dependent Role="Baskets">
         <PropertyRef Name="DelivaryTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baskets_DaysOfWeek">
+    <End Role="TimeOfDay" Type="Self.TimeOfDay" Multiplicity="0..1" />
+    <End Role="Baskets" Type="Self.Baskets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeOfDay">
+        <PropertyRef Name="TimeOfDayId" />
+      </Principal>
+      <Dependent Role="Baskets">
+        <PropertyRef Name="TimeOfDayId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2056,6 +2069,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_Baskets" Association="Self.FK_Baskets_Baskets">
       <End Role="ProductsOrServicesDeliveryTypes" EntitySet="ProductsOrServicesDeliveryTypes" />
+      <End Role="Baskets" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baskets_DaysOfWeek" Association="Self.FK_Baskets_DaysOfWeek">
+      <End Role="TimeOfDay" EntitySet="TimeOfDay" />
       <End Role="Baskets" EntitySet="Baskets" />
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_Discount" Association="Self.FK_Baskets_Discount">

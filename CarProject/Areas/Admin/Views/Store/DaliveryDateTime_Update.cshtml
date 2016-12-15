@@ -13,7 +13,7 @@
         <div class="inputsContainer">
             <section class="input">
                 <label>تاریخ</label>
-                <input type="text" name="DayOfWeek" value="@if(Request.Form.AllKeys.Contains("DayOfWeek")){@Request.Form["DayOfWeek"]}else{@Model.DayOfWeek}" onclick="PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDateString()');" />
+                <input type="text" name="DayOfWeek" value="@if(Request.Form.AllKeys.Contains("DayOfWeek")){@Request.Form["DayOfWeek"]}else{@Model.Date.Date_Persian()}" onclick="PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDateString()');" />
                 <span>@Html.ValidationMessage("DayOfWeek")</span>
             </section>
 

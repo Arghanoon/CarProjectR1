@@ -47,7 +47,7 @@
             @foreach (var item in daysofweek)
             {
                 <tr>
-                    <td>@item.DayOfWeek @item.DayOfWeek.Persian_ToDateTime().NameOfDaysInWeek()</td>
+                    <td>@item.Date.Date_Persian() @item.Date.NameOfDaysInWeek()</td>
                     <td>
                         @foreach (var tsitem in item.TimeOfDays.ToList())
                         {
@@ -55,7 +55,7 @@
                         }
                     </td>
                     <td>
-                        @if (item.DayOfWeek.Persian_ToDateTime() > DateTime.Today)
+                        @if (item.Date > DateTime.Today)
                         {
                             <a href="/Admin/Store/DaliveryDateTime_Update/@item.DaysOfWeekId" class="gia-edit"></a>
                             <a href="#" class="gia-remove"></a>

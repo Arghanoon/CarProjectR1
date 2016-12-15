@@ -92,7 +92,7 @@
           <Property Name="ReciverMobile" Type="nvarchar" MaxLength="50" />
           <Property Name="ReciverAddress" Type="ntext" />
           <Property Name="ReciverWorkplace" Type="ntext" />
-          <Property Name="DaysOfWeekId" Type="int" />
+          <Property Name="TimeOfDayId" Type="int" />
         </EntityType>
         <EntityType Name="BrakeSystem">
           <Key>
@@ -992,14 +992,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Baskets_DaysOfWeek">
-          <End Role="DaysOfWeek" Type="Self.DaysOfWeek" Multiplicity="0..1" />
+          <End Role="TimeOfDay" Type="Self.TimeOfDay" Multiplicity="0..1" />
           <End Role="Baskets" Type="Self.Baskets" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DaysOfWeek">
-              <PropertyRef Name="DaysOfWeekId" />
+            <Principal Role="TimeOfDay">
+              <PropertyRef Name="TimeOfDayId" />
             </Principal>
             <Dependent Role="Baskets">
-              <PropertyRef Name="DaysOfWeekId" />
+              <PropertyRef Name="TimeOfDayId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2077,7 +2077,7 @@
             <End Role="Baskets" EntitySet="Baskets" />
           </AssociationSet>
           <AssociationSet Name="FK_Baskets_DaysOfWeek" Association="Self.FK_Baskets_DaysOfWeek">
-            <End Role="DaysOfWeek" EntitySet="DaysOfWeek" />
+            <End Role="TimeOfDay" EntitySet="TimeOfDay" />
             <End Role="Baskets" EntitySet="Baskets" />
           </AssociationSet>
           <AssociationSet Name="FK_Baskets_Discount" Association="Self.FK_Baskets_Discount">
@@ -2511,10 +2511,10 @@
           <Property Name="ReciverMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ReciverAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ReciverWorkplace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DaysOfWeekId" Type="Int32" />
+          <Property Name="TimeOfDayId" Type="Int32" />
           <NavigationProperty Name="BasketItems" Relationship="Self.FK_BasketItems_Baskets" FromRole="Baskets" ToRole="BasketItems" />
           <NavigationProperty Name="ProductsOrServicesDeliveryType" Relationship="Self.FK_Baskets_Baskets" FromRole="Baskets" ToRole="ProductsOrServicesDeliveryTypes" />
-          <NavigationProperty Name="DaysOfWeek" Relationship="Self.FK_Baskets_DaysOfWeek" FromRole="Baskets" ToRole="DaysOfWeek" />
+          <NavigationProperty Name="TimeOfDay" Relationship="Self.FK_Baskets_DaysOfWeek" FromRole="Baskets" ToRole="TimeOfDay" />
           <NavigationProperty Name="Discount" Relationship="Self.FK_Baskets_Discount" FromRole="Baskets" ToRole="Discount" />
           <NavigationProperty Name="User" Relationship="Self.FK_Baskets_User" FromRole="Baskets" ToRole="User" />
         </EntityType>
@@ -2977,7 +2977,6 @@
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="DayOfWeek" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Baskets" Relationship="Self.FK_Baskets_DaysOfWeek" FromRole="DaysOfWeek" ToRole="Baskets" />
           <NavigationProperty Name="TimeOfDays" Relationship="Self.FK_TimeOfDay_DaysOfWeek" FromRole="DaysOfWeek" ToRole="TimeOfDay" />
         </EntityType>
         <EntityType Name="DetailedBrakeSystem">
@@ -3400,6 +3399,7 @@
           <Property Name="TimePeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DaysOfWeekId" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Baskets" Relationship="Self.FK_Baskets_DaysOfWeek" FromRole="TimeOfDay" ToRole="Baskets" />
           <NavigationProperty Name="DaysOfWeek" Relationship="Self.FK_TimeOfDay_DaysOfWeek" FromRole="TimeOfDay" ToRole="DaysOfWeek" />
         </EntityType>
         <EntityType Name="TodaysSpecial">
@@ -3647,14 +3647,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Baskets_DaysOfWeek">
-          <End Role="DaysOfWeek" Type="Self.DaysOfWeek" Multiplicity="0..1" />
+          <End Role="TimeOfDay" Type="Self.TimeOfDay" Multiplicity="0..1" />
           <End Role="Baskets" Type="Self.Basket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DaysOfWeek">
-              <PropertyRef Name="DaysOfWeekId" />
+            <Principal Role="TimeOfDay">
+              <PropertyRef Name="TimeOfDayId" />
             </Principal>
             <Dependent Role="Baskets">
-              <PropertyRef Name="DaysOfWeekId" />
+              <PropertyRef Name="TimeOfDayId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4655,7 +4655,7 @@
             <End Role="Baskets" EntitySet="Baskets" />
           </AssociationSet>
           <AssociationSet Name="FK_Baskets_DaysOfWeek" Association="Self.FK_Baskets_DaysOfWeek">
-            <End Role="DaysOfWeek" EntitySet="DaysOfWeeks" />
+            <End Role="TimeOfDay" EntitySet="TimeOfDays" />
             <End Role="Baskets" EntitySet="Baskets" />
           </AssociationSet>
           <AssociationSet Name="FK_Baskets_Discount" Association="Self.FK_Baskets_Discount">
@@ -5046,7 +5046,7 @@
                 <ScalarProperty Name="ReciverMobile" ColumnName="ReciverMobile" />
                 <ScalarProperty Name="ReciverAddress" ColumnName="ReciverAddress" />
                 <ScalarProperty Name="ReciverWorkplace" ColumnName="ReciverWorkplace" />
-                <ScalarProperty Name="DaysOfWeekId" ColumnName="DaysOfWeekId" />
+                <ScalarProperty Name="TimeOfDayId" ColumnName="TimeOfDayId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

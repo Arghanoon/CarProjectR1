@@ -14,11 +14,19 @@ namespace CarProject.DBSEF
     
     public partial class TimeOfDay
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TimeOfDay()
+        {
+            this.Baskets = new HashSet<Basket>();
+        }
+    
         public int TimeOfDayId { get; set; }
         public string TimePeriod { get; set; }
         public Nullable<int> DaysOfWeekId { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Basket> Baskets { get; set; }
         public virtual DaysOfWeek DaysOfWeek { get; set; }
     }
 }
