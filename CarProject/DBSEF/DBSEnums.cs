@@ -268,4 +268,35 @@ namespace CarProject.DBSEF
             }
         }
     }
+
+
+    public partial class BasketItem
+    {
+        private DBSEF.CarAutomationEntities dbs = new CarAutomationEntities();
+        private Models.Store.CartUsefull ctus = new Models.Store.CartUsefull();
+
+        public bool Existance
+        {
+            get
+            {
+                bool res = true;
+                switch ((Models.Store.CartUsefull.Basket_ItemType)this.Type)
+                {
+                    case CarProject.Models.Store.CartUsefull.Basket_ItemType.Product:
+                        {
+                            var xcnt = dbs.ProductStores.FirstOrDefault(c => c.ProductId == this.Id);
+                            res = xcnt == null || xcnt.ProductEntity < this.Count;
+                        }
+                        break;
+                    case CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService:
+                        break;
+                    case CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoServicePack:
+                        break;
+                    default:
+                        break;
+                }
+                return res;
+            }
+        }
+    }
 }

@@ -61,10 +61,10 @@
             <th>نحوه پرداخت</th>
             <td>@ctusfl.Basket_PaymentType_ToString(Model.PaymentType)</td>
         </tr>
-        <tr>
+        @*<tr>
             <th>پلن تحویل کالا/انجام خدمات</th>
             <td>@Model.ProductsOrServicesDeliveryType.Name</td>
-        </tr>
+        </tr>*@
         <tr>
             <th>کد بانک</th>
             <td>@Model.BankCode</td>
@@ -115,7 +115,7 @@
                 int i = 1;
                 foreach (var item in Model.BasketItems)
                 {
-                    <tr>
+                    <tr class="@if (!item.Existance) { Write("NotExist"); }">
                         <td class="min_nw tcenter">@i</td>
                         <td class="min_nw tcenter">@ctusfl.GetNameofCartType((CartUsefull.Basket_ItemType)item.Type)</td>
                         <td class="tright">@ctusfl.GetNameOfCartObject(item.Id.Value, (CartUsefull.Basket_ItemType)item.Type)</td>
@@ -127,6 +127,19 @@
         </tbody>
     </table>
 
+    <h3>روز و ساعت تحویل</h3>
+    <hr />
+    <div>
+        @if(@Model.TimeOfDay != null)
+        {
+            <div>
+                @Model.TimeOfDay.DaysOfWeek.Date.NameOfDaysInWeek() 
+                @Model.TimeOfDay.DaysOfWeek.Date.Date_Persian() - 
+                @Model.TimeOfDay.TimePeriod
+            </div>
+        }
+    </div>
+
     <form method="post">
         <section style="display:flex; flex-direction:row-reverse;">
             <input type="submit" value="تایید و ارسال کالا(ها)"  class="button green"/>
@@ -134,3 +147,13 @@
         </section>
     </form>
 </div>
+
+
+@section style
+{
+    <style>
+        .NotExist {
+            background:red;
+        }
+    </style>
+}
