@@ -90,38 +90,38 @@
                 {
                     <tr>
                         <th>قیمت</th>
-                        <td>@Model.Car.Price</td>
+                        <td>@string.Format("{0:#,###0}", @Model.Car.Price)</td>
                     </tr>
                 }
-                @if (!Model.Car.CarsVideoURL.IsNullOrWhiteSpace())
+                                    @if (!Model.Car.CarsVideoURL.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>آدرس ویدئو</th>
                         <td><a href="@Model.Car.CarsVideoURL">@Model.Car.CarsVideoURL</a></td>
                     </tr>
                 }
-                @if (!Model.Car.CarsDescription.IsNullOrWhiteSpace())
+                                    @if (!Model.Car.CarsDescription.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>توضیحات</th>
                         <td>@Model.Car.CarsDescription</td>
                     </tr>
                 }
-                @if (!Model.Car.CarClassType.IsNullOrWhiteSpace())
+                                    @if (!Model.Car.CarClassType.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>کلاس کاری</th>
                         <td>@Model.Car.CarClassType</td>
                     </tr>
                 }
-                @if (!Model.Car.CarCategory.IsNullOrWhiteSpace())
+                                    @if (!Model.Car.CarCategory.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>دسته بندی</th>
                         <td>@Model.Car.CarCategory</td>
                     </tr>
                 }
-                @if (!Model.Car.CarUsage.IsNullOrWhiteSpace())
+                                    @if (!Model.Car.CarUsage.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>کاربر</th>
@@ -197,7 +197,7 @@
         }
 
         @if (!Model.GearBox.IsNull)
-        {
+                        {
             <div class="pagesection">
                 <h2 class="infoHeader active">گیربکس</h2>
                 <table class="infoTable">
@@ -269,7 +269,7 @@
         }
 
         @if (Model.PhysicalDetail != null)
-        {
+                        {
             <div class="pagesection">
                 <h2 class="infoHeader active">مشخصات فیزیکی</h2>
                 <table class="infoTable">
@@ -334,7 +334,7 @@
         }
 
         @if (!Model.FuelConsumption.IsNull)
-        {
+                        {
             <div class="pagesection">
                 <h2 class="infoHeader active">سیستم سوخت رسانی</h2>
                 <table class="infoTable">
@@ -371,7 +371,7 @@
         }
 
         @if (!Model.BrakeSystem.IsNull && Model.DetailedBrakeSystems.Count > 0)
-        {
+                        {
             <div class="pagesection">
                 <h2 class="infoHeader active">سیستم ترمز</h2>
                 <table class="infoTable">
@@ -411,7 +411,7 @@
                         </tr>
                     }
                     @if (Model.DetailedBrakeSystems.Count != 0)
-                    {
+                        {
                         <tr>
                             <th>جزئیات دیگر</th>
                             <td>
@@ -522,7 +522,7 @@
             </table>
         </div>
 @if (!Model.AirConditioningSystem.IsNull)
-{
+                        {
     <div class="pagesection">
         <h2 class="infoHeader active">سیستم تهویه هوا</h2>
         <table class="infoTable">
@@ -544,12 +544,12 @@
     </div>
 }
 @if (Model.AirConditioningSystemDetails.Count != 0)
-{
+                        {
         <div class="pagesection">
             <h2 class="infoHeader active">جزئیات سیستم تهویه هوا</h2>
             <table class="grid1">
                 @if (Model.AirConditioningSystemDetails.Count != 0)
-                {
+                        {
                     <thead>
 
                         <tr>
@@ -923,7 +923,7 @@
             </table>
         </div>
 @if (!Model.CarAirbag.IsNull)
-{
+                        {
     <div class="pagesection">
         <h2 class="infoHeader active">سیستم کیسه هوا</h2>
         <table class="infoTable">
@@ -966,7 +966,7 @@
     </div>
 }
 @if (!Model.CarWheel.IsNull)
-{ 
+                        {
     <div class="pagesection">
         <h2 class="infoHeader active">رینگ و لاستیک</h2>
         <table class="infoTable">
@@ -1023,37 +1023,37 @@
     </div>
   }  
 @if (Model.Pros.Count != 0)
-{
+                        {
     <div class="pagesection">
         <h2 class="infoHeader active">معایب و مزیای</h2>
         <table class="infoTable">
             @if (Model.Pros.Count != 0)
-            {
+                        {
                 <tr>
                     <th>مزایا</th>
                     <td>
                         @foreach (var item in @Model.Pros)
                         {
-                            if (item.CarsProOrCro == true)
-                            {
+                                if (item.CarsProOrCro == true)
+                                {
                                 <section>@item.CarProCro</section>
+                                }
                             }
-                        }
                     </td>
                 </tr>
             }
             @if (Model.Cros.Count != 0)
-            {
+                        {
                 <tr>
                     <th>معایب</th>
                     <td>
                         @foreach (var item in @Model.Cros)
                         {
-                            if (item.CarsProOrCro == false)
-                            {
+                                if (item.CarsProOrCro == false)
+                                {
                                 <section>@item.CarProCro</section>
+                                }
                             }
-                        }
                     </td>
                 </tr>
             }
@@ -1061,7 +1061,7 @@
     </div>
 }
 @if (!Model.CarsReview.IsNull)
-{
+                        {
     <div class="pagesection">
         <h2 class="infoHeader active">بررسی</h2>
         <table class="infoTable">
@@ -1358,12 +1358,12 @@
                                 if (!paks.ContainsKey(packitem.AutoServicePackId))
                                 { paks.Add(packitem.AutoServicePackId, packitem); }
                             }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@item.Price ریال</small></a>
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@string.Format("{0:#,###0}", @item.Price) تومان</small></a>
                         }
                     </div>
                 </div>
             }
-        }
+                                    }
 
         @{
             if (paks.Count > 0)
@@ -1372,15 +1372,15 @@
                     <h3>سرویس پک های مرتبط با خودرو</h3>
                     <div class="listviewoflinks">
                         @foreach (var item in paks.Values)
-                        {
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice ریال</small></a>
+                                    {
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>string.Format("{0:#,###0}",@item.PackPrice) تومان</small></a>
                         }
                     </div>
                 </div>
             }
-        }
+                            }
 
-        
+
         @*{var comments = dbs.CarComments.Where(c => c.CarsId == Model.Car.CarsId && c.canshow == true).OrderByDescending(c => c.CarCommentsId).Take(10); }
         @if(comments.Count() > 0)
 
