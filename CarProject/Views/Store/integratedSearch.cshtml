@@ -8,7 +8,7 @@
     var product = dbs.Products.AsQueryable();
     var services = dbs.AutoServices.AsQueryable();
     var servicepacks = dbs.AutoServicePacks.AsQueryable();
-    
+
     var strsearch = "";
     if (Request.QueryString.AllKeys.Contains("isearch") && !string.IsNullOrWhiteSpace(Request.QueryString["isearch"]))
     {
@@ -24,7 +24,7 @@
     product = product.Take(30);
     services = services.Take(30);
     servicepacks = servicepacks.Take(30);
-    
+
 }
 
 
@@ -70,11 +70,11 @@
                                 @*<small class="price">@item.CarPrices.Last().Price ریال</small>*@
                             </section>
                         </a>
-                    }   
+                    }
                 </div>
-@*                <div dir="ltr">
-                    <small dir="ltr"><a href="javascript:void()" onclick="document.getElementById('sendToCarPageSearch').submit()" class="gia-left">نمایش بیشتر</a></small>
-                </div>*@
+                @*                <div dir="ltr">
+                        <small dir="ltr"><a href="javascript:void()" onclick="document.getElementById('sendToCarPageSearch').submit()" class="gia-left">نمایش بیشتر</a></small>
+                    </div>*@
             </div>
         </div>
     }
@@ -101,31 +101,38 @@
                         <section>
                             <strong>@item.ProductName</strong><br />
                             <small>@item.Category.CategoryName</small><br />
-                            <small class="price">@if (item.ProductPrices.Any()) { Write(item.ProductPrices.Last().InstallPrice + item.ProductPrices.Last().ProductPrice1); }  ریال</small>
-                        </section>
-                    </a>
-            }
+                            <small class="price">
+                                @if (item.ProductPrices.Any())
+                                            {
+                                                Write(string.Format("{0:#,###0}", item.ProductPrices.Last().InstallPrice + item.ProductPrices.Last().ProductPrice1));
+                                            }  تومان
+                                    </small>
+            
+                                </section>
+            
+                                </a>
+                }
             </div>
         </div>
     }
 
-    @if (services.Count() > 0)
+                                    @if (services.Count() > 0)
     {
         <div id="servicesResultShow">
             <h3>سرویس ها</h3>
             <div class="page listOfProducts">
                 @foreach (var item in services)
-                {
-                    var PicFileUrl = "~/Publics/Gallery/Services/" + item.AutoServiceId;
-                    var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+                                {
+                                    var PicFileUrl = "~/Publics/Gallery/Services/" + item.AutoServiceId;
+                                    var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
 
 
-                    var strImgPath = "~/Publics/Gallery/ProductImages/NotFound.png";
+                                    var strImgPath = "~/Publics/Gallery/ProductImages/NotFound.png";
 
-                    if (finfo.Exists && finfo.GetFiles().Count() > 0)
-                    {
-                        strImgPath = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
-                    }
+                                    if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                                    {
+                                        strImgPath = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
+                                    }
                     <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })" class="item">
                         <img src="@Url.Content(strImgPath)" />
                         <section>
@@ -134,7 +141,7 @@
                             <small class="price">@item.Price ریال</small>
                         </section>
                     </a>
-            }
+                }
             </div>
         </div>
     }
@@ -164,7 +171,7 @@
                             <small class="price">@item.PackPrice ریال</small>
                         </section>
                     </a>
-            }
+                }
             </div>
         </div>
     }
@@ -174,5 +181,5 @@
 
 
 @*<form method="get" action="/Cars" id="sendToCarPageSearch">
-    <input type="hidden" name="searchCar" value="@strsearch" />
-</form>*@
+        <input type="hidden" name="searchCar" value="@strsearch" />
+    </form>*@
