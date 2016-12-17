@@ -56,7 +56,9 @@ namespace CarProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.SendMessage();
                 model.SaveMessage();
+                return RedirectToAction("MaillsMessage_MarketingHistory");
             }
             return View(model);
         }

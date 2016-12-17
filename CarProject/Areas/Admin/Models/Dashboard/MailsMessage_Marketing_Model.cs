@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CarProject.App_extension;
+using System.Net.Mail;
 
 namespace CarProject.Areas.Admin.Models.Dashboard
 {
@@ -32,6 +33,29 @@ namespace CarProject.Areas.Admin.Models.Dashboard
 
             dbs.MarketingMails.Add(mm);
             dbs.SaveChanges();
+        }
+
+        public void SendMessage()
+        {
+            CLS.MailsServers.Mail_marketing mail = new CLS.MailsServers.Mail_marketing();
+            
+            foreach (var item in Emails)
+            {
+                var pr = dbs.People.FirstOrDefault(c => c.PersonId == item);
+                if (pr != null && !pr.PersonEmail.IsNullOrWhiteSpace())
+                {
+                    MailMessage message = new MailMessage();
+
+                    message.From = new MailAddress("marketing@khodroclinic.com");
+                    message.To.Add(new MailAddress(pr.PersonEmail));
+
+                    message.Subject = Subject;
+                    message.Body = MessageHtml.Replace("\n", "<br />");
+                    message.Sender = new MailAddress("marketing@khodroclinic.com", "مدیریت فروش خودروکلینیک");
+
+                    mail.SendMessage(message);
+                }
+            }
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
