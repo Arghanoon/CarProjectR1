@@ -38,6 +38,10 @@
 
 <title>@{if (ViewBag.Title != "") { Write(ViewBag.Title + " | "); }}خودرو کلینیک</title>
 
+    <link href="~/Css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/Css/MegaMenu.css" rel="stylesheet" />
+    <link href="~/Css/Red.css" rel="stylesheet" />
     <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
     <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
     <link href="~/Publics/Files/Resources/StorePage/Default.css" rel="stylesheet" />
@@ -110,7 +114,7 @@
         	@*<a href="#" class="gia-menuIcon" ></a>*@
             <h1>خودرو کلینیک | </h1>
         </section>
-        <nav id="header2_menucontianer">
+        <nav id="dropdown mega-dropdown">
         	@ProductMenuGenerator(null)
         </nav>
     </header>

@@ -18,7 +18,7 @@ namespace CarProject.Areas.Users.Controllers
         //
         // GET: /Users/profile/
 
-        
+
         public ActionResult Index()
         {
             return View();
@@ -38,7 +38,7 @@ namespace CarProject.Areas.Users.Controllers
         {
             var dbs = new DBSEF.CarAutomationEntities();
             var user = GetCurrentLoginedUser;
-            var userfromDb = dbs.Users.FirstOrDefault(c => c.UserId ==  user.UserId);
+            var userfromDb = dbs.Users.FirstOrDefault(c => c.UserId == user.UserId);
 
             if (form["currentPassword"].IsNullOrWhiteSpace() || form["currentPassword"] == null)
                 ModelState.AddModelError("currentPassword", "کلمه عبور فعلی وارد نشده است");
@@ -270,7 +270,7 @@ namespace CarProject.Areas.Users.Controllers
                     error.Add("کاربری با مشخصات وارد شده یافت نشد");
                 }
             }
-            
+
 
             ViewBag.loginerror = error;
             return View();

@@ -28,11 +28,11 @@
             var tmpcar = dbs.Cars.FirstOrDefault(c => c.CarsId == id);
             if(tmpcar != null)
             {
-                <span>@tmpcar.Price ریال</span>
+                <span>@string.Format("{0:#,###0}", @tmpcar.Price) تومان</span>
             }
             else
             {
-                <span>0 ریال</span>
+                <span>0 تومان</span>
             }
         }
     </section>
