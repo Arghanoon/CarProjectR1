@@ -177,27 +177,8 @@ namespace CarProject.Areas.Users.Controllers
                 model.Person.User.UserRoleId = 2;
 
                 {//Send Activation Email to User
-                    MailMessage message = new MailMessage();
-                    message.To.Add(new MailAddress(model.Person.PersonEmail));
-                    message.IsBodyHtml = true;
-
-                    var ActivationEmailContent = new Areas.Admin.Models.Dashboard.MailsMessage_Signup_SendActivationcode();
-                    ActivationEmailContent.Load();
-                    string messageBody = ActivationEmailContent.Message.Replace("[codeonly]", model.Person.User.ActiveRecoveryCode);
-                    messageBody = messageBody.Replace("[codelink]", string.Format("<a href=\"{0}\">{0}</a>", model.Person.User.ActiveRecoveryCode));
-
-                    messageBody = messageBody.Replace("[userfullname]", model.Person.PersonFirtstName + " " + model.Person.PersonLastName);
-                    messageBody = messageBody.Replace("[username]", model.Person.User.Uname);
-                    messageBody = messageBody.Replace("[password]", model.Password);
-
-                    messageBody = string.Format("\n\r<html><body>{0}</body></html>\n\r", messageBody);
-
-                    message.Body = messageBody;
-                    message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
-
-
                     var nr = new CLS.MailsServers.Mail_noreply();
-                    nr.SendMessage(message);
+                    nr.SendUserActivationMail(model, Url, Request);
                 }
 
                 //saveChanges if Allthin be correct
@@ -295,6 +276,29 @@ namespace CarProject.Areas.Users.Controllers
             return View();
         }
 
+        [UsersCLS.Users_DontAuthFilter]
+        public ActionResult userActivation(string ActiveCode,string User)
+        {
+            if (ActiveCode.IsNullOrWhiteSpace() || User.IsNullOrWhiteSpace())
+                return Redirect("/");
+            return View(model: new Tuple<string, string>(ActiveCode, User));
+        }
+        [UsersCLS.Users_DontAuthFilter]
+        public ActionResult UserResendUserActivationCode(string User)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var userid = dbs.People.FirstOrDefault(p => p.User.Uname == User);
+            if (userid == null)
+                Redirect("/");
+            var model = new CarProject.Models.User.UserInfo(userid.User.UserId);
+               
+            {//Send Activation Email to User                
+                var nr = new CLS.MailsServers.Mail_noreply();
+                nr.SendUserActivationMail(model, Url, Request);
+            }
+            return View(model);
+        }
+
 
         public static DBSEF.User GetCurrentLoginedUser
         {
@@ -316,6 +320,8 @@ namespace CarProject.Areas.Users.Controllers
         {
             get
             {
+                if (GetCurrentLoginedUser == null)
+                    return null;
                 var dbs = new DBSEF.CarAutomationEntities();
                 return dbs.People.FirstOrDefault(p => p.UserId == GetCurrentLoginedUser.UserId);
             }
