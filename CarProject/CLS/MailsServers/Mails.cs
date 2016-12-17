@@ -77,4 +77,23 @@ namespace CarProject.CLS.MailsServers
             this.SendMessage(message);
         }
     }
+
+    public class Mail_marketing : IMails    
+    {
+        private SmtpClient client = new SmtpClient();
+        public Mail_marketing()
+        {
+            client = new SmtpClient("mail.khodroclinic.com");
+            client.Credentials = new NetworkCredential("marketing@khodroclinic.com", "'>F<>p%~f44U@suJ");
+        }
+        public SmtpClient Client
+        {
+            get { return client; }
+        }
+
+        public void SendMessage(MailMessage message)
+        {
+            client.Send(message);
+        }
+    }
 }
