@@ -24,7 +24,8 @@
     <script src="~/Publics/Scripts/tinymce/tinymce.min.js"></script>
     <link href="~/Publics/Files/Resources/PublicClasses.css" rel="stylesheet" />
 
-    
+    <link href="~/Publics/Scripts/PersianDateTimePicker/Content/PersianDatePicker.css" rel="stylesheet" />
+    <script src="~/Publics/Scripts/PersianDateTimePicker/Scripts/PersianDatePicker.js"></script>
 
     @RenderSection("style",false)
 </head>
@@ -70,8 +71,16 @@
                 <a href="@Url.Action("Products","Store")" class="gia-products">محصولات</a>
                 <a href="@Url.Action("ProductComments","Store")" class="gia-chat">پیام های کاربران</a>
                 <a href="@Url.Action("Product_Forum","Store")" class="gia-forum">پرسش و پاسخ</a>
+                <hr />
+                <a href="@Url.Action("ProductsInventory","Store")">مدیریت موجودی محصولات</a>
+                <a href="@Url.Action("SelectProductForIncreaseEntity","Store")">افزایش موجودی محصولات</a>
             </nav>
-
+            
+            <nav>
+                <strong class="gia-cart title">خرید مشتریان</strong>
+                <a href="@Url.Action("Baskets","Store")">خریدهای کاربران</a>
+            </nav>
+            
             <nav>
                 <strong class="gia-sparePart title">مدیریت سرویس ها</strong>
                 <a href="@Url.Action("Services_New","Store")" class="gia-service">اضافه کردن سرویس</a>
@@ -91,11 +100,17 @@
             </nav> 
             
             
-            <nav>
+            @*<nav>
                 <strong class="title">مدیریت پلن های تحویل کالا/ انجام سرویس</strong>
                 <a href="@Url.Action("DeliveryTypes_New","Store")" class="">اضافه کردن پلن</a>
                 <a href="@Url.Action("DeliveryTypes","Store")" class="">مدیریت پلن ها</a>
-            </nav>    
+            </nav>   *@
+            
+            <nav>
+                <strong class="title">مدیریت برنامه زمانی تحویل کالا</strong>
+                <a href="@Url.Action("DaliveryDateTime","Store")" class="">برنامه زمانی تحویل کالا</a>
+                <a href="@Url.Action("DaliveryDateTime_Define","Store")" class="">ثبت روز و بازه زمانی</a>
+            </nav>   
             
             <nav>
                 <strong class="title">بازاریابی</strong>

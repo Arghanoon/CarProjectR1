@@ -28,6 +28,10 @@ li{
 }
 
 
+#TopHeader {
+    display: none;
+}
+
 #MainContainer {
     display:flex;
     align-items:flex-start;
@@ -36,10 +40,16 @@ li{
 
 /*-----------------------------[rightBar]-----------------------------*/
 #rightBar {
+    min-width:250px;
     width:20%;
     background:white;
     padding:5px;
 }
+    #rightBar > div:nth-child(n+2) {
+        border-top: thin solid #d4d4d4;
+        margin-top: 5px;
+        padding-top: 5px;
+    }
 
 #ProfileSection {
     display: flex;
@@ -79,22 +89,25 @@ li{
 
 #NavigationsInRightBar {
     display: flex;
-    flex-direction: column;
-    margin-top:5px;
-    padding-top:5px;
-    border-top:thin solid #d4d4d4;
+    flex-direction: column;   
 }
     #NavigationsInRightBar > * {
         margin:2px;
     }
 
+
+
+
 /*---------------------------[Content]---------------------------*/
 #Content {
-    flex:1;
-    background: white;
+    flex: 1;
     margin: 0 5px;
-    padding:5px;
 }
+    #Content .item {
+        background: #fff;
+        margin-bottom: 5px;
+        padding: 5px;
+    }
 
 
 
@@ -199,3 +212,90 @@ li{
         filter: none;
     }
 
+/*-----------------------------------Footer_StatusBar-------------------------------------*/
+#footerStatusBar {
+    position:fixed;
+    bottom:0; left:0; right:0;
+    background:white;
+    box-shadow:0 -1px 2px 0 #888;
+}
+
+#Statusbar_Notifications {
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+}
+    #Statusbar_Notifications .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding:5px;
+        margin:2.5px;
+        border:thin solid;
+        border-radius:5px;
+        background:white;
+    }
+
+        #Statusbar_Notifications .item .icon {
+            font-size:100%;
+            display:flex; justify-content:center; align-items:center;
+        }
+        #Statusbar_Notifications .item .count {
+           position:absolute;
+           top:0%; left:0; right:0;
+           width:100%; height:100%;
+           margin:auto;
+           padding:3px;
+           border-radius:50% 50% 0 0; 
+           color:#fff;
+           background:#ff4500;
+           display:flex; justify-content:center; align-items:flex-start;
+           font-size:80%;
+           transition:0.5s;
+           z-index:-1;
+        }
+        #Statusbar_Notifications .item.haveMessage .count {
+            top:-70%;
+        }
+        #Statusbar_Notifications .item:hover .count {
+            top:-100%;
+        }
+
+/*------------------------------------NOTIFICATATIONS-------------------------------------*/
+
+.NotificationShow {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+    .NotificationShow .item {
+        margin: 5px;
+        border: thin solid #ff4500;
+        border-right: thick solid #ff4500;
+        background: #fff1eb;
+        padding:5px;
+    }
+        .NotificationShow .item .subject {
+        }
+
+        .NotificationShow .item .message {
+            font-size: 85%;
+        }
+
+        .NotificationShow .item .action {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+ul.notificationShortViewMessage li {
+   list-style:none;
+   margin-right:0;
+   padding-right:0;
+}
+    ul.notificationShortViewMessage li:before {
+        font-family: giadmin;
+        display: inline-block;
+        margin: 0 3px;
+        direction: ltr;
+        content: '\0986';
+    }

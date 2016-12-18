@@ -1,5 +1,7 @@
 ﻿@{
     var person = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
+    var personcarnotification = new CarProject.Areas.Users.UsersCLS.Notifications.UserCarsNotifications();
+    var NotificationsCount = personcarnotification.Notifications.Count;
 }
 <!doctype html>
 <html>
@@ -17,6 +19,8 @@
     <link href="~/Areas/Admin/Files/StyleAndScripts/Default/ItemsShowing.css" rel="stylesheet" />
 
     <link href="~/Areas/Users/resources/Styles/Default/Default2.css" rel="stylesheet" />
+    <link href="~/Areas/Users/resources/Styles/Default/Default2_mm.css" media="(max-width:1000px)" rel="stylesheet" />
+    <link href="~/Areas/Users/resources/Styles/Default/Default2_ms.css" media="(max-width:700px)" rel="stylesheet" />
     
     <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
 
@@ -24,6 +28,10 @@
 </head>
 
 <body>
+
+    <header id="TopHeader">
+        <a href="javascript:void()" onclick="$('#rightBar').toggleClass('show')" class="gia-menuIcon"></a>
+    </header>
 
     <div id="MainContainer">
         <div id="rightBar">
@@ -41,10 +49,12 @@
                 <form method="post" id="logoutform" action="@Url.Action("LogoutRequest", "profile", new { area = "Users" })" ></form>
                 </section>
             </div>
+
+            
             
             <div id="NavigationsInRightBar">
                 <a href="/" class="gia-home">صفحه اصلی</a>
-                <a href="/Store" class="gia-cart">فروشگاه</a>
+                <a href="/Store/ProductsList" class="gia-cart">فروشگاه</a>
                 <a href="/Users/profile" class="gia-user">پروفایل</a>
                 <a href="/Store/Cart" class="gia-cart">سبد خرید کاربر</a>
                 <a href="/Users/Dashboard/ShoppingHistory" class="gia-details">تاریخچه خریدها</a>
@@ -61,8 +71,29 @@
         </div>
     </div>
 
+
+    <footer id="footerStatusBar">
+        <div id="Statusbar_Notifications" >
+
+            <a href="/Users/profile/UserNotifications" class="item @if (NotificationsCount > 0) { Write("haveMessage"); }">
+                <span class="icon gia-alert"></span>
+                <span class="count">@if (NotificationsCount > 99)
+                                    { <span>+99</span> }
+                                    else
+                                    { <span>@NotificationsCount</span> }</span>
+            </a>
+
+            <a href="#" class="item">
+                <span class="icon gia-message"></span>
+                <span class="count">0</span>
+            </a>
+
+        </div>
+    </footer>
+
 </body>
 
+    <script src="~/Areas/Users/resources/Styles/Default/Default2.js"></script>
     @RenderSection("script", false)
 
 </html>
