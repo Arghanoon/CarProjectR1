@@ -124,7 +124,7 @@ img {
 				padding:0 5px;
 				display:flex; justify-content:center; align-items:center;
 				border-bottom:2px solid transparent;
-				
+				min-height:30px;
 				transition:ease 0.3s;
 				height:100%;
 				cursor:pointer;
@@ -154,19 +154,32 @@ img {
 			{
 				opacity:1;
 			}*/
-			
+
+            #header2_menucontianer .menuItem {
+                position: static;
+            }
 			#header2_menucontianer .menuItem > nav
 			{
 				position:absolute;
-				top:100%;  right:0;
-                min-width:100%;
+				top:100%;  right:0; left:0;
+                margin:auto;
+                margin-top:-2px;
 				border-top:thin solid #bababa;
 				box-shadow:0 3px 3px 0 #888;
 				display:none;
-                flex-direction:column;
 				background:white;
 				z-index:999;
 			}
+                #header2_menucontianer .menuItem > nav.level0 {
+                    width: 90%;
+                }
+
+                #header2_menucontianer .menuItem > nav.level1 {
+                    flex-direction:column;
+                    flex-wrap:wrap;
+                    justify-content:flex-start;
+                    align-items:flex-start;
+                }
 			#header2_menucontianer .menuItem:hover > nav{
 				display:flex;
 			}

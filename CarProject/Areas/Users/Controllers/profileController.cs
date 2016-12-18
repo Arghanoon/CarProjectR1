@@ -177,40 +177,6 @@ namespace CarProject.Areas.Users.Controllers
                 model.Person.User.UserRoleId = 2;
 
                 {//Send Activation Email to User
-<<<<<<< HEAD
-=======
-                    MailMessage message = new MailMessage();
-                    message.To.Add(new MailAddress(model.Person.PersonEmail));
-                    message.IsBodyHtml = true;
-
-                    var ActivationEmailContent = new Areas.Admin.Models.Dashboard.MailsMessage_Signup_SendActivationcode();
-                    ActivationEmailContent.Load();
-
-                    message.Subject = "activation";
-                    string messageBody = ActivationEmailContent.Message.Replace("[codeonly]", model.Person.User.ActiveRecoveryCode);
-
-                   // messageBody = "کاربر گرامی [username]  < br />< br /> ثبت نام شما با موفقیت در سایت انجام شد < br />< br /> برای فعال سازی حساب کاربری خود به لینک زیر مراجعه فرمایید < br />< br />[codelink] < br />< br /> سایت خودرو کلینیک";
-
-                    messageBody = messageBody.Replace("[codelink]", string.Format("<a href=\"{0}\">{0}</a>", model.Person.User.ActiveRecoveryCode));
-
-                    messageBody = messageBody.Replace("[userfullname]", model.Person.PersonFirtstName + " " + model.Person.PersonLastName);
-                    messageBody = messageBody.Replace("[username]", model.Person.User.Uname);
-                    messageBody = messageBody.Replace("[password]", model.Password);
-
-                   // messageBody = string.Format("<html><body>{0}</body></html>", messageBody);
-
-
-                //    messageBody = ("This email sent by the PSSP system<br />");
-
-
-                    string body = "Hello " + model.Person.User.Uname + ",";
-                    body += "<br /><br />Please click the following link to activate your account";
-                    body += "<br /><a href = '" + Request.Url.AbsoluteUri.Replace("CS.aspx", "CS_Activation.aspx?ActivationCode=" + model.Person.User.ActiveRecoveryCode) + "'>Click here to activate your account.</a>";
-                    body += "<br /><br />Thanks";
-                    message.Body = messageBody;
-                    message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
-
->>>>>>> refs/remotes/origin/master
                     var nr = new CLS.MailsServers.Mail_noreply();
                     nr.SendUserActivationMail(model, Url, Request);
                 }
