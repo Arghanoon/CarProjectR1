@@ -5,7 +5,7 @@
 
 @functions
 {
-    MvcHtmlString ProductMenuGenerator(int? id)
+    MvcHtmlString ProductMenuGenerator(int? id,int level = 0)
     {
         string res = "";
         var dbs = new CarProject.DBSEF.CarAutomationEntities();
@@ -14,13 +14,13 @@
         
         foreach (var item in productsGroup)
         {
-            res += string.Format("<section class=\"menuItem\">");
+            res += string.Format("<section class=\"menuItem {0}\">", "level" + level.ToString());
             res += string.Format("<a href=\"{0}\">{1}</a>", "/Store/ProductsList/" + item.CategoryId.ToString(), item.CategoryName);
 
-            var nav = ProductMenuGenerator(item.CategoryId);
+            var nav = ProductMenuGenerator(item.CategoryId, level + 1);
 
             if (nav != null && !string.IsNullOrWhiteSpace(nav.ToString()))
-                res += string.Format("<nav>{0}</nav>", nav);
+                res += string.Format("<nav class=\"{0}\">{1}</nav>", "level" + level.ToString(), nav);
             
             res += string.Format("</section>");
         }
@@ -38,10 +38,6 @@
 
 <title>@{if (ViewBag.Title != "") { Write(ViewBag.Title + " | "); }}خودرو کلینیک</title>
 
-    <link href="~/Css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Css/bootstrap-rtl.css" rel="stylesheet" />
-    <link href="~/Css/MegaMenu.css" rel="stylesheet" />
-    <link href="~/Css/Red.css" rel="stylesheet" />
     <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
     <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
     <link href="~/Publics/Files/Resources/StorePage/Default.css" rel="stylesheet" />
@@ -114,7 +110,7 @@
         	@*<a href="#" class="gia-menuIcon" ></a>*@
             <h1>خودرو کلینیک | </h1>
         </section>
-        <nav id="dropdown mega-dropdown">
+        <nav id="header2_menucontianer">
         	@ProductMenuGenerator(null)
         </nav>
     </header>
