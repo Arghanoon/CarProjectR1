@@ -298,3 +298,43 @@
     box-shadow:none;
 }
 /*---------------------------------------Buttons------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*-------------------------[messageInLine]-------------------------------*/
+.messageInLine {
+    color: #000;
+    background: #fff;
+    border: thin solid;
+    border-right: 5px solid;
+    padding: 5px;
+    margin: 5px;
+}
+    .messageInLine.blue {
+        color: #0000b3;
+        background: #ebebff;
+        border-color: #0000ff;
+    }
+
+    .messageInLine.green {
+        color: #406a00;
+        background: #f3ffe0;
+        border-color: #adff2f;
+    }
+
+    .messageInLine.red {
+        color: #621b00;
+        background: #ffe2d8;
+        border-color: #ff4500;
+    }
+/*-------------------------[END OF messageInLine]-------------------------------*/

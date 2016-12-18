@@ -1,11 +1,14 @@
 ﻿@{
     ViewBag.Title = "پروفایل کاربر";
+    
     var person = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
+    var personcarnotification = new CarProject.Areas.Users.UsersCLS.Notifications.UserCarsNotifications();
 }
 
 
 
-<div>
+
+<div class="item">
     <h3>دسترسی سریع</h3>
 
     <div class="menu1Container">
@@ -36,6 +39,16 @@
             <section class="title">خودرو کاربر</section>
         </a>
     </div>
+</div>
+
+<div class="item">
+    <h3>هشدارها</h3>
+    <ul class="notificationShortViewMessage">
+        @foreach (var item in personcarnotification.Notifications)
+        {
+            <li><a href="#">@item.Message</a></li>
+        }
+    </ul>
 </div>
 
 
@@ -98,5 +111,7 @@
                 .menu1Container a:hover .title {
                     top:0;
                 }
+
+
     </style>
 }

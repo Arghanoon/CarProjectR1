@@ -71,7 +71,13 @@
         flex:1;
        margin-top:-5px;
     }
-
+        .newsBody #newsBodyContent #DescirbeNews {
+            width:98%;
+            margin:auto;
+            border:thin solid #e4e4e4;
+            border-radius:5px;
+            padding:5px;
+        }
 .newsFooter {
     background: #e0e0e0;
     margin: -5px;

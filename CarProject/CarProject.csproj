@@ -470,8 +470,6 @@
     <Content Include="Areas\Users\resources\Styles\Default\Default.css" />
     <Content Include="Areas\Users\resources\Styles\Default\Default2.css" />
     <Content Include="Areas\Users\resources\Styles\Default\Default2.js" />
-    <Content Include="Publics\Files\Images\generic.png" />
-    <Content Include="Publics\Files\Images\white-leather.png" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
     <Content Include="Publics\Files\Resources\CarsPages\CarsComments.css" />

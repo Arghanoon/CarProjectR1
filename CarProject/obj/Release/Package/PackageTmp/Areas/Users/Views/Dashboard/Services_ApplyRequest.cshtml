@@ -12,7 +12,7 @@
 
 @using CarProject.App_Code
 
-<div>
+<div class="item">
     <h3>درخواست استفاده از سرویس</h3>
     <hr />
 
@@ -43,7 +43,7 @@
                                             <section>
                                                 <strong>@item.Product.ProductName</strong><br />
                                                 <small>@item.Product.Category.CategoryName</small><br />
-                                                <small class="price">@if (item.Product.ProductPrices.Any()){<span>@item.Product.ProductPrices.Last().ProductPrice1</span>}else {<span>0</span>} ریال</small>
+                                                <small class="price">@if (item.Product.ProductPrices.Any()){<span>@string.Format("{0:#,###0}", @item.Product.ProductPrices.Last().ProductPrice1)</span>}else {<span>0</span>} تومان</small>
                                             </section>
                                         </a>
                                     }
@@ -54,7 +54,7 @@
                                             <section>
                                                 <strong>@item.Product.ProductName</strong><br />
                                                 <small>@item.Product.Category.CategoryName</small><br />
-                                                <small class="price">@item.Product.ProductPrices.Last().ProductPrice1 ریال</small>
+                                                <small class="price">@string.Format("{0:#,###0}",@item.Product.ProductPrices.Last().ProductPrice1) تومان</small>
                                             </section>
                                         </a>
                                     }
@@ -67,7 +67,7 @@
     </table>
 </div>
 
-<div>
+<div class="item">
     <h3>ثبت درخواست</h3>
     <form method="post">
 

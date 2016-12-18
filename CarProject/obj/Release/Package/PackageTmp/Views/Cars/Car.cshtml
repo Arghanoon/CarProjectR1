@@ -35,8 +35,8 @@
         <div id="contentTopBarSection" class="pagesection">
             <div>
                 <a href="/Users/Dashboard/InsertPersonCar/@Model.Car.CarsId" class="gia-usercar">ثبت به عنوان خودروی کاربر</a>
-                |
-                <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarForum", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })" class="gia-forum">پرسش و پاسخ</a>
+                @*|
+                <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarForum", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })" class="gia-forum">پرسش و پاسخ</a>*@
             </div>
             <div id="viewsandpopularContianer">
                 <section class="gia-users">@carstoviewobject.View</section>
@@ -90,38 +90,38 @@
                 {
                     <tr>
                         <th>قیمت</th>
-                        <td>@Model.Car.Price</td>
+                        <td>@string.Format("{0:#,###0}", @Model.Car.Price)</td>
                     </tr>
                 }
-                @if (!Model.Car.CarsVideoURL.IsNullOrWhiteSpace())
+                                    @if (!Model.Car.CarsVideoURL.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>آدرس ویدئو</th>
                         <td><a href="@Model.Car.CarsVideoURL">@Model.Car.CarsVideoURL</a></td>
                     </tr>
                 }
-                @if (!Model.Car.CarsDescription.IsNullOrWhiteSpace())
+                                    @if (!Model.Car.CarsDescription.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>توضیحات</th>
                         <td>@Model.Car.CarsDescription</td>
                     </tr>
                 }
-                @if (!Model.Car.CarClassType.IsNullOrWhiteSpace())
+                                    @if (!Model.Car.CarClassType.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>کلاس کاری</th>
                         <td>@Model.Car.CarClassType</td>
                     </tr>
                 }
-                @if (!Model.Car.CarCategory.IsNullOrWhiteSpace())
+                                    @if (!Model.Car.CarCategory.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>دسته بندی</th>
                         <td>@Model.Car.CarCategory</td>
                     </tr>
                 }
-                @if (!Model.Car.CarUsage.IsNullOrWhiteSpace())
+                                    @if (!Model.Car.CarUsage.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>کاربر</th>
@@ -197,7 +197,7 @@
         }
 
         @if (!Model.GearBox.IsNull)
-        {
+                        {
             <div class="pagesection">
                 <h2 class="infoHeader active">گیربکس</h2>
                 <table class="infoTable">
@@ -269,7 +269,7 @@
         }
 
         @if (Model.PhysicalDetail != null)
-        {
+                        {
             <div class="pagesection">
                 <h2 class="infoHeader active">مشخصات فیزیکی</h2>
                 <table class="infoTable">
@@ -334,7 +334,7 @@
         }
 
         @if (!Model.FuelConsumption.IsNull)
-        {
+                        {
             <div class="pagesection">
                 <h2 class="infoHeader active">سیستم سوخت رسانی</h2>
                 <table class="infoTable">
@@ -371,7 +371,7 @@
         }
 
         @if (!Model.BrakeSystem.IsNull && Model.DetailedBrakeSystems.Count > 0)
-        {
+                        {
             <div class="pagesection">
                 <h2 class="infoHeader active">سیستم ترمز</h2>
                 <table class="infoTable">
@@ -411,7 +411,7 @@
                         </tr>
                     }
                     @if (Model.DetailedBrakeSystems.Count != 0)
-                    {
+                        {
                         <tr>
                             <th>جزئیات دیگر</th>
                             <td>
@@ -522,7 +522,7 @@
             </table>
         </div>
 @if (!Model.AirConditioningSystem.IsNull)
-{
+                        {
     <div class="pagesection">
         <h2 class="infoHeader active">سیستم تهویه هوا</h2>
         <table class="infoTable">
@@ -544,12 +544,12 @@
     </div>
 }
 @if (Model.AirConditioningSystemDetails.Count != 0)
-{
+                        {
         <div class="pagesection">
             <h2 class="infoHeader active">جزئیات سیستم تهویه هوا</h2>
             <table class="grid1">
                 @if (Model.AirConditioningSystemDetails.Count != 0)
-                {
+                        {
                     <thead>
 
                         <tr>
@@ -923,7 +923,7 @@
             </table>
         </div>
 @if (!Model.CarAirbag.IsNull)
-{
+                        {
     <div class="pagesection">
         <h2 class="infoHeader active">سیستم کیسه هوا</h2>
         <table class="infoTable">
@@ -966,7 +966,7 @@
     </div>
 }
 @if (!Model.CarWheel.IsNull)
-{ 
+                        {
     <div class="pagesection">
         <h2 class="infoHeader active">رینگ و لاستیک</h2>
         <table class="infoTable">
@@ -1023,37 +1023,37 @@
     </div>
   }  
 @if (Model.Pros.Count != 0)
-{
+                        {
     <div class="pagesection">
         <h2 class="infoHeader active">معایب و مزیای</h2>
         <table class="infoTable">
             @if (Model.Pros.Count != 0)
-            {
+                        {
                 <tr>
                     <th>مزایا</th>
                     <td>
                         @foreach (var item in @Model.Pros)
                         {
-                            if (item.CarsProOrCro == true)
-                            {
+                                if (item.CarsProOrCro == true)
+                                {
                                 <section>@item.CarProCro</section>
+                                }
                             }
-                        }
                     </td>
                 </tr>
             }
             @if (Model.Cros.Count != 0)
-            {
+                        {
                 <tr>
                     <th>معایب</th>
                     <td>
                         @foreach (var item in @Model.Cros)
                         {
-                            if (item.CarsProOrCro == false)
-                            {
+                                if (item.CarsProOrCro == false)
+                                {
                                 <section>@item.CarProCro</section>
+                                }
                             }
-                        }
                     </td>
                 </tr>
             }
@@ -1061,7 +1061,7 @@
     </div>
 }
 @if (!Model.CarsReview.IsNull)
-{
+                        {
     <div class="pagesection">
         <h2 class="infoHeader active">بررسی</h2>
         <table class="infoTable">
@@ -1133,6 +1133,95 @@
                 </tbody>
             </table>*@
 
+
+
+        
+        
+        <hr />
+        <div class="pagesection">
+            @{var comments = dbs.CarComments.Where(c => c.CarsId == Model.Car.CarsId && c.canshow == true).OrderByDescending(c => c.CarCommentsId).Take(10); }
+            @if(comments.Count() > 0)
+            {
+                <div>
+                    <h3><a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarsComments", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName, info3 = "نظرات کاربران" })">نظرات کاربران</a></h3>
+                    <div class="content">
+                        <div class="commentsContaniner">
+
+                            @foreach (var item in comments)
+                            {
+                                <div class="item">
+                                    <section class="header">
+                                        <span class="gia-chat">@item.Fullname</span>
+                                        <span>@item.datetime.DateTime_Persian()</span>
+                                    </section>
+                                    <section class="body">
+                                        <section>@item.Comment</section>
+                                        @if (item.Response != null)
+                                        {
+                                            <section class="response">@item.Response</section>
+                                        }
+                                    </section>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            <hr />
+            <div  id="usersCommentsSection">
+                <h3>ثبت نظر</h3>
+                <div>
+                    @try
+                    {
+                        ViewBag.error["success"] = "<span class='successMessage'>" + ViewBag.error["success"] + "</span>"; @Html.Raw(ViewBag.error["success"]) }
+                    catch
+                    {
+                        <form method="post">
+                            <div class="form" id="commentForm">
+                                <label>
+                                    <span>نام و نام خانوادگی</span>
+                                    <input type="text" name="fullname" placeholder="نام و نام خانوادگی" value="@Request.Form["fullname"]" />
+                                    <span class="error">@try
+                                                        { @ViewBag.error["fullname"] }
+                                                        catch { }</span>
+                                </label>
+                                <label>
+                                    <span>ایمیل</span>
+                                    <input type="text" name="email" placeholder="username@server.com" dir="ltr" value="@Request.Form["email"]" />
+                                    <span class="error">@try
+                                                        { @ViewBag.error["email"] }
+                                                        catch { }</span>
+                                </label>
+                                <label>
+                                    <span>پیام</span>
+                                    <textarea name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                                    <span class="error">@try
+                                                        { @ViewBag.error["comment"] }
+                                                        catch { }</span>
+                                </label>
+                                <label>
+                                    <span>کد امنیتی</span>
+                                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                        <a href="javascript:void()" onclick="ReloadCaptcha('captcha')">
+                                            <img id="captcha" src="/default/index" /></a>
+                                        <small>برای تغییر کد روی تصویر کلیک کنید</small>
+                                        <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
+                                    </div>
+                                    <span class="error">@try { @ViewBag.error["captcha"] } catch { }</span>
+                                </label>
+                            </div>
+
+                            <div class="formAction">
+                                <input type="submit" name="SendACommentRequest" class="button green" value="ثبت پیام" />
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+
+        </div>
+        
+        
     </div>
 
     <nav id="navigation">
@@ -1269,12 +1358,12 @@
                                 if (!paks.ContainsKey(packitem.AutoServicePackId))
                                 { paks.Add(packitem.AutoServicePackId, packitem); }
                             }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@item.Price ریال</small></a>
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@string.Format("{0:#,###0}", @item.Price) تومان</small></a>
                         }
                     </div>
                 </div>
             }
-        }
+                                    }
 
         @{
             if (paks.Count > 0)
@@ -1283,19 +1372,21 @@
                     <h3>سرویس پک های مرتبط با خودرو</h3>
                     <div class="listviewoflinks">
                         @foreach (var item in paks.Values)
-                        {
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice ریال</small></a>
+                                    {
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>string.Format("{0:#,###0}",@item.PackPrice) تومان</small></a>
                         }
                     </div>
                 </div>
             }
-        }
+                            }
 
-        @{var comments = dbs.CarComments.Where(c => c.CarsId == Model.Car.CarsId && c.canshow == true).OrderBy(c => c.datetime);}
-        @if (comments.Count() > 0)
+
+        @*{var comments = dbs.CarComments.Where(c => c.CarsId == Model.Car.CarsId && c.canshow == true).OrderByDescending(c => c.CarCommentsId).Take(10); }
+        @if(comments.Count() > 0)
+
         {
             <div class="rightpanelSection">
-                <h3>نظرات کاربران</h3>
+                <h3><a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarsComments", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName, info3 = "نظرات کاربران" })">نظرات کاربران</a></h3>
                 <div class="content">
                     <div class="commentsContaniner">
 
@@ -1306,7 +1397,13 @@
                                     <span class="gia-chat">@item.Fullname</span>
                                     <span>@item.datetime.DateTime_Persian()</span>
                                 </section>
-                                <section class="body">@item.Comment</section>
+                                <section class="body">
+                                    <section>@item.Comment</section>
+                                    @if (item.Response != null)
+                                    {
+                                        <section class="response">@item.Response</section>
+                                    }
+                                </section>
                             </div>
                         }
                     </div>
@@ -1374,7 +1471,7 @@
                     </form>
                 }
             </div>
-        </div>
+        </div>*@
 
     </nav>
 </div>

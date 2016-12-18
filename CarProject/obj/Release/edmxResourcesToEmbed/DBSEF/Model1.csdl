@@ -83,6 +83,7 @@
     <Property Name="ProductEachPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ProductEachPaidPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ToatoalPaidPrice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PriceFlag" Type="Byte" />
     <NavigationProperty Name="Basket" Relationship="Self.FK_BasketItems_Baskets" FromRole="BasketItems" ToRole="Baskets" />
   </EntityType>
   <EntityType Name="Basket">
@@ -99,8 +100,15 @@
     <Property Name="BankCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="LocalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="DiscountId" Type="Int32" />
+    <Property Name="ReciverFullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ReciverTell" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReciverMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReciverAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ReciverWorkplace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TimeOfDayId" Type="Int32" />
     <NavigationProperty Name="BasketItems" Relationship="Self.FK_BasketItems_Baskets" FromRole="Baskets" ToRole="BasketItems" />
     <NavigationProperty Name="ProductsOrServicesDeliveryType" Relationship="Self.FK_Baskets_Baskets" FromRole="Baskets" ToRole="ProductsOrServicesDeliveryTypes" />
+    <NavigationProperty Name="TimeOfDay" Relationship="Self.FK_Baskets_DaysOfWeek" FromRole="Baskets" ToRole="TimeOfDay" />
     <NavigationProperty Name="Discount" Relationship="Self.FK_Baskets_Discount" FromRole="Baskets" ToRole="Discount" />
     <NavigationProperty Name="User" Relationship="Self.FK_Baskets_User" FromRole="Baskets" ToRole="User" />
   </EntityType>
@@ -171,6 +179,8 @@
     <Property Name="UserId" Type="Int32" />
     <Property Name="canshow" Type="Boolean" />
     <Property Name="datetime" Type="DateTime" Precision="3" />
+    <Property Name="Response" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ResponseDateTime" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Car" Relationship="Self.FK_CarComments_Cars" FromRole="CarComments" ToRole="Cars" />
     <NavigationProperty Name="User" Relationship="Self.FK_CarComments_User" FromRole="CarComments" ToRole="User" />
   </EntityType>
@@ -552,6 +562,16 @@
     <Property Name="CountryLongName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Manufactures" Relationship="Self.FK_Manufacture_Country" FromRole="Country" ToRole="Manufacture" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Product_Country" FromRole="Country" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="DaysOfWeek">
+    <Key>
+      <PropertyRef Name="DaysOfWeekId" />
+    </Key>
+    <Property Name="DaysOfWeekId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="DayOfWeek" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="TimeOfDays" Relationship="Self.FK_TimeOfDay_DaysOfWeek" FromRole="DaysOfWeek" ToRole="TimeOfDay" />
   </EntityType>
   <EntityType Name="DetailedBrakeSystem">
     <Key>
@@ -965,15 +985,16 @@
     <Property Name="CarId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_SteeringSystem_Cars" FromRole="SteeringSystem" ToRole="Cars" />
   </EntityType>
-  <EntityType Name="sysdiagram">
+  <EntityType Name="TimeOfDay">
     <Key>
-      <PropertyRef Name="diagram_id" />
+      <PropertyRef Name="TimeOfDayId" />
     </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="TimeOfDayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TimePeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DaysOfWeekId" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Baskets" Relationship="Self.FK_Baskets_DaysOfWeek" FromRole="TimeOfDay" ToRole="Baskets" />
+    <NavigationProperty Name="DaysOfWeek" Relationship="Self.FK_TimeOfDay_DaysOfWeek" FromRole="TimeOfDay" ToRole="DaysOfWeek" />
   </EntityType>
   <EntityType Name="TodaysSpecial">
     <Key>
@@ -990,10 +1011,10 @@
       <PropertyRef Name="TroubleshootingId" />
     </Key>
     <Property Name="TroubleshootingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="TroubleshootinParentId" Type="Int32" />
     <Property Name="Type" Type="Byte" />
+    <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TroubleshootinParentId" Type="Int32" />
     <Property Name="Price" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Products" Relationship="Self.TroubleshootingProducts" FromRole="Troubleshooting" ToRole="Product" />
   </EntityType>
@@ -1216,6 +1237,18 @@
       </Principal>
       <Dependent Role="Baskets">
         <PropertyRef Name="DelivaryTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Baskets_DaysOfWeek">
+    <End Role="TimeOfDay" Type="Self.TimeOfDay" Multiplicity="0..1" />
+    <End Role="Baskets" Type="Self.Basket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeOfDay">
+        <PropertyRef Name="TimeOfDayId" />
+      </Principal>
+      <Dependent Role="Baskets">
+        <PropertyRef Name="TimeOfDayId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1759,6 +1792,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_TimeOfDay_DaysOfWeek">
+    <End Role="DaysOfWeek" Type="Self.DaysOfWeek" Multiplicity="0..1" />
+    <End Role="TimeOfDay" Type="Self.TimeOfDay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DaysOfWeek">
+        <PropertyRef Name="DaysOfWeekId" />
+      </Principal>
+      <Dependent Role="TimeOfDay">
+        <PropertyRef Name="DaysOfWeekId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ProductDiscount_Discount">
     <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
     <End Role="ProductDiscount" Type="Self.ProductDiscount" Multiplicity="*" />
@@ -2063,7 +2108,7 @@
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
     <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
@@ -2102,6 +2147,7 @@
     <EntitySet Name="ContentsCategories" EntityType="Self.ContentsCategory" />
     <EntitySet Name="ContetComments" EntityType="Self.ContetComment" />
     <EntitySet Name="Countries" EntityType="Self.Country" />
+    <EntitySet Name="DaysOfWeeks" EntityType="Self.DaysOfWeek" />
     <EntitySet Name="DetailedBrakeSystems" EntityType="Self.DetailedBrakeSystem" />
     <EntitySet Name="Discounts" EntityType="Self.Discount" />
     <EntitySet Name="FuelConsumptions" EntityType="Self.FuelConsumption" />
@@ -2133,7 +2179,7 @@
     <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShow" />
     <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="TimeOfDays" EntityType="Self.TimeOfDay" />
     <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />
     <EntitySet Name="Troubleshootings" EntityType="Self.Troubleshooting" />
     <EntitySet Name="Users" EntityType="Self.User" />
@@ -2200,6 +2246,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_Baskets" Association="Self.FK_Baskets_Baskets">
       <End Role="ProductsOrServicesDeliveryTypes" EntitySet="ProductsOrServicesDeliveryTypes" />
+      <End Role="Baskets" EntitySet="Baskets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Baskets_DaysOfWeek" Association="Self.FK_Baskets_DaysOfWeek">
+      <End Role="TimeOfDay" EntitySet="TimeOfDays" />
       <End Role="Baskets" EntitySet="Baskets" />
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_Discount" Association="Self.FK_Baskets_Discount">
@@ -2381,6 +2431,10 @@
     <AssociationSet Name="FK_Product_Country" Association="Self.FK_Product_Country">
       <End Role="Country" EntitySet="Countries" />
       <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimeOfDay_DaysOfWeek" Association="Self.FK_TimeOfDay_DaysOfWeek">
+      <End Role="DaysOfWeek" EntitySet="DaysOfWeeks" />
+      <End Role="TimeOfDay" EntitySet="TimeOfDays" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductDiscount_Discount" Association="Self.FK_ProductDiscount_Discount">
       <End Role="Discount" EntitySet="Discounts" />

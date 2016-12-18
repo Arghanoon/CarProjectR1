@@ -104,6 +104,9 @@
 
         </div>
         <div id="newsBodyContent" class="page">
+            <section id="DescirbeNews">
+                @news.ContentDescribe
+            </section>
             @Html.Raw(news.ContentText)
         </div>
     </div>

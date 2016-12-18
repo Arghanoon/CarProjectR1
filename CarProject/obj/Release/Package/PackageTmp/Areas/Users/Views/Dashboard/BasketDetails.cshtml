@@ -8,7 +8,7 @@
 @using CarProject.App_Code
 
 
-<div class="page" id="billingInformation">
+<div class="item" id="billingInformation">
     <h3>لیست محصولات درخواستی</h3>
     <hr />
     <table class="grid">
@@ -46,12 +46,12 @@
     <div id="totalpriceSectionContainer">
         <section id="totalPrice">
             <strong>مبلغ کل فاکتور</strong>
-            <small>@TotalPrice ریال</small>
+            <small>@string.Format("{0:#,###0}",@TotalPrice) تومان</small>
         </section>
     </div>
 </div>
 
-<div class="page">
+<div class="item">
     <a href="/Users/Dashboard/ShoppingHistory" class="gia-back">برگشت به تاریخچه خرید ها</a>
 </div>
 
