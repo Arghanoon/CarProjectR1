@@ -14,14 +14,16 @@
         
         foreach (var item in productsGroup)
         {
-            res += string.Format("<section class=\"menuItem {0}\">", "level" + level.ToString());
+            res += string.Format("<section class=\"{0}\">", "level" + level.ToString());
             res += string.Format("<a href=\"{0}\">{1}</a>", "/Store/ProductsList/" + item.CategoryId.ToString(), item.CategoryName);
 
             var nav = ProductMenuGenerator(item.CategoryId, level + 1);
-
-            if (nav != null && !string.IsNullOrWhiteSpace(nav.ToString()))
-                res += string.Format("<nav class=\"{0}\">{1}</nav>", "level" + level.ToString(), nav);
-            
+            if(!string.IsNullOrWhiteSpace(nav.ToString()))
+            {
+                res += string.Format("<div class=\"level{0}Container\">", level + 1);
+                res += nav.ToString();
+                res += "</div>";
+            }
             res += string.Format("</section>");
         }
 
@@ -110,7 +112,7 @@
         	@*<a href="#" class="gia-menuIcon" ></a>*@
             <h1>خودرو کلینیک | </h1>
         </section>
-        <nav id="header2_menucontianer">
+        <nav id="header2_menucontianer" class="MenuDynamicthreelevel">
         	@ProductMenuGenerator(null)
         </nav>
     </header>

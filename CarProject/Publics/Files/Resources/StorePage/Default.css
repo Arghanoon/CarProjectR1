@@ -110,84 +110,56 @@ img {
         
         padding:1px 5px;
 	}
-		#header2_menucontianer{
-			position:static;
-			flex:1;
-			margin-right:10px;
-			display:flex; 
-			justify-content:flex-start;
-			align-items:stretch;
-		}
-			#header2_menucontianer  a{
-				position:static;
-				color:black;
-				padding:0 5px;
-				display:flex; justify-content:center; align-items:center;
-				border-bottom:2px solid transparent;
-				min-height:30px;
-				transition:ease 0.3s;
-				height:100%;
-				cursor:pointer;
-			}
-			#header2_menucontianer  a:hover,
-			#header2_menucontianer  a:focus{
-				background:#f7f6fa;
-				border-bottom:2px solid #ff4500;
-			}
-			/*#header2_menucontianer > a:after,
-			#header2_menucontianer > .a:after
-			{
-				content:'';
-				position:absolute; 
-				left:0; right:0; bottom:0;
-				margin:auto;
-				width:0;
-				border-bottom:7px solid #ff4500;
-				border-right:7px solid transparent;
-				border-left:7px solid transparent;
-				opacity:0;
-				transition:ease 0.3s;
-			}
-			
-			#header2_menucontianer > a:hover:after,
-			#header2_menucontianer > .a:hover:after
-			{
-				opacity:1;
-			}*/
-
-            #header2_menucontianer .menuItem {
-                position: static;
-            }
-			#header2_menucontianer .menuItem > nav
-			{
-				position:absolute;
-				top:100%;  right:0; left:0;
-                margin:auto;
-                margin-top:-2px;
-				border-top:thin solid #bababa;
-				box-shadow:0 3px 3px 0 #888;
-				display:none;
-				background:white;
-				z-index:999;
-			}
-                #header2_menucontianer .menuItem > nav.level0 {
-                    width: 90%;
-                }
-
-                #header2_menucontianer .menuItem > nav.level1 {
-                    flex-direction:column;
-                    flex-wrap:wrap;
-                    justify-content:flex-start;
-                    align-items:flex-start;
-                }
-			#header2_menucontianer .menuItem:hover > nav{
-				display:flex;
-			}
-
-            #header2_menucontianer .menuItem > nav a {
-                white-space:nowrap;
-            }
+		
 /*----------------------ENDHeaders--------------------*/
+
+/*------------------------------------[MenuDynamicthreelevel]-------------------------------------*/
+.MenuDynamicthreelevel
+	{
+		background:#e4e4e4;		
+		display:flex;
+        width:100%;
+        flex:1;
+	}
+		.MenuDynamicthreelevel a { color:#000000; text-decoration:none; transition:0.5s;}
+
+		.MenuDynamicthreelevel .level0,
+		.MenuDynamicthreelevel .level1 { white-space:nowrap; position:static; padding:5px; display:flex; justify-content:center; align-items:center; border:thin solid transparent; border-bottom:2px solid transparent;}
+		.MenuDynamicthreelevel .level0:hover,
+		.MenuDynamicthreelevel .level1:hover { background:#f4f4f4; border-color:#d4d4d4; border-bottom-color:#FF4500; box-shadow:0 0 3px 0 #d4d4d4 inset;}
+	
+		.MenuDynamicthreelevel .level0 > .level1Container
+		{
+			position:absolute;
+			top:100%; left:0; right:0;
+			width:100%;
+			border-top:thin solid #888;
+			background:#f3f3f3;
+			box-shadow:0 3px 3px 0 #888;
+			display:none;
+            z-index:9999999;
+		}
+			.MenuDynamicthreelevel .level0:hover > .level1Container {display:flex;}
+			
+		.MenuDynamicthreelevel .level1 > .level2Container
+		{
+			position:absolute;
+			top:100%; left:0; right:0;
+			min-width:100%;
+			max-height:300px;
+			border-top:thin solid #888;
+			background:#f3f3f3;
+			box-shadow:0 3px 3px 0 #888;
+			display:none;
+			flex-direction:column;
+			flex-wrap: wrap;
+			padding:5px;
+			overflow:auto;
+            z-index:9999999;
+		}
+			.MenuDynamicthreelevel .level1:hover > .level2Container { display:flex;}
+			.MenuDynamicthreelevel .level2 { min-width: 100px ; white-space:nowrap; }
+/*------------------------------------[END OF MenuDynamicthreelevel]-------------------------------------*/
 
 
 
