@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "اخبار";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var news = dbs.Contents.AsQueryable();
+    var lastnews = news.OrderByDescending(n => n.ContenstId).Take(30);
+
+    var rand = new Random();
+}
+
+@section style
+{
+    <link href="~/Publics/Files/Resources/NewsPage/Index.css" rel="stylesheet" />
+}
+
+<div class="page" id="newsHomePage">
+
+    <h3>آخرین اخبار</h3>
+    <div class="newsContainer" id="LastNews">
+        
+        @foreach (var item in lastnews)
+        {
+            var imagelink = "~/Publics/Gallery/ProductImages/NotFound.png";
+            var path = "~/Publics/Gallery/NewsImages/" + item.ContenstId;
+            var dicinfo = new DirectoryInfo(Server.MapPath(path));
+            if (dicinfo.Exists)
+            {
+                var files = dicinfo.GetFiles();
+                if (files.Length > 0)
+                {
+                    imagelink = path + "/" + files[rand.Next(0, files.Length)].Name;
+                }
+            }
+            <div class="newsItem">
+
+                <img src="@Url.Content(imagelink)" alt="@item.ContentSubject" />
+
+                <div class="newsItemInfo">
+                    <strong class="title">@item.ContentSubject</strong>
+
+                    <section class="briefshow">
+                        @item.ContentDescribe
+                    </section>
+
+                    <section class="footer">
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "News", action = "NewsShow", id = item.ContenstId, info1 = item.ContentsCategory.Name, info2 = item.ContentSubject })" >ادامه ... </a>
+                </section>
+                </div>
+                
+                
+            </div>
+        }
+    </div>
+    
+</div>

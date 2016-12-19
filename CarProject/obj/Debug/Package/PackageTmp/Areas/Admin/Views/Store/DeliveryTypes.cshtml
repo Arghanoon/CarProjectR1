@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "پلن های ارائه خدمات";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var plans = dbs.ProductsOrServicesDeliveryTypes.AsQueryable();
+}
+
+
+<div>
+    <a class="gia-back" href="/Admin/Store/DeliveryTypes_New">اضافه کردن پلن جدید</a>
+</div>
+<hr />
+
+<div id="ShowPlansContianer">
+    <div class="itemContainer">
+       @foreach (var item in plans)
+       {
+           <div class="item">
+               <section class="title">
+                   <strong>@item.DeliverTypeID</strong> - <small>@item.Name</small>
+               </section>
+               <table>
+                   <tr>
+                       <th>نام پلن</th>
+                       <td>@item.Name</td>
+                   </tr>
+                   <tr>
+                       <th>هزینه</th>
+                       <td>@item.Price</td>
+                   </tr>
+                   <tr>
+                       <th>زمان تحویل (ساعت)</th>
+                       <td>@item.Hour</td>
+                   </tr>
+               </table>
+
+               <section class="action">
+                   <a href="/Admin/Store/DeliveryTypes_Update/@item.DeliverTypeID" class="gia-edit"></a>
+               </section>
+           </div>
+       }
+    </div>
+</div>

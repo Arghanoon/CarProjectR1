@@ -183,8 +183,8 @@ namespace CarProject.Areas.Users.Controllers
 
                 //saveChanges if Allthin be correct
                 model.Save();
-
-                return RedirectToAction("Login");
+                ModelState.AddModelError("successSignUp", "ثبت نام با موفقیت انجام پذیرفت");
+                
             }
             return View(model);
         }
@@ -212,8 +212,8 @@ namespace CarProject.Areas.Users.Controllers
                 var dbs = new DBSEF.CarAutomationEntities();
                 var username = form["username"].ToLower();
                 var pass = CLS.Usefulls.MD5Passwords(form["password"]);
-                var user = dbs.Users.FirstOrDefault(u => u.Uname.ToLower() == username && u.Upass == pass && u.IsActive == true && u.UserRoleId == 2);
-                if (user != null)
+                var user = dbs.Users.FirstOrDefault(u => u.Uname.ToLower() == username && u.Upass == pass && u.UserRoleId == 2);
+                if (user != null && user.IsActive == true)
                 {
                     Session["guestUser"] = user;
 
@@ -265,6 +265,11 @@ namespace CarProject.Areas.Users.Controllers
                     else
                         return RedirectToAction("Index");
                 }
+                else if (user != null && user.IsActive == null)
+                {
+                    var userperson = dbs.People.FirstOrDefault(p => p.UserId == user.UserId);
+                    error.Add(string.Format("نام کاربری شما هنوز فعال نشده است. <br /><a href='/users/profile/UserResendUserActivationCode?User={0}'>ارسال مجدد ایمیل فعالسازی به {1}</a><br /> <a href=\"/users/profile/UserResendUserActivationCodeToNewEmail?User={0}\">ویرایش ایمیل و ارسال مجدد ایمیل فعال سازی</a>", user.Uname, userperson.PersonEmail));
+                }
                 else
                 {
                     error.Add("کاربری با مشخصات وارد شده یافت نشد");
@@ -297,6 +302,44 @@ namespace CarProject.Areas.Users.Controllers
                 nr.SendUserActivationMail(model, Url, Request);
             }
             return View(model);
+        }
+        [UsersCLS.Users_DontAuthFilter]
+        public ActionResult UserResendUserActivationCodeToNewEmail(string User)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var person = dbs.People.FirstOrDefault(p => p.User.Uname == User);
+            if (person == null)
+                Redirect("/");
+            
+            return View(model: person.PersonEmail);
+        }
+        [HttpPost,UsersCLS.Users_DontAuthFilter]
+        public ActionResult UserResendUserActivationCodeToNewEmail(string User,FormCollection form)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var person = dbs.People.FirstOrDefault(p => p.User.Uname == User);
+            if (person == null)
+                Redirect("/");
+           
+
+            if (!form.AllKeys.Contains("email") || form["email"].IsNullOrWhiteSpace())
+                ModelState.AddModelError("email", "ایمیل وارد نشده است");
+            else if(!form["email"].String_IsEmail())
+                ModelState.AddModelError("email", "ایمیل وارد شده صحیح نیست");
+
+
+            if(ModelState.IsValid)
+            {//Send Activation Email to User  
+                person.PersonEmail = form["email"];
+                person.User.ActiveRecoveryCode = Guid.NewGuid().ToString();
+                dbs.SaveChanges();
+                var model = new CarProject.Models.User.UserInfo(person.User.UserId);
+                var nr = new CLS.MailsServers.Mail_noreply();
+                nr.SendUserActivationMail(model, Url, Request);
+                ModelState.AddModelError("successSendMessage", "ایمیل فعال سازی با موفقیت ارسال شد");
+            }
+
+            return View(model: person.PersonEmail);
         }
 
 
