@@ -118,7 +118,7 @@ img {
 	{
 		background:#e4e4e4;		
 		display:flex;
-        width:100%;
+        font-size: 80%;
         flex:1;
 	}
 		.MenuDynamicthreelevel a { color:#000000; text-decoration:none; transition:0.5s;}

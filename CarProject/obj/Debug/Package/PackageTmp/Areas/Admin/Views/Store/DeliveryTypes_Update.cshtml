@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "ویرایش پلن مدت زمان تحویل کالا/انجام سرویس";
+}
+@model CarProject.DBSEF.ProductsOrServicesDeliveryType
+@using CarProject.App_Code
+
+<div>
+    <a class="gia-back" href="/Admin/Store/DeliveryTypes">مدیریت پلن ها</a>
+</div>
+<hr />
+
+<div id="NewDeliveryTypeFormContainer">
+    <h3>ویرایش پلن مدت زمان تحویل کالا/انجام خدمات</h3>
+    <form id="NewDeliveryTypeForm" method="post">
+        @Html.HiddenFor(m => m.DeliverTypeID)
+        <div class="inputsContainer">
+            @Html.input_TextBox(m => m.Name, "نام طرح")
+            @Html.input_TextBox(m => m.Price, "هزینه")
+            @Html.input_TextBox(m=> m.Hour, "ساعت")
+        </div>
+        <div class="inputAction">
+            <input type="submit" class="button green" value="ویرایش پلن" />
+        </div>
+    </form>
+</div>
+
+<div>
+    <h3>راهنما:</h3>
+    <hr />
+    <section>این قسمت برای ایجاد پلن هایی برای انجام خدمات یا تحویل کالا به مشتری است</section>
+    <ul>
+        <li><strong>نام طرح:</strong> این قسمت مشخص کننده نام طرح است که نباید تکراری باشد <small>مثال: طرح عادی / پایه</small></li>
+        <li><strong>هزینه:</strong> این قسمت مبلغی که است در صورت انتخاب این پلن به سبد خرید مشتری اضافه می شود. در صورت نداشتن هزینه مقدار صفر وارد کنید <small>مثال: 1000</small></li>
+        <li><strong>ساعت:</strong> این بخش میزان ساعتی که در طی آن کالا تحویل مشتری می شود و یا خدمات برای مشتری انجام میشود تعیین میشود <small>مثال: 72</small></li>
+    </ul>
+</div>

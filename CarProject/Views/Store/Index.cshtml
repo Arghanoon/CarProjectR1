@@ -32,7 +32,8 @@
                         var files = dicinfo.GetFiles();
                         if (files.Length > 0)
                         {
-                            imagelink = path + "/" + files[rand.Next(0, files.Length)].Name;
+                            //imagelink = path + "/" + files[rand.Next(0, files.Length)].Name;
+                            imagelink = path + "/" + files[0].Name;
                         }
                     }
                     <div class="newsItem">
@@ -162,28 +163,16 @@
                             {
                                 var PicFileUrl = "~/Publics/Gallery/ProductImages/" + item.ProductId;
                                 var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
-
+                                
+                                var Product_image_src = "~/Publics/Gallery/ProductImages/NotFound.png";
                                 if (finfo.Exists && finfo.GetFiles().Count() > 0)
                                 {
-                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="slideItem">
-                                        <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" alt="@item.Category.CategoryName @item.ProductName" />
-                                        <section>
-                                            <strong>@item.ProductName</strong><br />
-                                            <small>@item.Category.CategoryName</small><br />
-                                            <small class="price">@if (@item.ProductPrices.Count > 0)
-                                                                 {
-                                                                     string.Format("{0:#,###0}", @item.ProductPrices.Last().ProductPrice1);}
-                                                            else
-                                                            {<span>0</span>} تومان</small>
-                
-                                                        </section>
-                
-                                                    </a>
+                                    //Product_image_src = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
+                                    Product_image_src = PicFileUrl + "/" + finfo.GetFiles()[0].Name;
                                 }
-                                                        else
-                                                        {
+
                                     <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="slideItem">
-                                        <img src="~/Publics/Gallery/ProductImages/NotFound.png" alt="@item.Category.CategoryName @item.ProductName" />
+                                        <img src="@Url.Content(Product_image_src)" alt="@item.Category.CategoryName @item.ProductName" />
                                         <section>
                                             <strong>@item.ProductName</strong><br />
                                             <small>@item.Category.CategoryName</small><br />
@@ -193,7 +182,6 @@
                                             {<span>0</span>} تومان</small>
                                         </section>
                                     </a>
-                                }
                             }
 
                         }
@@ -218,7 +206,10 @@
                                             var src = "~/Publics/Gallery/ProductImages/NotFound.png";
 
                                 if (finfo.Exists && finfo.GetFiles().Count() > 0)
-                                { src = Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name); }
+                                { 
+                                    //src = Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name);
+                                    src = Url.Content(PicFileUrl + "/" + finfo.GetFiles()[0].Name); 
+                                }
 
                                 <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })" class="slideItem">
                                     <img src="@Url.Content(src)" alt="@item.AutoServiceName" />
@@ -252,7 +243,10 @@
                                 var src = "~/Publics/Gallery/ProductImages/NotFound.png";
 
                                 if (finfo.Exists && finfo.GetFiles().Count() > 0)
-                                { src = Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name); }
+                                { 
+                                    //src = Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name);
+                                    src = Url.Content(PicFileUrl + "/" + finfo.GetFiles()[0].Name); 
+                                }
 
                                 <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })" class="slideItem">
                                     <img src="@Url.Content(src)" alt="@item.AutoServicePackName" />

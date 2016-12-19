@@ -951,6 +951,7 @@
     </Content>
     <Content Include="Areas\Users\Views\profile\userActivation.cshtml" />
     <Content Include="Areas\Users\Views\profile\UserResendUserActivationCode.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserResendUserActivationCodeToNewEmail.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
