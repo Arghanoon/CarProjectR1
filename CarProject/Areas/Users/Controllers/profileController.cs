@@ -74,6 +74,9 @@ namespace CarProject.Areas.Users.Controllers
         [HttpPost]
         public ActionResult UserEditePersonInformation(DBSEF.Person model)
         {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var currentperson = dbs.People.FirstOrDefault(c => c.PersonId == GetCurrentLoginPerson.PersonId);
+
             if (model.PersonFirtstName.IsNullOrWhiteSpace())
                 ModelState.AddModelError("PersonFirtstName", "نام کاربر وارد نشده است");
             if (model.PersonLastName.IsNullOrWhiteSpace())
@@ -83,6 +86,8 @@ namespace CarProject.Areas.Users.Controllers
                 ModelState.AddModelError("PersonEmail", "ایمیل کاربر وارد نشده است");
             else if (!model.PersonEmail.String_IsEmail())
                 ModelState.AddModelError("PersonEmail", "ایمیل وارد شده صحیح نیست");
+            else if (dbs.People.Count(p => p.PersonEmail == model.PersonEmail && p.UserId != currentperson.UserId) > 0)
+                ModelState.AddModelError("PersonEmail", "ایمیل وارد شده تکراری است");
 
             if (model.PersonMobile.IsNullOrWhiteSpace())
                 ModelState.AddModelError("PersonMobile", "همراه وارد نشده است");
@@ -98,7 +103,7 @@ namespace CarProject.Areas.Users.Controllers
             if (model.PersonAddress.IsNullOrWhiteSpace())
                 ModelState.AddModelError("PersonAddress", "آدرس وارد نشده است");
 
-            if (Request.Files.AllKeys.Contains("userImage"))
+            if (Request.Files.AllKeys.Contains("userImage") && Request.Files["userImage"].ContentLength > 0)
             {
                 if (!Request.Files["userImage"].ContentType.ContentTypeIsImage())
                     ModelState.AddModelError("userImage", "فرمت فایل آپلود شده مورد تایید نیست");
@@ -108,10 +113,7 @@ namespace CarProject.Areas.Users.Controllers
 
             if (ModelState.IsValid)
             {
-                var dbs = new DBSEF.CarAutomationEntities();
-                var currentperson = dbs.People.FirstOrDefault(c => c.PersonId == GetCurrentLoginPerson.PersonId);
-
-                if (Request.Files.AllKeys.Contains("userImage"))
+                if (Request.Files.AllKeys.Contains("userImage") && Request.Files["userImage"].ContentLength > 0)
                 {
                     var uimgpath = Server.MapPath("".BaseRouts_UserProfileImages());
                     DirectoryInfo dic = new DirectoryInfo(uimgpath);
@@ -340,6 +342,12 @@ namespace CarProject.Areas.Users.Controllers
             }
 
             return View(model: person.PersonEmail);
+        }
+        
+        [UsersCLS.Users_DontAuthFilter]
+        public ActionResult UserPasswordRecovery()
+        {
+            return View();
         }
 
 
