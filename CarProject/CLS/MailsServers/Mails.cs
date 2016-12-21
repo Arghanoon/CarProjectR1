@@ -63,6 +63,7 @@ namespace CarProject.CLS.MailsServers
             ActivationEmailContent.Load();
             string messageBody = ActivationEmailContent.Message.Replace("[codeonly]", model.Person.User.ActiveRecoveryCode);
             messageBody = messageBody.Replace("[codelink]", string.Format("<a href=\"{0}\">{1}</a>", Url.Action("userActivation", "profile", new { ActiveCode = model.Person.User.ActiveRecoveryCode, User = model.Person.User.Uname }, Request.Url.Scheme), "لینک فعال سازی حساب کاربری"));
+            messageBody = messageBody.Replace("[urlLink]", string.Format("{0}", Url.Action("userActivation", "profile", new { ActiveCode = model.Person.User.ActiveRecoveryCode, User = model.Person.User.Uname }, Request.Url.Scheme)));
 
             messageBody = messageBody.Replace("[userfullname]", model.Person.PersonFirtstName + " " + model.Person.PersonLastName);
             messageBody = messageBody.Replace("[username]", model.Person.User.Uname);
