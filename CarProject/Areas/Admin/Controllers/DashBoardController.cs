@@ -40,6 +40,22 @@ namespace CarProject.Areas.Admin.Controllers
             return View(model);
         }
 
+        public ActionResult MailsMessage_Signup_RecoveryKey()
+        {
+            var model = new Models.Dashboard.MailsMessage_Signup_RecoveryKey();
+            model.Load();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult MailsMessage_Signup_RecoveryKey(Models.Dashboard.MailsMessage_Signup_RecoveryKey model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+            }
+            return View(model);
+        }
+
 
         public ActionResult MaillsMessage_MarketingHistory()
         {

@@ -18,22 +18,22 @@ namespace CarProject.Controllers
         public ActionResult Index()
         {
             
-            DBSEF.CarAutomationEntities ca = new DBSEF.CarAutomationEntities();
-            if (!ca.Database.Exists())
-            {
-                ca.Database.CreateIfNotExists();
-                DBSEF.Person p = new DBSEF.Person();
-                p.PersonFirtstName = "Administrator";
-                p.PersonLastName = "Administrator";
-                p.User = new DBSEF.User { Uname = "Admin", Upass = CarProject.CLS.Usefulls.MD5Passwords("12341qaz!QAZ"), IsActive = true };
-                DBSEF.UserRole UR = new UserRole();
-                UR.UserRole1 = "Admin";
-                ca.UserRoles.Add(UR);
-                ca.People.Add(p);
-                ca.SaveChanges();
+            //DBSEF.CarAutomationEntities ca = new DBSEF.CarAutomationEntities();
+            //if (!ca.Database.Exists())
+            //{
+            //    ca.Database.CreateIfNotExists();
+            //    DBSEF.Person p = new DBSEF.Person();
+            //    p.PersonFirtstName = "Administrator";
+            //    p.PersonLastName = "Administrator";
+            //    p.User = new DBSEF.User { Uname = "Admin", Upass = CarProject.CLS.Usefulls.MD5Passwords("12341qaz!QAZ"), IsActive = true };
+            //    DBSEF.UserRole UR = new UserRole();
+            //    UR.UserRole1 = "Admin";
+            //    ca.UserRoles.Add(UR);
+            //    ca.People.Add(p);
+            //    ca.SaveChanges();
 
-            }
-            return RedirectToAction("Index", "Store");
+            //}
+            //return RedirectToAction("Index", "Store");
             return View();
         }
 

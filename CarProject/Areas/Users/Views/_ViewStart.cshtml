@@ -1,12 +1,12 @@
 ﻿@{
-    string[] profile_Public = new string[] { 
+    /*string[] profile_Public = new string[] { 
         "Signup", 
         "Login", 
         "userActivation", 
         "UserResendUserActivationCode", 
         "UserResendUserActivationCodeToNewEmail" ,
         "UserPasswordRecovery"
-    };
+    };*/
 
     var viewname = Url.RequestContext.RouteData.Values["action"].ToString();
     var x = ViewContext.Controller.GetType().GetMethods().First(m => m.Name == viewname);

@@ -48,7 +48,7 @@
                             </section>
 
                             <section class="footer">
-                                <a href="@Url.RouteUrl("infoRoute", new { controller = "News", action = "NewsShow", id = item.ContenstId, info1 = item.ContentsCategory.Name, info2 = item.ContentSubject })">ادامه ... </a>
+                                <a href="/News/NewsShow/@item.ContenstId/@item.ContentsCategory.Name/@item.ContentSubject">ادامه ... </a>
                             </section>
                         </div>
 
@@ -201,6 +201,8 @@
                             var xServices = dbs.AutoServices.OrderByDescending(p => p.AutoServiceId).Take(20);
                             foreach (var item in xServices)
                             {
+                                decimal price = 0;
+                                decimal.TryParse(item.Price, out price);
                                 var PicFileUrl = "~/Publics/Gallery/Services/" + item.AutoServiceId;
                                             var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
                                             var src = "~/Publics/Gallery/ProductImages/NotFound.png";
@@ -216,7 +218,7 @@
                                     <section>
                                         <strong>@item.AutoServiceName</strong><br />
                                         @*<small>@item.Category.CategoryName</small><br />*@
-                                        <small class="price">@string.Format("{0:#,###0}",@item.Price) تومان</small>
+                                        <small class="price">@string.Format("{0:#,###0}",price) تومان</small>
                                     </section>
                                 </a>
 
@@ -242,6 +244,9 @@
                                 var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
                                 var src = "~/Publics/Gallery/ProductImages/NotFound.png";
 
+                                decimal price = 0;
+                                decimal.TryParse(item.PackPrice, out price);
+
                                 if (finfo.Exists && finfo.GetFiles().Count() > 0)
                                 { 
                                     //src = Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name);
@@ -252,7 +257,7 @@
                                     <img src="@Url.Content(src)" alt="@item.AutoServicePackName" />
                                     <section>
                                         <strong>@item.AutoServicePackName</strong><br />
-                                        <small class="price">@string.Format("{0:#,###0}", @item.PackPrice) تومان</small>
+                                        <small class="price">@string.Format("{0:#,###0}", @price) تومان</small>
                                     </section>
                                 </a>
 

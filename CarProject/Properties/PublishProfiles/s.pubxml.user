@@ -116,8 +116,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/Admin/Views/DashBoard/MaillsMessage_MarketingHistory.cshtml">
       <publishTime>12/11/2016 23:59:48</publishTime>
     </File>
+    <File Include="Areas/Admin/Views/DashBoard/MailsMessage_Signup_RecoveryKey.cshtml">
+      <publishTime>12/23/2016 12:34:45</publishTime>
+    </File>
     <File Include="Areas/Admin/Views/DashBoard/MailsMessage_Signup_SendActivationcode.cshtml">
-      <publishTime>12/13/2016 15:17:43</publishTime>
+      <publishTime>12/21/2016 07:16:03</publishTime>
     </File>
     <File Include="Areas/Admin/Views/DashBoard/ManufactursManagment.cshtml">
       <publishTime>12/11/2016 23:59:48</publishTime>
@@ -162,7 +165,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/11/2016 23:59:51</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/default.cshtml">
-      <publishTime>12/14/2016 07:44:22</publishTime>
+      <publishTime>12/23/2016 12:36:06</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/default_Store.cshtml">
       <publishTime>12/14/2016 12:16:03</publishTime>
@@ -396,7 +399,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 00:00:00</publishTime>
     </File>
     <File Include="Areas/Users/Views/profile/Login.cshtml">
-      <publishTime>12/19/2016 13:44:43</publishTime>
+      <publishTime>12/21/2016 09:32:51</publishTime>
     </File>
     <File Include="Areas/Users/Views/profile/Signup.cshtml">
       <publishTime>12/19/2016 14:13:14</publishTime>
@@ -412,6 +415,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Areas/Users/Views/profile/UserNotifications.cshtml">
       <publishTime>12/12/2016 00:00:00</publishTime>
+    </File>
+    <File Include="Areas/Users/Views/profile/UserPasswordRecovery.cshtml">
+      <publishTime>12/23/2016 12:58:38</publishTime>
+    </File>
+    <File Include="Areas/Users/Views/profile/UserRecoveryPassword.cshtml">
+      <publishTime>12/23/2016 16:09:13</publishTime>
     </File>
     <File Include="Areas/Users/Views/profile/UserResendUserActivationCode.cshtml">
       <publishTime>12/17/2016 18:48:39</publishTime>
@@ -435,7 +444,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 00:00:00</publishTime>
     </File>
     <File Include="Areas/Users/Views/_ViewStart.cshtml">
-      <publishTime>12/19/2016 14:27:24</publishTime>
+      <publishTime>12/22/2016 07:14:40</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>12/13/2016 00:56:58</publishTime>
@@ -456,10 +465,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/13/2016 00:56:58</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>12/19/2016 15:04:04</publishTime>
+      <publishTime>12/23/2016 16:06:57</publishTime>
     </File>
     <File Include="bin/CarProject.pdb">
-      <publishTime>12/19/2016 15:04:04</publishTime>
+      <publishTime>12/23/2016 16:06:57</publishTime>
     </File>
     <File Include="bin/Devart.Data.Linq.dll">
       <publishTime>12/13/2016 00:56:53</publishTime>
@@ -588,7 +597,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 00:00:07</publishTime>
     </File>
     <File Include="Publics/Files/Resources/StorePage/Default.css">
-      <publishTime>12/19/2016 11:28:40</publishTime>
+      <publishTime>12/19/2016 15:11:44</publishTime>
     </File>
     <File Include="Publics/Files/Resources/StorePage/Default.js">
       <publishTime>12/12/2016 00:00:07</publishTime>
@@ -1368,7 +1377,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 00:00:30</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/12/2016 00:00:30</publishTime>
+      <publishTime>12/23/2016 11:35:28</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
       <publishTime>12/12/2016 00:00:30</publishTime>
@@ -1380,7 +1389,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 00:00:31</publishTime>
     </File>
     <File Include="Views/News/NewsShow.cshtml">
-      <publishTime>12/18/2016 14:47:53</publishTime>
+      <publishTime>12/21/2016 17:53:32</publishTime>
     </File>
     <File Include="Views/public/template.cshtml">
       <publishTime>12/12/2016 00:00:35</publishTime>
@@ -1389,7 +1398,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/12/2016 19:00:29</publishTime>
     </File>
     <File Include="Views/public/template_Sotre.cshtml">
-      <publishTime>12/19/2016 11:29:22</publishTime>
+      <publishTime>12/19/2016 15:14:01</publishTime>
     </File>
     <File Include="Views/Store/Cart.cshtml">
       <publishTime>12/15/2016 10:54:05</publishTime>
@@ -1398,7 +1407,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/18/2016 00:42:00</publishTime>
     </File>
     <File Include="Views/Store/Index.cshtml">
-      <publishTime>12/19/2016 13:24:44</publishTime>
+      <publishTime>12/23/2016 11:34:27</publishTime>
     </File>
     <File Include="Views/Store/integratedSearch.cshtml">
       <publishTime>12/18/2016 00:42:00</publishTime>
@@ -1449,7 +1458,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 00:00:35</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/19/2016 15:05:42</publishTime>
+      <publishTime>12/23/2016 16:12:52</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -25,13 +25,16 @@
             </div>
             @try
             {
+                <ul style="font-size:80%">
+                    <li><a href="/Users/profile/UserPasswordRecovery">فراموشی کلمه عبور</a></li>
+                </ul>
                 <ul style="color: red; font-size: 80%;">
                     @foreach (var item in ViewBag.loginerror)
                     {
                         <li>@Html.Raw(item)</li>
                 }
                 </ul>
-        }
+            }
             catch
             {
             }
