@@ -1,9 +1,19 @@
 ﻿@{
-    if((Url.RequestContext.RouteData.Values["controller"].ToString() == "profile" && Url.RequestContext.RouteData.Values["action"].ToString() == "Signup") ||
-        (Url.RequestContext.RouteData.Values["controller"].ToString() == "profile" && Url.RequestContext.RouteData.Values["action"].ToString() == "Login") ||
-        (Url.RequestContext.RouteData.Values["controller"].ToString() == "profile" && Url.RequestContext.RouteData.Values["action"].ToString() == "userActivation") ||
-        (Url.RequestContext.RouteData.Values["controller"].ToString() == "profile" && Url.RequestContext.RouteData.Values["action"].ToString() == "UserResendUserActivationCode") ||
-        (Url.RequestContext.RouteData.Values["controller"].ToString() == "profile" && Url.RequestContext.RouteData.Values["action"].ToString() == "UserResendUserActivationCodeToNewEmail"))
+    /*string[] profile_Public = new string[] { 
+        "Signup", 
+        "Login", 
+        "userActivation", 
+        "UserResendUserActivationCode", 
+        "UserResendUserActivationCodeToNewEmail" ,
+        "UserPasswordRecovery"
+    };*/
+
+    var viewname = Url.RequestContext.RouteData.Values["action"].ToString();
+    var x = ViewContext.Controller.GetType().GetMethods().First(m => m.Name == viewname);
+    var atr = x.CustomAttributes.Select(c => c.AttributeType);
+    
+    //if ((Url.RequestContext.RouteData.Values["controller"].ToString() == "profile" && profile_Public.Contains(Url.RequestContext.RouteData.Values["action"].ToString())))
+    if(atr.Contains(typeof(CarProject.Areas.Users.UsersCLS.Users_DontAuthFilter)))
     {
         Layout = "~/Views/public/template_Sotre.cshtml";
     }

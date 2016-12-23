@@ -74,6 +74,9 @@ namespace CarProject.Areas.Users.Controllers
         [HttpPost]
         public ActionResult UserEditePersonInformation(DBSEF.Person model)
         {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var currentperson = dbs.People.FirstOrDefault(c => c.PersonId == GetCurrentLoginPerson.PersonId);
+
             if (model.PersonFirtstName.IsNullOrWhiteSpace())
                 ModelState.AddModelError("PersonFirtstName", "نام کاربر وارد نشده است");
             if (model.PersonLastName.IsNullOrWhiteSpace())
@@ -83,6 +86,8 @@ namespace CarProject.Areas.Users.Controllers
                 ModelState.AddModelError("PersonEmail", "ایمیل کاربر وارد نشده است");
             else if (!model.PersonEmail.String_IsEmail())
                 ModelState.AddModelError("PersonEmail", "ایمیل وارد شده صحیح نیست");
+            else if (dbs.People.Count(p => p.PersonEmail == model.PersonEmail && p.UserId != currentperson.UserId) > 0)
+                ModelState.AddModelError("PersonEmail", "ایمیل وارد شده تکراری است");
 
             if (model.PersonMobile.IsNullOrWhiteSpace())
                 ModelState.AddModelError("PersonMobile", "همراه وارد نشده است");
@@ -98,7 +103,7 @@ namespace CarProject.Areas.Users.Controllers
             if (model.PersonAddress.IsNullOrWhiteSpace())
                 ModelState.AddModelError("PersonAddress", "آدرس وارد نشده است");
 
-            if (Request.Files.AllKeys.Contains("userImage"))
+            if (Request.Files.AllKeys.Contains("userImage") && Request.Files["userImage"].ContentLength > 0)
             {
                 if (!Request.Files["userImage"].ContentType.ContentTypeIsImage())
                     ModelState.AddModelError("userImage", "فرمت فایل آپلود شده مورد تایید نیست");
@@ -108,10 +113,7 @@ namespace CarProject.Areas.Users.Controllers
 
             if (ModelState.IsValid)
             {
-                var dbs = new DBSEF.CarAutomationEntities();
-                var currentperson = dbs.People.FirstOrDefault(c => c.PersonId == GetCurrentLoginPerson.PersonId);
-
-                if (Request.Files.AllKeys.Contains("userImage"))
+                if (Request.Files.AllKeys.Contains("userImage") && Request.Files["userImage"].ContentLength > 0)
                 {
                     var uimgpath = Server.MapPath("".BaseRouts_UserProfileImages());
                     DirectoryInfo dic = new DirectoryInfo(uimgpath);
@@ -215,6 +217,10 @@ namespace CarProject.Areas.Users.Controllers
                 var user = dbs.Users.FirstOrDefault(u => u.Uname.ToLower() == username && u.Upass == pass && u.UserRoleId == 2);
                 if (user != null && user.IsActive == true)
                 {
+                    user.ActiveRecoveryCode = null;
+                    user.ActiveORecovery = null;
+                    dbs.SaveChanges();
+
                     Session["guestUser"] = user;
 
                     //cart redirect
@@ -340,6 +346,100 @@ namespace CarProject.Areas.Users.Controllers
             }
 
             return View(model: person.PersonEmail);
+        }
+        
+        [UsersCLS.Users_DontAuthFilter]
+        public ActionResult UserPasswordRecovery()
+        {
+            return View();
+        }
+        [HttpPost, UsersCLS.Users_DontAuthFilter]
+        public ActionResult UserPasswordRecovery(FormCollection form)
+        {
+            var dbs  = new DBSEF.CarAutomationEntities();
+            var email = "";
+            if (form.AllKeys.Contains("email"))
+                email = form["email"];
+
+            if (!form.AllKeys.Contains("email") || form["email"].IsNullOrWhiteSpace())
+                ModelState.AddModelError("email", "ایمیل وارد نشده است");
+            else if (!form["email"].String_IsEmail())
+                ModelState.AddModelError("email", "ایمیل وارد شده صحیح نیست");
+            else if(dbs.People.Count(p => p.PersonEmail.ToLower() == email.ToLower() && p.User.IsActive == true) <= 0)
+                ModelState.AddModelError("email", "کابری با ایمیل وارد شده یافت نشد");
+            
+
+            if (!form.AllKeys.Contains("captcha") || form["captcha"].IsNullOrWhiteSpace())
+                ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
+            else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(form["captcha"]))
+                ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نیست");
+            
+            if (ModelState.IsValid)
+            {
+                var people = dbs.People.FirstOrDefault(p => p.PersonEmail.ToLower() == email.ToLower());
+                people.User.ActiveORecovery = 1;
+                people.User.ActiveRecoveryCode = Guid.NewGuid().ToString();
+                dbs.SaveChanges();
+
+                CLS.MailsServers.Mail_noreply m = new CLS.MailsServers.Mail_noreply();
+                m.SendUserRecoveryMail(new CarProject.Models.User.UserInfo(people.UserId.Value), Url, Request);
+
+                ModelState.AddModelError("success", "ایمیل بازیابی کلمه عبور با موفقیت ارسال شد");
+            }
+            return View();
+        }
+
+        [UsersCLS.Users_DontAuthFilter]
+        public ActionResult UserRecoveryPassword(string user, string activeationcode)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+
+            if (user.IsNullOrWhiteSpace() ||
+                activeationcode.IsNullOrWhiteSpace())
+                ModelState.AddModelError("nullrequest", "کاربر و یا کد بازیابی کلمه عبور تعیین نشده است");
+            else if (dbs.Users.FirstOrDefault(u => u.IsActive == true && u.Uname.ToLower() == user.ToLower()) == null)
+                ModelState.AddModelError("usernotexist", "کاربری با نام کاربری وارد شده وجود ندارد");
+            else if (dbs.Users.FirstOrDefault(u => u.IsActive == true && u.Uname.ToLower() == user.ToLower() && u.ActiveRecoveryCode.ToLower() == activeationcode.ToLower()) == null)
+                ModelState.AddModelError("recoverycodeincorrect", "کد فعال سازی صحیح نیست");
+
+            return View();
+        }
+        [HttpPost, UsersCLS.Users_DontAuthFilter]
+        public ActionResult UserRecoveryPassword(string user, string activeationcode, FormCollection form)
+        {
+            if (!form.AllKeys.Contains("password1") || form["password1"].IsNullOrWhiteSpace())
+                ModelState.AddModelError("password1", "کلمه عبور جدید وارد نشده است");
+            if (!form.AllKeys.Contains("password2") || form["password2"].IsNullOrWhiteSpace())
+                ModelState.AddModelError("password2", "تایید کلمه عبور جدید وارد نشده است");
+
+            if (form.AllKeys.Contains("password1") &&
+                form.AllKeys.Contains("password2") &&
+                !form["password1"].IsNullOrWhiteSpace() &&
+                !form["password2"].IsNullOrWhiteSpace() &&
+                form["password2"] != form["password1"])
+            {
+                ModelState.AddModelError("password1", "کلمه عبور وتایید آن برابر نیست");
+                ModelState.AddModelError("password2", "کلمه عبور وتایید آن برابر نیست");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                var person = dbs.People.FirstOrDefault(p => p.User.Uname.ToLower() == user.ToLower());
+                if (person != null)
+                {
+                    person.User.ActiveRecoveryCode = null;
+                    person.User.ActiveORecovery = null;
+                    person.User.Upass = CLS.Usefulls.MD5Passwords(form["password1"]);
+                    dbs.SaveChanges();
+                }
+
+                ModelState.AddModelError("seccess", "عملیات با موفقیت انجام شد");
+            }
+
+
+            return View();
+
         }
 
 
