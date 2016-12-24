@@ -206,6 +206,7 @@
     <Property Name="GearBoxCode" Type="nvarchar" MaxLength="50" />
     <Property Name="GearBoxType" Type="nvarchar" MaxLength="50" />
     <Property Name="GearBoxCanBeManual" Type="bit" />
+    <Property Name="GearBoxShifter" Type="bit" />
     <Property Name="GearBoxShiftNumber" Type="int" />
     <Property Name="GearBoxAxel" Type="nvarchar" MaxLength="50" />
     <Property Name="HasTransferCase" Type="bit" />

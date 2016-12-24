@@ -211,6 +211,7 @@
           <Property Name="GearBoxCode" Type="nvarchar" MaxLength="50" />
           <Property Name="GearBoxType" Type="nvarchar" MaxLength="50" />
           <Property Name="GearBoxCanBeManual" Type="bit" />
+          <Property Name="GearBoxShifter" Type="bit" />
           <Property Name="GearBoxShiftNumber" Type="int" />
           <Property Name="GearBoxAxel" Type="nvarchar" MaxLength="50" />
           <Property Name="HasTransferCase" Type="bit" />
@@ -2643,6 +2644,7 @@
           <Property Name="GearBoxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GearBoxType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GearBoxCanBeManual" Type="Boolean" />
+          <Property Name="GearBoxShifter" Type="Boolean" />
           <Property Name="GearBoxShiftNumber" Type="Int32" />
           <Property Name="GearBoxAxel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HasTransferCase" Type="Boolean" />
@@ -5173,6 +5175,7 @@
                 <ScalarProperty Name="GearBoxCode" ColumnName="GearBoxCode" />
                 <ScalarProperty Name="GearBoxType" ColumnName="GearBoxType" />
                 <ScalarProperty Name="GearBoxCanBeManual" ColumnName="GearBoxCanBeManual" />
+                <ScalarProperty Name="GearBoxShifter" ColumnName="GearBoxShifter" />
                 <ScalarProperty Name="GearBoxShiftNumber" ColumnName="GearBoxShiftNumber" />
                 <ScalarProperty Name="GearBoxAxel" ColumnName="GearBoxAxel" />
                 <ScalarProperty Name="HasTransferCase" ColumnName="HasTransferCase" />

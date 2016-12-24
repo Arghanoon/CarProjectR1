@@ -107,7 +107,7 @@
             <h3>خودروها</h3>
             <div id="CarsContainer" class="SideBarItemsContainer">
                 @{
-                    var cars = dbs.Cars.OrderByDescending(c => c.CarsId).Take(30);
+                    var cars = dbs.Cars.OrderByDescending(c => c.CarsId).Take(18);
                     foreach (var item in cars)
                     {
                         var imgpaht = "~/Publics/Gallery/CarImages/" + item.CarsId.ToString();

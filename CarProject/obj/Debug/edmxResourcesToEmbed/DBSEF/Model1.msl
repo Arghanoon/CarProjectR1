@@ -221,6 +221,7 @@
           <ScalarProperty Name="GearBoxCode" ColumnName="GearBoxCode" />
           <ScalarProperty Name="GearBoxType" ColumnName="GearBoxType" />
           <ScalarProperty Name="GearBoxCanBeManual" ColumnName="GearBoxCanBeManual" />
+          <ScalarProperty Name="GearBoxShifter" ColumnName="GearBoxShifter" />
           <ScalarProperty Name="GearBoxShiftNumber" ColumnName="GearBoxShiftNumber" />
           <ScalarProperty Name="GearBoxAxel" ColumnName="GearBoxAxel" />
           <ScalarProperty Name="HasTransferCase" ColumnName="HasTransferCase" />

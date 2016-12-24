@@ -237,6 +237,7 @@
     <Property Name="GearBoxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GearBoxType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GearBoxCanBeManual" Type="Boolean" />
+    <Property Name="GearBoxShifter" Type="Boolean" />
     <Property Name="GearBoxShiftNumber" Type="Int32" />
     <Property Name="GearBoxAxel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="HasTransferCase" Type="Boolean" />

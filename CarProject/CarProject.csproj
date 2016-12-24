@@ -932,6 +932,12 @@
     <Content Include="Areas\Admin\Views\Store\DaliveryDateTime_Define.cshtml" />
     <Content Include="Areas\Admin\Views\Store\DaliveryDateTime.cshtml" />
     <Content Include="Areas\Admin\Views\Store\DaliveryDateTime_Update.cshtml" />
+    <Content Include="Areas\Users\Views\profile\userActivation.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserResendUserActivationCode.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserResendUserActivationCodeToNewEmail.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserPasswordRecovery.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MailsMessage_Signup_RecoveryKey.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserRecoveryPassword.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -949,12 +955,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Users\Views\profile\userActivation.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserResendUserActivationCode.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserResendUserActivationCodeToNewEmail.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserPasswordRecovery.cshtml" />
-    <Content Include="Areas\Admin\Views\DashBoard\MailsMessage_Signup_RecoveryKey.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserRecoveryPassword.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
