@@ -166,6 +166,7 @@
     <Property Name="CarBrandName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="CarBrandHistory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="CarModels" Relationship="Self.FK_CarModel_CarBrand" FromRole="CarBrand" ToRole="CarModel" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Product_CarBrand" FromRole="CarBrand" ToRole="Product" />
   </EntityType>
   <EntityType Name="CarComment">
     <Key>
@@ -237,6 +238,7 @@
     <Property Name="GearBoxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GearBoxType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GearBoxCanBeManual" Type="Boolean" />
+    <Property Name="GearBoxShifter" Type="Boolean" />
     <Property Name="GearBoxShiftNumber" Type="Int32" />
     <Property Name="GearBoxAxel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="HasTransferCase" Type="Boolean" />
@@ -626,6 +628,18 @@
     <Property Name="CarsId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_GlassAndMirrors_Cars" FromRole="GlassAndMirrors" ToRole="Cars" />
   </EntityType>
+  <EntityType Name="HomePageMenu">
+    <Key>
+      <PropertyRef Name="HomePageMenuId" />
+    </Key>
+    <Property Name="HomePageMenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Target" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RootHomePageMenuId" Type="Int32" />
+    <NavigationProperty Name="HomePageMenu1" Relationship="Self.FK_HomePageMenu_HomePageMenu" FromRole="HomePageMenu" ToRole="HomePageMenu1" />
+    <NavigationProperty Name="HomePageMenu2" Relationship="Self.FK_HomePageMenu_HomePageMenu" FromRole="HomePageMenu1" ToRole="HomePageMenu" />
+  </EntityType>
   <EntityType Name="Manufacture">
     <Key>
       <PropertyRef Name="ManufactureId" />
@@ -761,6 +775,7 @@
     <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CarId" Type="Int32" />
+    <Property Name="CarBrandId" Type="Int32" />
     <Property Name="CategoryId" Type="Int32" />
     <Property Name="ProductHeight" Type="Double" />
     <Property Name="ProductWidth" Type="Double" />
@@ -777,6 +792,7 @@
     <Property Name="ProductQnAId" Type="Int32" />
     <Property Name="DiscountId" Type="Int32" />
     <Property Name="WithInstall" Type="Boolean" />
+    <NavigationProperty Name="CarBrand" Relationship="Self.FK_Product_CarBrand" FromRole="Product" ToRole="CarBrand" />
     <NavigationProperty Name="Car" Relationship="Self.FK_Product_Cars" FromRole="Product" ToRole="Cars" />
     <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
     <NavigationProperty Name="Company" Relationship="Self.FK_Product_Company" FromRole="Product" ToRole="Company" />
@@ -1324,6 +1340,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Product_CarBrand">
+    <End Role="CarBrand" Type="Self.CarBrand" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarBrand">
+        <PropertyRef Name="CarBrandId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CarBrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CarComments_Cars">
     <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
     <End Role="CarComments" Type="Self.CarComment" Multiplicity="*" />
@@ -1816,6 +1844,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_HomePageMenu_HomePageMenu">
+    <End Role="HomePageMenu" Type="Self.HomePageMenu" Multiplicity="0..1" />
+    <End Role="HomePageMenu1" Type="Self.HomePageMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HomePageMenu">
+        <PropertyRef Name="HomePageMenuId" />
+      </Principal>
+      <Dependent Role="HomePageMenu1">
+        <PropertyRef Name="RootHomePageMenuId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Product_Manufacture">
     <End Role="Manufacture" Type="Self.Manufacture" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -2152,6 +2192,7 @@
     <EntitySet Name="Discounts" EntityType="Self.Discount" />
     <EntitySet Name="FuelConsumptions" EntityType="Self.FuelConsumption" />
     <EntitySet Name="GlassAndMirrors" EntityType="Self.GlassAndMirror" />
+    <EntitySet Name="HomePageMenus" EntityType="Self.HomePageMenu" />
     <EntitySet Name="Manufactures" EntityType="Self.Manufacture" />
     <EntitySet Name="MarketingMails" EntityType="Self.MarketingMail" />
     <EntitySet Name="People" EntityType="Self.Person" />
@@ -2275,6 +2316,10 @@
     <AssociationSet Name="FK_CarModel_CarBrand" Association="Self.FK_CarModel_CarBrand">
       <End Role="CarBrand" EntitySet="CarBrands" />
       <End Role="CarModel" EntitySet="CarModels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_CarBrand" Association="Self.FK_Product_CarBrand">
+      <End Role="CarBrand" EntitySet="CarBrands" />
+      <End Role="Product" EntitySet="Products" />
     </AssociationSet>
     <AssociationSet Name="FK_CarComments_Cars" Association="Self.FK_CarComments_Cars">
       <End Role="Cars" EntitySet="Cars" />
@@ -2439,6 +2484,10 @@
     <AssociationSet Name="FK_ProductDiscount_Discount" Association="Self.FK_ProductDiscount_Discount">
       <End Role="Discount" EntitySet="Discounts" />
       <End Role="ProductDiscount" EntitySet="ProductDiscounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HomePageMenu_HomePageMenu" Association="Self.FK_HomePageMenu_HomePageMenu">
+      <End Role="HomePageMenu" EntitySet="HomePageMenus" />
+      <End Role="HomePageMenu1" EntitySet="HomePageMenus" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_Manufacture" Association="Self.FK_Product_Manufacture">
       <End Role="Manufacture" EntitySet="Manufactures" />

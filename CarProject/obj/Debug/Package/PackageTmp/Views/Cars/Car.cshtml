@@ -49,13 +49,13 @@
             <h2 class="infoHeader active">اطلاعات عمومی خودرو</h2>
             <table class="infoTable">
 
-                @if (!Model.Car.CarModel.CarBrand.CarBrandName.IsNullOrWhiteSpace())
+                @*@if (!Model.Car.CarModel.CarBrand.CarBrandName.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>برند</th>
                         <td>@Model.Car.CarModel.CarBrand.CarBrandName</td>
                     </tr>
-                }
+                }*@
                 @if (!Model.Car.CarsClass.IsNullOrWhiteSpace())
                 {
                     <tr>
@@ -90,7 +90,7 @@
                 {
                     <tr>
                         <th>قیمت</th>
-                        <td>@string.Format("{0:#,###0}", @Model.Car.Price)</td>
+                        <td>@string.Format("{0:#,###0}", @Model.Car.Price) ملیون تومان</td>
                     </tr>
                 }
                                     @if (!Model.Car.CarsVideoURL.IsNullOrWhiteSpace())
@@ -137,56 +137,70 @@
                 <h2 class="infoHeader active">موتور</h2>
                 <table class="infoTable">
                     @if (!Model.CarEngine.EngineType.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>نوع موتور</th>
                             <td>@Model.CarEngine.EngineType</td>
                         </tr>
                     }
-                    @if (!Model.CarEngine.EngineCylinderNumber.ToString().IsNullOrWhiteSpace())
-                {
-                        <tr>
-                            <th>تعداد سیلندر</th>
-                            <td>@Model.CarEngine.EngineCylinderNumber</td>
-                        </tr>
-                    }
                     @if (!Model.CarEngine.EnginePowerHpRpm.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>قدرت موتور</th>
                             <td>@Model.CarEngine.EnginePowerHpRpm</td>
                         </tr>
                     }
                     @if (!Model.CarEngine.EngineTorque.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>گشتاور</th>
                             <td>@Model.CarEngine.EngineTorque</td>
                         </tr>
                     }
                     @if (!Model.CarEngine.EnginePowerHpTon.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>توان وزنی</th>
                             <td>@Model.CarEngine.EnginePowerHpTon</td>
                         </tr>
                     }
                     @if (!Model.CarEngine.EnginePowerHpLitr.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>توان خروجی</th>
                             <td>@Model.CarEngine.EnginePowerHpLitr</td>
                         </tr>
                     }
+                    @if (!Model.CarEngine.EngineMaxSpeed.ToString().IsNullOrWhiteSpace())
+                    {
+                        <tr>
+                            <th>حداکثر سرعت</th>
+                            <td>@Model.CarEngine.EngineMaxSpeed</td>
+                        </tr>
+                    }
                     @if (!Model.CarEngine.EngineZeroToH.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>0 تا 100</th>
                             <td>@Model.CarEngine.EngineZeroToH</td>
                         </tr>
                     }
+                    @if (!Model.CarEngine.EngineSize.ToString().IsNullOrWhiteSpace())
+                    {
+                        <tr>
+                            <th>حجم موتور</th>
+                            <td>@Model.CarEngine.EngineSize</td>
+                        </tr>
+                    }                    
+                    @if (!Model.CarEngine.EngineCylinderNumber.ToString().IsNullOrWhiteSpace())
+                    {
+                        <tr>
+                            <th>تعداد سیلندر</th>
+                            <td>@Model.CarEngine.EngineCylinderNumber</td>
+                        </tr>
+                    }
                     @if (!Model.CarEngine.EngineDescription.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>توضیحات</th>
                             <td>@Model.CarEngine.EngineDescription</td>
@@ -201,15 +215,15 @@
             <div class="pagesection">
                 <h2 class="infoHeader active">گیربکس</h2>
                 <table class="infoTable">
-                    @if (!Model.GearBox.GearBoxCode.IsNullOrWhiteSpace())
-                {
+                    @*@if (!Model.GearBox.GearBoxCode.IsNullOrWhiteSpace())
+                    {
                         <tr>
                             <th>کد گیربکس</th>
                             <td>@Model.GearBox.GearBoxCode</td>
                         </tr>
-                    }
+                    }*@
                     @if (!Model.GearBox.GearBoxType.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>نوع</th>
                             <td>@Model.GearBox.GearBoxType</td>
@@ -218,47 +232,54 @@
                     @if (!Model.GearBox.GearBoxCanBeManual.YesNoString().IsNullOrWhiteSpace())
                     {
                         <tr>
-                            <th>آیا میتواند به صورت دستی تنظیم شود؟</th>
+                            <th>امکان تبدیل بده دنده دستی</th>
                             <td>@Model.GearBox.GearBoxCanBeManual.YesNoString()</td>
                         </tr>
                     }
+                    @if (!Model.GearBox.GearBoxShifter.YesNoString().IsNullOrWhiteSpace())
+                    {
+                        <tr>
+                            <th>شیفتر دنده</th>
+                            <td>@Model.GearBox.GearBoxShifter.YesNoString()</td>
+                        </tr>
+                    }
                     @if (!Model.GearBox.GearBoxShiftNumber.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>تعداد دنده</th>
                             <td>@Model.GearBox.GearBoxShiftNumber</td>
                         </tr>
                     }
                     @if (!Model.GearBox.GearBoxAxel.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>محور متحرک</th>
                             <td>@Model.GearBox.GearBoxAxel</td>
                         </tr>
                     }
                     @if (!Model.GearBox.HasTransferCase.YesNoString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>آیا دارای کمک گیربکس است؟</th>
                             <td>@Model.GearBox.HasTransferCase.YesNoString()</td>
                         </tr>
                     }
                     @if (!Model.GearBox.GearBoxDiffrentionalLock.YesNoString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>آیا دارای قفل دیفرانسیل است؟</th>
                             <td>@Model.GearBox.GearBoxDiffrentionalLock.YesNoString()</td>
                         </tr>
                     }
                     @if (!Model.GearBox.GearBoxWdType.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>4WD</th>
                             <td>@Model.GearBox.GearBoxWdType</td>
                         </tr>
                     }
                     @if (!Model.GearBox.GearBoxDescription.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>توضیحات</th>
                             <td>@Model.GearBox.GearBoxDescription</td>
@@ -269,61 +290,61 @@
         }
 
         @if (Model.PhysicalDetail != null)
-                        {
+        {
             <div class="pagesection">
                 <h2 class="infoHeader active">مشخصات فیزیکی</h2>
                 <table class="infoTable">
                     @if (!Model.PhysicalDetail.CarLength.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>طول خودرو</th>
-                            <td>@Model.PhysicalDetail.CarLength</td>
+                            <td>@Model.PhysicalDetail.CarLength میلیمتر</td>
                         </tr>
                     }
                     @if (!Model.PhysicalDetail.Carwidth.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>عرض خودرو</th>
-                            <td>@Model.PhysicalDetail.Carwidth</td>
+                            <td>@Model.PhysicalDetail.Carwidth میلیمتر</td>
                         </tr>
                     }
                     @if (!Model.PhysicalDetail.CarHeight.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>ارتفاع خودرو</th>
-                            <td>@Model.PhysicalDetail.CarHeight</td>
+                            <td>@Model.PhysicalDetail.CarHeight میلیمتر</td>
                         </tr>
                     }
                     @if (!Model.PhysicalDetail.CarPureWeight.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>وزن خالص</th>
-                            <td>@Model.PhysicalDetail.CarPureWeight</td>
+                            <td>@Model.PhysicalDetail.CarPureWeight کیلو گرم</td>
                         </tr>
                     }
                     @if (!Model.PhysicalDetail.CarTrack.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>فاصله دو چرخ یک محور</th>
-                            <td>@Model.PhysicalDetail.CarTrack</td>
+                            <td>@Model.PhysicalDetail.CarTrack میلیمتر</td>
                         </tr>
                     }
                     @if (!Model.PhysicalDetail.CarWheelBase.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>فاصله دو محور از یکدیگر</th>
-                            <td>@Model.PhysicalDetail.CarWheelBase</td>
+                            <td>@Model.PhysicalDetail.CarWheelBase میلیمتر</td>
                         </tr>
                     }
                     @if (!Model.PhysicalDetail.CarTankSize.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>حجم باک</th>
-                            <td>@Model.PhysicalDetail.CarTankSize</td>
+                            <td>@Model.PhysicalDetail.CarTankSize لیتر</td>
                         </tr>
                     }
                     @if (!Model.PhysicalDetail.Details.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>توضیحات</th>
                             <td>@Model.PhysicalDetail.Details</td>
@@ -334,33 +355,33 @@
         }
 
         @if (!Model.FuelConsumption.IsNull)
-                        {
+        {
             <div class="pagesection">
                 <h2 class="infoHeader active">سیستم سوخت رسانی</h2>
                 <table class="infoTable">
                     @if (!Model.FuelConsumption.LphCity.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>مصرف در شهر</th>
-                            <td>@Model.FuelConsumption.LphCity</td>
+                            <td>@Model.FuelConsumption.LphCity لیتر در هر 100 کیلومتر</td>
                         </tr>
                     }
                     @if (!Model.FuelConsumption.LphRoad.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>مصرف در جاده</th>
-                            <td>@Model.FuelConsumption.LphRoad</td>
+                            <td>@Model.FuelConsumption.LphRoad لیتر در هر 100 کیلومتر</td>
                         </tr>
                     }
                     @if (!Model.FuelConsumption.LphMix.ToString().IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
-                            <th>سیکل ترکیبی</th>
-                            <td>@Model.FuelConsumption.LphMix</td>
+                            <th>مصرف سوخت ترکیبی</th>
+                            <td>@Model.FuelConsumption.LphMix لیتر در هر 100 کیلومتر</td>
                         </tr>
                     }
                     @if (!Model.FuelConsumption.Details.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>توضیحات</th>
                             <td>@Model.FuelConsumption.Details</td>
@@ -371,47 +392,47 @@
         }
 
         @if (!Model.BrakeSystem.IsNull && Model.DetailedBrakeSystems.Count > 0)
-                        {
+        {
             <div class="pagesection">
                 <h2 class="infoHeader active">سیستم ترمز</h2>
                 <table class="infoTable">
                     @if (!Model.BrakeSystem.FrontBrakeSystem.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
-                            <th>سیستم ترمز جلو</th>
+                            <th>ترمز جلو</th>
                             <td>@Model.BrakeSystem.FrontBrakeSystem</td>
                         </tr>
                     }
                     @if (!Model.BrakeSystem.RearBrakeSystem.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
-                            <th>سیستم ترمز عقب</th>
+                            <th>ترمز عقب</th>
                             <td>@Model.BrakeSystem.RearBrakeSystem</td>
                         </tr>
                     }
                     @if (!Model.BrakeSystem.OtherSystem.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>سیستم های دیگر</th>
                             <td>@Model.BrakeSystem.OtherSystem</td>
                         </tr>
                     }
                     @if (!Model.BrakeSystem.HandBrakeSystem.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
-                            <th>سیستم ترمز دستی</th>
+                            <th>ترمز دستی</th>
                             <td>@Model.BrakeSystem.HandBrakeSystem</td>
                         </tr>
                     }
                     @if (!Model.BrakeSystem.Details.IsNullOrWhiteSpace())
-                {
+                    {
                         <tr>
                             <th>توضیحات</th>
                             <td>@Model.BrakeSystem.Details</td>
                         </tr>
                     }
                     @if (Model.DetailedBrakeSystems.Count != 0)
-                        {
+                    {
                         <tr>
                             <th>جزئیات دیگر</th>
                             <td>
@@ -432,45 +453,45 @@
                 @if (!Model.SecuritySystem.RemoteControl.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای ریموت کنترل است؟</th>
+                        <th>ریموت کنترل</th>
                         <td>@Model.SecuritySystem.RemoteControl.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.SecuritySystem.BurglarAlarm.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای دزدگیر است؟</th>
+                        <th>دزدگیر</th>
                         <td>@Model.SecuritySystem.BurglarAlarm.YesNoString()</td>
                     </tr>
                 }
-                @if (!Model.SecuritySystem.Alarm.YesNoString().IsNullOrWhiteSpace())
+                @*@if (!Model.SecuritySystem.Alarm.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>آیا دارای آژیر است؟</th>
                         <td>@Model.SecuritySystem.Alarm.YesNoString()</td>
                     </tr>
-                }
+                }*@
                 @if (!Model.SecuritySystem.Emo.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای سیستم ضد سرقت است؟</th>
+                        <th>ایموبلایزر</th>
                         <td>@Model.SecuritySystem.Emo.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.SecuritySystem.KeylessStart.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای سیستم استارت بدون کلید است?</th>
+                        <th>Keyless Starter</th>
                         <td>@Model.SecuritySystem.KeylessStart.YesNoString()</td>
                     </tr>
                 }
-                @if (!Model.SecuritySystem.KeylessDoor.YesNoString().IsNullOrWhiteSpace())
+                @*@if (!Model.SecuritySystem.KeylessDoor.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>آیا دارای درهای بازشو بدون کلید است؟</th>
                         <td>@Model.SecuritySystem.KeylessDoor.YesNoString()</td>
                     </tr>
-                }
+                }*@
                 @if (!Model.SecuritySystem.Details.IsNullOrWhiteSpace())
                 {
                     <tr>
@@ -491,24 +512,24 @@
                         <td>@Model.SteeringSystem.SteeringSystemType</td>
                     </tr>
                 }
-                @if (!Model.SteeringSystem.SteeringType.IsNullOrWhiteSpace())
+               @* @if (!Model.SteeringSystem.SteeringType.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>مدل فرمان</th>
                         <td>@Model.SteeringSystem.SteeringType</td>
                     </tr>
-                }
+                }*@
                 @if (!Model.SteeringSystem.SteeringHeightAdjustble.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>امکان تنظیم ارتفاع دارد؟</th>
+                        <th>امکان تنظیم ارتفاع</th>
                         <td>@Model.SteeringSystem.SteeringHeightAdjustble.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.SteeringSystem.SteeringControlKey.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای دکمه کنترلی روی فرمان است؟</th>
+                        <th>دکمه کنترلی روی فرمان</th>
                         <td>@Model.SteeringSystem.SteeringControlKey.YesNoString()</td>
                     </tr>
                 }
@@ -521,28 +542,30 @@
                 }
             </table>
         </div>
-@if (!Model.AirConditioningSystem.IsNull)
-                        {
-    <div class="pagesection">
-        <h2 class="infoHeader active">سیستم تهویه هوا</h2>
-        <table class="infoTable">
-            @if (!Model.AirConditioningSystem.AirConditioningType.IsNullOrWhiteSpace())
-            {
-                <tr>
-                    <th>نوع سیستم تهویه هوا</th>
-                    <td>@Model.AirConditioningSystem.AirConditioningType</td>
-                </tr>
-            }
-            @if (!Model.AirConditioningSystem.Details.IsNullOrWhiteSpace())
-            {
-                <tr>
-                    <th>توضیحات</th>
-                    <td>@Model.AirConditioningSystem.Details</td>
-                </tr>
-            }
-        </table>
-    </div>
-}
+    
+        @if (!Model.AirConditioningSystem.IsNull)
+        {
+            <div class="pagesection">
+                <h2 class="infoHeader active">سیستم تهویه هوا</h2>
+                <table class="infoTable">
+                    @if (!Model.AirConditioningSystem.AirConditioningType.IsNullOrWhiteSpace())
+                    {
+                        <tr>
+                            <th>نوع سیستم تهویه هوا</th>
+                            <td>@Model.AirConditioningSystem.AirConditioningType</td>
+                        </tr>
+                    }
+                    @if (!Model.AirConditioningSystem.Details.IsNullOrWhiteSpace())
+                    {
+                        <tr>
+                            <th>توضیحات</th>
+                            <td>@Model.AirConditioningSystem.Details</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+
 @if (Model.AirConditioningSystemDetails.Count != 0)
                         {
         <div class="pagesection">
@@ -573,13 +596,13 @@
         <div class="pagesection">
             <h2 class="infoHeader active">سیستم صوتی</h2>
             <table class="infoTable">
-                @if (!Model.CarAudioSystem.AudioSystemType.IsNullOrWhiteSpace())
+                @*@if (!Model.CarAudioSystem.AudioSystemType.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>نوع</th>
                         <td>@Model.CarAudioSystem.AudioSystemType</td>
                     </tr>
-                }
+                }*@
                 @if (!Model.CarAudioSystem.AudioSystemBrand.IsNullOrWhiteSpace())
                 {
                     <tr>
@@ -590,42 +613,42 @@
                 @if (!Model.CarAudioSystem.HasMonitor.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای مانیتور است؟</th>
+                        <th>مانیتور</th>
                         <td>@Model.CarAudioSystem.HasMonitor.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarAudioSystem.RearSeatsMonitor.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای مانیتور برای سرنشین عقب است؟</th>
+                        <th>مانیتور صندلی عقب</th>
                         <td>@Model.CarAudioSystem.RearSeatsMonitor.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarAudioSystem.RearGearCamera.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای دوربین دنده عقب است؟</th>
+                        <th>دنده عقب</th>
                         <td>@Model.CarAudioSystem.RearGearCamera.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarAudioSystem.FrontCamera.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای دوربین جلو است؟</th>
+                        <th>دوربین جلو</th>
                         <td>@Model.CarAudioSystem.FrontCamera.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarAudioSystem.RearStereo.IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>مارک باندهای عقب</th>
+                        <th>برند باندهای عقب</th>
                         <td>@Model.CarAudioSystem.RearStereo</td>
                     </tr>
                 }
                 @if (!Model.CarAudioSystem.FrontStereo.IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>مارک باندهای جلو</th>
+                        <th>برند باندهای جلو</th>
                         <td>@Model.CarAudioSystem.FrontStereo</td>
                     </tr>
                 }
@@ -646,7 +669,7 @@
                 @if (!Model.CarAudioSystem.HasGps.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای سیستم جهت یابی است؟</th>
+                        <th>GBS</th>
                         <td>@Model.CarAudioSystem.HasGps.YesNoString()</td>
                     </tr>
                 }
@@ -666,35 +689,35 @@
                 @if (!Model.CarSeatOption.LongitudinalDisplacement.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا امکان جابه جایی طولی دارد؟</th>
+                        <th>تنظیم ارتفاع صندلی</th>
                         <td>@Model.CarSeatOption.LongitudinalDisplacement.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarSeatOption.BezelSet.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای تنظیم گودی کمر است؟</th>
+                        <th>تنظیم گودی کمر</th>
                         <td>@Model.CarSeatOption.BezelSet.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarSeatOption.SeatWarmer.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>گرم کن صندلی دارد؟</th>
+                        <th>گرم کن صندلی</th>
                         <td>@Model.CarSeatOption.SeatWarmer.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarSeatOption.SeatMassage.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا مجهز به سیستم ماساژور است؟</th>
+                        <th>ماساژور</th>
                         <td>@Model.CarSeatOption.SeatMassage.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarSeatOption.HasMemory.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>آیا دارای حافظه است؟</th>
+                        <th>حافظه</th>
                         <td>@Model.CarSeatOption.HasMemory.YesNoString()</td>
                     </tr>
                 }
@@ -714,14 +737,14 @@
                 @if (!Model.GlassAndMirror.FrontWindscreens.IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>سیستم شیشه های جلو</th>
+                        <th>شیشه های جلو</th>
                         <td>@Model.GlassAndMirror.FrontWindscreens</td>
                     </tr>
                 }
                 @if (!Model.GlassAndMirror.RearWindscreens.IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>سیستم شیشه های عقب</th>
+                        <th>شیشه های عقب</th>
                         <td>@Model.GlassAndMirror.RearWindscreens</td>
                     </tr>
 
@@ -729,7 +752,7 @@
                 @if (!Model.GlassAndMirror.SunRoof.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>سان روف دارد؟</th>
+                        <th>سان روف</th>
                         <td>@Model.GlassAndMirror.SunRoof.YesNoString()</td>
                     </tr>
 
@@ -737,7 +760,7 @@
                 @if (!Model.GlassAndMirror.PanaromaRoof.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>سقف پاناروما دارد؟</th>
+                        <th>سقف پاناروما</th>
                         <td>@Model.GlassAndMirror.PanaromaRoof.YesNoString()</td>
                     </tr>
 
@@ -745,7 +768,7 @@
                 @if (!Model.GlassAndMirror.RearGlassWarmer.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>گرمکن شیشه عقب دارد؟</th>
+                        <th>گرمکن شیشه عقب</th>
                         <td>@Model.GlassAndMirror.RearGlassWarmer.YesNoString()</td>
                     </tr>
 
@@ -753,7 +776,7 @@
                 @if (!Model.GlassAndMirror.WindscreensWarmer.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>گرمکن شیشه های بقل دارد؟</th>
+                        <th>گرمکن شیشه های بقل</th>
                         <td>@Model.GlassAndMirror.WindscreensWarmer.YesNoString()</td>
                     </tr>
 
@@ -761,7 +784,7 @@
                 @if (!Model.GlassAndMirror.FrontGlassWarmer.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>گرمکن شیشه جلو دارد؟</th>
+                        <th>گرمکن شیشه جلو</th>
                         <td>@Model.GlassAndMirror.FrontGlassWarmer.YesNoString()</td>
                     </tr>
 
@@ -812,45 +835,45 @@
                 @if (!Model.CarLightingSystem.DayLight.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>دارای دیلایت است؟</th>
+                        <th>دیلایت</th>
                         <td>@Model.CarLightingSystem.DayLight.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarLightingSystem.SideMirrorLight.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>چراغ راهنمای روی آینه های بقل دارد؟</th>
+                        <th>چراغ راهنمای روی آینه های بقل</th>
                         <td>@Model.CarLightingSystem.SideMirrorLight.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarLightingSystem.FonrAntiFog.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>دارای مه شکن جلو است؟</th>
+                        <th>مه شکن جلو</th>
                         <td>@Model.CarLightingSystem.FonrAntiFog.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarLightingSystem.RearAntiFog.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>دارای مه شکن عقب است؟</th>
+                        <th>مه شکن عقب</th>
                         <td>@Model.CarLightingSystem.RearAntiFog.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarLightingSystem.ReadingLamp.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>چراغ مطالعه دارد؟</th>
+                        <th>چراغ مطالعه</th>
                         <td>@Model.CarLightingSystem.ReadingLamp.YesNoString()</td>
                     </tr>
                 }
-                @if (!Model.CarLightingSystem.ThirdLightStop.YesNoString().IsNullOrWhiteSpace())
+                @*@if (!Model.CarLightingSystem.ThirdLightStop.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>چراغ ترمز سوم دارد؟</th>
                         <td>@Model.CarLightingSystem.ThirdLightStop.YesNoString()</td>
                     </tr>
-                }
+                }*@
                 @if (!Model.CarLightingSystem.Deailts.IsNullOrWhiteSpace())
                 {
                     <tr>
@@ -867,52 +890,52 @@
                 @if (!Model.CarSensorsSystem.DayLightSensor.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>سنسور روشنایی روز دارد؟</th>
+                        <th>روشنایی روز</th>
                         <td>@Model.CarSensorsSystem.DayLightSensor.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarSensorsSystem.RainSensor.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>سنسور باران دارد؟</th>
+                        <th>باران</th>
                         <td>@Model.CarSensorsSystem.RainSensor.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarSensorsSystem.RearGearSensor.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>سنسور دنده عقب دارد؟</th>
+                        <th>دنده عقب</th>
                         <td>@Model.CarSensorsSystem.RearGearSensor.YesNoString()</td>
                     </tr>
                 }
                 @if (!Model.CarSensorsSystem.ParkSensor.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>سنسور پارک خودرو دارد؟</th>
+                        <th>پارک</th>
                         <td>@Model.CarSensorsSystem.ParkSensor.YesNoString()</td>
                     </tr>
                 }
-                @if (!Model.CarSensorsSystem.NavigateSensor.YesNoString().IsNullOrWhiteSpace())
+               @*@if (!Model.CarSensorsSystem.NavigateSensor.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>سنسور هدایت خودرو دارد؟</th>
                         <td>@Model.CarSensorsSystem.NavigateSensor.YesNoString()</td>
                     </tr>
-                }
+                }*@
                 @if (!Model.CarSensorsSystem.CruiseControl.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
-                        <th>کروز کنترل دارد؟</th>
+                        <th>کروز کنترل</th>
                         <td>@Model.CarSensorsSystem.CruiseControl.YesNoString()</td>
                     </tr>
                 }
-                @if (!Model.CarSensorsSystem.RearGearCamera.YesNoString().IsNullOrWhiteSpace())
+                @*@if (!Model.CarSensorsSystem.RearGearCamera.YesNoString().IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>دوربین دنده عقب دارد؟</th>
                         <td>@Model.CarSensorsSystem.RearGearCamera.YesNoString()</td>
                     </tr>
-                }
+                }*@
                 @if (!Model.CarSensorsSystem.Details.IsNullOrWhiteSpace())
                 {
                     <tr>
@@ -930,21 +953,21 @@
             @if (!Model.CarAirbag.DriverAirBag.YesNoString().IsNullOrWhiteSpace())
             {
                 <tr>
-                    <th>کسیه هوای راننده دارد؟</th>
+                    <th>راننده</th>
                     <td>@Model.CarAirbag.DriverAirBag.YesNoString()</td>
                 </tr>
             }
             @if (!Model.CarAirbag.FrontAirBag.YesNoString().IsNullOrWhiteSpace())
             {
                 <tr>
-                    <th>کیسه هوای شاگرد دارد؟</th>
+                    <th>سرنشین جلو</th>
                     <td>@Model.CarAirbag.FrontAirBag.YesNoString()</td>
                 </tr>
             }
             @if (!Model.CarAirbag.AirBag.YesNoString().IsNullOrWhiteSpace())
             {
                 <tr>
-                    <th>کیسه هوای عقب دارد؟</th>
+                    <th>جانبی و پرده ای</th>
                     <td>@Model.CarAirbag.AirBag.YesNoString()</td>
                 </tr>
             }
@@ -968,7 +991,7 @@
 @if (!Model.CarWheel.IsNull)
                         {
     <div class="pagesection">
-        <h2 class="infoHeader active">رینگ و لاستیک</h2>
+        <h2 class="infoHeader active">تایرها</h2>
         <table class="infoTable">
             @if (!Model.CarWheel.TireType.IsNullOrWhiteSpace())
             {
@@ -991,7 +1014,7 @@
                     <td>@Model.CarWheel.TireSpec</td>
                 </tr>
             }
-            @if (!Model.CarWheel.RingType.IsNullOrWhiteSpace())
+            @*@if (!Model.CarWheel.RingType.IsNullOrWhiteSpace())
             {
                 <tr>
                     <th>نوع رینگ</th>
@@ -1004,11 +1027,11 @@
                     <th>مدل رینگ</th>
                     <td>@Model.CarWheel.RingModel</td>
                 </tr>
-            }
+            }*@
             @if (!Model.CarWheel.AutoInflated.YesNoString().IsNullOrWhiteSpace())
             {
                 <tr>
-                    <th>قابلیت کم و زیاد کردن باد به صورت خودکار دارد؟</th>
+                    <th>کنترل اتوماتیک باد تایرها</th>
                     <td>@Model.CarWheel.AutoInflated.YesNoString()</td>
                 </tr>
             }

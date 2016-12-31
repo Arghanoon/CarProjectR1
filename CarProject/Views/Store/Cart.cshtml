@@ -156,6 +156,8 @@
                             <div id="DiveryDateAndTimeContainer">
                                 @{
                                     var DaysOfWeeks = dbs.DaysOfWeeks.Where(d => d.Date >= DateTime.Today);
+                                    if(DaysOfWeeks.Any())
+                                    {
                                     var maxcount = DaysOfWeeks.Max(d => d.TimeOfDays.Count);
                                     
                                     <table id="DeliverytimmingTable">
@@ -176,6 +178,7 @@
                                         }
                                     </table>
                                     <span style="color:red;">@Html.ValidationMessage("timmingErrors")</span>
+                                    }
                                 }
                             </div>
                         </td>

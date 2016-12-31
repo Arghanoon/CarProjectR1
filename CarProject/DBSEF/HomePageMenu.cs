@@ -12,22 +12,22 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class CarBrand
+    public partial class HomePageMenu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CarBrand()
+        public HomePageMenu()
         {
-            this.CarModels = new HashSet<CarModel>();
-            this.Products = new HashSet<Product>();
+            this.HomePageMenu1 = new HashSet<HomePageMenu>();
         }
     
-        public int CarBrandId { get; set; }
-        public string CarBrandName { get; set; }
-        public string CarBrandHistory { get; set; }
+        public int HomePageMenuId { get; set; }
+        public string Subject { get; set; }
+        public string Title { get; set; }
+        public string Target { get; set; }
+        public Nullable<int> RootHomePageMenuId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CarModel> CarModels { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<HomePageMenu> HomePageMenu1 { get; set; }
+        public virtual HomePageMenu HomePageMenu2 { get; set; }
     }
 }

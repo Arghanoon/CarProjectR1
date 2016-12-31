@@ -206,6 +206,7 @@
     <Property Name="GearBoxCode" Type="nvarchar" MaxLength="50" />
     <Property Name="GearBoxType" Type="nvarchar" MaxLength="50" />
     <Property Name="GearBoxCanBeManual" Type="bit" />
+    <Property Name="GearBoxShifter" Type="bit" />
     <Property Name="GearBoxShiftNumber" Type="int" />
     <Property Name="GearBoxAxel" Type="nvarchar" MaxLength="50" />
     <Property Name="HasTransferCase" Type="bit" />
@@ -521,6 +522,16 @@
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" />
   </EntityType>
+  <EntityType Name="HomePageMenu">
+    <Key>
+      <PropertyRef Name="HomePageMenuId" />
+    </Key>
+    <Property Name="HomePageMenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="Target" Type="nvarchar(max)" />
+    <Property Name="RootHomePageMenuId" Type="int" />
+  </EntityType>
   <EntityType Name="Manufacture">
     <Key>
       <PropertyRef Name="ManufactureId" />
@@ -639,6 +650,7 @@
     <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
     <Property Name="CarId" Type="int" />
+    <Property Name="CarBrandId" Type="int" />
     <Property Name="CategoryId" Type="int" />
     <Property Name="ProductHeight" Type="float" />
     <Property Name="ProductWidth" Type="float" />
@@ -1430,6 +1442,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_HomePageMenu_HomePageMenu">
+    <End Role="HomePageMenu" Type="Self.HomePageMenu" Multiplicity="0..1" />
+    <End Role="HomePageMenu1" Type="Self.HomePageMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HomePageMenu">
+        <PropertyRef Name="HomePageMenuId" />
+      </Principal>
+      <Dependent Role="HomePageMenu1">
+        <PropertyRef Name="RootHomePageMenuId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Manufacture_Country">
     <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
     <End Role="Manufacture" Type="Self.Manufacture" Multiplicity="*" />
@@ -1571,6 +1595,18 @@
       </Principal>
       <Dependent Role="PersonServicesPack">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_CarBrand">
+    <End Role="CarBrand" Type="Self.CarBrand" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarBrand">
+        <PropertyRef Name="CarBrandId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CarBrandId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2002,6 +2038,7 @@
     <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FuelConsumption" EntityType="Self.FuelConsumption" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GlassAndMirrors" EntityType="Self.GlassAndMirrors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HomePageMenu" EntityType="Self.HomePageMenu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Manufacture" EntityType="Self.Manufacture" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MarketingMails" EntityType="Self.MarketingMails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
@@ -2219,6 +2256,10 @@
       <End Role="Cars" EntitySet="Cars" />
       <End Role="GlassAndMirrors" EntitySet="GlassAndMirrors" />
     </AssociationSet>
+    <AssociationSet Name="FK_HomePageMenu_HomePageMenu" Association="Self.FK_HomePageMenu_HomePageMenu">
+      <End Role="HomePageMenu" EntitySet="HomePageMenu" />
+      <End Role="HomePageMenu1" EntitySet="HomePageMenu" />
+    </AssociationSet>
     <AssociationSet Name="FK_Manufacture_Country" Association="Self.FK_Manufacture_Country">
       <End Role="Country" EntitySet="Country" />
       <End Role="Manufacture" EntitySet="Manufacture" />
@@ -2266,6 +2307,10 @@
     <AssociationSet Name="FK_PersonServicesPack_User" Association="Self.FK_PersonServicesPack_User">
       <End Role="User" EntitySet="User" />
       <End Role="PersonServicesPack" EntitySet="PersonServicesPack" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_CarBrand" Association="Self.FK_Product_CarBrand">
+      <End Role="CarBrand" EntitySet="CarBrand" />
+      <End Role="Product" EntitySet="Product" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_Cars" Association="Self.FK_Product_Cars">
       <End Role="Cars" EntitySet="Cars" />

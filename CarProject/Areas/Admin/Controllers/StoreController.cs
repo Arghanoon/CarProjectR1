@@ -688,6 +688,38 @@ namespace CarProject.Areas.Admin.Controllers
 
             return View(basket);
         }
+        [HttpPost]
+        public ActionResult BasketsDetails(int? id, FormCollection form)
+        {
+            var basket = dbsObject.Baskets.FirstOrDefault(b => b.BasketId == id);
+            if (basket == null)
+                return RedirectToAction("Baskets");
+
+            bool haveerror = false;
+            foreach (var item in basket.BasketItems)
+            {
+                if (!item.Existance)
+                {
+                    haveerror = true;
+                    break;
+                }
+            }
+
+            if (haveerror)
+                return View();
+            else
+                return RedirectToAction("BasketsDetails_Send", new { id = id });
+        }
+        public ActionResult BasketsDetails_Send(int? id)
+        {
+            var basket = dbsObject.Baskets.FirstOrDefault(b => b.BasketId == id);
+            if (basket == null)
+                return RedirectToAction("Baskets");
+            basket.State = (byte)CarProject.Models.Store.CartUsefull.Basket_State.SendToCustomer;
+            dbsObject.SaveChanges();
+
+            return View(basket);
+        }
         #endregion
 
         #region Delivery Days And Times

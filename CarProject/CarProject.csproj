@@ -326,6 +326,9 @@
     <Compile Include="DBSEF\GlassAndMirror.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\HomePageMenu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\Manufacture.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -452,6 +455,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Areas\Admin\Files\Images\back.jpg" />
+    <Content Include="Areas\Admin\Files\Images\stamp.png" />
     <Content Include="Areas\Admin\Files\Images\SignupBack.jpg" />
     <Content Include="Areas\Admin\Files\Images\ratingback.png" />
     <Content Include="Areas\Admin\Files\Images\user.png" />
@@ -932,6 +936,13 @@
     <Content Include="Areas\Admin\Views\Store\DaliveryDateTime_Define.cshtml" />
     <Content Include="Areas\Admin\Views\Store\DaliveryDateTime.cshtml" />
     <Content Include="Areas\Admin\Views\Store\DaliveryDateTime_Update.cshtml" />
+    <Content Include="Areas\Users\Views\profile\userActivation.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserResendUserActivationCode.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserResendUserActivationCodeToNewEmail.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserPasswordRecovery.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MailsMessage_Signup_RecoveryKey.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserRecoveryPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\BasketsDetails_Send.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -949,12 +960,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Users\Views\profile\userActivation.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserResendUserActivationCode.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserResendUserActivationCodeToNewEmail.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserPasswordRecovery.cshtml" />
-    <Content Include="Areas\Admin\Views\DashBoard\MailsMessage_Signup_RecoveryKey.cshtml" />
-    <Content Include="Areas\Users\Views\profile\UserRecoveryPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MainMenu_Insert.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MainMenus.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

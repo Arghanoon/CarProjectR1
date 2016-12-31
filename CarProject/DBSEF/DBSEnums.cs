@@ -279,18 +279,20 @@ namespace CarProject.DBSEF
         {
             get
             {
-                bool res = true;
+                bool res = false;
                 switch ((Models.Store.CartUsefull.Basket_ItemType)this.Type)
                 {
                     case CarProject.Models.Store.CartUsefull.Basket_ItemType.Product:
                         {
                             var xcnt = dbs.ProductStores.FirstOrDefault(c => c.ProductId == this.Id);
-                            res = xcnt == null || xcnt.ProductEntity < this.Count;
+                            res = (xcnt != null) && (xcnt.ProductEntity >= this.Count);
                         }
                         break;
                     case CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService:
+                        res = true;
                         break;
                     case CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoServicePack:
+                        res = true;
                         break;
                     default:
                         break;

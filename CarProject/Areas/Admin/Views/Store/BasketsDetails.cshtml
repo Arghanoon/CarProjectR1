@@ -140,12 +140,35 @@
         }
     </div>
 
-    <form method="post">
-        <section style="display:flex; flex-direction:row-reverse;">
-            <input type="submit" value="تایید و ارسال کالا(ها)"  class="button green"/>
-            <a href="/Admin/Store/Baskets" class="gia-back button yellow">انصراف</a>
-        </section>
-    </form>
+    @{
+        bool HaveError = false;
+        foreach (var item in Model.BasketItems)
+        {
+            if(!item.Existance)
+            {
+                HaveError = true;
+                break;
+            }
+        }
+        
+    }
+
+    @if (HaveError)
+    {
+        <div class="messageInLine red">
+            <h3>یک یا چندمورد از کالاها به اندازه کافی وجود ندارد</h3>
+            <small>برای ثبت یا افزایش موجود به قسمت <a href="/Admin/Store/ProductsInventory">مدیریت موجودی محصولات</a> مراجعه کنید</small>
+        </div>
+    }
+    else
+    {
+        <form method="post">
+            <section style="display:flex; flex-direction:row-reverse;">
+                <input type="submit" value="تایید و ارسال کالا(ها)"  class="button green"/>
+                <a href="/Admin/Store/Baskets" class="gia-back button yellow">انصراف</a>
+            </section>
+        </form>
+    }
 </div>
 
 
