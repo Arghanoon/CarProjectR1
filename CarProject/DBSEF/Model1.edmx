@@ -274,6 +274,7 @@
           </Key>
           <Property Name="CarsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CarModelId" Type="int" />
+          <Property Name="CountryId" Type="int" />
           <Property Name="CarsClass" Type="nvarchar" MaxLength="50" />
           <Property Name="CarsUserScore" Type="float" />
           <Property Name="CarsClinicScore" Type="float" />
@@ -1192,6 +1193,18 @@
             </Principal>
             <Dependent Role="Cars">
               <PropertyRef Name="CarModelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cars_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="Cars">
+              <PropertyRef Name="CountryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2177,6 +2190,10 @@
             <End Role="CarModel" EntitySet="CarModel" />
             <End Role="Cars" EntitySet="Cars" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cars_Country" Association="Self.FK_Cars_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
           <AssociationSet Name="FK_CarSeatOptions_Cars" Association="Self.FK_CarSeatOptions_Cars">
             <End Role="Cars" EntitySet="Cars" />
             <End Role="CarSeatOptions" EntitySet="CarSeatOptions" />
@@ -2758,6 +2775,7 @@
           </Key>
           <Property Name="CarsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CarModelId" Type="Int32" />
+          <Property Name="CountryId" Type="Int32" />
           <Property Name="CarsClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CarsUserScore" Type="Double" />
           <Property Name="CarsClinicScore" Type="Double" />
@@ -2785,6 +2803,7 @@
           <NavigationProperty Name="CarModel" Relationship="Self.FK_Cars_CarModel" FromRole="Cars" ToRole="CarModel" />
           <NavigationProperty Name="CarPhysicalDetails" Relationship="Self.FK_CarPhysicalDetails_Cars" FromRole="Cars" ToRole="CarPhysicalDetails" />
           <NavigationProperty Name="CarPrices" Relationship="Self.FK_CarPrice_Cars" FromRole="Cars" ToRole="CarPrice" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_Cars_Country" FromRole="Cars" ToRole="Country" />
           <NavigationProperty Name="CarSeatOptions" Relationship="Self.FK_CarSeatOptions_Cars" FromRole="Cars" ToRole="CarSeatOptions" />
           <NavigationProperty Name="CarSensorsSystems" Relationship="Self.FK_CarSensorsSystem_Cars" FromRole="Cars" ToRole="CarSensorsSystem" />
           <NavigationProperty Name="CarsInSameClasses" Relationship="Self.FK_CarsInSameClass_Cars" FromRole="Cars" ToRole="CarsInSameClass" />
@@ -3013,6 +3032,7 @@
           <Property Name="CountryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CountryShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CountryLongName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_Country" FromRole="Country" ToRole="Cars" />
           <NavigationProperty Name="Manufactures" Relationship="Self.FK_Manufacture_Country" FromRole="Country" ToRole="Manufacture" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Country" FromRole="Country" ToRole="Product" />
         </EntityType>
@@ -3908,6 +3928,18 @@
             </Principal>
             <Dependent Role="CarPrice">
               <PropertyRef Name="CarsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cars_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Cars" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="Cars">
+              <PropertyRef Name="CountryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4808,6 +4840,10 @@
             <End Role="Cars" EntitySet="Cars" />
             <End Role="CarPrice" EntitySet="CarPrices" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cars_Country" Association="Self.FK_Cars_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
           <AssociationSet Name="FK_CarSeatOptions_Cars" Association="Self.FK_CarSeatOptions_Cars">
             <End Role="Cars" EntitySet="Cars" />
             <End Role="CarSeatOptions" EntitySet="CarSeatOptions" />
@@ -5335,6 +5371,7 @@
               <MappingFragment StoreEntitySet="Cars">
                 <ScalarProperty Name="CarsId" ColumnName="CarsId" />
                 <ScalarProperty Name="CarModelId" ColumnName="CarModelId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
                 <ScalarProperty Name="CarsClass" ColumnName="CarsClass" />
                 <ScalarProperty Name="CarsUserScore" ColumnName="CarsUserScore" />
                 <ScalarProperty Name="CarsClinicScore" ColumnName="CarsClinicScore" />

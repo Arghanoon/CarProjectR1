@@ -50,6 +50,7 @@
                 @Html.input_ComboBox(m => m.Car.CarUsage, "کاربرد خودرو", Model.List_CarUsage)
                 @Html.input_TextBox(m => m.Car.CarYearModel, "سال ساخت")
                 @*@Html.input_ComboBox(m => m.Car.CarBodyType, "نوع بدنه", Model.List_CarBodyTypes)*@
+                @Html.input_ComboBox(m => m.Car.CountryId, "کشور سازنده", dbs.Countries.ToDictionary(k => k.CountryId, v => v.CountryLongName + " (" + v.CountryShortName + ")"))
                 @Html.input_TextArea(m => m.Car.CarsDescription, "توضیحات")
             </div>
             <div class="footer" style="direction: ltr;">

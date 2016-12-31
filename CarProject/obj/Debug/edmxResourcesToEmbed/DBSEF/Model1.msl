@@ -289,6 +289,7 @@
         <MappingFragment StoreEntitySet="Cars">
           <ScalarProperty Name="CarsId" ColumnName="CarsId" />
           <ScalarProperty Name="CarModelId" ColumnName="CarModelId" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
           <ScalarProperty Name="CarsClass" ColumnName="CarsClass" />
           <ScalarProperty Name="CarsUserScore" ColumnName="CarsUserScore" />
           <ScalarProperty Name="CarsClinicScore" ColumnName="CarsClinicScore" />
