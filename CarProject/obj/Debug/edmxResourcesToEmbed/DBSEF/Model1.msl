@@ -566,6 +566,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="HomePageMenus">
+      <EntityTypeMapping TypeName="CarAutomationModel.HomePageMenu">
+        <MappingFragment StoreEntitySet="HomePageMenu">
+          <ScalarProperty Name="HomePageMenuId" ColumnName="HomePageMenuId" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Target" ColumnName="Target" />
+          <ScalarProperty Name="RootHomePageMenuId" ColumnName="RootHomePageMenuId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Manufactures">
       <EntityTypeMapping TypeName="CarAutomationModel.Manufacture">
         <MappingFragment StoreEntitySet="Manufacture">
@@ -692,6 +703,7 @@
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
+          <ScalarProperty Name="CarBrandId" ColumnName="CarBrandId" />
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="ProductHeight" ColumnName="ProductHeight" />
           <ScalarProperty Name="ProductWidth" ColumnName="ProductWidth" />

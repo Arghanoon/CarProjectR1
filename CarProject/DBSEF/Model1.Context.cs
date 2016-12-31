@@ -68,6 +68,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<Discount> Discounts { get; set; }
         public virtual DbSet<FuelConsumption> FuelConsumptions { get; set; }
         public virtual DbSet<GlassAndMirror> GlassAndMirrors { get; set; }
+        public virtual DbSet<HomePageMenu> HomePageMenus { get; set; }
         public virtual DbSet<Manufacture> Manufactures { get; set; }
         public virtual DbSet<MarketingMail> MarketingMails { get; set; }
         public virtual DbSet<Person> People { get; set; }

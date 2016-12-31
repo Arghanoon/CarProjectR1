@@ -8,9 +8,11 @@ using System.Web.Mvc;
 using System.Xml.Serialization;
 using System.IO;
 
+using CarProject.App_extension;
+
 namespace CarProject.Areas.Admin.Controllers
 {
-    [CarProject.CLS.AuthFilter]
+    //[CarProject.CLS.AuthFilter]
     public class DashBoardController : Controller
     {
         //
@@ -311,6 +313,36 @@ namespace CarProject.Areas.Admin.Controllers
         }
         #endregion
 
+        #region MenuManager 
+        public ActionResult MainMenu_Insert()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult MainMenus()
+        {
+            return View();
+        }
+        public ActionResult MainMenu_Insert(DBSEF.HomePageMenu model)
+        {
+            if (model.Subject.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Subject", "عنوان لینک تعیین نشده است");
+            if (model.Title.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Title", "لینک صفحه تعیین نشده است");
+
+            if (ModelState.IsValid)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                dbs.HomePageMenus.Add(model);
+                dbs.SaveChanges();
+
+                return RedirectToAction("MainMenus");
+            }
+
+            return View(model);
+        }
+
+        #endregion
 
         [HttpPost]
         public ActionResult topNavPostBack(FormCollection form)

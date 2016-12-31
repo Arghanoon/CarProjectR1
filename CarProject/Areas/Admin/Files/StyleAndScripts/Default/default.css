@@ -399,3 +399,12 @@ a {
     font-size:70%;
 }
 
+@media print {
+
+    header {
+        display: none;
+    }
+    #menu {
+        display: none;
+    }
+}

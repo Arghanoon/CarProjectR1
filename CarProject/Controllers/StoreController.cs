@@ -62,6 +62,53 @@ namespace CarProject.Controllers
 
             }
         }
+        public void AddToCart_PriceFlag(int id, Models.Store.CartUsefull.Basket_ItemType type, Models.Store.CartUsefull.BasketImte_PriceFlag PriceFlag)
+        {
+
+            if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                var user = Session["guestUser"] as DBSEF.User;
+                var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)Models.Store.CartUsefull.Basket_State.Openned);
+                if (cart == null)
+                {
+                    cart = new DBSEF.Basket { UserId = user.UserId, State = (byte)Models.Store.CartUsefull.Basket_State.Openned };
+                    dbs.Baskets.Add(cart);
+                }
+
+                if (cart.BasketItems.Count(c => c.Id == id && c.Type == (byte)type) <= 0)
+                    cart.BasketItems.Add(new DBSEF.BasketItem { Id = id, Type = (byte)type, Count = 1, PriceFlag = (byte)PriceFlag });
+                else
+                {
+                    var citem = cart.BasketItems.FirstOrDefault(c => c.Id == id && c.Type == (byte)type);
+                    if (citem != null)
+                        citem.PriceFlag = (byte)PriceFlag;
+                }
+                dbs.SaveChanges();
+            }
+            else
+            {
+                var cart = new DBSEF.Basket();
+                if (Request.Cookies["Basket"] != null && !Request.Cookies["Basket"].Value.IsNullOrWhiteSpace())
+                {
+                    cart = JsonConvert.DeserializeObject<DBSEF.Basket>(Request.Cookies["Basket"].Value);
+                    if (cart == null)
+                        cart = new DBSEF.Basket();
+                }
+
+                if (cart.BasketItems.Count(c => c.Id == id && c.Type == (byte)type) <= 0)
+                    cart.BasketItems.Add(new DBSEF.BasketItem { Id = id, Type = (byte)type, Count = 1, PriceFlag = (byte)PriceFlag });
+                else
+                {
+                    var citem = cart.BasketItems.FirstOrDefault(c => c.Id == id && c.Type == (byte)type);
+                    if (citem != null)
+                        citem.PriceFlag = (byte)PriceFlag;
+                }
+                Response.Cookies["Basket"].Value = JsonConvert.SerializeObject(cart);
+                Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(1);
+
+            }
+        }
         
         public ActionResult Cart()
         {

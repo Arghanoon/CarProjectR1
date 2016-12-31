@@ -199,12 +199,14 @@
             <div id="productViewsInfo">
                 @{ var productsToviewObject = dbs.ProductToViews.FirstOrDefault(p => p.ProductId == id); }
                 <section class="gia-users">@if (productsToviewObject.Viewd != null) { @productsToviewObject.Viewd }</section> 
-                <section class="gia-heart" id="popularcountsection">@if (productsToviewObject.Favorite != null) { @productsToviewObject.Favorite } else{ <span>0</span> } </section>
+                <section class="gia-heart" onclick="MakeProductPopular('@Url.Action("Products_makePopular","Store")','@id')" id="popularcountsection">@if (productsToviewObject.Favorite != null) { @productsToviewObject.Favorite } else{ <span>0</span> } </section>
             </div>
             <div id="productAction">
-                <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ProductForum", id = product.ProductId, info1 = product.Category.CategoryName , info2 = product.ProductName, info3 = product.PartNumber  })" class="gia-forum button blue">پرسش و پاسخ</a>
-                <a href="javascript:void()" onclick="AddToCart('@product.ProductId','@CarProject.Models.Store.CartUsefull.Basket_ItemType.Product')" class="gia-cart button green">اضافه کردن به سبد خرید</a>
-                <a href="javascript:void()" class="gia-heart button jigary" onclick="MakeProductPopular('@Url.Action("Products_makePopular","Store")','@id')">محبوب کردن کالا</a>
+                @*<a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ProductForum", id = product.ProductId, info1 = product.Category.CategoryName , info2 = product.ProductName, info3 = product.PartNumber  })" class="gia-forum button blue">پرسش و پاسخ</a>*@
+                
+                <a href="javascript:void()" onclick="AddToCart2('@product.ProductId','@CarProject.Models.Store.CartUsefull.Basket_ItemType.Product','@CarProject.Models.Store.CartUsefull.BasketImte_PriceFlag.Product_PriceOnly')" class="gia-cart button blue">اضافه کردن (فقط) محصول به سبد خرید</a>
+                <a href="javascript:void()" onclick="AddToCart2('@product.ProductId','@CarProject.Models.Store.CartUsefull.Basket_ItemType.Product','@CarProject.Models.Store.CartUsefull.BasketImte_PriceFlag.Product_PricePlusInstallation')" class="gia-cart button green">اضافه کردن محصول + هزینه نصب به سبد خرید</a>
+                @*<a href="javascript:void()" class="gia-heart button jigary" onclick="MakeProductPopular('@Url.Action("Products_makePopular","Store")','@id')">محبوب کردن کالا</a>*@
             </div>
         </div>
         
