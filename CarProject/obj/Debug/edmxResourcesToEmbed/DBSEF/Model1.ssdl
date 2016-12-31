@@ -269,6 +269,7 @@
     </Key>
     <Property Name="CarsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarModelId" Type="int" />
+    <Property Name="CountryId" Type="int" />
     <Property Name="CarsClass" Type="nvarchar" MaxLength="50" />
     <Property Name="CarsUserScore" Type="float" />
     <Property Name="CarsClinicScore" Type="float" />
@@ -1187,6 +1188,18 @@
       </Principal>
       <Dependent Role="Cars">
         <PropertyRef Name="CarModelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_Country">
+    <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryId" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="CountryId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2170,6 +2183,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Cars_CarModel" Association="Self.FK_Cars_CarModel">
       <End Role="CarModel" EntitySet="CarModel" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_Country" Association="Self.FK_Cars_Country">
+      <End Role="Country" EntitySet="Country" />
       <End Role="Cars" EntitySet="Cars" />
     </AssociationSet>
     <AssociationSet Name="FK_CarSeatOptions_Cars" Association="Self.FK_CarSeatOptions_Cars">
