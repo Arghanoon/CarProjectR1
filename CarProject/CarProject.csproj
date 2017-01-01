@@ -503,6 +503,11 @@
     <Content Include="Publics\Files\Settings\TopMenu.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Publics\Files\Templates\templates02\cssclasses.css" />
+    <Content Include="Publics\Files\Templates\templates02\Images\enemad.png" />
+    <Content Include="Publics\Files\Templates\templates02\Images\Final-Logo-Khodroclinic.png" />
+    <Content Include="Publics\Files\Templates\templates02\Images\MenuDlimiter.png" />
+    <Content Include="Publics\Files\Templates\templates02\style.css" />
     <Content Include="Publics\Scripts\PersianDateTimePicker\Content\PersianDatePicker.css" />
     <Content Include="Publics\Scripts\PersianDateTimePicker\Content\PersianDatePicker.min.css" />
     <Content Include="Publics\Scripts\PersianDateTimePicker\Scripts\PersianDatePicker.js" />
@@ -962,6 +967,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\DashBoard\MainMenu_Update.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MainMenu_delete.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
@@ -993,6 +1000,7 @@
     <Content Include="Views\Home\EmailTest.cshtml" />
     <Content Include="Views\Troubleshooting\Index.cshtml" />
     <Content Include="Views\Cars\CarsComments.cshtml" />
+    <Content Include="Views\public\template02.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

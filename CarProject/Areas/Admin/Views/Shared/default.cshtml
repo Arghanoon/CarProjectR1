@@ -111,7 +111,13 @@
                 <strong class="gia-message title">مدیریت پیامها</strong>
             	<a href="@Url.Action("MailsMessage_Signup_SendActivationcode", "DashBoard", new { area = "admin" , id = "" })">ثبت محتوای ایمیل فعال سازی حساب کاربری</a>
                 <a href="@Url.Action("MailsMessage_Signup_RecoveryKey", "DashBoard", new { area = "admin" , id = "" })">ثبت محتوای ایمیل بازیابی کلمه عبور</a>
-            </nav>
+            </nav> 
+            
+            <nav>
+                <strong class="title">منو صفحه اصلی</strong>
+                <a href="@Url.Action("MainMenu_Insert","DashBoard")" class="">ثبت منو جدید</a>
+                <a href="@Url.Action("MainMenus","DashBoard")" class="">مدیریت منو ها</a>
+            </nav>  
             
         </div>
         

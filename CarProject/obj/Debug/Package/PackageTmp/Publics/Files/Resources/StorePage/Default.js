@@ -167,6 +167,9 @@ function MessageBoxShow(content) {
 function AddToCart(id, type) {
     $.post('/Store/AddToCart', { 'id': id, 'type': type }, function (res) { MessageBoxShow("محصول به سبد خرید اضافه شد"); });
 }
+function AddToCart2(id, type, priceflag) {
+    $.post('/Store/AddToCart_PriceFlag', { 'id': id, 'type': type, 'PriceFlag': priceflag }, function (res) { MessageBoxShow("محصول به سبد خرید اضافه شد"); });
+}
 /*----------------------------------[ END Add To CartRequest ]------------------------------*/
 
 /*---------------------------------------Input Rating Section---------------------*/

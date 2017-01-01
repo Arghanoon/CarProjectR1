@@ -12,13 +12,14 @@ using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    //[CarProject.CLS.AuthFilter]
+    [CarProject.CLS.AuthFilter]
     public class DashBoardController : Controller
     {
         //
         // GET: /Admin/DashBoard/
 
         Models.Dashboard.MySerializer mserilize = new Models.Dashboard.MySerializer();
+        CarProject.DBSEF.CarAutomationEntities dbsobject = new DBSEF.CarAutomationEntities();
 
         public ActionResult Index()
         {
@@ -314,32 +315,84 @@ namespace CarProject.Areas.Admin.Controllers
         #endregion
 
         #region MenuManager 
+        public ActionResult MainMenus()
+        {
+            return View();
+        }
+
         public ActionResult MainMenu_Insert()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult MainMenus()
-        {
-            return View();
-        }
         public ActionResult MainMenu_Insert(DBSEF.HomePageMenu model)
         {
             if (model.Subject.IsNullOrWhiteSpace())
                 ModelState.AddModelError("Subject", "عنوان لینک تعیین نشده است");
-            if (model.Title.IsNullOrWhiteSpace())
-                ModelState.AddModelError("Title", "لینک صفحه تعیین نشده است");
+            if (model.Target.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Target", "لینک صفحه تعیین نشده است");
 
             if (ModelState.IsValid)
             {
-                var dbs = new DBSEF.CarAutomationEntities();
-                dbs.HomePageMenus.Add(model);
-                dbs.SaveChanges();
+                dbsobject.HomePageMenus.Add(model);
+                dbsobject.SaveChanges();
 
                 return RedirectToAction("MainMenus");
             }
 
             return View(model);
+        }
+
+        public ActionResult MainMenu_Update(int? id)
+        {
+            var model = dbsobject.HomePageMenus.FirstOrDefault(c => c.HomePageMenuId == id);
+            if (model == null)
+                return RedirectToAction("MainMenus");
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult MainMenu_Update(int? id, DBSEF.HomePageMenu model)
+        {
+            if (model.Subject.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Subject", "عنوان لینک تعیین نشده است");
+            if (model.Target.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Target", "لینک صفحه تعیین نشده است");
+
+            if (ModelState.IsValid)
+            {
+                var mdl = dbsobject.HomePageMenus.FirstOrDefault(c => c.HomePageMenuId == id);
+                if (mdl != null)
+                {
+                    TryUpdateModel(mdl);
+                    dbsobject.SaveChanges();
+                }
+
+                return RedirectToAction("MainMenus");
+            }
+
+            return View(model);
+        }
+
+        public ActionResult MainMenu_delete(int? id)
+        {
+            var model = dbsobject.HomePageMenus.FirstOrDefault(c => c.HomePageMenuId == id);
+            if (model == null)
+                return RedirectToAction("MainMenus");
+
+            return View(model);
+        }
+        [HttpPost, ActionName("MainMenu_delete")]
+        public ActionResult MainMenu_deleteConfirmed(int? id)
+        {
+            var model = dbsobject.HomePageMenus.FirstOrDefault(c => c.HomePageMenuId == id);
+            if (model != null)
+            {
+                dbsobject.HomePageMenus.Remove(model);
+                dbsobject.SaveChanges();
+            }
+
+            return RedirectToAction("MainMenus");
         }
 
         #endregion

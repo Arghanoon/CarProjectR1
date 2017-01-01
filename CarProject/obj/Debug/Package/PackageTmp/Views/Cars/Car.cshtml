@@ -49,13 +49,13 @@
             <h2 class="infoHeader active">اطلاعات عمومی خودرو</h2>
             <table class="infoTable">
 
-                @*@if (!Model.Car.CarModel.CarBrand.CarBrandName.IsNullOrWhiteSpace())
+                @if (!Model.Car.CarModel.CarBrand.CarBrandName.IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>برند</th>
                         <td>@Model.Car.CarModel.CarBrand.CarBrandName</td>
                     </tr>
-                }*@
+                }
                 @if (!Model.Car.CarsClass.IsNullOrWhiteSpace())
                 {
                     <tr>
@@ -70,13 +70,19 @@
                         <td>@Model.Car.CarModel.CarModelName</td>
                     </tr>
                 }
+                @if (Model.Car.Country != null && !Model.Car.Country.CountryLongName.IsNullOrWhiteSpace())
+                {
+                    <tr>
+                        <th>کشور سازنده</th>
+                        <td>@Model.Car.Country.CountryShortName - @Model.Car.Country.CountryLongName</td>
+                    </tr>
+                }
                 @if (!Model.Car.CarsUserScore.ToString().IsNullOrWhiteSpace())
                 {
                     <tr>
                         <th>امتیاز کاربران</th>
                         <td>@Model.Car.CarsUserScore</td>
                     </tr>
-
                 }
                 @if (!Model.Car.CarsClinicScore.ToString().IsNullOrWhiteSpace())
                 {

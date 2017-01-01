@@ -1,0 +1,133 @@
+﻿@{
+    var dbsobj = new CarProject.DBSEF.CarAutomationEntities();
+}@functions{
+    
+    
+    
+}<!doctype html>
+<html>
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="~/Publics/Files/Templates/templates02/cssclasses.css" rel="stylesheet" />
+    <link href="~/Publics/Files/Templates/templates02/style.css" rel="stylesheet" />
+
+    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
+
+<title>خودرو کلینیک</title>
+
+
+    @RenderSection("style", false)
+</head>
+
+<body>
+
+    <header id="headers">
+        <header id="header0">
+            <header id="header1">
+                <h1 id="WebsiteBigTitle">خودروکلینیک</h1>
+                
+                <div id="header1_userprofilenav_search">
+                    <nav id="Website_profile_navigation">
+                        <a href="#">سلام نام کاربری (نام کاربری) خوش آمدید</a>
+                        <a href="#">مشاهده پروفایل</a>
+                        <a href="#">خودروهای شما</a>
+                        <a href="#">سوابق خرید</a>
+                        <a href="#">پیگیر سفارش</a>
+                    </nav>
+                    
+                    <div id="Website_search_section">
+                        <a href="#" class="button">سبد خرید</a>
+                        
+                        <section id="Webiste_Search_Control">
+                            <input type="text" name="search" placeholder="جستجوی خودروها،قطعات یدکی،اخبار" />
+                            <button type="submit"><span class="gia-left"></span></button>
+                        </section>
+                        
+                        <a href="#">ورود / ثبت نام <span class="gia-user2"></span></a>
+                        <a href="#">سامانه اشتراک <span class="gia-rss2"></span></a>
+                    </div>
+                </div>
+            </header>
+            
+            <div id="WebsiteBigLogo">
+                <img src="~/Publics/Files/Templates/templates02/Images/Final-Logo-Khodroclinic.png" alt="لوگوی خودرو کلینیک" />
+            </div> 
+        </header>
+        <header id="header2">
+            @foreach (var item in dbsobj.HomePageMenus)
+            {
+                <a href="@item.Target" title="@item.Title">@item.Subject</a><span class="splitter"></span>
+            }
+        </header>
+    </header>	
+
+	<div id="bodyContainer">
+        @RenderBody();
+    </div>
+    
+    <footer id="footers">
+    	<footer id="footer1">
+        	<section style="display:flex; justify-content:center; align-items:center;">
+            	<h2>با ما در تماس باشید 24 ساعته در 7 روز هفته</h2>
+                <h3 style="margin:0 20px;">33116800</h3>
+            </section>
+            
+            <h2>info@khodroclinic.com</h2>
+        </footer>
+        
+        <footer id="footer2">
+        	<nav id="footer2_navigation">
+            	<a href="#">درباره ما</a>
+                <a href="#">اهداف ما</a>
+                <a href="#">تماس با ما</a>
+                <a href="#">همکاری با ما</a>
+            </nav>
+            
+            <div id="footer2_describe">
+            	<p>توضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایت
+                توضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایت
+                </p>
+            </div>
+            
+            <div id="footer2_enemad">
+            	<img id="footer2_enemad_logo" src="enemad.png"  alt=""/>
+            </div>
+            
+            <div id="footer2_newslatter">
+            	<p>زودتر از دیگران، از آخرین اخبار خودرو و تخفیف های خدماتی با خبر شوید</p>
+                <p>عضویت در خبرنامه</p>
+                <form id="newslaterForm" method="post">
+                    <input type="submit" value="تایید ایمیل" class="button" />
+                	<input type="text" name="newslatteremail" placeholder="آدرس ایمیل خودرا وارد کنید" />
+                </form>
+            
+                <div id="footer2_newslatter_SocialNetworks">
+                    <h3>در شبکه های اجتماعی با ما باشید</h3>
+                    <nav id="SocialsIcons">
+                    	<a href="#"><img src="Icons/facebook.png" alt=""/></a>
+                        <a href="#"><img src="Icons/instagram.png" alt=""/></a>
+                        <a href="#"><img src="Icons/youtube.png" alt=""/></a>
+                        <a href="#"><img src="Icons/twitter.png" alt=""/></a>
+                    </nav>
+                </div>
+            </div>
+            
+        </footer>
+    </footer>
+    
+    <footer id="footerArghanoonteam" dir="ltr">
+    	Arghanoon Programming Team<br/>2016 - 2017
+    </footer>
+
+</body>
+
+    @RenderSection("script", false)
+
+</html>
