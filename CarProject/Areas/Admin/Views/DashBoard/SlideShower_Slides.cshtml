@@ -5,6 +5,22 @@
     var slides = dbs.SlideShows.ToList();
 }
 
+@functions
+{
+    string GetSlideType(byte? input)
+    {
+        switch (input)
+        {
+            case 1:
+                return "اسلاید شو اصلی";
+            case 2:
+                return "اسلاید شو دوم";
+            default:
+                return "";
+        }
+    }
+}
+
 <div style="border-bottom:thin solid #888; margin-bottom:10px;">
     <a href="@Url.Action("SlideShower_Insert","DashBoard")" class="gia-newSlide">اضافه کردن اسلاید شو جدید</a>
 </div>
@@ -14,6 +30,7 @@
             <tr>
                 <th>شناسه</th>
                 <th>موضوع</th>
+                <th>موقعیت</th>
                 <th>تصویر</th>
                 <th>عملیات</th>
             </tr>
@@ -24,6 +41,7 @@
                 <tr>
                     <td style="width:0; white-space:nowrap;">@item.SlideShowId</td>
                     <td style="text-align:right;">@item.Subject</td>
+                    <td style="text-align:center;">@GetSlideType(item.Type)</td>
                     <td style="width:0; white-space:nowrap;"><img src="@item.Image" alt="" /></td>
                     
                     <td style="width:0; /*white-space:nowrap;*/">
