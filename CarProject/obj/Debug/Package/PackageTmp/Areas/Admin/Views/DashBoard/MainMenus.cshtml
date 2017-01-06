@@ -1,5 +1,43 @@
 ﻿@{
-    ViewBag.Title = "MainMenus";
+    ViewBag.Title = "مدیریت منو های صفحه اصلی";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var links = dbs.HomePageMenus.AsQueryable();
 }
 
-<h2>MainMenus</h2>
+<div>
+    <h3>@ViewBag.Title</h3>
+    
+    <nav>
+        <a href="/Admin/Dashboard/MainMenu_Insert">اضافه کردن منوی جدید</a>
+    </nav>
+
+    <hr />
+
+    <table class="grid1">
+       <thead>
+            <tr>
+                <th class="min_nw tcenter">ردیف</th>
+                <th>عنوان</th>
+                <th>توضیحات</th>
+                <th>لینک</th>
+                <th class="min_nw tcenter">عملیات</th>
+            </tr>
+       </thead>
+        <tbody>
+            @{ int i = 1 ; }
+            @foreach (var item in links)
+            {
+                <tr>
+                    <td class="min_nw tcenter">@{Write(i++);}</td>
+                    <td class="tright">@item.Subject</td>
+                    <td class="tright">@item.Title</td>
+                    <td class="tleft" dir="ltr">@item.Target</td>
+                    <td class="min_nw tcenter">
+                        <a href="/Admin/Dashboard/MainMenu_delete/@item.HomePageMenuId" class="gia-remove"></a>
+                        <a href="/Admin/Dashboard/MainMenu_Update/@item.HomePageMenuId" class="gia-edit"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

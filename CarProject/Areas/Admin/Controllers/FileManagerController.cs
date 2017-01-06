@@ -83,7 +83,16 @@ namespace CarProject.Areas.Admin.Controllers
         {
             return View(model: id);
         }
+        public ActionResult tinymcefm_selector(string id)
+        {
+            return View(model: id);
+        }
+
         public ActionResult tinymcefm2(string id)
+        {
+            return View(model: id);
+        }
+        public ActionResult tinymcefm2_selector(string id)
         {
             return View(model: id);
         }

@@ -11,6 +11,8 @@
 @section style
 {
     <link href="~/Publics/Files/ControlsPageTemplates/Home/Index/css.css" rel="stylesheet" />
+    <link href="~/Publics/Files/ControlsPageTemplates/Home/Index/SliderItemShow.css" rel="stylesheet" />
+    <script src="~/Publics/Files/ControlsPageTemplates/Home/Index/SliderItemShow.js"></script>
 }
 
 <div id="indexContainer">
@@ -46,24 +48,27 @@
                 </div>
             </div>
 
-            <h3 id="mycarStates"><span class="gia-speedometer" style="font-size: 220%;"></span>وضعیت ماشینم را ذخیره کن</h3>
+            <a href="/Users/Dashboard/PersonCars" id="mycarStates"><span class="gia-speedometer" style="font-size: 220%;"></span>وضعیت ماشینم را ذخیره کن</a>
         </div>
 
-        <div id="section0_mainslideshow">
-            @{
-                var slides = dbs.SlideShows.Where(s => s.Type == 1);
+        @if(dbs.SlideShows.Any(c => c.Type == 1))
+        {
+            <div id="section0_mainslideshow">
+                @{
+                    var slides = dbs.SlideShows.Where(s => s.Type == 1);
             
-            }
-            <a id="mainslideshow_bigimageLink" href="#">
-                <img id="mainslideshow_bigimage" src="@slides.First().Image" />
-            </a>
-            <div id="mainslideshow_titles">
-                @foreach (var item in slides)
-                {
-                    <a data-image="@item.Image" data-target="@item.Url" onclick="Mainslideshow_Changeactive($(this).index())">@item.Subject</a>
                 }
+                <a id="mainslideshow_bigimageLink" href="#">
+                    <img id="mainslideshow_bigimage" src="@slides.First().Image" />
+                </a>
+                <div id="mainslideshow_titles">
+                    @foreach (var item in slides)
+                    {
+                        <a data-image="@item.Image" data-target="@item.Url" onclick="Mainslideshow_Changeactive($(this).index())">@item.Subject</a>
+                    }
+                </div>
             </div>
-        </div>
+        }
 
     </div>
 
@@ -79,21 +84,23 @@
         </a>
     </div>
 
-
-    <div id="slideshow2Section">
-        @{
-            var slides2 = dbs.SlideShows.Where(s => s.Type == 2);
-        }
-        <div id="slideshow2Section_navigation">
-            @foreach (var item in slides2)
-            {
-                <a data-image="@item.Image" data-target="@item.Url" onclick="Mainslideshow2_Changeactive($(this).index())">@item.Subject</a>
+    @if(dbs.SlideShows.Any(c => c.Type == 1))
+    {
+        <div id="slideshow2Section">
+            @{
+                var slides2 = dbs.SlideShows.Where(s => s.Type == 2);
             }
+            <div id="slideshow2Section_navigation">
+                @foreach (var item in slides2)
+                {
+                    <a data-image="@item.Image" data-target="@item.Url" onclick="Mainslideshow2_Changeactive($(this).index())">@item.Subject</a>
+                }
+            </div>
+            <a href="" id="slideshow2Section_target">
+                <img src="@slides2.First().Image" id="slideshow2Section_bigView" />
+            </a>
         </div>
-        <a href="" id="slideshow2Section_target">
-            <img src="@slides2.First().Image" id="slideshow2Section_bigView" />
-        </a>
-    </div>
+    }
 
     <hr />
 
