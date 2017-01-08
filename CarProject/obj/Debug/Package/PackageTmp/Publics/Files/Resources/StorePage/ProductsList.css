@@ -58,24 +58,37 @@
 
 #searchAndFilter {
     width:25vw;
-    background:#fff;
+    
     margin-top:15px;
 
-    border:thin solid #888;
 
     font-size:80%
 }
     #searchAndFilter .title {
-        background:#888;
-        color:#fff;
-        padding:5px;
+        
+        background:#fed97e;
+        border-bottom:thin solid #888;
+        padding:0 5px;
+        font-size:120%;
+        border-radius:5px 5px 0 0;
     }
 
 .checkboxContainer {
     display:flex;
     flex-direction:column;
+    background:#fed97e;
     padding:5px;
+    border-radius:0 0 5px 5px;
+    margin-bottom:5px;
 }
+    .checkboxContainer .more {
+        display: none;
+        flex-direction: column;
+    }
+        .checkboxContainer .more.show {
+            display: flex;
+        }
+
     .checkboxContainer .checkbox {
         display:flex; align-items:center;
     }
@@ -86,20 +99,36 @@
     .checkboxContainer input[type=checkbox] {
         display: none;
     }
+        .checkboxContainer input[type=checkbox] + label {
+            padding-right:20px;
+        }
     .checkboxContainer input[type=checkbox] + label:before {
+        position:absolute;
+        right:0; top:0px; bottom:0px;
+        width:15px;
+        height:15px;
+        margin:auto;
+        
         font-family:giadmin;
 	    display:inline-block;
+        color:white;
+        background:blue;
 	    margin:0 3px;
 	    direction:ltr;
-        content:'\0057';
+        display:flex; justify-content:center; align-items:cetner;
+        border-radius:5px;
+        
+        /*content:'\0057';*/
+        content:' ';
     }
     .checkboxContainer input[type=checkbox]:checked + label:before {
-        content:'\0058';
+        /*content:'\0058';*/
+        content:'\098D';
     }
 
 
 #searchAndFilter .checkboxContainer {
-    border: thin solid #888;
+   
     /*max-height: 100px;
     overflow: auto;
     flex-direction:row;
@@ -138,6 +167,8 @@
         background:#888;
     }
 
+
+
 #searchsection select {
     border:thin solid #888;
     padding:2px 5px;
@@ -151,3 +182,5 @@
 #SearchOrderBy {
     font-size: 80%;
 }
+
+

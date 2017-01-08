@@ -75,6 +75,7 @@ header
 a {
     color:#8a8a8a;
     text-decoration:none;
+    cursor:pointer;
 }
     a:hover {
         color:#000;

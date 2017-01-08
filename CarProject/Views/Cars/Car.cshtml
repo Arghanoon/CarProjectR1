@@ -2,6 +2,7 @@
 @using CarProject.App_Code
 @using CarProject.App_extension
 @using System.IO
+@using System.Net
 @{
     ViewBag.Title = "نمایش اطلاعات خودر";
 
@@ -23,1524 +24,705 @@
 
 
     var carstoviewobject = dbs.CarsToViews.FirstOrDefault(c => c.CarsId == Model.Car.CarsId);
+    var carAutoServices = dbs.AutoServices.Where(c => c.CarId == Model.Car.CarsId);
+    var carProducts = dbs.Products.Where(c => c.CarId == Model.Car.CarsId);
+    var SameClassCars = dbs.Cars;
 }
 
-@if (Request.Form.AllKeys.Contains("SendACommentRequest"))
-{
-    <script>window.location = "#usersCommentsSection"</script> }
 
 
-<div id="carShowContianer">
-    <div id="content">
-        <div id="contentTopBarSection" class="pagesection">
-            <div>
-                <a href="/Users/Dashboard/InsertPersonCar/@Model.Car.CarsId" class="gia-usercar">ثبت به عنوان خودروی کاربر</a>
-                @*|
-                <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarForum", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })" class="gia-forum">پرسش و پاسخ</a>*@
+<div id="top_LocationNavigation_likedislikecount">
+    <div id="top_LocationNavigation">
+        <a href="/Cars">مشخصات خودروها</a> <span class="gia-left"></span>
+        <a href="/Cars?CarBrand=@Model.Car.CarModel.CarBrandId">@Model.Car.CarModel.CarBrand.CarBrandName</a> <span class="gia-left"></span>
+        <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })">@Model.Car.CarModel.CarModelName</a>
+    </div>
+
+    <div id="top_likedisklikecount" dir="ltr">
+        <span class="gia-speedometer2" style="font-size:300%;"></span>
+        <div>
+            <a class="gia-like" id="likecountersection" onclick="LikeCurrentCar('@Model.Car.CarsId')">@if (carstoviewobject.Favorite == null)
+                                      {<span>0</span>}
+                                      else
+                                      {<span>@carstoviewobject.Favorite</span>}</a>
+        </div>
+        <div dir="rtl">
+            <h3>تعداد بازدید</h3>
+            <p>@carstoviewobject.View</p>
+        </div>
+    </div>
+</div>
+
+
+<div id="CarImagesAndDetailsShowSection">
+    <div id="carImages">
+        @if (Model.Car.CarImages.Length > 0)
+        {
+            <div id="carImages_Bigview_Container">
+                <img id="carImages_Bigview" src="@Url.Content(Model.Car.CarImages[0])" />
             </div>
-            <div id="viewsandpopularContianer">
-                <section class="gia-users">@carstoviewobject.View</section>
-                <a href="javascript:void();" onclick="MakeProductPopular('@Url.Action("Car_MakePopular", "Cars")','@Model.Car.CarsId')" class="gia-heart" id="popularSectionCounter">@carstoviewobject.Favorite.GetValueOrDefault(0)</a>
+            <div id="carImages_ImageThumbnails">
+                <a><h3 class="gia-magnifier" style="font-size: 300%;"></h3></a>
+                <div id="carImages_ImageThumbnailscontainer" class="slideterItemShowContianer">
+                    <div class="itemsContainerBack">
+                        <div class="itemsContainer">
+                            @foreach (var item in Model.Car.CarImages)
+                            {
+                                <a class="item" onclick="document.getElementById('carImages_Bigview').src = '@Url.Content(item)'" >
+                                    <img src="@Url.Content(item)" />
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                    <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                    <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+                </div>
             </div>
+        }
+    </div>
+
+    <div id="CarDetials">
+        <div id="CarDetails_NameAndYear" class="orangeback">
+            <section>@Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</section>
+            <section>@Model.Car.CarYearModel</section>
         </div>
 
+        <div id="CarDetails_usercar_Troubleshooting">
+            <a href="/Users/Dashboard/InsertPersonCar/@Model.Car.CarsId" class="orangeback">ثبت به عنوان خودروی کاربر</a>
+            <a href="#" class="orangeback">
+                سامانه عیب یابی <br />
+                @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName
+            </a>
+        </div>
 
-        <div class="pagesection">
-            <h2 class="infoHeader active">اطلاعات عمومی خودرو</h2>
-            <table class="infoTable">
+        @if (carAutoServices.Any())
+        {
+            <div id="CarDetails_CarServices" class="slideterItemShowContianer">
+                <h3 class="title">خدمات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
+                <div class="itemsContainerBack">
+                    <div class="itemsContainer">
+                        @foreach (var item in carAutoServices)
+                        {
+                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (item.AutoServiceImages.Length > 0)
+                            {
+                                src = item.AutoServiceImages[0];
+                            }
+                            <a href="#" class="item">
+                                <img src="@Url.Content(src)" alt />
+                                <span>@item.AutoServiceName</span>
+                            </a>
+                        }
+                    </div>
+                </div>
 
-                @if (!Model.Car.CarModel.CarBrand.CarBrandName.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>برند</th>
-                        <td>@Model.Car.CarModel.CarBrand.CarBrandName</td>
-                    </tr>
-                }
-                @if (!Model.Car.CarsClass.IsNullOrWhiteSpace())
-                {
+                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+            </div>
+        }
+
+
+        @if (carProducts.Any())
+        {
+            <div id="CarDetails_CarProducts" class="slideterItemShowContianer">
+                <h3 class="title">محصولات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
+                <div class="itemsContainerBack">
+                    <div class="itemsContainer">
+                        @foreach (var item in carProducts)
+                        {
+                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (item.ProductImages.Length > 0)
+                            {
+                                src = item.ProductImages[0];
+                            }
+                            <a href="#" class="item">
+                                <img src="@Url.Content(src)" alt />
+                                <span>@item.ProductName</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+
+<div id="SameClassCars">
+    <div id="CarDetails_SameClassCars" class="slideterItemShowContianer">
+                <h3 class="title">خودروهای هم کلاس</h3>
+                <div class="itemsContainerBack">
+                    <div class="itemsContainer">
+                        @foreach (var item in SameClassCars)
+                        {
+                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (item.CarImages.Length > 0)
+                            {
+                                src = item.CarImages[0];
+                            }
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
+                                <img src="@Url.Content(src)" alt="" />
+                                <span>@item.CarModel.CarBrand.CarBrandName  @item.CarModel.CarModelName</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+            </div>
+</div>
+
+<div id="CarDifention">
+    <h3>معرفی @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarBrand.CarBrandName</h3>
+    <p>@Model.Car.CarsDescription</p>
+</div>
+
+
+<div id="CarDetailsInformation">
+
+    <div id="CarDetailsInformation_column1">
+        <div class="carinfo" data-index="0">
+                <h3>اطلاعات عمومی خودرو</h3>
+                <table>
                     <tr>
                         <th>کلاس</th>
                         <td>@Model.Car.CarsClass</td>
                     </tr>
-                }
-                @if (!Model.Car.CarModel.CarModelName.IsNullOrWhiteSpace())
-                {
                     <tr>
                         <th>مدل</th>
                         <td>@Model.Car.CarModel.CarModelName</td>
                     </tr>
-                }
-                @if (Model.Car.Country != null && !Model.Car.Country.CountryLongName.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>کشور سازنده</th>
-                        <td>@Model.Car.Country.CountryShortName - @Model.Car.Country.CountryLongName</td>
-                    </tr>
-                }
-                @if (!Model.Car.CarsUserScore.ToString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>امتیاز کاربران</th>
-                        <td>@Model.Car.CarsUserScore</td>
-                    </tr>
-                }
-                @if (!Model.Car.CarsClinicScore.ToString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>امتیاز کلینیک</th>
-                        <td>@Model.Car.CarsClinicScore</td>
-                    </tr>
-
-                }
-                @if (!Model.Car.Price.ToString().IsNullOrWhiteSpace())
-                {
                     <tr>
                         <th>قیمت</th>
-                        <td>@string.Format("{0:#,###0}", @Model.Car.Price) ملیون تومان</td>
+                        <td>@Model.Car.Price ملیون تومان</td>
                     </tr>
-                }
-                                    @if (!Model.Car.CarsVideoURL.IsNullOrWhiteSpace())
-                {
                     <tr>
-                        <th>آدرس ویدئو</th>
-                        <td><a href="@Model.Car.CarsVideoURL">@Model.Car.CarsVideoURL</a></td>
-                    </tr>
-                }
-                                    @if (!Model.Car.CarsDescription.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>توضیحات</th>
-                        <td>@Model.Car.CarsDescription</td>
-                    </tr>
-                }
-                                    @if (!Model.Car.CarClassType.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>کلاس کاری</th>
-                        <td>@Model.Car.CarClassType</td>
-                    </tr>
-                }
-                                    @if (!Model.Car.CarCategory.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>دسته بندی</th>
-                        <td>@Model.Car.CarCategory</td>
-                    </tr>
-                }
-                                    @if (!Model.Car.CarUsage.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>کاربر</th>
+                        <th>کابرد</th>
                         <td>@Model.Car.CarUsage</td>
                     </tr>
-                }
-            </table>
-        </div>
-
-        @if (!Model.CarEngine.IsNull)
-        {
-            <div class="pagesection">
-                <h2 class="infoHeader active">موتور</h2>
-                <table class="infoTable">
-                    @if (!Model.CarEngine.EngineType.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>نوع موتور</th>
-                            <td>@Model.CarEngine.EngineType</td>
-                        </tr>
-                    }
-                    @if (!Model.CarEngine.EnginePowerHpRpm.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>قدرت موتور</th>
-                            <td>@Model.CarEngine.EnginePowerHpRpm</td>
-                        </tr>
-                    }
-                    @if (!Model.CarEngine.EngineTorque.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>گشتاور</th>
-                            <td>@Model.CarEngine.EngineTorque</td>
-                        </tr>
-                    }
-                    @if (!Model.CarEngine.EnginePowerHpTon.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>توان وزنی</th>
-                            <td>@Model.CarEngine.EnginePowerHpTon</td>
-                        </tr>
-                    }
-                    @if (!Model.CarEngine.EnginePowerHpLitr.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>توان خروجی</th>
-                            <td>@Model.CarEngine.EnginePowerHpLitr</td>
-                        </tr>
-                    }
-                    @if (!Model.CarEngine.EngineMaxSpeed.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>حداکثر سرعت</th>
-                            <td>@Model.CarEngine.EngineMaxSpeed</td>
-                        </tr>
-                    }
-                    @if (!Model.CarEngine.EngineZeroToH.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>0 تا 100</th>
-                            <td>@Model.CarEngine.EngineZeroToH</td>
-                        </tr>
-                    }
-                    @if (!Model.CarEngine.EngineSize.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>حجم موتور</th>
-                            <td>@Model.CarEngine.EngineSize</td>
-                        </tr>
-                    }                    
-                    @if (!Model.CarEngine.EngineCylinderNumber.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>تعداد سیلندر</th>
-                            <td>@Model.CarEngine.EngineCylinderNumber</td>
-                        </tr>
-                    }
-                    @if (!Model.CarEngine.EngineDescription.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>توضیحات</th>
-                            <td>@Model.CarEngine.EngineDescription</td>
-                        </tr>
-                    }
                 </table>
             </div>
-        }
 
-        @if (!Model.GearBox.IsNull)
-                        {
-            <div class="pagesection">
-                <h2 class="infoHeader active">گیربکس</h2>
-                <table class="infoTable">
-                    @*@if (!Model.GearBox.GearBoxCode.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>کد گیربکس</th>
-                            <td>@Model.GearBox.GearBoxCode</td>
-                        </tr>
-                    }*@
-                    @if (!Model.GearBox.GearBoxType.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>نوع</th>
-                            <td>@Model.GearBox.GearBoxType</td>
-                        </tr>
-                    }
-                    @if (!Model.GearBox.GearBoxCanBeManual.YesNoString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>امکان تبدیل بده دنده دستی</th>
-                            <td>@Model.GearBox.GearBoxCanBeManual.YesNoString()</td>
-                        </tr>
-                    }
-                    @if (!Model.GearBox.GearBoxShifter.YesNoString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>شیفتر دنده</th>
-                            <td>@Model.GearBox.GearBoxShifter.YesNoString()</td>
-                        </tr>
-                    }
-                    @if (!Model.GearBox.GearBoxShiftNumber.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>تعداد دنده</th>
-                            <td>@Model.GearBox.GearBoxShiftNumber</td>
-                        </tr>
-                    }
-                    @if (!Model.GearBox.GearBoxAxel.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>محور متحرک</th>
-                            <td>@Model.GearBox.GearBoxAxel</td>
-                        </tr>
-                    }
-                    @if (!Model.GearBox.HasTransferCase.YesNoString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>آیا دارای کمک گیربکس است؟</th>
-                            <td>@Model.GearBox.HasTransferCase.YesNoString()</td>
-                        </tr>
-                    }
-                    @if (!Model.GearBox.GearBoxDiffrentionalLock.YesNoString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>آیا دارای قفل دیفرانسیل است؟</th>
-                            <td>@Model.GearBox.GearBoxDiffrentionalLock.YesNoString()</td>
-                        </tr>
-                    }
-                    @if (!Model.GearBox.GearBoxWdType.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>4WD</th>
-                            <td>@Model.GearBox.GearBoxWdType</td>
-                        </tr>
-                    }
-                    @if (!Model.GearBox.GearBoxDescription.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>توضیحات</th>
-                            <td>@Model.GearBox.GearBoxDescription</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-        }
+        <div class="carinfo" data-index="2">
+            <h3>گیربکس</h3>
+            <table>
+                <tr>
+                    <th>نوع</th>
+                    <td>@Model.GearBox.GearBoxType</td>
+                </tr>
+                <tr>
+                    <th>تبدیل به دنده دستی</th>
+                    <td> <span class="checked_@Model.GearBox.GearBoxCanBeManual.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>شیفتر پشت فرمان</th>
+                    <td><span class="checked_@Model.GearBox.GearBoxShifter.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>تعداد دنده</th>
+                    <td>@Model.GearBox.GearBoxShiftNumber</td>
+                </tr>
+                <tr>
+                    <th>محور متحرک</th>
+                    <td>@Model.GearBox.GearBoxAxel</td>
+                </tr>
+                <tr>
+                    <th>کمک گیرباکس</th>
+                    <td><span class="checked_@Model.GearBox.HasTransferCase.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>قفل دیفرانسیل</th>
+                    <td><span class="checked_@Model.GearBox.GearBoxDiffrentionalLock.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.GearBox.GearBoxDescription</td>
+                </tr>
+            </table>
+        </div>
 
-        @if (Model.PhysicalDetail != null)
-        {
-            <div class="pagesection">
-                <h2 class="infoHeader active">مشخصات فیزیکی</h2>
-                <table class="infoTable">
-                    @if (!Model.PhysicalDetail.CarLength.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>طول خودرو</th>
-                            <td>@Model.PhysicalDetail.CarLength میلیمتر</td>
-                        </tr>
-                    }
-                    @if (!Model.PhysicalDetail.Carwidth.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>عرض خودرو</th>
-                            <td>@Model.PhysicalDetail.Carwidth میلیمتر</td>
-                        </tr>
-                    }
-                    @if (!Model.PhysicalDetail.CarHeight.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>ارتفاع خودرو</th>
-                            <td>@Model.PhysicalDetail.CarHeight میلیمتر</td>
-                        </tr>
-                    }
-                    @if (!Model.PhysicalDetail.CarPureWeight.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>وزن خالص</th>
-                            <td>@Model.PhysicalDetail.CarPureWeight کیلو گرم</td>
-                        </tr>
-                    }
-                    @if (!Model.PhysicalDetail.CarTrack.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>فاصله دو چرخ یک محور</th>
-                            <td>@Model.PhysicalDetail.CarTrack میلیمتر</td>
-                        </tr>
-                    }
-                    @if (!Model.PhysicalDetail.CarWheelBase.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>فاصله دو محور از یکدیگر</th>
-                            <td>@Model.PhysicalDetail.CarWheelBase میلیمتر</td>
-                        </tr>
-                    }
-                    @if (!Model.PhysicalDetail.CarTankSize.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>حجم باک</th>
-                            <td>@Model.PhysicalDetail.CarTankSize لیتر</td>
-                        </tr>
-                    }
-                    @if (!Model.PhysicalDetail.Details.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>توضیحات</th>
-                            <td>@Model.PhysicalDetail.Details</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-        }
+        <div class="carinfo" data-index="4">
+            <h3>سیستم امنیتی</h3>
+            <table>
+                <tr>
+                    <th>ریموت کنترل</th>
+                    <td><span class="checked_@Model.SecuritySystem.RemoteControl.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>دزدگیر</th>
+                    <td><span class="checked_@Model.SecuritySystem.BurglarAlarm.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>ایمبولایزر</th>
+                    <td><span class="checked_@Model.SecuritySystem.Emo.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>keyless starter</th>
+                    <td><span class="checked_@Model.SecuritySystem.KeylessStart.ToString()"></span></td>
+                </tr>
+            </table>
+        </div>
 
-        @if (!Model.FuelConsumption.IsNull)
-        {
-            <div class="pagesection">
-                <h2 class="infoHeader active">سیستم سوخت رسانی</h2>
-                <table class="infoTable">
-                    @if (!Model.FuelConsumption.LphCity.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>مصرف در شهر</th>
-                            <td>@Model.FuelConsumption.LphCity لیتر در هر 100 کیلومتر</td>
-                        </tr>
-                    }
-                    @if (!Model.FuelConsumption.LphRoad.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>مصرف در جاده</th>
-                            <td>@Model.FuelConsumption.LphRoad لیتر در هر 100 کیلومتر</td>
-                        </tr>
-                    }
-                    @if (!Model.FuelConsumption.LphMix.ToString().IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>مصرف سوخت ترکیبی</th>
-                            <td>@Model.FuelConsumption.LphMix لیتر در هر 100 کیلومتر</td>
-                        </tr>
-                    }
-                    @if (!Model.FuelConsumption.Details.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>توضیحات</th>
-                            <td>@Model.FuelConsumption.Details</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-        }
-
-        @if (!Model.BrakeSystem.IsNull && Model.DetailedBrakeSystems.Count > 0)
-        {
-            <div class="pagesection">
-                <h2 class="infoHeader active">سیستم ترمز</h2>
-                <table class="infoTable">
-                    @if (!Model.BrakeSystem.FrontBrakeSystem.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>ترمز جلو</th>
-                            <td>@Model.BrakeSystem.FrontBrakeSystem</td>
-                        </tr>
-                    }
-                    @if (!Model.BrakeSystem.RearBrakeSystem.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>ترمز عقب</th>
-                            <td>@Model.BrakeSystem.RearBrakeSystem</td>
-                        </tr>
-                    }
-                    @if (!Model.BrakeSystem.OtherSystem.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>سیستم های دیگر</th>
-                            <td>@Model.BrakeSystem.OtherSystem</td>
-                        </tr>
-                    }
-                    @if (!Model.BrakeSystem.HandBrakeSystem.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>ترمز دستی</th>
-                            <td>@Model.BrakeSystem.HandBrakeSystem</td>
-                        </tr>
-                    }
-                    @if (!Model.BrakeSystem.Details.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>توضیحات</th>
-                            <td>@Model.BrakeSystem.Details</td>
-                        </tr>
-                    }
-                    @if (Model.DetailedBrakeSystems.Count != 0)
-                    {
-                        <tr>
-                            <th>جزئیات دیگر</th>
-                            <td>
-                                @foreach (var item in Model.DetailedBrakeSystems)
-                                {
-                                    <section>@item.DetailedName</section>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
-        }
-
-        <div class="pagesection">
-            <h2 class="infoHeader active">سیستم امنیتی</h2>
-            <table class="infoTable">
-                @if (!Model.SecuritySystem.RemoteControl.YesNoString().IsNullOrWhiteSpace())
+        <div class="carinfo" data-index="6">
+            <h3>سیستم تهویه هوا</h3>
+            <table>
+                <tr>
+                    <th>نوع تهویه</th>
+                    <td>@Model.AirConditioningSystem.AirConditioningType</td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.AirConditioningSystem.Details</td>
+                </tr>
+                @foreach (var item in Model.AirConditioningSystemDetails)
                 {
                     <tr>
-                        <th>ریموت کنترل</th>
-                        <td>@Model.SecuritySystem.RemoteControl.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.SecuritySystem.BurglarAlarm.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>دزدگیر</th>
-                        <td>@Model.SecuritySystem.BurglarAlarm.YesNoString()</td>
-                    </tr>
-                }
-                @*@if (!Model.SecuritySystem.Alarm.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>آیا دارای آژیر است؟</th>
-                        <td>@Model.SecuritySystem.Alarm.YesNoString()</td>
-                    </tr>
-                }*@
-                @if (!Model.SecuritySystem.Emo.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>ایموبلایزر</th>
-                        <td>@Model.SecuritySystem.Emo.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.SecuritySystem.KeylessStart.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>Keyless Starter</th>
-                        <td>@Model.SecuritySystem.KeylessStart.YesNoString()</td>
-                    </tr>
-                }
-                @*@if (!Model.SecuritySystem.KeylessDoor.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>آیا دارای درهای بازشو بدون کلید است؟</th>
-                        <td>@Model.SecuritySystem.KeylessDoor.YesNoString()</td>
-                    </tr>
-                }*@
-                @if (!Model.SecuritySystem.Details.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>توضیحات</th>
-                        <td>@Model.SecuritySystem.Details</td>
+                        <th>@item.AirConditioningSystemDetailSubject</th>
+                        <td>@item.AirConditioningSystemDetail1</td>
                     </tr>
                 }
             </table>
         </div>
 
-        <div class="pagesection">
-            <h2 class="infoHeader active">سیستم فرمان</h2>
-            <table class="infoTable">
-                @if (!Model.SteeringSystem.SteeringSystemType.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>نوع</th>
-                        <td>@Model.SteeringSystem.SteeringSystemType</td>
-                    </tr>
-                }
-               @* @if (!Model.SteeringSystem.SteeringType.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>مدل فرمان</th>
-                        <td>@Model.SteeringSystem.SteeringType</td>
-                    </tr>
-                }*@
-                @if (!Model.SteeringSystem.SteeringHeightAdjustble.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>امکان تنظیم ارتفاع</th>
-                        <td>@Model.SteeringSystem.SteeringHeightAdjustble.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.SteeringSystem.SteeringControlKey.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>دکمه کنترلی روی فرمان</th>
-                        <td>@Model.SteeringSystem.SteeringControlKey.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.SteeringSystem.Details.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>توضیحات</th>
-                        <td>@Model.SteeringSystem.Details</td>
-                    </tr>
-                }
-            </table>
-        </div>
-    
-        @if (!Model.AirConditioningSystem.IsNull)
-        {
-            <div class="pagesection">
-                <h2 class="infoHeader active">سیستم تهویه هوا</h2>
-                <table class="infoTable">
-                    @if (!Model.AirConditioningSystem.AirConditioningType.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>نوع سیستم تهویه هوا</th>
-                            <td>@Model.AirConditioningSystem.AirConditioningType</td>
-                        </tr>
-                    }
-                    @if (!Model.AirConditioningSystem.Details.IsNullOrWhiteSpace())
-                    {
-                        <tr>
-                            <th>توضیحات</th>
-                            <td>@Model.AirConditioningSystem.Details</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-        }
-
-@if (Model.AirConditioningSystemDetails.Count != 0)
-                        {
-        <div class="pagesection">
-            <h2 class="infoHeader active">جزئیات سیستم تهویه هوا</h2>
-            <table class="grid1">
-                @if (Model.AirConditioningSystemDetails.Count != 0)
-                        {
-                    <thead>
-
-                        <tr>
-                            <th>موضوع</th>
-                            <th>جزئیات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.AirConditioningSystemDetails)
-                        {
-                            <tr>
-                                <td style="font-weight: bold;">@item.AirConditioningSystemDetailSubject</td>
-                                <td>@item.AirConditioningSystemDetail1</td>
-                            </tr>
-                        }
-                    </tbody>
-                }
-            </table>
-        </div>
-}
-        <div class="pagesection">
-            <h2 class="infoHeader active">سیستم صوتی</h2>
-            <table class="infoTable">
-                @*@if (!Model.CarAudioSystem.AudioSystemType.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>نوع</th>
-                        <td>@Model.CarAudioSystem.AudioSystemType</td>
-                    </tr>
-                }*@
-                @if (!Model.CarAudioSystem.AudioSystemBrand.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>برند</th>
-                        <td>@Model.CarAudioSystem.AudioSystemBrand</td>
-                    </tr>
-                }
-                @if (!Model.CarAudioSystem.HasMonitor.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>مانیتور</th>
-                        <td>@Model.CarAudioSystem.HasMonitor.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarAudioSystem.RearSeatsMonitor.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>مانیتور صندلی عقب</th>
-                        <td>@Model.CarAudioSystem.RearSeatsMonitor.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarAudioSystem.RearGearCamera.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>دنده عقب</th>
-                        <td>@Model.CarAudioSystem.RearGearCamera.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarAudioSystem.FrontCamera.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>دوربین جلو</th>
-                        <td>@Model.CarAudioSystem.FrontCamera.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarAudioSystem.RearStereo.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>برند باندهای عقب</th>
-                        <td>@Model.CarAudioSystem.RearStereo</td>
-                    </tr>
-                }
-                @if (!Model.CarAudioSystem.FrontStereo.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>برند باندهای جلو</th>
-                        <td>@Model.CarAudioSystem.FrontStereo</td>
-                    </tr>
-                }
-                @if (!Model.CarAudioSystem.Subwoofer.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>ساب ووفر</th>
-                        <td>@Model.CarAudioSystem.Subwoofer</td>
-                    </tr>
-                }
-                @if (!Model.CarAudioSystem.Amplifire.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>آمپلی فایر</th>
-                        <td>@Model.CarAudioSystem.Amplifire</td>
-                    </tr>
-                }
-                @if (!Model.CarAudioSystem.HasGps.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>GBS</th>
-                        <td>@Model.CarAudioSystem.HasGps.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarAudioSystem.Details.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>توضیحات</th>
-                        <td>@Model.CarAudioSystem.Details</td>
-                    </tr>
-                }
+        <div class="carinfo" data-index="8">
+            <h3>صندلی ها</h3>
+            <table>
+                <tr>
+                    <th>تنظیم ارتفاع صندلی</th>
+                    <td><span class="checked_@Model.CarSeatOption.LongitudinalDisplacement.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>تنظیم گودی کمر</th>
+                    <td><span class="checked_@Model.CarSeatOption.BezelSet.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>گرمکن صندلی</th>
+                    <td><span class="checked_@Model.CarSeatOption.SeatWarmer.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>ماساژور</th>
+                    <td><span class="checked_@Model.CarSeatOption.SeatMassage.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>حافظه</th>
+                    <td><span class="checked_@Model.CarSeatOption.HasMemory.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.CarSeatOption.Details</td>
+                </tr>
             </table>
         </div>
 
-        <div class="pagesection">
-            <h2 class="infoHeader active">صندلی ها</h2>
-            <table class="infoTable">
-                @if (!Model.CarSeatOption.LongitudinalDisplacement.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>تنظیم ارتفاع صندلی</th>
-                        <td>@Model.CarSeatOption.LongitudinalDisplacement.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarSeatOption.BezelSet.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>تنظیم گودی کمر</th>
-                        <td>@Model.CarSeatOption.BezelSet.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarSeatOption.SeatWarmer.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>گرم کن صندلی</th>
-                        <td>@Model.CarSeatOption.SeatWarmer.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarSeatOption.SeatMassage.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>ماساژور</th>
-                        <td>@Model.CarSeatOption.SeatMassage.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarSeatOption.HasMemory.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>حافظه</th>
-                        <td>@Model.CarSeatOption.HasMemory.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarSeatOption.Details.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>توضیحات</th>
-                        <td>@Model.CarSeatOption.Details</td>
-                    </tr>
-                }
+        <div class="carinfo" data-index="10">
+            <h3>سیستم روشنایی</h3>
+            <table>
+                <tr>
+                    <th>چراغ های جلو</th>
+                    <td>@Model.CarLightingSystem.FrontLights</td>
+                </tr>
+                <tr>
+                    <th>دیلایت</th>
+                    <td><span class="checked_@Model.CarLightingSystem.DayLight.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>راهنما روی آینه بقل</th>
+                    <td><span class="checked_@Model.CarLightingSystem.SideMirrorLight.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>مه شکن جلو</th>
+                    <td><span class="checked_@Model.CarLightingSystem.FonrAntiFog.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>مه شکن عقب</th>
+                    <td><span class="checked_@Model.CarLightingSystem.RearAntiFog.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>چراغ مطالعه</th>
+                    <td><span class="checked_@Model.CarLightingSystem.ReadingLamp.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.CarLightingSystem.Deailts</td>
+                </tr>
             </table>
         </div>
 
-        <div class="pagesection">
-            <h2 class="infoHeader active">شیشه و آینه ها</h2>
-            <table class="infoTable">
-                @if (!Model.GlassAndMirror.FrontWindscreens.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>شیشه های جلو</th>
-                        <td>@Model.GlassAndMirror.FrontWindscreens</td>
-                    </tr>
-                }
-                @if (!Model.GlassAndMirror.RearWindscreens.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>شیشه های عقب</th>
-                        <td>@Model.GlassAndMirror.RearWindscreens</td>
-                    </tr>
-
-                }
-                @if (!Model.GlassAndMirror.SunRoof.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>سان روف</th>
-                        <td>@Model.GlassAndMirror.SunRoof.YesNoString()</td>
-                    </tr>
-
-                }
-                @if (!Model.GlassAndMirror.PanaromaRoof.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>سقف پاناروما</th>
-                        <td>@Model.GlassAndMirror.PanaromaRoof.YesNoString()</td>
-                    </tr>
-
-                }
-                @if (!Model.GlassAndMirror.RearGlassWarmer.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>گرمکن شیشه عقب</th>
-                        <td>@Model.GlassAndMirror.RearGlassWarmer.YesNoString()</td>
-                    </tr>
-
-                }
-                @if (!Model.GlassAndMirror.WindscreensWarmer.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>گرمکن شیشه های بقل</th>
-                        <td>@Model.GlassAndMirror.WindscreensWarmer.YesNoString()</td>
-                    </tr>
-
-                }
-                @if (!Model.GlassAndMirror.FrontGlassWarmer.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>گرمکن شیشه جلو</th>
-                        <td>@Model.GlassAndMirror.FrontGlassWarmer.YesNoString()</td>
-                    </tr>
-
-                }
-                @if (!Model.GlassAndMirror.SideMirrorSet.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>تنظیم آینه های بقل</th>
-                        <td>@Model.GlassAndMirror.SideMirrorSet</td>
-                    </tr>
-
-                }
-                @if (!Model.GlassAndMirror.SideMirrorSystem.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>جمع شدن آینه های بقل</th>
-                        <td>@Model.GlassAndMirror.SideMirrorSystem</td>
-                    </tr>
-
-                }
-                @if (!Model.GlassAndMirror.Details.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>توضیحات</th>
-                        <td>@Model.GlassAndMirror.Details</td>
-                    </tr>
-                }
-            </table>
-        </div>
-
-        <div class="pagesection">
-            <h2 class="infoHeader active">سیستم روشنایی</h2>
-            <table class="infoTable">
-                @if (!Model.CarLightingSystem.FrontLights.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>چراغ های جلو</th>
-                        <td>@Model.CarLightingSystem.FrontLights</td>
-                    </tr>
-                }
-                @if (!Model.CarLightingSystem.RearLights.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>چراغ های عقب</th>
-                        <td>@Model.CarLightingSystem.RearLights</td>
-                    </tr>
-                }
-                @if (!Model.CarLightingSystem.DayLight.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>دیلایت</th>
-                        <td>@Model.CarLightingSystem.DayLight.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarLightingSystem.SideMirrorLight.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>چراغ راهنمای روی آینه های بقل</th>
-                        <td>@Model.CarLightingSystem.SideMirrorLight.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarLightingSystem.FonrAntiFog.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>مه شکن جلو</th>
-                        <td>@Model.CarLightingSystem.FonrAntiFog.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarLightingSystem.RearAntiFog.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>مه شکن عقب</th>
-                        <td>@Model.CarLightingSystem.RearAntiFog.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarLightingSystem.ReadingLamp.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>چراغ مطالعه</th>
-                        <td>@Model.CarLightingSystem.ReadingLamp.YesNoString()</td>
-                    </tr>
-                }
-                @*@if (!Model.CarLightingSystem.ThirdLightStop.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>چراغ ترمز سوم دارد؟</th>
-                        <td>@Model.CarLightingSystem.ThirdLightStop.YesNoString()</td>
-                    </tr>
-                }*@
-                @if (!Model.CarLightingSystem.Deailts.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>توضیحات</th>
-                        <td>@Model.CarLightingSystem.Deailts</td>
-                    </tr>
-                }
-            </table>
-        </div>
-
-        <div class="pagesection">
-            <h2 class="infoHeader active">سیستم سنوسورهای خودرو</h2>
-            <table class="infoTable">
-                @if (!Model.CarSensorsSystem.DayLightSensor.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>روشنایی روز</th>
-                        <td>@Model.CarSensorsSystem.DayLightSensor.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarSensorsSystem.RainSensor.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>باران</th>
-                        <td>@Model.CarSensorsSystem.RainSensor.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarSensorsSystem.RearGearSensor.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>دنده عقب</th>
-                        <td>@Model.CarSensorsSystem.RearGearSensor.YesNoString()</td>
-                    </tr>
-                }
-                @if (!Model.CarSensorsSystem.ParkSensor.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>پارک</th>
-                        <td>@Model.CarSensorsSystem.ParkSensor.YesNoString()</td>
-                    </tr>
-                }
-               @*@if (!Model.CarSensorsSystem.NavigateSensor.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>سنسور هدایت خودرو دارد؟</th>
-                        <td>@Model.CarSensorsSystem.NavigateSensor.YesNoString()</td>
-                    </tr>
-                }*@
-                @if (!Model.CarSensorsSystem.CruiseControl.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>کروز کنترل</th>
-                        <td>@Model.CarSensorsSystem.CruiseControl.YesNoString()</td>
-                    </tr>
-                }
-                @*@if (!Model.CarSensorsSystem.RearGearCamera.YesNoString().IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>دوربین دنده عقب دارد؟</th>
-                        <td>@Model.CarSensorsSystem.RearGearCamera.YesNoString()</td>
-                    </tr>
-                }*@
-                @if (!Model.CarSensorsSystem.Details.IsNullOrWhiteSpace())
-                {
-                    <tr>
-                        <th>توضیحات</th>
-                        <td>@Model.CarSensorsSystem.Details</td>
-                    </tr>
-                }
-            </table>
-        </div>
-@if (!Model.CarAirbag.IsNull)
-                        {
-    <div class="pagesection">
-        <h2 class="infoHeader active">سیستم کیسه هوا</h2>
-        <table class="infoTable">
-            @if (!Model.CarAirbag.DriverAirBag.YesNoString().IsNullOrWhiteSpace())
-            {
+        <div class="carinfo" data-index="12">
+            <h3>سیستم کیسه های هوا</h3>
+            <table>
                 <tr>
                     <th>راننده</th>
-                    <td>@Model.CarAirbag.DriverAirBag.YesNoString()</td>
+                    <td><span class="checked_@Model.CarAirbag.DriverAirBag.ToString()"></span></td>
                 </tr>
-            }
-            @if (!Model.CarAirbag.FrontAirBag.YesNoString().IsNullOrWhiteSpace())
-            {
                 <tr>
                     <th>سرنشین جلو</th>
-                    <td>@Model.CarAirbag.FrontAirBag.YesNoString()</td>
+                    <td><span class="checked_@Model.CarAirbag.FrontAirBag.ToString()"></span></td>
                 </tr>
-            }
-            @if (!Model.CarAirbag.AirBag.YesNoString().IsNullOrWhiteSpace())
-            {
                 <tr>
                     <th>جانبی و پرده ای</th>
-                    <td>@Model.CarAirbag.AirBag.YesNoString()</td>
+                    <td><span class="checked_@Model.CarAirbag.AirBag.ToString()"></span></td>
                 </tr>
-            }
-            @if (!Model.CarAirbag.AirBagEntity.ToString().IsNullOrWhiteSpace())
-            {
                 <tr>
-                    <th>تعداد کیسه هوا</th>
+                    <th>تعداد کسیه هوا</th>
                     <td>@Model.CarAirbag.AirBagEntity</td>
                 </tr>
-            }
-            @if (!Model.CarAirbag.Details.IsNullOrWhiteSpace())
-            {
                 <tr>
                     <th>توضیحات</th>
                     <td>@Model.CarAirbag.Details</td>
                 </tr>
-            }
-        </table>
+            </table>
+        </div>
+
     </div>
-}
-@if (!Model.CarWheel.IsNull)
-                        {
-    <div class="pagesection">
-        <h2 class="infoHeader active">تایرها</h2>
-        <table class="infoTable">
-            @if (!Model.CarWheel.TireType.IsNullOrWhiteSpace())
-            {
+
+    <div id="CarDetailsInformation_column2">
+        <div class="carinfo" data-index="1">
+            <h3>موتور</h3>
+            <table>
+                <tr>
+                    <th>نوع موتور</th>
+                    <td>@Model.CarEngine.EngineType</td>
+                </tr>
+                <tr>
+                    <th>قدرت موتور</th>
+                    <td>@Model.CarEngine.EnginePowerHpRpm اسب بخار</td>
+                </tr>
+                <tr>
+                    <th>گشتاور</th>
+                    <td>@Model.CarEngine.EngineTorque</td>
+                </tr>
+                <tr>
+                    <th>حداکثر سرعت</th>
+                    <td>@Model.CarEngine.EngineMaxSpeed</td>
+                </tr>
+                <tr>
+                    <th>0 تا 100</th>
+                    <td>@Model.CarEngine.EngineZeroToH ثانیه</td>
+                </tr>
+                <tr>
+                    <th>حجم موتور</th>
+                    <td>@Model.CarEngine.EngineSize cc</td>
+                </tr>
+                <tr>
+                    <th>تعداد سیلندر</th>
+                    <td>@Model.CarEngine.EngineCylinderNumber</td>
+                </tr>
+                <tr>
+                    <th>سوخت مصرفی</th>
+                    <td>@Model.CarEngine.EngineFuel</td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.CarEngine.EngineDescription</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="3">
+            <h3>سیستم سوخت رسانی</h3>
+            <table>
+                <tr>
+                    <th>مصرف در شهر</th>
+                    <td>@Model.FuelConsumption.LphCity <small>لیتر در 100 کیلومتر</small></td>
+                </tr>
+                <tr>
+                    <th>مصرف در جاده</th>
+                    <td>@Model.FuelConsumption.LphRoad <small>لیتر در 100 کیلومتر</small></td>
+                </tr>
+                <tr>
+                    <th>مصرف سوخت ترکیبی</th>
+                    <td>@Model.FuelConsumption.LphMix <small>لیتر در 100 کیلومتر</small></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.FuelConsumption.Details توضیحات</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="5">
+            <h3>سیستم فرمان</h3>
+            <table>
                 <tr>
                     <th>نوع</th>
-                    <td>@Model.CarWheel.TireType</td>
+                    <td>@Model.SteeringSystem.SteeringSystemType</td>
                 </tr>
-            }
-            @if (!Model.CarWheel.RingStandardSize.ToString().IsNullOrWhiteSpace())
-            {
                 <tr>
-                    <th>سایز استاندارد رینگ</th>
+                    <th>امکان تنظیم ارتفاع</th>
+                    <td><span class="checked_@Model.SteeringSystem.SteeringHeightAdjustble.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>دکمه کنترل روی فرمان</th>
+                    <td><span class="checked_@Model.SteeringSystem.SteeringControlKey.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.SteeringSystem.Details</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="7">
+            <h3>سیستم صوتی و تصویری</h3>
+            <table>
+                <tr>
+                    <th>مانیتور</th>
+                    <td><span class="checked_@Model.CarAudioSystem.HasMonitor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>مانیتور صندلی عقب</th>
+                    <td><span class="checked_@Model.CarAudioSystem.RearSeatsMonitor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>دوربین عقب</th>
+                    <td><span class="checked_@Model.CarAudioSystem.RearGearCamera.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>دوربین جلو</th>
+                    <td><span class="checked_@Model.CarAudioSystem.FrontCamera.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>سیستم ناوبری</th>
+                    <td><span class="checked_@Model.CarAudioSystem.HasGps.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="9">
+            <h3>شیشه و آینه ها</h3>
+            <table>
+                <tr>
+                    <th>شیشه های عقب</th>
+                    <td>@Model.GlassAndMirror.RearWindscreens</td>
+                </tr>
+                <tr>
+                    <th>شیشه های جلو</th>
+                    <td>@Model.GlassAndMirror.FrontWindscreens</td>
+                </tr>
+                <tr>
+                    <th>سانروف</th>
+                    <td><span class="checked_@Model.GlassAndMirror.SunRoof.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>سقف پانورما</th>
+                    <td><span class="checked_@Model.GlassAndMirror.PanaromaRoof.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>گرمکن شیشه عقب</th>
+                    <td><span class="checked_@Model.GlassAndMirror.RearGlassWarmer.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>گرمکن شیشه های بقل</th>
+                    <td><span class="checked_@Model.GlassAndMirror.WindscreensWarmer.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>گرمکن شیشه جلو</th>
+                    <td><span class="checked_@Model.GlassAndMirror.FrontGlassWarmer.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>تنظیم آینه های بقل</th>
+                    <td>@Model.GlassAndMirror.SideMirrorSet</td>
+                </tr>
+                <tr>
+                    <th>جمع شدن آینه های بقل</th>
+                    <td>@Model.GlassAndMirror.SideMirrorSystem</td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.GlassAndMirror.Details</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="11">
+            <h3>سیستم سنسورهای خودرو</h3>
+            <table>
+                <tr>
+                    <th>روشنایی روز</th>
+                    <td><span class="checked_@Model.CarSensorsSystem.DayLightSensor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>باران</th>
+                    <td><span class="checked_@Model.CarSensorsSystem.RainSensor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>دنده عقب</th>
+                    <td><span class="checked_@Model.CarSensorsSystem.RearGearSensor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>پارک</th>
+                    <td><span class="checked_@Model.CarSensorsSystem.ParkSensor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>کروز کنترل</th>
+                    <td><span class="checked_@Model.CarSensorsSystem.CruiseControl.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.CarSensorsSystem.Details</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="13">
+            <h3>تایرها</h3>
+            <table>
+                <tr>
+                    <th>سایز استادندارد رینگ</th>
                     <td>@Model.CarWheel.RingStandardSize</td>
                 </tr>
-            }
-            @if (!Model.CarWheel.TireSpec.IsNullOrWhiteSpace())
-            {
-                <tr>
-                    <th>مشخصات تایر</th>
-                    <td>@Model.CarWheel.TireSpec</td>
-                </tr>
-            }
-            @*@if (!Model.CarWheel.RingType.IsNullOrWhiteSpace())
-            {
-                <tr>
-                    <th>نوع رینگ</th>
-                    <td>@Model.CarWheel.RingType</td>
-                </tr>
-            }
-            @if (!Model.CarWheel.RingModel.IsNullOrWhiteSpace())
-            {
-                <tr>
-                    <th>مدل رینگ</th>
-                    <td>@Model.CarWheel.RingModel</td>
-                </tr>
-            }*@
-            @if (!Model.CarWheel.AutoInflated.YesNoString().IsNullOrWhiteSpace())
-            {
                 <tr>
                     <th>کنترل اتوماتیک باد تایرها</th>
-                    <td>@Model.CarWheel.AutoInflated.YesNoString()</td>
+                    <td><span class="checked_@Model.CarWheel.AutoInflated.ToString()"></span></td>
                 </tr>
-            }
-            @if (!Model.CarWheel.Details.IsNullOrWhiteSpace())
-            {
                 <tr>
                     <th>توضیحات</th>
                     <td>@Model.CarWheel.Details</td>
                 </tr>
-            }
-        </table>
-    </div>
-  }  
-@if (Model.Pros.Count != 0)
-                        {
-    <div class="pagesection">
-        <h2 class="infoHeader active">معایب و مزیای</h2>
-        <table class="infoTable">
-            @if (Model.Pros.Count != 0)
-                        {
-                <tr>
-                    <th>مزایا</th>
-                    <td>
-                        @foreach (var item in @Model.Pros)
-                        {
-                                if (item.CarsProOrCro == true)
-                                {
-                                <section>@item.CarProCro</section>
-                                }
-                            }
-                    </td>
-                </tr>
-            }
-            @if (Model.Cros.Count != 0)
-                        {
-                <tr>
-                    <th>معایب</th>
-                    <td>
-                        @foreach (var item in @Model.Cros)
-                        {
-                                if (item.CarsProOrCro == false)
-                                {
-                                <section>@item.CarProCro</section>
-                                }
-                            }
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
-}
-@if (!Model.CarsReview.IsNull)
-                        {
-    <div class="pagesection">
-        <h2 class="infoHeader active">بررسی</h2>
-        <table class="infoTable">
-            @if (!Model.CarsReview.CarScore.ToString().IsNullOrWhiteSpace())
-            {
-                <tr>
-                    <th>امتیاز خودرو</th>
-                    <td>@Model.CarsReview.CarScore</td>
-                </tr>
-            }
-            @if (!Model.CarsReview.Beauty.ToString().IsNullOrWhiteSpace())
-            {
-                <tr>
-                    <th>زیبایی</th>
-                    <td>@Model.CarsReview.Beauty</td>
-                </tr>
-            }
-            @if (!Model.CarsReview.WorthBuying.ToString().IsNullOrWhiteSpace())
-            {
-                <tr>
-                    <th>ارزش خرید</th>
-                    <td>@Model.CarsReview.WorthBuying</td>
-                </tr>
-            }
-            @if (!Model.CarsReview.Quality.ToString().IsNullOrWhiteSpace())
-            {
-                <tr>
-                    <th>کیفیت</th>
-                    <td>@Model.CarsReview.Quality</td>
-                </tr>
-            }
-            @if (!Model.CarsReview.Services.ToString().IsNullOrWhiteSpace())
-            {
-                <tr>
-                    <th>خدمات</th>
-                    <td>@Model.CarsReview.Services</td>
-                </tr>
-            }
-            @if (!Model.CarsRviewHtml.IsNullOrWhiteSpace())
-            {
-                <tr>
-                    <th>متن بررسی</th>
-                    <td>
-                        <p style="margin: 5px;">
-                            @Html.Raw(Model.CarsRviewHtml)
-                        </p>
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
-}
-        @*<h2 class="infoHeader active">جزئیات بررسی</h2>
-            <table class="grid1">
-                <thead>
-                    <tr>
-                        <th>موضوع</th>
-                        <th>جزئیات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.CarsReviewPoint)
-                    {
-                        <tr>
-                            <td style="font-weight: bold">@item.CarsReviewSubject</td>
-                            <td>@item.CarsReview</td>
-                        </tr>
-            }
-                </tbody>
-            </table>*@
-
-
-
-        
-        
-        <hr />
-        <div class="pagesection">
-            @{var comments = dbs.CarComments.Where(c => c.CarsId == Model.Car.CarsId && c.canshow == true).OrderByDescending(c => c.CarCommentsId).Take(10); }
-            @if(comments.Count() > 0)
-            {
-                <div>
-                    <h3><a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarsComments", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName, info3 = "نظرات کاربران" })">نظرات کاربران</a></h3>
-                    <div class="content">
-                        <div class="commentsContaniner">
-
-                            @foreach (var item in comments)
-                            {
-                                <div class="item">
-                                    <section class="header">
-                                        <span class="gia-chat">@item.Fullname</span>
-                                        <span>@item.datetime.DateTime_Persian()</span>
-                                    </section>
-                                    <section class="body">
-                                        <section>@item.Comment</section>
-                                        @if (item.Response != null)
-                                        {
-                                            <section class="response">@item.Response</section>
-                                        }
-                                    </section>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            }
-            <hr />
-            <div  id="usersCommentsSection">
-                <h3>ثبت نظر</h3>
-                <div>
-                    @try
-                    {
-                        ViewBag.error["success"] = "<span class='successMessage'>" + ViewBag.error["success"] + "</span>"; @Html.Raw(ViewBag.error["success"]) }
-                    catch
-                    {
-                        <form method="post">
-                            <div class="form" id="commentForm">
-                                <label>
-                                    <span>نام و نام خانوادگی</span>
-                                    <input type="text" name="fullname" placeholder="نام و نام خانوادگی" value="@Request.Form["fullname"]" />
-                                    <span class="error">@try
-                                                        { @ViewBag.error["fullname"] }
-                                                        catch { }</span>
-                                </label>
-                                <label>
-                                    <span>ایمیل</span>
-                                    <input type="text" name="email" placeholder="username@server.com" dir="ltr" value="@Request.Form["email"]" />
-                                    <span class="error">@try
-                                                        { @ViewBag.error["email"] }
-                                                        catch { }</span>
-                                </label>
-                                <label>
-                                    <span>پیام</span>
-                                    <textarea name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
-                                    <span class="error">@try
-                                                        { @ViewBag.error["comment"] }
-                                                        catch { }</span>
-                                </label>
-                                <label>
-                                    <span>کد امنیتی</span>
-                                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                                        <a href="javascript:void()" onclick="ReloadCaptcha('captcha')">
-                                            <img id="captcha" src="/default/index" /></a>
-                                        <small>برای تغییر کد روی تصویر کلیک کنید</small>
-                                        <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
-                                    </div>
-                                    <span class="error">@try { @ViewBag.error["captcha"] } catch { }</span>
-                                </label>
-                            </div>
-
-                            <div class="formAction">
-                                <input type="submit" name="SendACommentRequest" class="button green" value="ثبت پیام" />
-                            </div>
-                        </form>
-                    }
-                </div>
-            </div>
-
-        </div>
-        
-        
-    </div>
-
-    <nav id="navigation">
-
-        <div id="carImages" class="">
-            <h3>تصاویر خودور</h3>
-            <img id="bigImageShower" alt="" onclick="$('#carImages').toggleClass('bigShow');" />
-            <div id="imagesContianer">
-                <div id="images">
-                    @{
-                        var carpath = Model.Car.CarsId.ToString().BaseRouts_CarImages();
-                        var dir = new DirectoryInfo(Server.MapPath(Model.Car.CarsId.ToString().BaseRouts_CarImages()));
-                        if (dir.Exists)
-                        {
-                            foreach (var item in dir.GetFiles())
-                            {
-                                <img src="@Url.Content(Path.Combine(carpath, item.Name))" alt="" />
-                            }
-                        }
-                    }
-                </div>
-                <a href="javascript:void()" onclick="MoveToLeft()" class="leftarrow gia-left"></a>
-                <a href="javascript:void()" onclick="MoveToRight()" class="rightarrow gia-right"></a>
-            </div>
+            </table>
         </div>
 
+    </div>
 
-        @{
-            var sameclasscars = dbs.Cars.Where(c => c.CarClassType == Model.Car.CarsClass && c.CarsId != Model.Car.CarsId).OrderBy(c => c.CarsId);
-            Dictionary<int, CarProject.DBSEF.Car> ListOfSameClassCars = new Dictionary<int, CarProject.DBSEF.Car>();
-
-            if (sameclasscars.Any() && sameclasscars.Count() > 0)
-            {
-                var sameclasscarsCount = sameclasscars.Count();
-                if (sameclasscarsCount <= 20)
-                { ListOfSameClassCars = sameclasscars.ToDictionary(c => c.CarsId, c => c); }
-                else
-                {
-                    while (ListOfSameClassCars.Count < 20)
-                    {
-                        var car = sameclasscars.Skip(rand.Next(0, sameclasscarsCount - 1)).First();
-                        if (!ListOfSameClassCars.ContainsKey(car.CarsId))
-                        { ListOfSameClassCars.Add(car.CarsId, car); }
-                    }
-                }
-
-                <div class="rightpanelSection">
-                    <h3>خودرهای هم کلاس</h3>
-                    <div id="SameClassCars" class="rightPanelItemsShower">
-                        @foreach (var item in ListOfSameClassCars.Values)
-                        {
-                            if (item.CarModel == null)
-                            { continue; }
-                            var carpicutres = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/CarImages/" + item.CarsId));
-                            if (!carpicutres.Exists)
-                            { continue; }
-                            var carImages = carpicutres.GetFiles();
-                            if (carImages.Length <= 0)
-                            { continue; }
-
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })" class="item">
-                                <img src="@Url.Content("~/Publics/Gallery/CarImages/" + item.CarsId + "/" + carImages[rand.Next(0, carImages.Length)].Name)" />
-                                <section class="title">
-                                    <strong>@item.CarModel.CarModelName</strong>
-                                    <small>@item.CarModel.CarBrand.CarBrandName</small>
-                                </section>
-                            </a>
-                        }
-                    </div>
-                </div>
-            }
-        }
-
-
-        @{
-            var CarrealtedProduct = dbs.ProductCars.Where(pc => pc.CarsId == Model.Car.CarsId).Select(pc => pc.Product).OrderByDescending(p => p.ProductId);
-            if (CarrealtedProduct.Any())
-            {
-                Dictionary<int, CarProject.DBSEF.Product> prds = new Dictionary<int, CarProject.DBSEF.Product>();
-                var prcnt = CarrealtedProduct.Count();
-
-                if (prcnt <= 20)
-                { prds = CarrealtedProduct.ToDictionary(p => p.ProductId, p => p); }
-                else
-                {
-                    while (prds.Count < 20)
-                    {
-                        var p = CarrealtedProduct.Skip(rand.Next(0, prcnt - 1)).First();
-                        if (!prds.Keys.Contains(p.ProductId))
-                        { prds.Add(p.ProductId, p); }
-                    }
-                }
-
-                <div class="rightpanelSection">
-                    <h3>کالاهای مرتبط با خودرو</h3>
-                    <div id="relatedProducts" class="rightPanelItemsShower">
-                        @foreach (var item in prds.Values)
-                        {
-
-                            var prpictures = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/ProductImages/" + item.ProductId));
-                            if (!prpictures.Exists)
-                            { continue; }
-                            var primages = prpictures.GetFiles();
-                            if (primages.Length <= 0)
-                            { continue; }
-
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
-                                <img src="@Url.Content("~/Publics/Gallery/ProductImages/" + item.ProductId + "/" + primages[rand.Next(0, primages.Length)].Name)" />
-                                <section class="title">
-                                    <strong>@item.ProductName</strong>
-                                    <small>@item.Category.CategoryName</small>
-                                </section>
-                            </a>
-                        }
-                    </div>
-                </div>
-
-            }
-        }
-
-        @{
-            var autservices = dbs.AutoServiceCars.Where(c => c.CarsId == Model.Car.CarsId).Select(c => c.AutoService);
-            Dictionary<int, CarProject.DBSEF.AutoServicePack> paks = new Dictionary<int, CarProject.DBSEF.AutoServicePack>();
-
-            if (autservices.Any())
-            {
-                <div class="rightpanelSection">
-                    <h3>سرویس های مرتبط با خودرو</h3>
-                    <div class="listviewoflinks">
-                        @foreach (var item in autservices)
-                        {
-                            foreach (var packitem in dbs.AutoServices1.Where(c => c.AutoServiceId == item.AutoServiceId).Select(c => c.AutoServicePack))
-                            {
-                                if (!paks.ContainsKey(packitem.AutoServicePackId))
-                                { paks.Add(packitem.AutoServicePackId, packitem); }
-                            }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@string.Format("{0:#,###0}", @item.Price) تومان</small></a>
-                        }
-                    </div>
-                </div>
-            }
-                                    }
-
-        @{
-            if (paks.Count > 0)
-            {
-                <div class="rightpanelSection">
-                    <h3>سرویس پک های مرتبط با خودرو</h3>
-                    <div class="listviewoflinks">
-                        @foreach (var item in paks.Values)
-                                    {
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>string.Format("{0:#,###0}",@item.PackPrice) تومان</small></a>
-                        }
-                    </div>
-                </div>
-            }
-                            }
-
-
-        @*{var comments = dbs.CarComments.Where(c => c.CarsId == Model.Car.CarsId && c.canshow == true).OrderByDescending(c => c.CarCommentsId).Take(10); }
-        @if(comments.Count() > 0)
-
-        {
-            <div class="rightpanelSection">
-                <h3><a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarsComments", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName, info3 = "نظرات کاربران" })">نظرات کاربران</a></h3>
-                <div class="content">
-                    <div class="commentsContaniner">
-
-                        @foreach (var item in comments)
-                        {
-                            <div class="item">
-                                <section class="header">
-                                    <span class="gia-chat">@item.Fullname</span>
-                                    <span>@item.datetime.DateTime_Persian()</span>
-                                </section>
-                                <section class="body">
-                                    <section>@item.Comment</section>
-                                    @if (item.Response != null)
-                                    {
-                                        <section class="response">@item.Response</section>
-                                    }
-                                </section>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-        }
-
-        <div class="rightpanelSection" id="usersCommentsSection">
-            <h3>ثبت نظر</h3>
-            <div>
-                @try
-                {
-                    ViewBag.error["success"] = "<span class='successMessage'>" + ViewBag.error["success"] + "</span>"; @Html.Raw(ViewBag.error["success"]) }
-                catch
-                {
-                    <form method="post">
-                        <div class="form" id="commentForm">
-                            <label>
-                                <span>نام و نام خانوادگی</span>
-                                <input type="text" name="fullname" placeholder="نام و نام خانوادگی" value="@Request.Form["fullname"]" />
-                                <span class="error">
-                                    @try
-                                    { @ViewBag.error["fullname"] }
-                                    catch { }
-                                </span>
-                            </label>
-                            <label>
-                                <span>ایمیل</span>
-                                <input type="text" name="email" placeholder="username@server.com" dir="ltr" value="@Request.Form["email"]" />
-                                <span class="error">
-                                    @try
-                                    { @ViewBag.error["email"] }
-                                    catch { }
-                                </span>
-                            </label>
-                            <label>
-                                <span>پیام</span>
-                                <textarea name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
-                                <span class="error">
-                                    @try
-                                    { @ViewBag.error["comment"] }
-                                    catch { }
-                                </span>
-                            </label>
-                            <label>
-                                <span>کد امنیتی</span>
-                                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                                    <a href="javascript:void()" onclick="ReloadCaptcha('captcha')">
-                                        <img id="captcha" src="/default/index" />
-                                    </a>
-                                    <small>برای تغییر کد روی تصویر کلیک کنید</small>
-                                    <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
-                                </div>
-                                <span class="error">
-                                    @try
-                                    { @ViewBag.error["captcha"] }
-                                    catch { }
-                                </span>
-                            </label>
-                        </div>
-
-                        <div class="formAction">
-                            <input type="submit" name="SendACommentRequest" class="button green" value="ثبت پیام" />
-                        </div>
-                    </form>
-                }
-            </div>
-        </div>*@
-
-    </nav>
 </div>
 
+
+<div id="CarReviewSection">
+    <h3>نقدر و بررسی تخصصی خودرو</h3>
+    <div id="CarReviewSectionHTML" style="align-self:stretch;">
+        @Html.Raw(Model.CarsReview.Review)
+    </div>
+</div>
+
+@if(CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
+{
+    <div id="usersCommentsSection">
+        <h3 style="align-self:flex-start;">نظرات کاربران</h3>
+        @try
+        {
+            var msg = ViewBag.error["success"];
+            <section style="color:white; text-shadow:0 0 1px lawngreen; text-align:center;">
+                @msg
+            </section>
+        }
+        catch
+        {
+            <form method="post">
+                <input type="hidden" id="responsecommentid" name="responsecommentid" value="@Request.Form["responsecommentid"]" />
+
+                <div class="inputsContainer">
+                    <section class="input @if (Request.Form.AllKeys.Contains("responsecommentid") && !string.IsNullOrEmpty(Request.Form["responsecommentid"])) { Write("show"); }" id="replayComment">
+                        <label>پاسخ به پیام کاربر</label>
+                        <input type="text" name="usernameCommentReply" id="usernameCommentReply" value="@Request.Form["usernameCommentReply"]" />
+                    </section>
+                    <section class="input">
+                        <label> پیام</label>
+                        <textarea  name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                        <span>@try
+                              { @ViewBag.error["comment"] }
+                              catch { }</span>
+                    </section>
+                </div>
+                <center>
+                    <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
+                    <span style="color:red">@try
+                                            { @ViewBag.error["g-recaptcha-response"] }
+                                            catch { }</span>
+                </center>
+                <div class="inputAction">
+                    <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
+                </div>
+            </form>
+        }
+    </div>
+}
+
+<div id="UsersOldComments">
+    @CreateCommentSection(null, Model.Car.CarsId, dbs)
+</div>
+
+@functions{
+    MvcHtmlString CreateCommentSection(int? rootid,int carid, CarProject.DBSEF.CarAutomationEntities dbs)
+    {
+        string res = "";
+        
+        foreach (var item in dbs.CarUserComments.Where(c => c.CarId == carid && c.RootCarUserCommentsId == rootid))
+        {
+            res += string.Format("<div class=\"message\">");
+            {
+                res += string.Format("<div class=\"messageContent\">");
+                {
+                    res += string.Format("<strong class=\"username\">{0}</strong>", (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+
+                    res += string.Format("<section class=\"commentsection\">");
+                    {
+                        res += string.Format("<section class=\"comment\">{0}</section>", item.Comment);
+
+                        res += string.Format("<section class=\"commentActionAndInfo\">");
+                        {
+                            res += string.Format("<section class=\"commentInfo\">");
+                            {
+                            }
+                            res += "</section>";
+
+
+                            res += string.Format("<section class=\"commentAction\">");
+                            {
+                                res += string.Format("<a class=\"gia-back\" onclick=\"CommentMessageReply('{0}','{1}')\"></a>", item.CarUserCommentsId, (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+                            }
+                            res += "</section>";
+                        }
+                        res += "</section>";
+                    }
+                    res += "</section>";
+                }
+                res += "</div>";
+
+                res += CreateCommentSection(item.CarUserCommentsId, carid, dbs);
+            }
+            res += "</div>";
+        }
+        
+        return new MvcHtmlString(res);
+    }
+}
 
 @section style
 {
     <meta name="description" content="مشخصات خودرو @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName @Model.Car.CarYearModel" />
     <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
-    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName }, Request.Url.Scheme)" />
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName.Trim(), info2 = Model.Car.CarModel.CarModelName.Trim() }, Request.Url.Scheme)" />
 
-    <link href="~/Publics/Files/Resources/CarsPages/Car.css" rel="stylesheet" />
-    <script src="~/Publics/Files/Resources/CarsPages/Car.js"></script>
+    
+    <link href="~/Publics/Files/ControlsPageTemplates/Cars/Car/SliderItemShow.css" rel="stylesheet" />
+    <script src="~/Publics/Files/ControlsPageTemplates/Cars/Car/SliderItemShow.js"></script>
+
+    <link href="~/Publics/Files/ControlsPageTemplates/Cars/Car/css.css" rel="stylesheet" />
     <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
+
+    
 }
 
 @section script
 {
-    <script>
-        $(".infoHeader").click(function (e) {
-            $(this).toggleClass("active");
-        });
+    <script src="~/Publics/Files/ControlsPageTemplates/Cars/Car/scirpt.js"></script>
+}
 
-        function MoveToLeft() {
-            con = document.getElementById("images");
-            imgs = con.getElementsByTagName("img");
-            el = imgs[imgs.length - 1];
-            con.removeChild(el);
-            con.insertBefore(el, imgs[0]);
-        }
-        function MoveToRight() {
-            con = document.getElementById("images");
-            el = con.getElementsByTagName("img")[0];
-            con.removeChild(el);
-            con.appendChild(el);
-        }
 
-        $("#images img").click(function () { document.getElementById("bigImageShower").src = $(this).attr("src"); });
-        document.getElementById("bigImageShower").src = document.getElementById("images").getElementsByTagName("img")[0].src;
-
-    </script>
+@if (Request.Form.AllKeys.Contains("SendACommentRequest"))
+{
+    <script>window.location = "#usersCommentsSection"</script> 
 }

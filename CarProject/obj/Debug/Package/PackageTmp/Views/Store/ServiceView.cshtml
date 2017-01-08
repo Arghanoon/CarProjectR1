@@ -75,7 +75,7 @@
                     </tr>
                     <tr>
                         <th>قیمت سرویس</th>
-                        <td>@service.Price ریال</td>
+                        <td>@service.Price تومان</td>
                     </tr>
                     <tr>
                         <th>سرویس پک های شامل این سرویس</th>
@@ -85,7 +85,7 @@
                                     var services = dbs.AutoServices1.Where(c => c.AutoServiceId == id).Select(c => c.AutoServicePack);
                                     foreach (var item in services)
                                     {
-                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها", info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice ریال</small></a>
+                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها", info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice تومان</small></a>
                                 }
                                 }
                             </div>
@@ -114,7 +114,7 @@
                         <section>
                             <strong>@item.ProductName</strong><br />
                             <small>@item.Category.CategoryName</small><br />
-                            <small class="price">@if(@item.ProductPrices.Count > 0){@item.ProductPrices.Last().ProductPrice1}else{<span>0</span>} ریال</small>
+                            <small class="price">@if(@item.ProductPrices.Count > 0){@item.ProductPrices.Last().ProductPrice1}else{<span>0</span>} تومان</small>
                         </section>
                     </a>
                         }
@@ -125,7 +125,7 @@
                         <section>
                             <strong>@item.ProductName</strong><br />
                             <small>@item.Category.CategoryName</small><br />
-                            <small class="price">@item.ProductPrices.Last().ProductPrice1 ریال</small>
+                            <small class="price">@if(item.ProductPrices.Any()){@item.ProductPrices.Last().ProductPrice1} تومان</small>
                         </section>
                     </a>
                         }
@@ -155,7 +155,7 @@
                         <section>
                             <strong>@item.CarModel.CarModelName</strong><br />
                             <small>@item.CarModel.CarBrand.CarBrandName</small><br />
-                            @*<small class="price">@item.CarPrices.Last().Price ریال</small>*@
+                            @*<small class="price">@item.CarPrices.Last().Price تومان</small>*@
                         </section>
                     </a>
                         }
@@ -166,7 +166,7 @@
                         <section>
                             <strong>@item.CarModel.CarModelName</strong><br />
                             <small>@item.CarModel.CarBrand.CarBrandName</small><br />
-                            @*<small class="price">@item.CarPrices.Last().Price ریال</small>*@
+                            @*<small class="price">@item.CarPrices.Last().Price تومان</small>*@
                         </section>
                     </a>
                         }

@@ -1,5 +1,7 @@
 ﻿@{
-    switch (Url.RequestContext.RouteData.Values["controller"].ToString().ToLower())
+    
+    Layout = "~/Views/public/template02.cshtml";
+    /*switch (Url.RequestContext.RouteData.Values["controller"].ToString().ToLower())
     {
         case "news":
         case "store":
@@ -11,6 +13,6 @@
             //Layout = "~/Views/public/template.cshtml";
             Layout = "~/Views/public/template_Sotre.cshtml";
             break;
-    }
+    }*/
     
 }

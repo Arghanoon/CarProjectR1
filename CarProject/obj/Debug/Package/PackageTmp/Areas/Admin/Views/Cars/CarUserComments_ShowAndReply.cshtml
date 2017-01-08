@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = "نمایش پیام و پاسخ به آن";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+}
+@model CarProject.DBSEF.CarUserComment
+@using CarProject.App_extension
+
+<div id="UsersOldComments">
+    @CreateCommentSection(Model.CarUserCommentsId, dbs)
+</div>
+
+
+<form method="post">
+    <div class="inputsContainer">
+        <section class="input">
+            <label>پیام</label>
+            <textarea name="comment"></textarea>
+            <span>@Html.ValidationMessage("comment")</span>
+        </section>
+    </div>
+
+    <div class="inputAction">
+        <input type="submit" value="ثبت پیام" class="button green" />
+    </div>
+</form>
+
+
+@section style
+{
+    <style>
+        #UsersOldComments {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+
+    #UsersOldComments .message {
+        
+        margin:5px;
+        padding:10px;
+        display:flex;
+        flex-direction:column;
+    }
+     #UsersOldComments .message .message {
+        
+        margin:0 10px;
+        padding:0;
+        display:flex;
+        flex-direction:column;
+    }
+        #UsersOldComments .message .messageContent {
+
+        }
+    #UsersOldComments > .message {
+        background:#bec5fc;
+    }
+    #UsersOldComments .message .messageContent {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+        #UsersOldComments .message .messageContent .username {
+            margin-left: 10px;
+        }
+        #UsersOldComments .message .messageContent .commentsection {
+            background: #fff;
+            flex: 1;
+            border-radius: 5px;
+            margin: 5px;
+            margin-right:15px;
+            display: flex;
+            flex-direction: column;
+        }
+        #UsersOldComments  .message .message  .messageContent .commentsection {
+            background:#f3f3f3;
+        }
+            #UsersOldComments .message .messageContent .commentsection:before {
+                content: '';
+                position: absolute;
+                top: 0px;
+                right: -16px;
+                height: 1px;
+                border-left: 20px solid #fff;
+                border-top: 0px solid transparent;
+                border-bottom: 20px solid transparent;
+            }
+    #UsersOldComments .message .message .messageContent .commentsection:before {
+        border-left: 20px solid #f3f3f3;
+    }
+            #UsersOldComments .message .messageContent .commentsection .comment {
+                padding: 5px;
+            }
+
+            #UsersOldComments .message .messageContent .commentsection .commentActionAndInfo {
+                display: flex;
+                justify-content: space-between;
+                font-size: 80%;
+                padding: 5px;
+            }
+                #UsersOldComments .message .messageContent .commentsection .commentActionAndInfo .commentInfo {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                    #UsersOldComments .message .messageContent .commentsection .commentActionAndInfo .commentInfo > *:nth-child(n+2) {
+                        margin-right:5px;
+                    }
+                #UsersOldComments .message .messageContent .commentsection .commentActionAndInfo .commentAction {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+    </style>
+}
+
+@functions{
+    MvcHtmlString CreateCommentSection(int? id, CarProject.DBSEF.CarAutomationEntities dbs)
+    {
+        string res = "";
+        var comments = dbs.CarUserComments.Where(c => c.CarUserCommentsId == id);
+        
+        
+        
+        foreach (var item in comments)
+        {
+            res += string.Format("<div class=\"message\">");
+            {
+                res += string.Format("<div class=\"messageContent\">");
+                {
+                    res += string.Format("<strong class=\"username\">{0}</strong>", (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+
+                    res += string.Format("<section class=\"commentsection\">");
+                    {
+                        res += string.Format("<section class=\"comment\">{0}</section>", item.Comment);
+
+                        res += string.Format("<section class=\"commentActionAndInfo\">");
+                        {
+                            res += string.Format("<section class=\"commentInfo\">");
+                            {
+                                res += string.Format("<a href=\"{0}\" target=\"_blank\">{1}</a>", Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarId, info1 = item.Car.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.Car.CarModel.CarModelName.Trim() }), item.Car.CarModel.CarBrand.CarBrandName + " " + item.Car.CarModel.CarModelName);
+                                res += string.Format("<span>| {0}</span>", item.DateTime.NameOfDaysInWeek() + " " + item.DateTime.DateTime_Persian());
+                            }
+                            res += "</section>";
+
+
+                            res += string.Format("<section class=\"commentAction\">");
+                            {
+                                //res += string.Format("<a class=\"gia-back\" onclick=\"CommentMessageReply('{0}','{1}')\"></a>", item.CarUserCommentsId, item.User.Uname);
+                            }
+                            res += "</section>";
+                        }
+                        res += "</section>";
+                    }
+                    res += "</section>";
+                }
+                res += "</div>";
+
+                res += CreateCommentSection(item.RootCarUserCommentsId, dbs);
+            }
+            res += "</div>";
+        }
+        
+        return new MvcHtmlString(res);
+    }
+    }

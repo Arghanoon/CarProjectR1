@@ -227,6 +227,20 @@ namespace CarProject.Areas.Admin.Models.Cars
         }
         public void Update()
         {
+            this.Car.AirConditioningSystemDetails.Clear();
+            foreach (var item in this.AirConditioningSystemDetails)
+            {
+                item.Car = this.Car;
+                this.Car.AirConditioningSystemDetails.Add(item);
+            }
+
+            this.Car.DetailedBrakeSystems.Clear();
+            foreach (var item in this.DetailedBrakeSystems)
+            {
+                item.Car = this.Car;
+                this.Car.DetailedBrakeSystems.Add(item);
+            }
+
             DBS.SaveChanges();
         }
 

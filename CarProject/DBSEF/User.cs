@@ -19,6 +19,7 @@ namespace CarProject.DBSEF
         {
             this.Baskets = new HashSet<Basket>();
             this.CarComments = new HashSet<CarComment>();
+            this.CarUserComments = new HashSet<CarUserComment>();
             this.ContetComments = new HashSet<ContetComment>();
             this.People = new HashSet<Person>();
             this.PersonCars = new HashSet<PersonCar>();
@@ -40,6 +41,8 @@ namespace CarProject.DBSEF
         public virtual ICollection<Basket> Baskets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarComment> CarComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CarUserComment> CarUserComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContetComment> ContetComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

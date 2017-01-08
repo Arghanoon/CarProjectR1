@@ -48,6 +48,12 @@
                 else { products = products.OrderBy(c => (c.ProductToViews.Any() && c.ProductToViews.FirstOrDefault().Viewd != null) ? c.ProductToViews.FirstOrDefault().Viewd : 0); }
             }
             break;
+        case 5:
+            {
+                if (orderbydirection == 2) { products = products.OrderByDescending(c => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.Product && bi.Id == c.ProductId)); }
+                else { products = products.OrderBy(c => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.Product && bi.Id == c.ProductId)); }
+            }
+            break;
         case 1:
         default:
             {
@@ -85,6 +91,7 @@
                         <option value="2" @if (orderby == 2) { Write("selected=\"selected\""); }>قیمت</option>
                         <option value="3" @if (orderby == 3) { Write("selected=\"selected\""); }>محبوبیت</option>
                         <option value="4" @if (orderby == 4) { Write("selected=\"selected\""); }>بازدید</option>
+                        <option value="5" @if (orderby == 5) { Write("selected=\"selected\""); }>فروش</option>
                     </select>
                     به صورت
                     <input type="radio" name="OrderDirection" value="ASC" @if (orderbydirection == 1) { Write("checked=\"checked\""); } id="OrderDirectionASC" />

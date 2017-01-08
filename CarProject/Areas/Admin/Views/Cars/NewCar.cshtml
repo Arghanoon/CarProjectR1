@@ -488,6 +488,7 @@
 </div>
 
 @Html.Action("tinymcefm", "FileManager", new { id = Html.IdFor(m => m.CarsRviewHtml) })
+@*@Html.Action("tinymcefm2_selector", "FileManager", new { id = string.Format("#{0},#{1}", Html.IdFor(m => m.CarsRviewHtml), Html.IdFor(m => m.Car.CarsDescription)) })*@
 
 @section script
 {
