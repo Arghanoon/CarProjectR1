@@ -54,6 +54,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<CarsReview> CarsReviews { get; set; }
         public virtual DbSet<CarsReviewPoint> CarsReviewPoints { get; set; }
         public virtual DbSet<CarsToView> CarsToViews { get; set; }
+        public virtual DbSet<CarUserComment> CarUserComments { get; set; }
         public virtual DbSet<CarWheel> CarWheels { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Company> Companies { get; set; }

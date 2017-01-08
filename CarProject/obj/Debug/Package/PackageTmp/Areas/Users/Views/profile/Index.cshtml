@@ -44,9 +44,12 @@
 <div class="item">
     <h3>هشدارها</h3>
     <ul class="notificationShortViewMessage">
-        @foreach (var item in personcarnotification.Notifications)
+        @if(personcarnotification.Notifications != null)
         {
-            <li><a href="#">@item.Message</a></li>
+            foreach (var item in personcarnotification.Notifications)
+            {
+                <li><a href="#">@item.Message</a></li>
+            }
         }
     </ul>
 </div>

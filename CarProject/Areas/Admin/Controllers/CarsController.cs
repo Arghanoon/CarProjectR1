@@ -22,6 +22,7 @@ namespace CarProject.Areas.Admin.Controllers
             return View();
         }
 
+        #region manipulate car
         [HttpPost]
         public ActionResult DeleteCar(int? CarsID)
         {
@@ -236,10 +237,9 @@ namespace CarProject.Areas.Admin.Controllers
                 c.CarModel.CarModelName.Contains(search)).Select(c => new { id = c.CarsId, brand = c.CarModel.CarBrand.CarBrandName, model = c.CarModel.CarModelName }).ToList();
             return Json(x);
         }
+        #endregion
 
-
-
-
+        #region CarComments
         public ActionResult CarComments()
         {
             return View();
@@ -295,7 +295,49 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return res;
         }
+        #endregion
 
+        #region CarUserComments
+        public ActionResult CarUserComments()
+        {
+            return View();
+        }
+
+        public ActionResult CarUserComments_ShowAndReply(int? id)
+        {
+            var comment = dbs.CarUserComments.FirstOrDefault(c => c.CarUserCommentsId == id);
+            if (comment == null)
+                return RedirectToAction("CarUserComments");
+
+            return View(model: comment);
+        }
+        [HttpPost]
+        public ActionResult CarUserComments_ShowAndReply(int? id, string comment)
+        {
+            var mdlcomment = dbs.CarUserComments.FirstOrDefault(c => c.CarUserCommentsId == id);
+            if (mdlcomment == null)
+                return RedirectToAction("CarUserComments");
+
+            if (comment.IsNullOrWhiteSpace())
+                ModelState.AddModelError("comment", "پیام نمیتواند خالی باشد");
+            
+            if (ModelState.IsValid)
+            {
+                var newitem  = dbs.CarUserComments.Add(new DBSEF.CarUserComment
+                {
+                    Comment = comment,
+                    DateTime = DateTime.Now,
+                    CarId = mdlcomment.CarId,
+                    RootCarUserCommentsId = id
+                });
+                dbs.SaveChanges();
+
+                return RedirectToAction("CarUserComments_ShowAndReply", new { id = newitem.CarUserCommentsId });
+            }
+
+            return View(model: mdlcomment);
+        }
+        #endregion
 
         #region Car_Forum
         public ActionResult Car_Forum(int? id)

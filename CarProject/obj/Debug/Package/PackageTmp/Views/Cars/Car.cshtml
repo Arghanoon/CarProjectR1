@@ -29,10 +29,6 @@
     var SameClassCars = dbs.Cars;
 }
 
-@if (Request.Form.AllKeys.Contains("SendACommentRequest"))
-{
-    <script>window.location = "#usersCommentsSection"</script> 
-}
 
 
 <div id="top_LocationNavigation_likedislikecount">
@@ -45,7 +41,10 @@
     <div id="top_likedisklikecount" dir="ltr">
         <span class="gia-speedometer2" style="font-size:300%;"></span>
         <div>
-            <section class="gia-like">@if(carstoviewobject.Favorite == null){<span>0</span>} else {<span>@carstoviewobject.Favorite</span>}</section>
+            <a class="gia-like" id="likecountersection" onclick="LikeCurrentCar('@Model.Car.CarsId')">@if (carstoviewobject.Favorite == null)
+                                      {<span>0</span>}
+                                      else
+                                      {<span>@carstoviewobject.Favorite</span>}</a>
         </div>
         <div dir="rtl">
             <h3>تعداد بازدید</h3>
@@ -57,27 +56,30 @@
 
 <div id="CarImagesAndDetailsShowSection">
     <div id="carImages">
-        <div id="carImages_Bigview_Container">
-            <img id="carImages_Bigview" src="@Url.Content(Model.Car.CarImages[0])" />
-        </div>
-        <div id="carImages_ImageThumbnails">
-            <a><h3 class="gia-magnifier" style="font-size: 300%;"></h3></a>
-            <div id="carImages_ImageThumbnailscontainer" class="slideterItemShowContianer">
-                <div class="itemsContainerBack">
-                    <div class="itemsContainer">
-                        @foreach (var item in Model.Car.CarImages)
-                        {
-                            <a class="item" onclick="document.getElementById('carImages_Bigview').src = '@Url.Content(item)'" >
-                                <img src="@Url.Content(item)" />
-                            </a>
-                        }
-                    </div>
-                </div>
-
-                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
-                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+        @if (Model.Car.CarImages.Length > 0)
+        {
+            <div id="carImages_Bigview_Container">
+                <img id="carImages_Bigview" src="@Url.Content(Model.Car.CarImages[0])" />
             </div>
-        </div>
+            <div id="carImages_ImageThumbnails">
+                <a><h3 class="gia-magnifier" style="font-size: 300%;"></h3></a>
+                <div id="carImages_ImageThumbnailscontainer" class="slideterItemShowContianer">
+                    <div class="itemsContainerBack">
+                        <div class="itemsContainer">
+                            @foreach (var item in Model.Car.CarImages)
+                            {
+                                <a class="item" onclick="document.getElementById('carImages_Bigview').src = '@Url.Content(item)'" >
+                                    <img src="@Url.Content(item)" />
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                    <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                    <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+                </div>
+            </div>
+        }
     </div>
 
     <div id="CarDetials">
@@ -94,7 +96,7 @@
             </a>
         </div>
 
-        @if(carAutoServices.Any())
+        @if (carAutoServices.Any())
         {
             <div id="CarDetails_CarServices" class="slideterItemShowContianer">
                 <h3 class="title">خدمات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
@@ -121,7 +123,7 @@
         }
 
 
-        @if(carProducts.Any())
+        @if (carProducts.Any())
         {
             <div id="CarDetails_CarProducts" class="slideterItemShowContianer">
                 <h3 class="title">محصولات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
@@ -164,8 +166,8 @@
                             {
                                 src = item.CarImages[0];
                             }
-                            <a href="#" class="item">
-                                <img src="@Url.Content(src)" alt />
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
+                                <img src="@Url.Content(src)" alt="" />
                                 <span>@item.CarModel.CarBrand.CarBrandName  @item.CarModel.CarModelName</span>
                             </a>
                         }
@@ -599,18 +601,110 @@
 
 <div id="CarReviewSection">
     <h3>نقدر و بررسی تخصصی خودرو</h3>
-    <div id="CarReviewSectionHTML">
+    <div id="CarReviewSectionHTML" style="align-self:stretch;">
         @Html.Raw(Model.CarsReview.Review)
     </div>
 </div>
 
+@if(CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
+{
+    <div id="usersCommentsSection">
+        <h3 style="align-self:flex-start;">نظرات کاربران</h3>
+        @try
+        {
+            var msg = ViewBag.error["success"];
+            <section style="color:white; text-shadow:0 0 1px lawngreen; text-align:center;">
+                @msg
+            </section>
+        }
+        catch
+        {
+            <form method="post">
+                <input type="hidden" id="responsecommentid" name="responsecommentid" value="@Request.Form["responsecommentid"]" />
+
+                <div class="inputsContainer">
+                    <section class="input @if (Request.Form.AllKeys.Contains("responsecommentid") && !string.IsNullOrEmpty(Request.Form["responsecommentid"])) { Write("show"); }" id="replayComment">
+                        <label>پاسخ به پیام کاربر</label>
+                        <input type="text" name="usernameCommentReply" id="usernameCommentReply" value="@Request.Form["usernameCommentReply"]" />
+                    </section>
+                    <section class="input">
+                        <label> پیام</label>
+                        <textarea  name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                        <span>@try
+                              { @ViewBag.error["comment"] }
+                              catch { }</span>
+                    </section>
+                </div>
+                <center>
+                    <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
+                    <span style="color:red">@try
+                                            { @ViewBag.error["g-recaptcha-response"] }
+                                            catch { }</span>
+                </center>
+                <div class="inputAction">
+                    <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
+                </div>
+            </form>
+        }
+    </div>
+}
+
+<div id="UsersOldComments">
+    @CreateCommentSection(null, Model.Car.CarsId, dbs)
+</div>
+
+@functions{
+    MvcHtmlString CreateCommentSection(int? rootid,int carid, CarProject.DBSEF.CarAutomationEntities dbs)
+    {
+        string res = "";
+        
+        foreach (var item in dbs.CarUserComments.Where(c => c.CarId == carid && c.RootCarUserCommentsId == rootid))
+        {
+            res += string.Format("<div class=\"message\">");
+            {
+                res += string.Format("<div class=\"messageContent\">");
+                {
+                    res += string.Format("<strong class=\"username\">{0}</strong>", (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+
+                    res += string.Format("<section class=\"commentsection\">");
+                    {
+                        res += string.Format("<section class=\"comment\">{0}</section>", item.Comment);
+
+                        res += string.Format("<section class=\"commentActionAndInfo\">");
+                        {
+                            res += string.Format("<section class=\"commentInfo\">");
+                            {
+                            }
+                            res += "</section>";
+
+
+                            res += string.Format("<section class=\"commentAction\">");
+                            {
+                                res += string.Format("<a class=\"gia-back\" onclick=\"CommentMessageReply('{0}','{1}')\"></a>", item.CarUserCommentsId, (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+                            }
+                            res += "</section>";
+                        }
+                        res += "</section>";
+                    }
+                    res += "</section>";
+                }
+                res += "</div>";
+
+                res += CreateCommentSection(item.CarUserCommentsId, carid, dbs);
+            }
+            res += "</div>";
+        }
+        
+        return new MvcHtmlString(res);
+    }
+}
 
 @section style
 {
     <meta name="description" content="مشخصات خودرو @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName @Model.Car.CarYearModel" />
     <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
-    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName }, Request.Url.Scheme)" />
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName.Trim(), info2 = Model.Car.CarModel.CarModelName.Trim() }, Request.Url.Scheme)" />
 
     
     <link href="~/Publics/Files/ControlsPageTemplates/Cars/Car/SliderItemShow.css" rel="stylesheet" />
@@ -625,4 +719,10 @@
 @section script
 {
     <script src="~/Publics/Files/ControlsPageTemplates/Cars/Car/scirpt.js"></script>
+}
+
+
+@if (Request.Form.AllKeys.Contains("SendACommentRequest"))
+{
+    <script>window.location = "#usersCommentsSection"</script> 
 }

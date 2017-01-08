@@ -400,6 +400,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CarUserComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarUserComment">
+        <MappingFragment StoreEntitySet="CarUserComments">
+          <ScalarProperty Name="CarUserCommentsId" ColumnName="CarUserCommentsId" />
+          <ScalarProperty Name="CarId" ColumnName="CarId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="RootCarUserCommentsId" ColumnName="RootCarUserCommentsId" />
+          <ScalarProperty Name="CarRating" ColumnName="CarRating" />
+          <ScalarProperty Name="Beautifully" ColumnName="Beautifully" />
+          <ScalarProperty Name="Worthly" ColumnName="Worthly" />
+          <ScalarProperty Name="Quality" ColumnName="Quality" />
+          <ScalarProperty Name="Services" ColumnName="Services" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="CarWheels">
       <EntityTypeMapping TypeName="CarAutomationModel.CarWheel">
         <MappingFragment StoreEntitySet="CarWheels">

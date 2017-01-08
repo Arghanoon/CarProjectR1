@@ -33,7 +33,9 @@
                 </tr>
                 <tr>
                     <th>مدل خودرو</th>
-                    <td>@item.Car.CarModel.CarModelName</td>
+                    <td>
+                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.Car.CarsId, info1 = item.Car.CarModel.CarBrand.CarBrandName, info2 = item.Car.CarModel.CarModelName })" target="_blank">@item.Car.CarModel.CarModelName</a>
+                    </td>
                 </tr>
 
                 <tr>

@@ -283,6 +283,9 @@
     <Compile Include="DBSEF\CarsToView.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\CarUserComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\CarWheel.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -964,6 +967,10 @@
     <Content Include="Areas\Admin\Views\Store\BasketsDetails_Send.cshtml" />
     <Content Include="Areas\Admin\Views\DashBoard\MainMenu_Insert.cshtml" />
     <Content Include="Areas\Admin\Views\DashBoard\MainMenus.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MainMenu_Update.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MainMenu_delete.cshtml" />
+    <Content Include="Areas\Admin\Views\FileManager\tinymcefm_selector.cshtml" />
+    <Content Include="Areas\Admin\Views\FileManager\tinymcefm2_selector.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -981,10 +988,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\DashBoard\MainMenu_Update.cshtml" />
-    <Content Include="Areas\Admin\Views\DashBoard\MainMenu_delete.cshtml" />
-    <Content Include="Areas\Admin\Views\FileManager\tinymcefm_selector.cshtml" />
-    <Content Include="Areas\Admin\Views\FileManager\tinymcefm2_selector.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarUserComments_ShowAndReply.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />

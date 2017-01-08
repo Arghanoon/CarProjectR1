@@ -370,6 +370,22 @@
     <Property Name="View" Type="int" />
     <Property Name="Favorite" Type="int" />
   </EntityType>
+  <EntityType Name="CarUserComments">
+    <Key>
+      <PropertyRef Name="CarUserCommentsId" />
+    </Key>
+    <Property Name="CarUserCommentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarId" Type="int" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Comment" Type="ntext" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="RootCarUserCommentsId" Type="int" />
+    <Property Name="CarRating" Type="tinyint" />
+    <Property Name="Beautifully" Type="tinyint" />
+    <Property Name="Worthly" Type="tinyint" />
+    <Property Name="Quality" Type="tinyint" />
+    <Property Name="Services" Type="tinyint" />
+  </EntityType>
   <EntityType Name="CarWheels">
     <Key>
       <PropertyRef Name="CarWheelsId" />
@@ -1335,6 +1351,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CarUserComments_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="CarUserComments" Type="Self.CarUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="CarUserComments">
+        <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarUserComments_CarUserComments">
+    <End Role="CarUserComments" Type="Self.CarUserComments" Multiplicity="0..1" />
+    <End Role="CarUserComments1" Type="Self.CarUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarUserComments">
+        <PropertyRef Name="CarUserCommentsId" />
+      </Principal>
+      <Dependent Role="CarUserComments1">
+        <PropertyRef Name="RootCarUserCommentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarUserComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="CarUserComments" Type="Self.CarUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="CarUserComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CarWheels_Cars">
     <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
     <End Role="CarWheels" Type="Self.CarWheels" Multiplicity="*" />
@@ -2037,6 +2089,7 @@
     <EntitySet Name="CarsReview" EntityType="Self.CarsReview" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarsReviewPoint" EntityType="Self.CarsReviewPoint" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarsToView" EntityType="Self.CarsToView" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarUserComments" EntityType="Self.CarUserComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarWheels" EntityType="Self.CarWheels" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
@@ -2232,6 +2285,18 @@
     <AssociationSet Name="FK_CarsToView_Cars" Association="Self.FK_CarsToView_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="CarsToView" EntitySet="CarsToView" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarUserComments_Cars" Association="Self.FK_CarUserComments_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="CarUserComments" EntitySet="CarUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarUserComments_CarUserComments" Association="Self.FK_CarUserComments_CarUserComments">
+      <End Role="CarUserComments" EntitySet="CarUserComments" />
+      <End Role="CarUserComments1" EntitySet="CarUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarUserComments_User" Association="Self.FK_CarUserComments_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="CarUserComments" EntitySet="CarUserComments" />
     </AssociationSet>
     <AssociationSet Name="FK_CarWheels_Cars" Association="Self.FK_CarWheels_Cars">
       <End Role="Cars" EntitySet="Cars" />

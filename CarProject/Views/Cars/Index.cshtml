@@ -145,7 +145,7 @@
                 <div id="filter_brands">
                     <h4 class="title">فیلتر برندها</h4>
                     <div class="checkboxContainer">
-                        @foreach (var item in dbs.CarBrands.Take(5))
+                        @foreach (var item in dbs.CarBrands.OrderBy(b => b.CarBrandId).Take(5))
                         {
                             <section class="checkbox">
                                 <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); }/>
@@ -156,7 +156,7 @@
                         }
                         
                         <div id="filter_brands_more" class="more">
-                            @foreach (var item in dbs.CarBrands.Take(5))
+                            @foreach (var item in dbs.CarBrands.OrderBy(b => b.CarBrandId).Skip(5))
                             {
                                 <section class="checkbox">
                                     <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); }/>

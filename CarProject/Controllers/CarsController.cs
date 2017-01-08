@@ -37,6 +37,46 @@ namespace CarProject.Controllers
         [HttpPost]
         public ActionResult Car(int id, FormCollection form)
         {
+            if (Areas.Users.Controllers.profileController.GetCurrentLoginedUser == null)
+                return RedirectToAction("Car", new { id = id });
+
+            ViewBag.error = new Dictionary<string, string>();
+            if (form.AllKeys.Contains("SendACommentRequest"))
+            {
+                if (form["comment"] == "")
+                    ViewBag.error["comment"] = "پیام وارد نشده است";
+
+                if (form["g-recaptcha-response"] == "")
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
+                else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد شده صحیح نیست";
+
+                if (((Dictionary<string, string>)ViewBag.error).Count == 0)
+                {
+                    var dbs = new DBSEF.CarAutomationEntities();
+                    int  rootid =  0;
+                    int.TryParse(form["responsecommentid"],out rootid);
+
+                    dbs.CarUserComments.Add(new db.CarUserComment
+                    {
+                        CarId = id,
+                        UserId = Areas.Users.Controllers.profileController.GetCurrentLoginedUser.UserId,
+                        Comment = form["comment"],
+                        DateTime = DateTime.Now,
+                        RootCarUserCommentsId = ((rootid == 0) ? null : (int?)rootid)
+                    });
+
+                    dbs.SaveChanges();
+                    ViewBag.error["success"] = "پیام شما با موفقیت ثبت شد ";
+                }
+            }
+
+            var model = new Areas.Admin.Models.Cars.CarsModel(id);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Car_expiredPostResponser(int id, FormCollection form)
+        {
             ViewBag.error = new Dictionary<string, string>();
             if (form.AllKeys.Contains("SendACommentRequest"))
             {
@@ -50,10 +90,10 @@ namespace CarProject.Controllers
                 if (form["comment"] == "")
                     ViewBag.error["comment"] = "پیام وارد نشده است";
 
-                if (form["captcha"] == "")
-                    ViewBag.error["captcha"] = "کد امنیتی وارد نشده است";
-                else if (!DefaultController.ValidationCaptcha(form["captcha"]))
-                    ViewBag.error["captcha"] = "کد امنیتی وارد شده صحیح نیست";
+                if (form["g-recaptcha-response"] == "")
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
+                else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد شده صحیح نیست";
 
                 if (((Dictionary<string, string>)ViewBag.error).Count == 0)
                 {
@@ -80,6 +120,9 @@ namespace CarProject.Controllers
         [HttpPost]
         public int Car_MakePopular(int id)
         {
+            if (Session["likedcarcontianersession"] != null && Session["likedcarcontianersession"] is List<int> && ((List<int>)Session["likedcarcontianersession"]).Contains(id))
+                return -1;
+
             int res = 0;
             var dbs = new DBSEF.CarAutomationEntities();
             if (dbs.CarsToViews.Count(c => c.CarsId == id) > 0)
@@ -95,6 +138,12 @@ namespace CarProject.Controllers
             }
 
             dbs.SaveChanges();
+
+            if (Session["likedcarcontianersession"] == null && !(Session["likedcarcontianersession"] is List<int>))
+                Session["likedcarcontianersession"] = new List<int>();
+
+            ((List<int>)Session["likedcarcontianersession"]).Add(id);
+
             return res;
         }
         #endregion

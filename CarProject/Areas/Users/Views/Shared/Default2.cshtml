@@ -1,7 +1,7 @@
 ﻿@{
     var person = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
     var personcarnotification = new CarProject.Areas.Users.UsersCLS.Notifications.UserCarsNotifications();
-    var NotificationsCount = personcarnotification.Notifications.Count;
+    var NotificationsCount = (personcarnotification.Notifications != null) ? personcarnotification.Notifications.Count : 0;
 }
 <!doctype html>
 <html>

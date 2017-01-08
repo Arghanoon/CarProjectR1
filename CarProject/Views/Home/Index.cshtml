@@ -210,7 +210,7 @@
                             }
                         }
                 
-                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })" class="item">
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
                         <img src="@Url.Content(@car_image_src)" />
                         <span>
                             <strong>@item.CarModel.CarModelName</strong>

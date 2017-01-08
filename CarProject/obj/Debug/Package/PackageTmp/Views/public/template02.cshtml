@@ -1,8 +1,16 @@
-﻿@{
+﻿@using dsh = CarProject.Areas.Admin.Models.Dashboard
+@{
     var dbsobj = new CarProject.DBSEF.CarAutomationEntities();
 
 
     var loggineduser = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
+
+    var sri = new dsh.MySerializer();
+    var ab = new dsh.AboutMe();
+    var cus = new dsh.ContactUs();
+
+    ab = (dsh.AboutMe)sri.LoadXml(Server.MapPath(ab.FileLocation), ab.GetType());
+    cus = (dsh.ContactUs)sri.LoadXml(Server.MapPath(cus.FileLocation), cus.GetType());
 }@functions{
     
     
@@ -108,9 +116,8 @@
             </nav>
             
             <div id="footer2_describe">
-            	<p>توضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایت
-                توضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایتتوضیحات درباره وبسایت
-                </p>
+            	<p>@ab.ShortDescribe</p>
+                <p>@cus.ShortDescribe</p>
             </div>
             
             <div id="footer2_enemad">
