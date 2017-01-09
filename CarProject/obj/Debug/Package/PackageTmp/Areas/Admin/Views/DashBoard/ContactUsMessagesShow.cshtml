@@ -1,0 +1,138 @@
+﻿@model CarProject.DBSEF.ContactUsMessage
+@using CarProject.App_extension
+@{
+    ViewBag.Title = "نمایش پیغام";
+}
+
+<div>
+    
+    <table>
+        <tr>
+            <th>نام و نام خانوادگی</th>
+            <td>@Model.FullName</td>
+        </tr>
+         <tr>
+            <th>ایمیل</th>
+            <td>@Model.Email</td>
+        </tr>
+         <tr>
+            <th>موضوع پیام</th>
+            <td>@Model.Subject</td>
+        </tr>
+         <tr>
+            <th>تاریخ ارسال پیام</th>
+            <td>@Model.Date.DateTime_Persian()</td>
+        </tr>
+        <tr>
+            <th>تاریخ بررسی</th>
+            <td>@Model.Seen.DateTime_Persian()</td>
+        </tr>
+    </table>
+
+    <div id="messageContent">
+        @Model.Message
+    </div>
+
+    <div id="messageAction">
+        <a href="javascript:void()" onclick="$('#dlBack').toggleClass('show');" class="button red gia-remove" >حذف پیام</a>
+        <a href="#" class="button yellow" >پاسخ به پیام</a>
+        <a href="@Url.Action("ContactUsMessages","DashBoard")" class="button " >بازگشت</a>
+    </div>
+    
+</div>
+
+<div>
+    <form method="post">
+        
+    </form>
+</div>
+
+<div id="dlBack">
+    <form method="post" action="@Url.Action("ContactUsMessages_Delete","DashBoard")" id="dlMessage">
+        <input type="hidden" name="id" value="@Model.MessagID" />
+        <strong id="dlTitle">حذف پیام</strong>
+        <section id="deMSG">
+            آیا از حذف پیام اطمینان دارید؟
+        </section>
+        <section id="dlAction">
+            <input type="button" class="button blue" value="انصراف" onclick="$('#dlBack').toggleClass('show');" />
+            <input type="submit" class="button red"  value="حذف پیام"/>
+        </section>
+    </form>
+</div>
+
+
+
+@section style
+{
+    <style>
+        table {
+            font-size:85%;
+        }
+
+        th {
+            text-align:right;
+            padding:0 5px;
+        }
+
+        #messageContent {
+            margin:15px;
+            border:thin solid #888;
+            border-radius:5px;
+            padding:5px;
+        }
+
+        #messageAction {
+            display:flex; justify-content:flex-end; align-items:center;
+        }
+
+
+
+        #dlBack {
+            position:fixed;
+            top:0; left:0; right:0; bottom:0;
+
+            background:rgba(0,0,0,0.6);
+            z-index:9999;
+            display:none;
+        }
+            #dlBack.show {
+                display:block;
+            }
+
+        #dlMessage {
+            padding:5px;
+            border:thin solid #888;
+            border-radius:5px;
+            margin:auto;
+            margin-top:10%;
+            background:white;
+            box-shadow:0 0 3px 0 #000;
+
+            width:70%;
+            overflow:hidden;
+        }
+        #dlTitle {
+            margin:-5px;
+            margin-bottom:5px;
+            padding:0 5px;
+
+            color:white;
+            background:#888;
+            display:block;
+        }
+
+        #dlAction {
+            display:flex;
+            justify-content:center; align-items:center;
+        }
+
+        @@media (max-width:500px) {
+            #dlMessage {
+                width:100%;
+            }
+        }
+
+    </style>
+}
+

@@ -75,6 +75,7 @@ header
 a {
     color:#8a8a8a;
     text-decoration:none;
+    cursor:pointer;
 }
     a:hover {
         color:#000;
@@ -399,3 +400,12 @@ a {
     font-size:70%;
 }
 
+@media print {
+
+    header {
+        display: none;
+    }
+    #menu {
+        display: none;
+    }
+}

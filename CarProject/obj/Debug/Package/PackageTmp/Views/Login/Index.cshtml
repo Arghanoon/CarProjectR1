@@ -1,0 +1,207 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" >
+
+<title>ورود کاربران</title>
+
+    <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
+
+<style>
+	*{position:relative; box-sizing:border-box; margin:0; padding:0; }
+	
+	body
+	{ 
+		direction:rtl; font-family:f1;
+		background:url(@System.Web.VirtualPathUtility.ToAbsolute("~/Areas/Admin/Files/Images/back.jpg")) no-repeat center;
+		background-size:100% 100%;
+	}
+	
+	#container
+	{
+		min-height:100vh;
+		
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		
+		
+		font-size:120%;
+	}
+	
+	#loginForm
+	{
+		display:flex;
+		flex-direction:column;
+		justify-content:center;
+		align-items:center;
+		min-width:30vw;
+		
+		background:rgba(255,255,255,0.95);
+		box-shadow:0 0 3px 0 #000000 , 0 0 3px 0 #FFFFFF;
+		padding:10px;
+		border-radius:5px;
+	}
+	
+	label.button
+	{
+		position:relative;
+		display:flex; justify-content:space-between; align-items:center;
+		border:thin solid #A9A9A9;
+		background:#E7E7E7;
+		border-radius:5px;
+		overflow:hidden;
+		width:100%;
+		cursor:pointer;
+		margin:3px 0;
+	}
+	label.button:hover
+	{
+		box-shadow:0 1px 2px #000000;
+	}
+	label.button:active
+	{
+		background:#DDDDDD;
+		box-shadow:0 0 2px #000000 inset;
+	}
+	
+	label.button:before
+	{
+		width:30px;
+		text-align:center;
+	}
+	
+	
+	
+	label.button input
+	{ 
+		flex:1;
+		font-family:f2; text-align:center; padding:0 2px;
+		border:none;
+		background:none;
+		width:100%;
+	}
+	
+	
+	
+	
+	label:not(.button)
+	{ 
+		position:relative;
+		display:flex; justify-content:space-between; align-items:center;
+		border:thin solid #E7E7E7;
+		border-radius:5px;
+		overflow:hidden;
+		width:100%;
+		margin:2px;
+	}
+	label:not(.button):before
+	{
+		width:30px;
+		text-align:center;
+	}
+	
+	
+	
+	label:not(.button) input
+	{ 
+		flex:1;
+		font-family:f2; text-align:center; padding:0 2px;
+		border:none;
+		background:none;
+		width:100%;
+	}
+	
+	a { color: #616161; text-decoration:none;}
+	a:hover { color:#000000; text-shadow:0 0 2px #000000; }
+	a:active { text-shadow: 0 0 1px #000000; }
+	
+	#footer
+	{
+		position:absolute;
+		bottom:0; left:0; right:0;
+		color:white;
+		
+		background:rgba(0,0,0,0.70);
+		
+		display:flex; justify-content:space-between; align-items:center;
+	}
+        #errorSection
+        {
+            color:#F00;
+        }
+
+</style>
+
+</head>
+
+<body>
+	
+    <form id="container" method="post">
+        
+        
+        <div id="loginForm">
+        
+        	<div style="text-align:center;">
+                <h1>ورود به بخشن مدیریت</h1>
+                <small>نام نرم افزار</small>
+            </div>
+        	
+            <label class="gia-user"><input type="text" autocomplete="off" placeholder="نام کاربری" id="username" name="username" /></label>
+            <label class="gia-key"><input type="password" placeholder="کلمه عبور" id="password" name="password"  /></label>
+            
+           
+           <label class="button gia-login">
+               <input type="button" onclick="formsubmit()" value="ورود کاربر"/>
+           </label>
+            
+            
+            <div style="width:100%; display:flex; justify-content:space-around; align-items:center; flex-wrap:wrap;">
+            	<a href="#" class="gia-recovery">بازیابی کلمه عبور</a>
+                <a href="@Url.Action("Signup","Login")" class="gia-newUser">ثبت نام کاربر جدید</a>
+            </div>
+            
+            <div>
+                <section id="errorSection">
+                @try
+                {
+                    Write(ViewBag.error);
+                }
+                catch
+                {
+                   
+                }
+            </section>
+            </div>
+        </div>
+        
+		
+		<div id="footer" >
+        	<section>گروه نرم افزار ارغنون</section>
+            <section style="direction:ltr; font-size:75%;" >َArghanoon CopyRight &copy;</section>            
+        </div>
+    </form>
+    
+</body>
+
+
+    <script>
+        
+        function formsubmit() {
+            un = document.getElementById("username");
+            ps = document.getElementById("password");
+            if (un.value == "" || ps.value == "") {
+                document.getElementById("errorSection").innerHTML = "نام کاربری و یا کلمه عبور وارد نشده است";
+            }
+            else
+                un.form.submit();
+        }
+    </script>
+</html>

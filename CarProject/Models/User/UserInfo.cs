@@ -95,8 +95,12 @@ namespace CarProject.Models.User
 
             if (string.IsNullOrWhiteSpace(Person.PersonEmail))
                 yield return new ValidationResult("ایمیل کاربر وارد نشده است", new string[] { "Person.PersonEmail" });
-            else if(!CheckMail(Person.PersonEmail))
+            else if (!CheckMail(Person.PersonEmail))
                 yield return new ValidationResult("ایمیل وارد شده صحیح نیست", new string[] { "Person.PersonEmail" });
+            else if (!IsForUpdate && context.People.Count(p => p.PersonEmail == this.Person.PersonEmail) > 0)
+                yield return new ValidationResult("ایمیل وارد شده تکراری است", new string[] { "Person.PersonEmail" });
+            else if (IsForUpdate && context.People.Count(p => p.PersonEmail == this.Person.PersonEmail && p.UserId != this.Person.UserId) > 0)
+                yield return new ValidationResult("ایمیل وارد شده تکراری است", new string[] { "Person.PersonEmail" });
             
 
             if(string.IsNullOrWhiteSpace(Person.User.Uname))

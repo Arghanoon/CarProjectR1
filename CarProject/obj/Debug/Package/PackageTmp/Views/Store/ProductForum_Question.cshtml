@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "نمایش پرسش ها و پاسخ ها";
+
+    int id = 0;
+    if(ViewContext.RouteData.Values["id"] != null)
+    {
+        int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+    }
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var question = dbs.ProductQnAs.FirstOrDefault(c => c.ProductQnAId == id);
+    
+    if(question == null)
+    {
+        Response.Redirect("/");
+    }
+
+    var relatedQuestions = dbs.ProductQnAs.Where(c => c.QuestionId == question.ProductQnAId);
+}
+
+@model CarProject.DBSEF.ProductQnA
+@using CarProject.App_Code
+
+
+<div>
+    <strong>پرسش های برای خودرو: </strong>
+    <small><a href="/Store/ProductForum/@question.Product.Category.CategoryName/@question.Product.ProductName/@question.Product.PartNumber">@question.Product.Category.CategoryName - @question.Product.ProductName</a></small>
+</div>
+<hr />
+
+<div id="questionAnserContainer" class="page">
+    <section class="question">@question.Question</section>
+
+    @foreach (var item in relatedQuestions)
+    {
+        <section class="@if (item.QuestionType == "Q") { Write("question"); } else { Write("answer"); }">@item.Question</section>
+    }
+</div>
+
+
+
+<div class="page">
+    <h3>ثبت سوال جدید</h3>
+    <hr />
+
+    <form method="post">
+        <input type="hidden" name="@Html.NameFor(m => m.QuestionId)" value="@question.ProductQnAId" />
+        <div class="inputsContainer">
+            <section class="input">
+                <textarea placeholder="پرسش جدید را در این قسمت وارد کنید" name="@Html.NameFor(m => m.Question)"></textarea>
+            </section>
+        </div>
+        <section style="color:red">
+            @Html.ValidationMessageFor(m => m.Question)
+        </section>
+        <div class="inputAction">
+            <input type="submit" value="ارسال پاسخ" class="button green" />
+        </div>
+    </form>
+</div>
+
+@section style
+{
+    @{
+        var str = "";
+        if (question.Question.Length > 50)
+        { str = question.Question.Substring(0, 50); }
+        else
+        { str = question.Question; }
+    }
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car_Forum_Question", id = id, info1 = "Question", info2 = str, info3 = "details" }, Request.Url.Scheme)" />
+
+
+    <style>
+        #questionAnserContainer {
+            display:flex;
+            flex-direction:column;
+            margin:10px 1px;
+        }
+
+            #questionAnserContainer .question {
+                padding:5px;
+                margin:1px 0;
+                border:thin solid #888;
+                align-self:flex-start;
+                border-radius:5px 0 0 5px;
+                max-width:80%;
+                background:#fdf8ef;
+            }
+            #questionAnserContainer .answer {
+                padding:5px;
+                margin:1px 0;
+                border:thin solid #888;
+                align-self:flex-end;
+                border-radius:0 5px 5px 0;
+                max-width:80%;
+                background:#eef3fd;
+            }
+    </style>
+}

@@ -45,7 +45,10 @@ namespace CarProject.Areas.Admin.Models.Cars
         public db.FuelConsumption FuelConsumption { get; set; }
         public db.SecuritySystem SecuritySystem { get; set; }
         public db.SteeringSystem SteeringSystem { get; set; }
+        public List<string> List_SteeringSystemType { get { return new List<string> { "هیدرولیک", "هیدروالکتریک", "الکتریک" }; } } 
+
         public db.AirConditioningSystem AirConditioningSystem { get; set; }
+        public List<string> List_AirConditioningType { get { return new List<string> { "دستی","اتوماتیک" }; } }
         public List<db.AirConditioningSystemDetail> AirConditioningSystemDetails { get; set; }
         public List<db.CarsPro> Pros { get; set; }
         public List<db.CarsPro> Cros { get; set; }
@@ -224,6 +227,20 @@ namespace CarProject.Areas.Admin.Models.Cars
         }
         public void Update()
         {
+            this.Car.AirConditioningSystemDetails.Clear();
+            foreach (var item in this.AirConditioningSystemDetails)
+            {
+                item.Car = this.Car;
+                this.Car.AirConditioningSystemDetails.Add(item);
+            }
+
+            this.Car.DetailedBrakeSystems.Clear();
+            foreach (var item in this.DetailedBrakeSystems)
+            {
+                item.Car = this.Car;
+                this.Car.DetailedBrakeSystems.Add(item);
+            }
+
             DBS.SaveChanges();
         }
 

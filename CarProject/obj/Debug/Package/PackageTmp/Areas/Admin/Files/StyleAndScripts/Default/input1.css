@@ -1,0 +1,340 @@
+﻿
+.inputsContainer {
+    display:table;
+    width:100%;
+}
+.input
+{
+    display:table-row;
+}
+
+    .input > *:not(hr) {
+        display:table-cell;  
+        vertical-align:middle;
+    }
+
+    .input > *:nth-child(1) {
+        vertical-align:text-top;
+        min-width: 30%;
+    }
+
+    .input > *:nth-child(3) {
+        white-space:nowrap;
+    }
+
+	.input input:not([type=submit]):not([type=button]):not([type=reset]):not([type=checkbox]),
+		.input textarea,
+        .input select,
+        .input .inputElement
+	{
+        width:100%;
+        color:#373749;
+		border:thin solid #b6b6c8;
+		border-radius:3px;
+		padding:3px;
+		margin:3px 0 5px 0;
+		background:#FEFEFE;
+		
+		resize:vertical;
+		font-family:f3;
+	}
+    .input .label
+	{
+        color:#373749;
+		border:thin solid #b6b6c8;
+		border-radius:3px;
+		padding:3px;
+		margin:3px 0 5px 0;
+		background:#FEFEFE;
+		
+		resize:vertical;
+		font-family:f3;
+
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        flex-wrap:wrap;
+	}
+    .input .inbutton {
+    }
+
+    .input input[type=checkbox] {
+        color:#373749;
+		border:thin solid #b6b6c8;
+		border-radius:3px;
+		padding:3px;
+		margin:3px 0 5px 0;
+		background:#FEFEFE;
+		
+		resize:vertical;
+		font-family:f3;
+    }
+    
+	.input input:not([type=submit]):not([type=button]):not([type=reset]):focus,
+		.input textarea:focus,
+        .input select:focus,
+        .input .inputElement:focus
+	{
+		border: thin solid;
+		box-shadow:0 0 3px 0 #b6b6c8;
+		background:#FFFFFF;
+	}
+
+    .input option {
+        padding:0 5px;
+        display:block;
+    }
+        .input option:hover {
+            background:#b6b6c8;
+        }
+
+    .input .error {
+        box-shadow:0 0 3px 1px #f00;
+    }
+    .input span {
+        margin-top:auto;
+        color:#f00;
+        padding: 0 10px;
+        vertical-align:middle;
+    }
+
+.inputTitle {
+    border-bottom:thin solid #777;
+}
+
+
+.inputAction {
+    display:flex; justify-content:center; align-items:center;
+    flex-wrap:wrap;
+}
+    
+@media (max-width:500px) {
+    .input > *:not(hr) {
+        display:block !important;      
+    }
+}
+
+.inputsContainer2 {
+    display:block;
+}
+    .inputsContainer2 .input > *:not(hr) {
+        display: block !important;
+    }
+    
+.inputsContainer3 {
+    display:block;
+}
+    .inputsContainer3 .input > *:not(hr) {
+        display: block !important;
+        width:100%;
+    }
+/*-----------------------------------------Rating Section--------------------------*/
+.input.rating
+{
+	position:relative;
+	display:flex;
+
+    overflow:hidden;
+}
+	.input.rating input
+	{
+		width:40px !important;
+	}
+	
+	.input.rating .ratingSection
+	{
+		position:relative;
+		width:220px;
+		height:30px;
+		background:url(../../Images/ratingback.png) no-repeat;
+		background-size:100% 100%;
+	}
+        .input.rating .ratingSection[data-value]::after {
+            content:attr(data-value);
+            position:absolute;
+            top:100%; left:0; right:0;
+            background:rgba(0, 0, 0, 0.30);
+            color:#fff;
+
+            height:100%;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            transition:ease 0.3s;
+            z-index:2;
+        }
+        .input.rating:hover .ratingSection[data-value]::after {
+            top:0;
+        }
+
+	.input.rating .ratingSectionSlider
+	{
+		position:absolute;
+		top:0; bottom:0; left:0; 
+		background:#ffd700;
+		z-index:-1;
+	}
+	.input.rating .ratingSectionFakeSlider
+	{
+		position:absolute;
+		top:0; bottom:0; left:0; 
+		background:#daa520;
+		z-index:-1;
+		display:none;
+	}
+	.input.rating:hover .ratingSectionFakeSlider
+	{
+		display:inherit;
+	}
+/*------------------------------------Rating Section -------------------------------*/
+
+
+
+/*---------------------------------------Buttons------------------------------------------*/
+	.button
+	{
+        display:inline-block;
+		border:thin solid #afafaf;
+		background:#eaeaea;
+		color: #252525;
+	    
+		border-radius:3px;
+		text-decoration:none;
+
+		
+		padding:5px;
+		margin:3px;
+		
+        box-sizing:border-box;
+
+        font-family: f2;
+        font-size:90%;
+
+         white-space:normal;
+
+	}
+.input1 {
+    display:inline-block;
+	border:thin solid #afafaf;
+	background:#FEFEFE;
+	color: #252525;
+	    
+	border-radius:3px;
+	text-decoration:none;
+
+		
+	padding:5px;
+	margin:3px;
+		
+    box-sizing:border-box;
+
+    font-family: f2;
+    font-size:90%;
+
+         white-space:normal;
+}
+
+
+	.button:hover
+	{
+		box-shadow: 0 0 2px 0 #9b9b9b;
+	}
+	.button:active
+	{
+		box-shadow: 0 0 2px 0 #9b9b9b inset;
+	}
+	
+	.button.green
+	{
+		background:#c4ffc4;
+		color:#004e00;
+		border: thin solid #00b100;
+	}
+	.button.red
+	{
+		background:#ffb1b1;
+		color:#760000;
+		border: thin solid #c40000;
+	}
+	.button.blue
+	{
+		background:#b1b1ff;
+		color:#000089;
+		border: thin solid #0000c4;
+	}
+    .button.purple
+	{
+		background:#ffceff;
+		color:#6c006c;
+		border: thin solid #450045;
+	}
+    .button.orange
+	{
+		background:#ffdc9d;
+		color:#623f00;
+		border: thin solid #764c00;
+	}
+    .button.yellow
+	{
+		background:#ffffeb;
+		color:#626200;
+		border: thin solid #c4c400;
+	}
+
+
+
+
+    .button.disabled
+	{
+		background:#f5f5f5;
+		color:#3d3d3d;
+		border: thin solid #3d3d3d;
+
+        opacity:0.6;
+	}
+.button.disabled:hover {
+    box-shadow:none;
+}
+/*---------------------------------------Buttons------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*-------------------------[messageInLine]-------------------------------*/
+.messageInLine {
+    color: #000;
+    background: #fff;
+    border: thin solid;
+    border-right: 5px solid;
+    padding: 5px;
+    margin: 5px;
+}
+    .messageInLine.blue {
+        color: #0000b3;
+        background: #ebebff;
+        border-color: #0000ff;
+    }
+
+    .messageInLine.green {
+        color: #406a00;
+        background: #f3ffe0;
+        border-color: #adff2f;
+    }
+
+    .messageInLine.red {
+        color: #621b00;
+        background: #ffe2d8;
+        border-color: #ff4500;
+    }
+/*-------------------------[END OF messageInLine]-------------------------------*/

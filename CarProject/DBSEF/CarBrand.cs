@@ -18,6 +18,7 @@ namespace CarProject.DBSEF
         public CarBrand()
         {
             this.CarModels = new HashSet<CarModel>();
+            this.Products = new HashSet<Product>();
         }
     
         public int CarBrandId { get; set; }
@@ -26,5 +27,7 @@ namespace CarProject.DBSEF
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarModel> CarModels { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

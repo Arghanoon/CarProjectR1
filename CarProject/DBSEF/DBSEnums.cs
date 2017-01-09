@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.IO;
 
 namespace CarProject.DBSEF
-{
+{ 
     public partial class User
     {
         public enum Enum_ActiveORecoveryEnum { Activation = 0, Recovery = 1 };
@@ -23,6 +24,32 @@ namespace CarProject.DBSEF
                     ReservedOne == null &&
                     ReservedTwo == null &&
                     ReservedThree == null;
+            }
+        }
+    }
+
+    public partial class Car
+    {
+        public string[] CarImages
+        {
+            get
+            {
+                List<string> res = new List<string>();
+
+                var Server = HttpContext.Current.Server;
+
+                var PicFileUrl = "~/Publics/Gallery/CarImages/" + this.CarsId;
+                var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+                if (finfo.Exists)
+                {
+                    foreach (var item in finfo.GetFiles())
+                    {
+                        res.Add(PicFileUrl + "/" + item.Name);
+                    }
+                }
+
+                return res.ToArray();
             }
         }
     }
@@ -279,23 +306,75 @@ namespace CarProject.DBSEF
         {
             get
             {
-                bool res = true;
+                bool res = false;
                 switch ((Models.Store.CartUsefull.Basket_ItemType)this.Type)
                 {
                     case CarProject.Models.Store.CartUsefull.Basket_ItemType.Product:
                         {
                             var xcnt = dbs.ProductStores.FirstOrDefault(c => c.ProductId == this.Id);
-                            res = xcnt == null || xcnt.ProductEntity < this.Count;
+                            res = (xcnt != null) && (xcnt.ProductEntity >= this.Count);
                         }
                         break;
                     case CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService:
+                        res = true;
                         break;
                     case CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoServicePack:
+                        res = true;
                         break;
                     default:
                         break;
                 }
                 return res;
+            }
+        }
+    }
+
+    public partial class AutoService
+    {
+        public string[] AutoServiceImages
+        {
+            get
+            {
+                List<string> res = new List<string>();
+                var Server = HttpContext.Current.Server;
+                var PicFileUrl = "~/Publics/Gallery/Services/" + this.AutoServiceId;
+                var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+                if (finfo.Exists)
+                {
+                    foreach (var item in finfo.GetFiles())
+                    {
+                        res.Add(PicFileUrl + "/" + item.Name);
+                    }
+                }
+
+                return res.ToArray();
+            }
+        }
+    }
+
+    public partial class Product
+    {
+        public string[] ProductImages
+        {
+            get
+            {
+                List<string> res = new List<string>();
+
+                var Server = HttpContext.Current.Server;
+
+                var PicFileUrl = "~/Publics/Gallery/ProductImages/" + this.ProductId;
+                var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+                if (finfo.Exists)
+                {
+                    foreach (var item in finfo.GetFiles())
+                    {
+                        res.Add(PicFileUrl + "/" + item.Name);
+                    }
+                }
+
+                return res.ToArray();
             }
         }
     }

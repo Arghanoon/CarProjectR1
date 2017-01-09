@@ -105,6 +105,54 @@ namespace CarProject.Areas.Admin.Models.Dashboard
         }
     }
 
+    public class MailsMessage_Signup_RecoveryKey : IValidatableObject
+    {
+        HttpContext Context { get; set; }
+        public string FileLocation
+        {
+            get { return "~/Publics/Files/Settings/MailsMessage_Signup_RecoveryKey.xml"; }
+        }
+
+        public MailsMessage_Signup_RecoveryKey()
+        {
+            Context = HttpContext.Current;
+
+
+        }
+        [AllowHtml]
+        public string Message { get; set; }
+
+        public void Save()
+        {
+            MySerializer ms = new MySerializer();
+            if (File.Exists(Context.Server.MapPath(FileLocation)))
+                File.Delete(Context.Server.MapPath(FileLocation));
+
+            ms.SaveXml(Context.Server.MapPath(FileLocation), this);
+        }
+
+        public void Load()
+        {
+            if (File.Exists(Context.Server.MapPath(FileLocation)))
+            {
+                MySerializer ms = new MySerializer();
+                var obj = (MailsMessage_Signup_RecoveryKey)ms.LoadXml(Context.Server.MapPath(FileLocation), this.GetType());
+                if (obj != null)
+                {
+                    this.Message = obj.Message;
+                }
+            }
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Message.IsNullOrWhiteSpace())
+                yield return new ValidationResult("متن پیام خالی است", new string[] { "Message" });
+            else if (!Message.Contains("[codelink]") && !Message.Contains("[codeonly]"))
+                yield return new ValidationResult("متن پیام فاقد کد یا لنک فعال سازی است", new string[] { "Message" });
+        }
+    }
+
     public class MySerializer
     {
         public void SaveXml(string filelocation, object instance)

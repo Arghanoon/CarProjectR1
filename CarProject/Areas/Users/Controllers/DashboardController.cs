@@ -131,6 +131,13 @@ namespace CarProject.Areas.Users.Controllers
             }
             return View(model);
         }
+
+        [HttpPost]
+        public JsonResult RetriveCarByBrands(int? id)
+        {
+            var xres = DBSObject.Cars.Where(c => c.CarModel.CarBrandId == id).Select(c => new { id = c.CarsId, name = c.CarModel.CarModelName });
+            return Json(xres, JsonRequestBehavior.DenyGet);
+        }
         #endregion
 
     }
