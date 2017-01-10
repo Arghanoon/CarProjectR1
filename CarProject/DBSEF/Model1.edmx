@@ -801,6 +801,17 @@
           <Property Name="Favorite" Type="int" />
           <Property Name="ProductId" Type="int" />
         </EntityType>
+        <EntityType Name="ProductUserComments">
+          <Key>
+            <PropertyRef Name="ProductUserCommentsId" />
+          </Key>
+          <Property Name="ProductUserCommentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Comment" Type="ntext" />
+          <Property Name="DateTime" Type="datetime" />
+          <Property Name="RootProductUserCommentsId" Type="int" />
+        </EntityType>
         <EntityType Name="SecuritySystems">
           <Key>
             <PropertyRef Name="SecuritySystemsId" />
@@ -1956,6 +1967,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductUserComments_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductUserComments" Type="Self.ProductUserComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ProductUserComments">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductUserComments_ProductUserComments">
+          <End Role="ProductUserComments" Type="Self.ProductUserComments" Multiplicity="0..1" />
+          <End Role="ProductUserComments1" Type="Self.ProductUserComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductUserComments">
+              <PropertyRef Name="ProductUserCommentsId" />
+            </Principal>
+            <Dependent Role="ProductUserComments1">
+              <PropertyRef Name="RootProductUserCommentsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductUserComments_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ProductUserComments" Type="Self.ProductUserComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ProductUserComments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SecuritySystems_Cars">
           <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
           <End Role="SecuritySystems" Type="Self.SecuritySystems" Multiplicity="*" />
@@ -2132,6 +2179,7 @@
           <EntitySet Name="ProductsOrServicesDeliveryTypes" EntityType="Self.ProductsOrServicesDeliveryTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductStore" EntityType="Self.ProductStore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductToView" EntityType="Self.ProductToView" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductUserComments" EntityType="Self.ProductUserComments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServicesPackToView" EntityType="Self.ServicesPackToView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
@@ -2490,6 +2538,18 @@
           <AssociationSet Name="FK_ProductToView_Product" Association="Self.FK_ProductToView_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductToView" EntitySet="ProductToView" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductUserComments_Product" Association="Self.FK_ProductUserComments_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductUserComments" EntitySet="ProductUserComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductUserComments_ProductUserComments" Association="Self.FK_ProductUserComments_ProductUserComments">
+            <End Role="ProductUserComments" EntitySet="ProductUserComments" />
+            <End Role="ProductUserComments1" EntitySet="ProductUserComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductUserComments_User" Association="Self.FK_ProductUserComments_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ProductUserComments" EntitySet="ProductUserComments" />
           </AssociationSet>
           <AssociationSet Name="FK_SecuritySystems_Cars" Association="Self.FK_SecuritySystems_Cars">
             <End Role="Cars" EntitySet="Cars" />
@@ -3365,6 +3425,7 @@
           <NavigationProperty Name="ProductQnAs" Relationship="Self.FK_ProductQnA_Product" FromRole="Product" ToRole="ProductQnA" />
           <NavigationProperty Name="ProductStores" Relationship="Self.FK_ProductStore_Product" FromRole="Product" ToRole="ProductStore" />
           <NavigationProperty Name="ProductToViews" Relationship="Self.FK_ProductToView_Product" FromRole="Product" ToRole="ProductToView" />
+          <NavigationProperty Name="ProductUserComments" Relationship="Self.FK_ProductUserComments_Product" FromRole="Product" ToRole="ProductUserComments" />
           <NavigationProperty Name="TodaysSpecials" Relationship="Self.FK_TodaysSpecial_Product" FromRole="Product" ToRole="TodaysSpecial" />
           <NavigationProperty Name="Troubleshootings" Relationship="Self.TroubleshootingProducts" FromRole="Product" ToRole="Troubleshooting" />
         </EntityType>
@@ -3499,6 +3560,21 @@
           <Property Name="ProductId" Type="Int32" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductToView_Product" FromRole="ProductToView" ToRole="Product" />
         </EntityType>
+        <EntityType Name="ProductUserComment">
+          <Key>
+            <PropertyRef Name="ProductUserCommentsId" />
+          </Key>
+          <Property Name="ProductUserCommentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <Property Name="RootProductUserCommentsId" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductUserComments_Product" FromRole="ProductUserComments" ToRole="Product" />
+          <NavigationProperty Name="ProductUserComments1" Relationship="Self.FK_ProductUserComments_ProductUserComments" FromRole="ProductUserComments" ToRole="ProductUserComments1" />
+          <NavigationProperty Name="ProductUserComment1" Relationship="Self.FK_ProductUserComments_ProductUserComments" FromRole="ProductUserComments1" ToRole="ProductUserComments" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ProductUserComments_User" FromRole="ProductUserComments" ToRole="User" />
+        </EntityType>
         <EntityType Name="SecuritySystem">
           <Key>
             <PropertyRef Name="SecuritySystemsId" />
@@ -3612,6 +3688,7 @@
           <NavigationProperty Name="PersonServices" Relationship="Self.FK_PersonServices_User" FromRole="User" ToRole="PersonServices" />
           <NavigationProperty Name="PersonServicesPacks" Relationship="Self.FK_PersonServicesPack_User" FromRole="User" ToRole="PersonServicesPack" />
           <NavigationProperty Name="ProductComments" Relationship="Self.FK_ProductComments_User" FromRole="User" ToRole="ProductComments" />
+          <NavigationProperty Name="ProductUserComments" Relationship="Self.FK_ProductUserComments_User" FromRole="User" ToRole="ProductUserComments" />
           <NavigationProperty Name="UserRole" Relationship="Self.FK_User_UserRole" FromRole="User" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="UserRole">
@@ -4702,6 +4779,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductUserComments_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductUserComments" Type="Self.ProductUserComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="ProductUserComments">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TodaysSpecial_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="TodaysSpecial" Type="Self.TodaysSpecial" Multiplicity="*" />
@@ -4735,6 +4824,30 @@
             </Principal>
             <Dependent Role="ProductQnA1">
               <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductUserComments_ProductUserComments">
+          <End Role="ProductUserComments" Type="Self.ProductUserComment" Multiplicity="0..1" />
+          <End Role="ProductUserComments1" Type="Self.ProductUserComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductUserComments">
+              <PropertyRef Name="ProductUserCommentsId" />
+            </Principal>
+            <Dependent Role="ProductUserComments1">
+              <PropertyRef Name="RootProductUserCommentsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductUserComments_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ProductUserComments" Type="Self.ProductUserComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ProductUserComments">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4822,6 +4935,7 @@
           <EntitySet Name="ProductsOrServicesDeliveryTypes" EntityType="Self.ProductsOrServicesDeliveryType" />
           <EntitySet Name="ProductStores" EntityType="Self.ProductStore" />
           <EntitySet Name="ProductToViews" EntityType="Self.ProductToView" />
+          <EntitySet Name="ProductUserComments" EntityType="Self.ProductUserComment" />
           <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystem" />
           <EntitySet Name="ServicesPackToViews" EntityType="Self.ServicesPackToView" />
           <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
@@ -5192,6 +5306,10 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductToView" EntitySet="ProductToViews" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProductUserComments_Product" Association="Self.FK_ProductUserComments_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductUserComments" EntitySet="ProductUserComments" />
+          </AssociationSet>
           <AssociationSet Name="FK_TodaysSpecial_Product" Association="Self.FK_TodaysSpecial_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="TodaysSpecial" EntitySet="TodaysSpecials" />
@@ -5203,6 +5321,14 @@
           <AssociationSet Name="FK_ProductQnA_ProductQnA" Association="Self.FK_ProductQnA_ProductQnA">
             <End Role="ProductQnA" EntitySet="ProductQnAs" />
             <End Role="ProductQnA1" EntitySet="ProductQnAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductUserComments_ProductUserComments" Association="Self.FK_ProductUserComments_ProductUserComments">
+            <End Role="ProductUserComments" EntitySet="ProductUserComments" />
+            <End Role="ProductUserComments1" EntitySet="ProductUserComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductUserComments_User" Association="Self.FK_ProductUserComments_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ProductUserComments" EntitySet="ProductUserComments" />
           </AssociationSet>
           <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
             <End Role="UserRole" EntitySet="UserRoles" />
@@ -6079,6 +6205,18 @@
                 <ScalarProperty Name="Viewd" ColumnName="Viewd" />
                 <ScalarProperty Name="Favorite" ColumnName="Favorite" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductUserComments">
+            <EntityTypeMapping TypeName="CarAutomationModel.ProductUserComment">
+              <MappingFragment StoreEntitySet="ProductUserComments">
+                <ScalarProperty Name="ProductUserCommentsId" ColumnName="ProductUserCommentsId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="RootProductUserCommentsId" ColumnName="RootProductUserCommentsId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

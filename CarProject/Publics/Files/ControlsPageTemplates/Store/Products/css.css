@@ -46,7 +46,7 @@
         flex:1;
         margin:5px;
     }
-    #CarImagesAndDetailsShowSection > #carImages {
+   #CarImagesAndDetailsShowSection > #carImages {
         background:#bec5fc;
 
         display:flex;
@@ -61,8 +61,8 @@
             #CarImagesAndDetailsShowSection > #carImages > #carImages_Bigview_Container > img {
                 max-width: 100%;
                 max-height: 100%;
-                background: url('/Publics/Files/Templates/templates02/Images/loading-1.gif') no-repeat center;
-                background-size: 50% auto;
+                /*background: url('/Publics/Files/Templates/templates02/Images/loading-1.gif') no-repeat center;
+                background-size: 50% auto;*/
             }
 
 
@@ -98,25 +98,36 @@
             font-size:150%;
             font-weight:bold;
             display:flex;
-            justify-content:space-between;
+            justify-content:center;
             align-items:center;
         }
 
         #CarImagesAndDetailsShowSection > #CarDetials > #CarDetails_usercar_Troubleshooting {
             padding: 0;
             display: flex;
-            justify-content: space-between;
-            align-items: stretch;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction:column;
         }
-            #CarImagesAndDetailsShowSection > #CarDetials > #CarDetails_usercar_Troubleshooting > * {
-                flex:1;
-                margin:0 5px;
-                border-radius: 5px;
-                padding:5px 10px;
+            #CarImagesAndDetailsShowSection > #CarDetials > #CarDetails_usercar_Troubleshooting > table {
+                width:70%;
+            }
+                #CarImagesAndDetailsShowSection > #CarDetials > #CarDetails_usercar_Troubleshooting > table th {
+                    text-align:right;
+                }
+                #CarImagesAndDetailsShowSection > #CarDetials > #CarDetails_usercar_Troubleshooting > table td {
+                    text-align:center;
+                }
+
+            #CarImagesAndDetailsShowSection > #CarDetials > #CarDetails_usercar_Troubleshooting > #btnAddToCart {
+                width: 70%;
+                padding: 10px;
+                background: #fed97e;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                text-align:center;
+                text-align: center;
+                border-radius:5px;
             }
 
 
@@ -144,28 +155,28 @@
     display:flex;
     justify-content:space-around;
 }
-    #CarDetailsInformation > div {
-        width:45%;
+    #CarDetailsInformation {
+       
         margin:5px;
 
         display:flex;
         flex-direction:column;
     }
 
-        #CarDetailsInformation > div > div {
+        #CarDetailsInformation> div {
             margin:5px;
         }
 
-            #CarDetailsInformation > div > div > h3 {
+            #CarDetailsInformation > div > h3 {
                 cursor:pointer;
             }
-                #CarDetailsInformation > div > div > h3:after {
+                #CarDetailsInformation > div > h3:after {
                     font-family: giadmin;
                     content: '\0048';
                     margin-right: 5px;
                     font-size: 80%;
                 }
-            #CarDetailsInformation > div > div.hide > h3:after {
+            #CarDetailsInformation  > div.hide > h3:after {
                 content: '\0047';
             }
 
@@ -188,7 +199,7 @@
             text-align:center;
         }
 
-    #CarDetailsInformation > div > div.hide table {
+    #CarDetailsInformation  div.hide table {
         display:none;
     }
 

@@ -401,6 +401,48 @@ namespace CarProject.Controllers
         [HttpPost]
         public ActionResult Products(int id, FormCollection form)
         {
+            if (Areas.Users.Controllers.profileController.GetCurrentLoginedUser == null)
+                return RedirectToAction("Products", new { id = id });
+
+            
+
+            ViewBag.error = new Dictionary<string, string>();
+            if (form.AllKeys.Contains("SendACommentRequest"))
+            {
+                if (form["comment"] == "")
+                    ViewBag.error["comment"] = "پیام وارد نشده است";
+
+                if (form["g-recaptcha-response"] == "")
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
+                else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد شده صحیح نیست";
+
+                if (((Dictionary<string, string>)ViewBag.error).Count == 0)
+                {
+                    var dbs = new DBSEF.CarAutomationEntities();
+                    int rootid = 0;
+                    int.TryParse(form["responsecommentid"], out rootid);
+
+                    dbs.ProductUserComments.Add(new DBSEF.ProductUserComment
+                    {
+                        ProductId = id,
+                        UserId = Areas.Users.Controllers.profileController.GetCurrentLoginedUser.UserId,
+                        Comment = form["comment"],
+                        DateTime = DateTime.Now,
+                        RootProductUserCommentsId = ((rootid == 0) ? null : (int?)rootid)
+                    });
+
+                    dbs.SaveChanges();
+                    ViewBag.error["success"] = "پیام شما با موفقیت ثبت شد ";
+                }
+            }
+
+            var model = new Areas.Admin.Models.Cars.CarsModel(id);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Products_expiredProductControl(int id, FormCollection form)
+        {
             ViewBag.error = new Dictionary<string, string>();
             if (form.AllKeys.Contains("SendACommentRequest"))
             {
@@ -433,6 +475,9 @@ namespace CarProject.Controllers
         [HttpPost]
         public int Products_makePopular(int id)
         {
+            if (Session["LikedCarContainerSession"] != null && Session["LikedCarContainerSession"] is List<int> && ((List<int>)Session["LikedCarContainerSession"]).Contains(id))
+                return -1;
+
             var dbs = new DBSEF.CarAutomationEntities();
             int res = 0;
             if (dbs.ProductToViews.Count(p => p.ProductId == id) > 0)
@@ -448,6 +493,12 @@ namespace CarProject.Controllers
             }
 
             dbs.SaveChanges();
+
+            if (Session["LikedCarContainerSession"] == null && !(Session["LikedCarContainerSession"] is List<int>))
+                Session["LikedCarContainerSession"] = new List<int>();
+
+            ((List<int>)Session["LikedCarContainerSession"]).Add(id);
+
             return res;
         }
         

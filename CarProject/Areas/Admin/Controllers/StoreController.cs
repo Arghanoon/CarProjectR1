@@ -264,6 +264,48 @@ namespace CarProject.Areas.Admin.Controllers
             return res;
         }
         #endregion
+
+        #region ProductUserComments
+        public ActionResult ProductUserComments()
+        {
+            return View();
+        }
+
+        public ActionResult ProductUserComments_ShowAndReply(int? id)
+        {
+            var comment = dbsObject.ProductUserComments.FirstOrDefault(c => c.ProductUserCommentsId == id);
+            if (comment == null)
+                return RedirectToAction("ProductUserComments");
+
+            return View(model: comment);
+        }
+        [HttpPost]
+        public ActionResult ProductUserComments_ShowAndReply(int? id, string comment)
+        {
+            var mdlcomment = dbsObject.ProductUserComments.FirstOrDefault(c => c.ProductUserCommentsId == id);
+            if (mdlcomment == null)
+                return RedirectToAction("ProductUserComments");
+
+            if (comment.IsNullOrWhiteSpace())
+                ModelState.AddModelError("comment", "پیام نمیتواند خالی باشد");
+
+            if (ModelState.IsValid)
+            {
+                var newitem = dbsObject.ProductUserComments.Add(new DBSEF.ProductUserComment
+                {
+                    Comment = comment,
+                    DateTime = DateTime.Now,
+                    ProductId = mdlcomment.ProductId,
+                    RootProductUserCommentsId = id
+                });
+                dbsObject.SaveChanges();
+
+                return RedirectToAction("ProductUserComments_ShowAndReply", new { id = newitem.ProductUserCommentsId });
+            }
+
+            return View(model: mdlcomment);
+        }
+        #endregion
         
         #region Product Discounts
         public ActionResult productDiscounts()

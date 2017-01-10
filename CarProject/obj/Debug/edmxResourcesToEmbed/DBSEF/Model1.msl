@@ -864,6 +864,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ProductUserComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.ProductUserComment">
+        <MappingFragment StoreEntitySet="ProductUserComments">
+          <ScalarProperty Name="ProductUserCommentsId" ColumnName="ProductUserCommentsId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="RootProductUserCommentsId" ColumnName="RootProductUserCommentsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SecuritySystems">
       <EntityTypeMapping TypeName="CarAutomationModel.SecuritySystem">
         <MappingFragment StoreEntitySet="SecuritySystems">
