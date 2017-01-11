@@ -1,26 +1,29 @@
 ﻿@{
-    ViewBag.Title = "پیام های کاربران";
+    ViewBag.Title = "نمایش پیام و پاسخ به آن";
 
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
-
-    var Comments = dbs.CarUserComments.AsQueryable();
-
-    int page = 0;
-    int showinpage = 2;
-    int totalmustbeshow = 0;
-
-    if (Request.QueryString.AllKeys.Contains("page")) { int.TryParse(Request.Form["page"], out page); }
-
-
-    totalmustbeshow = Comments.Count();
-    
 }
+@model CarProject.DBSEF.ProductUserComment
 @using CarProject.App_extension
 
 <div id="UsersOldComments">
-    @CreateCommentSection(null, null, dbs)
+    @CreateCommentSection(Model.ProductUserCommentsId, dbs)
 </div>
 
+
+<form method="post">
+    <div class="inputsContainer">
+        <section class="input">
+            <label>پیام</label>
+            <textarea name="comment"></textarea>
+            <span>@Html.ValidationMessage("comment")</span>
+        </section>
+    </div>
+
+    <div class="inputAction">
+        <input type="submit" value="ثبت پیام" class="button green" />
+    </div>
+</form>
 
 
 @section style
@@ -113,15 +116,12 @@
 }
 
 @functions{
-    MvcHtmlString CreateCommentSection(int? rootid,int? productid, CarProject.DBSEF.CarAutomationEntities dbs)
+    MvcHtmlString CreateCommentSection(int? id, CarProject.DBSEF.CarAutomationEntities dbs)
     {
         string res = "";
-        var comments = dbs.ProductUserComments.AsQueryable();//.Where(c => c.RootCarUserCommentsId == rootid);
+        var comments = dbs.ProductUserComments.Where(c => c.ProductUserCommentsId == id);
         
-        if (productid != null)
-        { comments = comments.Where(c => c.ProductId == productid); }
-
-        comments = comments.OrderByDescending(c => c.ProductUserCommentsId);
+        
         
         foreach (var item in comments)
         {
@@ -147,7 +147,7 @@
 
                             res += string.Format("<section class=\"commentAction\">");
                             {
-                                res += string.Format("<a href='/Admin/Store/ProductUserComments_ShowAndReply/{0}' class=\"gia-back\" onclick=\"CommentMessageReply('{0}','{1}')\"></a>", item.ProductUserCommentsId, (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+                                //res += string.Format("<a href='/Admin/Store/ProductUserComments_ShowAndReply/{0}' class=\"gia-back\" onclick=\"CommentMessageReply('{0}','{1}')\"></a>", item.ProductUserCommentsId, (item.User == null) ? "خودروکلینیک" : item.User.Uname);
                             }
                             res += "</section>";
                         }
@@ -157,11 +157,11 @@
                 }
                 res += "</div>";
 
-                //res += CreateCommentSection(item.CarUserCommentsId, carid, dbs);
+                res += CreateCommentSection(item.RootProductUserCommentsId, dbs);
             }
             res += "</div>";
         }
         
         return new MvcHtmlString(res);
     }
-}
+    }

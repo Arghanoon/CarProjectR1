@@ -999,6 +999,7 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Admin\Views\Store\ProductUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductUserComments_ShowAndReply.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
