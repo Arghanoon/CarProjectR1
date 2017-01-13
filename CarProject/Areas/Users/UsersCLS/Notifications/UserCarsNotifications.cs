@@ -30,9 +30,12 @@ namespace CarProject.Areas.Users.UsersCLS.Notifications
         {
             get
             {
+                UserCarsNotifications es = new UserCarsNotifications();
                 var res = new List<UserCarsNotificationItem>();
-
-                var personcars = DBS.PersonCars.Where(c => c.UserId == this.Person.UserId);
+                try
+                {
+                    Person = Controllers.profileController.GetCurrentLoginPerson;
+                    var personcars = DBS.PersonCars.Where(c => c.UserId == this.Person.UserId);
                 if (personcars.Any())
                 {
                     foreach (var item in personcars)
@@ -89,6 +92,13 @@ namespace CarProject.Areas.Users.UsersCLS.Notifications
 
                         
                     }
+                }
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
                 }
 
                 return res;

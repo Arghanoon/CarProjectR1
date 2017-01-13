@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 
 using System.Net.Mail;
 using System.IO;
+using System.Net;
+using System.Runtime.CompilerServices;
 
 namespace CarProject.Areas.Users.Controllers
 {
@@ -17,7 +19,7 @@ namespace CarProject.Areas.Users.Controllers
     {
         //
         // GET: /Users/profile/
-
+        public int UserId = new int();
 
         public ActionResult Index()
         {
@@ -220,9 +222,13 @@ namespace CarProject.Areas.Users.Controllers
                     user.ActiveRecoveryCode = null;
                     user.ActiveORecovery = null;
                     dbs.SaveChanges();
-
+                    
+                    ViewData["UserId"] = user.UserId.ToString();
+                    ViewBag.MyData = user.UserId.ToString();
                     Session["guestUser"] = user;
-
+                    System.Web.HttpContext.Current.Session["UserId"] = user.UserId.ToString();
+                    Session["es"] = user.UserId;
+                    UserId = user.UserId;
                     //cart redirect
                     if (Request.Cookies["Basket"] != null && !Request.Cookies["Basket"].Value.IsNullOrWhiteSpace())
                     {
@@ -445,18 +451,28 @@ namespace CarProject.Areas.Users.Controllers
 
         public static DBSEF.User GetCurrentLoginedUser
         {
+            
             get
             {
-                //var Session = System.Web.HttpContext.Current.Session;
-                //if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-                //{
-                //    return Session["guestUser"] as DBSEF.User;
-                //}
-                //else
-                //    return null;
-
-                var dbs = new DBSEF.CarAutomationEntities();
-                return dbs.Users.FirstOrDefault(u => u.UserId == 3);
+                
+                string es = System.Web.HttpContext.Current.Session["UserId"] as String;
+                var Session = System.Web.HttpContext.Current.Session;
+                ViewDataDictionary ViewData = new ViewDataDictionary();
+               
+                if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
+                {
+                   // return Session["guestUser"] as DBSEF.User;
+                    var dbs = new DBSEF.CarAutomationEntities();
+                    dynamic ViewBag = null;
+                   // var va1 = ViewData["UserId"].ToString();
+                  //  var va2 = ViewBag.Mydata;
+                    var id = Convert.ToInt32(System.Web.HttpContext.Current.Session["UserId"]);
+                    return dbs.Users.FirstOrDefault(u => u.UserId == id);
+                }
+                else
+                    return null;
+               // var Session = System.Web.HttpContext.Current.Session;
+                
             }
         }
         public static DBSEF.Person GetCurrentLoginPerson
