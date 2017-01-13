@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "خودروهای کاربر";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var user = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser;
+    
+    var UserCars = dbs.PersonCars.Where(c => c.UserId == user.UserId);
+}
+
+<div class="page">
+    <h3>خودروهای ثبت شده کاربر</h3>
+    <div class="itemContainer">
+        @foreach (var item in UserCars)
+        {
+            <div class="item">
+                <section class="title gia-car2">@item.Car.CarModel.CarBrand.CarBrandName - @item.Car.CarModel.CarModelName</section>
+                <table>
+                    <tr>
+                        <th>برند</th>
+                        <td>@item.Car.CarModel.CarBrand.CarBrandName</td>
+                    </tr>
+                    <tr>
+                        <th>مدل</th>
+                        <td>@item.Car.CarModel.CarModelName</td>
+                    </tr>
+                    <tr>
+                        <th>پلاک</th>
+                        <td>@item.CarPlate | @item.CarPlateCityCode</td>
+                    </tr>
+                    <tr>
+                        <th>رنگ</th>
+                        <td>@item.CarColor</td>
+                    </tr>
+                    <tr>
+                        <th>کیلومتر فعلی</th>
+                        <td>@item.CarMilage</td>
+                    </tr>
+                </table>
+                <section class="action">
+                    <a href="/Users/Dashboard/InsertPersonCar/@item.CarId">ویرایش</a> |
+                    <a href="/Users/Dashboard/PersonCarCurrentMillage/@item.PersonCarsId"  >اعلام کیلومتر فعلی</a> |
+                    <a href="/Users/Dashboard/PersonCarsDeleteConfirm/@item.PersonCarsId"  >حذف</a>
+                </section>
+            </div>
+        }
+    </div>
+
+    <h3>ثبت خودرو جدید</h3>
+    <div>
+        <div class="inputsContainer">
+            <section class="input">
+                <label>برند</label>
+                <select id="CarBrand" onchange="RetriveCarModels(this.value)" onclick="RetriveCarModels(this.value);">
+                    <option value="">-- انتخاب کنید --</option>
+                    @foreach (var item in dbs.CarBrands)
+                    {
+                        <option value="@item.CarBrandId">@item.CarBrandName</option>
+                    }
+                </select>
+                <span></span>
+            </section>
+            <section class="input">
+                <label>مدل</label>
+                <select id="CarBrandModels">
+                    
+                </select>
+                <span></span>
+            </section>
+        </div>
+
+        <center>
+            <input type="button" value="ثبت به عنوان خودروی کاربر"  onclick="SetAsPersoncars()" class="button green"/>
+        </center>
+    </div>
+</div>
+
+
+
+
+@section script
+{
+    <script>
+        function RetriveCarModels(vl) {
+            $.post('/Users/Dashboard/RetriveCarByBrands', { "id": vl }, function (res) {
+                var sl = document.getElementById('CarBrandModels');
+                sl.innerHTML = "";
+
+                for (var i = 0; i < res.length; i++) {
+                    o = document.createElement("option");
+                    o.value = res[i].id;
+                    o.innerHTML = res[i].name;
+                    sl.appendChild(o);
+                }
+            });
+        }
+
+        function SetAsPersoncars() {
+            vl = document.getElementById('CarBrandModels').value;
+            
+            if (vl != "" && !isNaN(vl))
+                window.location.replace('/Users/Dashboard/InsertPersonCar/' + vl);
+            else
+                alert('خودرو انتخاب نشده است');
+        }
+    </script>
+}

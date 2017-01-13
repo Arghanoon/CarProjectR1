@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "حذف پرسش";
+}
+@model CarProject.Areas.Admin.Models.Troubleshooting.TSModel
+
+<div>
+    <h3>آیا از حذف پرسش انتخابی اطمینان دارید؟</h3>
+    <small>توجه: درصورت حذف تمام پرسش ها و پاسخهای زیر مجموعه ای قسمت حذف خواهند شد.</small>
+    <hr />
+
+    <div>
+        <h4>@Model.Troubleshooting.Subject</h4>
+        <p style="font-size:85%;">@Model.Troubleshooting.Describe</p>
+    </div>
+
+    <form method="post">
+        <div class="inputAction">
+            <a href="/Admin/Troubleshooting/Index/@Model.Troubleshooting.TroubleshootingId" class="button green">انصراف</a>
+            <input type="submit" value="حذف" class="button red" />
+        </div>
+    </form>
+</div>

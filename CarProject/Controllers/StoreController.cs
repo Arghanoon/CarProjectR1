@@ -328,7 +328,7 @@ namespace CarProject.Controllers
             basket.LocalCode = Guid.NewGuid().ToString();
             basket.FinishDate = DateTime.Now;
             us.UpdateBasket(basket);
-            InsertPersonServerAndServicepacks(us.dbs, basket);
+            InsertPersonServiceAndServicepacks(us.dbs, basket);
             return View(basket);
         }
 
@@ -341,55 +341,94 @@ namespace CarProject.Controllers
         }
 
 
-        private void InsertPersonServerAndServicepacks(DBSEF.CarAutomationEntities dbs, DBSEF.Basket basket)
+        private void InsertPersonServiceAndServicepacks(DBSEF.CarAutomationEntities dbs, DBSEF.Basket basket)
         {
             foreach (var item in basket.BasketItems)
             {
                 if (item.Type == (byte)Models.Store.CartUsefull.Basket_ItemType.AutoService)
                 {
-                    var x = dbs.PersonServices.FirstOrDefault(ps => ps.ServicesId == item.Id);
-                    if (x != null)
-                    {
-                        var xint = x.ServicesCurrentEntity.GetValueOrDefault(0);
-                        xint += item.Count.GetValueOrDefault(0);
-                        x.ServicesCurrentEntity = xint;
-                        x.DateAdded = DateTime.Now;
-                    }
-                    else
-                    {
-                        dbs.PersonServices.Add(new DBSEF.PersonService
-                        {
-                            ServicesId = item.Id,
-                            UserId = basket.UserId,
-                            DateAdded = DateTime.Now,
-                            ServicesCurrentEntity = item.Count
-                        });
-                    }
+                    InsertPersonServices(dbs, item);
                 }
                 if (item.Type == (byte)Models.Store.CartUsefull.Basket_ItemType.AutoServicePack)
                 {
-                    var x = dbs.PersonServicesPacks.FirstOrDefault(psp => psp.ServicesPackId == item.Id);
-                    if (x != null)
-                    {
-                        var xint = x.ServicesPackCurrentEntity.GetValueOrDefault(0);
-                        xint += item.Count.GetValueOrDefault(0);
-                        x.ServicesPackCurrentEntity = xint;
-                        x.DateAdded = DateTime.Now;
-                    }
-                    else
-                    {
-                        dbs.PersonServicesPacks.Add(new DBSEF.PersonServicesPack
-                        {
-                            ServicesPackId = item.Id,
-                            UserId = basket.UserId,
-                            DateAdded = DateTime.Now,
-                            ServicesPackCurrentEntity = item.Count
-                        });
-                    }   
+                       
                 }
             }
             dbs.SaveChanges();
         }
+        private void InsertPersonServices(DBSEF.CarAutomationEntities dbs, DBSEF.BasketItem item)
+        {
+            var x = dbs.PersonServices.FirstOrDefault(ps => ps.ServicesId == item.Id && ps.UserId == item.Basket.UserId);
+            if (x != null)
+            {
+                var xint = x.ServicesCurrentEntity.GetValueOrDefault(0);
+                xint += item.Count.GetValueOrDefault(0);
+                x.ServicesCurrentEntity = xint;
+                x.DateAdded = DateTime.Now;
+            }
+            else
+            {
+                dbs.PersonServices.Add(new DBSEF.PersonService
+                {
+                    ServicesId = item.Id,
+                    UserId = item.Basket.UserId,
+                    DateAdded = DateTime.Now,
+                    ServicesCurrentEntity = item.Count
+                });
+            }
+        }
+        private void InsertPersonServices(DBSEF.CarAutomationEntities dbs,int userid, int serviceid, int count)
+        {
+            var x = dbs.PersonServices.FirstOrDefault(ps => ps.ServicesId == serviceid && ps.UserId == userid);
+            if (x != null)
+            {
+                var xint = x.ServicesCurrentEntity.GetValueOrDefault(0);
+                xint += count;
+                x.ServicesCurrentEntity = xint;
+                x.DateAdded = DateTime.Now;
+            }
+            else
+            {
+                dbs.PersonServices.Add(new DBSEF.PersonService
+                {
+                    ServicesId = serviceid,
+                    UserId = userid,
+                    DateAdded = DateTime.Now,
+                    ServicesCurrentEntity = count
+                });
+            }
+        }
+        private void InserPersonServicePacks(DBSEF.CarAutomationEntities dbs, DBSEF.BasketItem item)
+        {
+            var x = dbs.PersonServicesPacks.FirstOrDefault(psp => psp.ServicesPackId == item.Id && psp.UserId == item.Basket.UserId);
+            if (x != null)
+            {
+                var xint = x.ServicesPackCurrentEntity.GetValueOrDefault(0);
+                xint += item.Count.GetValueOrDefault(0);
+                x.ServicesPackCurrentEntity = xint;
+                x.DateAdded = DateTime.Now;
+            }
+            else
+            {
+                dbs.PersonServicesPacks.Add(new DBSEF.PersonServicesPack
+                {
+                    ServicesPackId = item.Id,
+                    UserId = item.Basket.UserId,
+                    DateAdded = DateTime.Now,
+                    ServicesPackCurrentEntity = item.Count
+                });
+            }
+        }
+        private void InserPersonServicePacks_AddPackservicesInServices(DBSEF.CarAutomationEntities dbs, DBSEF.BasketItem item)
+        {
+            var sp = dbs.AutoServicePacks.FirstOrDefault(aps => aps.AutoServicePackId == item.Id.Value);
+
+            foreach (var itm in sp.AutoServices)
+            {
+                InsertPersonServices(dbs, item.Basket.UserId, itm.AutoServiceId, itm.);
+            }
+        }
+
 
         #endregion
 

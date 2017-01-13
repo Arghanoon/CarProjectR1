@@ -447,16 +447,16 @@ namespace CarProject.Areas.Users.Controllers
         {
             get
             {
-                //var Session = System.Web.HttpContext.Current.Session;
-                //if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
-                //{
-                //    return Session["guestUser"] as DBSEF.User;
-                //}
-                //else
-                //    return null;
+                var Session = System.Web.HttpContext.Current.Session;
+                if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
+                {
+                    return Session["guestUser"] as DBSEF.User;
+                }
+                else
+                    return null;
 
-                var dbs = new DBSEF.CarAutomationEntities();
-                return dbs.Users.FirstOrDefault(u => u.UserId == 3);
+                //var dbs = new DBSEF.CarAutomationEntities();
+                //return dbs.Users.FirstOrDefault(u => u.UserId == 3);
             }
         }
         public static DBSEF.Person GetCurrentLoginPerson

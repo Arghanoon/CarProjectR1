@@ -1,0 +1,424 @@
+﻿@{
+    ViewBag.Title = "نمایش خودروها";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var rand = new Random();
+    
+    var carmodel = new  CarProject.Areas.Admin.Models.Cars.CarsModel();
+
+    var ListOfCars = dbs.Cars.AsQueryable();
+
+    //ListOfCars = ListOfCars.OrderByDescending(c => c.CarsId).Take(50);
+
+    int page = 0;
+    if(Request.QueryString.AllKeys.Contains("page"))
+    {
+        int.TryParse(Request.QueryString["page"], out page);   
+    }
+    int totalitems = 0; 
+    int showinpage = 20;
+
+
+    var brandFilters = Request.QueryString.GetValues("CarBrand");
+    var CarEngineType = Request.QueryString.GetValues("CarEngineType");
+    var CarCylenderNumber = Request.QueryString.GetValues("CarCylenderNumber");
+    var CarClass = Request.QueryString.GetValues("CarClass");
+    var CarUsage = Request.QueryString.GetValues("CarUsage");
+    var CarBodyType = Request.QueryString.GetValues("CarBodyType");
+    var CarGearBoxType = Request.QueryString.GetValues("CarGearBoxType");
+    var CarGearBoxAxel = Request.QueryString.GetValues("CarGearBoxAxel");
+
+    if (CarClass != null && CarClass.Length > 0)
+    { ListOfCars = ListOfCars.Where(c => CarClass.Contains(c.CarsClass)); }
+    if (CarUsage != null && CarUsage.Length > 0)
+    { ListOfCars = ListOfCars.Where(c => CarUsage.Contains(c.CarUsage)); }
+    if (CarBodyType != null && CarBodyType.Length > 0)
+    { ListOfCars = ListOfCars.Where(c => CarBodyType.Contains(c.CarBodyType)); }
+    
+    
+    if(brandFilters != null && brandFilters.Length > 0)
+    { ListOfCars = ListOfCars.Where(c => brandFilters.Contains(c.CarModel.CarBrandId.ToString())); }
+
+
+    if (CarEngineType != null && CarEngineType.Length > 0)
+    { ListOfCars = ListOfCars.Where(c => c.CarEngines.Count(e => CarEngineType.Contains(e.EngineType)) > 0); }
+
+    if (CarCylenderNumber != null && CarCylenderNumber.Length > 0)
+    { ListOfCars = ListOfCars.Where(c => c.CarEngines.Count(e => CarCylenderNumber.Contains(e.EngineCylinderNumber.ToString())) > 0); }
+
+
+    if (CarGearBoxType != null && CarGearBoxType.Length > 0)
+    { ListOfCars = ListOfCars.Where(c => c.CarGearBoxes.Count(g => CarGearBoxType.Contains(g.GearBoxType)) > 0); }
+
+    if (CarGearBoxAxel != null && CarGearBoxAxel.Length > 0)
+    { ListOfCars = ListOfCars.Where(c => c.CarGearBoxes.Count(g => CarGearBoxAxel.Contains(g.GearBoxAxel)) > 0); }
+
+
+    var searchtext = "";
+    if (Request.QueryString.AllKeys.Contains("searchCar") && !string.IsNullOrWhiteSpace(Request.QueryString["searchCar"]))
+    {
+        searchtext = Request.QueryString["searchCar"];
+        ListOfCars = ListOfCars.Where(c => c.CarModel.CarModelName.Contains(searchtext)); 
+    }
+
+    int orderbydirection = 1;
+    int orderby = 1;
+    
+    if (Request.QueryString.AllKeys.Contains("OrderDirection") && Request.QueryString["OrderDirection"] == "DESC")
+    { orderbydirection = 2; }
+
+    if (Request.QueryString.AllKeys.Contains("Orderby") && !string.IsNullOrWhiteSpace(Request.QueryString["Orderby"]))
+    { int.TryParse(Request.QueryString["Orderby"], out orderby); }
+
+    switch (orderby)
+    {
+        case 1:
+            if (orderbydirection == 2)
+            { ListOfCars = ListOfCars.OrderByDescending(c => c.Price); }
+            else
+            { ListOfCars = ListOfCars.OrderBy(c => c.Price); }
+            break;
+        case 2:
+            if (orderbydirection == 2)
+            { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineSize : 1); }
+            else
+            { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineSize : 1); }
+            break;
+        case 3:
+            if (orderbydirection == 2)
+            { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EnginePowerHpRpm : 1); }
+            else
+            { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EnginePowerHpRpm : 1); }
+            break;
+        case 4:
+            if (orderbydirection == 2)
+            { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineTorque : 1); }
+            else
+            { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineTorque : 1); }
+            break;
+        case 5:
+            if (orderbydirection == 2)
+            { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EnginePowerHpTon : 1); }
+            else
+            { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EnginePowerHpTon : 1); }
+            break;
+        case 6:
+            if (orderbydirection == 2)
+            { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineMaxSpeed : 1); }
+            else
+            { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineMaxSpeed : 1); }
+            break;
+        case 7:
+            if (orderbydirection == 2)
+            { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineZeroToH : 1); }
+            else
+            { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineZeroToH : 1); }
+            break;
+        case 8:
+            if (orderbydirection == 2)
+            { ListOfCars = ListOfCars.OrderByDescending(c => (c.FuelConsumptions.FirstOrDefault() != null) ? c.FuelConsumptions.FirstOrDefault().LphMix : 1); }
+            else
+            { ListOfCars = ListOfCars.OrderBy(c => (c.FuelConsumptions.FirstOrDefault() != null) ? c.FuelConsumptions.FirstOrDefault().LphMix : 1); }
+            break;
+        default:
+            break;
+    }
+
+    ListOfCars = ListOfCars.Where(c => c.CarModel != null);
+    totalitems = ListOfCars.Count();
+
+    ListOfCars = ListOfCars.Skip(page * showinpage).Take(showinpage);
+}
+
+
+@section style
+{ 
+    <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" />
+    <link href="~/Publics/Files/ControlsPageTemplates/Cars/Index/css.css" rel="stylesheet" />
+}
+
+<form method="get">
+    <input type="hidden" name="page" id="pageInputContainer" value="@page" />
+    <div id="MainContainerOfFilterAndContent">
+        <div>
+            <div id="searchAndFilter">
+
+                <div id="filter_brands">
+                    <h4 class="title">فیلتر برندها</h4>
+                    <div class="checkboxContainer">
+                        @foreach (var item in dbs.CarBrands.OrderBy(b => b.CarBrandId).Take(5))
+                        {
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); }/>
+                                <label for="CarBrand_@item.CarBrandId">
+                                    @item.CarBrandName
+                                </label>
+                            </section>
+                        }
+                        
+                        <div id="filter_brands_more" class="more">
+                            @foreach (var item in dbs.CarBrands.OrderBy(b => b.CarBrandId).Skip(5))
+                            {
+                                <section class="checkbox">
+                                    <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); }/>
+                                    <label for="CarBrand_@item.CarBrandId">
+                                        @item.CarBrandName
+                                    </label>
+                                </section>
+                            }
+                        </div>
+                        <center><a onclick="$('#filter_brands_more').toggleClass('show');">بیشتر</a></center>
+                    </div>
+                </div>
+
+                <div id="filter_EngineType">
+                    <h4 class="title">فیلتر نوع موتور</h4>
+                    <div class="checkboxContainer">
+                        @{int ind = 0; }
+                        @foreach (var item in carmodel.List_EngineTypes)
+                        {
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarEngineType" value="@item" id="CarBrandId_@ind" @if (CarEngineType != null && CarEngineType.Contains(item)) { Write("checked=\"checked\""); }/>
+                                <label for="CarBrandId_@ind">
+                                    @item
+                                </label>
+                            </section>
+                            ind += 1;
+                    }
+                    </div>
+                </div>
+
+                <div id="filter_CylenderNumber">
+                    <h4 class="title">تعداد سیلندر</h4>
+                    <div class="checkboxContainer">
+                        @{ ind = 0; }
+                        @foreach (var item in dbs.CarEngines.Select(c => c.EngineCylinderNumber).Distinct())
+                        {
+                            if (item == null)
+                            { continue; }
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarCylenderNumber" value="@item" id="CarCylenderNumber_@ind" @if (CarCylenderNumber != null && CarCylenderNumber.Contains(item.ToString())) { Write("checked=\"checked\""); }/>
+                                <label for="CarCylenderNumber_@ind">
+                                    @item
+                                </label>
+                            </section>
+                            ind += 1;
+                    }
+                    </div>
+                </div>
+
+                <div id="filter_CarClass">
+                    <h4 class="title">کلاس خودرو</h4>
+                    <div class="checkboxContainer">
+                        @{ ind = 0; }
+                        @foreach (var item in carmodel.List_CarClass.Take(5))
+                        {
+                            if (item == null)
+                            { continue; }
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarClass" value="@item" id="CarClass_@ind" @if (CarClass != null && CarClass.Contains(item)) { Write("checked=\"checked\""); }/>
+                                <label for="CarClass_@ind">
+                                    @item
+                                </label>
+                            </section>
+                            ind += 1;
+                        }
+                        
+                        <div id="filter_CarClass_More" class="more">
+                            @foreach (var item in carmodel.List_CarClass.Skip(5))
+                            {
+                                if (item == null)
+                                { continue; }
+                                <section class="checkbox">
+                                    <input type="checkbox" name="CarClass" value="@item" id="CarClass_@ind" @if (CarClass != null && CarClass.Contains(item)) { Write("checked=\"checked\""); }/>
+                                    <label for="CarClass_@ind">
+                                        @item
+                                    </label>
+                                </section>
+                                ind += 1;
+                            }
+                        </div>
+                        <center><a onclick="$('#filter_CarClass_More').toggleClass('show')">بیشتر</a></center>
+                    </div>
+                </div>
+
+                <div id="filter_CarUsage">
+                    <h4 class="title">کاربرد خودرو</h4>
+                    <div class="checkboxContainer">
+                        @{ ind = 0; }
+                        @foreach (var item in carmodel.List_CarUsage)
+                        {
+                            if (item == null)
+                            { continue; }
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarUsage" value="@item" id="CarUsage_@ind" @if (CarUsage != null && CarUsage.Contains(item)) { Write("checked=\"checked\""); }/>
+                                <label for="CarUsage_@ind">
+                                    @item
+                                </label>
+                            </section>
+                            ind += 1;
+                    }
+                    </div>
+                </div>
+
+                <div id="filter_CarBodyType">
+                    <h4 class="title">نوع بدنه</h4>
+                    <div class="checkboxContainer">
+                        @{ ind = 0; }
+                        @foreach (var item in carmodel.List_CarBodyTypes)
+                        {
+                            if (item == null)
+                            { continue; }
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarBodyType" value="@item" id="CarBodyType_@ind" @if (CarBodyType != null && CarBodyType.Contains(item)) { Write("checked=\"checked\""); }/>
+                                <label for="CarBodyType_@ind">
+                                    @item
+                                </label>
+                            </section>
+                            ind += 1;
+                    }
+                    </div>
+                </div>
+
+                <div id="filter_CarGearBoxType">
+                    <h4 class="title">نوع گیربکس</h4>
+                    <div class="checkboxContainer">
+                        @{ ind = 0; }
+                        @foreach (var item in carmodel.List_GearBoxType)
+                        {
+                            if (item == null)
+                            { continue; }
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarGearBoxType" value="@item" id="CarGearBoxType_@ind" @if (CarGearBoxType != null && CarGearBoxType.Contains(item)) { Write("checked=\"checked\""); }/>
+                                <label for="CarGearBoxType_@ind">
+                                    @item
+                                </label>
+                            </section>
+                            ind += 1;
+                    }
+                    </div>
+                </div>
+
+                <div id="filter_CarGearBoxAxel">
+                    <h4 class="title">نوع محور</h4>
+                    <div class="checkboxContainer">
+                        @{ ind = 0; }
+                        @foreach (var item in carmodel.List_gearBoxAxel)
+                        {
+                            if (item == null)
+                            { continue; }
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarGearBoxAxel" value="@item" id="CarGearBoxAxel_@ind" @if (CarGearBoxAxel != null && CarGearBoxAxel.Contains(item)) { Write("checked=\"checked\""); }/>
+                                <label for="CarGearBoxAxel_@ind">
+                                    @item
+                                </label>
+                            </section>
+                            ind += 1;
+                    }
+                    </div>
+                </div>
+
+
+                @*<div class="inputAction">
+                    <input type="submit" value="فیلتر کردن نمایش" class="button green" />
+                </div>*@
+            </div>
+        </div>
+
+        <div id="ItemsContentContainer">
+            
+            <div id="searchsection">
+                <section id="searchInput">
+                    <input type="text" name="searchCar" value="@searchtext"  placeholder="جستجو برای مدل خودرو"/>
+                    @*<button type="submit"><span class="gia-search"></span></button>*@
+                </section>
+
+                <section id="SearchOrderBy">
+                    <span>مرتب سازی بر اساس</span>
+                    <select name="Orderby">
+                        <option value="1" @if (orderby == 1) { Write("selected=\"selected\""); }>قیمت</option>
+                        <option value="2" @if (orderby == 2) { Write("selected=\"selected\""); }>حجم موتور</option>
+                        <option value="3" @if (orderby == 3) { Write("selected=\"selected\""); }>قدرت</option>
+                        <option value="4" @if (orderby == 4) { Write("selected=\"selected\""); }>گشتاور</option>
+                        <option value="5" @if (orderby == 5) { Write("selected=\"selected\""); }>توان وزنی</option>
+                        <option value="6" @if (orderby == 6) { Write("selected=\"selected\""); }>حداکثر سرعت</option>
+                        <option value="7" @if (orderby == 7) { Write("selected=\"selected\""); }>0 تا 100</option>
+                        <option value="8" @if (orderby == 8) { Write("selected=\"selected\""); }>مصرف ترکیبی</option>
+                    </select>
+                    به صورت
+                    <select name="OrderDirection">
+                        <option value="ASC">کمتر به بیشتر</option>
+                        <option value="DESC">بیشتر به کمتر</option>
+                    </select>
+                   @* <input type="radio" name="OrderDirection" value="ASC" @if (orderbydirection == 1) { Write("checked=\"checked\""); } id="OrderDirectionASC" />
+                    <label  for="OrderDirectionASC">صعودی</label>
+                    <input type="radio" name="OrderDirection" value="DESC" @if (orderbydirection == 2) { Write("checked=\"checked\""); } id="OrderDirectionDESC"  />
+                    <label for="OrderDirectionDESC">نزولی</label>*@
+                </section>
+
+                <input type="submit" value="جستجو/فیلتر" class="t2button" />
+            </div>
+
+            
+            <div class="pagination">
+                @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
+                {
+                    if (i == page)
+                    {
+                        <span>@{Write(i + 1); }</span>
+                    }
+                    else
+                    {
+                        <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
+                    }
+                }
+            </div>
+
+            <div class="listOfProducts" id="ListofcarsShower">
+                @foreach (var item in ListOfCars)
+                {
+                    if (item.CarModel == null)
+                    { continue; }
+                    var PicFileUrl = "~/Publics/Gallery/CarImages/" + item.CarsId;
+                    var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+
+                    var imagesrc = "~/Publics/Gallery/ProductImages/NotFound.png";
+                    if (finfo.Exists)
+                    {
+                        if (finfo.GetFiles().Count() > 0)
+                        {
+                            //imagesrc = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
+                            imagesrc = PicFileUrl + "/" + finfo.GetFiles()[0].Name;
+                        }
+                    }
+
+                    
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })" class="item">
+                        <img src="@Url.Content(imagesrc)" alt="@item.CarModel.CarModelName @item.CarModel.CarBrand.CarBrandName" />
+                        <section>
+                            <strong>@item.CarModel.CarModelName @item.CarModel.CarBrand.CarBrandName</strong><br />
+                            <small>سال @item.CarYearModel</small><br />
+                            @*<small class="price">@item.CarPrices.Last().Price ریال</small>*@
+                        </section>
+                    </a>
+                }
+            </div>
+
+            <div class="pagination">
+                @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
+                {
+                    if (i == page)
+                    {
+                        <span>@{Write(i + 1); }</span>
+                    }
+                    else
+                    {
+                        <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i    '; this.form.submit();" value="@{Write(i + 1);}" />
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+</form>
+

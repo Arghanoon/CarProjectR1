@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "تعریف پرسش جدید";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+}
+@using CarProject.App_Code
+@model CarProject.Areas.Admin.Models.Troubleshooting.TSModel
+
+<div>
+    <h3>تعریف سوال جدید:</h3>
+    <hr />
+
+    <div>
+        <form method="post">
+            <div class="inputsContainer">
+                @Html.HiddenFor( m => m.Troubleshooting.TroubleshootinParentId)
+                @Html.HiddenFor(m => m.ModelType)
+
+
+                @if (Model.Troubleshooting.TroubleshootinParentId != null)
+                {
+                    var parrentAnswer = dbs.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == Model.Troubleshooting.TroubleshootinParentId);
+                    if(parrentAnswer  != null)
+                    {
+                        <div class="input">
+                            <label>پرسش قبلی</label>
+                            <section class="inputElement">
+                                @parrentAnswer.Subject
+                            </section>
+                        </div>
+                    }
+                }
+
+                @Html.input_TextBox(m => m.Troubleshooting.Subject, "عنوان پرسش")
+                @Html.input_TextArea(m => m.Troubleshooting.Describe, "توضیحات درباره پرسش")
+
+                <div class="input">
+                    <label>روش انجام فرایند</label>
+                    <section class="inputElement" id="InsertTypes">
+                         <input type="radio" name="InsertType" value="1" id="InsertType1" checked="checked" /><label for="InsertType1">ثبت و اضافه کردن پرسش بعدی به پرسش جاری</label>
+                         <input type="radio" name="InsertType" value="2" id="InsertType2" /><label for="InsertType2">ثبت و اضافه کردن پرسش بعدی به ریشه پرسش جاری</label>
+                         <input type="radio" name="InsertType" value="3" id="InsertType3" /><label for="InsertType3">ثبت و اضافه کردن پاسخ به پرسش جاری</label>
+                    </section>
+                </div>
+            </div>
+                        
+            <div class="inputAction">
+                <input type="submit" value="ثبت" class="button green" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section style
+{
+    <style>
+        #InsertTypes label {
+            display:block;
+        }
+        #InsertTypes input[type=radio] {
+            display:none;
+        }
+            #InsertTypes input[type=radio] + label:before {
+                font-family:giadmin;
+	            display:inline-block;
+	            margin:0 3px;
+	            direction:ltr;
+
+                content:'\005B';
+            }
+            #InsertTypes input[type=radio]:checked + label:before {
+                content:'\005C';
+            }
+    </style>
+}

@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "پرسش و پاسخ خودرو";
+
+    int id = 0;
+    int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var car = dbs.Cars.FirstOrDefault(c => c.CarsId == id);
+    if (car == null)
+    { Response.Redirect("/Cars"); }
+
+
+    
+}
+
+@if(!ViewData.ModelState.IsValidField("success")){ <script> window.location = "#SendNewMessage";</script> }
+
+<div id="forumHeader">
+    <h3>پرسش و پاسخ درباره خودرو</h3> | 
+    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = car.CarsId, info1 = car.CarModel.CarBrand.CarBrandName, info2 = car.CarModel.CarModelName })">@car.CarModel.CarBrand.CarBrandName - @car.CarModel.CarModelName</a>
+</div>
+
+<div id="ForumMessagesContainer" class="page">
+    <h3>پرسش های مرتبط با خودرو</h3>
+    <hr />
+    <div>
+        @{
+            var question = dbs.CarsQnAs.Where(c => c.CarsId == car.CarsId && c.QuestionId == null);
+            foreach (var item in question)
+            {
+                var str = "";
+                if (item.Question.Length > 50)
+                { str = item.Question.Substring(0, 50) ; }
+                else
+                { str = item.Question; }
+                <a href="@Url.RouteUrl("infoRoute", new { area="", controller = "Cars", action = "Car_Forum_Question", id = item.CarsQnAId, info1 = "question", info2 = str, info3 = "details" })">@item.Question</a>
+            }
+        }
+    </div>
+</div>
+
+
+
+<div id="SendNewMessage" class="page">
+    <h3>ثبت پرسش جدید درباره خودرو</h3>
+    <hr />
+    @if (ViewData.ModelState.IsValidField("success"))
+    {
+        <form method="post">
+            <div class="inputsContainer">
+                <section class="input">
+                    <textarea placeholder="متن پرسش خود را  در این قسمت وارد کنید" name="newQuestion"></textarea>
+                </section>
+            </div>
+            <section style="color: red">
+                @Html.ValidationMessage("newQuestion")
+            </section>
+            <section class="inputAction">
+                <input type="submit" value="ارسال پرسش" class="button green" />
+            </section>
+        </form>
+    }
+    else
+    {
+        <section style="color: blue">
+            @Html.ValidationMessage("success")
+        </section>
+    }
+</div>
+
+
+
+
+
+
+
+@section style
+{
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarForum", id = car.CarsId, info1 = car.CarModel.CarBrand.CarBrandName, info2 = car.CarModel.CarModelName }, Request.Url.Scheme)" />
+
+
+    <style>
+        #forumHeader {
+            display:flex;  align-items:center;
+            border-bottom:thin solid #888;
+        }
+            #forumHeader * {
+                margin: 1px 3px;
+            }
+
+        #ForumMessagesContainer a {
+            display: list-item;
+            margin-right:20px;
+        }
+    </style>
+}
