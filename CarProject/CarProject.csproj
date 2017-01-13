@@ -413,6 +413,9 @@
     <Compile Include="DBSEF\ProductToView.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\ProductUserComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\SecuritySystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -486,6 +489,10 @@
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\scripts.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\SliderItemShow.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\SliderItemShow.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\scirpt.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\SliderItemShow.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\SliderItemShow.js" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
     <Content Include="Publics\Files\Resources\CarsPages\CarsComments.css" />
@@ -524,7 +531,16 @@
     <Content Include="Publics\Files\Templates\templates02\Images\MenuDlimiter.png" />
     <Content Include="Publics\Files\Templates\templates02\Images\twitter.png" />
     <Content Include="Publics\Files\Templates\templates02\Images\youtube.png" />
+    <Content Include="Publics\Files\Templates\templates02\scripts.js" />
     <Content Include="Publics\Files\Templates\templates02\style.css" />
+    <Content Include="Publics\Gallery\favicons\android-chrome-192x192.png" />
+    <Content Include="Publics\Gallery\favicons\android-chrome-512x512.png" />
+    <Content Include="Publics\Gallery\favicons\apple-touch-icon.png" />
+    <Content Include="Publics\Gallery\favicons\browserconfig.xml" />
+    <Content Include="Publics\Gallery\favicons\favicon-16x16.png" />
+    <Content Include="Publics\Gallery\favicons\favicon-32x32.png" />
+    <Content Include="Publics\Gallery\favicons\favicon.ico" />
+    <Content Include="Publics\Gallery\favicons\mstile-150x150.png" />
     <Content Include="Publics\Gallery\ProductImages\NotFound.png" />
     <Content Include="Publics\Scripts\PersianDateTimePicker\Content\PersianDatePicker.css" />
     <Content Include="Publics\Scripts\PersianDateTimePicker\Content\PersianDatePicker.min.css" />
@@ -971,6 +987,8 @@
     <Content Include="Areas\Admin\Views\DashBoard\MainMenu_delete.cshtml" />
     <Content Include="Areas\Admin\Views\FileManager\tinymcefm_selector.cshtml" />
     <Content Include="Areas\Admin\Views\FileManager\tinymcefm2_selector.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarUserComments_ShowAndReply.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -988,8 +1006,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Cars\CarUserComments.cshtml" />
-    <Content Include="Areas\Admin\Views\Cars\CarUserComments_ShowAndReply.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductUserComments_ShowAndReply.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
@@ -1023,6 +1041,8 @@
     <Content Include="Views\Cars\CarsComments.cshtml" />
     <Content Include="Views\public\template02.cshtml" />
     <Content Include="Views\Cars\Car_13951015.cshtml" />
+    <Content Include="Views\Store\Products_13951020_0103.cshtml" />
+    <Content Include="Publics\Gallery\favicons\manifest.json" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -53,15 +53,15 @@
         flex-direction:column;
     }
         #CarImagesAndDetailsShowSection > #carImages > #carImages_Bigview_Container {
-            position:relative;
-           flex:1;
-           margin:5px;
-           overflow:hidden;
+           flex: 1;
+            margin: 5px;
+            overflow: hidden;
+            display:flex; justify-content:center; align-items:center;
         }
             #CarImagesAndDetailsShowSection > #carImages > #carImages_Bigview_Container > img {
-                width: 100%;
-                height: 100%;
-                background:url('/Publics/Files/Templates/templates02/Images/loading-1.gif') no-repeat center;
+                max-width: 100%;
+                max-height: 100%;
+                background: url('/Publics/Files/Templates/templates02/Images/loading-1.gif') no-repeat center;
                 background-size: 50% auto;
             }
 
@@ -109,6 +109,8 @@
             align-items: stretch;
         }
             #CarImagesAndDetailsShowSection > #CarDetials > #CarDetails_usercar_Troubleshooting > * {
+                flex:1;
+                margin:0 5px;
                 border-radius: 5px;
                 padding:5px 10px;
                 display: flex;
@@ -230,36 +232,36 @@
     margin-top:10px;
 }
 
-    #UsersOldComments .message {
+    #UsersOldComments .cmntmessage {
         
         margin:5px;
         padding:10px;
         display:flex;
         flex-direction:column;
     }
-     #UsersOldComments .message .message {
+     #UsersOldComments .cmntmessage .cmntmessage {
         
         margin:0 10px;
         padding:0;
         display:flex;
         flex-direction:column;
     }
-        #UsersOldComments .message .messageContent {
+        #UsersOldComments .cmntmessage .messageContent {
 
         }
-    #UsersOldComments > .message {
+    #UsersOldComments > .cmntmessage {
         background:#bec5fc;
     }
-    #UsersOldComments .message .messageContent {
+    #UsersOldComments .cmntmessage .messageContent {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
     }
 
-        #UsersOldComments .message .messageContent .username {
+        #UsersOldComments .cmntmessage .messageContent .username {
             margin-left: 10px;
         }
-        #UsersOldComments .message .messageContent .commentsection {
+        #UsersOldComments .cmntmessage .messageContent .commentsection {
             background: #fff;
             flex: 1;
             border-radius: 5px;
@@ -268,10 +270,10 @@
             display: flex;
             flex-direction: column;
         }
-        #UsersOldComments  .message .message  .messageContent .commentsection {
+        #UsersOldComments  .cmntmessage .cmntmessage  .messageContent .commentsection {
             background:#f3f3f3;
         }
-            #UsersOldComments .message .messageContent .commentsection:before {
+            #UsersOldComments .cmntmessage .messageContent .commentsection:before {
                 content: '';
                 position: absolute;
                 top: 0px;
@@ -281,25 +283,25 @@
                 border-top: 0px solid transparent;
                 border-bottom: 20px solid transparent;
             }
-    #UsersOldComments .message .message .messageContent .commentsection:before {
+    #UsersOldComments .cmntmessage .cmntmessage .messageContent .commentsection:before {
         border-left: 20px solid #f3f3f3;
     }
-            #UsersOldComments .message .messageContent .commentsection .comment {
+            #UsersOldComments .cmntmessage .messageContent .commentsection .comment {
                 padding: 5px;
             }
 
-            #UsersOldComments .message .messageContent .commentsection .commentActionAndInfo {
+            #UsersOldComments .cmntmessage .messageContent .commentsection .commentActionAndInfo {
                 display: flex;
                 justify-content: space-between;
                 font-size: 80%;
                 padding: 5px;
             }
-                #UsersOldComments .message .messageContent .commentsection .commentActionAndInfo .commentInfo {
+                #UsersOldComments .cmntmessage .messageContent .commentsection .commentActionAndInfo .commentInfo {
                     display: flex;
                     align-items: center;
                     justify-content: center;
                 }
-                #UsersOldComments .message .messageContent .commentsection .commentActionAndInfo .commentAction {
+                #UsersOldComments .cmntmessage .messageContent .commentsection .commentActionAndInfo .commentAction {
                     display: flex;
                     align-items: center;
                     justify-content: center;

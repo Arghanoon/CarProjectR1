@@ -328,7 +328,7 @@ namespace CarProject.Controllers
             basket.LocalCode = Guid.NewGuid().ToString();
             basket.FinishDate = DateTime.Now;
             us.UpdateBasket(basket);
-            InsertPersonServerAndServicepacks(us.dbs, basket);
+            InsertPersonServiceAndServicepacks(us.dbs, basket);
             return View(basket);
         }
 
@@ -341,55 +341,94 @@ namespace CarProject.Controllers
         }
 
 
-        private void InsertPersonServerAndServicepacks(DBSEF.CarAutomationEntities dbs, DBSEF.Basket basket)
+        private void InsertPersonServiceAndServicepacks(DBSEF.CarAutomationEntities dbs, DBSEF.Basket basket)
         {
             foreach (var item in basket.BasketItems)
             {
                 if (item.Type == (byte)Models.Store.CartUsefull.Basket_ItemType.AutoService)
                 {
-                    var x = dbs.PersonServices.FirstOrDefault(ps => ps.ServicesId == item.Id);
-                    if (x != null)
-                    {
-                        var xint = x.ServicesCurrentEntity.GetValueOrDefault(0);
-                        xint += item.Count.GetValueOrDefault(0);
-                        x.ServicesCurrentEntity = xint;
-                        x.DateAdded = DateTime.Now;
-                    }
-                    else
-                    {
-                        dbs.PersonServices.Add(new DBSEF.PersonService
-                        {
-                            ServicesId = item.Id,
-                            UserId = basket.UserId,
-                            DateAdded = DateTime.Now,
-                            ServicesCurrentEntity = item.Count
-                        });
-                    }
+                    InsertPersonServices(dbs, item);
                 }
                 if (item.Type == (byte)Models.Store.CartUsefull.Basket_ItemType.AutoServicePack)
                 {
-                    var x = dbs.PersonServicesPacks.FirstOrDefault(psp => psp.ServicesPackId == item.Id);
-                    if (x != null)
-                    {
-                        var xint = x.ServicesPackCurrentEntity.GetValueOrDefault(0);
-                        xint += item.Count.GetValueOrDefault(0);
-                        x.ServicesPackCurrentEntity = xint;
-                        x.DateAdded = DateTime.Now;
-                    }
-                    else
-                    {
-                        dbs.PersonServicesPacks.Add(new DBSEF.PersonServicesPack
-                        {
-                            ServicesPackId = item.Id,
-                            UserId = basket.UserId,
-                            DateAdded = DateTime.Now,
-                            ServicesPackCurrentEntity = item.Count
-                        });
-                    }   
+                       
                 }
             }
             dbs.SaveChanges();
         }
+        private void InsertPersonServices(DBSEF.CarAutomationEntities dbs, DBSEF.BasketItem item)
+        {
+            var x = dbs.PersonServices.FirstOrDefault(ps => ps.ServicesId == item.Id && ps.UserId == item.Basket.UserId);
+            if (x != null)
+            {
+                var xint = x.ServicesCurrentEntity.GetValueOrDefault(0);
+                xint += item.Count.GetValueOrDefault(0);
+                x.ServicesCurrentEntity = xint;
+                x.DateAdded = DateTime.Now;
+            }
+            else
+            {
+                dbs.PersonServices.Add(new DBSEF.PersonService
+                {
+                    ServicesId = item.Id,
+                    UserId = item.Basket.UserId,
+                    DateAdded = DateTime.Now,
+                    ServicesCurrentEntity = item.Count
+                });
+            }
+        }
+        private void InsertPersonServices(DBSEF.CarAutomationEntities dbs,int userid, int serviceid, int count)
+        {
+            var x = dbs.PersonServices.FirstOrDefault(ps => ps.ServicesId == serviceid && ps.UserId == userid);
+            if (x != null)
+            {
+                var xint = x.ServicesCurrentEntity.GetValueOrDefault(0);
+                xint += count;
+                x.ServicesCurrentEntity = xint;
+                x.DateAdded = DateTime.Now;
+            }
+            else
+            {
+                dbs.PersonServices.Add(new DBSEF.PersonService
+                {
+                    ServicesId = serviceid,
+                    UserId = userid,
+                    DateAdded = DateTime.Now,
+                    ServicesCurrentEntity = count
+                });
+            }
+        }
+        private void InserPersonServicePacks(DBSEF.CarAutomationEntities dbs, DBSEF.BasketItem item)
+        {
+            var x = dbs.PersonServicesPacks.FirstOrDefault(psp => psp.ServicesPackId == item.Id && psp.UserId == item.Basket.UserId);
+            if (x != null)
+            {
+                var xint = x.ServicesPackCurrentEntity.GetValueOrDefault(0);
+                xint += item.Count.GetValueOrDefault(0);
+                x.ServicesPackCurrentEntity = xint;
+                x.DateAdded = DateTime.Now;
+            }
+            else
+            {
+                dbs.PersonServicesPacks.Add(new DBSEF.PersonServicesPack
+                {
+                    ServicesPackId = item.Id,
+                    UserId = item.Basket.UserId,
+                    DateAdded = DateTime.Now,
+                    ServicesPackCurrentEntity = item.Count
+                });
+            }
+        }
+        private void InserPersonServicePacks_AddPackservicesInServices(DBSEF.CarAutomationEntities dbs, DBSEF.BasketItem item)
+        {
+            var sp = dbs.AutoServicePacks.FirstOrDefault(aps => aps.AutoServicePackId == item.Id.Value);
+
+            foreach (var itm in sp.AutoServices)
+            {
+                InsertPersonServices(dbs, item.Basket.UserId, itm.AutoServiceId, itm.);
+            }
+        }
+
 
         #endregion
 
@@ -400,6 +439,48 @@ namespace CarProject.Controllers
         }
         [HttpPost]
         public ActionResult Products(int id, FormCollection form)
+        {
+            if (Areas.Users.Controllers.profileController.GetCurrentLoginedUser == null)
+                return RedirectToAction("Products", new { id = id });
+
+            
+
+            ViewBag.error = new Dictionary<string, string>();
+            if (form.AllKeys.Contains("SendACommentRequest"))
+            {
+                if (form["comment"] == "")
+                    ViewBag.error["comment"] = "پیام وارد نشده است";
+
+                if (form["g-recaptcha-response"] == "")
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
+                else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد شده صحیح نیست";
+
+                if (((Dictionary<string, string>)ViewBag.error).Count == 0)
+                {
+                    var dbs = new DBSEF.CarAutomationEntities();
+                    int rootid = 0;
+                    int.TryParse(form["responsecommentid"], out rootid);
+
+                    dbs.ProductUserComments.Add(new DBSEF.ProductUserComment
+                    {
+                        ProductId = id,
+                        UserId = Areas.Users.Controllers.profileController.GetCurrentLoginedUser.UserId,
+                        Comment = form["comment"],
+                        DateTime = DateTime.Now,
+                        RootProductUserCommentsId = ((rootid == 0) ? null : (int?)rootid)
+                    });
+
+                    dbs.SaveChanges();
+                    ViewBag.error["success"] = "پیام شما با موفقیت ثبت شد ";
+                }
+            }
+
+            var model = new Areas.Admin.Models.Cars.CarsModel(id);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Products_expiredProductControl(int id, FormCollection form)
         {
             ViewBag.error = new Dictionary<string, string>();
             if (form.AllKeys.Contains("SendACommentRequest"))
@@ -433,6 +514,9 @@ namespace CarProject.Controllers
         [HttpPost]
         public int Products_makePopular(int id)
         {
+            if (Session["LikedCarContainerSession"] != null && Session["LikedCarContainerSession"] is List<int> && ((List<int>)Session["LikedCarContainerSession"]).Contains(id))
+                return -1;
+
             var dbs = new DBSEF.CarAutomationEntities();
             int res = 0;
             if (dbs.ProductToViews.Count(p => p.ProductId == id) > 0)
@@ -448,6 +532,12 @@ namespace CarProject.Controllers
             }
 
             dbs.SaveChanges();
+
+            if (Session["LikedCarContainerSession"] == null && !(Session["LikedCarContainerSession"] is List<int>))
+                Session["LikedCarContainerSession"] = new List<int>();
+
+            ((List<int>)Session["LikedCarContainerSession"]).Add(id);
+
             return res;
         }
         
