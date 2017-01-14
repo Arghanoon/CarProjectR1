@@ -1,131 +1,54 @@
 ﻿@{
     ViewBag.Title = "اخبار";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var news = dbs.Contents.AsQueryable();
+    var lastnews = news.OrderByDescending(n => n.ContenstId).Take(30);
+
+    var rand = new Random();
 }
 
 @section style
 {
-    <style>
-        #newsContainer {
-            margin:0;
-            display:flex; justify-content:space-between;
-            position:relative;
-        }
-        .newsContainer {
-            margin:2.5px;
-            border:thin solid transparent;
-            box-sizing:border-box;
-
-            min-height:100vh;
-        }
-
-        #news_right {
-            width:25%;
-        }
-
-        #news_center {
-            flex: 1;
-        }
-
-        #news_left {
-            width:25%;
-        }
-
-
-        #slideShowContainer {
-            width:100%;
-            height:50vh;
-            background:#A9A9A9;
-        }
-
-        #underSlideShowNewsContainer {
-            display:flex;
-        }
-
-        .news {
-            display:block;
-        }
-            .news .title {
-            }
-
-            .news .details {
-                display:flex; align-items:stretch;
-            }
-
-            .news .details .img {
-                width:100px; height:70px;
-            }
-            .news .details .describe {
-                flex:1;
-            }
-    </style>
+    <link href="~/Publics/Files/Resources/NewsPage/Index.css" rel="stylesheet" />
 }
 
-<div class="" id="newsHomePage">
+<div class="page" id="newsHomePage">
 
-    <div id="newsContainer">
-
-        <div id="news_right" class="newsContainer">
-            
-            @for (int i = 0; i < 100; i++)
+    <h3>آخرین اخبار</h3>
+    <div class="newsContainer" id="LastNews">
+        
+        @foreach (var item in lastnews)
+        {
+            var imagelink = "~/Publics/Gallery/ProductImages/NotFound.png";
+            var path = "~/Publics/Gallery/NewsImages/" + item.ContenstId;
+            var dicinfo = new DirectoryInfo(Server.MapPath(path));
+            if (dicinfo.Exists)
             {
-                <div class="news">
-                    <a href="#" class="title">تیرخبر  مثال سمپل نمایش پیش نمایش الکی شماره @i</a>
-                    <div class="details">
-                        <img class="img" src="~/Publics/NewsImages/nophoto.png" />
-                        <p class="discribe">توضیحات درباره خبر مختصر مفید خلاصه توضیحات خبر مختصر و مفید خلاصه الکی کشکشی مثال سمپل اکسمپل مثل توضیحات تشریحات مشروح شرح جفنگ تفنگ و.... </p>
-                    </div>
-                </div>
+                var files = dicinfo.GetFiles();
+                if (files.Length > 0)
+                {
+                    imagelink = path + "/" + files[rand.Next(0, files.Length)].Name;
+                }
             }
+            <div class="newsItem">
 
-        </div>
+                <img src="@Url.Content(imagelink)" alt="@item.ContentSubject" />
 
-        <div id="news_center" class="newsContainer">
-            <div id="slideShowContainer"></div>
-           
-            <div id="underSlideShowNewsContainer">
+                <div class="newsItemInfo">
+                    <strong class="title">@item.ContentSubject</strong>
 
-                <div class="newsContainer">
-                     @for (int i = 0; i < 100; i++)
-                        {
-                            <div class="news">
-                                <a href="#" class="title">تیرخبر  مثال سمپل نمایش پیش نمایش الکی شماره </a>
-                                <div class="details">
-                                    <img class="img" src="~/Publics/NewsImages/nophoto.png" />
-                                    <p class="discribe">توضیحات درباره خبر مختصر مفید خلاصه توضیحات خبر مختصر و مفید خلاصه الکی کشکشی مثال سمپل اکسمپل مثل توضیحات تشریحات مشروح شرح جفنگ تفنگ و.... </p>
-                                </div>
-                            </div>
-                        }
+                    <section class="briefshow">
+                        @item.ContentDescribe
+                    </section>
+
+                    <section class="footer">
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "News", action = "NewsShow", id = item.ContenstId, info1 = item.ContentsCategory.Name, info2 = item.ContentSubject })" >ادامه ... </a>
+                </section>
                 </div>
-
-                <div class="newsContainer">
-                     @for (int i = 0; i < 100; i++)
-                        {
-                            <div class="news">
-                                <a href="#" class="title">تیرخبر  مثال سمپل نمایش پیش نمایش الکی شماره </a>
-                                <div class="details">
-                                    <img class="img" src="~/Publics/NewsImages/nophoto.png" />
-                                    <p class="discribe">توضیحات درباره خبر مختصر مفید خلاصه توضیحات خبر مختصر و مفید خلاصه الکی کشکشی مثال سمپل اکسمپل مثل توضیحات تشریحات مشروح شرح جفنگ تفنگ و.... </p>
-                                </div>
-                            </div>
-                        }
-                </div>
-
+                
+                
             </div>
-        </div>
-
-        <div id="news_left" class="newsContainer">
-             @for (int i = 0; i < 100; i++)
-            {
-                <div class="news">
-                    <a href="#" class="title">تیرخبر  مثال سمپل نمایش پیش نمایش الکی شماره </a>
-                    <div class="details">
-                        <img class="img" src="~/Publics/NewsImages/nophoto.png" />
-                        <p class="discribe">توضیحات درباره خبر مختصر مفید خلاصه توضیحات خبر مختصر و مفید خلاصه الکی کشکشی مثال سمپل اکسمپل مثل توضیحات تشریحات مشروح شرح جفنگ تفنگ و.... </p>
-                    </div>
-                </div>
-            }
-        </div>
-
+        }
     </div>
-
+    
 </div>

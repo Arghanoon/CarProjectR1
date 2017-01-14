@@ -23,8 +23,9 @@
     <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
     <script src="~/Publics/Scripts/tinymce/tinymce.min.js"></script>
     <link href="~/Publics/Files/Resources/PublicClasses.css" rel="stylesheet" />
-
     
+    <link href="~/Publics/Scripts/PersianDateTimePicker/Content/PersianDatePicker.css" rel="stylesheet" />
+    <script src="~/Publics/Scripts/PersianDateTimePicker/Scripts/PersianDatePicker.js"></script>
 
     @RenderSection("style",false)
 </head>
@@ -68,6 +69,8 @@
                 <a href="@Url.Action("Brands","Cars")" class="gia-brands">مدیریت برندها</a>
                 <a href="@Url.Action("NewCar","Cars")" class="gia-newCar">ثبت خودرو جدید</a>
                 <a href="@Url.Action("Index","Cars")" class="gia-cars">مدیریت خودروها</a>
+                <a href="@Url.Action("CarComments","Cars")" class="gia-chat">پیام های کاربران</a>
+                @*<a href="@Url.Action("Car_Forum","Cars")" class="gia-forum">پرسش و پاسخ</a>*@
             </nav>
              
             <nav>
@@ -80,14 +83,13 @@
             <nav>
                 <strong class="gia-users title">مدیریت کاربران</strong>
             	<a href="@Url.Action("NewUser","User")" class="gia-user">ثبت کاربر جدید</a>
-                <a href="@Url.Action("Users","User")" class="gia-list">کاربران</a>
+                <a href="@Url.Action("UsersView","User")" class="gia-list">کاربران</a>
                 <a href="@Url.Action("newUsers","User")" class="gia-waitedUser">کاربران جدید</a>
             </nav>
             
             <nav>
                 <strong class="gia-checkEngine title">مدیریت قسمت عیب یابی</strong>
-            	<a href="@Url.Action("New", "Troubleshooting", new { area = "admin" , id = "" })">اضافه کردن سوال عیب یابی</a>
-                <a href="@Url.Action("Index", "Troubleshooting", new { area = "admin" , id = "" })" >لیست سوالات عیب یابی</a>
+            	<a href="@Url.Action("Index", "Troubleshooting", new { area = "admin" , id = "" })">عیب یابی</a>
             </nav>
             
             <nav>
@@ -104,6 +106,11 @@
                 <a href="@Url.Action("ContactUsMessages","DashBoard")" class="gia-message" >پیام های تماس باما @if(@ContaectUsUnreadMessage > 0){ <span class="countShower">@ContaectUsUnreadMessage</span>}</a>
             </nav>
 
+
+            <nav>
+                <strong class="gia-message title">مدیریت پیامها</strong>
+            	<a href="@Url.Action("MailsMessage_Signup_SendActivationcode", "DashBoard", new { area = "admin" , id = "" })">ثبت محتوای ایمیل فعال سازی حساب کاربری</a>
+            </nav>
             
         </div>
         

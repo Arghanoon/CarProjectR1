@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "خودروهای کاربر";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var user = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser;
+    
+    var UserCars = dbs.PersonCars.Where(c => c.UserId == user.UserId);
+}
+
+
+<div class="page">
+    <h3>خودروهای ثبت شده کاربر</h3>
+    <div class="itemContainer">
+        @foreach (var item in UserCars)
+        {
+            <div class="item">
+                <section class="title gia-car2">@item.Car.CarModel.CarBrand.CarBrandName - @item.Car.CarModel.CarModelName</section>
+                <table>
+                    <tr>
+                        <th>برند</th>
+                        <td>@item.Car.CarModel.CarBrand.CarBrandName</td>
+                    </tr>
+                    <tr>
+                        <th>مدل</th>
+                        <td>@item.Car.CarModel.CarModelName</td>
+                    </tr>
+                    <tr>
+                        <th>پلاک</th>
+                        <td>@item.CarPlate | @item.CarPlateCityCode</td>
+                    </tr>
+                    <tr>
+                        <th>رنگ</th>
+                        <td>@item.CarColor</td>
+                    </tr>
+                    <tr>
+                        <th>کیلومتر فعلی</th>
+                        <td>@item.CarMilage</td>
+                    </tr>
+                </table>
+                <section class="action">
+                    <a href="/Users/Dashboard/InsertPersonCar/@item.CarId">ویرایش</a> |
+                    <a href="/Users/Dashboard/PersonCarCurrentMillage/@item.PersonCarsId"  >اعلام کیلومتر فعلی</a> |
+                    <a href="/Users/Dashboard/PersonCarsDeleteConfirm/@item.PersonCarsId"  >حذف</a>
+                </section>
+            </div>
+        }
+    </div>
+</div>

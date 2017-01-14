@@ -4,73 +4,85 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f8f1c4e4af014840a24f989f31686035" Name="Diagram1">
-        <EntityTypeShape EntityType="CarAutomationModel.AirConditioningSystem" Width="1.5" PointX="7.5" PointY="28.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.AirConditioningSystemDetail" Width="1.5" PointX="7.5" PointY="30.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.AutoService" Width="1.5" PointX="7.5" PointY="33.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.AutoServiceCar" Width="1.5" PointX="9.75" PointY="53.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.AutoServicePack" Width="1.5" PointX="10.5" PointY="19.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.AutoService1" Width="1.5" PointX="9.75" PointY="34.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Basket" Width="1.5" PointX="10.5" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.BrakeSystem" Width="1.5" PointX="7.5" PointY="38.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarAirbag" Width="1.5" PointX="7.5" PointY="41.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarAudioSystem" Width="1.5" PointX="7.5" PointY="44.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarBrand" Width="1.5" PointX="0.75" PointY="69.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarEngine" Width="1.5" PointX="7.5" PointY="49.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarGearBox" Width="1.5" PointX="7.5" PointY="53.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarLightingSystem" Width="1.5" PointX="7.5" PointY="57.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarModel" Width="1.5" PointX="3" PointY="69.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarPhysicalDetail" Width="1.5" PointX="7.5" PointY="62" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarPrice" Width="1.5" PointX="7.5" PointY="65.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Car" Width="1.5" PointX="5.25" PointY="65.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarSeatOption" Width="1.5" PointX="7.5" PointY="68.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarSensorsSystem" Width="1.5" PointX="7.5" PointY="72.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarsInSameClass" Width="1.5" PointX="7.5" PointY="76" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarsPro" Width="1.5" PointX="7.5" PointY="78.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarsQnA" Width="1.5" PointX="7.5" PointY="81.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarsReview" Width="1.5" PointX="7.5" PointY="84.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarsReviewPoint" Width="1.5" PointX="7.5" PointY="88.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.CarWheel" Width="1.5" PointX="7.5" PointY="91.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Category" Width="1.5" PointX="11.25" PointY="61.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Company" Width="1.5" PointX="11.25" PointY="65" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ContactUsMessage" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ContentPresentation" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Content" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ContentsCategory" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Country" Width="1.5" PointX="11.25" PointY="58.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.DetailedBrakeSystem" Width="1.5" PointX="7.5" PointY="95.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Discount" Width="1.5" PointX="10.5" PointY="40.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.FuelConsumption" Width="1.5" PointX="7.5" PointY="98" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.GlassAndMirror" Width="1.5" PointX="7.5" PointY="101.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Manufacture" Width="1.5" PointX="11.25" PointY="78.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Person" Width="1.5" PointX="10.5" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.PersonCarDetail" Width="1.5" PointX="12.75" PointY="75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.PersonCar" Width="1.5" PointX="10.5" PointY="68.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.PersonProduct" Width="1.5" PointX="15.75" PointY="65.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.PersonProductEntity" Width="1.5" PointX="18" PointY="66.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.PersonService" Width="1.5" PointX="9.75" PointY="31.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.PersonServicesPack" Width="1.5" PointX="12.75" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Product" Width="1.5" PointX="13.5" PointY="66.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ProductCar" Width="1.5" PointX="18.75" PointY="69.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ProductDiscount" Width="1.5" PointX="12.75" PointY="34" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ProductInService" Width="1.5" PointX="9.75" PointY="37.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ProductPrice" Width="1.5" PointX="15.75" PointY="69.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ProductQnA" Width="1.5" PointX="11.25" PointY="81.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ProductReview" Width="1.5" PointX="11.25" PointY="84.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ProductServicePackUse" Width="1.5" PointX="15" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ProductServiceUse" Width="1.5" PointX="12" PointY="26.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ProductStore" Width="1.5" PointX="15.75" PointY="72.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ProductToView" Width="1.5" PointX="15.75" PointY="74.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.SecuritySystem" Width="1.5" PointX="7.5" PointY="124.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ServicesPackToView" Width="1.5" PointX="12.75" PointY="23.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ServiceToView" Width="1.5" PointX="9.75" PointY="49.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.SlideShow" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.SteeringSystem" Width="1.5" PointX="7.5" PointY="128.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.ToBasket" Width="1.5" PointX="12.75" PointY="29.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.TodaysSpecial" Width="1.5" PointX="15.75" PointY="77.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.Troubleshooting" Width="1.5" PointX="15.75" PointY="79.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.User" Width="1.5" PointX="8.25" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.UserRole" Width="1.5" PointX="6" PointY="15.625" IsExpanded="true" />
+      <Diagram DiagramId="21fd9e61d58f437487dd69d05a8c8611" Name="Diagram1">
+        <EntityTypeShape EntityType="CarAutomationModel.AirConditioningSystem" Width="1.5" PointX="5.25" PointY="39.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.AirConditioningSystemDetail" Width="1.5" PointX="5.25" PointY="42.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.AutoService" Width="1.5" PointX="5.25" PointY="45" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.AutoServiceCar" Width="1.5" PointX="7.5" PointY="67.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.AutoServicePack" Width="1.5" PointX="5.25" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.AutoService1" Width="1.5" PointX="7.5" PointY="45.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.BasketItem" Width="1.5" PointX="12.75" PointY="35.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Basket" Width="1.5" PointX="10.5" PointY="34.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.BrakeSystem" Width="1.5" PointX="5.25" PointY="49.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarAirbag" Width="1.5" PointX="5.25" PointY="52.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarAudioSystem" Width="1.5" PointX="5.25" PointY="55.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarBrand" Width="1.5" PointX="1.5" PointY="76.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarComment" Width="1.5" PointX="8.25" PointY="84.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarDetail" Width="1.5" PointX="5.25" PointY="64.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarEngine" Width="1.5" PointX="5.25" PointY="70.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarGearBox" Width="1.5" PointX="5.25" PointY="74.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarLightingSystem" Width="1.5" PointX="5.25" PointY="79.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarModel" Width="1.5" PointX="0.75" PointY="81.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarPhysicalDetail" Width="1.5" PointX="5.25" PointY="83.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarPrice" Width="1.5" PointX="5.25" PointY="87.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Car" Width="1.5" PointX="3" PointY="80.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarSeatOption" Width="1.5" PointX="5.25" PointY="89.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarSensorsSystem" Width="1.5" PointX="5.25" PointY="93.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarsInSameClass" Width="1.5" PointX="5.25" PointY="97.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarsPro" Width="1.5" PointX="5.25" PointY="100" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarsQnA" Width="1.5" PointX="5.25" PointY="102.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarsReview" Width="1.5" PointX="5.25" PointY="106" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarsReviewPoint" Width="1.5" PointX="5.25" PointY="109.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarsToView" Width="1.5" PointX="5.25" PointY="112.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarUserComment" Width="1.5" PointX="8.25" PointY="78.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.CarWheel" Width="1.5" PointX="5.25" PointY="120.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Category" Width="1.5" PointX="6" PointY="116.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Company" Width="1.5" PointX="6" PointY="134.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ContactUsMessage" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ContentPresentation" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Content" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ContentsCategory" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ContetComment" Width="1.5" PointX="7.5" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Country" Width="1.5" PointX="0.75" PointY="84.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.DaysOfWeek" Width="1.5" PointX="6" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.DetailedBrakeSystem" Width="1.5" PointX="5.25" PointY="123.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Discount" Width="1.5" PointX="8.25" PointY="38.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.FuelConsumption" Width="1.5" PointX="5.25" PointY="126.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.GlassAndMirror" Width="1.5" PointX="5.25" PointY="130.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.HomePageMenu" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Manufacture" Width="1.5" PointX="3" PointY="178" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.MarketingMail" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Person" Width="1.5" PointX="7.5" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.PersonCarDetail" Width="1.5" PointX="10.5" PointY="87.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.PersonCar" Width="1.5" PointX="8.25" PointY="88.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.PersonProduct" Width="1.5" PointX="10.5" PointY="125.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.PersonProductEntity" Width="1.5" PointX="12.75" PointY="130.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.PersonService" Width="1.5" PointX="7.5" PointY="42.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.PersonServicesPack" Width="1.5" PointX="10.5" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Product" Width="1.5" PointX="8.25" PointY="123.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductCar" Width="1.5" PointX="10.5" PointY="105.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductComment" Width="1.5" PointX="13.5" PointY="126" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductDiscount" Width="1.5" PointX="10.5" PointY="45.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductInService" Width="1.5" PointX="7.5" PointY="48.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductPrice" Width="1.5" PointX="10.5" PointY="128.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductQnA" Width="1.5" PointX="10.5" PointY="131.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductReview" Width="1.5" PointX="6" PointY="137.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductServicePackUse" Width="1.5" PointX="12.75" PointY="30.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductServiceUse" Width="1.5" PointX="9.75" PointY="41.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductsOrServicesDeliveryType" Width="1.5" PointX="8.25" PointY="34.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductStore" Width="1.5" PointX="10.5" PointY="135.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductToView" Width="1.5" PointX="10.5" PointY="137.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ProductUserComment" Width="1.5" PointX="13.5" PointY="122" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.SecuritySystem" Width="1.5" PointX="5.25" PointY="157.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ServicesPackToView" Width="1.5" PointX="7.5" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.ServiceToView" Width="1.5" PointX="7.5" PointY="61" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.SlideShow" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.SteeringSystem" Width="1.5" PointX="5.25" PointY="161.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.TimeOfDay" Width="1.5" PointX="8.25" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.TodaysSpecial" Width="1.5" PointX="10.5" PointY="144.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.Troubleshooting" Width="1.5" PointX="10.5" PointY="146.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.User" Width="1.5" PointX="5.25" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.UserRole" Width="1.5" PointX="3" PointY="35" IsExpanded="true" />
         <AssociationConnector Association="CarAutomationModel.FK_AirConditioningSystem_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_AirConditioningSystemDetail_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_AutoService_Cars" ManuallyRouted="false" />
@@ -80,25 +92,31 @@
         <AssociationConnector Association="CarAutomationModel.FK_ProductDiscount_AutoService" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ProductInService_AutoService" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ServiceToView_AutoService" ManuallyRouted="false" />
-        <AssociationConnector Association="CarAutomationModel.FK_ToBasket_AutoService" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_AutoServiceCars_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_AutoServices_AutoServicePack" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_PersonServicesPack_AutoServicePack" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ProductDiscount_AutoServicePack" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ServicesPackToView_AutoServicePack" ManuallyRouted="false" />
-        <AssociationConnector Association="CarAutomationModel.FK_ToBasket_AutoServicePack" ManuallyRouted="false" />
-        <AssociationConnector Association="CarAutomationModel.FK_Basket_User" ManuallyRouted="false" />
-        <AssociationConnector Association="CarAutomationModel.FK_ToBasket_Basket" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_BasketItems_Baskets" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_Baskets_Baskets" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_Baskets_DaysOfWeek" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_Baskets_Discount" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_Baskets_User" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_BrakeSystem_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarAirbags_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarAudioSystem_Cars_CarsId" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarModel_CarBrand" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_Product_CarBrand" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_CarComments_Cars" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_CarComments_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_CarDetails_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarEngine_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarGearBox_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarLightingSystem_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Cars_CarModel" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarPhysicalDetails_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarPrice_Cars" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_Cars_Country" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarSeatOptions_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarSensorsSystem_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarsInSameClass_Cars" ManuallyRouted="false" />
@@ -107,6 +125,8 @@
         <AssociationConnector Association="CarAutomationModel.FK_CarsQnA_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarsReview_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarsReviewPoint_Cars" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_CarsToView_Cars" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_CarUserComments_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarWheels_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_DetailedBrakeSystem_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_FuelConsumption_Cars" ManuallyRouted="false" />
@@ -118,15 +138,21 @@
         <AssociationConnector Association="CarAutomationModel.FK_SteeringSystem_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarsQnA_CarsQnA" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_CarsReviewPoint_CarsReviewPoint" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_CarUserComments_CarUserComments" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_CarUserComments_User" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Category_Category" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Product_Category" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Product_Company" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ContentPresentation_Contents" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Contents_ContentsCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_ContetComments_Contents" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ContentsCategory_ContentsCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_ContetComments_User" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Manufacture_Country" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Product_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_TimeOfDay_DaysOfWeek" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ProductDiscount_Discount" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_HomePageMenu_HomePageMenu" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Product_Manufacture" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Person_User" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_PersonCarDetail_PersonCars" ManuallyRouted="false" />
@@ -138,20 +164,23 @@
         <AssociationConnector Association="CarAutomationModel.FK_ProductServiceUse_PersonServices" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_PersonServicesPack_User" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ProductServicePackUse_PersonServicesPack" ManuallyRouted="false" />
-        <AssociationConnector Association="CarAutomationModel.FK_Product_ProductQnA" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_Product_ProductReview" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ProductCars_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_ProductComments_Product" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ProductDiscount_Product" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ProductInService_Product" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ProductPrice_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_ProductQnA_Product" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ProductStore_Product" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ProductToView_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="CarAutomationModel.FK_ToBasket_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_ProductUserComments_Product" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_TodaysSpecial_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="CarAutomationModel.FK_Troubleshooting_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_ProductComments_User" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_ProductQnA_ProductQnA" ManuallyRouted="false" />
-        <AssociationConnector Association="CarAutomationModel.FK_Troubleshooting_Troubleshooting" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_ProductUserComments_ProductUserComments" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.FK_ProductUserComments_User" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.FK_User_UserRole" ManuallyRouted="false" />
+        <AssociationConnector Association="CarAutomationModel.TroubleshootingProducts" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

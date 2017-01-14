@@ -13,6 +13,15 @@
         vertical-align:middle;
     }
 
+    .input > *:nth-child(1) {
+        vertical-align:text-top;
+        min-width: 30%;
+    }
+
+    .input > *:nth-child(3) {
+        white-space:nowrap;
+    }
+
 	.input input:not([type=submit]):not([type=button]):not([type=reset]):not([type=checkbox]),
 		.input textarea,
         .input select,
@@ -105,8 +114,20 @@
     }
 }
 
-
+.inputsContainer2 {
+    display:block;
+}
+    .inputsContainer2 .input > *:not(hr) {
+        display: block !important;
+    }
     
+.inputsContainer3 {
+    display:block;
+}
+    .inputsContainer3 .input > *:not(hr) {
+        display: block !important;
+        width:100%;
+    }
 /*-----------------------------------------Rating Section--------------------------*/
 .input.rating
 {
@@ -277,3 +298,79 @@
     box-shadow:none;
 }
 /*---------------------------------------Buttons------------------------------------------*/
+
+
+
+
+
+
+
+/*----------------------------------------[ Messages ]----------------------------------------------------*/
+.message {
+    position:fixed;
+    top:0; left:0; right:0;
+    background:white;
+    border:thin solid #888;
+    box-shadow:0 3px 3px 0 #888;
+    display:flex;
+    align-items:center;
+    
+    animation:anim_messageInput;
+    animation-duration:1s;
+}
+
+@keyframes anim_messageInput {
+    from {
+        transform:translateY(-100%);
+    }
+    to {
+        transform:none;
+    }
+}
+
+
+    .message .action {
+        width:30px;
+        height:50px;
+        border-left:thin solid #888;
+        padding:5px;
+        display:flex; justify-content:center; align-items:center;
+        cursor:pointer;
+        background:#eaeaea;
+    }
+    .message .content {
+        padding:5px;
+    }
+/*----------------------------------------[ End of Messages ]---------------------------------------------*/
+
+
+
+
+
+/*-------------------------[messageInLine]-------------------------------*/
+.messageInLine {
+    color: #000;
+    background: #fff;
+    border: thin solid;
+    border-right: 5px solid;
+    padding: 5px;
+    margin: 5px;
+}
+    .messageInLine.blue {
+        color: #0000b3;
+        background: #ebebff;
+        border-color: #0000ff;
+    }
+
+    .messageInLine.green {
+        color: #406a00;
+        background: #f3ffe0;
+        border-color: #adff2f;
+    }
+
+    .messageInLine.red {
+        color: #621b00;
+        background: #ffe2d8;
+        border-color: #ff4500;
+    }
+/*-------------------------[END OF messageInLine]-------------------------------*/

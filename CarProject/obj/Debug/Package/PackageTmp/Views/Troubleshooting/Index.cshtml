@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "سیستم عیب یابی خودرو";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    var troubleshootings = dbs.Troubleshootings.AsQueryable();
+
+    int id = 0;
+    CarProject.DBSEF.Troubleshooting CurrentTroubleshoting = null;
+    if(ViewContext.RouteData.Values["id"] != null)
+    {
+        int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+    }
+    
+    if(id > 0)
+    {
+        troubleshootings = troubleshootings.Where(t => t.TroubleshootinParentId == id);
+        CurrentTroubleshoting = dbs.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == id);
+    }
+    else
+    {
+        troubleshootings = troubleshootings.Where(t => t.TroubleshootinParentId == null);
+    }
+
+    bool IsAnserQuestion = false;
+    if(troubleshootings.Count() == 1 && troubleshootings.First().Type == 1)
+    { IsAnserQuestion = true; }
+        
+    troubleshootings = troubleshootings.OrderBy(t => t.Subject);
+}
+
+
+@section style{ <link href="~/Publics/Files/Resources/Troubleshooting/Index/style.css" rel="stylesheet" /> }
+
+
+@if (CurrentTroubleshoting != null)
+{  
+    <div class="page CurrentQuestionShow">
+        <h3 class="subject">@CurrentTroubleshoting.Subject</h3>
+        <p class="describe">@CurrentTroubleshoting.Describe</p>
+    </div>
+}
+
+@if (IsAnserQuestion)
+{
+    var answertrouble = troubleshootings.First();
+    <div class="page AnswerShow">
+        <h3 class="subject">@answertrouble.Subject</h3>
+        <p class="describe">@answertrouble.Describe</p>
+        <small class="price"><strong>هزینه تعمیرات:</strong><span>@answertrouble.Price</span></small>
+
+        <hr />
+        <h3>قطعات معیوب</h3>
+        
+        <div class="listOfProducts" id="ListofcarsShower">
+            @{
+                Random rand = new Random();
+                var products = answertrouble.Products;     
+                foreach (var item in products)
+                {
+                    var PicFileUrl = "~/Publics/Gallery/ProductImages/"+ item.ProductId;
+                    var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+                                
+                    if(finfo.Exists && finfo.GetFiles().Count() > 0)
+                    {
+                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                            <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                            <section>
+                                <strong>@item.ProductName</strong><br />
+                                <small>@item.Category.CategoryName</small><br />
+                                <small class="price">@if (item.ProductPrices.Any()) {<span>@item.ProductPrices.Last().ProductPrice1</span>}else {<span>0</span>} ریال</small>
+                            </section>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                            <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
+                            <section>
+                                <strong>@item.ProductName</strong><br />
+                                <small>@item.Category.CategoryName</small><br />
+                                <small class="price">@item.ProductPrices.Last().ProductPrice1 ریال</small>
+                            </section>
+                        </a>
+                    }
+                }
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="page QuestionsContainer" >
+        @foreach (var item in troubleshootings)
+        {
+            var href = "/Troubleshooting/Index/" + item.TroubleshootingId;
+            if (item.Type == 1)
+            { href = "#"; }
+            <a href="@href" class="QuestionItem">
+                <section class="subject">@item.Subject</section>
+                <section class="describe">@item.Describe</section>
+            </a>
+        }
+    </div>
+}

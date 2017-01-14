@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "نمایش محصولات";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var rand = new Random();
+
+    string searchtext = "";
+    int orderby = 1;
+    int orderbydirection = 1;
+
+
+    var products = dbs.Products.AsQueryable();
+    int GroupCategoryFilter = 0;
+    if (ViewContext.RouteData.Values["id"] != null)
+    { int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out GroupCategoryFilter); }
+    
+    if(GroupCategoryFilter > 0)
+    { products = products.Where(c => c.CategoryId == GroupCategoryFilter); }//first filter category
+    
+    if(Request.QueryString.AllKeys.Contains("searchtext"))
+    { searchtext = Request.QueryString["searchtext"]; }
+    
+    if(!string.IsNullOrWhiteSpace(searchtext))
+    { products = products.Where(p => p.ProductName.Contains(searchtext)); }//filter base on Search key
+
+    if (Request.QueryString.AllKeys.Contains("Orderby") && !string.IsNullOrWhiteSpace(Request.QueryString["Orderby"]))
+    { int.TryParse(Request.QueryString["Orderby"], out orderby); }
+
+    if (Request.QueryString.AllKeys.Contains("OrderDirection") && Request.QueryString["OrderDirection"] == "DESC")
+    { orderbydirection = 2; }
+
+    switch (orderby)
+    {
+        case 2:
+            {
+                if (orderbydirection == 2) { products = products.OrderByDescending(c => (c.ProductPrices.OrderByDescending(p => p.ProductPriceId).FirstOrDefault() != null) ? c.ProductPrices.OrderByDescending(p => p.ProductPriceId).FirstOrDefault().ProductPrice1 : 1); }
+                else { products = products.OrderBy(c => (c.ProductPrices.OrderByDescending(p => p.ProductPriceId).FirstOrDefault() != null) ? c.ProductPrices.OrderByDescending(p => p.ProductPriceId).FirstOrDefault().ProductPrice1 : 1); }
+            }
+            break;
+        case 3:
+            {
+                if (orderbydirection == 2) { products = products.OrderByDescending(c => (c.ProductToViews.Any() && c.ProductToViews.FirstOrDefault().Favorite != null) ? c.ProductToViews.FirstOrDefault().Favorite : 0); }
+                else { products = products.OrderBy(c => (c.ProductToViews.Any() && c.ProductToViews.FirstOrDefault().Favorite != null) ? c.ProductToViews.FirstOrDefault().Favorite : 0); }
+            }
+            break;
+        case 4:
+            {
+                if (orderbydirection == 2) { products = products.OrderByDescending(c => (c.ProductToViews.Any() && c.ProductToViews.FirstOrDefault().Viewd != null) ? c.ProductToViews.FirstOrDefault().Viewd : 0); }
+                else { products = products.OrderBy(c => (c.ProductToViews.Any() && c.ProductToViews.FirstOrDefault().Viewd != null) ? c.ProductToViews.FirstOrDefault().Viewd : 0); }
+            }
+            break;
+        case 5:
+            {
+                if (orderbydirection == 2) { products = products.OrderByDescending(c => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.Product && bi.Id == c.ProductId)); }
+                else { products = products.OrderBy(c => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.Product && bi.Id == c.ProductId)); }
+            }
+            break;
+        case 1:
+        default:
+            {
+                if (orderbydirection == 2) { products = products.OrderByDescending(c => c.ProductId); }
+                else { products = products.OrderBy(c => c.ProductId); }
+            }
+            break;
+    }
+    
+}
+
+
+@section style{ <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" /> }
+
+
+<form method="get">
+    <div id="MainContainerOfFilterAndContent">
+        <div>
+            @*<div id="searchAndFilter">
+
+            </div>*@
+        </div>
+
+        <div id="ItemsContentContainer">
+            <div id="searchsection">
+                <section id="searchInput">
+                    <input type="text" name="searchtext" value="@searchtext"  placeholder="جستجو در میان محصولات"/>
+                    <button type="submit"><span class="gia-search"></span></button>
+                </section>
+
+                <section id="SearchOrderBy">
+                    <span>مرتب سازی بر اساس</span>
+                    <select name="Orderby">
+                        <option value="1" @if (orderby == 1) { Write("selected=\"selected\""); }>تاریخ</option>
+                        <option value="2" @if (orderby == 2) { Write("selected=\"selected\""); }>قیمت</option>
+                        <option value="3" @if (orderby == 3) { Write("selected=\"selected\""); }>محبوبیت</option>
+                        <option value="4" @if (orderby == 4) { Write("selected=\"selected\""); }>بازدید</option>
+                        <option value="5" @if (orderby == 5) { Write("selected=\"selected\""); }>فروش</option>
+                    </select>
+                    به صورت
+                    <input type="radio" name="OrderDirection" value="ASC" @if (orderbydirection == 1) { Write("checked=\"checked\""); } id="OrderDirectionASC" />
+                    <label  for="OrderDirectionASC">صعودی</label>
+                    <input type="radio" name="OrderDirection" value="DESC" @if (orderbydirection == 2) { Write("checked=\"checked\""); } id="OrderDirectionDESC"  />
+                    <label for="OrderDirectionDESC">نزولی</label>
+                </section>
+            </div>
+
+            <div class="listOfProducts" id="ListofcarsShower">
+                @{        
+                    foreach (var item in products)
+                    {
+                        var PicFileUrl = "~/Publics/Gallery/ProductImages/"+ item.ProductId;
+                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+                                
+                        if(finfo.Exists && finfo.GetFiles().Count() > 0)
+                        {
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                                <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                                <section>
+                                    <strong>@item.ProductName</strong><br />
+                                    <small>@item.Category.CategoryName</small><br />
+                                    <small class="price">@if (item.ProductPrices.Any()) {<span>@item.ProductPrices.Last().ProductPrice1</span>}else {<span>0</span>} ریال</small>
+                                </section>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                                <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
+                                <section>
+                                    <strong>@item.ProductName</strong><br />
+                                    <small>@item.Category.CategoryName</small><br />
+                                    <small class="price">@if(@item.ProductPrices.Any()){<span>@item.ProductPrices.Last().ProductPrice1</span>}else{<span>0</span>}</small>
+                                </section>
+                            </a>
+                        }
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+</form>

@@ -5,6 +5,10 @@
     ViewBag.Title = "ویرایش اسلاید شو";
 }
 
+<div style="border-bottom:thin solid #888; margin-bottom:10px;">
+    <a href="@Url.Action("SlideShower_Slides","DashBoard")" class="gia-back">برگشت به صفحه مدیریت اسلاید شوها</a>
+</div>
+
 
 <div>
     <form method="post" >
@@ -22,6 +26,7 @@
             </div>
 
             @Html.input_TextBox(m => m.SlideShow.Url, "لینک")
+            @Html.input_ComboBox(m => m.SlideShow.Type, "انتخاب اسلاید شو", new Dictionary<int, string> { { 1, "اسلاید شو اصلی " }, { 2, "اسلاید شو دوم" } })
         </div>
 
         <div class="inputAction">

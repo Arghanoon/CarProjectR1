@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<MailsMessage_Signup_SendActivationcode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Message>&lt;p&gt;کاربر گرامی [userfullname]&lt;/p&gt;
+&lt;p&gt;ثبت نام شما با موفقیت در سایت انجام شد&lt;/p&gt;
+&lt;p&gt;کد شما [codeonly]&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://localhost:7275/Publics/Filemanager/folder/3840x2160-porsche-15874.jpg" width="300" height="169" /&gt;&lt;/p&gt;
+&lt;p&gt;برای فعال سازی حساب کاربری خود به لینک زیر مراجعه فرمایید&lt;/p&gt;
+&lt;p&gt;[codelink]&lt;/p&gt;
+&lt;p&gt;[urlLink]&lt;/p&gt;</Message>
+</MailsMessage_Signup_SendActivationcode>

@@ -1,863 +1,728 @@
-﻿@model CarProject.Areas.Admin.Models.Cars.NewCar
+﻿@model CarProject.Areas.Admin.Models.Cars.CarsModel
 @using CarProject.App_Code
+@using CarProject.App_extension
 @using System.IO
+@using System.Net
 @{
-    ViewBag.Title = "نایش اطلاعات خودر";
+    ViewBag.Title = "نمایش اطلاعات خودر";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var rand = new Random();
+
+    if (dbs.CarsToViews.Count(c => c.CarsId == Model.Car.CarsId) > 0)
+    {
+        var crtvw = dbs.CarsToViews.FirstOrDefault(c => c.CarsId == Model.Car.CarsId);
+        crtvw.View = (crtvw.View == null) ? 1 : crtvw.View += 1;
+        dbs.SaveChanges();
+    }
+    else
+    {
+        dbs.CarsToViews.Add(new CarProject.DBSEF.CarsToView { CarsId = Model.Car.CarsId, View = 1 });
+        dbs.SaveChanges();
+        //pashmak
+    }
+
+
+    var carstoviewobject = dbs.CarsToViews.FirstOrDefault(c => c.CarsId == Model.Car.CarsId);
+    var carAutoServices = dbs.AutoServices.Where(c => c.CarId == Model.Car.CarsId);
+    var carProducts = dbs.Products.Where(c => c.CarId == Model.Car.CarsId);
+    var SameClassCars = dbs.Cars;
 }
 
 
-<div id="carShowContianer">
-    <div id="content">
-        <h2 class="infoHeader active">اطلاعات عمومی خودرو</h2>
-        <table class="infoTable">
-            <tr>
-                <th>شناسه خودرو</th>
-                <td>@Model.CarGeneral.CarsBrandName</td>
-            </tr>
-            <tr>
-                <th>برند</th>
-                <td>@Model.CarGeneral.CarsBrandName</td>
-            </tr>
-            <tr>
-                <th>کلاس</th>
-                <td>@Model.CarGeneral.CarsClass</td>
-            </tr>
-            <tr>
-                <th>مدل</th>
-                <td>@Model.CarGeneral.CarsModel</td>
-            </tr>
-            <tr>
-                <th>امتیاز کاربران</th>
-                <td>@Model.CarGeneral.CarsUserScore</td>
-            </tr>
-            <tr>
-                <th>امتیاز کلینیک</th>
-                <td>@Model.CarGeneral.CarsClinicScore</td>
-            </tr>
-            <tr>
-                <th>قیمت</th>
-                <td>@Model.CarGeneral.Price</td>
-            </tr>
-            <tr>
-                <th>آدرس ویدئو</th>
-                <td><a href="@Model.CarGeneral.CarsVideoURL">@Model.CarGeneral.CarsVideoURL</a></td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.CarGeneral.CarsDescription</td>
-            </tr>
-            <tr>
-                <th>کلاس کاری</th>
-                <td>@Model.CarGeneral.CarClassType</td>
-            </tr>
-            <tr>
-                <th>دسته بندی</th>
-                <td>@Model.CarGeneral.CarCategory</td>
-            </tr>
-            <tr>
-                <th>کاربر</th>
-                <td>@Model.CarGeneral.CarUsage</td>
-            </tr>
-        </table>
 
-        <h2 class="infoHeader active">موتور</h2>
-        <table class="infoTable">
-            <tr>
-                <th>نوع موتور</th>
-                <td>@Model.CarEngine.EngineType</td>
-            </tr>
-            <tr>
-                <th>تعداد سیلندر</th>
-                <td>@Model.CarEngine.EngineCylinderNumber</td>
-            </tr>
-            <tr>
-                <th>قدرت موتور</th>
-                <td>@Model.CarEngine.EnginePowerHpRpm</td>
-            </tr>
-            <tr>
-                <th>گشتاور</th>
-                <td>@Model.CarEngine.EngineTorque</td>
-            </tr>
-            <tr>
-                <th>توان وزنی</th>
-                <td>@Model.CarEngine.EnginePowerHpTon</td>
-            </tr>
-            <tr>
-                <th>توان خروجی</th>
-                <td>@Model.CarEngine.EnginePowerHpLitr</td>
-            </tr>
-            <tr>
-                <th>0 تا 100</th>
-                <td>@Model.CarEngine.EngineZeroToH</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.CarEngine.EngineDescription</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">گیربکس</h2>
-        <table class="infoTable">
-            <tr>
-                <th>کد گیربکس</th>
-                <td>@Model.CarGearBox.GearBoxCode</td>
-            </tr>
-            <tr>
-                <th>نوع</th>
-                <td>@Model.CarGearBox.GearBoxType</td>
-            </tr>
-            <tr>
-                <th>آیا میتواند به صورت دستی تنظیم شود؟</th>
-                <td>@Model.CarGearBox.GearBoxCanBeManual.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>تعداد دنده</th>
-                <td>@Model.CarGearBox.GearBoxShiftNumber</td>
-            </tr>
-            <tr>
-                <th>محور متحرک</th>
-                <td>@Model.CarGearBox.GearBoxAxel</td>
-            </tr>
-            <tr>
-                <th>آیا دارای کمک گیربکس است؟</th>
-                <td>@Model.CarGearBox.HasTransferCase.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای قفل دیفرانسیل است؟</th>
-                <td>@Model.CarGearBox.GearBoxDiffrentionalLock.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>4WD</th>
-                <td>@Model.CarGearBox.GearBoxWdType</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.CarGearBox.GearBoxDescription</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">مشخصات فیزیکی</h2>
-        <table class="infoTable">
-            <tr>
-                <th>طول خودرو</th>
-                <td>@Model.CarPhysicalDetail.CarLength</td>
-            </tr>
-            <tr>
-                <th>عرض خودرو</th>
-                <td>@Model.CarPhysicalDetail.Carwidth</td>
-            </tr>
-            <tr>
-                <th>ارتفاع خودرو</th>
-                <td>@Model.CarPhysicalDetail.CarHeight</td>
-            </tr>
-            <tr>
-                <th>وزن خالص</th>
-                <td>@Model.CarPhysicalDetail.CarPureWeight</td>
-            </tr>
-            <tr>
-                <th>فاصله دو چرخ یک محور</th>
-                <td>@Model.CarPhysicalDetail.CarTrack</td>
-            </tr>
-            <tr>
-                <th>فاصله دو محور از یکدیگر</th>
-                <td>@Model.CarPhysicalDetail.CarWheelBase</td>
-            </tr>
-            <tr>
-                <th>حجم باک</th>
-                <td>@Model.CarPhysicalDetail.CarTankSize</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.CarPhysicalDetail.Details</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">سیستم سوخت رسانی</h2>
-        <table class="infoTable">
-            <tr>
-                <th>مصرف در شهر</th>
-                <td>@Model.FuelConsumption.LphCity</td>
-            </tr>
-            <tr>
-                <th>مصرف در جاده</th>
-                <td>@Model.FuelConsumption.LphRoad</td>
-            </tr>
-            <tr>
-                <th>سیکل ترکیبی</th>
-                <td>@Model.FuelConsumption.LphMix</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.FuelConsumption.Details</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">سیستم ترمز</h2>
-        <table class="infoTable">
-            <tr>
-                <th>سیستم ترمز جلو</th>
-                <td>@Model.BreakSystem.FrontBrakeSystem</td>
-            </tr>
-            <tr>
-                <th>سیستم ترمز عقب</th>
-                <td>@Model.BreakSystem.RearBrakeSystem</td>
-            </tr>
-            <tr>
-                <th>سیستم های دیگر</th>
-                <td>@Model.BreakSystem.OtherSystem</td>
-            </tr>
-            <tr>
-                <th>سیستم ترمز دستی</th>
-                <td>@Model.BreakSystem.HandBrakeSystem</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.BreakSystem.Details</td>
-            </tr>
-            <tr>
-                <th>جزئیات دیگر</th>
-                <td>
-                    @foreach (var item in Model.DetailedBrakeSystem)
-                    {
-                        <section>@item.DetailedName</section>
-            }
-                </td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">سیستم امنیتی</h2>
-        <table class="infoTable">
-            <tr>
-                <th>آیا دارای ریموت کنترل است؟</th>
-                <td>@Model.SecuritySystem.RemoteControl.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای دزدگیر است؟</th>
-                <td>@Model.SecuritySystem.BurglarAlarm.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای آژیر است؟</th>
-                <td>@Model.SecuritySystem.Alarm.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای سیستم ضد سرقت است؟</th>
-                <td>@Model.SecuritySystem.Emo.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای سیستم استارت بدون کلید است?</th>
-                <td>@Model.SecuritySystem.KeylessStart.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای درهای بازشو بدون کلید است؟</th>
-                <td>@Model.SecuritySystem.KeylessDoor.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.SecuritySystem.Details</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">سیستم فرمان</h2>
-        <table class="infoTable">
-            <tr>
-                <th>نوع</th>
-                <td>@Model.SteeringSystem.SteeringSystemType</td>
-            </tr>
-            <tr>
-                <th>مدل فرمان</th>
-                <td>@Model.SteeringSystem.SteeringType</td>
-            </tr>
-            <tr>
-                <th>امکان تنظیم ارتفاع دارد؟</th>
-                <td>@Model.SteeringSystem.SteeringHeightAdjustble.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای دکمه کنترلی روی فرمان است؟</th>
-                <td>@Model.SteeringSystem.SteeringControlKey.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.SteeringSystem.Details</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">سیستم تهویه هوا</h2>
-        <table class="infoTable">
-            <tr>
-                <th>نوع سیستم تهویه هوا</th>
-                <td>@Model.AirConditioningSystem.AirConditioningType</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.AirConditioningSystem.Details</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">جزئیات سیستم تهویه هوا</h2>
-        <table class="grid1">
-            <thead>
-                <tr>
-                    <th>موضوع</th>
-                    <th>جزئیات</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.AirConditioningSystemDetails)
-                {
-                    <tr>
-                        <td style="font-weight: bold;">@item.AirConditioningSystemDetailSubject</td>
-                        <td>@item.AirConditioningSystemDetail1</td>
-                    </tr>
-        }
-            </tbody>
-        </table>
-
-        <h2 class="infoHeader active">سیستم صوتی</h2>
-        <table class="infoTable">
-            <tr>
-                <th>نوع</th>
-                <td>@Model.CarAudioSystem.AudioSystemType</td>
-            </tr>
-            <tr>
-                <th>برند</th>
-                <td>@Model.CarAudioSystem.AudioSystemBrand</td>
-            </tr>
-            <tr>
-                <th>آیا دارای مانیتور است؟</th>
-                <td>@Model.CarAudioSystem.HasMonitor.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای مانیتور برای سرنشین عقب است؟</th>
-                <td>@Model.CarAudioSystem.RearSeatsMonitor.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای دوربین دنده عقب است؟</th>
-                <td>@Model.CarAudioSystem.RearGearCamera.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای دوربین جلو است؟</th>
-                <td>@Model.CarAudioSystem.FrontCamera.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>مارک باندهای عقب</th>
-                <td>@Model.CarAudioSystem.RearStereo</td>
-            </tr>
-            <tr>
-                <th>مارک باندهای جلو</th>
-                <td>@Model.CarAudioSystem.FrontStereo</td>
-            </tr>
-            <tr>
-                <th>ساب ووفر</th>
-                <td>@Model.CarAudioSystem.Subwoofer</td>
-            </tr>
-            <tr>
-                <th>آمپلی فایر</th>
-                <td>@Model.CarAudioSystem.Amplifire</td>
-            </tr>
-            <tr>
-                <th>آیا دارای سیستم جهت یابی است؟</th>
-                <td>@Model.CarAudioSystem.HasGps.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.CarAudioSystem.Details</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">صندلی ها</h2>
-        <table class="infoTable">
-            <tr>
-                <th>آیا امکان جابه جایی طولی دارد؟</th>
-                <td>@Model.CarSeatOption.LongitudinalDisplacement.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای تنظیم گودی کمر است؟</th>
-                <td>@Model.CarSeatOption.BezelSet.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>گرم کن صندلی دارد؟</th>
-                <td>@Model.CarSeatOption.SeatWarmer.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا مجهز به سیستم ماساژور است؟</th>
-                <td>@Model.CarSeatOption.SeatMassage.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>آیا دارای حافظه است؟</th>
-                <td>@Model.CarSeatOption.HasMemory.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.CarSeatOption.Details</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">شیشه و آینه ها</h2>
-        <table class="infoTable">
-            <tr>
-                <th>سیستم شیشه های جلو</th>
-                <td>@Model.GlassAndMirror.FrontWindscreens</td>
-            </tr>
-            <tr>
-                <th>سیستم شیشه های عقب</th>
-                <td>@Model.GlassAndMirror.RearWindscreens</td>
-            </tr>
-            <tr>
-                <th>سان روف دارد؟</th>
-                <td>@Model.GlassAndMirror.SunRoof.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>سقف پاناروما دارد؟</th>
-                <td>@Model.GlassAndMirror.PanaromaRoof.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>گرمکن شیشه عقب دارد؟</th>
-                <td>@Model.GlassAndMirror.RearGlassWarmer.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>گرمکن شیشه های بقل دارد؟</th>
-                <td>@Model.GlassAndMirror.WindscreensWarmer.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>گرمکن شیشه جلو دارد؟</th>
-                <td>@Model.GlassAndMirror.FrontGlassWarmer.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>تنظیم آینه های بقل</th>
-                <td>@Model.GlassAndMirror.SideMirrorSet</td>
-            </tr>
-            <tr>
-                <th>جمع شدن آینه های بقل</th>
-                <td>@Model.GlassAndMirror.SideMirrorSystem</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.GlassAndMirror.Details</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">سیستم روشنایی</h2>
-        <table class="infoTable">
-            <tr>
-                <th>چراغ های جلو</th>
-                <td>@Model.CarLightingSystem.FrontLights</td>
-            </tr>
-            <tr>
-                <th>چراغ های عقب</th>
-                <td>@Model.CarLightingSystem.RearLights</td>
-            </tr>
-            <tr>
-                <th>دارای دیلایت است؟</th>
-                <td>@Model.CarLightingSystem.DayLight.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>چراغ راهنمای روی آینه های بقل دارد؟</th>
-                <td>@Model.CarLightingSystem.SideMirrorLight.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>دارای مه شکن جلو است؟</th>
-                <td>@Model.CarLightingSystem.FonrAntiFog.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>دارای مه شکن عقب است؟</th>
-                <td>@Model.CarLightingSystem.RearAntiFog.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>چراغ مطالعه دارد؟</th>
-                <td>@Model.CarLightingSystem.ReadingLamp.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>چراغ ترمز سوم دارد؟</th>
-                <td>@Model.CarLightingSystem.ThirdLightStop.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.CarLightingSystem.Deailts</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">سیستم سنوسورهای خودرو</h2>
-        <table class="infoTable">
-            <tr>
-                <th>سنسور روشنایی روز دارد؟</th>
-                <td>@Model.CarSensorsSystem.DayLightSensor.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>سنسور باران دارد؟</th>
-                <td>@Model.CarSensorsSystem.RainSensor.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>سنسور دنده عقب دارد؟</th>
-                <td>@Model.CarSensorsSystem.RearGearSensor.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>سنسور پارک خودرو دارد؟</th>
-                <td>@Model.CarSensorsSystem.ParkSensor.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>سنسور هدایت خودرو دارد؟</th>
-                <td>@Model.CarSensorsSystem.NavigateSensor.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>کروز کنترل دارد؟</th>
-                <td>@Model.CarSensorsSystem.CruiseControl.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>دوربین دنده عقب دارد؟</th>
-                <td>@Model.CarSensorsSystem.RearGearCamera.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.CarSensorsSystem.Details</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">سیستم کیسه هوا</h2>
-        <table class="infoTable">
-            <tr>
-                <th>کسیه هوای راننده دارد؟</th>
-                <td>@Model.CarAirbag.DriverAirBag.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>کیسه هوای شاگرد دارد؟</th>
-                <td>@Model.CarAirbag.FrontAirBag.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>کیسه هوای عقب دارد؟</th>
-                <td>@Model.CarAirbag.AirBag.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>تعداد کیسه هوا</th>
-                <td>@Model.CarAirbag.AirBagEntity</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.CarAirbag.Details</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">رینگ و لاستیک</h2>
-        <table class="infoTable">
-            <tr>
-                <th>نوع</th>
-                <td>@Model.CarWheel.TireType</td>
-            </tr>
-            <tr>
-                <th>سایز استاندارد رینگ</th>
-                <td>@Model.CarWheel.RingStandardSize</td>
-            </tr>
-            <tr>
-                <th>مشخصات تایر</th>
-                <td>@Model.CarWheel.TireSpec</td>
-            </tr>
-            <tr>
-                <th>نوع رینگ</th>
-                <td>@Model.CarWheel.RingType</td>
-            </tr>
-            <tr>
-                <th>مدل رینگ</th>
-                <td>@Model.CarWheel.RingType</td>
-            </tr>
-            <tr>
-                <th>قابلیت کم و زیاد کردن باد به صورت خودکار دارد؟</th>
-                <td>@Model.CarWheel.AutoInflated.YesNoString()</td>
-            </tr>
-            <tr>
-                <th>توضیحات</th>
-                <td>@Model.CarWheel.Details</td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">معایب و مزیای</h2>
-        <table class="infoTable">
-            <tr>
-                <th>مزایا</th>
-                <td>
-                    @foreach (var item in @Model.Advantages)
-                    {
-                        <section>@item</section>
-            }
-                </td>
-            </tr>
-            <tr>
-                <th>معایب</th>
-                <td>
-                    @foreach (var item in @Model.Disadvantages)
-                    {
-                        <section>@item</section>
-            }
-                </td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">بررسی</h2>
-        <table class="infoTable">
-            <tr>
-                <th>امتیاز خودرو</th>
-                <td>@Model.CarsReview.CarScore</td>
-            </tr>
-            <tr>
-                <th>زیبایی</th>
-                <td>@Model.CarsReview.Beauty</td>
-            </tr>
-            <tr>
-                <th>ارزش خرید</th>
-                <td>@Model.CarsReview.WorthBuying</td>
-            </tr>
-            <tr>
-                <th>کیفیت</th>
-                <td>@Model.CarsReview.Quality</td>
-            </tr>
-            <tr>
-                <th>خدمات</th>
-                <td>@Model.CarsReview.Services</td>
-            </tr>
-            <tr>
-                <th>متن بررسی</th>
-                <td>
-                    <p style="margin: 5px;">
-                        @Html.Raw(Model.CarsReviewString)
-                    </p>
-                </td>
-            </tr>
-        </table>
-
-        <h2 class="infoHeader active">جزئیات بررسی</h2>
-        <table class="grid1">
-            <thead>
-                <tr>
-                    <th>موضوع</th>
-                    <th>جزئیات</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.CarsReviewPoint)
-                {
-                    <tr>
-                        <td style="font-weight: bold">@item.CarsReviewSubject</td>
-                        <td>@item.CarsReview</td>
-                    </tr>
-        }
-            </tbody>
-        </table>
-
+<div id="top_LocationNavigation_likedislikecount">
+    <div id="top_LocationNavigation">
+        <a href="/Cars">مشخصات خودروها</a> <span class="gia-left"></span>
+        <a href="/Cars?CarBrand=@Model.Car.CarModel.CarBrandId">@Model.Car.CarModel.CarBrand.CarBrandName</a> <span class="gia-left"></span>
+        <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })">@Model.Car.CarModel.CarModelName</a>
     </div>
 
-    <nav id="navigation">
-        
-        <div id="carImages" class="">
-            <img id="bigImageShower" alt="" onclick="$('#carImages').toggleClass('bigShow');" />
-            <div id="imagesContianer">
-                <div id="images">
-                    @{
-                        var carpath = Model.CarGeneral.CarsId.ToString().BaseRouts_CarImages();
-                        var dir = new DirectoryInfo(Server.MapPath(Model.CarGeneral.CarsId.ToString().BaseRouts_CarImages()));
-                        foreach (var item in dir.GetFiles())
-                        {
-                        <img src="@Url.Content(Path.Combine(carpath, item.Name))" alt="" />
-                        }
-                    }
-                </div>
-                <a href="javascript:void()" onclick="MoveToLeft()" class="leftarrow gia-left"></a>
-                <a href="javascript:void()" onclick="MoveToRight()" class="rightarrow gia-right"></a>
-            </div>
+    <div id="top_likedisklikecount" dir="ltr">
+        <span class="gia-speedometer2" style="font-size:300%;"></span>
+        <div>
+            <a class="gia-like" id="likecountersection" onclick="LikeCurrentCar('@Model.Car.CarsId')">@if (carstoviewobject.Favorite == null)
+                                      {<span>0</span>}
+                                      else
+                                      {<span>@carstoviewobject.Favorite</span>}</a>
         </div>
-
-    </nav>
+        <div dir="rtl">
+            <h3>تعداد بازدید</h3>
+            <p>@carstoviewobject.View</p>
+        </div>
+    </div>
 </div>
 
 
-@section style
+<div id="CarImagesAndDetailsShowSection">
+    <div id="carImages">
+        @if (Model.Car.CarImages.Length > 0)
+        {
+            <div id="carImages_Bigview_Container">
+                <img id="carImages_Bigview" src="@Url.Content(Model.Car.CarImages[0])" />
+            </div>
+            <div id="carImages_ImageThumbnails">
+                <a><h3 class="gia-magnifier" style="font-size: 300%;"></h3></a>
+                <div id="carImages_ImageThumbnailscontainer" class="slideterItemShowContianer">
+                    <div class="itemsContainerBack">
+                        <div class="itemsContainer">
+                            @foreach (var item in Model.Car.CarImages)
+                            {
+                                <a class="item" onclick="document.getElementById('carImages_Bigview').src = '@Url.Content(item)'" >
+                                    <img src="@Url.Content(item)" />
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                    <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                    <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div id="CarDetials">
+        <div id="CarDetails_NameAndYear" class="orangeback">
+            <section>@Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</section>
+            <section>@Model.Car.CarYearModel</section>
+        </div>
+
+        <div id="CarDetails_usercar_Troubleshooting">
+            <a href="/Users/Dashboard/InsertPersonCar/@Model.Car.CarsId" class="orangeback">ثبت به عنوان خودروی کاربر</a>
+            <a href="#" class="orangeback">
+                سامانه عیب یابی <br />
+                @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName
+            </a>
+        </div>
+
+        @if (carAutoServices.Any())
+        {
+            <div id="CarDetails_CarServices" class="slideterItemShowContianer">
+                <h3 class="title">خدمات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
+                <div class="itemsContainerBack">
+                    <div class="itemsContainer">
+                        @foreach (var item in carAutoServices)
+                        {
+                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (item.AutoServiceImages.Length > 0)
+                            {
+                                src = item.AutoServiceImages[0];
+                            }
+                            <a href="#" class="item">
+                                <img src="@Url.Content(src)" alt />
+                                <span>@item.AutoServiceName</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+            </div>
+        }
+
+
+        @if (carProducts.Any())
+        {
+            <div id="CarDetails_CarProducts" class="slideterItemShowContianer">
+                <h3 class="title">محصولات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
+                <div class="itemsContainerBack">
+                    <div class="itemsContainer">
+                        @foreach (var item in carProducts)
+                        {
+                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (item.ProductImages.Length > 0)
+                            {
+                                src = item.ProductImages[0];
+                            }
+                            <a href="#" class="item">
+                                <img src="@Url.Content(src)" alt />
+                                <span>@item.ProductName</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+
+<div id="SameClassCars">
+    <div id="CarDetails_SameClassCars" class="slideterItemShowContianer">
+                <h3 class="title">خودروهای هم کلاس</h3>
+                <div class="itemsContainerBack">
+                    <div class="itemsContainer">
+                        @foreach (var item in SameClassCars)
+                        {
+                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (item.CarImages.Length > 0)
+                            {
+                                src = item.CarImages[0];
+                            }
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
+                                <img src="@Url.Content(src)" alt="" />
+                                <span>@item.CarModel.CarBrand.CarBrandName  @item.CarModel.CarModelName</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+            </div>
+</div>
+
+<div id="CarDifention">
+    <h3>معرفی @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarBrand.CarBrandName</h3>
+    <p>@Model.Car.CarsDescription</p>
+</div>
+
+
+<div id="CarDetailsInformation">
+
+    <div id="CarDetailsInformation_column1">
+        <div class="carinfo" data-index="0">
+                <h3>اطلاعات عمومی خودرو</h3>
+                <table>
+                    <tr>
+                        <th>کلاس</th>
+                        <td>@Model.Car.CarsClass</td>
+                    </tr>
+                    <tr>
+                        <th>مدل</th>
+                        <td>@Model.Car.CarModel.CarModelName</td>
+                    </tr>
+                    <tr>
+                        <th>قیمت</th>
+                        <td>@Model.Car.Price ملیون تومان</td>
+                    </tr>
+                    <tr>
+                        <th>کابرد</th>
+                        <td>@Model.Car.CarUsage</td>
+                    </tr>
+                </table>
+            </div>
+
+        <div class="carinfo" data-index="2">
+            <h3>گیربکس</h3>
+            <table>
+                <tr>
+                    <th>نوع</th>
+                    <td>@Model.GearBox.GearBoxType</td>
+                </tr>
+                <tr>
+                    <th>تبدیل به دنده دستی</th>
+                    <td> <span class="checked_@Model.GearBox.GearBoxCanBeManual.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>شیفتر پشت فرمان</th>
+                    <td><span class="checked_@Model.GearBox.GearBoxShifter.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>تعداد دنده</th>
+                    <td>@Model.GearBox.GearBoxShiftNumber</td>
+                </tr>
+                <tr>
+                    <th>محور متحرک</th>
+                    <td>@Model.GearBox.GearBoxAxel</td>
+                </tr>
+                <tr>
+                    <th>کمک گیرباکس</th>
+                    <td><span class="checked_@Model.GearBox.HasTransferCase.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>قفل دیفرانسیل</th>
+                    <td><span class="checked_@Model.GearBox.GearBoxDiffrentionalLock.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.GearBox.GearBoxDescription</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="4">
+            <h3>سیستم امنیتی</h3>
+            <table>
+                <tr>
+                    <th>ریموت کنترل</th>
+                    <td><span class="checked_@Model.SecuritySystem.RemoteControl.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>دزدگیر</th>
+                    <td><span class="checked_@Model.SecuritySystem.BurglarAlarm.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>ایمبولایزر</th>
+                    <td><span class="checked_@Model.SecuritySystem.Emo.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>keyless starter</th>
+                    <td><span class="checked_@Model.SecuritySystem.KeylessStart.ToString()"></span></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="6">
+            <h3>سیستم تهویه هوا</h3>
+            <table>
+                <tr>
+                    <th>نوع تهویه</th>
+                    <td>@Model.AirConditioningSystem.AirConditioningType</td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.AirConditioningSystem.Details</td>
+                </tr>
+                @foreach (var item in Model.AirConditioningSystemDetails)
+                {
+                    <tr>
+                        <th>@item.AirConditioningSystemDetailSubject</th>
+                        <td>@item.AirConditioningSystemDetail1</td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="8">
+            <h3>صندلی ها</h3>
+            <table>
+                <tr>
+                    <th>تنظیم ارتفاع صندلی</th>
+                    <td><span class="checked_@Model.CarSeatOption.LongitudinalDisplacement.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>تنظیم گودی کمر</th>
+                    <td><span class="checked_@Model.CarSeatOption.BezelSet.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>گرمکن صندلی</th>
+                    <td><span class="checked_@Model.CarSeatOption.SeatWarmer.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>ماساژور</th>
+                    <td><span class="checked_@Model.CarSeatOption.SeatMassage.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>حافظه</th>
+                    <td><span class="checked_@Model.CarSeatOption.HasMemory.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.CarSeatOption.Details</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="10">
+            <h3>سیستم روشنایی</h3>
+            <table>
+                <tr>
+                    <th>چراغ های جلو</th>
+                    <td>@Model.CarLightingSystem.FrontLights</td>
+                </tr>
+                <tr>
+                    <th>دیلایت</th>
+                    <td><span class="checked_@Model.CarLightingSystem.DayLight.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>راهنما روی آینه بقل</th>
+                    <td><span class="checked_@Model.CarLightingSystem.SideMirrorLight.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>مه شکن جلو</th>
+                    <td><span class="checked_@Model.CarLightingSystem.FonrAntiFog.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>مه شکن عقب</th>
+                    <td><span class="checked_@Model.CarLightingSystem.RearAntiFog.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>چراغ مطالعه</th>
+                    <td><span class="checked_@Model.CarLightingSystem.ReadingLamp.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.CarLightingSystem.Deailts</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="12">
+            <h3>سیستم کیسه های هوا</h3>
+            <table>
+                <tr>
+                    <th>راننده</th>
+                    <td><span class="checked_@Model.CarAirbag.DriverAirBag.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>سرنشین جلو</th>
+                    <td><span class="checked_@Model.CarAirbag.FrontAirBag.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>جانبی و پرده ای</th>
+                    <td><span class="checked_@Model.CarAirbag.AirBag.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>تعداد کسیه هوا</th>
+                    <td>@Model.CarAirbag.AirBagEntity</td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.CarAirbag.Details</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div id="CarDetailsInformation_column2">
+        <div class="carinfo" data-index="1">
+            <h3>موتور</h3>
+            <table>
+                <tr>
+                    <th>نوع موتور</th>
+                    <td>@Model.CarEngine.EngineType</td>
+                </tr>
+                <tr>
+                    <th>قدرت موتور</th>
+                    <td>@Model.CarEngine.EnginePowerHpRpm اسب بخار</td>
+                </tr>
+                <tr>
+                    <th>گشتاور</th>
+                    <td>@Model.CarEngine.EngineTorque</td>
+                </tr>
+                <tr>
+                    <th>حداکثر سرعت</th>
+                    <td>@Model.CarEngine.EngineMaxSpeed</td>
+                </tr>
+                <tr>
+                    <th>0 تا 100</th>
+                    <td>@Model.CarEngine.EngineZeroToH ثانیه</td>
+                </tr>
+                <tr>
+                    <th>حجم موتور</th>
+                    <td>@Model.CarEngine.EngineSize cc</td>
+                </tr>
+                <tr>
+                    <th>تعداد سیلندر</th>
+                    <td>@Model.CarEngine.EngineCylinderNumber</td>
+                </tr>
+                <tr>
+                    <th>سوخت مصرفی</th>
+                    <td>@Model.CarEngine.EngineFuel</td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.CarEngine.EngineDescription</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="3">
+            <h3>سیستم سوخت رسانی</h3>
+            <table>
+                <tr>
+                    <th>مصرف در شهر</th>
+                    <td>@Model.FuelConsumption.LphCity <small>لیتر در 100 کیلومتر</small></td>
+                </tr>
+                <tr>
+                    <th>مصرف در جاده</th>
+                    <td>@Model.FuelConsumption.LphRoad <small>لیتر در 100 کیلومتر</small></td>
+                </tr>
+                <tr>
+                    <th>مصرف سوخت ترکیبی</th>
+                    <td>@Model.FuelConsumption.LphMix <small>لیتر در 100 کیلومتر</small></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.FuelConsumption.Details توضیحات</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="5">
+            <h3>سیستم فرمان</h3>
+            <table>
+                <tr>
+                    <th>نوع</th>
+                    <td>@Model.SteeringSystem.SteeringSystemType</td>
+                </tr>
+                <tr>
+                    <th>امکان تنظیم ارتفاع</th>
+                    <td><span class="checked_@Model.SteeringSystem.SteeringHeightAdjustble.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>دکمه کنترل روی فرمان</th>
+                    <td><span class="checked_@Model.SteeringSystem.SteeringControlKey.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.SteeringSystem.Details</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="7">
+            <h3>سیستم صوتی و تصویری</h3>
+            <table>
+                <tr>
+                    <th>مانیتور</th>
+                    <td><span class="checked_@Model.CarAudioSystem.HasMonitor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>مانیتور صندلی عقب</th>
+                    <td><span class="checked_@Model.CarAudioSystem.RearSeatsMonitor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>دوربین عقب</th>
+                    <td><span class="checked_@Model.CarAudioSystem.RearGearCamera.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>دوربین جلو</th>
+                    <td><span class="checked_@Model.CarAudioSystem.FrontCamera.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>سیستم ناوبری</th>
+                    <td><span class="checked_@Model.CarAudioSystem.HasGps.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="9">
+            <h3>شیشه و آینه ها</h3>
+            <table>
+                <tr>
+                    <th>شیشه های عقب</th>
+                    <td>@Model.GlassAndMirror.RearWindscreens</td>
+                </tr>
+                <tr>
+                    <th>شیشه های جلو</th>
+                    <td>@Model.GlassAndMirror.FrontWindscreens</td>
+                </tr>
+                <tr>
+                    <th>سانروف</th>
+                    <td><span class="checked_@Model.GlassAndMirror.SunRoof.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>سقف پانورما</th>
+                    <td><span class="checked_@Model.GlassAndMirror.PanaromaRoof.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>گرمکن شیشه عقب</th>
+                    <td><span class="checked_@Model.GlassAndMirror.RearGlassWarmer.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>گرمکن شیشه های بقل</th>
+                    <td><span class="checked_@Model.GlassAndMirror.WindscreensWarmer.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>گرمکن شیشه جلو</th>
+                    <td><span class="checked_@Model.GlassAndMirror.FrontGlassWarmer.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>تنظیم آینه های بقل</th>
+                    <td>@Model.GlassAndMirror.SideMirrorSet</td>
+                </tr>
+                <tr>
+                    <th>جمع شدن آینه های بقل</th>
+                    <td>@Model.GlassAndMirror.SideMirrorSystem</td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.GlassAndMirror.Details</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="11">
+            <h3>سیستم سنسورهای خودرو</h3>
+            <table>
+                <tr>
+                    <th>روشنایی روز</th>
+                    <td><span class="checked_@Model.CarSensorsSystem.DayLightSensor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>باران</th>
+                    <td><span class="checked_@Model.CarSensorsSystem.RainSensor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>دنده عقب</th>
+                    <td><span class="checked_@Model.CarSensorsSystem.RearGearSensor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>پارک</th>
+                    <td><span class="checked_@Model.CarSensorsSystem.ParkSensor.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>کروز کنترل</th>
+                    <td><span class="checked_@Model.CarSensorsSystem.CruiseControl.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.CarSensorsSystem.Details</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="carinfo" data-index="13">
+            <h3>تایرها</h3>
+            <table>
+                <tr>
+                    <th>سایز استادندارد رینگ</th>
+                    <td>@Model.CarWheel.RingStandardSize</td>
+                </tr>
+                <tr>
+                    <th>کنترل اتوماتیک باد تایرها</th>
+                    <td><span class="checked_@Model.CarWheel.AutoInflated.ToString()"></span></td>
+                </tr>
+                <tr>
+                    <th>توضیحات</th>
+                    <td>@Model.CarWheel.Details</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="CarReviewSection">
+    <h3>نقدر و بررسی تخصصی خودرو</h3>
+    <div id="CarReviewSectionHTML" style="align-self:stretch;">
+        @Html.Raw(Model.CarsReview.Review)
+    </div>
+</div>
+
+@if(CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
 {
-<style>
-#carShowContianer {
-    display:flex;
-    justify-content:space-between;
-    align-items:stretch;
-    flex-direction:row-reverse;
+    <div id="usersCommentsSection">
+        <h3 style="align-self:flex-start;">نظرات کاربران</h3>
+        @try
+        {
+            var msg = ViewBag.error["success"];
+            <section style="color:white; text-shadow:0 0 1px lawngreen; text-align:center;">
+                @msg
+            </section>
+        }
+        catch
+        {
+            <form method="post">
+                <input type="hidden" id="responsecommentid" name="responsecommentid" value="@Request.Form["responsecommentid"]" />
+
+                <div class="inputsContainer">
+                    <section class="input @if (Request.Form.AllKeys.Contains("responsecommentid") && !string.IsNullOrEmpty(Request.Form["responsecommentid"])) { Write("show"); }" id="replayComment">
+                        <label>پاسخ به پیام کاربر</label>
+                        <input type="text" name="usernameCommentReply" id="usernameCommentReply" value="@Request.Form["usernameCommentReply"]" />
+                    </section>
+                    <section class="input">
+                        <label> پیام</label>
+                        <textarea  name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                        <span>@try
+                              { @ViewBag.error["comment"] }
+                              catch { }</span>
+                    </section>
+                </div>
+                <center>
+                    <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
+                    <span style="color:red">@try
+                                            { @ViewBag.error["g-recaptcha-response"] }
+                                            catch { }</span>
+                </center>
+                <div class="inputAction">
+                    <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
+                </div>
+            </form>
+        }
+    </div>
 }
 
-    #content {
-        flex:1;
-        margin:5px;
-        padding:5px;
-        background:#F9F9F9;
-    }
+<div id="UsersOldComments">
+    @CreateCommentSection(null, Model.Car.CarsId, dbs)
+</div>
 
-    #navigation {
-        margin:5px;
-        padding:5px;
-
-        width:300px;
-    }
-
-     td section {
-            display:block;
-            padding:5px;
-            margin:5px;
-
-            background:#eee;
-        }
-
-        .infoHeader {
-            cursor: pointer;
-        }
-            .infoHeader:before {
-                font-family:giadmin;
-	            display:inline-block;
-	            margin:0 3px;
-	            direction:ltr;
-                font-size:70%;
-                content:'\0047';
-            }
-            .infoHeader.active:before {
-                content:'\0048';
-            }
-
-        .infoHeader + .infoTable,
-        .infoHeader + .grid1 {
-            display: none;
-        }
-
-        .infoHeader.active + .infoTable,
-        .infoHeader.active + .grid1 {
-            display: inherit;
-        }
-
-
-
-    #carImages {
+@functions{
+    MvcHtmlString CreateCommentSection(int? rootid,int carid, CarProject.DBSEF.CarAutomationEntities dbs)
+    {
+        string res = "";
         
-        background:white;
-        animation:carImages;
-        animation-duration: 1s;
-        animation-timing-function:ease-in-out;
-    }
-    @@keyframes carImages{
-        from {
-            transform:scale(2,2);
+        foreach (var item in dbs.CarUserComments.Where(c => c.CarId == carid && c.RootCarUserCommentsId == rootid))
+        {
+            res += string.Format("<div class=\"cmntmessage\">");
+            {
+                res += string.Format("<div class=\"messageContent\">");
+                {
+                    res += string.Format("<strong class=\"username\">{0}</strong>", (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+
+                    res += string.Format("<section class=\"commentsection\">");
+                    {
+                        res += string.Format("<section class=\"comment\">{0}</section>", item.Comment);
+
+                        res += string.Format("<section class=\"commentActionAndInfo\">");
+                        {
+                            res += string.Format("<section class=\"commentInfo\">");
+                            {
+                            }
+                            res += "</section>";
+
+
+                            res += string.Format("<section class=\"commentAction\">");
+                            {
+                                res += string.Format("<a class=\"gia-back\" onclick=\"CommentMessageReply('{0}','{1}')\"></a>", item.CarUserCommentsId, (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+                            }
+                            res += "</section>";
+                        }
+                        res += "</section>";
+                    }
+                    res += "</section>";
+                }
+                res += "</div>";
+
+                res += CreateCommentSection(item.CarUserCommentsId, carid, dbs);
+            }
+            res += "</div>";
         }
-        to {
-            transform:scale(1,1);
-        }
+        
+        return new MvcHtmlString(res);
     }
+}
 
-        #carImages.bigShow {
-            position:fixed;
-            width:90vw;
-            height:90vh;
+@section style
+{
+    <meta name="description" content="مشخصات خودرو @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName @Model.Car.CarYearModel" />
+    <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
-            top:0; bottom:0; left:0; right:0;
-            margin:auto;
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName.Trim(), info2 = Model.Car.CarModel.CarModelName.Trim() }, Request.Url.Scheme)" />
 
-            padding:5px;
-            border:thin solid #888;
-            box-shadow:0 0 2px 0 #888;
+    
+    <link href="~/Publics/Files/ControlsPageTemplates/Cars/Car/SliderItemShow.css" rel="stylesheet" />
+    <script src="~/Publics/Files/ControlsPageTemplates/Cars/Car/SliderItemShow.js"></script>
 
-            display:flex;
-            justify-content:space-between;
-            
-            flex-direction:column;
+    <link href="~/Publics/Files/ControlsPageTemplates/Cars/Car/css.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
 
-            animation:carImages_bigshow;
-            animation-duration: 1s;
-            animation-timing-function:ease-in-out;
-        } 
-        @@keyframes carImages_bigshow{
-        from {
-            transform:scale(0.1,0.1);
-        }
-        to {
-            transform:scale(1,1);
-        }
-    }
-
-    #bigImageShower {
-        width:290px;
-        height:auto;
-        cursor:url(Publics/Files/Images/zoomin.png), pointer;
-    }
-
-    #carImages.bigShow #bigImageShower {
-        width:100%;
-        max-height:100%;
-    }
-
-    #carImages.bigShow #imagesContianer {
-        position:absolute;
-        bottom:0; left:0; right:0;
-        background:rgba(0,0,0,0.6);
-        opacity:0.4;
-
-        transition:ease-in-out 0.2s;
-    }
-        #carImages.bigShow #imagesContianer:hover {
-            opacity:1;
-        }
-
-    #imagesContianer #images {
-        display:flex;
-        overflow:hidden;
-    }
-
-    #carImages.bigShow #imagesContianer #images {
-        justify-content:center;
-    }
-
-    #imagesContianer #images img {
-        display:inline-block;
-        width:68px;
-        height:48px;
-        margin:0 2.5px;
-
-        cursor:pointer;
-        border-radius:2px;
-        border:thin solid #888;
-    }
-        #imagesContianer .leftarrow,
-        #imagesContianer .rightarrow {
-            position:absolute; top:0; bottom:0; margin:auto;
-            display:flex; justify-content:center; align-items:center;
-            background:rgba(0,0,0,0.6);
-            opacity:0;
-            color:white;
-        }
-        #imagesContianer:hover .leftarrow,
-        #imagesContianer:hover .rightarrow {
-            opacity:1;
-        }
-        #imagesContianer .leftarrow {
-            left:0;
-        }
-        #imagesContianer .rightarrow {
-            right:0;
-        }
-</style>
+    
 }
 
 @section script
 {
-    <script>
-        $(".infoHeader").click(function (e) {
-            $(this).toggleClass("active");
-        });
+    <script src="~/Publics/Files/ControlsPageTemplates/Cars/Car/scirpt.js"></script>
+}
 
-        function MoveToLeft() {
-            con = document.getElementById("images");
-            imgs = con.getElementsByTagName("img");
-            el = imgs[imgs.length - 1];
-            con.removeChild(el);
-            con.insertBefore(el,imgs[0]);
-        }
-        function MoveToRight() {
-            con = document.getElementById("images");
-            el = con.getElementsByTagName("img")[0];
-            con.removeChild(el);
-            con.appendChild(el);
-        }
 
-        $("#images img").click(function () { document.getElementById("bigImageShower").src = $(this).attr("src");});
-        document.getElementById("bigImageShower").src = document.getElementById("images").getElementsByTagName("img")[0].src;
-        
-    </script>
+@if (Request.Form.AllKeys.Contains("SendACommentRequest"))
+{
+    <script>window.location = "#usersCommentsSection"</script> 
 }

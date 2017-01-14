@@ -17,22 +17,17 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Troubleshooting()
         {
-            this.Troubleshooting1 = new HashSet<Troubleshooting>();
+            this.Products = new HashSet<Product>();
         }
     
         public int TroubleshootingId { get; set; }
-        public string Question { get; set; }
-        public string Answer { get; set; }
-        public Nullable<bool> AnswerYesOrNo { get; set; }
-        public Nullable<bool> HasFather { get; set; }
-        public Nullable<int> FatherId { get; set; }
-        public Nullable<bool> HasProduct { get; set; }
-        public Nullable<int> ProductId { get; set; }
-        public Nullable<int> ServicePrice { get; set; }
+        public Nullable<byte> Type { get; set; }
+        public string Subject { get; set; }
+        public string Describe { get; set; }
+        public Nullable<int> TroubleshootinParentId { get; set; }
+        public string Price { get; set; }
     
-        public virtual Product Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Troubleshooting> Troubleshooting1 { get; set; }
-        public virtual Troubleshooting Troubleshooting2 { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

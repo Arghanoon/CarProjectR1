@@ -28,7 +28,12 @@
                     <tr>
                         <th>آخرین قیمت</th>
                         <td>@if (@item.ProductPrices.Count > 0)
-                            {@item.ProductPrices.Last().ProductPrice1}</td>
+                            {@item.ProductPrices.Last().ProductPrice1.GetValueOrDefault(0)}</td>
+                    </tr>
+                     <tr>
+                        <th>آخرین هزینه نصب</th>
+                        <td>@if (@item.ProductPrices.Count > 0)
+                            {@item.ProductPrices.Last().InstallPrice.GetValueOrDefault(0)}</td>
                     </tr>
                 </table>
                 <div class="action">
@@ -36,6 +41,7 @@
                     <a href="javascript:void(0)" class="gia-remove"></a>
                     <a href="@Url.Action("Products_Review", "Store", new { id = item.ProductId })" class="gia-article"></a>
                     <a href="@Url.Action("Products_Gallery", "Store", new { id = item.ProductId })" class="gia-images"></a>
+                    <a href="@Url.Action("Products_CostList", "Store", new { id = item.ProductId })" class="gia-price2" title="لیست قیمت ها"></a>
                 </div>
             </div>
         }

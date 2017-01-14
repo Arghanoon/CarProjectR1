@@ -44,6 +44,7 @@
                     background: #eaeaea;
                     width:0;
                     white-space:nowrap;
+                    text-align:right;
                 }
 
                 .itemContainer .item .action {
@@ -64,7 +65,13 @@
                     }
                     .itemContainer .item .action a {
                         color:#eaeaea;
+                        font-size:80%;
+                        display:flex; justify-content:center; align-items:center;
+                        margin:3.5px;
                     }
+                        .itemContainer .item .action a:before {
+                            font-size:140%;
+                        }
                         .itemContainer .item .action a:hover {
                             color:white;
                         }

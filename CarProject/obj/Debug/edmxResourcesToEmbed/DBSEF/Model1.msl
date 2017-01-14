@@ -48,6 +48,7 @@
           <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
           <ScalarProperty Name="AutoServicePackName" ColumnName="AutoServicePackName" />
           <ScalarProperty Name="PackPrice" ColumnName="PackPrice" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -60,19 +61,40 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BasketItems">
+      <EntityTypeMapping TypeName="CarAutomationModel.BasketItem">
+        <MappingFragment StoreEntitySet="BasketItems">
+          <ScalarProperty Name="BasketItemId" ColumnName="BasketItemId" />
+          <ScalarProperty Name="BasketId" ColumnName="BasketId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="ProductEachPrice" ColumnName="ProductEachPrice" />
+          <ScalarProperty Name="ProductEachPaidPrice" ColumnName="ProductEachPaidPrice" />
+          <ScalarProperty Name="ToatoalPaidPrice" ColumnName="ToatoalPaidPrice" />
+          <ScalarProperty Name="PriceFlag" ColumnName="PriceFlag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Baskets">
       <EntityTypeMapping TypeName="CarAutomationModel.Basket">
-        <MappingFragment StoreEntitySet="Basket">
+        <MappingFragment StoreEntitySet="Baskets">
           <ScalarProperty Name="BasketId" ColumnName="BasketId" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+          <ScalarProperty Name="DelivaryDate" ColumnName="DelivaryDate" />
+          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+          <ScalarProperty Name="DelivaryTypeId" ColumnName="DelivaryTypeId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="date" ColumnName="date" />
-          <ScalarProperty Name="BasketCode" ColumnName="BasketCode" />
-          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-          <ScalarProperty Name="OnlineOrInPlace" ColumnName="OnlineOrInPlace" />
-          <ScalarProperty Name="BackCodeFromBank" ColumnName="BackCodeFromBank" />
-          <ScalarProperty Name="DateToDeliver" ColumnName="DateToDeliver" />
-          <ScalarProperty Name="HourToDeliver" ColumnName="HourToDeliver" />
-          <ScalarProperty Name="IsFinished" ColumnName="IsFinished" />
+          <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+          <ScalarProperty Name="LocalCode" ColumnName="LocalCode" />
+          <ScalarProperty Name="DiscountId" ColumnName="DiscountId" />
+          <ScalarProperty Name="ReciverFullname" ColumnName="ReciverFullname" />
+          <ScalarProperty Name="ReciverTell" ColumnName="ReciverTell" />
+          <ScalarProperty Name="ReciverMobile" ColumnName="ReciverMobile" />
+          <ScalarProperty Name="ReciverAddress" ColumnName="ReciverAddress" />
+          <ScalarProperty Name="ReciverWorkplace" ColumnName="ReciverWorkplace" />
+          <ScalarProperty Name="TimeOfDayId" ColumnName="TimeOfDayId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -131,6 +153,48 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CarComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarComment">
+        <MappingFragment StoreEntitySet="CarComments">
+          <ScalarProperty Name="CarCommentsId" ColumnName="CarCommentsId" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="canshow" ColumnName="canshow" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+          <ScalarProperty Name="Response" ColumnName="Response" />
+          <ScalarProperty Name="ResponseDateTime" ColumnName="ResponseDateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarDetails">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarDetail">
+        <MappingFragment StoreEntitySet="CarDetails">
+          <ScalarProperty Name="CarDetailsId" ColumnName="CarDetailsId" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="OilChangeDate" ColumnName="OilChangeDate" />
+          <ScalarProperty Name="OilChangeMilage" ColumnName="OilChangeMilage" />
+          <ScalarProperty Name="OilFiltersChangeDate" ColumnName="OilFiltersChangeDate" />
+          <ScalarProperty Name="OilFilterChangeMilage" ColumnName="OilFilterChangeMilage" />
+          <ScalarProperty Name="GearBoxOilChangeDate" ColumnName="GearBoxOilChangeDate" />
+          <ScalarProperty Name="GearBoxOilChangeMilage" ColumnName="GearBoxOilChangeMilage" />
+          <ScalarProperty Name="AirFilterChangeDate" ColumnName="AirFilterChangeDate" />
+          <ScalarProperty Name="AirFilterChangeMilage" ColumnName="AirFilterChangeMilage" />
+          <ScalarProperty Name="TiresChangeDate" ColumnName="TiresChangeDate" />
+          <ScalarProperty Name="TiresChangeMilage" ColumnName="TiresChangeMilage" />
+          <ScalarProperty Name="TimingbeltChangeDate" ColumnName="TimingbeltChangeDate" />
+          <ScalarProperty Name="TimingbeltChangeMilage" ColumnName="TimingbeltChangeMilage" />
+          <ScalarProperty Name="OtherBeltsChangeDate" ColumnName="OtherBeltsChangeDate" />
+          <ScalarProperty Name="OtherBeltsChangeMilage" ColumnName="OtherBeltsChangeMilage" />
+          <ScalarProperty Name="FrontBrakePadsChangeDate" ColumnName="FrontBrakePadsChangeDate" />
+          <ScalarProperty Name="FrontBrakePadsChangeMilage" ColumnName="FrontBrakePadsChangeMilage" />
+          <ScalarProperty Name="RearBreakePadsChangeDate" ColumnName="RearBreakePadsChangeDate" />
+          <ScalarProperty Name="RearBrakePadsChangeMilage" ColumnName="RearBrakePadsChangeMilage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="CarEngines">
       <EntityTypeMapping TypeName="CarAutomationModel.CarEngine">
         <MappingFragment StoreEntitySet="CarEngine">
@@ -157,6 +221,7 @@
           <ScalarProperty Name="GearBoxCode" ColumnName="GearBoxCode" />
           <ScalarProperty Name="GearBoxType" ColumnName="GearBoxType" />
           <ScalarProperty Name="GearBoxCanBeManual" ColumnName="GearBoxCanBeManual" />
+          <ScalarProperty Name="GearBoxShifter" ColumnName="GearBoxShifter" />
           <ScalarProperty Name="GearBoxShiftNumber" ColumnName="GearBoxShiftNumber" />
           <ScalarProperty Name="GearBoxAxel" ColumnName="GearBoxAxel" />
           <ScalarProperty Name="HasTransferCase" ColumnName="HasTransferCase" />
@@ -224,6 +289,7 @@
         <MappingFragment StoreEntitySet="Cars">
           <ScalarProperty Name="CarsId" ColumnName="CarsId" />
           <ScalarProperty Name="CarModelId" ColumnName="CarModelId" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
           <ScalarProperty Name="CarsClass" ColumnName="CarsClass" />
           <ScalarProperty Name="CarsUserScore" ColumnName="CarsUserScore" />
           <ScalarProperty Name="CarsClinicScore" ColumnName="CarsClinicScore" />
@@ -324,6 +390,33 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CarsToViews">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarsToView">
+        <MappingFragment StoreEntitySet="CarsToView">
+          <ScalarProperty Name="CarsToViewId" ColumnName="CarsToViewId" />
+          <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="View" ColumnName="View" />
+          <ScalarProperty Name="Favorite" ColumnName="Favorite" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarUserComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.CarUserComment">
+        <MappingFragment StoreEntitySet="CarUserComments">
+          <ScalarProperty Name="CarUserCommentsId" ColumnName="CarUserCommentsId" />
+          <ScalarProperty Name="CarId" ColumnName="CarId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="RootCarUserCommentsId" ColumnName="RootCarUserCommentsId" />
+          <ScalarProperty Name="CarRating" ColumnName="CarRating" />
+          <ScalarProperty Name="Beautifully" ColumnName="Beautifully" />
+          <ScalarProperty Name="Worthly" ColumnName="Worthly" />
+          <ScalarProperty Name="Quality" ColumnName="Quality" />
+          <ScalarProperty Name="Services" ColumnName="Services" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="CarWheels">
       <EntityTypeMapping TypeName="CarAutomationModel.CarWheel">
         <MappingFragment StoreEntitySet="CarWheels">
@@ -407,12 +500,35 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ContetComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.ContetComment">
+        <MappingFragment StoreEntitySet="ContetComments">
+          <ScalarProperty Name="ContentCommentsId" ColumnName="ContentCommentsId" />
+          <ScalarProperty Name="ContentsId" ColumnName="ContentsId" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Countries">
       <EntityTypeMapping TypeName="CarAutomationModel.Country">
         <MappingFragment StoreEntitySet="Country">
           <ScalarProperty Name="CountryId" ColumnName="CountryId" />
           <ScalarProperty Name="CountryShortName" ColumnName="CountryShortName" />
           <ScalarProperty Name="CountryLongName" ColumnName="CountryLongName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DaysOfWeeks">
+      <EntityTypeMapping TypeName="CarAutomationModel.DaysOfWeek">
+        <MappingFragment StoreEntitySet="DaysOfWeek">
+          <ScalarProperty Name="DaysOfWeekId" ColumnName="DaysOfWeekId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -468,6 +584,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="HomePageMenus">
+      <EntityTypeMapping TypeName="CarAutomationModel.HomePageMenu">
+        <MappingFragment StoreEntitySet="HomePageMenu">
+          <ScalarProperty Name="HomePageMenuId" ColumnName="HomePageMenuId" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Target" ColumnName="Target" />
+          <ScalarProperty Name="RootHomePageMenuId" ColumnName="RootHomePageMenuId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Manufactures">
       <EntityTypeMapping TypeName="CarAutomationModel.Manufacture">
         <MappingFragment StoreEntitySet="Manufacture">
@@ -476,6 +603,17 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="ManufacturePhon" ColumnName="ManufacturePhon" />
           <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MarketingMails">
+      <EntityTypeMapping TypeName="CarAutomationModel.MarketingMail">
+        <MappingFragment StoreEntitySet="MarketingMails">
+          <ScalarProperty Name="MarketingMailId" ColumnName="MarketingMailId" />
+          <ScalarProperty Name="Recivers" ColumnName="Recivers" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -500,9 +638,23 @@
           <ScalarProperty Name="PersonCarDetailId" ColumnName="PersonCarDetailId" />
           <ScalarProperty Name="PersonCarId" ColumnName="PersonCarId" />
           <ScalarProperty Name="LastOilChange" ColumnName="LastOilChange" />
-          <ScalarProperty Name="LastFiltersChange" ColumnName="LastFiltersChange" />
           <ScalarProperty Name="LastOilChangeMilage" ColumnName="LastOilChangeMilage" />
-          <ScalarProperty Name="LastFilterChangeMilage" ColumnName="LastFilterChangeMilage" />
+          <ScalarProperty Name="LastOilFiltersChange" ColumnName="LastOilFiltersChange" />
+          <ScalarProperty Name="LastOilFilterChangeMilage" ColumnName="LastOilFilterChangeMilage" />
+          <ScalarProperty Name="LastGearBoxOilChange" ColumnName="LastGearBoxOilChange" />
+          <ScalarProperty Name="LastGearBoxOilChangeMilage" ColumnName="LastGearBoxOilChangeMilage" />
+          <ScalarProperty Name="LastAirFilterChange" ColumnName="LastAirFilterChange" />
+          <ScalarProperty Name="LastAirFilterChangeMilage" ColumnName="LastAirFilterChangeMilage" />
+          <ScalarProperty Name="LastTiresChange" ColumnName="LastTiresChange" />
+          <ScalarProperty Name="LastTiresChangeMilage" ColumnName="LastTiresChangeMilage" />
+          <ScalarProperty Name="LastTimingbeltChange" ColumnName="LastTimingbeltChange" />
+          <ScalarProperty Name="LastTimingbeltChangeMilage" ColumnName="LastTimingbeltChangeMilage" />
+          <ScalarProperty Name="LastOtherBeltsChange" ColumnName="LastOtherBeltsChange" />
+          <ScalarProperty Name="LastOtherBeltsChangeMilage" ColumnName="LastOtherBeltsChangeMilage" />
+          <ScalarProperty Name="LastFrontBrakePadsChange" ColumnName="LastFrontBrakePadsChange" />
+          <ScalarProperty Name="LastFrontBrakePadsChangeMilage" ColumnName="LastFrontBrakePadsChangeMilage" />
+          <ScalarProperty Name="LastRearBreakePadsChange" ColumnName="LastRearBreakePadsChange" />
+          <ScalarProperty Name="LastRearBrakePadsChangeMilage" ColumnName="LastRearBrakePadsChangeMilage" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -563,12 +715,25 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PersonServicesUseRequests">
+      <EntityTypeMapping TypeName="CarAutomationModel.PersonServicesUseRequest">
+        <MappingFragment StoreEntitySet="PersonServicesUseRequest">
+          <ScalarProperty Name="PersonServicesUseRequestId" ColumnName="PersonServicesUseRequestId" />
+          <ScalarProperty Name="RequestDateTime" ColumnName="RequestDateTime" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="LastStateChangeDateTime" ColumnName="LastStateChangeDateTime" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="CarAutomationModel.Product">
         <MappingFragment StoreEntitySet="Product">
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
+          <ScalarProperty Name="CarBrandId" ColumnName="CarBrandId" />
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="ProductHeight" ColumnName="ProductHeight" />
           <ScalarProperty Name="ProductWidth" ColumnName="ProductWidth" />
@@ -594,6 +759,20 @@
           <ScalarProperty Name="ProductCarsId" ColumnName="ProductCarsId" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
           <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.ProductComment">
+        <MappingFragment StoreEntitySet="ProductComments">
+          <ScalarProperty Name="ProductCommentId" ColumnName="ProductCommentId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="canshow" ColumnName="canshow" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -633,11 +812,10 @@
       <EntityTypeMapping TypeName="CarAutomationModel.ProductQnA">
         <MappingFragment StoreEntitySet="ProductQnA">
           <ScalarProperty Name="ProductQnAId" ColumnName="ProductQnAId" />
-          <ScalarProperty Name="ProductQuestion" ColumnName="ProductQuestion" />
-          <ScalarProperty Name="HasAnswer" ColumnName="HasAnswer" />
-          <ScalarProperty Name="HasFather" ColumnName="HasFather" />
-          <ScalarProperty Name="FatherId" ColumnName="FatherId" />
-          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -669,6 +847,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ProductsOrServicesDeliveryTypes">
+      <EntityTypeMapping TypeName="CarAutomationModel.ProductsOrServicesDeliveryType">
+        <MappingFragment StoreEntitySet="ProductsOrServicesDeliveryTypes">
+          <ScalarProperty Name="DeliverTypeID" ColumnName="DeliverTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ProductStores">
       <EntityTypeMapping TypeName="CarAutomationModel.ProductStore">
         <MappingFragment StoreEntitySet="ProductStore">
@@ -683,7 +871,20 @@
         <MappingFragment StoreEntitySet="ProductToView">
           <ScalarProperty Name="ProdcutToViewId" ColumnName="ProdcutToViewId" />
           <ScalarProperty Name="Viewd" ColumnName="Viewd" />
+          <ScalarProperty Name="Favorite" ColumnName="Favorite" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductUserComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.ProductUserComment">
+        <MappingFragment StoreEntitySet="ProductUserComments">
+          <ScalarProperty Name="ProductUserCommentsId" ColumnName="ProductUserCommentsId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="RootProductUserCommentsId" ColumnName="RootProductUserCommentsId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -708,6 +909,7 @@
           <ScalarProperty Name="ServicesPackToViewId" ColumnName="ServicesPackToViewId" />
           <ScalarProperty Name="Viewd" ColumnName="Viewd" />
           <ScalarProperty Name="ServicesPackId" ColumnName="ServicesPackId" />
+          <ScalarProperty Name="Favorite" ColumnName="Favorite" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -717,6 +919,7 @@
           <ScalarProperty Name="ServiceToViewId" ColumnName="ServiceToViewId" />
           <ScalarProperty Name="Views" ColumnName="Views" />
           <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+          <ScalarProperty Name="Favorite" ColumnName="Favorite" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -728,6 +931,7 @@
           <ScalarProperty Name="Describe" ColumnName="Describe" />
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -744,17 +948,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ToBaskets">
-      <EntityTypeMapping TypeName="CarAutomationModel.ToBasket">
-        <MappingFragment StoreEntitySet="ToBasket">
-          <ScalarProperty Name="ToBasketId" ColumnName="ToBasketId" />
-          <ScalarProperty Name="BasketId" ColumnName="BasketId" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="ProductEntity" ColumnName="ProductEntity" />
-          <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
-          <ScalarProperty Name="AutoServiceEntity" ColumnName="AutoServiceEntity" />
-          <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
-          <ScalarProperty Name="AutoSericePackEntity" ColumnName="AutoSericePackEntity" />
+    <EntitySetMapping Name="TimeOfDays">
+      <EntityTypeMapping TypeName="CarAutomationModel.TimeOfDay">
+        <MappingFragment StoreEntitySet="TimeOfDay">
+          <ScalarProperty Name="TimeOfDayId" ColumnName="TimeOfDayId" />
+          <ScalarProperty Name="TimePeriod" ColumnName="TimePeriod" />
+          <ScalarProperty Name="DaysOfWeekId" ColumnName="DaysOfWeekId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -772,14 +972,11 @@
       <EntityTypeMapping TypeName="CarAutomationModel.Troubleshooting">
         <MappingFragment StoreEntitySet="Troubleshooting">
           <ScalarProperty Name="TroubleshootingId" ColumnName="TroubleshootingId" />
-          <ScalarProperty Name="Question" ColumnName="Question" />
-          <ScalarProperty Name="Answer" ColumnName="Answer" />
-          <ScalarProperty Name="AnswerYesOrNo" ColumnName="AnswerYesOrNo" />
-          <ScalarProperty Name="HasFather" ColumnName="HasFather" />
-          <ScalarProperty Name="FatherId" ColumnName="FatherId" />
-          <ScalarProperty Name="HasProduct" ColumnName="HasProduct" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-          <ScalarProperty Name="ServicePrice" ColumnName="ServicePrice" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Describe" ColumnName="Describe" />
+          <ScalarProperty Name="TroubleshootinParentId" ColumnName="TroubleshootinParentId" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -791,6 +988,8 @@
           <ScalarProperty Name="Upass" ColumnName="Upass" />
           <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ActiveRecoveryCode" ColumnName="ActiveRecoveryCode" />
+          <ScalarProperty Name="ActiveORecovery" ColumnName="ActiveORecovery" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -802,5 +1001,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="TroubleshootingProducts" TypeName="CarAutomationModel.TroubleshootingProducts" StoreEntitySet="TroubleshootingProducts">
+      <EndProperty Name="Product">
+        <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+      </EndProperty>
+      <EndProperty Name="Troubleshooting">
+        <ScalarProperty Name="TroubleshootingId" ColumnName="TroubleshootingId" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

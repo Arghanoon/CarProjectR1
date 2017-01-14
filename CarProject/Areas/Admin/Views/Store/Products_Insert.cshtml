@@ -35,6 +35,7 @@
             </div>
 
             @Html.input_TextBox(m => m.Price, "قیمت محصول")
+            @Html.input_TextBox(m => m.InstallPrice, "هزینه نصب")
             
             @Html.input_TextBox(m => m.Product.ProductHeight, "ارتفاع")
             @Html.input_TextBox(m => m.Product.ProductWidth, "عرض")
@@ -42,8 +43,10 @@
             @Html.input_TextBox(m => m.Product.ProductLength, "طول")
 
             @Html.input_ComboBox(m => m.Product.CompanyId, "شرکت سازنده", Model.dbs.Companies.ToDictionary(c => c.CompanyId, c => c.CompanyName))
-            @Html.input_ComboBox(m => m.Product.CountryId, "شرکت تولید کننده", Model.dbs.Countries.ToDictionary(c => c.CountryId, c => c.CountryShortName + " - " + c.CountryLongName))
+            @Html.input_ComboBox(m => m.Product.CountryId, "کشور تولید کننده", Model.dbs.Countries.ToDictionary(c => c.CountryId, c => c.CountryShortName + " - " + c.CountryLongName))
             @Html.input_ComboBox(m => m.Product.ManufactureId, "شرکت توزیع کننده", Model.dbs.Manufactures.ToDictionary(c => c.ManufactureId, c => c.ManufactureName + " - (" + c.Country.CountryShortName + " - " + c.Country.CountryLongName + " )"))
+
+            @Html.input_ComboBox(m => m.Product.CarBrandId, "برند خودروسازی", dbs.CarBrands.ToDictionary(k => k.CarBrandId, v => v.CarBrandName))
             
             @Html.input_TextBox(m => m.Product.MetaTags, "تگ محصول")
             @Html.input_Rating(m => m.Product.ProductRating, "ربته محصول")

@@ -75,6 +75,7 @@ header
 a {
     color:#8a8a8a;
     text-decoration:none;
+    cursor:pointer;
 }
     a:hover {
         color:#000;
@@ -138,14 +139,14 @@ a {
 	
 	
 	
-@media  (min-width:500px) 
+@media  (min-width:700px) 
 {
 	#header_menuIcon { display:none; }
 	#header_menu_nav{display:flex; justify-content:center; align-items:center; flex-wrap:wrap;}
 	#header_menu{ display:inline-block; }
 }
 
-@media (max-width:500px) 
+@media (max-width:700px) 
 {
 	#header_menuIcon
 	{
@@ -399,3 +400,12 @@ a {
     font-size:70%;
 }
 
+@media print {
+
+    header {
+        display: none;
+    }
+    #menu {
+        display: none;
+    }
+}

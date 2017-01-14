@@ -1,5 +1,7 @@
 *{ position:relative; margin:0; padding:0; box-sizing:border-box; }
-
+ul {
+    margin:5px 25px;
+}
 body{
 	direction:rtl;
 	font-family:yekan;
@@ -23,6 +25,10 @@ a:hover , a:focus{
 	color:#ff5252;
 }
 
+img {
+    max-width:100%;
+}
+
 
 
 /*-------------------------Headers--------------------*/
@@ -44,10 +50,25 @@ a:hover , a:focus{
 			
 			#header1 #section1 #part2{
 				display:flex; align-items:stretch;
+                flex-direction:column;
 				min-height:40px;
 			}
+                #header1 #section1 #part2 #tabcontainer {
+                    font-size:70%;
+                    display:flex;
+                    flex-direction:row-reverse;
+                }
+
+                    #header1 #section1 #part2 #tabcontainer > * {
+                        padding:0 2px
+                    }
+
+#section1part1munuIcon {
+    display: none;
+}
 				#header1 #section1 #part2 #searchSection{
 					display:flex; justify-content:center; align-items:stretch;
+                    min-height:30px;
 					flex:1;
 				}
 				#header1 #section1 #part2 #searchSection input{
@@ -97,23 +118,19 @@ a:hover , a:focus{
 			justify-content:flex-start;
 			align-items:stretch;
 		}
-			#header2_menucontianer  a,
-			#header2_menucontianer .a{
+			#header2_menucontianer  a{
 				position:static;
 				color:black;
-				margin:0 5px;
-				padding:0 3px;
+				padding:0 5px;
 				display:flex; justify-content:center; align-items:center;
 				border-bottom:2px solid transparent;
-				
+				min-height:30px;
 				transition:ease 0.3s;
 				height:100%;
 				cursor:pointer;
 			}
 			#header2_menucontianer  a:hover,
-			#header2_menucontianer  a:focus,
-			#header2_menucontianer  .a:hover,
-			#header2_menucontianer  .a:focus{
+			#header2_menucontianer  a:focus{
 				background:#f7f6fa;
 				border-bottom:2px solid #ff4500;
 			}
@@ -137,21 +154,39 @@ a:hover , a:focus{
 			{
 				opacity:1;
 			}*/
-			
-			#header2_menucontianer .a > nav
+
+            #header2_menucontianer .menuItem {
+                position: static;
+            }
+			#header2_menucontianer .menuItem > nav
 			{
 				position:absolute;
-				top:100%; left:0; right:0;
-				border-top:thin solid #bababa; border-bottom:thin solid #bababa;
-				box-shadow:0 0 1px 2px 0 #888;
+				top:100%;  right:0; left:0;
+                margin:auto;
+                margin-top:-2px;
+				border-top:thin solid #bababa;
+				box-shadow:0 3px 3px 0 #888;
 				display:none;
-				justify-content:center;
 				background:white;
 				z-index:999;
 			}
-			#header2_menucontianer .a:hover > nav{
+                #header2_menucontianer .menuItem > nav.level0 {
+                    width: 90%;
+                }
+
+                #header2_menucontianer .menuItem > nav.level1 {
+                    flex-direction:column;
+                    flex-wrap:wrap;
+                    justify-content:flex-start;
+                    align-items:flex-start;
+                }
+			#header2_menucontianer .menuItem:hover > nav{
 				display:flex;
 			}
+
+            #header2_menucontianer .menuItem > nav a {
+                white-space:nowrap;
+            }
 /*----------------------ENDHeaders--------------------*/
 
 
@@ -174,8 +209,8 @@ a:hover , a:focus{
 		}
 		.SliderType1 .sliderTitles > *
 		{
-			height:100%;
-			display:flex; justify-content:center; align-items:center;
+			/*height:100%;*/
+			display:flex; justify-content:center; align-items:center; flex-direction:column;
 			cursor:pointer;
 		}
 		.SliderType1 .sliderTitles .tile
@@ -314,6 +349,7 @@ a:hover , a:focus{
 	
 	display:flex; justify-content:center; align-items:stretch;
 	overflow:hidden;
+    height:250px;
 }
 .SliderType3 .sliderItems
 {
@@ -330,14 +366,26 @@ a:hover , a:focus{
 	padding:3px;
 	margin:0 5px;
 	height:100%;
+    width:200px;
 	display:flex; flex-direction:column;
 	justify-content:space-between;
 	align-items:center;
+    box-shadow:0 0 5px 0 #888 inset;
+    transition:0.5s;
 }
+    .SliderType3 .sliderItems .slideItem > * {
+        text-align: center;
+    }
+    .SliderType3 .sliderItems .slideItem:hover {
+        border: thin solid #888;
+        box-shadow:none;
+    }
 
 .SliderType3 .sliderItems .slideItem img
 {
-	height:100%;
+	max-height:100%;
+    max-width:100%;
+    flex:1;
 }
 
 .SliderType3 .sliderNav
@@ -419,5 +467,104 @@ a:hover , a:focus{
 	.w30{ width: 30%; }
 	.w33{ width: 33.3333333%; }
 	.w25{ width: 25%; }
-	
+
+
+.page {
+    margin:5px;
+    padding:5px;
+    background:white;
+}
 /*-------------------------ENDClasses--------------------------------*/
+
+
+
+/*----------------------------------------[ Messages ]----------------------------------------------------*/
+.message {
+    position:fixed;
+    top:0; left:0; right:0;
+    background:white;
+    border:thin solid #888;
+    box-shadow:0 3px 3px 0 #888;
+    display:flex;
+    align-items:center;
+    
+    animation:anim_messageInput;
+    animation-duration:1s;
+}
+
+@keyframes anim_messageInput {
+    from {
+        transform:translateY(-100%);
+    }
+    to {
+        transform:none;
+    }
+}
+
+
+    .message .action {
+        width:30px;
+        height:50px;
+        border-left:thin solid #888;
+        padding:5px;
+        display:flex; justify-content:center; align-items:center;
+        cursor:pointer;
+        background:#eaeaea;
+    }
+    .message .content {
+        padding:5px;
+    }
+/*----------------------------------------[ End of Messages ]---------------------------------------------*/
+
+/*--------------------------------[ Button ]--------------------------------------*/
+.button {
+    border:thin solid #888;
+    background:#eee;
+    font-family:yekan;
+    padding:2px 5px;
+    margin:2.5px;
+}
+    .button:hover {
+        background:#ddd;
+    }
+
+    .button.red {
+        color: #760000;
+        border-color: #b10000;
+        background: #ffd8d8;
+    }
+        .button.red:hover {
+            background:#ffc4c4;
+        }
+
+    .button.green {
+        color: #387300;
+        border-color: #55ae00;
+        background: #eaffd5;
+    }
+        .button.green:hover {
+            background:#c2ff86;
+        }
+/*--------------------------------[ END of Button ]-------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media print {
+    body > * {
+        display:none;
+    }
+    #renderBodySection {
+        display:block;
+    }
+}

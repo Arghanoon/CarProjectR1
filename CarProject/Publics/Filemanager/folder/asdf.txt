@@ -1,0 +1,23 @@
+﻿Kamal Kamel, [23.11.16 23:18]
+اسم خودرو
+
+Kamal Kamel, [23.11.16 23:18]
+اسم برند در واقع
+
+Kamal Kamel, [23.11.16 23:18]
+نوع موتور
+
+Kamal Kamel, [23.11.16 23:18]
+تعداد سیلند
+
+Kamal Kamel, [23.11.16 23:19]
+carusage
+
+Kamal Kamel, [23.11.16 23:19]
+carbodytype
+
+Kamal Kamel, [23.11.16 23:19]
+gearboxtype
+
+Kamal Kamel, [23.11.16 23:19]
+gearboxaxle

@@ -17,6 +17,7 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Discount()
         {
+            this.Baskets = new HashSet<Basket>();
             this.ProductDiscounts = new HashSet<ProductDiscount>();
         }
     
@@ -24,6 +25,8 @@ namespace CarProject.DBSEF
         public string DiscountCode { get; set; }
         public string Discount1 { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Basket> Baskets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductDiscount> ProductDiscounts { get; set; }
     }

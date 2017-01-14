@@ -1,0 +1,369 @@
+﻿@{
+    ViewBag.Title = "نمایش اطلاعات سرویس";
+
+    int id = 0;
+    int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var service = dbs.AutoServices.FirstOrDefault(s => s.AutoServiceId == id);
+
+    var rand = new Random();
+
+    var viewservic = dbs.ServiceToViews.FirstOrDefault(c => c.ServiceId == id);
+    if(viewservic == null)
+    {
+        viewservic = new CarProject.DBSEF.ServiceToView { ServiceId = id, Views = 1 };
+        dbs.ServiceToViews.Add(viewservic);
+    }
+    else
+    {
+        viewservic.Views += 1;
+    }
+    dbs.SaveChanges();
+}
+
+
+<div>
+    <div id="serviceViewAndPopular">
+        <a class="gia-users">@viewservic.Views</a>
+        <a href="javascript:void()" onclick="MakeProductPopular('@Url.Action("ServiceView_makePopular","Store")','@id')" id="popularCounter" class="gia-heart">@viewservic.Favorite.GetValueOrDefault()</a>
+        |
+        <a href="javascript:void();" onclick="AddToCart('@id','@CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService')" class="gia-cart">اضافه کردن سبد خرید</a>
+    </div>
+    <div id="serviceInfoSection">
+
+        <div id="imagesAndInformation">
+            <div id="ImagesSections">
+                <a href="javascript:void()" onclick="$('#ImagesSections').toggleClass('bigView')">تصاویر سرویس</a>
+                @{ 
+                    var images = new System.IO.DirectoryInfo(Server.MapPath("~/Publics/Gallery/Services/" + ViewContext.RouteData.Values["id"]));
+                    if (images.Exists)
+                    {
+                        var imagesFiles = images.GetFiles();
+                        if (imagesFiles.Length > 0)
+                        {
+                    <img id="imageBigPreview" src="@Url.Content("~/Publics/Gallery/Services/" + ViewContext.RouteData.Values["id"] + "/" + imagesFiles[0].Name)" />
+                    }
+                    else
+                    {
+                    <img id="imageBigPreview" src="" />
+                    }
+                }
+                }
+                <div id="imagesContianer">
+                    @{
+                        if (images.Exists)
+                        {
+                            var imagesFiles = images.GetFiles();
+                            foreach (var item in imagesFiles)
+                            {
+                        <a href="javascript:void()">
+                            <img onclick="imageBigPreview.src = this.src;" src="@Url.Content("~/Publics/Gallery/Services/" + ViewContext.RouteData.Values["id"] + "/" + item.Name)" />
+                        </a>
+                        }
+                    }
+                    }
+                </div>
+            </div>
+
+            <div id="information">
+                <h3>اطلاعات سرویس</h3>
+                <table id="tblinfo">
+                    <tr>
+                        <th>نام سرویس</th>
+                        <td>@service.AutoServiceName</td>
+                    </tr>
+                    <tr>
+                        <th>قیمت سرویس</th>
+                        <td>@service.Price تومان</td>
+                    </tr>
+                    <tr>
+                        <th>سرویس پک های شامل این سرویس</th>
+                        <td>
+                            <div id="ServicesLinkContainer">
+                                @{
+                                    var services = dbs.AutoServices1.Where(c => c.AutoServiceId == id).Select(c => c.AutoServicePack);
+                                    foreach (var item in services)
+                                    {
+                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها", info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice تومان</small></a>
+                                }
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <div>
+            <h3>محصولات مرتبط با سرویس</h3>
+            <div class="listOfProducts">
+                @{
+                    var pdx = service.ProductInServices.Select(sr => sr.Product);
+
+                    foreach (var item in pdx)
+                    {
+                        var PicFileUrl = "~/Publics/Gallery/ProductImages/" + item.ProductId;
+                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+                        if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                        {
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                        <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)" alt="@item.Category.CategoryName @item.ProductName" />
+                        <section>
+                            <strong>@item.ProductName</strong><br />
+                            <small>@item.Category.CategoryName</small><br />
+                            <small class="price">@if(@item.ProductPrices.Count > 0){@item.ProductPrices.Last().ProductPrice1}else{<span>0</span>} تومان</small>
+                        </section>
+                    </a>
+                        }
+                        else
+                        {
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                        <img src="~/Publics/Gallery/ProductImages/NotFound.png" alt="@item.Category.CategoryName @item.ProductName" />
+                        <section>
+                            <strong>@item.ProductName</strong><br />
+                            <small>@item.Category.CategoryName</small><br />
+                            <small class="price">@if(item.ProductPrices.Any()){@item.ProductPrices.Last().ProductPrice1} تومان</small>
+                        </section>
+                    </a>
+                        }
+                    }
+                }
+            </div>
+
+        </div>
+
+        <div>
+            <h3>خودروهای مرتبط با سرویس</h3>
+            <div class="listOfProducts">
+                @{
+                    var pdx2 = service.AutoServiceCars.Select(c => c.Car);
+
+                    foreach (var item in pdx2)
+                    {
+                        if (item.CarModel == null)
+                        { continue; }
+                        var PicFileUrl = "~/Publics/Gallery/CarImages/" + item.CarsId;
+                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+                        if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                        {
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })" class="item">
+                        <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)" alt="@item.CarModel.CarBrand.CarBrandName @item.CarModel.CarModelName" />
+                        <section>
+                            <strong>@item.CarModel.CarModelName</strong><br />
+                            <small>@item.CarModel.CarBrand.CarBrandName</small><br />
+                            @*<small class="price">@item.CarPrices.Last().Price تومان</small>*@
+                        </section>
+                    </a>
+                        }
+                        else
+                        {
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })" class="item">
+                        <img src="~/Publics/Gallery/ProductImages/NotFound.png" alt="@item.CarModel.CarBrand.CarBrandName @item.CarModel.CarModelName" />
+                        <section>
+                            <strong>@item.CarModel.CarModelName</strong><br />
+                            <small>@item.CarModel.CarBrand.CarBrandName</small><br />
+                            @*<small class="price">@item.CarPrices.Last().Price تومان</small>*@
+                        </section>
+                    </a>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section style
+{
+    <meta name="description" content="خدمات خودرو @service.AutoServiceName " />
+    <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = service.AutoServiceId, info1 = "سرویسها" , info2 = service.AutoServiceName }, Request.Url.Scheme)" />
+
+    <style>
+        #serviceInfoSection {
+            margin:5px;
+            padding:5px;
+
+            
+        }
+
+
+        #serviceViewAndPopular {
+            display:flex;
+            background:white;
+            padding:5px;
+        }
+            #serviceViewAndPopular a {
+                color: black;
+                margin:1px 2.5px;
+            }
+            #serviceViewAndPopular #popularCounter {
+                color: red;
+            }
+
+
+        #tblinfo {
+            background:white;
+            width:100%;
+        }
+            #tblinfo th, 
+            #tblinfo td {
+                padding:1px 5px;
+                border:thin solid #eaeaea;
+            }
+
+            #tblinfo th {
+                text-align:right;
+                background:#eaeaea;
+                width:0; 
+                white-space:nowrap;
+            }
+
+        #ServicesLinkContainer {
+            display: block;
+        }
+            #ServicesLinkContainer a {
+                display: block;
+            }
+
+        .listOfProducts {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;
+            padding: 10px;
+        }
+
+    .listOfProducts .item {
+        border:thin solid #eaeaea;
+        margin:5px;
+        width:200px;
+        height:300px;
+        display:flex; justify-content:center; align-items:center; flex-direction:column;
+        background:white;
+
+        overflow:hidden;
+    }
+
+        .listOfProducts .item * {
+            text-align: center;
+        }
+
+        .listOfProducts .item .price {
+            color:#fff;
+            background:#ff4500;
+            padding:5px;
+            border-radius:5px 5px 0 0 ;
+        }
+
+    .listOfProducts .item img {
+        flex:1;
+        max-width: 100%;
+        max-height: 100%;
+
+        transition:0.5s;
+
+        -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
+        filter: grayscale(50%);
+    }
+
+    .listOfProducts .item:hover img {
+        -webkit-filter: none; /* Safari 6.0 - 9.0 */
+        filter: none;
+    }
+
+
+        #imagesAndInformation {
+            display:flex;
+            border:thin solid #888;
+        }
+        #information {
+            flex:1;
+        }
+        #ImagesSections {
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            align-items:stretch;
+
+            max-width:30%;
+            margin-left:5px;
+            padding:0 5px;
+
+            border-left:thin solid #888;
+
+        }
+
+            #ImagesSections.bigView {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                max-width:100%;
+                left: 0;
+                right: 0;
+                background: white;
+                margin: 0;
+                z-index: 999;
+                align-items: center;
+                overflow: auto;
+            }
+
+        #imageBigPreview {
+            max-width:100%;
+        }
+        #ImagesSections.bigView #imageBigPreview {
+            max-width: 100%;
+            max-height: 80%;
+        }
+
+            #imagesContianer {
+                display:flex; justify-content:center; align-items:stretch;
+                flex-wrap:wrap;
+            }
+
+            #imagesContianer img {
+                width: 100px;
+                height: 70px;
+                margin:2px;
+                cursor:pointer;
+                border:thin solid #ddd;
+            }
+
+
+        @@media (max-width:700px) {
+            #imagesAndInformation {
+                flex-direction:column;
+            }
+            #ImagesSections {
+                max-width:100%;
+                border:none;
+                margin-left:0;
+            }
+        }
+
+    </style>
+}
+
+@section script
+{
+    <script>
+        function MakeProductPopular(url, id) {
+            $.post(url, { "id": id }, function (res) {
+                document.getElementById("popularCounter").innerHTML = res;
+                $("#popularCounter").addClass("animated pulse")
+                    .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                        $("#popularCounter").removeClass("animated pulse")
+                    });
+            });
+        }
+    </script>
+}

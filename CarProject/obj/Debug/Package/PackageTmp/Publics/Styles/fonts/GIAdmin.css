@@ -38,8 +38,8 @@
 .gia-edit:before{content:'\0037';}
 .gia-users:before{content:'\0038';}
 .gia-inactive:before{content:'\0039';}
-.gia-back:before{content:'\0040';}
 .gia-active:before{content:'\003A';}
+.gia-back:before{content:'\0040';}
 .gia-checkEngine:before{content:'\003B';}
 .gia-search:before{content:'\003C';}
 .gia-car1:before{content:'\003D';}
@@ -91,6 +91,36 @@
 .gia-article:before{content:'\0071';}
 .gia-service:before{content:'\0072';}
 .gia-userInfo:before{content:'\0073';}
+.gia-heart:before{content:'\0074';}
+.gia-burse:before{content:'\0075';}
+.gia-retrive:before{content:'\0076';}
+.gia-visitors:before{content:'\0077';}
+.gia-messageSeen:before{content:'\0078';}
+.gia-brokenHeart:before{content:'\0079';}
+.gia-details:before{content:'\007A';}
+.gia-rss:before{content:'\007B';}
+.gia-paymentCash:before{content:'\007C';}
+.gia-paymentCard:before{content:'\007D';}
+.gia-paymentOnline:before{content:'\007E';}
+
+.gia-price:before{content:'\0980';}
+.gia-price2:before{content:'\0981';}
+.gia-forum:before{content:'\0982';}
+.gia-millage:before{content:'\0983';}
+.gia-millage2:before{content:'\0984';}
+.gia-discount:before{content:'\0985';}
+.gia-alert:before{content:'\0986';}
+.gia-bell:before{content:'\0987';}
+.gia-bell2:before{content:'\0988';}
+.gia-user2:before{content:'\0989';}
+.gia-rss2:before{content:'\098A';}
+.gia-speedometer:before{content:'\098B';}
+.gia-speedometer2:before{content:'\098C';}
+.gia-checked2:before{content:'\098D';}
+.gia-unchecked2:before{content:'\0991';}
+.gia-like:before{content:'\098E';}
+.gia-like:before{content:'\098F';}
+.gia-magnifier:before{content:'\0990';}
 
 
 

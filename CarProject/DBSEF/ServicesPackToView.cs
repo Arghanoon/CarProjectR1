@@ -17,6 +17,7 @@ namespace CarProject.DBSEF
         public int ServicesPackToViewId { get; set; }
         public Nullable<int> Viewd { get; set; }
         public Nullable<int> ServicesPackId { get; set; }
+        public Nullable<int> Favorite { get; set; }
     
         public virtual AutoServicePack AutoServicePack { get; set; }
     }

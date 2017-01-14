@@ -14,15 +14,30 @@ namespace CarProject.Areas.Admin.Models.Cars
         db.CarAutomationEntities DBS = new db.CarAutomationEntities();
 
         public db.Car Car { get; set; }
-        public List<string> List_CarBodyTypes { get { return new List<string> { "سقف فلزی", "سقف جمع شو(کروک)" }; } }
-        
-        public db.CarEngine CarEngine { get; set; }
-        public List<string> List_EngineTypes { get { return new List<string> { "V شکل", "I شکل", "باکسری" }; } }
-        public List<string> List_EngineFuel { get { return new List<string> { "بنزین", "گاز", "گازوئیل", "برق" }; } }
-        
-        public db.CarGearBox GearBox { get; set; }
-        public List<string> List_GearBoxType { get { return new List<string> { "اتوماتیک", "دستی", "تیپ ترونیک" }; } }
+        public List<string> List_CarType { get { return new List<string> { "هاچ بک", "سدان", "کوپه", "SUV", "کراس اوور", "وانت" }; } }
+        public List<string> List_CarClass { get { return new List<string> { "بسیار کوچک", "کامپکت کوچک", "کامپکت متوسط", "کامپکت بزرگ", "کوچک", "متوسط", "بزرگ", "لوکس کوچک", "لوکس متوسط", "لوکس بزرگ", "سوپر لوکس", "اسپرت", "سوپر اسپرت", "کروکی", "رودسر", "ون", "SUV کوچک", "SUV متوسط", "SUV بزرگ", "SUV فول سایز", "SUV اسپرت" }; } }
 
+        public List<string> MonthList { get { return new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }; } }
+        //      public List<string> CarClass { get { return new List<string> { }; } }
+
+        public db.CarDetail CarDetail { get; set; }
+
+        public List<string> List_CarUsage { get { return new List<string> { "شهری", "خانوادگی", "ترکیبی", "آفرود" }; } }
+
+        public List<string> List_YesOrNo { get { return new List<string> { "بله", "خیر" }; } }
+
+        public List<string> List_CarBodyTypes { get { return new List<string> { "سقف فلزی", "سقف جمع شو(کروک)" }; } }
+
+        public db.CarEngine CarEngine { get; set; }
+        public List<string> List_EngineTypes { get { return new List<string> { "خورجینی", "خطی", "باکسری" }; } }
+        public List<string> List_EngineFuel { get { return new List<string> { "بنزین", "گاز", "گازوئیل", "هیبرید" }; } }
+
+        public db.CarGearBox GearBox { get; set; }
+        public List<string> List_GearBoxType { get { return new List<string> { "اتوماتیک", "دستی" }; } }
+        public List<string> List_gearBoxAxel { get { return new List<string> { "جلو", "عقب", "AWD", "4WD" }; } }
+
+        public List<string> List_HandBrake { get { return new List<string> { "دستی", "برقی", "پدالی" }; } }
+        public List<string> List_SeatOption { get { return new List<string> { "دستی", "برقی" }; } }
         public db.CarPhysicalDetail PhysicalDetail { get; set; }
         public db.BrakeSystem BrakeSystem { get; set; }
         public List<db.DetailedBrakeSystem> DetailedBrakeSystems { get; set; }
@@ -30,9 +45,13 @@ namespace CarProject.Areas.Admin.Models.Cars
         public db.FuelConsumption FuelConsumption { get; set; }
         public db.SecuritySystem SecuritySystem { get; set; }
         public db.SteeringSystem SteeringSystem { get; set; }
-        public db.AirConditioningSystem AirConditioningSystem { get; set; }
-        public List<db.AirConditioningSystemDetail> AirConditioningSystemDetails { get; set; }
+        public List<string> List_SteeringSystemType { get { return new List<string> { "هیدرولیک", "هیدروالکتریک", "الکتریک" }; } } 
 
+        public db.AirConditioningSystem AirConditioningSystem { get; set; }
+        public List<string> List_AirConditioningType { get { return new List<string> { "دستی","اتوماتیک" }; } }
+        public List<db.AirConditioningSystemDetail> AirConditioningSystemDetails { get; set; }
+        public List<db.CarsPro> Pros { get; set; }
+        public List<db.CarsPro> Cros { get; set; }
         public db.CarAudioSystem CarAudioSystem { get; set; }
         public db.CarSeatOption CarSeatOption { get; set; }
         public db.GlassAndMirror GlassAndMirror { get; set; }
@@ -48,6 +67,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public List<string> Advantages { get; set; }
         public List<string> DisAdvatages { get; set; }
 
+
+
         public db.CarsReview CarsReview { get; set; }
         [AllowHtml]
         public string CarsRviewHtml { get { return this.CarsReview.Review; } set { this.CarsReview.Review = value; } }
@@ -57,6 +78,7 @@ namespace CarProject.Areas.Admin.Models.Cars
             Car = new db.Car();
 
             CarEngine = new db.CarEngine();
+            CarDetail = new db.CarDetail();
 
             GearBox = new db.CarGearBox();
             BrakeSystem = new db.BrakeSystem();
@@ -76,7 +98,8 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarSensorsSystem = new db.CarSensorsSystem();
             CarAirbag = new db.CarAirbag();
             CarWheel = new db.CarWheel();
-
+            Pros = new List<db.CarsPro>();
+            Cros = new List<db.CarsPro>();
             Advantages = new List<string>();
             DisAdvatages = new List<string>();
 
@@ -86,6 +109,8 @@ namespace CarProject.Areas.Admin.Models.Cars
         public CarsModel(int? CarsId)
         {
             Car = DBS.Cars.FirstOrDefault(c => c.CarsId == CarsId);
+
+            CarDetail = DBS.CarDetails.FirstOrDefault(c => c.CarsId == CarsId);
 
             CarEngine = DBS.CarEngines.FirstOrDefault(c => c.CarsId == CarsId);
 
@@ -108,8 +133,14 @@ namespace CarProject.Areas.Admin.Models.Cars
             CarAirbag = DBS.CarAirbags.FirstOrDefault(c => c.CarsId == CarsId);
             CarWheel = DBS.CarWheels.FirstOrDefault(c => c.CarsId == CarsId);
 
+            Pros = DBS.CarsProes.Where(c => c.CarsId == CarsId && c.CarsProOrCro == true).ToList();
+            Cros = DBS.CarsProes.Where(c => c.CarsId == CarsId && c.CarsProOrCro == true).ToList();
+
+
+
             Advantages = DBS.CarsProes.Where(c => c.CarsProOrCro == true).Select(c => c.CarProCro).ToList();
             DisAdvatages = DBS.CarsProes.Where(c => c.CarsProOrCro == false).Select(c => c.CarProCro).ToList();
+
 
             CarsReview = DBS.CarsReviews.FirstOrDefault(c => c.CarsId == CarsId);
         }
@@ -117,6 +148,9 @@ namespace CarProject.Areas.Admin.Models.Cars
         public void Save()
         {
             DBS.Cars.Add(this.Car);
+
+            CarDetail.Car = this.Car;
+            DBS.CarDetails.Add(CarDetail);
 
             this.CarEngine.Car = this.Car;
             DBS.CarEngines.Add(this.CarEngine);
@@ -175,13 +209,15 @@ namespace CarProject.Areas.Admin.Models.Cars
             this.CarWheel.Car = this.Car;
             DBS.CarWheels.Add(this.CarWheel);
 
+
             foreach (var item in Advantages)
             {
-                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = true });
+
+                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = true, CarsId = this.Car.CarsId });
             }
             foreach (var item in DisAdvatages)
             {
-                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = false });
+                DBS.CarsProes.Add(new db.CarsPro { CarProCro = item, CarsProOrCro = false, CarsId = this.Car.CarsId });
             }
 
             this.CarsReview.Car = this.Car;
@@ -191,12 +227,30 @@ namespace CarProject.Areas.Admin.Models.Cars
         }
         public void Update()
         {
+            this.Car.AirConditioningSystemDetails.Clear();
+            foreach (var item in this.AirConditioningSystemDetails)
+            {
+                item.Car = this.Car;
+                this.Car.AirConditioningSystemDetails.Add(item);
+            }
+
+            this.Car.DetailedBrakeSystems.Clear();
+            foreach (var item in this.DetailedBrakeSystems)
+            {
+                item.Car = this.Car;
+                this.Car.DetailedBrakeSystems.Add(item);
+            }
+
             DBS.SaveChanges();
         }
 
         public static void DeleteCar(int? CarsId)
         {
             var DBS = new db.CarAutomationEntities();
+
+            DBS.CarDetails.Remove(DBS.CarDetails.FirstOrDefault(c => c.CarsId == CarsId));
+
+            DBS.CarsQnAs.RemoveRange(DBS.CarsQnAs.Where(cqs => cqs.CarsId == CarsId));
 
             DBS.CarEngines.Remove(DBS.CarEngines.FirstOrDefault(c => c.CarsId == CarsId));
 

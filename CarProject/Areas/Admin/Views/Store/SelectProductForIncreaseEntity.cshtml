@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "انتخاب محصول برای افزایش موجودی";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var resultview = dbs.Products.AsQueryable();
+
+    string search = "";
+    
+    if(Request.QueryString.AllKeys.Contains("search"))
+    {
+        search = Request.QueryString["search"];
+    }
+    
+    int page = 0;
+    int showInPage = 10;
+    int totalcount = 0;
+    
+    if(Request.QueryString.AllKeys.Contains("page"))
+    {
+        int.TryParse(Request.QueryString["page"], out page);
+    }
+    if (Request.QueryString.AllKeys.Contains("showinpage"))
+    {
+        int.TryParse(Request.QueryString["showinpage"], out showInPage);
+    }
+
+
+    resultview = resultview.Where(p => p.PartNumber.Value.ToString().Contains(search) || p.ProductName.Contains(search));
+
+    totalcount = resultview.Count();
+    resultview = resultview.OrderBy(p => p.ProductId).Skip(page * showInPage).Take(showInPage);
+    
+}
+
+
+<div>
+    <h3>@ViewBag.Title</h3>
+    <hr />
+
+
+    <form method="get" id="searchform">
+        <input type="hidden" name="page" id="pagehiddeninput" value="@page" />
+        <section id="searchInput">
+            <input type="text" id="searchText" name="search" value="@search" placeholder="جستجو در نام و یا شماره کالا" />
+            <button type="submit" ><span class="gia-search"></span></button>
+        </section>
+    </form>
+
+
+    <table class="grid1">
+        <thead>
+            <tr>
+                <th class="min_nw tcenter">شماره</th>
+                <th class="min_nw tcenter">گروه</th>
+                <th>نام کالا</th>
+                <th class="min_nw tcenter">موجودی</th>
+                <th class="min_nw tcenter">انتخاب</th>
+            </tr>
+        </thead>
+        <tbody id="productSearchresult">
+            @foreach (var item in resultview)
+            {
+                <tr>
+                    <td class="min_nw tcenter">@item.PartNumber</td>
+                    <td class="min_nw tcenter">@item.Category.CategoryName</td>
+                    <td class="tright">@item.ProductName</td>
+                    <td class="min_nw tcenter">
+                        @{
+                            var pso = dbs.ProductStores.FirstOrDefault(ps => ps.ProductId == item.ProductId);
+                            if (pso == null)
+                            { Write("0"); }
+                            else
+                            { Write(pso.ProductEntity); }
+                        }
+                    </td>
+                    <td class="min_nw tcenter">
+                        <a href="/Admin/Store/SelectedProductIncreaseEntity/@item.ProductId">افزایش موجودی</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <div id="pagingSection">
+        @{
+            var pagecount = Math.Ceiling((decimal)totalcount/showInPage);
+            for (int i = 1; i <= pagecount; i++)
+            {
+                if(page == (i- 1))
+                {
+                    <span>@i</span>
+                }
+                else
+                {
+                    <a href="javascript:void" onclick="document.getElementById('pagehiddeninput').value = '@{Write(i - 1);}'; document.getElementById('searchform').submit();" >@i</a>
+                }
+            }
+        }
+    </div>
+</div>
+
+
+
+@section style
+{
+    <style>
+        #searchform {
+            border-bottom:thin solid #d4d4d4;
+            margin-bottom:10px;
+        }
+        #searchInput {
+            display:flex; justify-content:space-between; align-items:stretch;
+            margin:5px;
+            border:thin solid #888;
+            border-radius:5px;
+            overflow:hidden;
+        }
+            #searchInput input {
+                flex:1; 
+                width:100%;
+                border:none;
+                background:none;
+                padding:5px;
+            }
+            #searchInput button {
+                border:none;
+                background:none;
+                background:#888;
+                cursor:pointer;
+                color:white;
+            }
+                #searchInput button:hover {
+                    background:#d4d4d4;
+                }
+
+        #pagingSection {
+            display:flex;
+            justify-content:center;
+            align-items:stretch;
+            flex-wrap:wrap;
+
+            border-top:thin solid #d4d4d4;
+            margin-top:10px;
+        }
+            #pagingSection > * {
+                margin:5px;
+                min-width:10px;
+            }
+            #pagingSection > span {
+                cursor: default;
+            }
+    </style>
+}

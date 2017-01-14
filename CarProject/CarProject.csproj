@@ -46,6 +46,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CaptchaMvc.Mvc4.1.5.0\lib\net40-full\CaptchaMvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Devart.Data.Linq, Version=4.5.1080.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
     <Reference Include="Devart.Data.SqlServer.Linq, Version=4.5.1080.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -161,29 +165,38 @@
     <Compile Include="Areas\Admin\Models\Cars\CarsModel.cs" />
     <Compile Include="Areas\Admin\Models\Dashboard\Country.cs" />
     <Compile Include="Areas\Admin\Models\Dashboard\DashBoardController.cs" />
+    <Compile Include="Areas\Admin\Models\Dashboard\MailsMessage_Marketing_Model.cs" />
     <Compile Include="Areas\Admin\Models\News\CategoryModel.cs" />
     <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
     <Compile Include="Areas\Admin\Models\Store\Category.cs" />
+    <Compile Include="Areas\Admin\Models\Store\ProductDiscountModel.cs" />
     <Compile Include="Areas\Admin\Models\Store\ProductsModel.cs" />
     <Compile Include="Areas\Admin\Models\Store\ServicePacks.cs" />
     <Compile Include="Areas\Admin\Models\Store\Services.cs" />
     <Compile Include="Areas\Admin\Models\Store\StoreMVC.cs" />
-    <Compile Include="Areas\Admin\Models\TroubleshootingClass.cs" />
+    <Compile Include="Areas\Admin\Models\Troubleshooting\TSModel.cs" />
     <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
-    <Compile Include="Areas\Users\Controllers\PersonalityController.cs" />
-    <Compile Include="Areas\Users\Models\Personality\UserCars.cs" />
+    <Compile Include="Areas\Users\Models\Dashboard\PersonCarsModel.cs" />
+    <Compile Include="Areas\Users\UsersCLS\Filters.cs" />
+    <Compile Include="Areas\Users\Controllers\profileController.cs" />
+    <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
+    <Compile Include="Areas\Users\UsersCLS\Notifications\UserCarsNotifications.cs" />
     <Compile Include="CLS\Filters.cs" />
+    <Compile Include="CLS\MailsServers\Mails.cs" />
     <Compile Include="CLS\SearchClass.cs" />
+    <Compile Include="CLS\SearchEngine\SearchLogic.cs" />
     <Compile Include="CLS\Searchs\CarsSearchLogic.cs" />
     <Compile Include="CLS\Searchs\ProductSearchModel.cs" />
     <Compile Include="CLS\Searchs\SearchModel.cs" />
     <Compile Include="CLS\TroubleShootModel.cs" />
     <Compile Include="CLS\Usefulls.cs" />
     <Compile Include="Controllers\CarsController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\TroubleshootingController.cs" />
     <Compile Include="DBSEF\AirConditioningSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -205,6 +218,9 @@
     <Compile Include="DBSEF\Basket.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\BasketItem.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\BrakeSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -218,6 +234,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\CarBrand.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\CarComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\CarDetail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\CarEngine.cs">
@@ -259,6 +281,12 @@
     <Compile Include="DBSEF\CarsReviewPoint.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\CarsToView.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\CarUserComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\CarWheel.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -280,9 +308,16 @@
     <Compile Include="DBSEF\ContentsCategory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\ContetComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\Country.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\DaysOfWeek.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\DBSEnums.cs" />
     <Compile Include="DBSEF\DetailedBrakeSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -295,7 +330,13 @@
     <Compile Include="DBSEF\GlassAndMirror.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\HomePageMenu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\Manufacture.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\MarketingMail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\Model1.Context.cs">
@@ -334,10 +375,16 @@
     <Compile Include="DBSEF\PersonServicesPack.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\PersonServicesUseRequest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\ProductCar.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\ProductComment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\ProductDiscount.cs">
@@ -361,10 +408,16 @@
     <Compile Include="DBSEF\ProductServiceUse.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\ProductsOrServicesDeliveryType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\ProductStore.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\ProductToView.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\ProductUserComment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\SecuritySystem.cs">
@@ -382,7 +435,7 @@
     <Compile Include="DBSEF\SteeringSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBSEF\ToBasket.cs">
+    <Compile Include="DBSEF\TimeOfDay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\TodaysSpecial.cs">
@@ -398,8 +451,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Home\ContactUsMessageModel.cs" />
+    <Compile Include="Models\News\ContentCommentModel.cs" />
+    <Compile Include="Models\Store\CartUsefull.cs" />
     <Compile Include="Models\User\UserInfo.cs" />
-    <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -411,6 +465,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Areas\Admin\Files\Images\back.jpg" />
+    <Content Include="Areas\Admin\Files\Images\stamp.png" />
     <Content Include="Areas\Admin\Files\Images\SignupBack.jpg" />
     <Content Include="Areas\Admin\Files\Images\ratingback.png" />
     <Content Include="Areas\Admin\Files\Images\user.png" />
@@ -424,9 +479,38 @@
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\ItemsShowing.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\Default\tinymce01.css" />
     <Content Include="Areas\Admin\Files\StyleAndScripts\UsersDefault\Default.css" />
+    <Content Include="Areas\Users\resources\Styles\Default\Default2_mm.css" />
+    <Content Include="Areas\Users\resources\Styles\Default\Default2_ms.css" />
+    <Content Include="Areas\Users\resources\Styles\Default\Default.css" />
+    <Content Include="Areas\Users\resources\Styles\Default\Default2.css" />
+    <Content Include="Areas\Users\resources\Styles\Default\Default2.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\scirpt.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\SliderItemShow.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\SliderItemShow.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Cars\Index\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\scripts.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\SliderItemShow.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\SliderItemShow.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Home\Search\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Home\Search\script.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\scirpt.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\SliderItemShow.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\SliderItemShow.js" />
+    <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
+    <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
+    <Content Include="Publics\Files\Resources\CarsPages\CarsComments.css" />
+    <Content Include="Publics\Files\Resources\NewsPage\Index.css" />
+    <Content Include="Publics\Files\Resources\NewsPage\NewsShow.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Default_MS.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default.css" />
     <Content Include="Publics\Files\Resources\StorePage\Default.js" />
-    <Content Include="Publics\Gallery\CarImages\notfound.jpg" />
+    <Content Include="Publics\Files\Resources\StorePage\index.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Products.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Products.js" />
+    <Content Include="Publics\Files\Resources\StorePage\ProductsList.css" />
     <Content Include="Publics\Files\Images\back.jpg" />
     <Content Include="Publics\Files\Resources\HomePage\News\template_News.css" />
     <Content Include="Publics\Files\Resources\HomePage\texture\btx.png" />
@@ -440,12 +524,37 @@
     <Content Include="Publics\Files\Resources\HomePage\logo.png" />
     <Content Include="Publics\Files\Resources\PublicClasses.css" />
     <Content Include="Publics\Files\Resources\template.js" />
+    <Content Include="Publics\Files\Resources\Troubleshooting\Index\style.css" />
     <Content Include="Publics\Files\Settings\TopMenu.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Publics\Gallery\NewsImages\nophoto.png" />
+    <Content Include="Publics\Files\Templates\templates02\cssclasses.css" />
+    <Content Include="Publics\Files\Templates\templates02\Images\enemad.png" />
+    <Content Include="Publics\Files\Templates\templates02\Images\facebook.png" />
+    <Content Include="Publics\Files\Templates\templates02\Images\Final-Logo-Khodroclinic.png" />
+    <Content Include="Publics\Files\Templates\templates02\Images\instagram.png" />
+    <Content Include="Publics\Files\Templates\templates02\Images\loading-1.gif" />
+    <Content Include="Publics\Files\Templates\templates02\Images\MenuDlimiter.png" />
+    <Content Include="Publics\Files\Templates\templates02\Images\twitter.png" />
+    <Content Include="Publics\Files\Templates\templates02\Images\youtube.png" />
+    <Content Include="Publics\Files\Templates\templates02\scripts.js" />
+    <Content Include="Publics\Files\Templates\templates02\style.css" />
+    <Content Include="Publics\Gallery\favicons\android-chrome-192x192.png" />
+    <Content Include="Publics\Gallery\favicons\android-chrome-512x512.png" />
+    <Content Include="Publics\Gallery\favicons\apple-touch-icon.png" />
+    <Content Include="Publics\Gallery\favicons\browserconfig.xml" />
+    <Content Include="Publics\Gallery\favicons\favicon-16x16.png" />
+    <Content Include="Publics\Gallery\favicons\favicon-32x32.png" />
+    <Content Include="Publics\Gallery\favicons\favicon.ico" />
+    <Content Include="Publics\Gallery\favicons\mstile-150x150.png" />
+    <Content Include="Publics\Gallery\ProductImages\NotFound.png" />
+    <Content Include="Publics\Scripts\PersianDateTimePicker\Content\PersianDatePicker.css" />
+    <Content Include="Publics\Scripts\PersianDateTimePicker\Content\PersianDatePicker.min.css" />
+    <Content Include="Publics\Scripts\PersianDateTimePicker\Scripts\PersianDatePicker.js" />
+    <Content Include="Publics\Scripts\PersianDateTimePicker\Scripts\PersianDatePicker.min.js" />
     <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Global.asax" />
+    <Content Include="Publics\Styles\animate.css" />
     <Content Include="Publics\Styles\fonts\Fonts.css" />
     <Content Include="Publics\Styles\fonts\GIAdmin.css" />
     <Content Include="Publics\Scripts\tinymce\jquery.tinymce.min.js" />
@@ -661,8 +770,9 @@
     <Content Include="Publics\Scripts\tinymce\themes\modern\theme.min.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.min.js" />
-    <Content Include="Publics\Files\Resources\CarsPage.css" />
     <Content Include="Publics\Files\Resources\template.css" />
+    <Content Include="Views\Store\ProductSitemap.aspx" />
+    <Content Include="Views\Store\ProductsRss.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -678,8 +788,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Gallery\Brands\" />
+    <Folder Include="Publics\Gallery\CarImages\" />
     <Folder Include="Publics\Gallery\CarTempImages\" />
-    <Folder Include="Publics\Gallery\ProductImages\" />
+    <Folder Include="Publics\Gallery\NewsImages\" />
     <Folder Include="Publics\Scripts\Ajax\" />
     <Folder Include="Publics\Styles\PagesStyle\" />
   </ItemGroup>
@@ -766,18 +877,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\FileManager\Index.cshtml" />
-    <Content Include="Areas\Users\Views\Web.config" />
-    <Content Include="Areas\Users\Views\Shared\publicTemplate.cshtml" />
-    <Content Include="Areas\Users\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Users\Views\Dashboard\Index.cshtml" />
-    <Content Include="Areas\Users\Views\Personality\Index.cshtml" />
-    <Content Include="Areas\Users\Views\Personality\PersonalInformation.cshtml" />
     <Content Include="Areas\Admin\Views\User\newUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\NewCar.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\Brands.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\New.cshtml" />
-    <Content Include="Areas\Admin\Views\Troubleshooting\Update.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\CarImagesGallery.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\UpdateCar.cshtml" />
@@ -816,8 +918,85 @@
     <Content Include="Areas\Admin\Views\Store\ServicePacks.cshtml" />
     <Content Include="Areas\Admin\Views\Store\ServicePacks_New.cshtml" />
     <Content Include="Areas\Admin\Views\Store\ServicePacks_Update.cshtml" />
-    <Content Include="Areas\Users\Views\Personality\UserCars.cshtml" />
-    <Content Include="Areas\Users\Views\Personality\UserCars_New.cshtml" />
+    <Content Include="Areas\Users\Views\Web.config" />
+    <Content Include="Areas\Users\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Users\Views\Shared\Default.cshtml" />
+    <Content Include="Areas\Users\Views\profile\Index.cshtml" />
+    <Content Include="Areas\Users\Views\profile\Signup.cshtml" />
+    <Content Include="Areas\Users\Views\profile\Login.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\ShoppingHistory.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\BasketDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Products_CostList.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\Cars_CostList.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Services_Gallery.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ServicePacks_Gallery.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductCommentShow.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductCommentShow_delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarCommentShow.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarCommentShow_delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\Car_Forum.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\Car_Forum_Question.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Product_Forum.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Product_Forum_Question.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DeliveryTypes_New.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DeliveryTypes.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DeliveryTypes_Update.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\InsertPersonCar.cshtml" />
+    <Content Include="Areas\Users\Views\profile\ViewUserProfile.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserChangePassword.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserEditePersonInformation.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCars.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCarsDeleteConfirm.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\PersonCarCurrentMillage.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductDiscount_new.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\productDiscounts.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductDiscount_DeleteConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductDiscount_update.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MailsMessage_Signup_SendActivationcode.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MaillsMessage_Marketing.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MaillsMessage_MarketingHistory.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\MakeAQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\DefineAnswer.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\ShowAnswer.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\UpdateQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\UpdateAnswer.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\RemoveQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Troubleshooting\RemoveAnswer.cshtml" />
+    <Content Include="Areas\Users\Views\Shared\Default2.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UsersView.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\Services.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\ServicesPacks.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\Services_ApplyRequest.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Baskets.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\BasketsDetails.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserNotifications.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductsInventory.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\SelectProductForIncreaseEntity.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\SelectedProductIncreaseEntity.cshtml" />
+    <Content Include="Areas\Admin\Views\FileManager\tinymcefm2.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DaliveryDateTime_Define.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DaliveryDateTime.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\DaliveryDateTime_Update.cshtml" />
+    <Content Include="Areas\Users\Views\profile\userActivation.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserResendUserActivationCode.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserResendUserActivationCodeToNewEmail.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserPasswordRecovery.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MailsMessage_Signup_RecoveryKey.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserRecoveryPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\BasketsDetails_Send.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MainMenu_Insert.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MainMenus.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MainMenu_Update.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\MainMenu_delete.cshtml" />
+    <Content Include="Areas\Admin\Views\FileManager\tinymcefm_selector.cshtml" />
+    <Content Include="Areas\Admin\Views\FileManager\tinymcefm2_selector.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Cars\CarUserComments_ShowAndReply.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductUserComments_ShowAndReply.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -835,21 +1014,42 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Users\Views\Personality\UserCars_Update.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
     <Content Include="Publics\Styles\fonts\yekan.TTF" />
     <Content Include="Views\Cars\Index.cshtml" />
     <Content Include="Views\Cars\Car.cshtml" />
-    <Content Include="Views\Cars\SearchView.cshtml" />
     <Content Include="Views\Home\ContectUs.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
-    <Content Include="Views\public\template_News.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\public\template_Sotre.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
     <None Include="Properties\PublishProfiles\s.pubxml" />
+    <Content Include="Views\Store\Products.cshtml" />
+    <Content Include="Views\Store\ProductsList.cshtml" />
+    <Content Include="Views\Store\ServiceView.cshtml" />
+    <Content Include="Views\Store\ServicePackView.cshtml" />
+    <Content Include="Views\Store\Cart.cshtml" />
+    <Content Include="Views\Store\Cart_CartConfirmAddress.cshtml" />
+    <Content Include="Views\Store\SelectePaymentType.cshtml" />
+    <Content Include="Views\News\NewsShow.cshtml" />
+    <Content Include="Views\Cars\CarForum.cshtml" />
+    <Content Include="Views\Cars\Car_Forum_Question.cshtml" />
+    <Content Include="Views\Store\ProductForum.cshtml" />
+    <Content Include="Views\Store\ProductForum_Question.cshtml" />
+    <Content Include="Views\Store\PaymentCart_InLocation.cshtml" />
+    <Content Include="Views\Store\PaymentCart_Online.cshtml" />
+    <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\Store\integratedSearch.cshtml" />
+    <Content Include="Views\Home\EmailTest.cshtml" />
+    <Content Include="Views\Troubleshooting\Index.cshtml" />
+    <Content Include="Views\Cars\CarsComments.cshtml" />
+    <Content Include="Views\public\template02.cshtml" />
+    <Content Include="Views\Cars\Car_13951015.cshtml" />
+    <Content Include="Views\Store\Products_13951020_0103.cshtml" />
+    <Content Include="Publics\Gallery\favicons\manifest.json" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

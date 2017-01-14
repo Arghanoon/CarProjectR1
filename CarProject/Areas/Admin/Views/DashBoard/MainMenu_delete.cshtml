@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "MainMenu_delete";
+}
+@model CarProject.DBSEF.HomePageMenu
+
+
+<form method="post" class="messageInLine red">
+    <h3>آیا از حذف منو <q>@Model.Title</q> اطمینان دارید</h3>
+    <center>
+        <a href="/Admin/Dashboard/MainMenus" class="button green">انصراف</a>
+        <input type="submit" value="حذف" class="button red" />
+    </center>
+</form>

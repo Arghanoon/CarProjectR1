@@ -17,7 +17,7 @@ namespace CarProject.Areas.Users
             context.MapRoute(
                 "Users_default",
                 "Users/{controller}/{action}/{id}",
-                new { controller = "dashboard", action = "Index", id = UrlParameter.Optional },
+                new { controller = "profile", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "CarProject.Areas.Users.Controllers" }
             );
         }

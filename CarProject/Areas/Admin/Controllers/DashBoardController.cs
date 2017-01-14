@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using System.Xml.Serialization;
 using System.IO;
 
+using CarProject.App_extension;
+
 namespace CarProject.Areas.Admin.Controllers
 {
     [CarProject.CLS.AuthFilter]
@@ -17,12 +19,84 @@ namespace CarProject.Areas.Admin.Controllers
         // GET: /Admin/DashBoard/
 
         Models.Dashboard.MySerializer mserilize = new Models.Dashboard.MySerializer();
+        CarProject.DBSEF.CarAutomationEntities dbsobject = new DBSEF.CarAutomationEntities();
 
         public ActionResult Index()
         {
             return View();
         }
 
+        #region Mails Message
+        public ActionResult MailsMessage_Signup_SendActivationcode()
+        {
+            var model = new Models.Dashboard.MailsMessage_Signup_SendActivationcode();
+            model.Load();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult MailsMessage_Signup_SendActivationcode(Models.Dashboard.MailsMessage_Signup_SendActivationcode model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+            }
+            return View(model);
+        }
+
+        public ActionResult MailsMessage_Signup_RecoveryKey()
+        {
+            var model = new Models.Dashboard.MailsMessage_Signup_RecoveryKey();
+            model.Load();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult MailsMessage_Signup_RecoveryKey(Models.Dashboard.MailsMessage_Signup_RecoveryKey model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+            }
+            return View(model);
+        }
+
+
+        public ActionResult MaillsMessage_MarketingHistory()
+        {
+            return View();
+        }
+
+        public ActionResult MaillsMessage_Marketing()
+        {
+            var model = new Models.Dashboard.MailsMessage_Marketing_Model();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult MaillsMessage_Marketing(Models.Dashboard.MailsMessage_Marketing_Model model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.SendMessage();
+                model.SaveMessage();
+                return RedirectToAction("MaillsMessage_MarketingHistory");
+            }
+            return View(model);
+        }
+
+        public JsonResult MailsMessage_Marketing_Emails(int? Type)
+        {
+            var dbs = new CarProject.DBSEF.CarAutomationEntities();
+            var res = dbs.People.Where(p => p.User.UserRoleId == 2).Select(p => new { email = p.PersonEmail, name = p.PersonFirtstName + " " + p.PersonLastName, username = p.User.Uname, pid = p.PersonId });
+            
+            if (Type == 2)
+            {
+                res = dbs.People.Select(p => new { email = p.PersonEmail, name = p.PersonFirtstName + " " + p.PersonLastName, username = p.User.Uname, pid = p.PersonId });
+            }
+            
+            return Json(res.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region about me and contact us
         public ActionResult AboutMe()
         {
             var model = new Models.Dashboard.AboutMe();
@@ -82,9 +156,9 @@ namespace CarProject.Areas.Admin.Controllers
 
             return View(model);
         }
+        #endregion
 
-
-
+        #region Slidershows
         public ActionResult SlideShower_Slides()
         {
             return View();
@@ -126,8 +200,9 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View(model);
         }
+        #endregion
 
-
+        #region Countries and Companies and manufactures
         public ActionResult CountryManagment()
         {
             var model = new Models.Dashboard.CountryModel();
@@ -237,8 +312,90 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View(model);
         }
+        #endregion
 
+        #region MenuManager 
+        public ActionResult MainMenus()
+        {
+            return View();
+        }
 
+        public ActionResult MainMenu_Insert()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult MainMenu_Insert(DBSEF.HomePageMenu model)
+        {
+            if (model.Subject.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Subject", "عنوان لینک تعیین نشده است");
+            if (model.Target.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Target", "لینک صفحه تعیین نشده است");
+
+            if (ModelState.IsValid)
+            {
+                dbsobject.HomePageMenus.Add(model);
+                dbsobject.SaveChanges();
+
+                return RedirectToAction("MainMenus");
+            }
+
+            return View(model);
+        }
+
+        public ActionResult MainMenu_Update(int? id)
+        {
+            var model = dbsobject.HomePageMenus.FirstOrDefault(c => c.HomePageMenuId == id);
+            if (model == null)
+                return RedirectToAction("MainMenus");
+
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult MainMenu_Update(int? id, DBSEF.HomePageMenu model)
+        {
+            if (model.Subject.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Subject", "عنوان لینک تعیین نشده است");
+            if (model.Target.IsNullOrWhiteSpace())
+                ModelState.AddModelError("Target", "لینک صفحه تعیین نشده است");
+
+            if (ModelState.IsValid)
+            {
+                var mdl = dbsobject.HomePageMenus.FirstOrDefault(c => c.HomePageMenuId == id);
+                if (mdl != null)
+                {
+                    TryUpdateModel(mdl);
+                    dbsobject.SaveChanges();
+                }
+
+                return RedirectToAction("MainMenus");
+            }
+
+            return View(model);
+        }
+
+        public ActionResult MainMenu_delete(int? id)
+        {
+            var model = dbsobject.HomePageMenus.FirstOrDefault(c => c.HomePageMenuId == id);
+            if (model == null)
+                return RedirectToAction("MainMenus");
+
+            return View(model);
+        }
+        [HttpPost, ActionName("MainMenu_delete")]
+        public ActionResult MainMenu_deleteConfirmed(int? id)
+        {
+            var model = dbsobject.HomePageMenus.FirstOrDefault(c => c.HomePageMenuId == id);
+            if (model != null)
+            {
+                dbsobject.HomePageMenus.Remove(model);
+                dbsobject.SaveChanges();
+            }
+
+            return RedirectToAction("MainMenus");
+        }
+
+        #endregion
 
         [HttpPost]
         public ActionResult topNavPostBack(FormCollection form)

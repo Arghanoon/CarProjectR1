@@ -1,5 +1,32 @@
 ﻿@{
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    
+}
+
+@functions
+{
+    MvcHtmlString ProductMenuGenerator(int? id,int level = 0)
+    {
+        string res = "";
+        var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+        var productsGroup = dbs.Categories.Where(c => c.ParentCategoryId == id);
+        
+        foreach (var item in productsGroup)
+        {
+            res += string.Format("<section class=\"menuItem {0}\">", "level" + level.ToString());
+            res += string.Format("<a href=\"{0}\">{1}</a>", "/Store/ProductsList/" + item.CategoryId.ToString(), item.CategoryName);
+
+            var nav = ProductMenuGenerator(item.CategoryId, level + 1);
+
+            if (nav != null && !string.IsNullOrWhiteSpace(nav.ToString()))
+                res += string.Format("<nav class=\"{0}\">{1}</nav>", "level" + level.ToString(), nav);
+            
+            res += string.Format("</section>");
+        }
+
+        return new MvcHtmlString(res);
+    }
 }
 
 <!doctype html>
@@ -9,12 +36,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-<title>خودرو کلینیک - @ViewBag.Title</title>
+<title>@{if (ViewBag.Title != "") { Write(ViewBag.Title + " | "); }}خودرو کلینیک</title>
 
     <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
     <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
     <link href="~/Publics/Files/Resources/StorePage/Default.css" rel="stylesheet" />
+    <link href="~/Publics/Files/Resources/StorePage/Default_MS.css" rel="stylesheet" media="(max-width:700px)" />
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/input1.css" rel="stylesheet" />
     <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
+
+    @RenderSection("style", false)
 </head>
 
 <body>
@@ -22,25 +53,55 @@
 <header id="headers">	
     <header id="header1">
     	<div id="section1">
+            <a href="javascript:void()" onclick="$('#part1').toggleClass('show')" class="gia-menuIcon" id="section1part1munuIcon"></a>
         	<section id="part1">
-            	<span> 
+            	 
                 	فروشگاه اینترنتی کلینیک خودرو |
-                    <a href="/Login" class="gia-login">ورود کاربران</a>
-                    <a href="/Login/Signup" class="gia-user"> ثبت نام کاربر</a>
-                    <a href="#" class="gia-cart">سبد خرید</a>
-                </span>
+                    @if(Session["guestUser"] == null)
+                    {
+                        <a href="/Users/profile/Login" class="gia-login">ورود کاربران</a>
+                        <a href="/Users/profile/Signup" class="gia-user"> ثبت نام کاربر</a>
+                    }
+                    else
+                    {
+                        var user = Session["guestUser"] as CarProject.DBSEF.User;
+                        <span>
+                            <span>کاربر:</span>
+                            <strong>@user.Uname</strong> |
+                        </span> 
+                        <a href="/Users/profile" class="gia-user">پروفایل کاربر</a>
+                        <a href="javascript:void()" onclick="document.getElementById('logoutform').submit()" class="gia-logout">خروج کاربر</a>
+                        
+                        <form method="post" id="logoutform" style="display:inline-block;" action="@Url.Action("LogoutRequest", "profile", new { area = "Users" })" ></form>
+                    }
+                    <a href="@Url.Action("Cart", "Store", new { area = "" })" class="gia-cart">سبد خرید</a>
+                    |
+                    @*<a href="#" class="gia-heart">علاقه مندیها</a>*@
+                    <a href="/Cars" class="gia-car1">خودروها</a>
+                    <a href="/Store/ProductsList" class="gia-product">محصولات</a>
+                    <a href="/News" class="gia-news">اخبار</a>
+
+                    |
+                    <a href="/Home/AboutUs" class="gia-information">درباره ما</a>
+                    <a href="/Home/ContectUs" class="gia-contactUs">تماس باما</a>
             </section>
             
             <div id="part2">
-                <section id="searchSection">
-                	<input type="text" placeholder="محصول، سرویس و ..." />
-                    <button type="button"><span class="gia-search"></span></button>
-                </section>
+                <form method="get" action="/Store/integratedSearch" id="searchSection">
+                	<input type="text" name="isearch" value="@if (Request.QueryString.AllKeys.Contains("isearch")) { @Request.QueryString["isearch"] }" placeholder="محصول، سرویس و ..." />
+                    <button type="submit"><span class="gia-search"></span></button>
+                </form>
+                @*<div id="tabcontainer">
+                    <a href="#" >جستجوی پیشرفته خودروها</a> |
+                    <a href="#" >جستجوی پیشرفته محصولات</a>
+                </div>*@
             </div>
         </div>
-        
+
         <div id="logoSection">
-            <img id="logo" src="~/Publics/Files/Resources/HomePage/logo.png" />
+            <a href="http://khodroclinic.com/">
+                <img id="logo" src="~/Publics/Files/Resources/HomePage/logo.png" alt="وبسایت رسمی خودرو کلینیک" />
+            </a>
             <section id="describe">توضیحات سایت</section>
         </div>
     </header>
@@ -50,58 +111,15 @@
             <h1>خودرو کلینیک | </h1>
         </section>
         <nav id="header2_menucontianer">
-        	<a href="#">منو شماره 1</a>
-            <a href="#">منو شماره 2</a>
-            <a href="#">منو شماره 3</a>
-            <a href="#">منو شماره 4</a>
-            <a href="#">منو شماره 5</a>
-            <section class="a">
-            	<a href="#">منو زیر مجموعه دار</a>
-                <nav>
-                	<a href="#">منو شماره 1</a>
-                    <a href="#">منو شماره 2</a>
-                    <a href="#">منو شماره 3</a>
-                    <a href="#">منو شماره 4</a>
-                    <a href="#">منو شماره 5</a>
-                    <section class="a">
-                        <a href="#">منو زیر مجموعه دار</a>
-                        <nav>
-                            <a href="#">منو شماره 1</a>
-                            <a href="#">منو شماره 2</a>
-                            <a href="#">منو شماره 3</a>
-                            <section class="a">
-                                <a href="#">منو زیر مجموعه دار</a>
-                                <nav>
-                                    <a href="#">منو شماره 1</a>
-                                    <a href="#">منو شماره 2</a>
-                                    <section class="a">
-                                        <a href="#">منو زیر مجموعه دار</a>
-                                        <nav>
-                                            <a href="#">منو شماره 1</a>
-                                            <a href="#">منو شماره 2</a>
-                                            <a href="#">منو شماره 3</a>
-                                            <a href="#">منو شماره 4</a>
-                                            <a href="#">منو شماره 5</a>
-                                        </nav>
-                                    </section>
-                                    <a href="#">منو شماره 3</a>
-                                    <a href="#">منو شماره 4</a>
-                                    <a href="#">منو شماره 5</a>
-                                </nav>
-                            </section>
-                            <a href="#">منو شماره 4</a>
-                            <a href="#">منو شماره 5</a>
-                        </nav>
-                    </section>
-                </nav>
-            </section>
+        	@ProductMenuGenerator(null)
         </nav>
     </header>
 </header>
 
 
-    
+<div id="renderBodySection">    
 @RenderBody()
+</div>
 
 @*<div class="SliderType1" style=" height:100vh;">
 	<div class="w25 sliderTitles">
@@ -135,4 +153,5 @@
 </body>
 
 <script src="~/Publics/Files/Resources/StorePage/Default.js"></script>
+@RenderSection("script", false)
 </html>

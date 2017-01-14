@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "پروفایل کاربر";
+    
+    var person = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
+    var personcarnotification = new CarProject.Areas.Users.UsersCLS.Notifications.UserCarsNotifications();
+}
+
+
+
+
+<div class="item">
+    <h3>دسترسی سریع</h3>
+
+    <div class="menu1Container">
+        <a href="/Store/Cart">
+            <section class="gia-cart logo"></section>
+            <section class="title">سبد خرید کاربر</section>
+        </a> 
+        <a href="/Users/Dashboard/ShoppingHistory">
+            <section class="gia-details logo"></section>
+            <section class="title">تاریخچه خریدها</section>
+        </a>
+        <a href="/Users/Dashboard/ShoppingHistory">
+            <section class="gia-distribution logo"></section>
+            <section class="title">پیگیری سفارش</section>
+        </a>
+        <a href="/Users/Profile/ViewUserProfile">
+            <section class="gia-userInfo logo"></section>
+            <section class="title">اطلاعات کاربری</section>
+        </a>
+
+        <a href="/Users/Profile/UserChangePassword">
+            <section class="gia-key logo"></section>
+            <section class="title">تغییر کلمه عبور کاربر</section>
+        </a>
+
+        <a href="/Users/Dashboard/PersonCars">
+            <section class="gia-usercar logo"></section>
+            <section class="title">خودرو کاربر</section>
+        </a>
+    </div>
+</div>
+
+<div class="item">
+    <h3>هشدارها</h3>
+    <ul class="notificationShortViewMessage">
+        @if(personcarnotification.Notifications != null)
+        {
+            foreach (var item in personcarnotification.Notifications)
+            {
+                <li><a href="#">@item.Message</a></li>
+            }
+        }
+    </ul>
+</div>
+
+
+
+@section head
+{
+    <style>
+        #UserProfile {
+            padding:5px;
+        }
+        #userProfilePicture {
+            background:url('/Publics/Files/Images/generic.png') no-repeat center;
+            background-size:90% auto;
+            width:300px; height:400px;
+        }
+
+        .menu1Container {
+            display:flex; 
+            justify-content:center;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+
+            .menu1Container a {
+                margin:5px;
+                width:150px;
+                height:150px;
+                border:thin solid #888;
+                overflow:hidden;
+
+            }
+                .menu1Container a > * {
+                    position:absolute;
+                    width:100%; height:100%;
+                    left:0; right:0;
+
+                    display:flex; justify-content:center; align-items:center;
+
+                    transition:0.5s;
+                }
+                .menu1Container a .logo {
+                    top:0;
+                }
+                    .menu1Container a .logo:before {
+                        font-size: 100px;
+                        top: 0;
+
+                        color:transparent;
+                        text-shadow:1px 1px 3px #fff, 0 0 0 #000;
+                    }
+                .menu1Container a .title {
+                    top:100%;
+                    background:#eaeaea;
+                }
+
+
+                .menu1Container a:hover .logo {
+                    top: -100%;
+                }
+                .menu1Container a:hover .title {
+                    top:0;
+                }
+
+
+    </style>
+}

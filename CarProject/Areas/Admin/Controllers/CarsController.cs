@@ -22,6 +22,7 @@ namespace CarProject.Areas.Admin.Controllers
             return View();
         }
 
+        #region manipulate car
         [HttpPost]
         public ActionResult DeleteCar(int? CarsID)
         {
@@ -95,7 +96,7 @@ namespace CarProject.Areas.Admin.Controllers
                 }
                 ViewBag.images = imgPath;
             }
-            return View();
+            return RedirectToAction("CarImagesGallery", new { id = id });
         }
         public ActionResult CarImageGalleryRemove(int id, string filename)
         {
@@ -131,6 +132,30 @@ namespace CarProject.Areas.Admin.Controllers
                 }
                 
             }
+            return View(model);
+        }
+
+        public ActionResult Cars_CostList(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Cars_CostList(int? id, DBSEF.CarPrice model)
+        {
+            if (model.Price == null)
+                ModelState.AddModelError("Price", "مبلغ کالا تعیین نشده است");
+            
+
+            if (ModelState.IsValid)
+            {
+                var dbs = new DBSEF.CarAutomationEntities();
+                model.Date = DateTime.Now;
+                dbs.CarPrices.Add(model);
+                dbs.SaveChanges();
+
+                return RedirectToAction("Cars_CostList", new { id = id });
+            }
+
             return View(model);
         }
 
@@ -212,5 +237,132 @@ namespace CarProject.Areas.Admin.Controllers
                 c.CarModel.CarModelName.Contains(search)).Select(c => new { id = c.CarsId, brand = c.CarModel.CarBrand.CarBrandName, model = c.CarModel.CarModelName }).ToList();
             return Json(x);
         }
+        #endregion
+
+        #region CarComments
+        public ActionResult CarComments()
+        {
+            return View();
+        }
+        public ActionResult CarCommentShow(int? id)
+        {
+            var model = dbs.CarComments.FirstOrDefault(cc => cc.CarCommentsId == id);
+            if(model == null)
+                return RedirectToAction("CarComments");
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult CarCommentShow(int? id,DBSEF.CarComment model)
+        {
+            var mdl = dbs.CarComments.FirstOrDefault(cc => cc.CarCommentsId == id);
+            if (mdl != null)
+            {
+                TryUpdateModel(mdl);
+                mdl.ResponseDateTime = DateTime.Now;
+                dbs.SaveChanges();
+                return RedirectToAction("CarComments");
+            }
+            return View(model);
+        }
+
+        public ActionResult CarCommentShow_delete(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CarCommentShow_delete(int? id, FormCollection form)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var cm = dbs.CarComments.FirstOrDefault(c => c.CarCommentsId == id);
+            if (cm != null)
+            {
+                dbs.CarComments.Remove(cm);
+                dbs.SaveChanges();
+            }
+            return RedirectToAction("CarComments");
+        }
+        [HttpPost]
+        public int CarChangeCanShowState(int? ID)
+        {
+            int res = 0;
+            var dbs = new DBSEF.CarAutomationEntities();
+            var ccm = dbs.CarComments.FirstOrDefault(cc => cc.CarCommentsId == ID);
+            if (ccm != null)
+            {
+                ccm.canshow = !ccm.canshow.GetValueOrDefault(false);
+                res = (ccm.canshow.Value) ? 1 : 0;
+                dbs.SaveChanges();
+            }
+            return res;
+        }
+        #endregion
+
+        #region CarUserComments
+        public ActionResult CarUserComments()
+        {
+            return View();
+        }
+
+        public ActionResult CarUserComments_ShowAndReply(int? id)
+        {
+            var comment = dbs.CarUserComments.FirstOrDefault(c => c.CarUserCommentsId == id);
+            if (comment == null)
+                return RedirectToAction("CarUserComments");
+
+            return View(model: comment);
+        }
+        [HttpPost]
+        public ActionResult CarUserComments_ShowAndReply(int? id, string comment)
+        {
+            var mdlcomment = dbs.CarUserComments.FirstOrDefault(c => c.CarUserCommentsId == id);
+            if (mdlcomment == null)
+                return RedirectToAction("CarUserComments");
+
+            if (comment.IsNullOrWhiteSpace())
+                ModelState.AddModelError("comment", "پیام نمیتواند خالی باشد");
+            
+            if (ModelState.IsValid)
+            {
+                var newitem  = dbs.CarUserComments.Add(new DBSEF.CarUserComment
+                {
+                    Comment = comment,
+                    DateTime = DateTime.Now,
+                    CarId = mdlcomment.CarId,
+                    RootCarUserCommentsId = id
+                });
+                dbs.SaveChanges();
+
+                return RedirectToAction("CarUserComments_ShowAndReply", new { id = newitem.CarUserCommentsId });
+            }
+
+            return View(model: mdlcomment);
+        }
+        #endregion
+
+        #region Car_Forum
+        public ActionResult Car_Forum(int? id)
+        {
+            return View();
+        }
+        public ActionResult Car_Forum_Question(int? id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Car_Forum_Question(int? id,DBSEF.CarsQnA model)
+        {
+            if (model.Question.IsNullOrWhiteSpace())
+                ViewData.ModelState.AddModelError("Question", "جوابی وارد نشده است");
+            if (ModelState.IsValid)
+            {
+                model.QuestionType = "A";
+                dbs.CarsQnAs.Add(model);
+                dbs.SaveChanges();
+                
+                return RedirectToAction("Car_Forum_Question", new { id = id });
+            }
+            return View(model);
+        }
+        #endregion
     }
 }

@@ -16,6 +16,7 @@ namespace CarProject.DBSEF
     {
         public int ProdcutToViewId { get; set; }
         public Nullable<int> Viewd { get; set; }
+        public Nullable<int> Favorite { get; set; }
         public Nullable<int> ProductId { get; set; }
     
         public virtual Product Product { get; set; }

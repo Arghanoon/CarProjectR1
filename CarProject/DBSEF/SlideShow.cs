@@ -19,5 +19,6 @@ namespace CarProject.DBSEF
         public string Describe { get; set; }
         public string Image { get; set; }
         public string Url { get; set; }
+        public Nullable<byte> Type { get; set; }
     }
 }

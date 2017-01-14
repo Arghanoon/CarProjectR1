@@ -173,11 +173,15 @@
         tinymce.init({
             selector: '#@Model',
             menubar: false,
-            plugins: "directionality,link,hr,table,emoticons,preview,image,media",
-            toolbar: "fontsizeselect styleselect removeformat | ltr rtl | alignleft aligncenter alignright alignjustify | bold italic underline strikethrough | undo redo | cut copy paste | bullist numlist | hr link unlink | image media | table tabledelete tabledelete tablemergecells tablesplitcells tableinsertrowbefore tableinsertrowbefore tableinsertrowbefore tablerowprops tablecutrow tablecopyrow tablepasterowbefore tablepasterowafter tableinsertcolbefore tableinsertcolafter tabledeletecol | emoticons preview | ",
+            plugins: "directionality,link,hr,table,emoticons,preview,image,media,code",
+            toolbar: "fontsizeselect styleselect removeformat | ltr rtl | alignleft aligncenter alignright alignjustify | bold italic underline strikethrough | undo redo | cut copy paste | bullist numlist | hr link unlink | image media | table tabledelete tabledelete tablemergecells tablesplitcells tableinsertrowbefore tableinsertrowbefore tableinsertrowbefore tablerowprops tablecutrow tablecopyrow tablepasterowbefore tablepasterowafter tableinsertcolbefore tableinsertcolafter tabledeletecol | emoticons preview | code",
             content_css: "@Url.Content("~/Publics/Styles/fonts/Fonts.css"),@Url.Content("~/Areas/Admin/Files/StyleAndScripts/Default/tinymce01.css")",
             directionality: 'rtl',
             min_height: 300,
+
+            relative_urls: false,
+            convert_urls: false,
+            remove_script_host: false,
 
             automatic_uploads: true,
             file_browser_callback: function (field_name, url, type, win) {
