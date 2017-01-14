@@ -5,7 +5,21 @@ using System.Web;
 using System.IO;
 
 namespace CarProject.DBSEF
-{ 
+{
+    public class SingletoonDBS
+    {
+        private static CarAutomationEntities DBS { get; set; }
+        public static CarAutomationEntities GetInstance
+        {
+            get
+            {
+                if (DBS == null)
+                    DBS = new CarAutomationEntities();
+
+                return DBS;
+            }
+        }
+    }
     public partial class User
     {
         public enum Enum_ActiveORecoveryEnum { Activation = 0, Recovery = 1 };
@@ -376,6 +390,68 @@ namespace CarProject.DBSEF
 
                 return res.ToArray();
             }
+        }
+
+        public int CountOfViews
+        {
+            get
+            {
+                var x = this.ProductToViews.FirstOrDefault(pv => pv.ProductId == this.ProductId);
+                if (x == null)
+                    return 0;
+                else
+                    return x.Viewd.GetValueOrDefault(0);
+            }
+        }
+
+        public int CountOfFavorite
+        {
+            get
+            {
+                var x = this.ProductToViews.FirstOrDefault(pv => pv.ProductId == this.ProductId);
+                if (x == null)
+                    return 0;
+                else
+                    return x.Favorite.GetValueOrDefault(0);
+            }
+        }
+    }
+
+    public partial class Content
+    {
+        public string[] ContentImages
+        {
+            get
+            {
+                List<string> res = new List<string>();
+
+                var Server = HttpContext.Current.Server;
+
+                var PicFileUrl = "~/Publics/Gallery/NewsImages/" + this.ContenstId;
+                var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+                if (finfo.Exists)
+                {
+                    foreach (var item in finfo.GetFiles())
+                    {
+                        res.Add(PicFileUrl + "/" + item.Name);
+                    }
+                }
+
+                return res.ToArray();
+            }
+        }
+    }
+
+
+    public partial class PersonServicesUseRequest
+    {
+        [Flags]
+        public enum StateFlags : byte
+        {
+            UserSendRequest = 0,
+            SendToAgent = 1,
+            Completed = 2
         }
     }
 }

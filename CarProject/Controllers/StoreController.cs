@@ -425,7 +425,7 @@ namespace CarProject.Controllers
 
             foreach (var itm in sp.AutoServices)
             {
-                InsertPersonServices(dbs, item.Basket.UserId, itm.AutoServiceId, itm.);
+                InsertPersonServices(dbs, item.Basket.UserId.Value, itm.AutoServiceId.Value, 1);
             }
         }
 

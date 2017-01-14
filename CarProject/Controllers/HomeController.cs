@@ -61,6 +61,12 @@ namespace CarProject.Controllers
             return View();
         }
 
+        public ActionResult Search(FormCollection form)
+        {
+            return View();
+        }
+
+        
 
         public ActionResult EmailTest()
         {

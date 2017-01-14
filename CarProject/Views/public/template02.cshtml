@@ -76,10 +76,10 @@
                     <div id="Website_search_section">
                         <a href="/Store/Cart" class="t2button">سبد خرید</a>
                         
-                        <section id="Webiste_Search_Control">
-                            <input type="text" name="search" placeholder="جستجوی خودروها،قطعات یدکی،اخبار" />
+                        <form method="get" action="/Home/Search" id="Webiste_Search_Control">
+                            <input type="text" name="search" value="@Request.QueryString["search"]" placeholder="جستجوی خودروها،قطعات یدکی،اخبار" />
                             <button type="submit"><span class="gia-left"></span></button>
-                        </section>
+                        </form>
                         
                         @if(loggineduser == null)
                         {
