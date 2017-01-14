@@ -14,26 +14,15 @@ namespace CarProject.Areas.Admin.Models.Cars
         db.CarAutomationEntities DBS = new db.CarAutomationEntities();
 
         public db.Car Car { get; set; }
-        public List<string> List_CarType { get { return new List<string> { "هاچ بک", "سدان", "کوپه", "SUV", "کراس اوور", "وانت" }; } }
-        public List<string> List_CarClass { get { return new List<string> { "بسیار کوچک", "کامپکت کوچک", "کامپکت متوسط", "کامپکت بزرگ", "کوچک", "متوسط", "بزرگ", "لوکس کوچک", "لوکس متوسط", "لوکس بزرگ", "سوپر لوکس", "اسپرت", "سوپر اسپرت", "کروکی", "رودسر", "ون", "SUV کوچک", "SUV متوسط", "SUV بزرگ", "SUV فول سایز", "SUV اسپرت" }; } }
-
-        //      public List<string> CarClass { get { return new List<string> { }; } }
-        public List<string> List_CarUsage { get { return new List<string> { "شهری", "خانوادگی", "ترکیبی", "آفرود" }; } }
-
-        public List<string> List_YesOrNo { get { return new List<string> { "بله", "خیر" }; } }
-
         public List<string> List_CarBodyTypes { get { return new List<string> { "سقف فلزی", "سقف جمع شو(کروک)" }; } }
-
+        
         public db.CarEngine CarEngine { get; set; }
-        public List<string> List_EngineTypes { get { return new List<string> { "خورجینی", "خطی", "باکسری" }; } }
-        public List<string> List_EngineFuel { get { return new List<string> { "بنزین", "گاز", "گازوئیل", "هیبرید" }; } }
-
+        public List<string> List_EngineTypes { get { return new List<string> { "V شکل", "I شکل", "باکسری" }; } }
+        public List<string> List_EngineFuel { get { return new List<string> { "بنزین", "گاز", "گازوئیل", "برق" }; } }
+        
         public db.CarGearBox GearBox { get; set; }
-        public List<string> List_GearBoxType { get { return new List<string> { "اتوماتیک", "دستی" }; } }
-        public List<string> List_gearBoxAxel { get { return new List<string> { "جلو", "عقب", "AWD", "4WD" }; } }
+        public List<string> List_GearBoxType { get { return new List<string> { "اتوماتیک", "دستی", "تیپ ترونیک" }; } }
 
-        public List<string> List_HandBrake { get { return new List<string> { "دستی", "برقی", "پدالی" }; } }
-        public List<string> List_SeatOption { get { return new List<string> { "دستی", "برقی" }; } }
         public db.CarPhysicalDetail PhysicalDetail { get; set; }
         public db.BrakeSystem BrakeSystem { get; set; }
         public List<db.DetailedBrakeSystem> DetailedBrakeSystems { get; set; }

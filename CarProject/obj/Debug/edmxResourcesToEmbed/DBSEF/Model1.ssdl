@@ -219,7 +219,6 @@
     <Property Name="CarUsage" Type="nvarchar" MaxLength="100" />
     <Property Name="CarYearModel" Type="int" />
     <Property Name="CarBodyType" Type="nvarchar" MaxLength="50" />
-    <Property Name="CarCostPerYear" Type="int" />
   </EntityType>
   <EntityType Name="CarSeatOptions">
     <Key>
@@ -683,16 +682,6 @@
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="ToBasket">
     <Key>
       <PropertyRef Name="ToBasketId" />
@@ -738,18 +727,6 @@
     <Property Name="Upass" Type="nvarchar" MaxLength="50" />
     <Property Name="UserRoleId" Type="int" />
     <Property Name="IsActive" Type="bit" />
-  </EntityType>
-  <EntityType Name="UserReview">
-    <Key>
-      <PropertyRef Name="UserReviewId" />
-    </Key>
-    <Property Name="UserReviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserReview" Type="ntext" />
-    <Property Name="UserId" Type="int" />
-    <Property Name="CarId" Type="int" />
-    <Property Name="ProductId" Type="int" />
-    <Property Name="ServicesId" Type="int" />
-    <Property Name="ServicesPackId" Type="int" />
   </EntityType>
   <EntityType Name="UserRole">
     <Key>
@@ -1730,66 +1707,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_UserReview_AutoService">
-    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
-    <End Role="UserReview" Type="Self.UserReview" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AutoService">
-        <PropertyRef Name="AutoServiceId" />
-      </Principal>
-      <Dependent Role="UserReview">
-        <PropertyRef Name="ServicesId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserReview_AutoServicePack">
-    <End Role="AutoServicePack" Type="Self.AutoServicePack" Multiplicity="0..1" />
-    <End Role="UserReview" Type="Self.UserReview" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AutoServicePack">
-        <PropertyRef Name="AutoServicePackId" />
-      </Principal>
-      <Dependent Role="UserReview">
-        <PropertyRef Name="ServicesPackId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserReview_Cars">
-    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
-    <End Role="UserReview" Type="Self.UserReview" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Cars">
-        <PropertyRef Name="CarsId" />
-      </Principal>
-      <Dependent Role="UserReview">
-        <PropertyRef Name="CarId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserReview_Product">
-    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="UserReview" Type="Self.UserReview" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="ProductId" />
-      </Principal>
-      <Dependent Role="UserReview">
-        <PropertyRef Name="ProductId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserReview_User">
-    <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="UserReview" Type="Self.UserReview" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="UserReview">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="CarAutomationModelStoreContainer">
     <EntitySet Name="AirConditioningSystem" EntityType="Self.AirConditioningSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AirConditioningSystemDetail" EntityType="Self.AirConditioningSystemDetail" Schema="dbo" store:Type="Tables" />
@@ -1852,12 +1769,10 @@
     <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ToBasket" EntityType="Self.ToBasket" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="UserReview" EntityType="Self.UserReview" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_AirConditioningSystem_Cars" Association="Self.FK_AirConditioningSystem_Cars">
       <End Role="Cars" EntitySet="Cars" />
@@ -2182,26 +2097,6 @@
     <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
       <End Role="UserRole" EntitySet="UserRole" />
       <End Role="User" EntitySet="User" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserReview_AutoService" Association="Self.FK_UserReview_AutoService">
-      <End Role="AutoService" EntitySet="AutoService" />
-      <End Role="UserReview" EntitySet="UserReview" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserReview_AutoServicePack" Association="Self.FK_UserReview_AutoServicePack">
-      <End Role="AutoServicePack" EntitySet="AutoServicePack" />
-      <End Role="UserReview" EntitySet="UserReview" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserReview_Cars" Association="Self.FK_UserReview_Cars">
-      <End Role="Cars" EntitySet="Cars" />
-      <End Role="UserReview" EntitySet="UserReview" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserReview_Product" Association="Self.FK_UserReview_Product">
-      <End Role="Product" EntitySet="Product" />
-      <End Role="UserReview" EntitySet="UserReview" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserReview_User" Association="Self.FK_UserReview_User">
-      <End Role="User" EntitySet="User" />
-      <End Role="UserReview" EntitySet="UserReview" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

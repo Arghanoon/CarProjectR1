@@ -27,7 +27,6 @@ namespace CarProject.DBSEF
             this.ToBaskets = new HashSet<ToBasket>();
             this.TodaysSpecials = new HashSet<TodaysSpecial>();
             this.Troubleshootings = new HashSet<Troubleshooting>();
-            this.UserReviews = new HashSet<UserReview>();
         }
     
         public int ProductId { get; set; }
@@ -77,7 +76,5 @@ namespace CarProject.DBSEF
         public virtual ICollection<TodaysSpecial> TodaysSpecials { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Troubleshooting> Troubleshootings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserReview> UserReviews { get; set; }
     }
 }

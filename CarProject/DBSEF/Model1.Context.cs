@@ -86,12 +86,10 @@ namespace CarProject.DBSEF
         public virtual DbSet<ServiceToView> ServiceToViews { get; set; }
         public virtual DbSet<SlideShow> SlideShows { get; set; }
         public virtual DbSet<SteeringSystem> SteeringSystems { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ToBasket> ToBaskets { get; set; }
         public virtual DbSet<TodaysSpecial> TodaysSpecials { get; set; }
         public virtual DbSet<Troubleshooting> Troubleshootings { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserReview> UserReviews { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
     }
 }
