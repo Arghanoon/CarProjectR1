@@ -49,6 +49,7 @@ namespace CarProject.Areas.Admin.Models.Store
             foreach (var item in Cars)
             {
                 Product.ProductCars.Add(item);
+                
             }
             dbs.Products.Add(this.Product);
             //foreach (var item in Cars)
@@ -85,6 +86,8 @@ namespace CarProject.Areas.Admin.Models.Store
             {
                 if (Product.ProductCars.Count(c => c.CarsId == item.CarsId) <= 0)
                     Product.ProductCars.Add(item);
+
+                Product.CarId = item.CarsId;
             }
 
             dbs.SaveChanges();

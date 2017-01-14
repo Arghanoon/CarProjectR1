@@ -51,6 +51,7 @@ namespace CarProject.DBSEF
         public Nullable<int> ProductQnAId { get; set; }
         public Nullable<int> DiscountId { get; set; }
         public Nullable<bool> WithInstall { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         public virtual CarBrand CarBrand { get; set; }
         public virtual Car Car { get; set; }

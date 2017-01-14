@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="CarAutomationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="CarAutoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="AirConditioningSystem">
     <Key>
       <PropertyRef Name="AirConditioningSystemId" />
@@ -695,6 +695,7 @@
     <Property Name="ProductQnAId" Type="int" />
     <Property Name="DiscountId" Type="int" />
     <Property Name="WithInstall" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="ProductCars">
     <Key>
@@ -872,6 +873,16 @@
     <Property Name="SteeringControlKey" Type="bit" />
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="TimeOfDay">
     <Key>
@@ -2141,7 +2152,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CarAutomationModelStoreContainer">
+  <EntityContainer Name="CarAutoModelStoreContainer">
     <EntitySet Name="AirConditioningSystem" EntityType="Self.AirConditioningSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AirConditioningSystemDetail" EntityType="Self.AirConditioningSystemDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AutoService" EntityType="Self.AutoService" Schema="dbo" store:Type="Tables" />
@@ -2216,6 +2227,7 @@
     <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TimeOfDay" EntityType="Self.TimeOfDay" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
