@@ -184,6 +184,7 @@
     <Compile Include="CLS\Filters.cs" />
     <Compile Include="CLS\MailsServers\Mails.cs" />
     <Compile Include="CLS\SearchClass.cs" />
+    <Compile Include="CLS\SearchEngine\SearchLogic.cs" />
     <Compile Include="CLS\Searchs\CarsSearchLogic.cs" />
     <Compile Include="CLS\Searchs\ProductSearchModel.cs" />
     <Compile Include="CLS\Searchs\SearchModel.cs" />
@@ -374,6 +375,9 @@
     <Compile Include="DBSEF\PersonServicesPack.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\PersonServicesUseRequest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -489,6 +493,8 @@
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\scripts.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\SliderItemShow.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\SliderItemShow.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Home\Search\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Home\Search\script.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\SliderItemShow.css" />
@@ -989,6 +995,8 @@
     <Content Include="Areas\Admin\Views\FileManager\tinymcefm2_selector.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\CarUserComments.cshtml" />
     <Content Include="Areas\Admin\Views\Cars\CarUserComments_ShowAndReply.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\ProductUserComments_ShowAndReply.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -1006,8 +1014,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Store\ProductUserComments.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\ProductUserComments_ShowAndReply.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
@@ -1043,6 +1049,7 @@
     <Content Include="Views\Cars\Car_13951015.cshtml" />
     <Content Include="Views\Store\Products_13951020_0103.cshtml" />
     <Content Include="Publics\Gallery\favicons\manifest.json" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

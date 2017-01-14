@@ -1,0 +1,178 @@
+﻿@{
+    ViewBag.Title = "جستجو";
+
+    var search = Request.QueryString["search"];
+    var sres = new CarProject.CLS.SearchEngine.SearchLogic(search);
+
+
+    var searchresult = sres.DoSearch();
+    searchresult = searchresult.OrderBy(c => c.Identifier);
+
+    int page = 0;
+    int.TryParse(Request.QueryString["page"], out page);
+    int showinpage = 10;
+
+    int totalcount = searchresult.Count();
+    int total = totalcount / showinpage;
+    if ((totalcount % showinpage) > 0)
+    { total += 1; }
+    
+}
+@using CarProject.CLS.SearchEngine
+
+
+<div class="pagination">
+    @for (int i = 0; i < total; i++)
+    {
+        if (i == page)
+        {
+        <span>@(i + 1)</span>
+        }
+        else
+        {            
+        <a onclick="GoToPage(@i);">@(i + 1)</a>
+        }
+    }
+</div>
+
+<div id="SearchResultContainer">
+    @foreach (var item in searchresult.Skip(showinpage * page).Take(showinpage)) 
+    {
+        <div class="item">
+            <div class="image">
+                <img src="@Url.Content(GetImageUrlOfItem(item))" />
+            </div>
+            <div class="info">
+                <a href="@GetItemURl(item)">
+                    <h3 class="gia-left" >@item.Identifier >> @item.ItemType -- @item.Title</h3>
+                </a>
+                <a href="@GetUrlBaseOnItemType(item.ItemType)"><small>@item.ItemType.GetString()</small></a>
+                <p>@item.Description</p>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="pagination">
+    @for (int i = 0; i < total; i++)
+    {
+        if (i == page)
+        {
+        <span>@(i + 1)</span>
+        }
+        else
+        {            
+        <a onclick="GoToPage(@i);">@(i + 1)</a>
+        }
+    }
+</div>
+
+
+
+@section style
+{
+    <link href="~/Publics/Files/ControlsPageTemplates/Home/Search/css.css" rel="stylesheet" />
+}
+
+@section script
+{
+    <script src="~/Publics/Files/ControlsPageTemplates/Home/Search/script.js"></script>
+}
+
+
+@functions
+{
+    string GetUrlBaseOnItemType(SerchResultItemType type)
+    {
+        switch (type)
+        {
+            case SerchResultItemType.Product:
+                return "/Store/ProductsList";
+            case SerchResultItemType.Service:
+                return "#";
+            case SerchResultItemType.Car:
+                return "/Cars";
+            case SerchResultItemType.News:
+                return "#";
+            case SerchResultItemType.All:
+            default:
+                return "";
+        }
+    }
+    
+    string GetItemURl(SearchResultItems item)
+    {
+        switch (item.ItemType)
+        {
+            case SerchResultItemType.Product:
+                {
+                    var product = (CarProject.DBSEF.Product)item.GetObject();
+                    return Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = product.ProductId, info1 = product.Category.CategoryName, info2 = product.ProductName });
+                }
+            case SerchResultItemType.Service:
+                {
+                    var service = (CarProject.DBSEF.AutoService)item.GetObject();
+                    return Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = service.AutoServiceId, info1 = "سرویسها", info2 = service.AutoServiceName });
+                }
+            case SerchResultItemType.Car:
+                {
+                    var car = (CarProject.DBSEF.Car)item.GetObject();
+                    return Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = car.CarsId, info1 = car.CarModel.CarBrand.CarBrandName.Trim(), info2 = car.CarModel.CarModelName.Trim() });
+                }
+            case SerchResultItemType.News:
+                {
+                    var news = (CarProject.DBSEF.Content)item.GetObject();
+                    return Url.RouteUrl("infoRoute", new { controller = "News", action = "NewsShow", id = news.ContenstId, info1 = news.ContentsCategory.Name, info2 = news.ContentSubject });
+                }
+            case SerchResultItemType.All:
+            default:
+                return "#";
+        }
+    }
+    
+    string GetImageUrlOfItem(SearchResultItems item)
+    {
+        switch (item.ItemType)
+        {
+            case SerchResultItemType.Product:
+                {
+                    var product = (CarProject.DBSEF.Product)item.GetObject();
+                    var images = product.ProductImages;
+                    if (images.Length > 0)
+                        return images[0];
+                    else
+                        return "~/Publics/Gallery/ProductImages/NotFound.png";
+                }
+            case SerchResultItemType.Service:
+                {
+                    var service = (CarProject.DBSEF.AutoService)item.GetObject();
+                    var images = service.AutoServiceImages;
+                    if (images.Length > 0)
+                        return images[0];
+                    else
+                        return "~/Publics/Gallery/ProductImages/NotFound.png";
+                }
+            case SerchResultItemType.Car:
+                {
+                    var car = (CarProject.DBSEF.Car)item.GetObject();
+                    var images = car.CarImages;
+                    if (images.Length > 0)
+                        return images[0];
+                    else
+                        return "~/Publics/Gallery/ProductImages/NotFound.png";
+                }
+            case SerchResultItemType.News:
+                {
+                    var news = (CarProject.DBSEF.Content)item.GetObject();
+                    var images = news.ContentImages;
+                    if (images.Length > 0)
+                        return images[0];
+                    else
+                        return "~/Publics/Gallery/ProductImages/NotFound.png";
+                }
+            case SerchResultItemType.All:
+            default:
+                return "";
+        }
+    }
+}

@@ -34,6 +34,7 @@
     <NavigationProperty Name="AutoServiceCars" Relationship="Self.FK_AutoServiceCars_AutoService" FromRole="AutoService" ToRole="AutoServiceCars" />
     <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoServices_AutoService" FromRole="AutoService" ToRole="AutoServices" />
     <NavigationProperty Name="PersonServices" Relationship="Self.FK_PersonServices_AutoService" FromRole="AutoService" ToRole="PersonServices" />
+    <NavigationProperty Name="PersonServicesUseRequests" Relationship="Self.FK_PersonServicesUseRequest_AutoService" FromRole="AutoService" ToRole="PersonServicesUseRequest" />
     <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_AutoService" FromRole="AutoService" ToRole="ProductDiscount" />
     <NavigationProperty Name="ProductInServices" Relationship="Self.FK_ProductInService_AutoService" FromRole="AutoService" ToRole="ProductInService" />
     <NavigationProperty Name="ServiceToViews" Relationship="Self.FK_ServiceToView_AutoService" FromRole="AutoService" ToRole="ServiceToView" />
@@ -792,6 +793,19 @@
     <NavigationProperty Name="User" Relationship="Self.FK_PersonServicesPack_User" FromRole="PersonServicesPack" ToRole="User" />
     <NavigationProperty Name="ProductServicePackUses" Relationship="Self.FK_ProductServicePackUse_PersonServicesPack" FromRole="PersonServicesPack" ToRole="ProductServicePackUse" />
   </EntityType>
+  <EntityType Name="PersonServicesUseRequest">
+    <Key>
+      <PropertyRef Name="PersonServicesUseRequestId" />
+    </Key>
+    <Property Name="PersonServicesUseRequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestDateTime" Type="DateTime" Precision="3" />
+    <Property Name="State" Type="Byte" />
+    <Property Name="LastStateChangeDateTime" Type="DateTime" Precision="3" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="AutoServiceId" Type="Int32" />
+    <NavigationProperty Name="AutoService" Relationship="Self.FK_PersonServicesUseRequest_AutoService" FromRole="PersonServicesUseRequest" ToRole="AutoService" />
+    <NavigationProperty Name="User" Relationship="Self.FK_PersonServicesUseRequest_User" FromRole="PersonServicesUseRequest" ToRole="User" />
+  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="ProductId" />
@@ -1094,6 +1108,7 @@
     <NavigationProperty Name="PersonProducts" Relationship="Self.FK_PersonProduct_User" FromRole="User" ToRole="PersonProduct" />
     <NavigationProperty Name="PersonServices" Relationship="Self.FK_PersonServices_User" FromRole="User" ToRole="PersonServices" />
     <NavigationProperty Name="PersonServicesPacks" Relationship="Self.FK_PersonServicesPack_User" FromRole="User" ToRole="PersonServicesPack" />
+    <NavigationProperty Name="PersonServicesUseRequests" Relationship="Self.FK_PersonServicesUseRequest_User" FromRole="User" ToRole="PersonServicesUseRequest" />
     <NavigationProperty Name="ProductComments" Relationship="Self.FK_ProductComments_User" FromRole="User" ToRole="ProductComments" />
     <NavigationProperty Name="ProductUserComments" Relationship="Self.FK_ProductUserComments_User" FromRole="User" ToRole="ProductUserComments" />
     <NavigationProperty Name="UserRole" Relationship="Self.FK_User_UserRole" FromRole="User" ToRole="UserRole" />
@@ -1175,6 +1190,18 @@
       </Principal>
       <Dependent Role="PersonServices">
         <PropertyRef Name="ServicesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonServicesUseRequest_AutoService">
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
+    <End Role="PersonServicesUseRequest" Type="Self.PersonServicesUseRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Principal>
+      <Dependent Role="PersonServicesUseRequest">
+        <PropertyRef Name="AutoServiceId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2078,6 +2105,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PersonServicesUseRequest_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="PersonServicesUseRequest" Type="Self.PersonServicesUseRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="PersonServicesUseRequest">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Product_ProductReview">
     <End Role="ProductReview" Type="Self.ProductReview" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -2329,6 +2368,7 @@
     <EntitySet Name="PersonProductEntities" EntityType="Self.PersonProductEntity" />
     <EntitySet Name="PersonServices" EntityType="Self.PersonService" />
     <EntitySet Name="PersonServicesPacks" EntityType="Self.PersonServicesPack" />
+    <EntitySet Name="PersonServicesUseRequests" EntityType="Self.PersonServicesUseRequest" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="ProductCars" EntityType="Self.ProductCar" />
     <EntitySet Name="ProductComments" EntityType="Self.ProductComment" />
@@ -2376,6 +2416,10 @@
     <AssociationSet Name="FK_PersonServices_AutoService" Association="Self.FK_PersonServices_AutoService">
       <End Role="AutoService" EntitySet="AutoServices" />
       <End Role="PersonServices" EntitySet="PersonServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonServicesUseRequest_AutoService" Association="Self.FK_PersonServicesUseRequest_AutoService">
+      <End Role="AutoService" EntitySet="AutoServices" />
+      <End Role="PersonServicesUseRequest" EntitySet="PersonServicesUseRequests" />
     </AssociationSet>
     <AssociationSet Name="FK_ProductDiscount_AutoService" Association="Self.FK_ProductDiscount_AutoService">
       <End Role="AutoService" EntitySet="AutoServices" />
@@ -2676,6 +2720,10 @@
     <AssociationSet Name="FK_ProductServicePackUse_PersonServicesPack" Association="Self.FK_ProductServicePackUse_PersonServicesPack">
       <End Role="PersonServicesPack" EntitySet="PersonServicesPacks" />
       <End Role="ProductServicePackUse" EntitySet="ProductServicePackUses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonServicesUseRequest_User" Association="Self.FK_PersonServicesUseRequest_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="PersonServicesUseRequest" EntitySet="PersonServicesUseRequests" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_ProductReview" Association="Self.FK_Product_ProductReview">
       <End Role="ProductReview" EntitySet="ProductReviews" />

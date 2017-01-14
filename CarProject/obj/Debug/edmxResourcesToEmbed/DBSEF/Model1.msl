@@ -715,6 +715,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PersonServicesUseRequests">
+      <EntityTypeMapping TypeName="CarAutomationModel.PersonServicesUseRequest">
+        <MappingFragment StoreEntitySet="PersonServicesUseRequest">
+          <ScalarProperty Name="PersonServicesUseRequestId" ColumnName="PersonServicesUseRequestId" />
+          <ScalarProperty Name="RequestDateTime" ColumnName="RequestDateTime" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="LastStateChangeDateTime" ColumnName="LastStateChangeDateTime" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="CarAutomationModel.Product">
         <MappingFragment StoreEntitySet="Product">

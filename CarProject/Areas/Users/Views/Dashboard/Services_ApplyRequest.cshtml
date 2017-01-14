@@ -12,64 +12,84 @@
 
 @using CarProject.App_Code
 
-<div class="item">
-    <h3>درخواست استفاده از سرویس</h3>
-    <hr />
 
-    <table class="infoTable">
-        <thead>
-            <tr>
-                <th colspan="2" style="text-align:center;">مشخصات سرویس</th>
-            </tr>
-            <tr>
-                <th>نام سرویس</th>
-                <td>@selectedServied.AutoService.AutoServiceName</td>
-            </tr>
-            <tr>
-                <th>محصولات مورد استفاده در سرویس</th>
-                <td>
-                    <div class="listOfProducts">
-                            @{        
-                                Random rand = new Random();
-                                foreach (var item in selectedServied.AutoService.ProductInServices)
-                                {
-                                    var PicFileUrl = "~/Publics/Gallery/ProductImages/"+ item.ProductId;
-                                    var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+@if(ViewData.ModelState.IsValidField("success"))
+{
+    <div class="item">
+        <h3>درخواست استفاده از سرویس</h3>
+        <hr />
+
+        <table class="infoTable">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center;">مشخصات سرویس</th>
+                </tr>
+                <tr>
+                    <th>نام سرویس</th>
+                    <td>@selectedServied.AutoService.AutoServiceName</td>
+                </tr>
+                <tr>
+                    <th>محصولات مورد استفاده در سرویس</th>
+                    <td>
+                        <div class="listOfProducts">
+                                @{        
+                                    Random rand = new Random();
+                                    foreach (var item in selectedServied.AutoService.ProductInServices)
+                                    {
+                                        var PicFileUrl = "~/Publics/Gallery/ProductImages/"+ item.ProductId;
+                                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
                                 
-                                    if(finfo.Exists && finfo.GetFiles().Count() > 0)
-                                    {
-                                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Product.Category.CategoryName, info2 = item.Product.ProductName })" class="item">
-                                            <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
-                                            <section>
-                                                <strong>@item.Product.ProductName</strong><br />
-                                                <small>@item.Product.Category.CategoryName</small><br />
-                                                <small class="price">@if (item.Product.ProductPrices.Any()){<span>@string.Format("{0:#,###0}", @item.Product.ProductPrices.Last().ProductPrice1)</span>}else {<span>0</span>} تومان</small>
-                                            </section>
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Product.Category.CategoryName, info2 = item.Product.ProductName })" class="item">
-                                            <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
-                                            <section>
-                                                <strong>@item.Product.ProductName</strong><br />
-                                                <small>@item.Product.Category.CategoryName</small><br />
-                                                <small class="price">@string.Format("{0:#,###0}",@item.Product.ProductPrices.Last().ProductPrice1) تومان</small>
-                                            </section>
-                                        </a>
+                                        if(finfo.Exists && finfo.GetFiles().Count() > 0)
+                                        {
+                                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Product.Category.CategoryName, info2 = item.Product.ProductName })" class="item">
+                                                <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                                                <section>
+                                                    <strong>@item.Product.ProductName</strong><br />
+                                                    <small>@item.Product.Category.CategoryName</small><br />
+                                                    <small class="price">@if (item.Product.ProductPrices.Any()){<span>@string.Format("{0:#,###0}", @item.Product.ProductPrices.Last().ProductPrice1)</span>}else {<span>0</span>} تومان</small>
+                                                </section>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Product.Category.CategoryName, info2 = item.Product.ProductName })" class="item">
+                                                <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
+                                                <section>
+                                                    <strong>@item.Product.ProductName</strong><br />
+                                                    <small>@item.Product.Category.CategoryName</small><br />
+                                                    <small class="price">@string.Format("{0:#,###0}", (item.Product.ProductPrices.Any()) ? item.Product.ProductPrices.Last().ProductPrice1 : 0) تومان</small>
+                                                </section>
+                                            </a>
+                                        }
                                     }
                                 }
-                            }
-                    </div>
-                </td>
-            </tr>
-        </thead>
-    </table>
-</div>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
 
-<div class="item">
-    <h3>ثبت درخواست</h3>
-    <form method="post">
-
-    </form>
-</div>
+    <div class="item">
+        <h2>ثبت درخواست</h2>
+        <form method="post">
+            <small>توجه: در صورت ثبت درخواست استفاده از سرویس امکان لغو آن وجود ندارد.</small><br />
+            <small>پس از ثبت درخواست: ازموجودی سرویسهای شما کسر خواهد شد</small><br />
+            <input type="submit" value="ارسال درخواست استفاده از سرویس" class="button purple"/>
+        </form>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="messageInLine red">
+                <h3>موجودی سرویس های شما صفر است</h3>
+                <small><a target="_blank" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = selectedServied.AutoService.AutoServiceId, info1 = "سرویسها" , info2 = selectedServied.AutoService.AutoServiceName })">برای خرید مجدد اقدام نمایید</a></small>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="messageInLine green">
+        <h3>درخواست شما با موفقیت ثبت شد</h3>
+        <small>بزودی سرویس درخواستی  انجام خواهد شد</small>
+    </div>
+}

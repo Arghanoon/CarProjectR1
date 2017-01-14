@@ -45,6 +45,31 @@ namespace CarProject.Areas.Users.Controllers
                 return RedirectToAction("Services");
             return View();
         }
+        [HttpPost]
+        public ActionResult Services_ApplyRequest(int? id, FormCollection form)
+        {
+            var psrvi = DBSObject.PersonServices.FirstOrDefault(ps => ps.PersonServicesId == id && ps.UserId == profileController.GetCurrentLoginedUser.UserId);
+            if(psrvi == null)
+                return RedirectToAction("Services");
+            if (psrvi.ServicesCurrentEntity <= 0)
+                ModelState.AddModelError("error", "سرویس شما تمام شده است");
+
+            if (ModelState.IsValid)
+            {
+                ModelState.AddModelError("success", "درخواست شما با موفقیت ثبت شد");
+                psrvi.ServicesCurrentEntity -= 1;
+                DBSObject.PersonServicesUseRequests.Add(new DBSEF.PersonServicesUseRequest
+                {
+                    AutoServiceId = psrvi.ServicesId,
+                    UserId = psrvi.UserId,
+                    RequestDateTime = DateTime.Now,
+                    State = (byte)DBSEF.PersonServicesUseRequest.StateFlags.UserSendRequest
+                });
+
+                DBSObject.SaveChanges();
+            }
+            return View();
+        }
 
         public ActionResult ServicesPacks()
         {

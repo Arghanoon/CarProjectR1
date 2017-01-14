@@ -660,6 +660,17 @@
     <Property Name="ServicesPackCurrentEntity" Type="int" />
     <Property Name="DateAdded" Type="date" />
   </EntityType>
+  <EntityType Name="PersonServicesUseRequest">
+    <Key>
+      <PropertyRef Name="PersonServicesUseRequestId" />
+    </Key>
+    <Property Name="PersonServicesUseRequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestDateTime" Type="datetime" />
+    <Property Name="State" Type="tinyint" />
+    <Property Name="LastStateChangeDateTime" Type="datetime" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="AutoServiceId" Type="int" />
+  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="ProductId" />
@@ -1674,6 +1685,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PersonServicesUseRequest_AutoService">
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
+    <End Role="PersonServicesUseRequest" Type="Self.PersonServicesUseRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Principal>
+      <Dependent Role="PersonServicesUseRequest">
+        <PropertyRef Name="AutoServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonServicesUseRequest_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="PersonServicesUseRequest" Type="Self.PersonServicesUseRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="PersonServicesUseRequest">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Product_CarBrand">
     <End Role="CarBrand" Type="Self.CarBrand" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -2161,6 +2196,7 @@
     <EntitySet Name="PersonProductEntity" EntityType="Self.PersonProductEntity" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonServices" EntityType="Self.PersonServices" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonServicesPack" EntityType="Self.PersonServicesPack" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonServicesUseRequest" EntityType="Self.PersonServicesUseRequest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductCars" EntityType="Self.ProductCars" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductComments" EntityType="Self.ProductComments" Schema="dbo" store:Type="Tables" />
@@ -2437,6 +2473,14 @@
     <AssociationSet Name="FK_PersonServicesPack_User" Association="Self.FK_PersonServicesPack_User">
       <End Role="User" EntitySet="User" />
       <End Role="PersonServicesPack" EntitySet="PersonServicesPack" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonServicesUseRequest_AutoService" Association="Self.FK_PersonServicesUseRequest_AutoService">
+      <End Role="AutoService" EntitySet="AutoService" />
+      <End Role="PersonServicesUseRequest" EntitySet="PersonServicesUseRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonServicesUseRequest_User" Association="Self.FK_PersonServicesUseRequest_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="PersonServicesUseRequest" EntitySet="PersonServicesUseRequest" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_CarBrand" Association="Self.FK_Product_CarBrand">
       <End Role="CarBrand" EntitySet="CarBrand" />
