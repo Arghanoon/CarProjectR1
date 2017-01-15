@@ -18,14 +18,14 @@
             @foreach (var item in mails)
             {
                 var reciversids = item.Recivers.Split('|');
-                var peoples = dbs.People.Where(p => reciversids.Contains(p.PersonId.ToString()));
+                //var peoples = dbs.People.Where(p => reciversids.Contains(p.PersonId.ToString()));
                 <tr>
                     <td class="min_nw tright">@item.Subject</td>
                     <td class="tright personShowing">
                         <small>
-                            @foreach (var person in peoples)
+                            @foreach (var person in reciversids)
                             {
-                                <a href="@person.PersonEmail">[<q>@person.User.Uname</q> | @person.PersonFirtstName @person.PersonLastName]</a>
+                                <a href="mailto:@person">@person</a>
                             }
                         </small>
                     </td>

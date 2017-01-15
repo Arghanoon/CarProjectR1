@@ -629,6 +629,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="NewLatterEmails">
+      <EntityTypeMapping TypeName="CarAutomationModel.NewLatterEmail">
+        <MappingFragment StoreEntitySet="NewLatterEmails">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="People">
       <EntityTypeMapping TypeName="CarAutomationModel.Person">
         <MappingFragment StoreEntitySet="Person">

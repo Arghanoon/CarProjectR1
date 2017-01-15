@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="45ca85f7a41047bfb6d8b5f92b798406" Name="Diagram1">
+      <Diagram DiagramId="81b71a215d904633bebb9fe5bdb07fdc" Name="Diagram1">
         <EntityTypeShape EntityType="CarAutomationModel.AirConditioningSystem" Width="1.5" PointX="5.25" PointY="41.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.AirConditioningSystemDetail" Width="1.5" PointX="5.25" PointY="44" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.AutoService" Width="1.5" PointX="5.25" PointY="46.75" IsExpanded="true" />
@@ -53,6 +53,7 @@
         <EntityTypeShape EntityType="CarAutomationModel.HomePageMenu" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.Manufacture" Width="1.5" PointX="3" PointY="180" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.MarketingMail" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.NewLatterEmail" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.Person" Width="1.5" PointX="7.5" PointY="40.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.PersonCarDetail" Width="1.5" PointX="10.5" PointY="89.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.PersonCar" Width="1.5" PointX="8.25" PointY="90.125" IsExpanded="true" />
@@ -79,7 +80,7 @@
         <EntityTypeShape EntityType="CarAutomationModel.SecuritySystem" Width="1.5" PointX="5.25" PointY="159.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.ServicesPackToView" Width="1.5" PointX="7.5" PointY="37" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.ServiceToView" Width="1.5" PointX="7.5" PointY="66.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarAutomationModel.SlideShow" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarAutomationModel.SlideShow" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.SteeringSystem" Width="1.5" PointX="5.25" PointY="163.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.TimeOfDay" Width="1.5" PointX="11.25" PointY="34.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CarAutomationModel.TodaysSpecial" Width="1.5" PointX="10.5" PointY="146" IsExpanded="true" />

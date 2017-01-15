@@ -585,6 +585,13 @@
           <Property Name="Body" Type="ntext" />
           <Property Name="DateTime" Type="datetime" />
         </EntityType>
+        <EntityType Name="NewLatterEmails">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Datetime" Type="datetime" />
+        </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -2290,6 +2297,7 @@
           <EntitySet Name="HomePageMenu" EntityType="Self.HomePageMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Manufacture" EntityType="Self.Manufacture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarketingMails" EntityType="Self.MarketingMails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewLatterEmails" EntityType="Self.NewLatterEmails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonCarDetail" EntityType="Self.PersonCarDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonCars" EntityType="Self.PersonCars" Schema="dbo" store:Type="Tables" />
@@ -3461,6 +3469,13 @@
           <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="NewLatterEmail">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Datetime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -5227,6 +5242,7 @@
           <EntitySet Name="HomePageMenus" EntityType="Self.HomePageMenu" />
           <EntitySet Name="Manufactures" EntityType="Self.Manufacture" />
           <EntitySet Name="MarketingMails" EntityType="Self.MarketingMail" />
+          <EntitySet Name="NewLatterEmails" EntityType="Self.NewLatterEmail" />
           <EntitySet Name="People" EntityType="Self.Person" />
           <EntitySet Name="PersonCarDetails" EntityType="Self.PersonCarDetail" />
           <EntitySet Name="PersonCars" EntityType="Self.PersonCar" />
@@ -6316,6 +6332,14 @@
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Body" ColumnName="Body" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewLatterEmails">
+            <EntityTypeMapping TypeName="CarAutomationModel.NewLatterEmail">
+              <MappingFragment StoreEntitySet="NewLatterEmails">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

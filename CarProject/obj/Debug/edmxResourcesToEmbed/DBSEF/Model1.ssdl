@@ -580,6 +580,13 @@
     <Property Name="Body" Type="ntext" />
     <Property Name="DateTime" Type="datetime" />
   </EntityType>
+  <EntityType Name="NewLatterEmails">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Datetime" Type="datetime" />
+  </EntityType>
   <EntityType Name="Person">
     <Key>
       <PropertyRef Name="PersonId" />
@@ -2285,6 +2292,7 @@
     <EntitySet Name="HomePageMenu" EntityType="Self.HomePageMenu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Manufacture" EntityType="Self.Manufacture" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MarketingMails" EntityType="Self.MarketingMails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NewLatterEmails" EntityType="Self.NewLatterEmails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonCarDetail" EntityType="Self.PersonCarDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonCars" EntityType="Self.PersonCars" Schema="dbo" store:Type="Tables" />
