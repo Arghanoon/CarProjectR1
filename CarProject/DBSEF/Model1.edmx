@@ -700,6 +700,7 @@
           <Property Name="ProductQnAId" Type="int" />
           <Property Name="DiscountId" Type="int" />
           <Property Name="WithInstall" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="ProductCars">
           <Key>
@@ -3467,6 +3468,7 @@
           <Property Name="ProductQnAId" Type="Int32" />
           <Property Name="DiscountId" Type="Int32" />
           <Property Name="WithInstall" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="CarBrand" Relationship="Self.FK_Product_CarBrand" FromRole="Product" ToRole="CarBrand" />
           <NavigationProperty Name="Car" Relationship="Self.FK_Product_Cars" FromRole="Product" ToRole="Cars" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
@@ -6186,6 +6188,7 @@
                 <ScalarProperty Name="ProductQnAId" ColumnName="ProductQnAId" />
                 <ScalarProperty Name="DiscountId" ColumnName="DiscountId" />
                 <ScalarProperty Name="WithInstall" ColumnName="WithInstall" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

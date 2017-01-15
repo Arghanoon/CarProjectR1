@@ -997,6 +997,8 @@
     <Content Include="Areas\Admin\Views\Cars\CarUserComments_ShowAndReply.cshtml" />
     <Content Include="Areas\Admin\Views\Store\ProductUserComments.cshtml" />
     <Content Include="Areas\Admin\Views\Store\ProductUserComments_ShowAndReply.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Services_UserUseRequest.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Services_UserUseRequest_details.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -1014,8 +1016,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Store\Services_UserUseRequest.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\Services_UserUseRequest_details.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
