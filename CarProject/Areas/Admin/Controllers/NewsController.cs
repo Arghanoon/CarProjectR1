@@ -10,7 +10,7 @@ using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
 {
-    //[CarProject.CLS.AuthFilter]
+    [CarProject.CLS.AuthFilter]
     public class NewsController : Controller
     {
         //
