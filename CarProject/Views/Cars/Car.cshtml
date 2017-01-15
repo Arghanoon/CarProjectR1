@@ -1,4 +1,4 @@
-@model CarProject.Areas.Admin.Models.Cars.CarsModel
+﻿@model CarProject.Areas.Admin.Models.Cars.CarsModel
 @using CarProject.App_Code
 @using CarProject.App_extension
 @using System.IO
@@ -41,16 +41,18 @@
     <div id="top_likedisklikecount" dir="ltr">
         <span class="gia-speedometer2" style="font-size:300%;"></span>
         <div>
-            <a class="gia-like" id="likecountersection" onclick="LikeCurrentCar('@Model.Car.CarsId')">@if (carstoviewobject.Favorite == null)
-                                      {<span>0</span>}
-                                      else
-                                      {<span>@carstoviewobject.Favorite</span>}</a>
-        </div>
-        <div dir="rtl">
-            <h3>تعداد بازدید</h3>
-            <p>@carstoviewobject.View</p>
-        </div>
+            <a class="gia-like" id="likecountersection" onclick="LikeCurrentCar('@Model.Car.CarsId')">
+                @if (carstoviewobject.Favorite == null)
+            {<span>0</span>}
+            else
+            {<span>@carstoviewobject.Favorite</span>}
+        </a>
     </div>
+    <div dir="rtl">
+        <h3>تعداد بازدید</h3>
+        <p>@carstoviewobject.View</p>
+    </div>
+</div>
 </div>
 
 
@@ -68,7 +70,7 @@
                         <div class="itemsContainer">
                             @foreach (var item in Model.Car.CarImages)
                             {
-                                <a class="item" onclick="document.getElementById('carImages_Bigview').src = '@Url.Content(item)'" >
+                                <a class="item" onclick="document.getElementById('carImages_Bigview').src = '@Url.Content(item)'">
                                     <img src="@Url.Content(item)" />
                                 </a>
                             }
@@ -156,27 +158,27 @@
 
 <div id="SameClassCars">
     <div id="CarDetails_SameClassCars" class="slideterItemShowContianer">
-                <h3 class="title">خودروهای هم کلاس</h3>
-                <div class="itemsContainerBack">
-                    <div class="itemsContainer">
-                        @foreach (var item in SameClassCars)
-                        {
-                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
-                            if (item.CarImages.Length > 0)
-                            {
-                                src = item.CarImages[0];
-                            }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
-                                <img src="@Url.Content(src)" alt="" />
-                                <span>@item.CarModel.CarBrand.CarBrandName  @item.CarModel.CarModelName</span>
-                            </a>
-                        }
-                    </div>
-                </div>
-
-                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
-                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+        <h3 class="title">خودروهای هم کلاس</h3>
+        <div class="itemsContainerBack">
+            <div class="itemsContainer">
+                @foreach (var item in SameClassCars)
+                {
+                    var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                    if (item.CarImages.Length > 0)
+                    {
+                        src = item.CarImages[0];
+                    }
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
+                        <img src="@Url.Content(src)" alt="" />
+                        <span>@item.CarModel.CarBrand.CarBrandName  @item.CarModel.CarModelName</span>
+                    </a>
+                }
             </div>
+        </div>
+
+        <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+        <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+    </div>
 </div>
 
 <div id="CarDifention">
@@ -189,26 +191,26 @@
 
     <div id="CarDetailsInformation_column1">
         <div class="carinfo" data-index="0">
-                <h3>اطلاعات عمومی خودرو</h3>
-                <table>
-                    <tr>
-                        <th>کلاس</th>
-                        <td>@Model.Car.CarsClass</td>
-                    </tr>
-                    <tr>
-                        <th>مدل</th>
-                        <td>@Model.Car.CarModel.CarModelName</td>
-                    </tr>
-                    <tr>
-                        <th>قیمت</th>
-                        <td>@Model.Car.Price ملیون تومان</td>
-                    </tr>
-                    <tr>
-                        <th>کابرد</th>
-                        <td>@Model.Car.CarUsage</td>
-                    </tr>
-                </table>
-            </div>
+            <h3>اطلاعات عمومی خودرو</h3>
+            <table>
+                <tr>
+                    <th>کلاس</th>
+                    <td>@Model.Car.CarsClass</td>
+                </tr>
+                <tr>
+                    <th>مدل</th>
+                    <td>@Model.Car.CarModel.CarModelName</td>
+                </tr>
+                <tr>
+                    <th>قیمت</th>
+                    <td>@Model.Car.Price ملیون تومان</td>
+                </tr>
+                <tr>
+                    <th>کابرد</th>
+                    <td>@Model.Car.CarUsage</td>
+                </tr>
+            </table>
+        </div>
 
         <div class="carinfo" data-index="2">
             <h3>گیربکس</h3>
@@ -606,7 +608,7 @@
     </div>
 </div>
 
-@if(CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
+@if (CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
 {
     <div id="usersCommentsSection">
         <h3 style="align-self:flex-start;">نظرات کاربران</h3>
@@ -629,22 +631,26 @@
                     </section>
                     <section class="input">
                         <label> پیام</label>
-                        <textarea  name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
-                        <span>@try
-                              { @ViewBag.error["comment"] }
-                              catch { }</span>
-                    </section>
-                </div>
-                <center>
-                    <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
-                    <span style="color:red">@try
-                                            { @ViewBag.error["g-recaptcha-response"] }
-                                            catch { }</span>
-                </center>
-                <div class="inputAction">
-                    <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
-                </div>
-            </form>
+                        <textarea name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                        <span>
+                            @try
+                        { @ViewBag.error["comment"] }
+                        catch { }
+                    </span>
+                </section>
+            </div>
+            <center>
+                <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
+                <span style="color:red">
+                    @try
+                { @ViewBag.error["g-recaptcha-response"] }
+                catch { }
+            </span>
+        </center>
+        <div class="inputAction">
+            <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
+        </div>
+    </form>
         }
     </div>
 }
@@ -654,10 +660,10 @@
 </div>
 
 @functions{
-    MvcHtmlString CreateCommentSection(int? rootid,int carid, CarProject.DBSEF.CarAutomationEntities dbs)
+    MvcHtmlString CreateCommentSection(int? rootid, int carid, CarProject.DBSEF.CarAutomationEntities dbs)
     {
         string res = "";
-        
+
         foreach (var item in dbs.CarUserComments.Where(c => c.CarId == carid && c.RootCarUserCommentsId == rootid))
         {
             res += string.Format("<div class=\"cmntmessage\">");
@@ -694,7 +700,7 @@
             }
             res += "</div>";
         }
-        
+
         return new MvcHtmlString(res);
     }
 }
@@ -706,14 +712,14 @@
 
     <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName.Trim(), info2 = Model.Car.CarModel.CarModelName.Trim() }, Request.Url.Scheme)" />
 
-    
+
     <link href="~/Publics/Files/ControlsPageTemplates/Cars/Car/SliderItemShow.css" rel="stylesheet" />
     <script src="~/Publics/Files/ControlsPageTemplates/Cars/Car/SliderItemShow.js"></script>
 
     <link href="~/Publics/Files/ControlsPageTemplates/Cars/Car/css.css" rel="stylesheet" />
     <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
 
-    
+
 }
 
 @section script
@@ -724,5 +730,5 @@
 
 @if (Request.Form.AllKeys.Contains("SendACommentRequest"))
 {
-    <script>window.location = "#usersCommentsSection"</script> 
+    <script>window.location = "#usersCommentsSection"</script>
 }
