@@ -1,4 +1,5 @@
 ﻿@using dsh = CarProject.Areas.Admin.Models.Dashboard
+@using CarProject.App_extension
 @{
     var dbsobj = new CarProject.DBSEF.CarAutomationEntities();
 
@@ -130,16 +131,55 @@
             </div>
             
             <div id="footer2_enemad">
-                <img id="footer2_enemad_logo" src="~/Publics/Files/Templates/templates02/Images/enemad.png" alt="" />
+                @*<img id="footer2_enemad_logo" src="~/Publics/Files/Templates/templates02/Images/enemad.png" alt="" />*@
             </div>
             
             <div id="footer2_newslatter">
+                @{ List<string> newslattererror = new List<string>(); bool NewsLatterReisgtredSuccess = false; } 
+                @if (Request.Form.AllKeys.Contains("NewsLatterRegistryRequestForm"))
+                {
+                    string emil = Request.Form["newslatteremail"];
+                    if (Request.Form["newslatteremail"].IsNullOrWhiteSpace())
+                    { newslattererror.Add("ایمیل برای ثبت نام وارد نشده است"); }
+                    else if (!Request.Form["newslatteremail"].String_IsEmail())
+                    { newslattererror.Add("ایمیل وارد شده صحیح نیست"); }
+                    else if (dbsobj.NewLatterEmails.Count(c => c.Email.ToLower() == emil.ToLower()) > 0)
+                    { newslattererror.Add("ایمیل قبلا ثبت شده است"); }
+
+
+                    if (newslattererror.Count <= 0)
+                    {
+                        dbsobj.NewLatterEmails.Add(new CarProject.DBSEF.NewLatterEmail { Email = emil, Datetime = DateTime.Now });
+                        dbsobj.SaveChanges();
+                        NewsLatterReisgtredSuccess = true;
+                    }
+                }
             	<p>زودتر از دیگران، از آخرین اخبار خودرو و تخفیف های خدماتی با خبر شوید</p>
                 <p>عضویت در خبرنامه</p>
-                <form id="newslaterForm" method="post">
-                    <input type="submit" value="تایید ایمیل" class="t2button" />
-                	<input type="text" name="newslatteremail" placeholder="آدرس ایمیل خودرا وارد کنید" />
-                </form>
+
+                @if (NewsLatterReisgtredSuccess)
+                {
+                    <div class="newslatersuccess">
+                        <span>ایمیل شما با موفقیت ثبت شد</span>
+                    </div>
+                }
+                else
+                {
+                    <form id="newslaterForm" method="post">
+                        <input type="submit" name="NewsLatterRegistryRequestForm" value="تایید ایمیل" class="t2button" />
+                        <input type="text" name="newslatteremail" value="@Request.Form["newslatteremail"]" placeholder="آدرس ایمیل خودرا وارد کنید" />
+                    </form>
+                }
+
+                @if (newslattererror.Count > 0)
+                {
+                    <ul class="newslatererror">
+                        @foreach (var item in newslattererror)
+                        {
+                            <li>@item</li>
+                        }
+                    </ul>
+                }
             
                 <div id="footer2_newslatter_SocialNetworks">
                     <h3>در شبکه های اجتماعی با ما باشید</h3>
@@ -164,5 +204,8 @@
 
     @RenderSection("script", false)
     <script src="~/Publics/Files/Templates/templates02/scripts.js"></script>
-
+    @if (Request.Form.AllKeys.Contains("NewsLatterRegistryRequestForm"))
+    {
+        <script> window.location = "#footer2_newslatter"; </script>
+    }
 </html>

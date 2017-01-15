@@ -500,6 +500,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ContentUserComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.ContentUserComment">
+        <MappingFragment StoreEntitySet="ContentUserComments">
+          <ScalarProperty Name="ContentUserCommentsId" ColumnName="ContentUserCommentsId" />
+          <ScalarProperty Name="ContenstId" ColumnName="ContenstId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="RootContentUserCommentsId" ColumnName="RootContentUserCommentsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ContetComments">
       <EntityTypeMapping TypeName="CarAutoModel.ContetComment">
         <MappingFragment StoreEntitySet="ContetComments">
@@ -614,6 +626,14 @@
           <ScalarProperty Name="Subject" ColumnName="Subject" />
           <ScalarProperty Name="Body" ColumnName="Body" />
           <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewLatterEmails">
+      <EntityTypeMapping TypeName="CarAutomationModel.NewLatterEmail">
+        <MappingFragment StoreEntitySet="NewLatterEmails">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Datetime" ColumnName="Datetime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -886,6 +906,18 @@
           <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="DateTime" ColumnName="DateTime" />
           <ScalarProperty Name="RootProductUserCommentsId" ColumnName="RootProductUserCommentsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RootCarUserComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.RootCarUserComment">
+        <MappingFragment StoreEntitySet="RootCarUserComments">
+          <ScalarProperty Name="ContentUserCommentsId" ColumnName="ContentUserCommentsId" />
+          <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="RootContentUserCommentsId" ColumnName="RootContentUserCommentsId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

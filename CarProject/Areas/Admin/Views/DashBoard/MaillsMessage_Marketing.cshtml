@@ -15,7 +15,8 @@
                 <div class="inputElement" > 
                     <div id="receptionListControl">
                         <a href="javascript:void();" onclick="GetUserByType(1)">تمام کاربران</a> -
-                        <a href="javascript:void();" onclick="GetUserByType(2)">تمام افراد</a> |
+                        <a href="javascript:void();" onclick="GetUserByType(2)">تمام افراد</a> -
+                        <a href="javascript:void();" onclick="GetUserByType(3)">خبرنامه</a> |
                         <a href="javascript:void();" onclick="$('#ReceptionList input[type=checkbox]').attr('checked',true);">انتخاب همه</a> -
                         <a href="javascript:void();" onclick="$('#ReceptionList input[type=checkbox]').attr('checked',false);">حذف انتخابها</a>
                     </div>
@@ -23,7 +24,7 @@
                     <div id="ReceptionList">
                         @foreach (var item in Model.Emails)
                         {
-                            var pr = dbs.People.FirstOrDefault(p => p.PersonId == item);
+                            var pr = dbs.People.FirstOrDefault(p => p.PersonEmail == item);
                             if (pr != null)
                             {
                                 <label>
@@ -101,14 +102,15 @@
             document.getElementById("ReceptionList").innerHTML = "";
             $.get("/Admin/Dashboard/MailsMessage_Marketing_Emails", { "Type": type }, function (res) {
                 for (i in res) {
-                    AttachItemToRecptionList(res[i]['email'], res[i]['name'], res[i]['username'], res[i]['pid']);
+                    AttachItemToRecptionList(res[i]['email'], res[i]['name'], res[i]['username']);
                 }
             });
         }
 
-        function AttachItemToRecptionList(email, fullnam, username, pid) {
+        function AttachItemToRecptionList(email, fullnam, username) {
             itemhtml = "<label>";
-            itemhtml += "<input type='checkbox' name='email' value='" + pid + "' />";
+            
+            itemhtml += "<input type='checkbox' name='email' value='" + email + "' />";
             itemhtml += "<section> <q>"+ username + "</q> | " + fullnam + "</section>";
             itemhtml += "</label>";
 

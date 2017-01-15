@@ -308,6 +308,9 @@
     <Compile Include="DBSEF\ContentsCategory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\ContentUserComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\ContetComment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -353,6 +356,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\NewLatterEmail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\Person.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -418,6 +424,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\ProductUserComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\RootCarUserComment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\SecuritySystem.cs">
@@ -508,6 +517,10 @@
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\SliderItemShow.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Search\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Search\script.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\scirpt.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\SliderItemShow.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\SliderItemShow.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\SliderItemShow.css" />
@@ -1010,6 +1023,10 @@
     <Content Include="Areas\Admin\Views\Cars\CarUserComments_ShowAndReply.cshtml" />
     <Content Include="Areas\Admin\Views\Store\ProductUserComments.cshtml" />
     <Content Include="Areas\Admin\Views\Store\ProductUserComments_ShowAndReply.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Services_UserUseRequest.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\Services_UserUseRequest_details.cshtml" />
+    <Content Include="Areas\Admin\Views\News\ContentUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\News\ContentUserComments_ShowAndReply.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -1053,10 +1070,14 @@
     <Content Include="Views\Store\Products_13951020_0103.cshtml" />
     <Content Include="Publics\Gallery\favicons\manifest.json" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\News\NewsShow_13951026_0657.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Publics\Gallery\favicons\favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
