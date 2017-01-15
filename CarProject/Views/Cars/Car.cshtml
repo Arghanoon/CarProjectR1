@@ -26,7 +26,7 @@
     var carstoviewobject = dbs.CarsToViews.FirstOrDefault(c => c.CarsId == Model.Car.CarsId);
     var carAutoServices = dbs.AutoServices.Where(c => c.CarId == Model.Car.CarsId);
     var carProducts = dbs.Products.Where(c => c.ProductCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
-    var SameClassCars = dbs.Cars;
+    var SameClassCars = dbs.Cars.Where(c => c.CarsClass == Model.Car.CarsClass && c.CarsId != Model.Car.CarsId).OrderBy(c => c.CarsId);
 }
 
 
