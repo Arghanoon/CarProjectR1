@@ -1,9 +1,8 @@
-﻿@using CarProject.DBSEF
 @{
     ViewBag.Title = "نمایش خودروها";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var rand = new Random();
-
+    
     var carmodel = new  CarProject.Areas.Admin.Models.Cars.CarsModel();
 
     var ListOfCars = dbs.Cars.AsQueryable();
@@ -13,14 +12,13 @@
     int page = 0;
     if(Request.QueryString.AllKeys.Contains("page"))
     {
-        int.TryParse(Request.QueryString["page"], out page);
+        int.TryParse(Request.QueryString["page"], out page);   
     }
-    int totalitems = 0;
+    int totalitems = 0; 
     int showinpage = 20;
 
 
     var brandFilters = Request.QueryString.GetValues("CarBrand");
-    var CountryFilter = Request.QueryString.GetValues("Country");
     var CarEngineType = Request.QueryString.GetValues("CarEngineType");
     var CarCylenderNumber = Request.QueryString.GetValues("CarCylenderNumber");
     var CarClass = Request.QueryString.GetValues("CarClass");
@@ -35,10 +33,8 @@
     { ListOfCars = ListOfCars.Where(c => CarUsage.Contains(c.CarUsage)); }
     if (CarBodyType != null && CarBodyType.Length > 0)
     { ListOfCars = ListOfCars.Where(c => CarBodyType.Contains(c.CarBodyType)); }
-    if (CountryFilter != null && CountryFilter.Length > 0)
-    {
-        ListOfCars = ListOfCars.Where(c => CountryFilter.Contains(c.CountryId.ToString()));}
-
+    
+    
     if(brandFilters != null && brandFilters.Length > 0)
     { ListOfCars = ListOfCars.Where(c => brandFilters.Contains(c.CarModel.CarBrandId.ToString())); }
 
@@ -61,12 +57,12 @@
     if (Request.QueryString.AllKeys.Contains("searchCar") && !string.IsNullOrWhiteSpace(Request.QueryString["searchCar"]))
     {
         searchtext = Request.QueryString["searchCar"];
-        ListOfCars = ListOfCars.Where(c => c.CarModel.CarModelName.Contains(searchtext));
+        ListOfCars = ListOfCars.Where(c => (c.CarModel.CarBrand.CarBrandName + " " + c.CarModel.CarModelName).Contains(searchtext));
     }
 
     int orderbydirection = 1;
     int orderby = 1;
-
+    
     if (Request.QueryString.AllKeys.Contains("OrderDirection") && Request.QueryString["OrderDirection"] == "DESC")
     { orderbydirection = 2; }
 
@@ -174,36 +170,7 @@
                     </div>
                 </div>
 
-                <div id="filter_Countries">
-                    <h4 class="title">فیلتر برندها</h4>
-                    <div class="checkboxContainer">
-                        @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Take(5))
-                        {
-                            <section class="checkbox">
-                                <input type="checkbox" name="Coutry" value="@item.CountryId" id="CarBrand_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
-                                <label for="CarBrand_@item.CountryId">
-                                    @item.CountryShortName
-                                </label>
-                            </section>
-                        }
-
-                        <div id="filter_Countries_more" class="more">
-                            @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Skip(5))
-                            {
-                                <section class="checkbox">
-                                    <input type="checkbox" name="Coutry" value="@item.CountryId" id="CarBrand_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
-                                    <label for="CarBrand_@item.CountryId">
-                                        @item.CountryShortName
-                                    </label>
-                                </section>
-                            }
-                        </div>
-                        <center><a onclick="$('#filter_Countries_more').toggleClass('show');">بیشتر</a></center>
-                    </div>
-                </div>
-
-
-                @*<div id="filter_EngineType">
+                <div id="filter_EngineType">
                     <h4 class="title">فیلتر نوع موتور</h4>
                     <div class="checkboxContainer">
                         @{int ind = 0; }
@@ -237,12 +204,12 @@
                             ind += 1;
                     }
                     </div>
-                </div>*@
+                </div>
 
                 <div id="filter_CarClass">
                     <h4 class="title">کلاس خودرو</h4>
                     <div class="checkboxContainer">
-                        @{ int ind = 0; }
+                        @{ ind = 0; }
                         @foreach (var item in carmodel.List_CarClass.Take(5))
                         {
                             if (item == null)
@@ -379,8 +346,8 @@
                     </select>
                     به صورت
                     <select name="OrderDirection">
-                        <option value="ASC">کمتر به بیشتر</option>
-                        <option value="DESC">بیشتر به کمتر</option>
+                        <option value="ASC" @if (orderbydirection == 1) { Write("selected=\"selected\""); }>کمتر به بیشتر</option>
+                        <option value="DESC" @if (orderbydirection == 2) { Write("selected=\"selected\""); }>بیشتر به کمتر</option>
                     </select>
                    @* <input type="radio" name="OrderDirection" value="ASC" @if (orderbydirection == 1) { Write("checked=\"checked\""); } id="OrderDirectionASC" />
                     <label  for="OrderDirectionASC">صعودی</label>
@@ -426,7 +393,7 @@
                     }
 
                     
-                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })" class="item">
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
                         <img src="@Url.Content(imagesrc)" alt="@item.CarModel.CarModelName @item.CarModel.CarBrand.CarBrandName" />
                         <section>
                             <strong>@item.CarModel.CarModelName @item.CarModel.CarBrand.CarBrandName</strong><br />
@@ -446,7 +413,7 @@
                     }
                     else
                     {
-                        <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i    '; this.form.submit();" value="@{Write(i + 1);}" />
+                        <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
                     }
                 }
             </div>

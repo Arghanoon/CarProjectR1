@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -450,7 +450,6 @@ namespace CarProject.Areas.Users.Controllers
                 var Session = System.Web.HttpContext.Current.Session;
                 if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
                 {
-
                     return Session["guestUser"] as DBSEF.User;
                 }
                 else

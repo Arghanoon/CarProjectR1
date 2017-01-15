@@ -204,5 +204,49 @@ namespace CarProject.Areas.Admin.Controllers
             return RedirectToAction("Categories");
         }
 
+
+
+
+        #region ContentUserComments
+        public ActionResult ContentUserComments()
+        {
+            return View();
+        }
+
+        public ActionResult ContentUserComments_ShowAndReply(int? id)
+        {
+            var comment = DBS.ContentUserComments.FirstOrDefault(c => c.ContentUserCommentsId == id);
+            if (comment == null)
+                return RedirectToAction("ContentUserComments");
+
+            return View(model: comment);
+        }
+        [HttpPost]
+        public ActionResult ContentUserComments_ShowAndReply(int? id, string comment)
+        {
+            var mdlcomment = DBS.ContentUserComments.FirstOrDefault(c => c.ContentUserCommentsId == id);
+            if (mdlcomment == null)
+                return RedirectToAction("ContentUserComments");
+
+            if (comment.IsNullOrWhiteSpace())
+                ModelState.AddModelError("comment", "پیام نمیتواند خالی باشد");
+
+            if (ModelState.IsValid)
+            {
+                var newitem = DBS.ContentUserComments.Add(new DBSEF.ContentUserComment
+                {
+                    Comment = comment,
+                    DateTime = DateTime.Now,
+                    ContenstId = mdlcomment.ContenstId,
+                    RootContentUserCommentsId = id
+                });
+                DBS.SaveChanges();
+
+                return RedirectToAction("ContentUserComments_ShowAndReply", new { id = newitem.ContentUserCommentsId });
+            }
+
+            return View(model: mdlcomment);
+        }
+        #endregion
     }
 }

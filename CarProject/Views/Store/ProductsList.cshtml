@@ -7,6 +7,14 @@
     int orderby = 1;
     int orderbydirection = 1;
 
+    int page = 0;
+    if (Request.QueryString.AllKeys.Contains("page"))
+    {
+        int.TryParse(Request.QueryString["page"], out page);
+    }
+    int totalitems = 0;
+    int showinpage = 20;
+
 
     var products = dbs.Products.AsQueryable();
     int GroupCategoryFilter = 0;
@@ -62,14 +70,23 @@
             }
             break;
     }
-    
+
+
+
+    totalitems = products.Count();
+    products = products.Skip(page * showinpage).Take(showinpage);
 }
 
 
-@section style{ <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" /> }
+@section style
+{
+    <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" />
+}
 
 
 <form method="get">
+    <input type="hidden" name="page" id="pageInputContainer" value="@page" />
+
     <div id="MainContainerOfFilterAndContent">
         <div>
             @*<div id="searchAndFilter">
@@ -81,7 +98,7 @@
             <div id="searchsection">
                 <section id="searchInput">
                     <input type="text" name="searchtext" value="@searchtext"  placeholder="جستجو در میان محصولات"/>
-                    <button type="submit"><span class="gia-search"></span></button>
+                    @*<button type="submit"><span class="gia-search"></span></button>*@
                 </section>
 
                 <section id="SearchOrderBy">
@@ -94,13 +111,32 @@
                         <option value="5" @if (orderby == 5) { Write("selected=\"selected\""); }>فروش</option>
                     </select>
                     به صورت
-                    <input type="radio" name="OrderDirection" value="ASC" @if (orderbydirection == 1) { Write("checked=\"checked\""); } id="OrderDirectionASC" />
+                    <select name="OrderDirection">
+                        <option value="ASC" @if (orderbydirection == 1) { Write("selected=\"selected\""); }>کمتر به بیشتر</option>
+                        <option value="DESC" @if (orderbydirection == 2) { Write("selected=\"selected\""); }>بیشتر به کمتر</option>
+                    </select>
+                    @*<input type="radio" name="OrderDirection" value="ASC" @if (orderbydirection == 1) { Write("checked=\"checked\""); } id="OrderDirectionASC" />
                     <label  for="OrderDirectionASC">صعودی</label>
                     <input type="radio" name="OrderDirection" value="DESC" @if (orderbydirection == 2) { Write("checked=\"checked\""); } id="OrderDirectionDESC"  />
-                    <label for="OrderDirectionDESC">نزولی</label>
+                    <label for="OrderDirectionDESC">نزولی</label>*@
                 </section>
+
+                <input type="submit" value="جستجو/فیلتر" class="t2button" />
             </div>
 
+            <div class="pagination">
+            @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
+            {
+                if (i == page)
+                {
+                    <span>@{Write(i + 1); }</span>
+                }
+                else
+                {
+                    <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
+                }
+            }
+        </div>
             <div class="listOfProducts" id="ListofcarsShower">
                 @{        
                     foreach (var item in products)
@@ -133,6 +169,19 @@
                     }
                 }
             </div>
+            <div class="pagination">
+            @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
+            {
+                if (i == page)
+                {
+                    <span>@{Write(i + 1); }</span>
+                }
+                else
+                {
+                    <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
+                }
+            }
+        </div>
 
         </div>
     </div>

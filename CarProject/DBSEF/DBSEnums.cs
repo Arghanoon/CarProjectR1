@@ -23,6 +23,14 @@ namespace CarProject.DBSEF
     public partial class User
     {
         public enum Enum_ActiveORecoveryEnum { Activation = 0, Recovery = 1 };
+
+        public DBSEF.Person RelatedPerson
+        {
+            get
+            {
+                return SingletoonDBS.GetInstance.People.FirstOrDefault(c => c.UserId == this.UserId);
+            }
+        }
     }
 
     public partial class FuelConsumption
@@ -452,6 +460,21 @@ namespace CarProject.DBSEF
             UserSendRequest = 0,
             SendToAgent = 1,
             Completed = 2
+        }
+
+        public string GetStateFlagString()
+        {
+            switch ((StateFlags)this.State)
+            {
+                case StateFlags.UserSendRequest:
+                    return "ارسال درخواست از طرف مشتری";
+                case StateFlags.SendToAgent:
+                    return "تحویل به سرویس کاران";
+                case StateFlags.Completed:
+                    return "پایان و انجام سرویس";
+                default:
+                    return "";
+            }
         }
     }
 }
