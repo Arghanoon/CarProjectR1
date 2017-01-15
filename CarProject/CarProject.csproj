@@ -308,6 +308,9 @@
     <Compile Include="DBSEF\ContentsCategory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\ContentUserComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\ContetComment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -420,6 +423,9 @@
     <Compile Include="DBSEF\ProductUserComment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\RootCarUserComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\SecuritySystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -495,6 +501,10 @@
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\SliderItemShow.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Search\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Search\script.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\scirpt.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\SliderItemShow.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\SliderItemShow.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\SliderItemShow.css" />
@@ -1016,6 +1026,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\News\ContentUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\News\ContentUserComments_ShowAndReply.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
@@ -1052,6 +1064,7 @@
     <Content Include="Views\Store\Products_13951020_0103.cshtml" />
     <Content Include="Publics\Gallery\favicons\manifest.json" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\News\NewsShow_13951026_0657.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

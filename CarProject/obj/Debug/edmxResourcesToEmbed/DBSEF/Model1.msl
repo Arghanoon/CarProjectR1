@@ -500,6 +500,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ContentUserComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.ContentUserComment">
+        <MappingFragment StoreEntitySet="ContentUserComments">
+          <ScalarProperty Name="ContentUserCommentsId" ColumnName="ContentUserCommentsId" />
+          <ScalarProperty Name="ContenstId" ColumnName="ContenstId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="RootContentUserCommentsId" ColumnName="RootContentUserCommentsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ContetComments">
       <EntityTypeMapping TypeName="CarAutomationModel.ContetComment">
         <MappingFragment StoreEntitySet="ContetComments">
@@ -750,6 +762,7 @@
           <ScalarProperty Name="ProductQnAId" ColumnName="ProductQnAId" />
           <ScalarProperty Name="DiscountId" ColumnName="DiscountId" />
           <ScalarProperty Name="WithInstall" ColumnName="WithInstall" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -885,6 +898,18 @@
           <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="DateTime" ColumnName="DateTime" />
           <ScalarProperty Name="RootProductUserCommentsId" ColumnName="RootProductUserCommentsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RootCarUserComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.RootCarUserComment">
+        <MappingFragment StoreEntitySet="RootCarUserComments">
+          <ScalarProperty Name="ContentUserCommentsId" ColumnName="ContentUserCommentsId" />
+          <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="RootContentUserCommentsId" ColumnName="RootContentUserCommentsId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

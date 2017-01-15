@@ -551,7 +551,9 @@
     <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="ContentPresentation" Relationship="Self.FK_ContentPresentation_Contents" FromRole="Contents" ToRole="ContentPresentation" />
     <NavigationProperty Name="ContentsCategory" Relationship="Self.FK_Contents_ContentsCategory" FromRole="Contents" ToRole="ContentsCategory" />
+    <NavigationProperty Name="ContentUserComments" Relationship="Self.FK_ContentUserComments_Contents" FromRole="Contents" ToRole="ContentUserComments" />
     <NavigationProperty Name="ContetComments" Relationship="Self.FK_ContetComments_Contents" FromRole="Contents" ToRole="ContetComments" />
+    <NavigationProperty Name="RootCarUserComments" Relationship="Self.FK_RootCarUserComments_Contents" FromRole="Contents" ToRole="RootCarUserComments" />
   </EntityType>
   <EntityType Name="ContentsCategory">
     <Key>
@@ -564,6 +566,21 @@
     <NavigationProperty Name="Contents" Relationship="Self.FK_Contents_ContentsCategory" FromRole="ContentsCategory" ToRole="Contents" />
     <NavigationProperty Name="ContentsCategory1" Relationship="Self.FK_ContentsCategory_ContentsCategory" FromRole="ContentsCategory" ToRole="ContentsCategory1" />
     <NavigationProperty Name="ContentsCategory2" Relationship="Self.FK_ContentsCategory_ContentsCategory" FromRole="ContentsCategory1" ToRole="ContentsCategory" />
+  </EntityType>
+  <EntityType Name="ContentUserComment">
+    <Key>
+      <PropertyRef Name="ContentUserCommentsId" />
+    </Key>
+    <Property Name="ContentUserCommentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContenstId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
+    <Property Name="RootContentUserCommentsId" Type="Int32" />
+    <NavigationProperty Name="Content" Relationship="Self.FK_ContentUserComments_Contents" FromRole="ContentUserComments" ToRole="Contents" />
+    <NavigationProperty Name="ContentUserComments1" Relationship="Self.FK_ContentUserComments_ContentUserComments2" FromRole="ContentUserComments" ToRole="ContentUserComments1" />
+    <NavigationProperty Name="ContentUserComment1" Relationship="Self.FK_ContentUserComments_ContentUserComments2" FromRole="ContentUserComments1" ToRole="ContentUserComments" />
+    <NavigationProperty Name="User" Relationship="Self.FK_ContentUserComments_User" FromRole="ContentUserComments" ToRole="User" />
   </EntityType>
   <EntityType Name="ContetComment">
     <Key>
@@ -830,6 +847,7 @@
     <Property Name="ProductQnAId" Type="Int32" />
     <Property Name="DiscountId" Type="Int32" />
     <Property Name="WithInstall" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="CarBrand" Relationship="Self.FK_Product_CarBrand" FromRole="Product" ToRole="CarBrand" />
     <NavigationProperty Name="Car" Relationship="Self.FK_Product_Cars" FromRole="Product" ToRole="Cars" />
     <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
@@ -996,6 +1014,21 @@
     <NavigationProperty Name="ProductUserComment1" Relationship="Self.FK_ProductUserComments_ProductUserComments" FromRole="ProductUserComments1" ToRole="ProductUserComments" />
     <NavigationProperty Name="User" Relationship="Self.FK_ProductUserComments_User" FromRole="ProductUserComments" ToRole="User" />
   </EntityType>
+  <EntityType Name="RootCarUserComment">
+    <Key>
+      <PropertyRef Name="ContentUserCommentsId" />
+    </Key>
+    <Property Name="ContentUserCommentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContentId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
+    <Property Name="RootContentUserCommentsId" Type="Int32" />
+    <NavigationProperty Name="Content" Relationship="Self.FK_RootCarUserComments_Contents" FromRole="RootCarUserComments" ToRole="Contents" />
+    <NavigationProperty Name="RootCarUserComments1" Relationship="Self.FK_RootCarUserComments_RootCarUserComments" FromRole="RootCarUserComments" ToRole="RootCarUserComments1" />
+    <NavigationProperty Name="RootCarUserComment1" Relationship="Self.FK_RootCarUserComments_RootCarUserComments" FromRole="RootCarUserComments1" ToRole="RootCarUserComments" />
+    <NavigationProperty Name="User" Relationship="Self.FK_RootCarUserComments_User" FromRole="RootCarUserComments" ToRole="User" />
+  </EntityType>
   <EntityType Name="SecuritySystem">
     <Key>
       <PropertyRef Name="SecuritySystemsId" />
@@ -1102,6 +1135,7 @@
     <NavigationProperty Name="Baskets" Relationship="Self.FK_Baskets_User" FromRole="User" ToRole="Baskets" />
     <NavigationProperty Name="CarComments" Relationship="Self.FK_CarComments_User" FromRole="User" ToRole="CarComments" />
     <NavigationProperty Name="CarUserComments" Relationship="Self.FK_CarUserComments_User" FromRole="User" ToRole="CarUserComments" />
+    <NavigationProperty Name="ContentUserComments" Relationship="Self.FK_ContentUserComments_User" FromRole="User" ToRole="ContentUserComments" />
     <NavigationProperty Name="ContetComments" Relationship="Self.FK_ContetComments_User" FromRole="User" ToRole="ContetComments" />
     <NavigationProperty Name="People" Relationship="Self.FK_Person_User" FromRole="User" ToRole="Person" />
     <NavigationProperty Name="PersonCars" Relationship="Self.FK_PersonCars_User" FromRole="User" ToRole="PersonCars" />
@@ -1111,6 +1145,7 @@
     <NavigationProperty Name="PersonServicesUseRequests" Relationship="Self.FK_PersonServicesUseRequest_User" FromRole="User" ToRole="PersonServicesUseRequest" />
     <NavigationProperty Name="ProductComments" Relationship="Self.FK_ProductComments_User" FromRole="User" ToRole="ProductComments" />
     <NavigationProperty Name="ProductUserComments" Relationship="Self.FK_ProductUserComments_User" FromRole="User" ToRole="ProductUserComments" />
+    <NavigationProperty Name="RootCarUserComments" Relationship="Self.FK_RootCarUserComments_User" FromRole="User" ToRole="RootCarUserComments" />
     <NavigationProperty Name="UserRole" Relationship="Self.FK_User_UserRole" FromRole="User" ToRole="UserRole" />
   </EntityType>
   <EntityType Name="UserRole">
@@ -1877,6 +1912,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ContentUserComments_Contents">
+    <End Role="Contents" Type="Self.Content" Multiplicity="0..1" />
+    <End Role="ContentUserComments" Type="Self.ContentUserComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contents">
+        <PropertyRef Name="ContenstId" />
+      </Principal>
+      <Dependent Role="ContentUserComments">
+        <PropertyRef Name="ContenstId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ContetComments_Contents">
     <End Role="Contents" Type="Self.Content" Multiplicity="0..1" />
     <End Role="ContetComments" Type="Self.ContetComment" Multiplicity="*" />
@@ -1889,6 +1936,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_RootCarUserComments_Contents">
+    <End Role="Contents" Type="Self.Content" Multiplicity="0..1" />
+    <End Role="RootCarUserComments" Type="Self.RootCarUserComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contents">
+        <PropertyRef Name="ContenstId" />
+      </Principal>
+      <Dependent Role="RootCarUserComments">
+        <PropertyRef Name="ContentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ContentsCategory_ContentsCategory">
     <End Role="ContentsCategory" Type="Self.ContentsCategory" Multiplicity="0..1" />
     <End Role="ContentsCategory1" Type="Self.ContentsCategory" Multiplicity="*" />
@@ -1898,6 +1957,30 @@
       </Principal>
       <Dependent Role="ContentsCategory1">
         <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContentUserComments_ContentUserComments2">
+    <End Role="ContentUserComments" Type="Self.ContentUserComment" Multiplicity="0..1" />
+    <End Role="ContentUserComments1" Type="Self.ContentUserComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContentUserComments">
+        <PropertyRef Name="ContentUserCommentsId" />
+      </Principal>
+      <Dependent Role="ContentUserComments1">
+        <PropertyRef Name="RootContentUserCommentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContentUserComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ContentUserComments" Type="Self.ContentUserComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ContentUserComments">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2297,6 +2380,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_RootCarUserComments_RootCarUserComments">
+    <End Role="RootCarUserComments" Type="Self.RootCarUserComment" Multiplicity="0..1" />
+    <End Role="RootCarUserComments1" Type="Self.RootCarUserComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RootCarUserComments">
+        <PropertyRef Name="ContentUserCommentsId" />
+      </Principal>
+      <Dependent Role="RootCarUserComments1">
+        <PropertyRef Name="RootContentUserCommentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RootCarUserComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="RootCarUserComments" Type="Self.RootCarUserComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="RootCarUserComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_User_UserRole">
     <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -2351,6 +2458,7 @@
     <EntitySet Name="ContentPresentations" EntityType="Self.ContentPresentation" />
     <EntitySet Name="Contents" EntityType="Self.Content" />
     <EntitySet Name="ContentsCategories" EntityType="Self.ContentsCategory" />
+    <EntitySet Name="ContentUserComments" EntityType="Self.ContentUserComment" />
     <EntitySet Name="ContetComments" EntityType="Self.ContetComment" />
     <EntitySet Name="Countries" EntityType="Self.Country" />
     <EntitySet Name="DaysOfWeeks" EntityType="Self.DaysOfWeek" />
@@ -2383,6 +2491,7 @@
     <EntitySet Name="ProductStores" EntityType="Self.ProductStore" />
     <EntitySet Name="ProductToViews" EntityType="Self.ProductToView" />
     <EntitySet Name="ProductUserComments" EntityType="Self.ProductUserComment" />
+    <EntitySet Name="RootCarUserComments" EntityType="Self.RootCarUserComment" />
     <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystem" />
     <EntitySet Name="ServicesPackToViews" EntityType="Self.ServicesPackToView" />
     <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
@@ -2645,13 +2754,29 @@
       <End Role="ContentsCategory" EntitySet="ContentsCategories" />
       <End Role="Contents" EntitySet="Contents" />
     </AssociationSet>
+    <AssociationSet Name="FK_ContentUserComments_Contents" Association="Self.FK_ContentUserComments_Contents">
+      <End Role="Contents" EntitySet="Contents" />
+      <End Role="ContentUserComments" EntitySet="ContentUserComments" />
+    </AssociationSet>
     <AssociationSet Name="FK_ContetComments_Contents" Association="Self.FK_ContetComments_Contents">
       <End Role="Contents" EntitySet="Contents" />
       <End Role="ContetComments" EntitySet="ContetComments" />
     </AssociationSet>
+    <AssociationSet Name="FK_RootCarUserComments_Contents" Association="Self.FK_RootCarUserComments_Contents">
+      <End Role="Contents" EntitySet="Contents" />
+      <End Role="RootCarUserComments" EntitySet="RootCarUserComments" />
+    </AssociationSet>
     <AssociationSet Name="FK_ContentsCategory_ContentsCategory" Association="Self.FK_ContentsCategory_ContentsCategory">
       <End Role="ContentsCategory" EntitySet="ContentsCategories" />
       <End Role="ContentsCategory1" EntitySet="ContentsCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContentUserComments_ContentUserComments2" Association="Self.FK_ContentUserComments_ContentUserComments2">
+      <End Role="ContentUserComments" EntitySet="ContentUserComments" />
+      <End Role="ContentUserComments1" EntitySet="ContentUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContentUserComments_User" Association="Self.FK_ContentUserComments_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ContentUserComments" EntitySet="ContentUserComments" />
     </AssociationSet>
     <AssociationSet Name="FK_ContetComments_User" Association="Self.FK_ContetComments_User">
       <End Role="User" EntitySet="Users" />
@@ -2784,6 +2909,14 @@
     <AssociationSet Name="FK_ProductUserComments_User" Association="Self.FK_ProductUserComments_User">
       <End Role="User" EntitySet="Users" />
       <End Role="ProductUserComments" EntitySet="ProductUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RootCarUserComments_RootCarUserComments" Association="Self.FK_RootCarUserComments_RootCarUserComments">
+      <End Role="RootCarUserComments" EntitySet="RootCarUserComments" />
+      <End Role="RootCarUserComments1" EntitySet="RootCarUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RootCarUserComments_User" Association="Self.FK_RootCarUserComments_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="RootCarUserComments" EntitySet="RootCarUserComments" />
     </AssociationSet>
     <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
       <End Role="UserRole" EntitySet="UserRoles" />

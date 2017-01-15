@@ -62,6 +62,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<ContentPresentation> ContentPresentations { get; set; }
         public virtual DbSet<Content> Contents { get; set; }
         public virtual DbSet<ContentsCategory> ContentsCategories { get; set; }
+        public virtual DbSet<ContentUserComment> ContentUserComments { get; set; }
         public virtual DbSet<ContetComment> ContetComments { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<DaysOfWeek> DaysOfWeeks { get; set; }
@@ -94,6 +95,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<ProductStore> ProductStores { get; set; }
         public virtual DbSet<ProductToView> ProductToViews { get; set; }
         public virtual DbSet<ProductUserComment> ProductUserComments { get; set; }
+        public virtual DbSet<RootCarUserComment> RootCarUserComments { get; set; }
         public virtual DbSet<SecuritySystem> SecuritySystems { get; set; }
         public virtual DbSet<ServicesPackToView> ServicesPackToViews { get; set; }
         public virtual DbSet<ServiceToView> ServiceToViews { get; set; }

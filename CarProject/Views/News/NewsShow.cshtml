@@ -6,6 +6,24 @@
 
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var news = dbs.Contents.FirstOrDefault(n => n.ContenstId == id);
+    var contentPresentaion = dbs.ContentPresentations.FirstOrDefault(c => c.ContentId == id);
+    
+    if(contentPresentaion == null)
+    {
+        contentPresentaion = dbs.ContentPresentations.Add(new CarProject.DBSEF.ContentPresentation
+        {
+            ContentId = id,
+            Like = 0,
+            Dislike = 0,
+            ShowCount = 1
+        });
+        
+    }
+    else
+    {
+        contentPresentaion.ShowCount = contentPresentaion.ShowCount.GetValueOrDefault(0) + 1;
+    }
+    dbs.SaveChanges();
 
     if (news == null)
     { Response.Redirect("/"); }
@@ -15,94 +33,134 @@
 @using CarProject.App_extension
 @using CarProject.App_Code
 @using System.IO
-@model CarProject.Models.News.ContentCommentModel
 
-<div class="newsSection">
-    <div class="newsTitle">
+
+<div id="top_LocationNavigation_likedislikecount">
+    <div id="top_LocationNavigation">
+        <a href="/News">اخبار</a> <span class="gia-left"></span>
+        <a href="#">@news.ContentsCategory.Name</a> <span class="gia-left"></span>
+        <a href="@Url.RouteUrl("infoRoute", new { controller = "News", action = "NewsShow", id = news.ContenstId, info1 = news.ContentsCategory.Name, info2 = news.ContentSubject })">@news.ContentSubject</a>
+    </div>
+
+    <div id="top_likedisklikecount" dir="ltr">
+        <span class="gia-speedometer2" style="font-size:300%;"></span>
         <div>
-            <strong>@news.ContentSubject</strong> -
-            <a href="#"><small>@news.ContentsCategory.Name</small></a>
+            <a class="gia-like" id="likecountersection" onclick="LikeCurrentNews('@news.ContenstId')">@if (contentPresentaion.Like == null)
+                                      {<span>0</span>}
+                                      else
+                                      {<span>@contentPresentaion.Like</span>}</a>
         </div>
-        <div>
-            @news.Date.DateTime_Persian()
+        <div dir="rtl">
+            <h3>تعداد بازدید</h3>
+            <p>@contentPresentaion.ShowCount</p>
         </div>
     </div>
-    <div class="newsBody">
-        <div id="newsBodyImages">
-            @{
-                var path = "~/Publics/Gallery/NewsImages/" + news.ContenstId;
-                var dicinfo = new DirectoryInfo(Server.MapPath(path));
-                if (dicinfo.Exists)
-                {
-                    var files = dicinfo.GetFiles();
-                    if (files.Length > 0)
-                    {
-                        <div id="ImagesContainer">
-                            <img id="ImagesBigShow" src="@Url.Content(path + "/" + files[0].Name)" />
-                            <div id="Imagesthumbnail">
-                                @foreach (var item in files)
-                                {
-                                    <img src="@Url.Content(path + "/" + item.Name)" onclick="document.getElementById('ImagesBigShow').src = this.src" />
-                                        }
-                            </div>
-                        </div>
-                    }
-                }
-            }
+</div>
 
 
-            <div>
-                <h3>ثبت نظر جدید</h3>
-                <hr />
-                <form method="post">
-                    <div class="inputsContainer2">
-                        @Html.input_TextBox(m => m.Comment.FullName, "نام و نام خانوادگی")
-                        @Html.input_TextBox(m => m.Comment.Email, "ایمیل")
-                        @Html.input_TextArea(m => m.Comment.Comment, "متن پیام")
-
-                        <section class="input">
-                            <label>کد امنیتی</label>
-                            <center class="inputElement" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                                <a href="javascript:void()" onclick="ReloadCaptcha('captcha')">
-                                    <img id="captcha" src="/default/index" /></a><br />
-                                <small>برای تغییر کد روی تصویر کلیک کنید</small>
-                                <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
-                            </center>
-                            <span>@Html.ValidationMessage("captcha")</span>
-                        </section>
-
-                    </div>
-                    <div class="inputAction">
-                        <input type="reset" value="خالی کردن فرم" class="button yellow" />
-                        <input type="submit" value="ثبت نظر" class="button blue" />
-                    </div>
-                </form>
+<div id="CarImagesAndDetailsShowSection">
+    <div id="carImages">
+        @if (news.ContentImages.Length > 0)
+        {
+            <div id="carImages_Bigview_Container">
+                <img id="carImages_Bigview" src="@Url.Content(news.ContentImages[0])" />
             </div>
-
-
-            <div>
-                <h3>نظرات ثبت شده</h3>
-                <hr />
-                <div class="CommentsContainer">
-                    @{
-                        var comments = dbs.ContetComments.Where(c => c.ContentsId == id).OrderByDescending(c => c.ContentCommentsId);
-                        foreach (var item in comments)
-                        {
-                        <div class="comentsItem">
-                            <section class="header">
-                                <span>@item.FullName</span> 
-                                <small style="font-size:60%;">@item.Date.DateTime_Persian()</small style="font-size:60%;">
-                            </section>
-                            <section class="body">@item.Comment</section>
-                            <section class="footer"></section>
+            <div id="carImages_ImageThumbnails">
+                <a><h3 class="gia-magnifier" style="font-size: 300%;"></h3></a>
+                <div id="carImages_ImageThumbnailscontainer" class="slideterItemShowContianer">
+                    <div class="itemsContainerBack">
+                        <div class="itemsContainer">
+                            @foreach (var item in news.ContentImages)
+                            {
+                                <a class="item" onclick="document.getElementById('carImages_Bigview').src = '@Url.Content(item)'" >
+                                    <img src="@Url.Content(item)" />
+                                </a>
+                            }
                         </div>
-                        }
-                    }
+                    </div>
+
+                    <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                    <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
                 </div>
             </div>
+        }
+    </div>
 
-
+  <div id="CarDetials">
+        @*<div id="CarDetails_NameAndYear" class="orangeback">
+            <section>@Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</section>
+            <section>@Model.Car.CarYearModel</section>
         </div>
+
+        <div id="CarDetails_usercar_Troubleshooting">
+            <a href="/Users/Dashboard/InsertPersonCar/@Model.Car.CarsId" class="orangeback">ثبت به عنوان خودروی کاربر</a>
+            <a href="#" class="orangeback">
+                سامانه عیب یابی <br />
+                @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName
+            </a>
+        </div>
+
+        @if (carAutoServices.Any())
+        {
+            <div id="CarDetails_CarServices" class="slideterItemShowContianer">
+                <h3 class="title">خدمات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
+                <div class="itemsContainerBack">
+                    <div class="itemsContainer">
+                        @foreach (var item in carAutoServices)
+                        {
+                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (item.AutoServiceImages.Length > 0)
+                            {
+                                src = item.AutoServiceImages[0];
+                            }
+                            <a href="#" class="item">
+                                <img src="@Url.Content(src)" alt />
+                                <span>@item.AutoServiceName</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+            </div>
+        }
+
+
+        @if (carProducts.Any())
+        {
+            <div id="CarDetails_CarProducts" class="slideterItemShowContianer">
+                <h3 class="title">محصولات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
+                <div class="itemsContainerBack">
+                    <div class="itemsContainer">
+                        @foreach (var item in carProducts)
+                        {
+                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (item.ProductImages.Length > 0)
+                            {
+                                src = item.ProductImages[0];
+                            }
+                            <a href="#" class="item">
+                                <img src="@Url.Content(src)" alt />
+                                <span>@item.ProductName</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+            </div>
+        }*@
+
+    </div>
+</div>
+
+
+<div class="newsSection">
+    
+    <div class="newsBody">
+       
         <div id="newsBodyContent" class="page">
             <section id="DescirbeNews">
                 @news.ContentDescribe
@@ -110,52 +168,114 @@
             @Html.Raw(news.ContentText)
         </div>
     </div>
-    <div class="newsFooter">
-        @*<div>
-            <h3>ثبت نظر جدید</h3>
-            <hr />
+</div>
+
+@if(CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
+{
+    <div id="usersCommentsSection">
+        <h3 style="align-self:flex-start;">نظرات کاربران</h3>
+        @try
+        {
+            var msg = ViewBag.error["success"];
+            <section style="color:white; text-shadow:0 0 1px lawngreen; text-align:center;">
+                @msg
+            </section>
+        }
+        catch
+        {
             <form method="post">
+                <input type="hidden" id="responsecommentid" name="responsecommentid" value="@Request.Form["responsecommentid"]" />
+
                 <div class="inputsContainer">
-                    @Html.input_TextBox(m => m.Comment.FullName, "نام و نام خانوادگی")
-                    @Html.input_TextBox(m => m.Comment.Email, "ایمیل")
-                    @Html.input_TextArea(m => m.Comment.Comment, "متن پیام")
+                    <section class="input @if (Request.Form.AllKeys.Contains("responsecommentid") && !string.IsNullOrEmpty(Request.Form["responsecommentid"])) { Write("show"); }" id="replayComment">
+                        <label>پاسخ به پیام کاربر</label>
+                        <input type="text" name="usernameCommentReply" id="usernameCommentReply" value="@Request.Form["usernameCommentReply"]" />
+                    </section>
+                    <section class="input">
+                        <label> پیام</label>
+                        <textarea  name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                        <span>@try
+                              { @ViewBag.error["comment"] }
+                              catch { }</span>
+                    </section>
                 </div>
+                <center>
+                    <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
+                    <span style="color:red">@try
+                                            { @ViewBag.error["g-recaptcha-response"] }
+                                            catch { }</span>
+                </center>
                 <div class="inputAction">
-                    <input type="reset" value="خالی کردن فرم" class="button yellow" />
-                    <input type="submit" value="ثبت نظر" class="button blue" />
+                    <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
                 </div>
             </form>
-        </div>
-        
+        }
+    </div>
+}
 
-        <div>
-            <h3>نظرات ثبت شده</h3>
-            <hr />
-            <div class="CommentsContainer">
-                @{
-                    var comments = dbs.ContetComments.Where(c => c.ContentsId == id).OrderByDescending(c => c.Date);
-                    foreach (var item in comments)
-                    {
-                        <div class="comentsItem">
-                            <section class="header"></section>
-                            <section class="body"></section>
-                            <section class="footer"></section>
-                        </div>
-                    }
-                }
-            </div>
-        </div>
-    </div>*@
+<div id="UsersOldComments">
+    @CreateCommentSection(null, news.ContenstId, dbs)
 </div>
+
+@functions{
+    MvcHtmlString CreateCommentSection(int? rootid,int carid, CarProject.DBSEF.CarAutomationEntities dbs)
+    {
+        string res = "";
+        
+        foreach (var item in dbs.ContentUserComments.Where(c => c.ContenstId == carid && c.RootContentUserCommentsId == rootid))
+        {
+            res += string.Format("<div class=\"cmntmessage\">");
+            {
+                res += string.Format("<div class=\"messageContent\">");
+                {
+                    res += string.Format("<strong class=\"username\">{0}</strong>", (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+
+                    res += string.Format("<section class=\"commentsection\">");
+                    {
+                        res += string.Format("<section class=\"comment\">{0}</section>", item.Comment);
+
+                        res += string.Format("<section class=\"commentActionAndInfo\">");
+                        {
+                            res += string.Format("<section class=\"commentInfo\">");
+                            {
+                            }
+                            res += "</section>";
+
+
+                            res += string.Format("<section class=\"commentAction\">");
+                            {
+                                res += string.Format("<a class=\"gia-back\" onclick=\"CommentMessageReply('{0}','{1}')\"></a>", item.ContentUserCommentsId, (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+                            }
+                            res += "</section>";
+                        }
+                        res += "</section>";
+                    }
+                    res += "</section>";
+                }
+                res += "</div>";
+
+                res += CreateCommentSection(item.ContentUserCommentsId, carid, dbs);
+            }
+            res += "</div>";
+        }
+        
+        return new MvcHtmlString(res);
+    }
+}
 
 
 
 @section style
 {
-    <link href="~/Publics/Files/Resources/NewsPage/NewsShow.css" rel="stylesheet" />
+    <link href="~/Publics/Files/ControlsPageTemplates/News/NewsShow/css.css" rel="stylesheet" />
+    <link href="~/Publics/Files/ControlsPageTemplates/News/NewsShow/SliderItemShow.css" rel="stylesheet" />
 
     <meta name="description" content="@news.ContentsCategory.Name | @news.ContentSubject" />
     <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
    
     <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "News", action = "NewsShow", id = news.ContenstId, info1 = news.ContentsCategory.Name, info2 = news.ContentSubject }, Request.Url.Scheme)" />
+}
+@section script{
+    <script src="~/Publics/Files/ControlsPageTemplates/News/NewsShow/scirpt.js"></script>
+    <script src="~/Publics/Files/ControlsPageTemplates/News/NewsShow/SliderItemShow.js"></script>
 }

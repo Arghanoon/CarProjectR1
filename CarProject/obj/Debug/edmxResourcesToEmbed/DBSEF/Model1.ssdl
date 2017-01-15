@@ -462,6 +462,17 @@
     <Property Name="Describe" Type="nvarchar(max)" />
     <Property Name="ParentId" Type="int" />
   </EntityType>
+  <EntityType Name="ContentUserComments">
+    <Key>
+      <PropertyRef Name="ContentUserCommentsId" />
+    </Key>
+    <Property Name="ContentUserCommentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContenstId" Type="int" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Comment" Type="ntext" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="RootContentUserCommentsId" Type="int" />
+  </EntityType>
   <EntityType Name="ContetComments">
     <Key>
       <PropertyRef Name="ContentCommentsId" />
@@ -695,6 +706,7 @@
     <Property Name="ProductQnAId" Type="int" />
     <Property Name="DiscountId" Type="int" />
     <Property Name="WithInstall" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="ProductCars">
     <Key>
@@ -817,6 +829,17 @@
     <Property Name="Comment" Type="ntext" />
     <Property Name="DateTime" Type="datetime" />
     <Property Name="RootProductUserCommentsId" Type="int" />
+  </EntityType>
+  <EntityType Name="RootCarUserComments">
+    <Key>
+      <PropertyRef Name="ContentUserCommentsId" />
+    </Key>
+    <Property Name="ContentUserCommentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContentId" Type="int" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Comment" Type="ntext" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="RootContentUserCommentsId" Type="int" />
   </EntityType>
   <EntityType Name="SecuritySystems">
     <Key>
@@ -1469,6 +1492,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ContentUserComments_Contents">
+    <End Role="Contents" Type="Self.Contents" Multiplicity="0..1" />
+    <End Role="ContentUserComments" Type="Self.ContentUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contents">
+        <PropertyRef Name="ContenstId" />
+      </Principal>
+      <Dependent Role="ContentUserComments">
+        <PropertyRef Name="ContenstId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContentUserComments_ContentUserComments2">
+    <End Role="ContentUserComments" Type="Self.ContentUserComments" Multiplicity="0..1" />
+    <End Role="ContentUserComments1" Type="Self.ContentUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContentUserComments">
+        <PropertyRef Name="ContentUserCommentsId" />
+      </Principal>
+      <Dependent Role="ContentUserComments1">
+        <PropertyRef Name="RootContentUserCommentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContentUserComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ContentUserComments" Type="Self.ContentUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ContentUserComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ContetComments_Contents">
     <End Role="Contents" Type="Self.Contents" Multiplicity="0..1" />
     <End Role="ContetComments" Type="Self.ContetComments" Multiplicity="*" />
@@ -2033,6 +2092,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_RootCarUserComments_Contents">
+    <End Role="Contents" Type="Self.Contents" Multiplicity="0..1" />
+    <End Role="RootCarUserComments" Type="Self.RootCarUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contents">
+        <PropertyRef Name="ContenstId" />
+      </Principal>
+      <Dependent Role="RootCarUserComments">
+        <PropertyRef Name="ContentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RootCarUserComments_RootCarUserComments">
+    <End Role="RootCarUserComments" Type="Self.RootCarUserComments" Multiplicity="0..1" />
+    <End Role="RootCarUserComments1" Type="Self.RootCarUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RootCarUserComments">
+        <PropertyRef Name="ContentUserCommentsId" />
+      </Principal>
+      <Dependent Role="RootCarUserComments1">
+        <PropertyRef Name="RootContentUserCommentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RootCarUserComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="RootCarUserComments" Type="Self.RootCarUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="RootCarUserComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SecuritySystems_Cars">
     <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
     <End Role="SecuritySystems" Type="Self.SecuritySystems" Multiplicity="*" />
@@ -2179,6 +2274,7 @@
     <EntitySet Name="ContentPresentation" EntityType="Self.ContentPresentation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Contents" EntityType="Self.Contents" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContentsCategory" EntityType="Self.ContentsCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentUserComments" EntityType="Self.ContentUserComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContetComments" EntityType="Self.ContetComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DaysOfWeek" EntityType="Self.DaysOfWeek" Schema="dbo" store:Type="Tables" />
@@ -2211,6 +2307,7 @@
     <EntitySet Name="ProductStore" EntityType="Self.ProductStore" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductToView" EntityType="Self.ProductToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductUserComments" EntityType="Self.ProductUserComments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RootCarUserComments" EntityType="Self.RootCarUserComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SecuritySystems" EntityType="Self.SecuritySystems" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ServicesPackToView" EntityType="Self.ServicesPackToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
@@ -2402,6 +2499,18 @@
       <End Role="ContentsCategory" EntitySet="ContentsCategory" />
       <End Role="ContentsCategory1" EntitySet="ContentsCategory" />
     </AssociationSet>
+    <AssociationSet Name="FK_ContentUserComments_Contents" Association="Self.FK_ContentUserComments_Contents">
+      <End Role="Contents" EntitySet="Contents" />
+      <End Role="ContentUserComments" EntitySet="ContentUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContentUserComments_ContentUserComments2" Association="Self.FK_ContentUserComments_ContentUserComments2">
+      <End Role="ContentUserComments" EntitySet="ContentUserComments" />
+      <End Role="ContentUserComments1" EntitySet="ContentUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContentUserComments_User" Association="Self.FK_ContentUserComments_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="ContentUserComments" EntitySet="ContentUserComments" />
+    </AssociationSet>
     <AssociationSet Name="FK_ContetComments_Contents" Association="Self.FK_ContetComments_Contents">
       <End Role="Contents" EntitySet="Contents" />
       <End Role="ContetComments" EntitySet="ContetComments" />
@@ -2589,6 +2698,18 @@
     <AssociationSet Name="FK_ProductUserComments_User" Association="Self.FK_ProductUserComments_User">
       <End Role="User" EntitySet="User" />
       <End Role="ProductUserComments" EntitySet="ProductUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RootCarUserComments_Contents" Association="Self.FK_RootCarUserComments_Contents">
+      <End Role="Contents" EntitySet="Contents" />
+      <End Role="RootCarUserComments" EntitySet="RootCarUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RootCarUserComments_RootCarUserComments" Association="Self.FK_RootCarUserComments_RootCarUserComments">
+      <End Role="RootCarUserComments" EntitySet="RootCarUserComments" />
+      <End Role="RootCarUserComments1" EntitySet="RootCarUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RootCarUserComments_User" Association="Self.FK_RootCarUserComments_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="RootCarUserComments" EntitySet="RootCarUserComments" />
     </AssociationSet>
     <AssociationSet Name="FK_SecuritySystems_Cars" Association="Self.FK_SecuritySystems_Cars">
       <End Role="Cars" EntitySet="Cars" />
