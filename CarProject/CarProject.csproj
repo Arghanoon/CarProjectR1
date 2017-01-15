@@ -444,6 +444,9 @@
     <Compile Include="DBSEF\SteeringSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\TimeOfDay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -493,6 +496,16 @@
     <Content Include="Areas\Users\resources\Styles\Default\Default.css" />
     <Content Include="Areas\Users\resources\Styles\Default\Default2.css" />
     <Content Include="Areas\Users\resources\Styles\Default\Default2.js" />
+    <Content Include="DBSEF\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBSEF\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\SliderItemShow.css" />
@@ -1018,18 +1031,8 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DBSEF\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="DBSEF\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
-    <Content Include="DBSEF\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
