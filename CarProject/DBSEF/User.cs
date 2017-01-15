@@ -20,6 +20,7 @@ namespace CarProject.DBSEF
             this.Baskets = new HashSet<Basket>();
             this.CarComments = new HashSet<CarComment>();
             this.CarUserComments = new HashSet<CarUserComment>();
+            this.ContentUserComments = new HashSet<ContentUserComment>();
             this.ContetComments = new HashSet<ContetComment>();
             this.People = new HashSet<Person>();
             this.PersonCars = new HashSet<PersonCar>();
@@ -29,6 +30,7 @@ namespace CarProject.DBSEF
             this.PersonServicesUseRequests = new HashSet<PersonServicesUseRequest>();
             this.ProductComments = new HashSet<ProductComment>();
             this.ProductUserComments = new HashSet<ProductUserComment>();
+            this.RootCarUserComments = new HashSet<RootCarUserComment>();
         }
     
         public int UserId { get; set; }
@@ -45,6 +47,8 @@ namespace CarProject.DBSEF
         public virtual ICollection<CarComment> CarComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarUserComment> CarUserComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContentUserComment> ContentUserComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContetComment> ContetComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -63,6 +67,8 @@ namespace CarProject.DBSEF
         public virtual ICollection<ProductComment> ProductComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductUserComment> ProductUserComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RootCarUserComment> RootCarUserComments { get; set; }
         public virtual UserRole UserRole { get; set; }
     }
 }

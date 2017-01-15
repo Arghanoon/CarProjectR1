@@ -406,7 +406,7 @@ namespace CarProject.Areas.Admin.Controllers
         }
         #endregion
 
-        #region Services and servicePacks
+        #region AutoServices 
         public ActionResult Services()
         {
             return View();
@@ -517,8 +517,34 @@ namespace CarProject.Areas.Admin.Controllers
             return RedirectToAction("Services_Gallery", new { id = id });
         }
 
-        /* Packs */
+        public ActionResult Services_UserUseRequest()
+        {
+            return View();
+        }
+        public ActionResult Services_UserUseRequest_details(int id)
+        {
+            var model = dbsObject.PersonServicesUseRequests.FirstOrDefault(c => c.PersonServicesUseRequestId == id);
+            if (model == null)
+                return RedirectToAction("Services_UserUseRequest");
+            
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Services_UserUseRequest_details(int id, DBSEF.PersonServicesUseRequest.StateFlags flag)
+        {
+            var model = dbsObject.PersonServicesUseRequests.FirstOrDefault(c => c.PersonServicesUseRequestId == id);
+            if (model == null)
+                return RedirectToAction("Services_UserUseRequest");
 
+            model.State = (byte)flag;
+            dbsObject.SaveChanges();
+            ModelState.AddModelError("success", "success");
+
+            return View(model);
+        }
+        #endregion
+
+        #region autoservicePacks
         public ActionResult ServicePacks()
         {
             return View();

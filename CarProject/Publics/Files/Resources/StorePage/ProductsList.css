@@ -143,13 +143,20 @@
 
 
 #searchsection {
+    display:flex;
+    align-items:stretch;
     margin:0 10px;
-    background:white;
     padding:5px;
-    border-top:thin solid #888;
+    width:80%;
+    margin:auto;
 }
 
+    #searchsection > * {
+        margin:0 5px;
+    }
+
 #searchInput {
+    flex:1;
     display:flex;
     justify-content:space-between;
     align-items:stretch;
@@ -184,3 +191,28 @@
 }
 
 
+.pagination {
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:row-reverse;
+}
+    .pagination > * {        
+        margin: 2px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: yekan;
+        font-size: 100%;
+        border-radius:3px;
+    }
+
+    .pagination > span {
+        border: thin solid #888;
+        background: #d4d4d4;
+    }
+    .pagination > input {
+        border: thin solid #888;
+        background: #fff;
+    }

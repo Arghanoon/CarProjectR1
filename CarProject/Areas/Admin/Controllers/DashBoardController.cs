@@ -85,11 +85,16 @@ namespace CarProject.Areas.Admin.Controllers
         public JsonResult MailsMessage_Marketing_Emails(int? Type)
         {
             var dbs = new CarProject.DBSEF.CarAutomationEntities();
-            var res = dbs.People.Where(p => p.User.UserRoleId == 2).Select(p => new { email = p.PersonEmail, name = p.PersonFirtstName + " " + p.PersonLastName, username = p.User.Uname, pid = p.PersonId });
+            var res = dbs.People.Where(p => p.User.UserRoleId == 2).Select(p => new { email = p.PersonEmail, name = p.PersonFirtstName + " " + p.PersonLastName, username = p.User.Uname });
             
             if (Type == 2)
             {
-                res = dbs.People.Select(p => new { email = p.PersonEmail, name = p.PersonFirtstName + " " + p.PersonLastName, username = p.User.Uname, pid = p.PersonId });
+                res = dbs.People.Select(p => new { email = p.PersonEmail, name = p.PersonFirtstName + " " + p.PersonLastName, username = p.User.Uname });
+            }
+
+            if (Type == 3)
+            {
+                res = dbs.NewLatterEmails.Select(p => new { email = p.Email, name = p.Email, username = p.Email });
             }
             
             return Json(res.ToList(), JsonRequestBehavior.AllowGet);

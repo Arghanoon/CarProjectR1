@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -224,38 +224,42 @@ namespace CarProject.Areas.Users.Controllers
                     Session["guestUser"] = user;
 
                     //cart redirect
-                    if (Request.Cookies["Basket"] != null && !Request.Cookies["Basket"].Value.IsNullOrWhiteSpace())
+                    try
                     {
-                        var basket = JsonConvert.DeserializeObject<DBSEF.Basket>(Request.Cookies["Basket"].Value);
-                        if (basket != null)
+                        if (Request.Cookies["Basket"] != null && !Request.Cookies["Basket"].Value.IsNullOrWhiteSpace())
                         {
-                            var userbasket = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)CarProject.Models.Store.CartUsefull.Basket_State.Openned);
-                            if (userbasket == null)
+                            var basket = JsonConvert.DeserializeObject<DBSEF.Basket>(Request.Cookies["Basket"].Value);
+                            if (basket != null)
                             {
-                                basket.UserId = user.UserId;
-                                basket.ProductsOrServicesDeliveryType = null;
-                                basket.State = (byte)CarProject.Models.Store.CartUsefull.Basket_State.Openned;
-                                dbs.Baskets.Add(basket);
-                            }
-                            else
-                            {
-                                userbasket.DelivaryTypeId = basket.DelivaryTypeId;
-                                foreach (var item in basket.BasketItems)
+                                var userbasket = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)CarProject.Models.Store.CartUsefull.Basket_State.Openned);
+                                if (userbasket == null)
                                 {
-                                    var itm = userbasket.BasketItems.FirstOrDefault(c => c.Id == item.Id && c.Type == item.Type);
-                                    if (itm == null)
-                                        userbasket.BasketItems.Add(item);
-                                    else
-                                        itm.Count = item.Count;
+                                    basket.UserId = user.UserId;
+                                    basket.ProductsOrServicesDeliveryType = null;
+                                    basket.State = (byte)CarProject.Models.Store.CartUsefull.Basket_State.Openned;
+                                    dbs.Baskets.Add(basket);
+                                }
+                                else
+                                {
+                                    userbasket.DelivaryTypeId = basket.DelivaryTypeId;
+                                    foreach (var item in basket.BasketItems)
+                                    {
+                                        var itm = userbasket.BasketItems.FirstOrDefault(c => c.Id == item.Id && c.Type == item.Type);
+                                        if (itm == null)
+                                            userbasket.BasketItems.Add(item);
+                                        else
+                                            itm.Count = item.Count;
+                                    }
                                 }
                             }
+
+                            dbs.SaveChanges();
+
+
+                            Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(-1);
                         }
-
-                        dbs.SaveChanges();
-
-
-                        Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(-1);
                     }
+                    catch { }
                     //end redirect cart
 
 
@@ -450,7 +454,6 @@ namespace CarProject.Areas.Users.Controllers
                 var Session = System.Web.HttpContext.Current.Session;
                 if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
                 {
-
                     return Session["guestUser"] as DBSEF.User;
                 }
                 else

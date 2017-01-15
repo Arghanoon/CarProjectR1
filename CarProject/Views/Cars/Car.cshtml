@@ -1,4 +1,4 @@
-﻿@model CarProject.Areas.Admin.Models.Cars.CarsModel
+@model CarProject.Areas.Admin.Models.Cars.CarsModel
 @using CarProject.App_Code
 @using CarProject.App_extension
 @using System.IO
@@ -24,8 +24,7 @@
 
 
     var carstoviewobject = dbs.CarsToViews.FirstOrDefault(c => c.CarsId == Model.Car.CarsId);
-    var carAutoServices = dbs.AutoServices.Where(c => c.AutoServiceCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
-    //var ef = (from p in dbs.Products join pc in dbs.ProductCars on p.ProductId equals pc.ProductId)
+    var carAutoServices = dbs.AutoServices.Where(c => c.CarId == Model.Car.CarsId);
     var carProducts = dbs.Products.Where(c => c.ProductCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
     var SameClassCars = dbs.Cars;
 }
