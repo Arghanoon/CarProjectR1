@@ -519,10 +519,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/15/2017 18:49:31</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>01/16/2017 12:55:15</publishTime>
+      <publishTime>01/16/2017 13:54:58</publishTime>
     </File>
     <File Include="bin/CarProject.pdb">
-      <publishTime>01/16/2017 12:55:15</publishTime>
+      <publishTime>01/16/2017 13:54:58</publishTime>
     </File>
     <File Include="bin/Devart.Data.Linq.dll">
       <publishTime>09/22/2016 09:31:20</publishTime>
@@ -1530,7 +1530,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 12:00:00</publishTime>
     </File>
     <File Include="Views/Cars/Car.cshtml">
-      <publishTime>01/16/2017 04:45:34</publishTime>
+      <publishTime>01/16/2017 13:54:29</publishTime>
     </File>
     <File Include="Views/Cars/CarForum.cshtml">
       <publishTime>01/15/2017 18:49:07</publishTime>
