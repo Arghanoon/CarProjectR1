@@ -39,7 +39,10 @@
 <div id="top_LocationNavigation_likedislikecount">
     <div id="top_LocationNavigation">
         <a href="/ProductsList">قطعات یدکی</a> <span class="gia-left"></span>
-        <a href="#">@product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName</a> <span class="gia-left"></span>
+        @if (@product.ProductCars.Any())
+        {
+            <a href="#">@product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName</a> <span class="gia-left"></span>
+        }
         <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = product.ProductCars.First().Car.CarsId, info1 = product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName, info2 = product.ProductCars.First().Car.CarModel.CarModelName })">@product.ProductCars.First().Car.CarModel.CarModelName</a><span class="gia-left"></span>
         <a href="#">@product.ProductName</a>
     </div>

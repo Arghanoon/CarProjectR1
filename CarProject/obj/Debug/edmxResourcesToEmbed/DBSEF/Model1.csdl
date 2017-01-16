@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="CarAutoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="CarAutomationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="AirConditioningSystem">
     <Key>
       <PropertyRef Name="AirConditioningSystemId" />
@@ -1094,16 +1094,6 @@
     <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CarId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_SteeringSystem_Cars" FromRole="SteeringSystem" ToRole="Cars" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="TimeOfDay">
     <Key>
@@ -2437,7 +2427,7 @@
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
     <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
@@ -2515,7 +2505,6 @@
     <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShow" />
     <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TimeOfDays" EntityType="Self.TimeOfDay" />
     <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />
     <EntitySet Name="Troubleshootings" EntityType="Self.Troubleshooting" />

@@ -41,6 +41,7 @@
             @Html.input_TextBox(m => m.Product.ProductWidth, "عرض")
             @Html.input_TextBox(m => m.Product.ProductWeight, "وزن")
             @Html.input_TextBox(m => m.Product.ProductLength, "طول")
+            @Html.input_CheckBox(m=>m.Product.IsActive,"آیا فعال است ؟")
 
             @Html.input_ComboBox(m => m.Product.CompanyId, "شرکت سازنده", Model.dbs.Companies.ToDictionary(c => c.CompanyId, c => c.CompanyName))
             @Html.input_ComboBox(m => m.Product.CountryId, "شرکت تولید کننده", Model.dbs.Countries.ToDictionary(c => c.CountryId, c => c.CountryShortName + " - " + c.CountryLongName))
