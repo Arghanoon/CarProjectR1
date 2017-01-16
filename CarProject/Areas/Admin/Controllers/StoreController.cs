@@ -61,6 +61,44 @@ namespace CarProject.Areas.Admin.Controllers
         }
         #endregion
 
+        #region AutoServiceCategoryManagement
+        public ActionResult AutoServiceCategoryManagement(int? id)
+        {
+            var model = new Models.Store.AutoServiceCategoryyModel(id);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult AutoServiceCategoryManagement(Models.Store.AutoServiceCategoryyModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Save();
+                return RedirectToAction("AutoServiceCategoryManagement", new { id = model.ServicesCategory.ServicesParentCategoryId });
+            }
+            return View(model);
+        }
+
+        public ActionResult AutoServiceCategoryManagment_Update(int? id)
+        {
+            var model = new Models.Store.AutoServiceCategoryyModel(id);
+            TempData["updateStoreAutoServiceCategoryModel"] = model;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult AutoServiceCategoryManagment_Update(Models.Store.AutoServiceCategoryyModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var m = TempData["updateStoreAutoServiceCategoryModel"] as Models.Store.AutoServiceCategoryyModel;
+                TryUpdateModel(m);
+                m.DBS.SaveChanges();
+
+                return RedirectToAction("AutoServiceCategoryManagement");
+            }
+            return View(model);
+        }
+        #endregion
+
         #region Products
         public ActionResult Products()
         {

@@ -98,6 +98,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<ProductUserComment> ProductUserComments { get; set; }
         public virtual DbSet<RootCarUserComment> RootCarUserComments { get; set; }
         public virtual DbSet<SecuritySystem> SecuritySystems { get; set; }
+        public virtual DbSet<ServicesCategory> ServicesCategories { get; set; }
         public virtual DbSet<ServicesPackToView> ServicesPackToViews { get; set; }
         public virtual DbSet<ServiceToView> ServiceToViews { get; set; }
         public virtual DbSet<SlideShow> SlideShows { get; set; }

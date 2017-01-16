@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+<<<<<<< HEAD
   <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
+=======
+  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
+>>>>>>> refs/remotes/origin/master
     <EntitySetMapping Name="AirConditioningSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
         <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -30,6 +34,7 @@
           <ScalarProperty Name="CarId" ColumnName="CarId" />
           <ScalarProperty Name="HasProduct" ColumnName="HasProduct" />
           <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ServicesCategoryId" ColumnName="ServicesCategoryId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -936,6 +941,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ServicesCategories">
+      <EntityTypeMapping TypeName="CarAutomationModel.ServicesCategory">
+        <MappingFragment StoreEntitySet="ServicesCategory">
+          <ScalarProperty Name="ServicesCategoryId" ColumnName="ServicesCategoryId" />
+          <ScalarProperty Name="ServicesCategoryName" ColumnName="ServicesCategoryName" />
+          <ScalarProperty Name="ServicesParentCategoryId" ColumnName="ServicesParentCategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ServicesPackToViews">
       <EntityTypeMapping TypeName="CarAutomationModel.ServicesPackToView">
         <MappingFragment StoreEntitySet="ServicesPackToView">
@@ -981,6 +995,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
+=======
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CarAutomationModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+>>>>>>> refs/remotes/origin/master
     <EntitySetMapping Name="TimeOfDays">
       <EntityTypeMapping TypeName="CarAutomationModel.TimeOfDay">
         <MappingFragment StoreEntitySet="TimeOfDay">
