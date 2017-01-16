@@ -28,6 +28,7 @@
     <Property Name="CarId" Type="int" />
     <Property Name="HasProduct" Type="bit" />
     <Property Name="Price" Type="nvarchar" MaxLength="50" />
+    <Property Name="ServicesCategoryId" Type="int" />
   </EntityType>
   <EntityType Name="AutoServiceCars">
     <Key>
@@ -1000,6 +1001,18 @@
       </Principal>
       <Dependent Role="AutoService">
         <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AutoService_ServicesCategory">
+    <End Role="ServicesCategory" Type="Self.ServicesCategory" Multiplicity="0..1" />
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServicesCategory">
+        <PropertyRef Name="ServicesCategoryId" />
+      </Principal>
+      <Dependent Role="AutoService">
+        <PropertyRef Name="ServicesCategoryId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2358,6 +2371,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_AutoService_Cars" Association="Self.FK_AutoService_Cars">
       <End Role="Cars" EntitySet="Cars" />
+      <End Role="AutoService" EntitySet="AutoService" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AutoService_ServicesCategory" Association="Self.FK_AutoService_ServicesCategory">
+      <End Role="ServicesCategory" EntitySet="ServicesCategory" />
       <End Role="AutoService" EntitySet="AutoService" />
     </AssociationSet>
     <AssociationSet Name="FK_AutoServiceCars_AutoService" Association="Self.FK_AutoServiceCars_AutoService">
