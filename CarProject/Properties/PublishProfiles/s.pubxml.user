@@ -201,7 +201,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/15/2017 08:04:14</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/default_Store.cshtml">
-      <publishTime>01/14/2017 14:28:52</publishTime>
+      <publishTime>01/16/2017 06:54:49</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/Baskets.cshtml">
       <publishTime>12/12/2016 13:55:27</publishTime>
@@ -309,7 +309,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/11/2016 23:59:55</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/ServicePacks_Update.cshtml">
-      <publishTime>12/11/2016 23:59:55</publishTime>
+      <publishTime>01/16/2017 06:54:49</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/Services.cshtml">
       <publishTime>12/11/2016 23:59:55</publishTime>
@@ -318,10 +318,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/11/2016 23:59:55</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/Services_New.cshtml">
-      <publishTime>12/11/2016 23:59:55</publishTime>
+      <publishTime>01/16/2017 06:54:49</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/Services_Update.cshtml">
-      <publishTime>12/11/2016 23:59:56</publishTime>
+      <publishTime>01/16/2017 06:54:49</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/Services_UserUseRequest.cshtml">
       <publishTime>01/14/2017 15:28:44</publishTime>
@@ -483,7 +483,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/11/2016 23:59:59</publishTime>
     </File>
     <File Include="Areas/Users/Views/Shared/Default2.cshtml">
-      <publishTime>01/14/2017 14:11:58</publishTime>
+      <publishTime>01/16/2017 06:54:49</publishTime>
     </File>
     <File Include="Areas/Users/Views/Shared/publicTemplate.cshtml">
       <publishTime>10/15/2016 18:49:01</publishTime>
@@ -513,10 +513,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/13/2016 00:56:58</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>01/15/2017 20:17:12</publishTime>
+      <publishTime>01/16/2017 08:39:57</publishTime>
     </File>
     <File Include="bin/CarProject.pdb">
-      <publishTime>01/15/2017 20:17:12</publishTime>
+      <publishTime>01/16/2017 08:39:57</publishTime>
     </File>
     <File Include="bin/Devart.Data.Linq.dll">
       <publishTime>12/13/2016 00:56:53</publishTime>
@@ -576,13 +576,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/13/2016 00:57:05</publishTime>
     </File>
     <File Include="DBSEF/Model1.Context.tt">
-      <publishTime>01/15/2017 20:16:03</publishTime>
+      <publishTime>01/16/2017 08:39:10</publishTime>
     </File>
     <File Include="DBSEF/Model1.edmx.diagram">
-      <publishTime>01/15/2017 20:16:04</publishTime>
+      <publishTime>01/16/2017 08:39:11</publishTime>
     </File>
     <File Include="DBSEF/Model1.tt">
-      <publishTime>01/15/2017 20:16:03</publishTime>
+      <publishTime>01/16/2017 08:39:10</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>12/12/2016 00:00:06</publishTime>
@@ -1515,7 +1515,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 00:00:27</publishTime>
     </File>
     <File Include="Views/Cars/Car.cshtml">
-      <publishTime>01/15/2017 17:15:31</publishTime>
+      <publishTime>01/16/2017 07:40:42</publishTime>
     </File>
     <File Include="Views/Cars/CarForum.cshtml">
       <publishTime>12/12/2016 00:00:28</publishTime>
@@ -1530,7 +1530,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 00:00:28</publishTime>
     </File>
     <File Include="Views/Cars/Index.cshtml">
-      <publishTime>01/15/2017 17:15:31</publishTime>
+      <publishTime>01/16/2017 06:54:49</publishTime>
     </File>
     <File Include="Views/Cars/SearchView.cshtml">
       <publishTime>11/12/2016 19:00:29</publishTime>
@@ -1551,7 +1551,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/12/2017 23:39:15</publishTime>
     </File>
     <File Include="Views/Home/Search.cshtml">
-      <publishTime>01/14/2017 13:39:54</publishTime>
+      <publishTime>01/16/2017 06:54:49</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
       <publishTime>12/12/2016 00:00:30</publishTime>
@@ -1608,13 +1608,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 00:00:33</publishTime>
     </File>
     <File Include="Views/Store/Products.cshtml">
-      <publishTime>01/15/2017 06:50:34</publishTime>
+      <publishTime>01/16/2017 07:34:48</publishTime>
     </File>
     <File Include="Views/Store/ProductSitemap.aspx">
       <publishTime>12/12/2016 00:00:33</publishTime>
     </File>
     <File Include="Views/Store/ProductsList.cshtml">
-      <publishTime>01/15/2017 10:03:29</publishTime>
+      <publishTime>01/16/2017 06:54:49</publishTime>
     </File>
     <File Include="Views/Store/ProductsRss.aspx">
       <publishTime>12/12/2016 00:00:34</publishTime>
@@ -1641,7 +1641,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/2017 19:54:22</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/15/2017 20:17:50</publishTime>
+      <publishTime>01/16/2017 08:40:49</publishTime>
     </File>
   </ItemGroup>
 </Project>

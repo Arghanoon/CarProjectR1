@@ -1,4 +1,4 @@
-@{
+﻿@{
     ViewBag.Title = "نمایش خودروها";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var rand = new Random();
@@ -427,11 +427,7 @@
                         }
                     }
 
-<<<<<<< HEAD
-                    
-=======
 
->>>>>>> refs/remotes/origin/master
                     <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
                         <img src="@Url.Content(imagesrc)" alt="@item.CarModel.CarModelName @item.CarModel.CarBrand.CarBrandName" />
                         <section>
@@ -449,21 +445,12 @@
                     if (i == page)
                     {
                         <span>@{Write(i + 1); }</span>
-<<<<<<< HEAD
-                    }
-                    else
-                    {
-                        <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
-                    }
-                }
-=======
                             }
                             else
                             {
                                 <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
         }
     }
->>>>>>> refs/remotes/origin/master
             </div>
         </div>
 
