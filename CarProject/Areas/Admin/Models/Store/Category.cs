@@ -24,6 +24,7 @@ namespace CarProject.Areas.Admin.Models.Store
                 Category = new DBSEF.Category();
         }
 
+       
         public void Save()
         {
             DBS.Categories.Add(this.Category);
