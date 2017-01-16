@@ -225,13 +225,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/15/2017 18:48:57</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/DaliveryDateTime.cshtml">
-      <publishTime>01/15/2017 18:48:57</publishTime>
+      <publishTime>01/16/2017 14:21:40</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/DaliveryDateTime_Define.cshtml">
       <publishTime>01/15/2017 18:48:57</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/DaliveryDateTime_Update.cshtml">
-      <publishTime>01/15/2017 18:48:57</publishTime>
+      <publishTime>01/16/2017 14:05:51</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/DeliveryTypes.cshtml">
       <publishTime>01/15/2017 18:48:57</publishTime>
@@ -1530,7 +1530,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 12:00:00</publishTime>
     </File>
     <File Include="Views/Cars/Car.cshtml">
-      <publishTime>01/16/2017 13:54:29</publishTime>
+      <publishTime>01/16/2017 14:29:02</publishTime>
     </File>
     <File Include="Views/Cars/CarForum.cshtml">
       <publishTime>01/15/2017 18:49:07</publishTime>

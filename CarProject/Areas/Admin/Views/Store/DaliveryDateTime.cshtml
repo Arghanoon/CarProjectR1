@@ -58,7 +58,23 @@
                         @if (item.Date > DateTime.Today)
                         {
                             <a href="/Admin/Store/DaliveryDateTime_Update/@item.DaysOfWeekId" class="gia-edit"></a>
+                            
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsActive != null && item.IsActive.Value == true)
+                        {
                             <a href="#" class="gia-remove"></a>
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsActive != null && item.IsActive.Value == true)
+                        {
+                            <label>فعال است</label>
+                        }
+                        else
+                        {
+                            <label>غیر فعال است</label>
                         }
                     </td>
                 </tr>
