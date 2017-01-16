@@ -30,9 +30,7 @@
     <Property Name="CarId" Type="Int32" />
     <Property Name="HasProduct" Type="Boolean" />
     <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="ServicesCategoryId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_AutoService_Cars" FromRole="AutoService" ToRole="Cars" />
-    <NavigationProperty Name="ServicesCategory" Relationship="Self.FK_AutoService_ServicesCategory" FromRole="AutoService" ToRole="ServicesCategory" />
     <NavigationProperty Name="AutoServiceCars" Relationship="Self.FK_AutoServiceCars_AutoService" FromRole="AutoService" ToRole="AutoServiceCars" />
     <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoServices_AutoService" FromRole="AutoService" ToRole="AutoServices" />
     <NavigationProperty Name="PersonServices" Relationship="Self.FK_PersonServices_AutoService" FromRole="AutoService" ToRole="PersonServices" />
@@ -1060,7 +1058,6 @@
     <Property Name="ServicesCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ServicesCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ServicesParentCategoryId" Type="Int32" />
-    <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoService_ServicesCategory" FromRole="ServicesCategory" ToRole="AutoService" />
     <NavigationProperty Name="ServicesCategory1" Relationship="Self.FK_ServicesCategory_ServicesCategory" FromRole="ServicesCategory" ToRole="ServicesCategory1" />
     <NavigationProperty Name="ServicesCategory2" Relationship="Self.FK_ServicesCategory_ServicesCategory" FromRole="ServicesCategory1" ToRole="ServicesCategory" />
   </EntityType>
@@ -1209,18 +1206,6 @@
       </Principal>
       <Dependent Role="AutoService">
         <PropertyRef Name="CarId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_AutoService_ServicesCategory">
-    <End Role="ServicesCategory" Type="Self.ServicesCategory" Multiplicity="0..1" />
-    <End Role="AutoService" Type="Self.AutoService" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ServicesCategory">
-        <PropertyRef Name="ServicesCategoryId" />
-      </Principal>
-      <Dependent Role="AutoService">
-        <PropertyRef Name="ServicesCategoryId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2558,10 +2543,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_AutoService_Cars" Association="Self.FK_AutoService_Cars">
       <End Role="Cars" EntitySet="Cars" />
-      <End Role="AutoService" EntitySet="AutoServices" />
-    </AssociationSet>
-    <AssociationSet Name="FK_AutoService_ServicesCategory" Association="Self.FK_AutoService_ServicesCategory">
-      <End Role="ServicesCategory" EntitySet="ServicesCategories" />
       <End Role="AutoService" EntitySet="AutoServices" />
     </AssociationSet>
     <AssociationSet Name="FK_AutoServiceCars_AutoService" Association="Self.FK_AutoServiceCars_AutoService">

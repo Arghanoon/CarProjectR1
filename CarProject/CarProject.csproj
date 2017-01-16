@@ -168,6 +168,7 @@
     <Compile Include="Areas\Admin\Models\Dashboard\MailsMessage_Marketing_Model.cs" />
     <Compile Include="Areas\Admin\Models\News\CategoryModel.cs" />
     <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
+    <Compile Include="Areas\Admin\Models\Store\AutoServiceCategory.cs" />
     <Compile Include="Areas\Admin\Models\Store\Category.cs" />
     <Compile Include="Areas\Admin\Models\Store\ProductDiscountModel.cs" />
     <Compile Include="Areas\Admin\Models\Store\ProductsModel.cs" />
@@ -430,6 +431,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\SecuritySystem.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\ServicesCategory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\ServicesPackToView.cs">
@@ -1036,6 +1040,7 @@
     <Content Include="Views\public\template.cshtml" />
     <Content Include="Publics\Styles\fonts\yekan.TTF" />
     <Content Include="Views\Cars\Index.cshtml" />
+    <Content Include="Views\Cars\Car.cshtml" />
     <Content Include="Views\Home\ContectUs.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
@@ -1067,7 +1072,6 @@
     <Content Include="Publics\Gallery\favicons\manifest.json" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\News\NewsShow_13951026_0657.cshtml" />
-    <Content Include="Views\Cars\Car.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

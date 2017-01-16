@@ -17,7 +17,6 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ServicesCategory()
         {
-            this.AutoServices = new HashSet<AutoService>();
             this.ServicesCategory1 = new HashSet<ServicesCategory>();
         }
     
@@ -25,8 +24,6 @@ namespace CarProject.DBSEF
         public string ServicesCategoryName { get; set; }
         public Nullable<int> ServicesParentCategoryId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AutoService> AutoServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServicesCategory> ServicesCategory1 { get; set; }
         public virtual ServicesCategory ServicesCategory2 { get; set; }
