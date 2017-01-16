@@ -32,4 +32,5 @@
     .pagination > input {
         border: thin solid #888;
         background: #fff;
+        cursor:pointer;
     }

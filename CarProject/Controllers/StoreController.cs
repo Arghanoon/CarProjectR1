@@ -559,6 +559,7 @@ namespace CarProject.Controllers
         #endregion
 
         #region Services
+      
         public ActionResult ServiceView(int id)
         {
             return View(id);
@@ -607,6 +608,11 @@ namespace CarProject.Controllers
 
             dbs.SaveChanges();
             return res;
+        }
+
+        public ActionResult ServicesList(int? id)
+        {
+            return View(id);
         }
         #endregion
 

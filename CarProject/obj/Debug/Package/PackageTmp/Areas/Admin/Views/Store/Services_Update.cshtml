@@ -2,6 +2,14 @@
 @{
     ViewBag.Title = "ویرایش سرویس";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var x = new CarProject.Areas.Admin.Models.Store.StoreMVC();
+    var category = "";
+    if (Model.Service.ServicesCategoryId != null && Model.Service.ServicesCategoryId > 0)
+    {
+        var cm = Model.DBS.ServicesCategories.FirstOrDefault(c => c.ServicesCategoryId == Model.Service.ServicesCategoryId);
+        if (cm != null)
+        { category = cm.ServicesCategoryName; }
+    }
 }
 
 @model CarProject.Areas.Admin.Models.Store.ServicesModel
@@ -13,6 +21,17 @@
             @Html.HiddenFor(m => m.Service.AutoServiceId)
             @Html.input_TextBox(m => m.Service.AutoServiceName, "نام سرویس")
             @Html.input_TextBox(m => m.Service.Price, "قیمت سرویس")
+
+            <div class="input">
+                <label for="">دسته بندی محصول</label>
+                <div>
+                    @Html.HiddenFor(m => m.Service.ServicesCategoryId)
+                    <section id="DispalayFor_Service_AutoServiceCategoryId" tabindex="0" class="inputElement gia-select" onclick="$('#GroupSelector').toggleClass('show')">
+                        @category
+                    </section>
+                </div>
+                @Html.ValidationMessageFor(m => m.Service.ServicesCategoryId)
+            </div>
 
             <div class="input">
                 <label for="">خودروهای مرتبط</label>
@@ -90,6 +109,22 @@
     </form>
 </div>
 
+<div id="GroupSelector" class="selectros">
+    <div class="title">
+        <strong><a href="javascript:void(0)" class="gia-delete" onclick="$('#GroupSelector').toggleClass('show')">&times;</a> انتخاب گروه کالا</strong>
+    </div>
+    <div class="showSelectediTem">
+        <section><strong>گروه انتخاب شده:</strong> <q id="selectedGroupShowing">@category</q> </section>
+    </div>
+    <div class="groupShowing">
+        <div>
+            @x.AutoServiceCategories_readonly(null | 0, aClass: "groupAselectClass", aHref: "javascript:void(0)", aOnclick: "SelectGroup")
+        </div>
+    </div>
+    <div style="display:flex; flex-direction:row-reverse;">
+        <a href="javascript:void(0)" class="gia-delete button red" onclick="$('#GroupSelector').toggleClass('show')">بستن پنجره</a>
+    </div>
+</div>
 <div id="carSelector" class="selectros">
     <div class="title">
         <strong><a href="javascript:void(0)" class="gia-delete" onclick="$('#carSelector').toggleClass('show')">&times;</a> انتخاب خودروهای مرتبط</strong>
@@ -164,7 +199,9 @@
 @section style
 {
     <style>
-
+         #DispalayFor_Service_AutoServiceCategoryId {
+            cursor:pointer;
+        }
         .selectros {
             background:#fafafa;
             position:absolute;
@@ -262,7 +299,11 @@
 @section script
 {
     <script>
-      
+        $(".groupAselectClass").click(function (e) {
+            document.getElementById("DispalayFor_Service_AutoServiceCategoryId").innerHTML = $(e.target).attr("data-name");
+            document.getElementById("selectedGroupShowing").innerHTML = $(e.target).attr("data-name");;
+            document.getElementById("@Html.IdFor( m => m.Service.ServicesCategoryId)").value = $(e.target).attr("data-id");;
+        });
 
         function submitFunction(e) {
             e.preventDefault();

@@ -81,5 +81,72 @@ namespace CarProject.Areas.Admin.Models.Store
                 res = string.Format("<ul class=\"{0}\"  data-level=\"{1}\" >{2}</ul>", ulclass, level, res);
             return new MvcHtmlString(res);
         }
+
+
+        public MvcHtmlString AutoServiceCategories_readonly(int? pid, int level = 1, int? skipShoingId = null, string ulclass = "", string liClass = "", string aHref = "#", string aClass = "", string aOnclick = "")
+        {
+            string res = "";
+
+            foreach (var item in DBS.ServicesCategories.Where(c => c.ServicesParentCategoryId == pid))
+            {
+                if (item.ServicesCategoryId == skipShoingId)
+                    continue;
+
+                res += string.Format("<li class=\"{0}\" >", liClass);
+                {
+                    var tmp = AutoServiceCategories_readonly(item.ServicesCategoryId, (level + 1), skipShoingId, ulclass, liClass, aHref, aClass, aOnclick);
+
+                    res += string.Format("<a href=\"{0}\" class=\"{1}\" data-id=\"{2}\" data-name=\"{3}\"  data-haveroot=\"{4}\"  onclick=\"{5}\" >{6}</a> {7}",
+
+                        aHref, aClass, item.ServicesCategoryId, item.ServicesCategoryName,
+                       // HttpUtility.HtmlEncode(item.Description),
+                        ((tmp.ToString().IsNullOrWhiteSpace()) ? 0 : 1),
+                        string.Format("{0}(this)", aOnclick),
+                        item.ServicesCategoryName, tmp);
+                }
+                res += "</li>";
+            }
+
+
+            if (!res.IsNullOrWhiteSpace())
+                res = string.Format("<ul class=\"{0}\"  data-level=\"{1}\" >{2}</ul>", ulclass, level, res);
+            return new MvcHtmlString(res);
+        }
+        public MvcHtmlString AutoServiceCategories_managment(int? pid, int level = 1, string ulclass = "", string liClass = "", string aHref = "#", string aClass = "",
+            string editHref = "#", string editClass = "", string editOnclick = "", string editText = "",
+            string removeHref = "#", string removeClass = "", string removeOnclick = "", string removeText = "")
+        {
+            string res = "";
+
+            foreach (var item in DBS.ServicesCategories.Where(c => c.ServicesParentCategoryId == pid))
+            {
+                res += string.Format("<li class=\"{0}\" >", liClass);
+                {
+                    var tmp = AutoServiceCategories_managment(item.ServicesCategoryId, (level + 1), ulclass, liClass, aHref, aClass,
+                        editHref, editClass, editOnclick, editText,
+                        removeHref, removeClass, removeOnclick, removeText);
+
+                    res += string.Format("<a href=\"{0}\" class=\"{1}\" data-id=\"{2}\" data-name=\"{3}\" data-haveroot=\"{4}\" >{5}</a> {6} {7} {8}",
+                        aHref, aClass, item.ServicesCategoryId, item.ServicesCategoryName,
+                       // HttpUtility.HtmlEncode(item.Description),
+                        ((tmp.ToString().IsNullOrWhiteSpace()) ? 0 : 1),
+
+                        item.ServicesCategoryName,
+
+                        string.Format("<a href=\"{0}\" class=\"{1}\" onclick=\"{2}('{3}','{4}')\">{5}</a>",
+                        editHref, editClass, editOnclick, item.ServicesCategoryId, item.ServicesCategoryName,  editText),
+                        string.Format("<a href=\"{0}\" class=\"{1}\" onclick=\"{2}('{3}','{4}')\">{5}</a>",
+                        removeHref, removeClass, removeOnclick, item.ServicesCategoryId, item.ServicesCategoryName, removeText),
+
+                        tmp);
+                }
+                res += "</li>";
+            }
+
+
+            if (!res.IsNullOrWhiteSpace())
+                res = string.Format("<ul class=\"{0}\"  data-level=\"{1}\" >{2}</ul>", ulclass, level, res);
+            return new MvcHtmlString(res);
+        }
     }
 }
