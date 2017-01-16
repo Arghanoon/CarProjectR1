@@ -16,7 +16,7 @@
     int showinpage = 20;
 
 
-    var Service = dbs.AutoServices.AsQueryable();
+    var service = dbs.AutoServices.AsQueryable();
 
 
 
@@ -43,11 +43,11 @@
     //}
     if (Category_filter != null && Category_filter.Length > 0)
     {
-        Service = Service.Where(c => Category_filter.Contains(c.ServicesCategoryId.ToString()));
+        service = service.Where(c => Category_filter.Contains(c.ServicesCategoryId.ToString()));
     }
     if (Car_filter != null && Car_filter.Length > 0)
     {
-        Service = Service.Where(c => Car_filter.Contains(c.CarId.ToString()));
+        service = service.Where(c => Car_filter.Contains(c.CarId.ToString()));
     }
 
 
@@ -60,13 +60,13 @@
     { int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out GroupCategoryFilter); }
 
     if (GroupCategoryFilter > 0)
-    { Service = Service.Where(c => c.ServicesCategoryId == GroupCategoryFilter); }//first filter category
+    { service = service.Where(c => c.ServicesCategoryId == GroupCategoryFilter); }//first filter category
 
     if (Request.QueryString.AllKeys.Contains("searchtext"))
     { searchtext = Request.QueryString["searchtext"]; }
 
     if (!string.IsNullOrWhiteSpace(searchtext))
-    { Service = Service.Where(p => p.AutoServiceName.Contains(searchtext)); }//filter base on Search key
+    { service = service.Where(p => p.AutoServiceName.Contains(searchtext)); }//filter base on Search key
 
     if (Request.QueryString.AllKeys.Contains("Orderby") && !string.IsNullOrWhiteSpace(Request.QueryString["Orderby"]))
     { int.TryParse(Request.QueryString["Orderby"], out orderby); }
@@ -84,35 +84,35 @@
             break;
         case 3:
             {
-                if (orderbydirection == 2) { Service = Service.OrderByDescending(c => (c.ServiceToViews.Any() && c.ServiceToViews.FirstOrDefault().Favorite != null) ? c.ServiceToViews.FirstOrDefault().Favorite : 0); }
-                else { Service = Service.OrderBy(c => (c.ServiceToViews.Any() && c.ServiceToViews.FirstOrDefault().Favorite != null) ? c.ServiceToViews.FirstOrDefault().Favorite : 0); }
+                if (orderbydirection == 2) { service = service.OrderByDescending(c => (c.ServiceToViews.Any() && c.ServiceToViews.FirstOrDefault().Favorite != null) ? c.ServiceToViews.FirstOrDefault().Favorite : 0); }
+                else { service = service.OrderBy(c => (c.ServiceToViews.Any() && c.ServiceToViews.FirstOrDefault().Favorite != null) ? c.ServiceToViews.FirstOrDefault().Favorite : 0); }
             }
             break;
         case 4:
             {
-                if (orderbydirection == 2) { Service = Service.OrderByDescending(c => (c.ServiceToViews.Any() && c.ServiceToViews.FirstOrDefault().Views != null) ? c.ServiceToViews.FirstOrDefault().Views : 0); }
-                else { Service = Service.OrderBy(c => (c.ServiceToViews.Any() && c.ServiceToViews.FirstOrDefault().Views != null) ? c.ServiceToViews.FirstOrDefault().Views : 0); }
+                if (orderbydirection == 2) { service = service.OrderByDescending(c => (c.ServiceToViews.Any() && c.ServiceToViews.FirstOrDefault().Views != null) ? c.ServiceToViews.FirstOrDefault().Views : 0); }
+                else { service = service.OrderBy(c => (c.ServiceToViews.Any() && c.ServiceToViews.FirstOrDefault().Views != null) ? c.ServiceToViews.FirstOrDefault().Views : 0); }
             }
             break;
         case 5:
             {
-                if (orderbydirection == 2) { Service = Service.OrderByDescending(c => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService && bi.Id == c.AutoServiceId)); }
-                else { Service = Service.OrderBy(c => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService && bi.Id == c.AutoServiceId)); }
+                if (orderbydirection == 2) { service = service.OrderByDescending(c => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService && bi.Id == c.AutoServiceId)); }
+                else { service = service.OrderBy(c => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService && bi.Id == c.AutoServiceId)); }
             }
             break;
         case 1:
         default:
             {
-                if (orderbydirection == 2) { Service = Service.OrderByDescending(c => c.AutoServiceId); }
-                else { Service = Service.OrderBy(c => c.AutoServiceId); }
+                if (orderbydirection == 2) { service = service.OrderByDescending(c => c.AutoServiceId); }
+                else { service = service.OrderBy(c => c.AutoServiceId); }
             }
             break;
     }
 
 
 
-    totalitems = Service.Count();
-    Service = Service.Skip(page * showinpage).Take(showinpage);
+    totalitems = service.Count();
+    service = service.Skip(page * showinpage).Take(showinpage);
 }
 
 
@@ -134,23 +134,23 @@
                 <div id="Filter_Category">
                     <h4 class="title"> دسته بندی ها</h4>
                     <div class="checkboxContainer">
-                        @foreach (var item in dbs.Categories.OrderBy(b => b.CategoryId).Take(5))
+                        @foreach (var item in dbs.ServicesCategories.OrderBy(b => b.ServicesCategoryId).Take(5))
                         {
                             <section class="checkbox">
-                                <input type="checkbox" name="CategoryFilter" value="@item.CategoryId" id="Category_@item.CategoryId" @if (Category_filter != null && Category_filter.Contains(item.CategoryId.ToString())) { Write("checked=\"checked\""); } />
-                                <label for="Category_@item.CategoryId">
-                                    @item.CategoryName
+                                <input type="checkbox" name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
+                                <label for="Category_@item.ServicesCategoryId">
+                                    @item.ServicesCategoryName
                                 </label>
                             </section>
                         }
 
                         <div id="Filter_Category_more" class="more">
-                            @foreach (var item in dbs.Categories.OrderBy(b => b.CategoryId).Skip(5))
+                            @foreach (var item in dbs.ServicesCategories.OrderBy(b => b.ServicesCategoryId).Skip(5))
                             {
                                 <section class="checkbox">
-                                    <input type="checkbox" name="CategoryFilter" value="@item.CategoryId" id="Category_@item.CategoryId" @if (Category_filter != null && Category_filter.Contains(item.CategoryId.ToString())) { Write("checked=\"checked\""); } />
-                                    <label for="Category_@item.CategoryId">
-                                        @item.CategoryName
+                                    <input type="checkbox" name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
+                                    <label for="Category_@item.ServicesCategoryId">
+                                        @item.ServicesCategoryName
                                     </label>
                                 </section>
                             }
@@ -222,38 +222,47 @@
             </div>
             <div class="listOfProducts" id="ListofcarsShower">
                 @{
-                    foreach (var item in Service)
+                    foreach (var item in service)
                     {
                         var PicFileUrl = "~/Publics/Gallery/Services/" + item.AutoServiceId;
-                       // var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
 
-                        @*if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                        if (finfo.Exists && finfo.GetFiles().Any())
                         {
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName })" class="item">
-                                <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                            <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
+                                <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)"/>
                                 <section>
-                                    <strong>@item.AutoServiceName</strong><br />
-                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br />
+                                    <strong>@item.AutoServiceName</strong><br/>
+                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br/>
                                     <small class="price">@if (item.Price.Any())
-                                    {<span>@item.ProductPrices.Last().ProductPrice1</span>}
-                                    else
-                                    {<span>0</span>} ریال</small>
+                                                         {
+                                                             <span>@item.Price.ToString()</span>
+                                                         }
+                                                         else
+                                                         {
+                                                             <span>0</span>
+                                                         } ریال</small>
                                 </section>
                             </a>
-                        }*@
-                       
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName })" class="item">
-                                <img src="~/Publics/Gallery/Services/NotFound.png" />
+                        }
+                        else
+                        {
+                            <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
+                                <img src="~/Publics/Gallery/Services/NotFound.png"/>
                                 <section>
-                                    <strong>@item.AutoServiceName</strong><br />
-                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br />
+                                    <strong>@item.AutoServiceName</strong><br/>
+                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br/>
                                     <small class="price">@if (@item.Price.Any())
-                                    {<span>@*@item.ProductPrices.Last().ProductPrice1*@</span>}
-                                    else
-                                    {<span>0</span>}</small>
+                                                         {
+                                                             <span>@item.Price.ToString()</span>
+                                                         }
+                                                         else
+                                                         {
+                                                             <span>0</span>
+                                                         }</small>
                                 </section>
                             </a>
-                       
+                        }
                     }
                 }
             </div>

@@ -559,10 +559,7 @@ namespace CarProject.Controllers
         #endregion
 
         #region Services
-        public ActionResult AutoServices(int id)
-        {
-            return View(id);
-        }
+      
         public ActionResult ServiceView(int id)
         {
             return View(id);
