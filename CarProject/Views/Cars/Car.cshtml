@@ -22,6 +22,7 @@
         //pashmak
     }
 
+    //این گیت 
 
     var carstoviewobject = dbs.CarsToViews.FirstOrDefault(c => c.CarsId == Model.Car.CarsId);
     var carAutoServices = dbs.AutoServices.Where(c => c.AutoServiceCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
