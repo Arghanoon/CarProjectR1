@@ -111,7 +111,7 @@
                             {
                                 src = item.AutoServiceImages[0];
                             }
-                            <a href="#" class="item">
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })" class="item">
                                 <img src="@Url.Content(src)" alt />
                                 <span>@item.AutoServiceName</span>
                             </a>
@@ -138,7 +138,7 @@
                             {
                                 src = item.ProductImages[0];
                             }
-                            <a href="#" class="item">
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
                                 <img src="@Url.Content(src)" alt />
                                 <span>@item.ProductName</span>
                             </a>
