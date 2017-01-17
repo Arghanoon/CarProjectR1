@@ -1,4 +1,5 @@
-﻿@{
+﻿@using CarProject.DBSEF
+@{
     ViewBag.Title = "نمایش سرویس ها";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var rand = new Random();
@@ -18,12 +19,29 @@
 
     var service = dbs.AutoServices.AsQueryable();
 
-
+    var cars = dbs.AutoServiceCars.Select(AutoServiceCars => new
+    {
+        AutoServiceCars.Car.CarModel.CarModelName,
+        AutoServiceCars.Car.CarModel.CarModelId
+    }).Distinct();
+    var se = (dbs.AutoServiceCars.Select(AutoServiceCars => new
+    {
+        AutoServiceCars.Car.CarModel.CarBrand.CarBrandName,
+        AutoServiceCars.Car.CarModel.CarBrand.CarBrandId
+    })).Distinct();
+    var getcarsId= (dbs.AutoServiceCars.Select(AutoServiceCars => new
+    {
+        AutoServiceCars.Car.CarsId
+    })).Distinct();
+    var getAutoServiceId = (dbs.AutoServiceCars.Select(AutoServiceCars => new
+    {
+        AutoServiceCars.AutoServiceCarsId
+    })).Distinct();
 
 
     //var carProducts = dbs.Products.Where(c => c.ProductCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
 
-    //var brandFilters = Request.QueryString.GetValues("CarBrand");
+    var brandFilters = Request.QueryString.GetValues("CarBrand");
     //var CountryFilter = Request.QueryString.GetValues("CountryFilter");
     //var Company_filter = Request.QueryString.GetValues("CompanyFilter");
     var Category_filter = Request.QueryString.GetValues("CategoryFilter");
@@ -33,10 +51,10 @@
     //{
     //    products = products.Where(c => CountryFilter.Contains(c.CountryId.ToString()));
     //}
-    //if (brandFilters != null && brandFilters.Length > 0)
-    //{
-    //    products = products.Where(c => brandFilters.Contains(c.CarBrandId.ToString()));
-    //}
+    if (brandFilters != null && brandFilters.Length > 0)
+    {
+        service = service.Where(c => se.Any(e => brandFilters.Contains(e.CarBrandName)));
+    }
     //if (Company_filter != null && Company_filter.Length > 0)
     //{
     //    products = products.Where(c => Company_filter.Contains(c.CompanyId.ToString()));
@@ -47,7 +65,16 @@
     }
     if (Car_filter != null && Car_filter.Length > 0)
     {
-        service = service.Where(c => Car_filter.Contains(c.CarId.ToString()));
+        var s = service.Where(c => cars.Any(e => Car_filter.Contains(e.CarModelName)));
+        cars = cars.Where(c => Car_filter.Contains(c.CarModelName));
+        // getcarsId = getcarsId.Where(c => cars.Contains(c.CarsId.ToString()));
+
+
+
+        //    var carProducts = dbs.Products.Where(c => c.ProductCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
+        //service = service.Where(e=>e.AutoServiceCars.Any(m=>m.Car.CarModel.CarModelName = Car_filter));
+        service = service.Where(c => cars.Any(e => Car_filter.Contains(e.CarModelName)));
+        // var t = fileList.Where(file => filterList.Any(folder => file.ToUpperInvariant().Contains(folder.ToUpperInvariant())));
     }
 
 
@@ -117,7 +144,7 @@
 
 
 @section style
-{
+            {
     <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" />
 }
 
@@ -128,7 +155,7 @@
     <div id="MainContainerOfFilterAndContent">
         <div>
             <div id="searchAndFilter">
-                
+
 
 
                 <div id="Filter_Category">
@@ -136,26 +163,82 @@
                     <div class="checkboxContainer">
                         @foreach (var item in dbs.ServicesCategories.OrderBy(b => b.ServicesCategoryId).Take(5))
                         {
+                        <section class="checkbox">
+                            <input type="checkbox" name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
+                            <label for="Category_@item.ServicesCategoryId">
+                                @item.ServicesCategoryName
+                            </label>
+                        </section>
+                        }
+
+                        <div id="Filter_Category_more" class="more">
+                            @foreach (var item in dbs.ServicesCategories.OrderBy(b => b.ServicesCategoryId).Skip(5))
+                            {
                             <section class="checkbox">
                                 <input type="checkbox" name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
                                 <label for="Category_@item.ServicesCategoryId">
                                     @item.ServicesCategoryName
                                 </label>
                             </section>
+                            }
+                        </div>
+                        <center><a onclick="$('#Filter_Category_more').toggleClass('show');">بیشتر</a></center>
+                    </div>
+                </div>
+
+                <div id="Filter_Model">
+                    <h4 class="title"> برند ها</h4>
+                    <div class="checkboxContainer">
+                        @foreach (var item in cars.OrderBy(b => b.CarModelId).Take(5))
+                        {
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Category_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
+                                <label for="Model_@item.CarModelId">
+                                    @item.CarModelName
+                                </label>
+                            </section>
                         }
 
-                        <div id="Filter_Category_more" class="more">
-                            @foreach (var item in dbs.ServicesCategories.OrderBy(b => b.ServicesCategoryId).Skip(5))
+                        <div id="Filter_Model_more" class="more">
+                            @foreach (var item in cars.OrderBy(b => b.CarModelName).Skip(5))
                             {
                                 <section class="checkbox">
-                                    <input type="checkbox" name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
-                                    <label for="Category_@item.ServicesCategoryId">
-                                        @item.ServicesCategoryName
+                                    <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Category_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
+                                    <label for="Model_@item.CarModelId">
+                                        @item.CarModelName
                                     </label>
                                 </section>
                             }
                         </div>
-                        <center><a onclick="$('#Filter_Category_more').toggleClass('show');">بیشتر</a></center>
+                        <center><a onclick="$('#Filter_Model_more').toggleClass('show');">بیشتر</a></center>
+                    </div>
+                </div>
+
+                <div id="Filter_Brand">
+                    <h4 class="title"> دسته بندی ها</h4>
+                    <div class="checkboxContainer">
+                        @foreach (var item in se.OrderBy(b=>b.CarBrandId).Take(5))
+                        {
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="Brand_@item.CarBrandId" @if (Category_filter != null && Category_filter.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                                <label for="Brand_@item.CarBrandId">
+                                    @item.CarBrandName
+                                </label>
+                            </section>
+                        }
+
+                        <div id="Filter_Brand_more" class="more">
+                            @foreach (var item in se.OrderBy(b => b.CarBrandId).Skip(5))
+                            {
+                                <section class="checkbox">
+                                    <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="Brand_@item.CarBrandId" @if (Category_filter != null && Category_filter.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                                    <label for="Brand_@item.CarBrandId">
+                                        @item.CarBrandName
+                                    </label>
+                                </section>
+                            }
+                        </div>
+                        <center><a onclick="$('#Filter_Brand_more').toggleClass('show');">بیشتر</a></center>
                     </div>
                 </div>
 
@@ -163,10 +246,9 @@
 
 
 
-               
 
 
-               
+
 
 
 
@@ -230,38 +312,42 @@
                         if (finfo.Exists && finfo.GetFiles().Any())
                         {
                             <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
-                                <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)"/>
+                                <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)" />
                                 <section>
-                                    <strong>@item.AutoServiceName</strong><br/>
-                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br/>
-                                    <small class="price">@if (item.Price.Any())
-                                                         {
-                                                             <span>@item.Price.ToString()</span>
-                                                         }
-                                                         else
-                                                         {
-                                                             <span>0</span>
-                                                         } ریال</small>
-                                </section>
-                            </a>
+                                    <strong>@item.AutoServiceName</strong><br />
+                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br />
+                                    <small class="price">
+                                        @if (item.Price.Any())
+                                    {
+                                        <span>@item.Price.ToString()</span>
+                                    }
+                                    else
+                                    {
+                                        <span>0</span>
+                                    } ریال
+                                </small>
+                            </section>
+                        </a>
                         }
                         else
                         {
                             <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
-                                <img src="~/Publics/Gallery/Services/NotFound.png"/>
+                                <img src="~/Publics/Gallery/Services/NotFound.png" />
                                 <section>
-                                    <strong>@item.AutoServiceName</strong><br/>
-                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br/>
-                                    <small class="price">@if (@item.Price.Any())
-                                                         {
-                                                             <span>@item.Price.ToString()</span>
-                                                         }
-                                                         else
-                                                         {
-                                                             <span>0</span>
-                                                         }</small>
-                                </section>
-                            </a>
+                                    <strong>@item.AutoServiceName</strong><br />
+                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br />
+                                    <small class="price">
+                                        @if (@item.Price.Any())
+                                    {
+                                        <span>@item.Price.ToString()</span>
+                                    }
+                                    else
+                                    {
+                                        <span>0</span>
+                                    }
+                                </small>
+                            </section>
+                        </a>
                         }
                     }
                 }

@@ -1078,6 +1078,7 @@
     <Content Include="Publics\Gallery\favicons\manifest.json" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\News\NewsShow_13951026_0657.cshtml" />
+    <Content Include="Views\Store\ServicesList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

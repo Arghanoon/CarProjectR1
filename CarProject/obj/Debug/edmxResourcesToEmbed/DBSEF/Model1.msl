@@ -27,7 +27,6 @@
           <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
           <ScalarProperty Name="AutoServiceName" ColumnName="AutoServiceName" />
           <ScalarProperty Name="HasCarId" ColumnName="HasCarId" />
-          <ScalarProperty Name="CarId" ColumnName="CarId" />
           <ScalarProperty Name="HasProduct" ColumnName="HasProduct" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="ServicesCategoryId" ColumnName="ServicesCategoryId" />
