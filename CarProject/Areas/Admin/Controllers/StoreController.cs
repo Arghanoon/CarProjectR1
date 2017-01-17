@@ -22,7 +22,17 @@ namespace CarProject.Areas.Admin.Controllers
         {
             return View();
         }
+        #region datetimeManagement
 
+        public ActionResult UpdateDevlivery(int? id)
+        {
+            var model = new Models.Store.DayOfTimeModel(id);
+            model.DaysOfWeek.IsActive = false;
+            model.Update();
+            return View("DaliveryDateTime");
+        }
+        
+        #endregion
         #region CategoryManagment
         public ActionResult CategoryManagment(int? id)
         {

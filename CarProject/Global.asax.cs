@@ -18,6 +18,7 @@ namespace CarProject
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            GlobalFilters.Filters.Add(new CLS.GlobalFilter());
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             DefaultModelBinder.ResourceClassKey = "Resource1";

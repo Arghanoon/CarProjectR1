@@ -917,6 +917,16 @@
           <Property Name="Details" Type="nvarchar(max)" />
           <Property Name="CarId" Type="int" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="TimeOfDay">
           <Key>
             <PropertyRef Name="TimeOfDayId" />
@@ -2360,6 +2370,7 @@
           <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TimeOfDay" EntityType="Self.TimeOfDay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
@@ -3916,6 +3927,16 @@
           <Property Name="CarId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_SteeringSystem_Cars" FromRole="SteeringSystem" ToRole="Cars" />
         </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="TimeOfDay">
           <Key>
             <PropertyRef Name="TimeOfDayId" />
@@ -5272,7 +5293,7 @@
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
           <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
           <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
@@ -5351,6 +5372,7 @@
           <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
           <EntitySet Name="SlideShows" EntityType="Self.SlideShow" />
           <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TimeOfDays" EntityType="Self.TimeOfDay" />
           <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />
           <EntitySet Name="Troubleshootings" EntityType="Self.Troubleshooting" />
@@ -5794,7 +5816,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
+        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="AirConditioningSystems">
             <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
               <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -6782,6 +6804,17 @@
                 <ScalarProperty Name="SteeringControlKey" ColumnName="SteeringControlKey" />
                 <ScalarProperty Name="Details" ColumnName="Details" />
                 <ScalarProperty Name="CarId" ColumnName="CarId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CarAutomationModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -3,7 +3,7 @@
 
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
 
-    
+
     var daysofweek = dbs.DaysOfWeeks.OrderByDescending(d => d.DayOfWeek).AsQueryable();
 
     int page = 0;
@@ -22,7 +22,7 @@
 
     totalcount = daysofweek.Count();
     daysofweek = daysofweek.Skip(showInPage * page).Take(showInPage);
-    
+
 }
 @using CarProject.App_extension
 
@@ -31,7 +31,7 @@
     <hr />
     <a href="/Admin/Store/DaliveryDateTime_Define">ثبت روز جدید</a>
 
-    <form method="get" id="searchform" >
+    <form method="get" id="searchform">
         <input type="hidden" name="page" id="pagehiddeninput" value="@page" />
     </form>
 
@@ -58,7 +58,26 @@
                         @if (item.Date > DateTime.Today)
                         {
                             <a href="/Admin/Store/DaliveryDateTime_Update/@item.DaysOfWeekId" class="gia-edit"></a>
-                            <a href="#" class="gia-remove"></a>
+
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsActive != null && item.IsActive.Value == true)
+                        {
+                            @*<a href="javascript:void()" onclick="RemoveSelectedOneItemRequest('RemoveItem[@item.DaysOfWeekId]')" class="gia-remove"></a>*@
+                            <a href="@Url.Action("UpdateDevlivery","Store",new {id = item.DaysOfWeekId})" class="gia-remove"></a>
+
+                            @*<a href="#" class="gia-remove"></a>*@
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsActive != null && item.IsActive.Value == true)
+                        {
+                            <label>فعال است</label>
+                        }
+                        else
+                        {
+                            <label>غیر فعال است</label>
                         }
                     </td>
                 </tr>
@@ -69,78 +88,103 @@
 
     <div id="pagingSection">
         @{
-            var pagecount = Math.Ceiling((decimal)totalcount/showInPage);
+            var pagecount = Math.Ceiling((decimal)totalcount / showInPage);
             for (int i = 1; i <= pagecount; i++)
             {
-                if(page == (i- 1))
+                if (page == (i - 1))
                 {
                     <span>@i</span>
                 }
                 else
                 {
-                    <a href="javascript:void" onclick="document.getElementById('pagehiddeninput').value = '@{Write(i - 1);}'; document.getElementById('searchform').submit();" >@i</a>
-                }
-            }
+                    <a href="javascript:void" onclick="document.getElementById('pagehiddeninput').value = '@{Write(i - 1);}'; document.getElementById('searchform').submit();">@i</a>
+        }
+    }
         }
     </div>
 </div>
 
 
+@section Script
+{
+    <script>
+        function RemoveSelectedOneItemRequest(objename) {
+            frm = document.createElement("form");
+            frm.method = "Post";
+            frm.action = "@Url.Action("UpdateDevlivery")";
+            document.body.appendChild(frm);
 
+
+            inp = document.createElement("input");
+            inp.type = "hidden";
+            inp.name = objename;
+            inp.value = true;
+            frm.appendChild(inp);
+            frm.submit();
+        
+        }
+    </script>
+}
 
 @section style
 {
     <style>
         #searchform {
-            border-bottom:thin solid #d4d4d4;
-            margin-bottom:10px;
-            display:none;
+            border-bottom: thin solid #d4d4d4;
+            margin-bottom: 10px;
+            display: none;
         }
+
         #searchInput {
-            display:flex; justify-content:space-between; align-items:stretch;
-            margin:5px;
-            border:thin solid #888;
-            border-radius:5px;
-            overflow:hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            margin: 5px;
+            border: thin solid #888;
+            border-radius: 5px;
+            overflow: hidden;
         }
+
             #searchInput input {
-                flex:1; 
-                width:100%;
-                border:none;
-                background:none;
-                padding:5px;
+                flex: 1;
+                width: 100%;
+                border: none;
+                background: none;
+                padding: 5px;
             }
+
             #searchInput button {
-                border:none;
-                background:none;
-                background:#888;
-                cursor:pointer;
-                color:white;
+                border: none;
+                background: none;
+                background: #888;
+                cursor: pointer;
+                color: white;
             }
+
                 #searchInput button:hover {
-                    background:#d4d4d4;
+                    background: #d4d4d4;
                 }
 
         #pagingSection {
-            display:flex;
-            justify-content:center;
-            align-items:stretch;
-            flex-wrap:wrap;
-
-            border-top:thin solid #d4d4d4;
-            margin-top:10px;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;
+            border-top: thin solid #d4d4d4;
+            margin-top: 10px;
         }
+
             #pagingSection > * {
-                margin:5px;
-                min-width:10px;
+                margin: 5px;
+                min-width: 10px;
             }
+
             #pagingSection > span {
                 cursor: default;
             }
 
 
         .timespanitem {
-            
         }
     </style>
 }
