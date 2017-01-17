@@ -184,6 +184,7 @@
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="Areas\Users\UsersCLS\Notifications\UserCarsNotifications.cs" />
     <Compile Include="CLS\Filters.cs" />
+    <Compile Include="CLS\GlobalFilter.cs" />
     <Compile Include="CLS\MailsServers\Mails.cs" />
     <Compile Include="CLS\SearchClass.cs" />
     <Compile Include="CLS\SearchEngine\SearchLogic.cs" />
@@ -511,6 +512,11 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Global.asax" />
+    <Content Include="Publics\Filemanager\folder\3840x2160-porsche-15874.jpg" />
+    <Content Include="Publics\Filemanager\folder\asdf.txt" />
+    <Content Include="Publics\Filemanager\folder\CC002.png" />
+    <Content Include="Publics\Filemanager\folder\CC003.png" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\SliderItemShow.css" />
@@ -530,35 +536,38 @@
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\SliderItemShow.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\SliderItemShow.js" />
-    <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
-    <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
-    <Content Include="Publics\Files\Resources\CarsPages\CarsComments.css" />
-    <Content Include="Publics\Files\Resources\NewsPage\Index.css" />
-    <Content Include="Publics\Files\Resources\NewsPage\NewsShow.css" />
-    <Content Include="Publics\Files\Resources\StorePage\Default_MS.css" />
-    <Content Include="Publics\Files\Resources\StorePage\Default.css" />
-    <Content Include="Publics\Files\Resources\StorePage\Default.js" />
-    <Content Include="Publics\Files\Resources\StorePage\index.css" />
-    <Content Include="Publics\Files\Resources\StorePage\Products.css" />
-    <Content Include="Publics\Files\Resources\StorePage\Products.js" />
-    <Content Include="Publics\Files\Resources\StorePage\ProductsList.css" />
     <Content Include="Publics\Files\Images\back.jpg" />
-    <Content Include="Publics\Files\Resources\HomePage\News\template_News.css" />
-    <Content Include="Publics\Files\Resources\HomePage\texture\btx.png" />
     <Content Include="Publics\Files\Images\logo.png" />
     <Content Include="Publics\Files\Images\zoomin.png" />
     <Content Include="Publics\Files\Images\zoomout.png" />
+    <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
+    <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
+    <Content Include="Publics\Files\Resources\CarsPages\CarsComments.css" />
     <Content Include="Publics\Files\Resources\HomePage\BackGrounds.css" />
     <Content Include="Publics\Files\Resources\HomePage\HomePage-DarkBlue.css" />
     <Content Include="Publics\Files\Resources\HomePage\HomePage.css" />
     <Content Include="Publics\Files\Resources\HomePage\HomePage.js" />
     <Content Include="Publics\Files\Resources\HomePage\logo.png" />
+    <Content Include="Publics\Files\Resources\HomePage\News\template_News.css" />
+    <Content Include="Publics\Files\Resources\HomePage\texture\btx.png" />
+    <Content Include="Publics\Files\Resources\NewsPage\Index.css" />
+    <Content Include="Publics\Files\Resources\NewsPage\NewsShow.css" />
     <Content Include="Publics\Files\Resources\PublicClasses.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Default.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Default.js" />
+    <Content Include="Publics\Files\Resources\StorePage\Default_MS.css" />
+    <Content Include="Publics\Files\Resources\StorePage\index.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Products.css" />
+    <Content Include="Publics\Files\Resources\StorePage\Products.js" />
+    <Content Include="Publics\Files\Resources\StorePage\ProductsList.css" />
+    <Content Include="Publics\Files\Resources\template.css" />
     <Content Include="Publics\Files\Resources\template.js" />
     <Content Include="Publics\Files\Resources\Troubleshooting\Index\style.css" />
-    <Content Include="Publics\Files\Settings\TopMenu.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Publics\Files\Settings\AboutMe.xml" />
+    <Content Include="Publics\Files\Settings\ContactUs.xml" />
+    <Content Include="Publics\Files\Settings\MailsMessage_Signup_RecoveryKey.xml" />
+    <Content Include="Publics\Files\Settings\MailsMessage_Signup_SendActivationcode.xml" />
+    <Content Include="Publics\Files\Settings\TopMenu.xml" />
     <Content Include="Publics\Files\Templates\templates02\cssclasses.css" />
     <Content Include="Publics\Files\Templates\templates02\Images\enemad.png" />
     <Content Include="Publics\Files\Templates\templates02\Images\facebook.png" />
@@ -570,6 +579,34 @@
     <Content Include="Publics\Files\Templates\templates02\Images\youtube.png" />
     <Content Include="Publics\Files\Templates\templates02\scripts.js" />
     <Content Include="Publics\Files\Templates\templates02\style.css" />
+    <Content Include="Publics\Gallery\Brands\1.jpg" />
+    <Content Include="Publics\Gallery\Brands\10.gif" />
+    <Content Include="Publics\Gallery\Brands\2.png" />
+    <Content Include="Publics\Gallery\Brands\3.png" />
+    <Content Include="Publics\Gallery\Brands\4.png" />
+    <Content Include="Publics\Gallery\Brands\5.png" />
+    <Content Include="Publics\Gallery\Brands\6.png" />
+    <Content Include="Publics\Gallery\Brands\7.png" />
+    <Content Include="Publics\Gallery\Brands\8.png" />
+    <Content Include="Publics\Gallery\Brands\9.png" />
+    <Content Include="Publics\Gallery\CarImages\1\636168077770072595.gif" />
+    <Content Include="Publics\Gallery\CarImages\1\636168077770072597.gif" />
+    <Content Include="Publics\Gallery\CarImages\1\636168077770072599.gif" />
+    <Content Include="Publics\Gallery\CarImages\1\636168077770072600.gif" />
+    <Content Include="Publics\Gallery\CarImages\1\636168077770072601.gif" />
+    <Content Include="Publics\Gallery\CarImages\1\636168077770072602.gif" />
+    <Content Include="Publics\Gallery\CarImages\1\636168077770072604.gif" />
+    <Content Include="Publics\Gallery\CarImages\1\636168077919705758.gif" />
+    <Content Include="Publics\Gallery\CarImages\1\636168077919705760.gif" />
+    <Content Include="Publics\Gallery\CarImages\2\636168077770072597.gif" />
+    <Content Include="Publics\Gallery\CarImages\2\636168077770072599.gif" />
+    <Content Include="Publics\Gallery\CarImages\2\636168077770072600.gif" />
+    <Content Include="Publics\Gallery\CarImages\2\636168077770072601.gif" />
+    <Content Include="Publics\Gallery\CarImages\2\636168077770072602.gif" />
+    <Content Include="Publics\Gallery\CarImages\2\636168077770072604.gif" />
+    <Content Include="Publics\Gallery\CarImages\2\636168077919705758.gif" />
+    <Content Include="Publics\Gallery\CarImages\2\636168077919705760.gif" />
+    <Content Include="Publics\Gallery\CarImages\5\636192987547006475.gif" />
     <Content Include="Publics\Gallery\favicons\android-chrome-192x192.png" />
     <Content Include="Publics\Gallery\favicons\android-chrome-512x512.png" />
     <Content Include="Publics\Gallery\favicons\apple-touch-icon.png" />
@@ -578,16 +615,29 @@
     <Content Include="Publics\Gallery\favicons\favicon-32x32.png" />
     <Content Include="Publics\Gallery\favicons\favicon.ico" />
     <Content Include="Publics\Gallery\favicons\mstile-150x150.png" />
+    <Content Include="Publics\Gallery\NewsImages\1\blue-car-classy-speed.jpg" />
+    <Content Include="Publics\Gallery\NewsImages\2\3840x2160-porsche-15874.jpg" />
+    <Content Include="Publics\Gallery\NewsImages\3\36260-tiger-backgrounds.jpg" />
+    <Content Include="Publics\Gallery\NewsImages\4\1969457-amazing-pc-backgrounds.jpg" />
+    <Content Include="Publics\Gallery\NewsImages\5\528059-bigthumbnail.jpg" />
+    <Content Include="Publics\Gallery\ProductImages\10\636187354206336857.jpg" />
+    <Content Include="Publics\Gallery\ProductImages\1\636189895418041393.png" />
+    <Content Include="Publics\Gallery\ProductImages\1\636189895480154946.png" />
     <Content Include="Publics\Gallery\ProductImages\NotFound.png" />
+    <Content Include="Publics\Gallery\Services\1\636189895690646985.png" />
+    <Content Include="Publics\Gallery\Services\1\636189895690646986.png" />
+    <Content Include="Publics\Gallery\Services\2\636189895830754999.png" />
+    <Content Include="Publics\Gallery\Services\2\636189895830755000.png" />
+    <Content Include="Publics\Gallery\Services\3\636189896054957822.png" />
+    <Content Include="Publics\Gallery\Services\3\636189896054957823.png" />
+    <Content Include="Publics\Gallery\Services\4\636189896287551126.png" />
+    <Content Include="Publics\Gallery\Services\4\636189896287551127.png" />
+    <Content Include="Publics\Gallery\Services\4\636189896287551128.png" />
+    <Content Include="Publics\Scripts\jquery-3.0.0.js" />
     <Content Include="Publics\Scripts\PersianDateTimePicker\Content\PersianDatePicker.css" />
     <Content Include="Publics\Scripts\PersianDateTimePicker\Content\PersianDatePicker.min.css" />
     <Content Include="Publics\Scripts\PersianDateTimePicker\Scripts\PersianDatePicker.js" />
     <Content Include="Publics\Scripts\PersianDateTimePicker\Scripts\PersianDatePicker.min.js" />
-    <Content Include="Publics\Scripts\jquery-3.0.0.js" />
-    <Content Include="Global.asax" />
-    <Content Include="Publics\Styles\animate.css" />
-    <Content Include="Publics\Styles\fonts\Fonts.css" />
-    <Content Include="Publics\Styles\fonts\GIAdmin.css" />
     <Content Include="Publics\Scripts\tinymce\jquery.tinymce.min.js" />
     <Content Include="Publics\Scripts\tinymce\license.txt" />
     <Content Include="Publics\Scripts\tinymce\plugins\advlist\plugin.js" />
@@ -801,7 +851,9 @@
     <Content Include="Publics\Scripts\tinymce\themes\modern\theme.min.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.min.js" />
-    <Content Include="Publics\Files\Resources\template.css" />
+    <Content Include="Publics\Styles\animate.css" />
+    <Content Include="Publics\Styles\fonts\Fonts.css" />
+    <Content Include="Publics\Styles\fonts\GIAdmin.css" />
     <Content Include="Views\Store\ProductSitemap.aspx" />
     <Content Include="Views\Store\ProductsRss.aspx" />
     <Content Include="Web.config">
@@ -817,11 +869,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Publics\Filemanager\" />
-    <Folder Include="Publics\Gallery\Brands\" />
-    <Folder Include="Publics\Gallery\CarImages\" />
     <Folder Include="Publics\Gallery\CarTempImages\" />
-    <Folder Include="Publics\Gallery\NewsImages\" />
+    <Folder Include="Publics\Gallery\UserProfile\" />
     <Folder Include="Publics\Scripts\Ajax\" />
     <Folder Include="Publics\Styles\PagesStyle\" />
   </ItemGroup>
@@ -842,13 +891,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Publics\Styles\fonts\fnt1.ttf" />
-    <Content Include="Publics\Styles\fonts\fnt2.ttf" />
-    <Content Include="Publics\Styles\fonts\fnt3.ttf" />
-    <Content Include="Publics\Styles\fonts\GIAdmin.woff" />
-    <Content Include="Publics\Styles\fonts\t1.ttf" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Admin\Views\DashBoard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -856,36 +898,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Shared\default.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\readme.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Publics\Scripts\tinymce\langs\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
@@ -1032,8 +1044,6 @@
     <Content Include="Areas\Admin\Views\Store\Services_UserUseRequest_details.cshtml" />
     <Content Include="Areas\Admin\Views\News\ContentUserComments.cshtml" />
     <Content Include="Areas\Admin\Views\News\ContentUserComments_ShowAndReply.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\AutoServiceCategoryManagement.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\AutoServiceCategoryManagment_Update.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -1041,10 +1051,11 @@
     <Content Include="DBSEF\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Store\AutoServiceCategoryManagement.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\AutoServiceCategoryManagment_Update.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
-    <Content Include="Publics\Styles\fonts\yekan.TTF" />
     <Content Include="Views\Cars\Index.cshtml" />
     <Content Include="Views\Cars\Car.cshtml" />
     <Content Include="Views\Home\ContectUs.cshtml" />
@@ -1075,16 +1086,38 @@
     <Content Include="Views\public\template02.cshtml" />
     <Content Include="Views\Cars\Car_13951015.cshtml" />
     <Content Include="Views\Store\Products_13951020_0103.cshtml" />
-    <Content Include="Publics\Gallery\favicons\manifest.json" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\News\NewsShow_13951026_0657.cshtml" />
+    <Content Include="Views\Store\ServicesList.cshtml" />
+    <Content Include="Publics\Gallery\favicons\manifest.json" />
+    <Content Include="Publics\Scripts\tinymce\langs\readme.md" />
+    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\readme.md" />
+    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
+    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />
+    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
+    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
+    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
+    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce.json" />
+    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
+    <Content Include="Publics\Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Publics\Styles\fonts\fnt1.ttf" />
+    <Content Include="Publics\Styles\fonts\fnt2.ttf" />
+    <Content Include="Publics\Styles\fonts\fnt3.ttf" />
+    <Content Include="Publics\Styles\fonts\GIAdmin.fcp" />
+    <Content Include="Publics\Styles\fonts\GIAdmin.woff" />
+    <Content Include="Publics\Styles\fonts\mitra.TTF" />
+    <Content Include="Publics\Styles\fonts\mitraB.TTF" />
+    <Content Include="Publics\Styles\fonts\t1.ttf" />
+    <Content Include="Publics\Styles\fonts\t2.TTF" />
+    <Content Include="Publics\Styles\fonts\yekan.TTF" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Publics\Gallery\favicons\favicon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

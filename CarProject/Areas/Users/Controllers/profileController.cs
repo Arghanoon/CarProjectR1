@@ -273,7 +273,7 @@ namespace CarProject.Areas.Users.Controllers
                         return RedirectToRoute(x.Values);
                     }
                     else
-                        return RedirectToAction("Index");
+                        return RedirectToRoute(new { area = "", controller = "Home", action = "Index" });
                 }
                 else if (user != null && user.IsActive == null)
                 {

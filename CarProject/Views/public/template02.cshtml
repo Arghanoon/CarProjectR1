@@ -71,7 +71,8 @@
                         <a href="/Users/Dashboard/PersonCars">خودروهای شما</a>
                         <a href="/Users/Dashboard/ShoppingHistory">سوابق خرید</a>
                          <a href="#">پیگیر سفارش</a>
-                         <a href="#">خروج</a>
+                         <a onclick="document.getElementById('logoutform').submit()">خروج</a>
+                         <form method="post" id="logoutform" action="@Url.Action("LogoutRequest", "profile", new { area = "Users" })" ></form>
                     </nav>
                    }
                     
