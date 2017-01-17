@@ -78,8 +78,8 @@
     {
         case 2:
             {
-               // if (orderbydirection == 2) { Service = Service.OrderByDescending(c => (c.Service.OrderByDescending(p => p.ProductPriceId).FirstOrDefault() != null) ? c.ProductPrices.OrderByDescending(p => p.ProductPriceId).FirstOrDefault().ProductPrice1 : 1); }
-               // else { Service = Service.OrderBy(c => (c.ProductPrices.OrderByDescending(p => p.ProductPriceId).FirstOrDefault() != null) ? c.ProductPrices.OrderByDescending(p => p.ProductPriceId).FirstOrDefault().ProductPrice1 : 1); }
+                if (orderbydirection == 2) { service = service.OrderByDescending(c => c.Price); }
+                else { service = service.OrderBy(c => c.Price); }
             }
             break;
         case 3:

@@ -42,7 +42,7 @@
                                 imgpath = Path.Combine(item.ContenstId.ToString().BaseRouts_NewsImages(), fils[0].Name);
                             }
                         }
-                
+               
                         <div class="newsitem">
                             <a href="/News/NewsShow/@item.ContenstId/@item.ContentsCategory.Name/@item.ContentSubject"><strong>@item.ContentSubject</strong></a>
                             <div class="newsitem_info">
@@ -90,7 +90,7 @@
         </a>
     </div>
 
-    @if(dbs.SlideShows.Any(c => c.Type == 1))
+    @if(dbs.SlideShows.Any(c => c.Type == 2))
     {
         <div id="slideshow2Section">
             @{
