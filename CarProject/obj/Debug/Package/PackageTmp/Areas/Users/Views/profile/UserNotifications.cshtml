@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "هشدارها";
+
+    var person = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
+    var personcarnotification = new CarProject.Areas.Users.UsersCLS.Notifications.UserCarsNotifications();
+}
+
+<h3>هشدارها</h3>
+<hr />
+
+<div class="item">
+    <div class="NotificationShow" id="userNotifications">
+        @foreach (var item in personcarnotification.Notifications)
+        {
+            <div class="item">
+                <h3 class="subject">@item.Subject</h3>
+                <p class="message">@item.Message</p>
+                <a href="#" class="action">جزئیات</a>
+            </div>
+        }
+    </div>
+</div>

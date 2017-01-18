@@ -17,7 +17,7 @@
 
 
     var products = dbs.Products.AsQueryable();
-
+    products = products.Where(product => product.IsActive == true);
     var cars = dbs.ProductCars.Select(c => new
     {
         c.Car.CarModel.CarModelName,

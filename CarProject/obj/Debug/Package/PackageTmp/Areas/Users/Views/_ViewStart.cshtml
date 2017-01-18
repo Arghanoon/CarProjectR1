@@ -1,0 +1,24 @@
+﻿@{
+    /*string[] profile_Public = new string[] { 
+        "Signup", 
+        "Login", 
+        "userActivation", 
+        "UserResendUserActivationCode", 
+        "UserResendUserActivationCodeToNewEmail" ,
+        "UserPasswordRecovery"
+    };*/
+
+    var viewname = Url.RequestContext.RouteData.Values["action"].ToString();
+    var x = ViewContext.Controller.GetType().GetMethods().First(m => m.Name == viewname);
+    var atr = x.CustomAttributes.Select(c => c.AttributeType);
+    
+    //if ((Url.RequestContext.RouteData.Values["controller"].ToString() == "profile" && profile_Public.Contains(Url.RequestContext.RouteData.Values["action"].ToString())))
+    if(atr.Contains(typeof(CarProject.Areas.Users.UsersCLS.Users_DontAuthFilter)))
+    {
+        Layout = "~/Views/public/template02.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Users/Views/Shared/Default2.cshtml";    
+    }
+}

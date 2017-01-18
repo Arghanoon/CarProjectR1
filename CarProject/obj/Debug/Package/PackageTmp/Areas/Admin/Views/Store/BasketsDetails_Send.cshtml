@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "چاپ اطلاعات پستی محصول";
+}
+@model CarProject.DBSEF.Basket
+
+<div id="PostBack">
+    <table id="postprinttable">
+        <tr>
+            <td id="stamp">
+                <center>
+                    <img src="~/Areas/Admin/Files/Images/stamp.png" id="stampicon" />
+                </center>
+            </td>
+            <td id="sender">
+                <b>فرستنده:</b>
+                <p>فرشگاه اینترنتی خودرو کلینیک</p>
+            </td>
+        </tr>
+        <tr>
+            <td id="reciver">
+                <b>اطلاعات گیرنده:</b>
+                <p>
+                    <b>نام و نام خانوادگی:</b>
+                    @Model.ReciverFullname
+                </p>
+                <p>
+                    <b>آدرس:</b>
+                    @Model.ReciverAddress
+                </p>
+                <p>
+                    <b>شماره همراه:</b>
+                    @Model.ReciverMobile
+                </p>
+                <p>
+                    <b>شماره ثابت:</b>
+                    @Model.ReciverTell
+                </p>
+                <p>
+                    <b>آدرس محل کار:</b>
+                    @Model.ReciverWorkplace
+                </p>
+            </td>
+            <td id="postActions"></td>
+        </tr>
+    </table>
+</div>
+
+<a class="button" onclick="window.print()" href="javascript:void()">چاپ</a>
+
+@section style
+{
+    <style>
+        #postprinttable {
+            width: 100%;
+        }
+            #postprinttable td {
+                width: 50%;
+                border:thin solid #d4d4d4;
+                padding:5px;
+                vertical-align:top;
+            }
+        #stampicon {
+            width: 30%;
+        }
+    </style>
+}

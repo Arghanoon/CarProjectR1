@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "عیب یابی";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    int? id = null;
+    if(ViewContext.RouteData.Values["id"] != null)
+    {
+        int tmp = 0;
+        int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out  tmp);
+        if(tmp > 0)
+        { id = tmp; }
+    }
+    
+    var questions = dbs.Troubleshootings.Where(tq => tq.TroubleshootinParentId  == id);
+    if(questions.Count() == 1 && questions.First().Type == 1)
+    {
+        Response.Redirect("/Admin/Troubleshooting/ShowAnswer/" + questions.First().TroubleshootingId);
+    }
+}
+
+<div>
+    @if(id == null)
+    {
+        <a href="/Admin/Troubleshooting/MakeAQuestion">ثبت پرسش جدید</a>
+    }
+    else
+    {
+        var parent = dbs.Troubleshootings.FirstOrDefault(c => c.TroubleshootingId == id);
+        
+        <a href="/Admin/Troubleshooting/Index/@parent.TroubleshootinParentId" class="gia-back">برگشت</a>
+        
+        <a href="/Admin/Troubleshooting/MakeAQuestion/@parent.TroubleshootingId" class="gia-add">اضافه کردن پرسش جدید</a>
+        <a href="/Admin/Troubleshooting/UpdateQuestion/@parent.TroubleshootingId" class="gia-edit">ویرایش پرسش</a>
+        <a href="/Admin/Troubleshooting/RemoveQuestion/@parent.TroubleshootingId" class="gia-remove">حذف پرسش</a>
+        
+        <hr />
+        
+        <div class="QuestionsContainer2">
+            <h3 class="subject">@parent.Subject</h3>
+            <p class="describe">@parent.Describe</p>
+        </div>
+    }
+    <hr />
+
+    <div class="QuestionsContainer">
+        @foreach (var item in questions)
+        {
+            var href = "/Admin/Troubleshooting/Index/" + item.TroubleshootingId;
+            if (item.Type == 1)
+            { href = "/Admin/Troubleshooting/ShowAnswer/" + item.TroubleshootingId; }
+            
+            <a href="/Admin/Troubleshooting/Index/@item.TroubleshootingId" class="questionitem">
+                <strong class="subject">@item.Subject</strong>
+                <section class="describe">@item.Describe</section>                    
+            </a>
+        }
+    </div>
+
+</div>
+
+
+@section style
+{
+    <style>
+        .QuestionsContainer {
+            display:block;
+            background:#f1f1f1;
+        }
+
+            .QuestionsContainer:hover {
+                box-shadow:0 0 2px 0 #888;
+            }
+
+            .QuestionsContainer > * {
+                display: block;
+                color:black;
+            }
+
+            .QuestionsContainer .questionitem {
+                border:thin solid #888;
+                border-radius:5px;
+                margin:5px 0;
+                overflow:hidden;
+            }
+                
+                .QuestionsContainer .questionitem .subject {
+                    cursor:pointer;
+                    display:block;
+                    padding:5px;
+                }
+                .QuestionsContainer .questionitem .describe {
+                    padding:5px;
+                    background:#dfdfdf;
+                    font-size:80%;
+                    
+                    margin-top:0;
+                }
+
+                
+
+        .QuestionsContainer2 {
+            display: block;
+            background: transparent;
+        }
+            .QuestionsContainer2 .subject {
+            }
+            .QuestionsContainer2 .describe {
+                font-size:85%;
+            }
+
+    </style>
+}
+
+
+@section script
+{
+    <script>
+        $(".QuestionsContainer .questionitem .subject").click(function (e) {
+            $(".QuestionsContainer .questionitem .subject + .details.show").removeClass('show');
+            $("+ .details", this).toggleClass('show');
+        });
+    </script>
+}

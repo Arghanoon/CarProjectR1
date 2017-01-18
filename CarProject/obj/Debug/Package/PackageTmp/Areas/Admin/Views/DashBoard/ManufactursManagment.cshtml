@@ -1,0 +1,52 @@
+﻿@using CarProject.App_Code
+@{
+    ViewBag.Title = "مدیریت شرکت توزیع کننده";
+}
+@model CarProject.Areas.Admin.Models.Dashboard.ManufactureModel
+
+<div id="CompaniInsertSection">
+    <form method="post">
+        
+        <div class="inputsContainer">
+            @Html.input_TextBox(m => m.Manufacture.ManufactureName, "نام شرکت")
+            @Html.input_ComboBox( m => m.Manufacture.CountryId, "کشور", Model.dbs.Countries.ToDictionary(c => c.CountryId, c => c.CountryShortName + " - " + c.CountryLongName))
+            @Html.input_TextBox(m => m.Manufacture.ManufacturePhon, "تلفن شرکت")
+            @Html.input_TextArea(m => m.Manufacture.Address, "آدرس شرکت")
+
+        </div>
+
+        <div class="inputAction">
+            <input type="submit" value="ثبت شرکت"  class="button green"/>
+        </div>
+
+    </form>
+</div>
+
+
+<div id="companiesShow">
+    <table class="grid1">
+        <thead>
+            <tr>
+                <th class="min_nw">شناسه</th>
+                <th>نام شرکت</th>
+                <th>کشور</th>
+                <th class="min_nw">عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.dbs.Manufactures)
+            {
+                <tr>
+                    <td class="min_nw">@item.ManufactureId</td>
+                    <td class="tright">@item.ManufactureName</td>
+                    <td class="tright">@item.Country.CountryShortName - @item.Country.CountryLongName</td>
+
+                    
+                    <td class="min_nw">
+                        <a href="@Url.Action("ManufactursManagment_Update", "DashBoard", new { id= item.ManufactureId })" class="gia-edit"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
