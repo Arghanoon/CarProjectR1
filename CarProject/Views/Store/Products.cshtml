@@ -10,9 +10,9 @@
 
     int id = 0;
     int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
-
+    //products = products.Where(product => product.IsActive == true);
     var product = dbs.Products.FirstOrDefault(p => p.ProductId == id);
-    
+
 
     var producttoviewobj = dbs.ProductToViews.FirstOrDefault(p => p.ProductId == id);
     if(producttoviewobj == null)
@@ -31,8 +31,8 @@
         producttoviewobj.Viewd += 1;
         dbs.SaveChanges();
     }
-    
-    
+
+
 }
 
 

@@ -157,8 +157,14 @@ namespace CarProject.Areas.Admin.Models.Dashboard
     {
         public void SaveXml(string filelocation, object instance)
         {
+            if (File.Exists(filelocation))
+            {
+                File.Delete(filelocation);
+            }
+           //FileStream fs1 = new FileStream(filelocation, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.ReadWrite);
             using (FileStream fs = new FileStream(filelocation, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
             {
+               // fs.SetLength(0);
                 XmlSerializer xml = new XmlSerializer(instance.GetType());
                 xml.Serialize(fs, instance);
                 fs.Flush();

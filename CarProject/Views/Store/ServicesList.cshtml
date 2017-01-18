@@ -1,4 +1,5 @@
-﻿@{
+﻿@using CarProject.DBSEF
+@{
     ViewBag.Title = "نمایش سرویس ها";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var rand = new Random();
@@ -18,12 +19,34 @@
 
     var service = dbs.AutoServices.AsQueryable();
 
+    var cars = dbs.AutoServiceCars.Select(AutoServiceCars => new
+    {
+        AutoServiceCars.Car.CarModel.CarModelName,
+        AutoServiceCars.Car.CarModel.CarModelId,
+        AutoServiceCars.Car.CarModel.CarBrandId
+    }).Distinct();
+    var se = (dbs.AutoServiceCars.Select(AutoServiceCars => new
+    {
+        AutoServiceCars.Car.CarModel.CarBrand.CarBrandName,
+        AutoServiceCars.Car.CarModel.CarBrand.CarBrandId,
+
+    })).Distinct();
+    var getcarsId = (dbs.AutoServiceCars.Select(AutoServiceCars => new
+    {
+        AutoServiceCars.Car.CarsId
+    })).Distinct();
+    var getAutoServiceId = (dbs.AutoServiceCars.Select(AutoServiceCars => new
+    {
+        AutoServiceCars.AutoServiceCarsId,
+        AutoServiceCars.CarsId,
+        AutoServiceCars.AutoServiceId
+    })).Distinct();
 
 
 
     //var carProducts = dbs.Products.Where(c => c.ProductCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
 
-    //var brandFilters = Request.QueryString.GetValues("CarBrand");
+    var brandFilters = Request.QueryString.GetValues("CarBrand");
     //var CountryFilter = Request.QueryString.GetValues("CountryFilter");
     //var Company_filter = Request.QueryString.GetValues("CompanyFilter");
     var Category_filter = Request.QueryString.GetValues("CategoryFilter");
@@ -33,10 +56,28 @@
     //{
     //    products = products.Where(c => CountryFilter.Contains(c.CountryId.ToString()));
     //}
-    //if (brandFilters != null && brandFilters.Length > 0)
-    //{
-    //    products = products.Where(c => brandFilters.Contains(c.CarBrandId.ToString()));
-    //}
+    if (brandFilters != null && brandFilters.Length > 0)
+    {
+        var xar = cars.Where(c => brandFilters.Contains(c.CarBrandId.ToString()));
+        var es = new List<string>();
+        foreach (var item in xar)
+        {
+            es.Add(item.CarModelId.ToString());
+        }
+        var getCarLinqId = getcarsId.Where(c => es.Contains(c.CarsId.ToString()));
+        var GetCarListID = new List<String>();
+        foreach (var item in getCarLinqId)
+        {
+            GetCarListID.Add(item.CarsId.ToString());
+        }
+        var GetAutoSeviceCarLInqID = getAutoServiceId.Where(c => GetCarListID.Contains(c.CarsId.ToString()));
+        var GetAutoServiceCarListID = new List<String>();
+        foreach (var item in GetAutoSeviceCarLInqID)
+        {
+            GetAutoServiceCarListID.Add(item.AutoServiceId.ToString());
+        }
+        service = service.Where(c => GetAutoServiceCarListID.Contains(c.AutoServiceId.ToString()));
+    }
     //if (Company_filter != null && Company_filter.Length > 0)
     //{
     //    products = products.Where(c => Company_filter.Contains(c.CompanyId.ToString()));
@@ -47,14 +88,26 @@
     }
     if (Car_filter != null && Car_filter.Length > 0)
     {
-        service = service.Where(c => Car_filter.Contains(c.CarId.ToString()));
+        var xar = cars.Where(c => Car_filter.Contains(c.CarModelId.ToString()));
+        var es = new List<string>();
+        foreach (var item in xar)
+        {
+            es.Add(item.CarModelId.ToString());
+        }
+        var getCarLinqId = getcarsId.Where(c => es.Contains(c.CarsId.ToString()));
+        var GetCarListID = new List<String>();
+        foreach (var item in getCarLinqId)
+        {
+            GetCarListID.Add(item.CarsId.ToString());
+        }
+        var GetAutoSeviceCarLInqID = getAutoServiceId.Where(c => GetCarListID.Contains(c.CarsId.ToString()));
+        var GetAutoServiceCarListID = new List<String>();
+        foreach (var item in GetAutoSeviceCarLInqID)
+        {
+            GetAutoServiceCarListID.Add(item.AutoServiceId.ToString());
+        }
+        service = service.Where(c => GetAutoServiceCarListID.Contains(c.AutoServiceId.ToString()));
     }
-
-
-
-
-
-
     int GroupCategoryFilter = 0;
     if (ViewContext.RouteData.Values["id"] != null)
     { int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out GroupCategoryFilter); }
@@ -117,7 +170,7 @@
 
 
 @section style
-{
+            {
     <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" />
 }
 
@@ -128,7 +181,7 @@
     <div id="MainContainerOfFilterAndContent">
         <div>
             <div id="searchAndFilter">
-                
+
 
 
                 <div id="Filter_Category">
@@ -161,12 +214,70 @@
 
 
 
+                <div id="Filter_Brand">
+                    <h4 class="title"> برند ها</h4>
+                    <div class="checkboxContainer">
+                        @foreach (var item in se.OrderBy(b => b.CarBrandId).Take(5))
+                        {
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="Brand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                                <label for="Brand_@item.CarBrandId">
+                                    @item.CarBrandName
+                                </label>
+                            </section>
+                        }
+
+                        <div id="Filter_Brand_more" class="more">
+                            @foreach (var item in se.OrderBy(b => b.CarBrandId).Skip(5))
+                            {
+                                <section class="checkbox">
+                                    <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="Brand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                                    <label for="Brand_@item.CarBrandId">
+                                        @item.CarBrandName
+                                    </label>
+                                </section>
+                            }
+                        </div>
+                        <center><a onclick="$('#Filter_Brand_more').toggleClass('show');">بیشتر</a></center>
+                    </div>
+                </div>
+
+                <div id="Filter_Model">
+                    <h4 class="title"> مدل ها </h4>
+                    <div class="checkboxContainer">
+                        @foreach (var item in cars.OrderBy(b => b.CarModelId).Take(5))
+                        {
+                            <section class="checkbox">
+                                <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
+                                <label for="Model_@item.CarModelId">
+                                    @item.CarModelName
+                                </label>
+                            </section>
+                        }
+
+                        <div id="Filter_Model_more" class="more">
+                            @foreach (var item in cars.OrderBy(b => b.CarModelId).Skip(5))
+                            {
+                                <section class="checkbox">
+                                    <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
+                                    <label for="Model_@item.CarModelId">
+                                        @item.CarModelName
+                                    </label>
+                                </section>
+                            }
+                        </div>
+                        <center><a onclick="$('#Filter_Model_more').toggleClass('show');">بیشتر</a></center>
+                    </div>
+                </div>
 
 
-               
 
 
-               
+
+
+
+
+
 
 
 
@@ -230,36 +341,40 @@
                         if (finfo.Exists && finfo.GetFiles().Any())
                         {
                             <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
-                                <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)"/>
+                                <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)" />
                                 <section>
-                                    <strong>@item.AutoServiceName</strong><br/>
-                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br/>
-                                    <small class="price">@if (item.Price.Any())
-                                                         {
-                                                             <span>@item.Price.ToString()</span>
-                                                         }
-                                                         else
-                                                         {
-                                                             <span>0</span>
-                                                         } ریال</small>
+                                    <strong>@item.AutoServiceName</strong><br />
+                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br />
+                                    <small class="price">
+                                        @if (item.Price.Any())
+                                        {
+                                            <span>@item.Price.ToString()</span>
+                                        }
+                                        else
+                                        {
+                                            <span>0</span>
+                                        } ریال
+                                    </small>
                                 </section>
                             </a>
                         }
                         else
                         {
                             <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
-                                <img src="~/Publics/Gallery/Services/NotFound.png"/>
+                                <img src="~/Publics/Gallery/Services/NotFound.png" />
                                 <section>
-                                    <strong>@item.AutoServiceName</strong><br/>
-                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br/>
-                                    <small class="price">@if (@item.Price.Any())
-                                                         {
-                                                             <span>@item.Price.ToString()</span>
-                                                         }
-                                                         else
-                                                         {
-                                                             <span>0</span>
-                                                         }</small>
+                                    <strong>@item.AutoServiceName</strong><br />
+                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br />
+                                    <small class="price">
+                                        @if (@item.Price.Any())
+                                        {
+                                            <span>@item.Price.ToString()</span>
+                                        }
+                                        else
+                                        {
+                                            <span>0</span>
+                                        }
+                                    </small>
                                 </section>
                             </a>
                         }

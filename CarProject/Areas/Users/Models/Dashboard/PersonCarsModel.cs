@@ -54,7 +54,7 @@ namespace CarProject.Areas.Users.Models.Dashboard
                     Carplate_part2 = carplates[1];
                     Carplate_part3 = carplates[2];
                 }
-
+                
                 Detail = dbs.PersonCarDetails.FirstOrDefault(c => c.PersonCarId == Car.PersonCarsId);
                 if (Detail == null)
                     Detail = new DBSEF.PersonCarDetail();
@@ -106,7 +106,8 @@ namespace CarProject.Areas.Users.Models.Dashboard
             { Detail.LastRearBreakePadsChange = LastRearBreakePadsChange.Persian_ToDateTime(); }
 
             Car.UserId = Controllers.profileController.GetCurrentLoginedUser.UserId;
-            Car.CarPlate = string.Format("{0}|{1}|{2}", Carplate_part1, Carplate_part2, Carplate_part3);
+            //Car.CarPlate = string.Format("{0}|{1}|{2}", Carplate_part1, Carplate_part2, Carplate_part3);
+            Car.CarPlate = "";
             dbs.PersonCars.Add(Car);
 
             Detail.PersonCar = Car;            
@@ -135,7 +136,7 @@ namespace CarProject.Areas.Users.Models.Dashboard
             if (LastRearBreakePadsChange.IsPersianDateTime())
             { Detail.LastRearBreakePadsChange = LastRearBreakePadsChange.Persian_ToDateTime(); }
             
-            Car.CarPlate = string.Format("{0}|{1}|{2}", Carplate_part1, Carplate_part2, Carplate_part3);
+            //Car.CarPlate = string.Format("{0}|{1}|{2}", Carplate_part1, Carplate_part2, Carplate_part3);
             dbs.SaveChanges();
         }
 
@@ -199,10 +200,10 @@ namespace CarProject.Areas.Users.Models.Dashboard
                 res.Add(new ValidationResult("تاریخ آخرین تعویض لنت ترمز های جلو پمپ صحیح نیست", new string[] { "LastRearBreakePadsChange" }));
 
 
-            if (Carplate_part1.IsNullOrWhiteSpace() || (!Carplate_part1.IsNullOrWhiteSpace() && !Carplate_part1.IsNumber()) || Carplate_part2.IsNullOrWhiteSpace() || Carplate_part3.IsNullOrWhiteSpace() || (!Carplate_part3.IsNullOrWhiteSpace() && !Carplate_part3.IsNumber()) || Car.CarPlateCityCode == null)
-                res.Add(new ValidationResult("پلاک خودرو بدرستی وارد نشده است", new string[] { "Car.CarPlate" }));
-            if (Car.CarPlateCityCode == null)
-                res.Add(new ValidationResult("نمره شهر وارد نشده است", new string[] { "Car.CarPlateCityCode" }));
+            //if (Carplate_part1.IsNullOrWhiteSpace() || (!Carplate_part1.IsNullOrWhiteSpace() && !Carplate_part1.IsNumber()) || Carplate_part2.IsNullOrWhiteSpace() || Carplate_part3.IsNullOrWhiteSpace() || (!Carplate_part3.IsNullOrWhiteSpace() && !Carplate_part3.IsNumber()) || Car.CarPlateCityCode == null)
+            //    res.Add(new ValidationResult("پلاک خودرو بدرستی وارد نشده است", new string[] { "Car.CarPlate" }));
+            //if (Car.CarPlateCityCode == null)
+            //    res.Add(new ValidationResult("نمره شهر وارد نشده است", new string[] { "Car.CarPlateCityCode" }));
             
 
             return res;

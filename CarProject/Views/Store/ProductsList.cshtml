@@ -17,8 +17,29 @@
 
 
     var products = dbs.Products.AsQueryable();
+    products = products.Where(product => product.IsActive == true);
+    var cars = dbs.ProductCars.Select(c => new
+    {
+        c.Car.CarModel.CarModelName,
+        c.Car.CarModel.CarModelId,
+        c.Car.CarModel.CarBrandId
+    }).Distinct();
+    var se = (dbs.ProductCars.Select(c => new
+    {
+        c.Car.CarModel.CarBrand.CarBrandName,
+        c.Car.CarModel.CarBrand.CarBrandId,
 
-
+    })).Distinct();
+    var getcarsId = (dbs.ProductCars.Select(c => new
+    {
+        c.Car.CarsId
+    })).Distinct();
+    var getAutoServiceId = (dbs.ProductCars.Select(c => new
+    {
+        c.ProductCarsId,
+        c.CarsId,
+        c.ProductId
+    })).Distinct();
 
 
     //var carProducts = dbs.Products.Where(c => c.ProductCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
@@ -35,7 +56,25 @@
     }
     if (brandFilters != null && brandFilters.Length > 0)
     {
-        products = products.Where(c => brandFilters.Contains(c.CarBrandId.ToString()));
+        var xar = cars.Where(c => brandFilters.Contains(c.CarBrandId.ToString()));
+        var es = new List<string>();
+        foreach (var item in xar)
+        {
+            es.Add(item.CarModelId.ToString());
+        }
+        var getCarLinqId = getcarsId.Where(c => es.Contains(c.CarsId.ToString()));
+        var GetCarListID = new List<String>();
+        foreach (var item in getCarLinqId)
+        {
+            GetCarListID.Add(item.CarsId.ToString());
+        }
+        var GetAutoSeviceCarLInqID = getAutoServiceId.Where(c => GetCarListID.Contains(c.CarsId.ToString()));
+        var GetAutoServiceCarListID = new List<String>();
+        foreach (var item in GetAutoSeviceCarLInqID)
+        {
+            GetAutoServiceCarListID.Add(item.ProductId.ToString());
+        }
+        products = products.Where(c => GetAutoServiceCarListID.Contains(c.ProductId.ToString()));
     }
     if (Company_filter != null && Company_filter.Length > 0)
     {
@@ -47,7 +86,25 @@
     }
     if (Car_filter != null && Car_filter.Length > 0)
     {
-        products = products.Where(c => Car_filter.Contains(c.CarId.ToString()));
+        var xar = cars.Where(c => Car_filter.Contains(c.CarModelId.ToString()));
+        var es = new List<string>();
+        foreach (var item in xar)
+        {
+            es.Add(item.CarModelId.ToString());
+        }
+        var getCarLinqId = getcarsId.Where(c => es.Contains(c.CarsId.ToString()));
+        var GetCarListID = new List<String>();
+        foreach (var item in getCarLinqId)
+        {
+            GetCarListID.Add(item.CarsId.ToString());
+        }
+        var GetAutoSeviceCarLInqID = getAutoServiceId.Where(c => GetCarListID.Contains(c.CarsId.ToString()));
+        var GetAutoServiceCarListID = new List<String>();
+        foreach (var item in GetAutoSeviceCarLInqID)
+        {
+            GetAutoServiceCarListID.Add(item.ProductId.ToString());
+        }
+        products = products.Where(c => GetAutoServiceCarListID.Contains(c.ProductId.ToString()));
     }
 
 
@@ -131,7 +188,7 @@
                 <div id="filter_brands">
                     <h4 class="title"> برندها</h4>
                     <div class="checkboxContainer">
-                        @foreach (var item in dbs.CarBrands.OrderBy(b => b.CarBrandId).Take(5))
+                        @foreach (var item in se.OrderBy(b => b.CarBrandId).Take(5))
                         {
                             <section class="checkbox">
                                 <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
@@ -142,7 +199,7 @@
                         }
 
                         <div id="filter_brands_more" class="more">
-                            @foreach (var item in dbs.CarBrands.OrderBy(b => b.CarBrandId).Skip(5))
+                            @foreach (var item in se.OrderBy(b => b.CarBrandId).Skip(5))
                             {
                                 <section class="checkbox">
                                     <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
@@ -266,7 +323,7 @@
                 <div id="Filter_Cars">
                     <h4 class="title"> خودرو مرتبط</h4>
                     <div class="checkboxContainer">
-                        @foreach (var item in dbs.CarModels.OrderBy(b => b.CarModelId).Take(5))
+                        @foreach (var item in cars.OrderBy(b => b.CarModelId).Take(5))
                         {
                             <section class="checkbox">
                                 <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Car_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
@@ -277,7 +334,7 @@
                         }
 
                         <div id="Filter_Cars_more" class="more">
-                            @foreach (var item in dbs.CarModels.OrderBy(b => b.CarModelId).Skip(5))
+                            @foreach (var item in cars.OrderBy(b => b.CarModelId).Skip(5))
                             {
                                 <section class="checkbox">
                                     <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Car_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
