@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<AboutMe xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<AboutMe xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ShortDescribe>تیم خودرو کلینیک متشکل از مهندسان IT و خودرو، قصد دارد تا با سماندهی بازار خدمات خودرو، سامانه ای را برای سفارش آنلاین خدمات راه اندازی کند.</ShortDescribe>
-  <Html>&lt;p&gt;تیم خودرو کلینیک متشکل از مهندسان IT و خودرو، قصد دارد تا با سماندهی بازار خدمات خودرو، سامانه ای را برای سفارش آنلاین خدمات راه اندازی کند.&lt;/p&gt;</Html>
+  <Html>&lt;p&gt;تیم خودرو کلینیک متشکل از مهندسان IT و خودرو، قصد دارد تا با سماندهی بازار خدمات خودرو، سامانه ای را برای سفارش آنلاین خدمات راه اندازی کند.&lt;img src="http://localhost:7275/Publics/Filemanager/folder/CC002.png" alt="" width="3840" height="2160" /&gt;&lt;/p&gt;</Html>
   <LastUpdate>0001-01-01T00:00:00</LastUpdate>
 </AboutMe>
