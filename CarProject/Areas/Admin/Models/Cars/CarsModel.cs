@@ -248,6 +248,12 @@ namespace CarProject.Areas.Admin.Models.Cars
         {
             var DBS = new db.CarAutomationEntities();
 
+
+
+            DBS.PersonCarDetails.RemoveRange(DBS.PersonCarDetails.Where(c => DBS.PersonCars.Where(c2 => c2.CarId == CarsId).Select(c2 => c2.PersonCarsId).Contains(c.PersonCarId.Value)));
+            DBS.PersonCars.RemoveRange(DBS.PersonCars.Where(c => c.CarId == CarsId));
+            
+
             DBS.CarDetails.Remove(DBS.CarDetails.FirstOrDefault(c => c.CarsId == CarsId));
 
             DBS.CarsQnAs.RemoveRange(DBS.CarsQnAs.Where(cqs => cqs.CarsId == CarsId));
@@ -282,13 +288,17 @@ namespace CarProject.Areas.Admin.Models.Cars
 
             DBS.CarSensorsSystems.Remove(DBS.CarSensorsSystems.FirstOrDefault(c => c.CarsId == CarsId));
 
-            DBS.CarAirbags.Remove(DBS.CarAirbags.FirstOrDefault(c => c.CarsId == c.CarsId));
+            DBS.CarAirbags.RemoveRange(DBS.CarAirbags.Where(c => c.CarsId == CarsId));
 
-            DBS.CarWheels.Remove(DBS.CarWheels.FirstOrDefault(c => c.CarsId == c.CarsId));
+            DBS.CarWheels.RemoveRange(DBS.CarWheels.Where(c => c.CarsId == CarsId));
 
             DBS.CarsProes.RemoveRange(DBS.CarsProes.Where(c => c.CarsId == CarsId));
 
             DBS.CarsReviews.Remove(DBS.CarsReviews.FirstOrDefault(c => c.CarsId == CarsId));
+
+            DBS.CarUserComments.RemoveRange(DBS.CarUserComments.Where(c => c.CarId == CarsId));
+            DBS.CarComments.RemoveRange(DBS.CarComments.Where(c => c.CarsId == CarsId));
+            DBS.CarsToViews.RemoveRange(DBS.CarsToViews.Where(c => c.CarsId == CarsId));
 
             DBS.Cars.Remove(DBS.Cars.FirstOrDefault(c => c.CarsId == CarsId));
 
