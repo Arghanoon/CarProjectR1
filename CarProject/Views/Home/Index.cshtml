@@ -32,7 +32,7 @@
                     @foreach (var item in news)
                     {
                         var imgsrc = Server.MapPath(item.ContenstId.ToString().BaseRouts_NewsImages());
-                        var imgpath = "";
+                        var imgpath = "~/Publics/Gallery/ProductImages/NotFound.png";
                         DirectoryInfo difo = new DirectoryInfo(imgsrc);
                         if (difo.Exists)
                         {
