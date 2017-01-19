@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "انتخاب نحوه پرداخت";
+}
+
+
+<div class="page">
+    <h3>شما می توانید به یکی از روش های زیر صورتحسات خود را پرداخت کنید:</h3>
+    <hr />
+    <div id="menuContainer">
+        <a href="javascript:void();" onclick="ChangeSelectedPaymentType(this,'radio_InLocation');" >
+            <span class="gia-paymentCash"></span>
+            <span>پرداخت در محل</span>
+        </a>
+         <a href="javascript:void();" onclick="ChangeSelectedPaymentType(this,'radio_Online');" >
+            <span class="gia-paymentOnline"></span>
+            <span>پرداخت آنلاین</span>
+        </a>
+    </div>
+
+    <form method="post">
+        <input type="radio" name="PaymentType" value="@CarProject.Models.Store.CartUsefull.Basket_PaymentType.InLocation" id="radio_InLocation" />
+        <input type="radio" name="PaymentType" value="@CarProject.Models.Store.CartUsefull.Basket_PaymentType.Online" id="radio_Online" />
+        <section class="inputAction">
+            <input type="submit" value="تایید و ادامه" class="button green" />
+        </section>
+    </form>
+
+    <div style="color:red">@Html.ValidationMessage("PaymentType")</div>
+</div>
+
+<div class="page">
+    
+</div>
+
+
+@section style
+{
+    <style>
+        #menuContainer {
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+            #menuContainer a {
+                border: thin solid;
+                margin:5px;
+                width:100px;
+                height:100px;
+
+                overflow:hidden;
+            }
+
+                #menuContainer a span {
+                    position:absolute;
+                    width:100%;
+                    height:100%;
+                    left:0; right:0;
+
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+
+                    text-align:center;
+
+                    transition:0.5s;
+                }
+
+                    #menuContainer a span:nth-child(1) {
+                        top: 0;
+                    }
+                    #menuContainer a:hover span:nth-child(1) {
+                        top: -100%;
+                    }
+                        #menuContainer a span:nth-child(1):before {
+                            font-size: 320%;
+                        }
+
+                #menuContainer a span:nth-child(2) {
+                    top: 100%;
+                    background: #ff5252;
+                    color: #fff;
+                }
+                #menuContainer a:hover span:nth-child(2) {
+                    top:0;
+                }
+
+                #menuContainer a.checked {
+                    outline:thick solid #59adff;
+                }
+
+        input[type=radio] {
+            display: none;
+        }
+    </style>
+}
+
+@section script
+{
+    <script>
+        function ChangeSelectedPaymentType(el, id) {
+            document.getElementById(id).checked = true;
+            $("#menuContainer a.checked").removeClass("checked");
+            $(el).addClass("checked");
+        }
+    </script>
+}

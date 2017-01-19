@@ -29,12 +29,10 @@ namespace CarProject.DBSEF
         public int AutoServiceId { get; set; }
         public string AutoServiceName { get; set; }
         public Nullable<bool> HasCarId { get; set; }
-        public Nullable<int> CarId { get; set; }
         public Nullable<bool> HasProduct { get; set; }
         public string Price { get; set; }
         public Nullable<int> ServicesCategoryId { get; set; }
     
-        public virtual Car Car { get; set; }
         public virtual ServicesCategory ServicesCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AutoServiceCar> AutoServiceCars { get; set; }
