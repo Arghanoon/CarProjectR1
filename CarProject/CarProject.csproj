@@ -532,6 +532,10 @@
     <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\SliderItemShow.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\SliderItemShow.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\ServiceView\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\ServiceView\scirpt.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\ServiceView\SliderItemShow.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\ServiceView\SliderItemShow.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\SliderItemShow.css" />
@@ -1110,6 +1114,7 @@
     <Content Include="Publics\Styles\fonts\t1.ttf" />
     <Content Include="Publics\Styles\fonts\t2.TTF" />
     <Content Include="Publics\Styles\fonts\yekan.TTF" />
+    <Content Include="Views\Store\ServiceView_13951030_0704.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
