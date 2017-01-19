@@ -128,8 +128,14 @@
             </nav>
             
             <div id="footer2_describe">
-            	<p>@ab.ShortDescribe</p>
-                <p>@cus.ShortDescribe</p>
+                @if (ab != null)
+                {
+                    <p>@ab.ShortDescribe</p>
+                }
+                @if (@cus != null)
+                {
+                    <p>@cus.ShortDescribe</p>
+                }
             </div>
             
             <div id="footer2_enemad">
