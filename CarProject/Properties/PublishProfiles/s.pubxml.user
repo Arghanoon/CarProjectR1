@@ -1578,7 +1578,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 11:43:03</publishTime>
     </File>
     <File Include="Views/public/template02.cshtml">
-      <publishTime>01/18/2017 18:49:45</publishTime>
+      <publishTime>01/19/2017 14:12:00</publishTime>
     </File>
     <File Include="Views/public/template_News.cshtml">
       <publishTime>11/12/2016 19:00:29</publishTime>
