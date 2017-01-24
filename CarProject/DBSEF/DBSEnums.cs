@@ -374,29 +374,6 @@ namespace CarProject.DBSEF
             }
         }
     }
-    public partial class AutoServicePack
-    {
-        public string[] AutoServicePackImages
-        {
-            get
-            {
-                List<string> res = new List<string>();
-                var Server = HttpContext.Current.Server;
-                var PicFileUrl = "~/Publics/Gallery/ServicePacks/" + this.AutoServicePackId;
-                var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
-
-                if (finfo.Exists)
-                {
-                    foreach (var item in finfo.GetFiles())
-                    {
-                        res.Add(PicFileUrl + "/" + item.Name);
-                    }
-                }
-
-                return res.ToArray();
-            }
-        }
-    }
 
     public partial class Product
     {

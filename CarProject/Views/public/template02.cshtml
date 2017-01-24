@@ -128,64 +128,6 @@
                         {
                         }
 
-<<<<<<< HEAD
-	<div id="bodyContainer">
-        @RenderBody()
-    </div>
-    
-    <footer id="footers">
-    	<footer id="footer1">
-        	<section style="display:flex; justify-content:center; align-items:center;">
-            	<h2>با ما در تماس باشید 24 ساعته در 7 روز هفته</h2>
-                <h3 style="margin:0 20px;">33116800</h3>
-            </section>
-            
-            <h2>info@khodroclinic.com</h2>
-        </footer>
-        
-        <footer id="footer2">
-        	<nav id="footer2_navigation">
-            	<a href="/Home/AboutUs">درباره ما</a>
-                <a href="#">اهداف ما</a>
-                <a href="/Home/ContectUs">تماس با ما</a>
-                <a href="#">همکاری با ما</a>
-            </nav>
-            
-            <div id="footer2_describe">
-                @if (ab != null)
-                {
-                    <p>@ab.ShortDescribe</p>
-                }
-                @if (@cus != null)
-                {
-                    <p>@cus.ShortDescribe</p>
-                }
-            </div>
-            
-            <div id="footer2_enemad">
-                @*<img id="footer2_enemad_logo" src="~/Publics/Files/Templates/templates02/Images/enemad.png" alt="" />*@
-            </div>
-            
-            <div id="footer2_newslatter">
-                @{ List<string> newslattererror = new List<string>(); bool NewsLatterReisgtredSuccess = false; } 
-                @if (Request.Form.AllKeys.Contains("NewsLatterRegistryRequestForm"))
-                {
-                    string emil = Request.Form["newslatteremail"];
-                    if (Request.Form["newslatteremail"].IsNullOrWhiteSpace())
-                    { newslattererror.Add("ایمیل برای ثبت نام وارد نشده است"); }
-                    else if (!Request.Form["newslatteremail"].String_IsEmail())
-                    { newslattererror.Add("ایمیل وارد شده صحیح نیست"); }
-                    else if (dbsobj.NewLatterEmails.Count(c => c.Email.ToLower() == emil.ToLower()) > 0)
-                    { newslattererror.Add("ایمیل قبلا ثبت شده است"); }
-
-
-                    if (newslattererror.Count <= 0)
-                    {
-                        dbsobj.NewLatterEmails.Add(new CarProject.DBSEF.NewLatterEmail { Email = emil, Datetime = DateTime.Now });
-                        dbsobj.SaveChanges();
-                        NewsLatterReisgtredSuccess = true;
-=======
->>>>>>> refs/remotes/origin/master
                     }
                 </div>
 
