@@ -25,6 +25,7 @@
     <Property Name="AutoServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AutoServiceName" Type="nvarchar" MaxLength="50" />
     <Property Name="HasCarId" Type="bit" />
+    <Property Name="CarId" Type="int" />
     <Property Name="HasProduct" Type="bit" />
     <Property Name="Price" Type="nvarchar" MaxLength="50" />
     <Property Name="ServicesCategoryId" Type="int" />
@@ -53,6 +54,17 @@
     <Property Name="AutoServicesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AutoServiceId" Type="int" />
     <Property Name="AutoServicePackId" Type="int" />
+  </EntityType>
+  <EntityType Name="AutoServicesUserComments">
+    <Key>
+      <PropertyRef Name="AutoServicesUserCommentsId" />
+    </Key>
+    <Property Name="AutoServicesUserCommentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AutoServicesId" Type="int" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="RootAutoServicesUserCommentsId" Type="int" />
   </EntityType>
   <EntityType Name="BasketItems">
     <Key>
@@ -911,16 +923,6 @@
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="TimeOfDay">
     <Key>
       <PropertyRef Name="TimeOfDayId" />
@@ -1001,6 +1003,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_AutoService_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="AutoService">
+        <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_AutoService_ServicesCategory">
     <End Role="ServicesCategory" Type="Self.ServicesCategory" Multiplicity="0..1" />
     <End Role="AutoService" Type="Self.AutoService" Multiplicity="*" />
@@ -1058,6 +1072,42 @@
       </Principal>
       <Dependent Role="AutoServices">
         <PropertyRef Name="AutoServicePackId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AutoServicesUserComments_AutoService">
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
+    <End Role="AutoServicesUserComments" Type="Self.AutoServicesUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Principal>
+      <Dependent Role="AutoServicesUserComments">
+        <PropertyRef Name="AutoServicesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AutoServicesUserComments_AutoServicesUserComments">
+    <End Role="AutoServicesUserComments" Type="Self.AutoServicesUserComments" Multiplicity="0..1" />
+    <End Role="AutoServicesUserComments1" Type="Self.AutoServicesUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoServicesUserComments">
+        <PropertyRef Name="AutoServicesUserCommentsId" />
+      </Principal>
+      <Dependent Role="AutoServicesUserComments1">
+        <PropertyRef Name="RootAutoServicesUserCommentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AutoServicesUserComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="AutoServicesUserComments" Type="Self.AutoServicesUserComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="AutoServicesUserComments">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2280,6 +2330,7 @@
     <EntitySet Name="AutoServiceCars" EntityType="Self.AutoServiceCars" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AutoServicePack" EntityType="Self.AutoServicePack" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoServices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AutoServicesUserComments" EntityType="Self.AutoServicesUserComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BasketItems" EntityType="Self.BasketItems" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Baskets" EntityType="Self.Baskets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BrakeSystem" EntityType="Self.BrakeSystem" Schema="dbo" store:Type="Tables" />
@@ -2352,7 +2403,6 @@
     <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TimeOfDay" EntityType="Self.TimeOfDay" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
@@ -2366,6 +2416,10 @@
     <AssociationSet Name="FK_AirConditioningSystemDetail_Cars" Association="Self.FK_AirConditioningSystemDetail_Cars">
       <End Role="Cars" EntitySet="Cars" />
       <End Role="AirConditioningSystemDetail" EntitySet="AirConditioningSystemDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AutoService_Cars" Association="Self.FK_AutoService_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="AutoService" EntitySet="AutoService" />
     </AssociationSet>
     <AssociationSet Name="FK_AutoService_ServicesCategory" Association="Self.FK_AutoService_ServicesCategory">
       <End Role="ServicesCategory" EntitySet="ServicesCategory" />
@@ -2386,6 +2440,18 @@
     <AssociationSet Name="FK_AutoServices_AutoServicePack" Association="Self.FK_AutoServices_AutoServicePack">
       <End Role="AutoServicePack" EntitySet="AutoServicePack" />
       <End Role="AutoServices" EntitySet="AutoServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AutoServicesUserComments_AutoService" Association="Self.FK_AutoServicesUserComments_AutoService">
+      <End Role="AutoService" EntitySet="AutoService" />
+      <End Role="AutoServicesUserComments" EntitySet="AutoServicesUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AutoServicesUserComments_AutoServicesUserComments" Association="Self.FK_AutoServicesUserComments_AutoServicesUserComments">
+      <End Role="AutoServicesUserComments" EntitySet="AutoServicesUserComments" />
+      <End Role="AutoServicesUserComments1" EntitySet="AutoServicesUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AutoServicesUserComments_User" Association="Self.FK_AutoServicesUserComments_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="AutoServicesUserComments" EntitySet="AutoServicesUserComments" />
     </AssociationSet>
     <AssociationSet Name="FK_BasketItems_Baskets" Association="Self.FK_BasketItems_Baskets">
       <End Role="Baskets" EntitySet="Baskets" />

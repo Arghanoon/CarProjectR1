@@ -27,12 +27,15 @@
     <Property Name="AutoServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="AutoServiceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="HasCarId" Type="Boolean" />
+    <Property Name="CarId" Type="Int32" />
     <Property Name="HasProduct" Type="Boolean" />
     <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ServicesCategoryId" Type="Int32" />
+    <NavigationProperty Name="Car" Relationship="Self.FK_AutoService_Cars" FromRole="AutoService" ToRole="Cars" />
     <NavigationProperty Name="ServicesCategory" Relationship="Self.FK_AutoService_ServicesCategory" FromRole="AutoService" ToRole="ServicesCategory" />
     <NavigationProperty Name="AutoServiceCars" Relationship="Self.FK_AutoServiceCars_AutoService" FromRole="AutoService" ToRole="AutoServiceCars" />
     <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoServices_AutoService" FromRole="AutoService" ToRole="AutoServices" />
+    <NavigationProperty Name="AutoServicesUserComments" Relationship="Self.FK_AutoServicesUserComments_AutoService" FromRole="AutoService" ToRole="AutoServicesUserComments" />
     <NavigationProperty Name="PersonServices" Relationship="Self.FK_PersonServices_AutoService" FromRole="AutoService" ToRole="PersonServices" />
     <NavigationProperty Name="PersonServicesUseRequests" Relationship="Self.FK_PersonServicesUseRequest_AutoService" FromRole="AutoService" ToRole="PersonServicesUseRequest" />
     <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_AutoService" FromRole="AutoService" ToRole="ProductDiscount" />
@@ -71,6 +74,21 @@
     <Property Name="AutoServicePackId" Type="Int32" />
     <NavigationProperty Name="AutoService" Relationship="Self.FK_AutoServices_AutoService" FromRole="AutoServices" ToRole="AutoService" />
     <NavigationProperty Name="AutoServicePack" Relationship="Self.FK_AutoServices_AutoServicePack" FromRole="AutoServices" ToRole="AutoServicePack" />
+  </EntityType>
+  <EntityType Name="AutoServicesUserComment">
+    <Key>
+      <PropertyRef Name="AutoServicesUserCommentsId" />
+    </Key>
+    <Property Name="AutoServicesUserCommentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AutoServicesId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
+    <Property Name="RootAutoServicesUserCommentsId" Type="Int32" />
+    <NavigationProperty Name="AutoService" Relationship="Self.FK_AutoServicesUserComments_AutoService" FromRole="AutoServicesUserComments" ToRole="AutoService" />
+    <NavigationProperty Name="AutoServicesUserComments1" Relationship="Self.FK_AutoServicesUserComments_AutoServicesUserComments" FromRole="AutoServicesUserComments" ToRole="AutoServicesUserComments1" />
+    <NavigationProperty Name="AutoServicesUserComment1" Relationship="Self.FK_AutoServicesUserComments_AutoServicesUserComments" FromRole="AutoServicesUserComments1" ToRole="AutoServicesUserComments" />
+    <NavigationProperty Name="User" Relationship="Self.FK_AutoServicesUserComments_User" FromRole="AutoServicesUserComments" ToRole="User" />
   </EntityType>
   <EntityType Name="BasketItem">
     <Key>
@@ -323,6 +341,7 @@
     <Property Name="CarBodyType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AirConditioningSystems" Relationship="Self.FK_AirConditioningSystem_Cars" FromRole="Cars" ToRole="AirConditioningSystem" />
     <NavigationProperty Name="AirConditioningSystemDetails" Relationship="Self.FK_AirConditioningSystemDetail_Cars" FromRole="Cars" ToRole="AirConditioningSystemDetail" />
+    <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoService_Cars" FromRole="Cars" ToRole="AutoService" />
     <NavigationProperty Name="AutoServiceCars" Relationship="Self.FK_AutoServiceCars_Cars" FromRole="Cars" ToRole="AutoServiceCars" />
     <NavigationProperty Name="BrakeSystems" Relationship="Self.FK_BrakeSystem_Cars" FromRole="Cars" ToRole="BrakeSystem" />
     <NavigationProperty Name="CarAirbags" Relationship="Self.FK_CarAirbags_Cars" FromRole="Cars" ToRole="CarAirbags" />
@@ -1105,16 +1124,6 @@
     <Property Name="CarId" Type="Int32" />
     <NavigationProperty Name="Car" Relationship="Self.FK_SteeringSystem_Cars" FromRole="SteeringSystem" ToRole="Cars" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="TimeOfDay">
     <Key>
       <PropertyRef Name="TimeOfDayId" />
@@ -1159,6 +1168,7 @@
     <Property Name="IsActive" Type="Boolean" />
     <Property Name="ActiveRecoveryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ActiveORecovery" Type="Byte" />
+    <NavigationProperty Name="AutoServicesUserComments" Relationship="Self.FK_AutoServicesUserComments_User" FromRole="User" ToRole="AutoServicesUserComments" />
     <NavigationProperty Name="Baskets" Relationship="Self.FK_Baskets_User" FromRole="User" ToRole="Baskets" />
     <NavigationProperty Name="CarComments" Relationship="Self.FK_CarComments_User" FromRole="User" ToRole="CarComments" />
     <NavigationProperty Name="CarUserComments" Relationship="Self.FK_CarUserComments_User" FromRole="User" ToRole="CarUserComments" />
@@ -1207,6 +1217,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_AutoService_Cars">
+    <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="AutoService">
+        <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_AutoService_ServicesCategory">
     <End Role="ServicesCategory" Type="Self.ServicesCategory" Multiplicity="0..1" />
     <End Role="AutoService" Type="Self.AutoService" Multiplicity="*" />
@@ -1240,6 +1262,18 @@
       </Principal>
       <Dependent Role="AutoServices">
         <PropertyRef Name="AutoServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AutoServicesUserComments_AutoService">
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
+    <End Role="AutoServicesUserComments" Type="Self.AutoServicesUserComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Principal>
+      <Dependent Role="AutoServicesUserComments">
+        <PropertyRef Name="AutoServicesId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1360,6 +1394,30 @@
       </Principal>
       <Dependent Role="ServicesPackToView">
         <PropertyRef Name="ServicesPackId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AutoServicesUserComments_AutoServicesUserComments">
+    <End Role="AutoServicesUserComments" Type="Self.AutoServicesUserComment" Multiplicity="0..1" />
+    <End Role="AutoServicesUserComments1" Type="Self.AutoServicesUserComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoServicesUserComments">
+        <PropertyRef Name="AutoServicesUserCommentsId" />
+      </Principal>
+      <Dependent Role="AutoServicesUserComments1">
+        <PropertyRef Name="RootAutoServicesUserCommentsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AutoServicesUserComments_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="AutoServicesUserComments" Type="Self.AutoServicesUserComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="AutoServicesUserComments">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2459,13 +2517,14 @@
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
     <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
     <EntitySet Name="AutoServiceCars" EntityType="Self.AutoServiceCar" />
     <EntitySet Name="AutoServicePacks" EntityType="Self.AutoServicePack" />
     <EntitySet Name="AutoServices1" EntityType="Self.AutoService1" />
+    <EntitySet Name="AutoServicesUserComments" EntityType="Self.AutoServicesUserComment" />
     <EntitySet Name="BasketItems" EntityType="Self.BasketItem" />
     <EntitySet Name="Baskets" EntityType="Self.Basket" />
     <EntitySet Name="BrakeSystems" EntityType="Self.BrakeSystem" />
@@ -2538,7 +2597,6 @@
     <EntitySet Name="ServiceToViews" EntityType="Self.ServiceToView" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShow" />
     <EntitySet Name="SteeringSystems" EntityType="Self.SteeringSystem" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TimeOfDays" EntityType="Self.TimeOfDay" />
     <EntitySet Name="TodaysSpecials" EntityType="Self.TodaysSpecial" />
     <EntitySet Name="Troubleshootings" EntityType="Self.Troubleshooting" />
@@ -2552,6 +2610,10 @@
       <End Role="Cars" EntitySet="Cars" />
       <End Role="AirConditioningSystemDetail" EntitySet="AirConditioningSystemDetails" />
     </AssociationSet>
+    <AssociationSet Name="FK_AutoService_Cars" Association="Self.FK_AutoService_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="AutoService" EntitySet="AutoServices" />
+    </AssociationSet>
     <AssociationSet Name="FK_AutoService_ServicesCategory" Association="Self.FK_AutoService_ServicesCategory">
       <End Role="ServicesCategory" EntitySet="ServicesCategories" />
       <End Role="AutoService" EntitySet="AutoServices" />
@@ -2563,6 +2625,10 @@
     <AssociationSet Name="FK_AutoServices_AutoService" Association="Self.FK_AutoServices_AutoService">
       <End Role="AutoService" EntitySet="AutoServices" />
       <End Role="AutoServices" EntitySet="AutoServices1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AutoServicesUserComments_AutoService" Association="Self.FK_AutoServicesUserComments_AutoService">
+      <End Role="AutoService" EntitySet="AutoServices" />
+      <End Role="AutoServicesUserComments" EntitySet="AutoServicesUserComments" />
     </AssociationSet>
     <AssociationSet Name="FK_PersonServices_AutoService" Association="Self.FK_PersonServices_AutoService">
       <End Role="AutoService" EntitySet="AutoServices" />
@@ -2603,6 +2669,14 @@
     <AssociationSet Name="FK_ServicesPackToView_AutoServicePack" Association="Self.FK_ServicesPackToView_AutoServicePack">
       <End Role="AutoServicePack" EntitySet="AutoServicePacks" />
       <End Role="ServicesPackToView" EntitySet="ServicesPackToViews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AutoServicesUserComments_AutoServicesUserComments" Association="Self.FK_AutoServicesUserComments_AutoServicesUserComments">
+      <End Role="AutoServicesUserComments" EntitySet="AutoServicesUserComments" />
+      <End Role="AutoServicesUserComments1" EntitySet="AutoServicesUserComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AutoServicesUserComments_User" Association="Self.FK_AutoServicesUserComments_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="AutoServicesUserComments" EntitySet="AutoServicesUserComments" />
     </AssociationSet>
     <AssociationSet Name="FK_BasketItems_Baskets" Association="Self.FK_BasketItems_Baskets">
       <End Role="Baskets" EntitySet="Baskets" />

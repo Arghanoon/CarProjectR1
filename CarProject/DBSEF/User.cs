@@ -17,6 +17,7 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.AutoServicesUserComments = new HashSet<AutoServicesUserComment>();
             this.Baskets = new HashSet<Basket>();
             this.CarComments = new HashSet<CarComment>();
             this.CarUserComments = new HashSet<CarUserComment>();
@@ -41,6 +42,8 @@ namespace CarProject.DBSEF
         public string ActiveRecoveryCode { get; set; }
         public Nullable<byte> ActiveORecovery { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AutoServicesUserComment> AutoServicesUserComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Basket> Baskets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
