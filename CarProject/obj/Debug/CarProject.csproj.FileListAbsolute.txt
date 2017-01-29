@@ -51,8 +51,6 @@ E:\KhodroClinic\CarProjectR1\CarProject\bin\CarProject.dll
 E:\KhodroClinic\CarProjectR1\CarProject\bin\CarProject.pdb
 E:\KhodroClinic\CarProjectR1\CarProject\bin\Antlr3.Runtime.dll
 E:\KhodroClinic\CarProjectR1\CarProject\bin\CaptchaMvc.dll
-E:\KhodroClinic\CarProjectR1\CarProject\bin\Devart.Data.Linq.dll
-E:\KhodroClinic\CarProjectR1\CarProject\bin\Devart.Data.SqlServer.Linq.dll
 E:\KhodroClinic\CarProjectR1\CarProject\bin\EntityFramework.dll
 E:\KhodroClinic\CarProjectR1\CarProject\bin\EntityFramework.SqlServer.dll
 E:\KhodroClinic\CarProjectR1\CarProject\bin\Microsoft.Web.Infrastructure.dll

@@ -8,7 +8,7 @@
 
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var rand = new Random();
-
+    Session["CarIdPass"] = Model.Car.CarsId;
     if (dbs.CarsToViews.Count(c => c.CarsId == Model.Car.CarsId) > 0)
     {
         var crtvw = dbs.CarsToViews.FirstOrDefault(c => c.CarsId == Model.Car.CarsId);
@@ -92,7 +92,7 @@
 
         <div id="CarDetails_usercar_Troubleshooting">
             <a href="/Users/Dashboard/InsertPersonCar/@Model.Car.CarsId" class="orangeback">ثبت به عنوان خودروی کاربر</a>
-            <a href="#" class="orangeback">
+            <a href="/Troubleshooting/" class="orangeback" >
                 سامانه عیب یابی <br />
                 @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName
             </a>
@@ -975,6 +975,7 @@
 
 @section script
 {
+   
     <script src="~/Publics/Files/ControlsPageTemplates/Cars/Car/scirpt.js"></script>
 }
 
