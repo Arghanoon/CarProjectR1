@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E3200A96-1EF4-4265-9DFF-B90A260DA791}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CarProject</RootNamespace>
@@ -1028,8 +1028,6 @@
     <Content Include="Areas\Admin\Views\News\ContentUserComments_ShowAndReply.cshtml" />
     <Content Include="Areas\Admin\Views\Store\AutoServiceCategoryManagement.cshtml" />
     <Content Include="Areas\Admin\Views\Store\AutoServiceCategoryManagment_Update.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\AutoServicesUserComments.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\AutoServicesUserComments_ShowAndReply.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -1047,6 +1045,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\Store\AutoServicesUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\AutoServicesUserComments_ShowAndReply.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
@@ -1107,7 +1107,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>7788</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:7275/</IISUrl>
+          <IISUrl>http://localhost:7277/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

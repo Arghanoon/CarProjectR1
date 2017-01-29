@@ -127,7 +127,7 @@ namespace CarProject.DBSEF
                     OtherSystem == null &&
                     HandBrakeSystem == null &&
                     Details == null;
-                    
+
             }
         }
     }
@@ -170,7 +170,7 @@ namespace CarProject.DBSEF
         {
             get
             {
-                return AirConditioningType == null && 
+                return AirConditioningType == null &&
                     Details == null;
             }
         }
@@ -216,7 +216,8 @@ namespace CarProject.DBSEF
 
     public partial class GlassAndMirror
     {
-        public bool IsNull {
+        public bool IsNull
+        {
             get
             {
                 return FrontWindscreens == null &&
@@ -360,6 +361,29 @@ namespace CarProject.DBSEF
                 List<string> res = new List<string>();
                 var Server = HttpContext.Current.Server;
                 var PicFileUrl = "~/Publics/Gallery/Services/" + this.AutoServiceId;
+                var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+                if (finfo.Exists)
+                {
+                    foreach (var item in finfo.GetFiles())
+                    {
+                        res.Add(PicFileUrl + "/" + item.Name);
+                    }
+                }
+
+                return res.ToArray();
+            }
+        }
+    }
+    public partial class AutoServicePack
+    {
+        public string[] AutoServicePackImages
+        {
+            get
+            {
+                List<string> res = new List<string>();
+                var Server = HttpContext.Current.Server;
+                var PicFileUrl = "~/Publics/Gallery/ServicePacks/" + this.AutoServicePackId;
                 var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
 
                 if (finfo.Exists)
