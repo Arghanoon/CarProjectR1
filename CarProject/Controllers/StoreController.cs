@@ -559,28 +559,79 @@ namespace CarProject.Controllers
         #endregion
 
         #region Services
-      
+
         public ActionResult ServiceView(int id)
         {
             return View(id);
         }
         [HttpPost]
-        public int ServiceView_makePopular(int id)
+        public ActionResult ServiceView(int id, FormCollection form)
         {
-            var dbs = new DBSEF.CarAutomationEntities();
-            int res = 0;
+            if (Areas.Users.Controllers.profileController.GetCurrentLoginedUser == null)
+                return RedirectToAction("ServiceView", new { id = id });
 
-            var x = dbs.ServiceToViews.FirstOrDefault(p => p.ServiceId == id);
-            if (x != null)
+
+            ViewBag.error = new Dictionary<string, string>();
+            if (form.AllKeys.Contains("SendACommentRequest"))
             {
-                if (x.Favorite == null || x.Favorite <= 0)
-                { x.Favorite = 1; res = 1; }
-                else
-                { x.Favorite += 1; res = x.Favorite.Value; }
+                if (form["comment"] == "")
+                    ViewBag.error["comment"] = "پیام وارد نشده است";
+
+                if (form["g-recaptcha-response"] == "")
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
+                else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد شده صحیح نیست";
+
+                if (((Dictionary<string, string>)ViewBag.error).Count == 0)
+                {
+                    var dbs = new DBSEF.CarAutomationEntities();
+                    int rootid = 0;
+                    int.TryParse(form["responsecommentid"], out rootid);
+
+                    dbs.AutoServicesUserComments.Add(new DBSEF.AutoServicesUserComment
+                    {
+                        AutoServicesId = id,
+                        UserId = Areas.Users.Controllers.profileController.GetCurrentLoginedUser.UserId,
+                        Comment = form["comment"],
+                        DateTime = DateTime.Now,
+                        RootAutoServicesUserCommentsId = ((rootid == 0) ? null : (int?)rootid)
+                    });
+
+                    dbs.SaveChanges();
+                    ViewBag.error["success"] = "پیام شما با موفقیت ثبت شد ";
+                }
             }
 
+            var model = new Areas.Admin.Models.Cars.CarsModel(id);
+            return View(model);
+        }
+        [HttpPost]
+        public int ServiceView_makePopular(int id)
+        {
+            if (Session["LikedCarAutoServicesContainerSession"] != null && Session["LikedCarAutoServicesContainerSession"] is List<int> && ((List<int>)Session["LikedCarAutoServicesContainerSession"]).Contains(id))
+                return -1;
+
+            var dbs = new DBSEF.CarAutomationEntities();
+            int res = 0;
+            if (dbs.ServiceToViews.Count(p => p.ServiceId == id) > 0)
+            {
+                var x = dbs.ServiceToViews.FirstOrDefault(p => p.ServiceId == id);
+                if (x != null)
+                {
+                    if (x.Favorite == null || x.Favorite <= 0)
+                    { x.Favorite = 1; res = 1; }
+                    else
+                    { x.Favorite += 1; res = x.Favorite.Value; }
+                }
+            }
 
             dbs.SaveChanges();
+
+            if (Session["LikedCarAutoServicesContainerSession"] == null && !(Session["LikedCarAutoServicesContainerSession"] is List<int>))
+                Session["LikedCarAutoServicesContainerSession"] = new List<int>();
+
+            ((List<int>)Session["LikedCarAutoServicesContainerSession"]).Add(id);
+
             return res;
         }
 

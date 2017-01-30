@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
+  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
     <EntitySetMapping Name="AirConditioningSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
         <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -27,6 +27,7 @@
           <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
           <ScalarProperty Name="AutoServiceName" ColumnName="AutoServiceName" />
           <ScalarProperty Name="HasCarId" ColumnName="HasCarId" />
+          <ScalarProperty Name="CarId" ColumnName="CarId" />
           <ScalarProperty Name="HasProduct" ColumnName="HasProduct" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="ServicesCategoryId" ColumnName="ServicesCategoryId" />
@@ -58,6 +59,18 @@
           <ScalarProperty Name="AutoServicesId" ColumnName="AutoServicesId" />
           <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
           <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AutoServicesUserComments">
+      <EntityTypeMapping TypeName="CarAutomationModel.AutoServicesUserComment">
+        <MappingFragment StoreEntitySet="AutoServicesUserComments">
+          <ScalarProperty Name="AutoServicesUserCommentsId" ColumnName="AutoServicesUserCommentsId" />
+          <ScalarProperty Name="AutoServicesId" ColumnName="AutoServicesId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="RootAutoServicesUserCommentsId" ColumnName="RootAutoServicesUserCommentsId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -987,17 +1000,6 @@
           <ScalarProperty Name="SteeringControlKey" ColumnName="SteeringControlKey" />
           <ScalarProperty Name="Details" ColumnName="Details" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="CarAutomationModel.sysdiagram">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
