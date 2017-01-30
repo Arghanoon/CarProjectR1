@@ -19,6 +19,7 @@ namespace CarProject.DBSEF
         {
             this.AutoServiceCars = new HashSet<AutoServiceCar>();
             this.AutoServices = new HashSet<AutoService1>();
+            this.AutoServicesUserComments = new HashSet<AutoServicesUserComment>();
             this.PersonServices = new HashSet<PersonService>();
             this.PersonServicesUseRequests = new HashSet<PersonServicesUseRequest>();
             this.ProductDiscounts = new HashSet<ProductDiscount>();
@@ -29,15 +30,19 @@ namespace CarProject.DBSEF
         public int AutoServiceId { get; set; }
         public string AutoServiceName { get; set; }
         public Nullable<bool> HasCarId { get; set; }
+        public Nullable<int> CarId { get; set; }
         public Nullable<bool> HasProduct { get; set; }
         public string Price { get; set; }
         public Nullable<int> ServicesCategoryId { get; set; }
     
+        public virtual Car Car { get; set; }
         public virtual ServicesCategory ServicesCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AutoServiceCar> AutoServiceCars { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AutoService1> AutoServices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AutoServicesUserComment> AutoServicesUserComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonService> PersonServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

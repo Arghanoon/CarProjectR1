@@ -592,6 +592,48 @@ namespace CarProject.Areas.Admin.Controllers
         }
         #endregion
 
+        #region AutoServicesUserComments
+        public ActionResult AutoServicesUserComments()
+        {
+            return View();
+        }
+
+        public ActionResult AutoServicesUserComments_ShowAndReply(int? id)
+        {
+            var comment = dbsObject.AutoServicesUserComments.FirstOrDefault(c => c.AutoServicesUserCommentsId == id);
+            if (comment == null)
+                return RedirectToAction("AutoServicesUserComments");
+
+            return View(model: comment);
+        }
+        [HttpPost]
+        public ActionResult AutoServicesUserComments_ShowAndReply(int? id, string comment)
+        {
+            var mdlcomment = dbsObject.AutoServicesUserComments.FirstOrDefault(c => c.AutoServicesUserCommentsId == id);
+            if (mdlcomment == null)
+                return RedirectToAction("AutoServicesUserComments");
+
+            if (comment.IsNullOrWhiteSpace())
+                ModelState.AddModelError("comment", "پیام نمیتواند خالی باشد");
+
+            if (ModelState.IsValid)
+            {
+                var newitem = dbsObject.AutoServicesUserComments.Add(new DBSEF.AutoServicesUserComment
+                {
+                    Comment = comment,
+                    DateTime = DateTime.Now,
+                    AutoServicesId = mdlcomment.AutoServicesId,
+                    RootAutoServicesUserCommentsId = id
+                });
+                dbsObject.SaveChanges();
+
+                return RedirectToAction("AutoServicesUserComments_ShowAndReply", new { id = newitem.AutoServicesUserCommentsId });
+            }
+
+            return View(model: mdlcomment);
+        }
+        #endregion
+
         #region autoservicePacks
         public ActionResult ServicePacks()
         {

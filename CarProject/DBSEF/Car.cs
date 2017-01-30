@@ -19,6 +19,7 @@ namespace CarProject.DBSEF
         {
             this.AirConditioningSystems = new HashSet<AirConditioningSystem>();
             this.AirConditioningSystemDetails = new HashSet<AirConditioningSystemDetail>();
+            this.AutoServices = new HashSet<AutoService>();
             this.AutoServiceCars = new HashSet<AutoServiceCar>();
             this.BrakeSystems = new HashSet<BrakeSystem>();
             this.CarAirbags = new HashSet<CarAirbag>();
@@ -72,6 +73,8 @@ namespace CarProject.DBSEF
         public virtual ICollection<AirConditioningSystem> AirConditioningSystems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AirConditioningSystemDetail> AirConditioningSystemDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AutoService> AutoServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AutoServiceCar> AutoServiceCars { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
