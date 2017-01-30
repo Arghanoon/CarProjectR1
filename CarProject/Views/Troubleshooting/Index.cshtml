@@ -1,8 +1,20 @@
-﻿@{
+﻿@using Microsoft.Ajax.Utilities
+
+@{
+
     ViewBag.Title = "سیستم عیب یابی خودرو";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    int Carid = 0;
 
+    if (Session["CarIdPass"] != null && Session["CarIdPass"].ToString() != "")
+    {
+        Carid = Convert.ToInt32(Session["CarIdPass"]);
+    }
     var troubleshootings = dbs.Troubleshootings.AsQueryable();
+    var getcarsId = (dbs.Troubleshootings.Select(troubleshooting =>  new
+    {
+        troubleshooting.Cars
+    })).Distinct();
 
     int id = 0;
     CarProject.DBSEF.Troubleshooting CurrentTroubleshoting = null;
@@ -10,7 +22,7 @@
     {
         int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
     }
-    
+
     if(id > 0)
     {
         troubleshootings = troubleshootings.Where(t => t.TroubleshootinParentId == id);
@@ -20,13 +32,18 @@
     {
         troubleshootings = troubleshootings.Where(t => t.TroubleshootinParentId == null);
     }
+    if (Session["CarIdPass"] != null && Session["CarIdPass"].ToString() != "")
+    {
+        var troubleshootings2 = troubleshootings.Where(c => c.Cars.Select(c2 => c2.CarsId).Contains(Carid));
+    }
+    //if (troubleshootings.Where(t => t.TroubleshootinParentId == null).Equals(true))
+    //{
+    //    troubleshootings = 
+    //}
+    bool IsAnserQuestion = troubleshootings.Count() == 1 && troubleshootings.First().Type == 1;
 
-    bool IsAnserQuestion = false;
-    if(troubleshootings.Count() == 1 && troubleshootings.First().Type == 1)
-    { IsAnserQuestion = true; }
-        
     troubleshootings = troubleshootings.OrderBy(t => t.Subject);
-}
+    }
 
 
 @section style{ <link href="~/Publics/Files/Resources/Troubleshooting/Index/style.css" rel="stylesheet" /> }

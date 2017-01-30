@@ -1054,6 +1054,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="TroubleShootingCars" TypeName="CarAutomationModel.TroubleShootingCars" StoreEntitySet="TroubleShootingCars">
+      <EndProperty Name="Cars">
+        <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+      </EndProperty>
+      <EndProperty Name="Troubleshooting">
+        <ScalarProperty Name="TroubleshootingId" ColumnName="TroubleShootingId" />
+      </EndProperty>
+    </AssociationSetMapping>
     <AssociationSetMapping Name="TroubleshootingProducts" TypeName="CarAutomationModel.TroubleshootingProducts" StoreEntitySet="TroubleshootingProducts">
       <EndProperty Name="Product">
         <ScalarProperty Name="ProductId" ColumnName="ProductId" />
