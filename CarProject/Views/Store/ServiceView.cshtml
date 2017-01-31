@@ -12,7 +12,7 @@
     var rand = new Random();
 
     var viewservic = dbs.ServiceToViews.FirstOrDefault(c => c.ServiceId == id);
-    if(viewservic == null)
+    if (viewservic == null)
     {
         viewservic = new CarProject.DBSEF.ServiceToView { ServiceId = id, Views = 1 };
         dbs.ServiceToViews.Add(viewservic);
@@ -27,9 +27,8 @@
 
 <div id="top_LocationNavigation_likedislikecount">
     <div id="top_LocationNavigation">
-        <a href="/Store/ServicesList">خدمات</a> <span class="gia-left"></span>
-        <a href="/Cars?CarBrand=@Car.Car.CarModel.CarBrandId">@Car.Car.CarModel.CarBrand.CarBrandName</a> <span class="gia-left"></span>
-        <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Car.Car.CarsId, info1 = Car.Car.CarModel.CarBrand.CarBrandName, info2 = Car.Car.CarModel.CarModelName })">@Car.Car.CarModel.CarModelName</a>
+        <a href="/Store/ServicesList">سرویس ها</a> <span class="gia-left"></span>
+        <a href="#">@service.AutoServiceName</a>
     </div>
 
     <div id="top_likedisklikecount" dir="ltr">
@@ -80,12 +79,12 @@
     <div id="CarDetials">
         <div id="CarDetails_NameAndYear" class="orangeback">
             <section>@service.AutoServiceName</section>
-            <section>@Car.Car.CarModel.CarBrand.CarBrandName @Car.Car.CarModel.CarModelName</section>
+
         </div>
 
-       
 
-       @if (servicepacks.Any())
+
+        @if (servicepacks.Any())
         {
             <div id="CarDetails_CarServices" class="slideterItemShowContianer">
                 <h3 class="title">سرویس پک های شامل سرویس @service.AutoServiceName</h3>
@@ -138,6 +137,57 @@
             </div>
         }
 
+        @if (service.ProductInServices.Any())
+        {
+            <div>
+                <h3>محصولات مرتبط با سرویس</h3>
+                <div class="slideterItemShowContianer">
+                    <div class="itemsContainerBack">
+                        <div class="itemsContainer">
+                            @foreach (var item in service.ProductInServices.Select(sr => sr.Product))
+                            {
+                                var PicFileUrl = "~/Publics/Gallery/ProductImages/" + item.ProductId;
+                                var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+                                if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                                {
+                                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName})" class="item">
+                                        <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)" alt="@item.Category.CategoryName @item.ProductName" />
+                                        <section>
+                                            @*<strong>@item.ProductName</strong><br />
+                                            <small>@item.Category.CategoryName</small><br/>*@
+                                            
+                                            <small class="price">
+                                                @if (@item.ProductPrices.Count > 0)
+                                                {@item.ProductPrices.Last().ProductPrice1
+                                                }
+                                                else
+                                                {<span>0</span>} تومان
+                                            </small>
+                                        </section>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName})" class="item">
+                                        <img src="~/Publics/Gallery/ProductImages/NotFound.png" alt="@item.Category.CategoryName @item.ProductName" />
+                                        <section>
+                                            <strong>@item.ProductName</strong><br />
+                                            <small>@item.Category.CategoryName</small><br/>
+                                            
+                                            <small class="price">@item.ProductPrices.Last().ProductPrice1 تومان</small>
+                                        </section>
+                                    </a>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                    <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+
+                </div>
+            </div>
+        }
     </div>
 </div>
 
@@ -162,7 +212,7 @@
                             foreach (var item in services)
                             {
 
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها", info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice تومان</small></a>
+                                <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها", info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>@item.PackPrice تومان</small></a>
                             }
                         }
                     </div>
@@ -173,7 +223,7 @@
 </div>
 
 
-@if(CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
+@if (CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
 {
     <div id="usersCommentsSection">
         <h3 style="align-self:flex-start;">نظرات کاربران</h3>
@@ -196,17 +246,21 @@
                     </section>
                     <section class="input">
                         <label> پیام</label>
-                        <textarea  name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
-                        <span>@try
-                              { @ViewBag.error["comment"] }
-                              catch { }</span>
+                        <textarea name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                        <span>
+                            @try
+                            { @ViewBag.error["comment"] }
+                            catch { }
+                        </span>
                     </section>
                 </div>
                 <center>
                     <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
-                    <span style="color:red">@try
-                                            { @ViewBag.error["g-recaptcha-response"] }
-                                            catch { }</span>
+                    <span style="color:red">
+                        @try
+                        { @ViewBag.error["g-recaptcha-response"] }
+                        catch { }
+                    </span>
                 </center>
                 <div class="inputAction">
                     <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
@@ -224,11 +278,11 @@
 
 
 @functions{
-    MvcHtmlString CreateCommentSection(int? rootid,int autoserviceid, CarProject.DBSEF.CarAutomationEntities dbs)
+    MvcHtmlString CreateCommentSection(int? rootid, int autoserviceid, CarProject.DBSEF.CarAutomationEntities dbs)
     {
         string res = "";
-        
-        foreach (var item in dbs.AutoServicesUserComments.Where(c => c.AutoServicesId == autoserviceid  && c.RootAutoServicesUserCommentsId == rootid))
+
+        foreach (var item in dbs.AutoServicesUserComments.Where(c => c.AutoServicesId == autoserviceid && c.RootAutoServicesUserCommentsId == rootid))
         {
             res += string.Format("<div class=\"cmntmessage\">");
             {
@@ -264,7 +318,7 @@
             }
             res += "</div>";
         }
-        
+
         return new MvcHtmlString(res);
     }
 }
@@ -279,9 +333,11 @@
 
     <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = service.AutoServiceId, info1 = "سرویسها", info2 = service.AutoServiceName }, Request.Url.Scheme)" />
 
-        <link href="~/Publics/Files/ControlsPageTemplates/Store/ServiceView/css.css" rel="stylesheet" />
-        <link href="~/Publics/Files/ControlsPageTemplates/Store/ServiceView/SliderItemShow.css" rel="stylesheet" />
-        <script src="~/Publics/Files/ControlsPageTemplates/Store/ServiceView/SliderItemShow.js"></script>
+    @*<link href="~/Publics/Files/ControlsPageTemplates/Store/ServiceView/css.css" rel="stylesheet" />*@
+    <link href="~/Publics/Files/ControlsPageTemplates/Store/ServiceView/SliderItemShow.css" rel="stylesheet" />
+    <script src="~/Publics/Files/ControlsPageTemplates/Store/ServiceView/SliderItemShow.js"></script>
+    <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
+    <link href="~/Publics/Files/ControlsPageTemplates/Store/Products/css.css" rel="stylesheet" />
 }
 
 @section script
@@ -291,5 +347,5 @@
 
 @if (Request.Form.AllKeys.Contains("SendACommentRequest"))
 {
-    <script>window.location = "#usersCommentsSection"</script> 
+    <script>window.location = "#usersCommentsSection"</script>
 }

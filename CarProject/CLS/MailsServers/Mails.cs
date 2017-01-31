@@ -22,7 +22,7 @@ namespace CarProject.CLS.MailsServers
         public Mail_info()
         {
             client = new SmtpClient("mail.khodroclinic.com");
-            client.Credentials = new NetworkCredential("info@khodroclinic.com", "rrfh7jzwqEpc4`D-");
+            client.Credentials = new NetworkCredential("noreply@khodroclinic.com", "yT9=')FKFxNet!6`");
         }
         public SmtpClient Client
         {
@@ -41,7 +41,7 @@ namespace CarProject.CLS.MailsServers
         public Mail_noreply()
         {
             client = new SmtpClient("mail.khodroclinic.com");
-            client.Credentials = new NetworkCredential("noreply@khodroclinic.com", "_e79G'$)/%wMuSK5");
+            client.Credentials = new NetworkCredential("noreply@khodroclinic.com", "yT9=')FKFxNet!6`");
         }
         public SmtpClient Client
         {
@@ -70,9 +70,10 @@ namespace CarProject.CLS.MailsServers
             messageBody = messageBody.Replace("[password]", model.Password);
 
             messageBody = string.Format("<html><body>{0}</body></html>", messageBody);
+            message.Subject = "ایمیلی از طرف سایت خودرو کلینیک";
 
             message.Body = messageBody.Replace("\n", "<br />");
-            message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
+            message.From = new MailAddress("noreply@khodroclinic.com", "خودرو کلینیک");
 
 
             this.SendMessage(message);
@@ -96,8 +97,8 @@ namespace CarProject.CLS.MailsServers
             messageBody = string.Format("<html><body>{0}</body></html>", messageBody);
 
             message.Body = messageBody.Replace("\n", "<br />");
-            message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
-
+            message.From = new MailAddress("noreply@khodroclinic.com", "خودرو کلینیک");
+            message.Subject = "ایمیلی از طرف سایت خودرو کلینیک";
 
             this.SendMessage(message);
         }

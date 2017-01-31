@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "لیست قیمت های محصول";
+    
+    int id = 0;
+    int.TryParse(ViewContext.RouteData.Values["id"].ToString(),out id);
+    
+    if(id <= 0)
+    {
+        Response.Redirect("/Admin");
+    }
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var ListOfPrices = dbs.ProductPrices.Where(c => c.ProductId == id).OrderByDescending(c => c.ProductPriceId);
+}
+@model CarProject.DBSEF.ProductPrice
+@using CarProject.App_Code
+@using CarProject.App_extension
+
+
+
+<div>
+    <a href="@Url.Action("Products")" class="gia-back">برگشت به صحفه نمایش محصولات</a>
+</div>
+<hr />
+<div>
+    <h3>ثبت قیمت جدید</h3>
+    <form method="post">
+        <div class="inputsContainer">
+            <input type="hidden" name="@Html.NameFor(m => m.ProductId)" value="@id" />
+            @Html.input_TextBox(m => m.ProductPrice1, "قیمت محصول")
+            @Html.input_TextBox(m => m.InstallPrice, "هزینه نصب")
+        </div>
+        <small>توجه : بعد از ثبت قیمت و هزینه جدید امکان تغییر، ویرایش و یا حذف وجود نخواهد داشت.</small>
+        <div class="inputAction">
+            <input type="submit"  value="ثبت" class="button green"/>
+        </div>
+    </form>
+</div>
+
+<div>
+    <h3>لیست تغییرات قیمت</h3>
+    <table class="grid1">
+        <thead>
+            <tr>
+                <th class="min_nw">شماره</th>
+                <th>مبلغ کالا</th>
+                <th>هزینه نصب</th>
+                <th>تاریخ ثبت</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1 ; }
+            @foreach (var item in ListOfPrices)
+            {
+                <tr>
+                    <td class="tcenter min_nw">@i</td>
+                    <td>@item.ProductPrice1</td>
+                    <td>@item.InstallPrice</td>
+                    <td>@item.Date.Date_Persian()</td>
+                </tr>
+                i += 1;
+            }
+        </tbody>
+    </table>
+</div>
