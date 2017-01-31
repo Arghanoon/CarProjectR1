@@ -39,8 +39,10 @@ namespace CarProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                //foreach (var item in COLLECTION)
+                if (model.mCars != null && model.mCars.Count != 0)
+                {
+                    Session["PassCarId"] = model.mCars;
+                } //foreach (var item in COLLECTION)
                 //{
                 //    model.mCars.Add();
                 //}

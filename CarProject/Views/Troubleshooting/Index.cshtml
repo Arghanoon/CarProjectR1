@@ -34,7 +34,7 @@
     }
     if (Session["CarIdPass"] != null && Session["CarIdPass"].ToString() != "")
     {
-        var troubleshootings2 = troubleshootings.Where(c => c.Cars.Select(c2 => c2.CarsId).Contains(Carid));
+        troubleshootings = troubleshootings.Where(c => c.Cars.Select(c2 => c2.CarsId).Contains(Carid));
     }
     //if (troubleshootings.Where(t => t.TroubleshootinParentId == null).Equals(true))
     //{
