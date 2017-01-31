@@ -154,8 +154,8 @@
                                     <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName})" class="item">
                                         <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)" alt="@item.Category.CategoryName @item.ProductName" />
                                         <section>
-                                            <strong>@item.ProductName</strong><br />
-                                            <small>@item.Category.CategoryName</small><br/>
+                                            @*<strong>@item.ProductName</strong><br />
+                                            <small>@item.Category.CategoryName</small><br/>*@
                                             
                                             <small class="price">
                                                 @if (@item.ProductPrices.Count > 0)

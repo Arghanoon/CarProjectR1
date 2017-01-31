@@ -186,7 +186,7 @@ namespace CarProject.Areas.Users.Controllers
                 //saveChanges if Allthin be correct
                 model.Save();
                 ModelState.AddModelError("successSignUp", "ثبت نام با موفقیت انجام پذیرفت");
-                
+
             }
             return View(model);
         }
@@ -292,7 +292,7 @@ namespace CarProject.Areas.Users.Controllers
         }
 
         [UsersCLS.Users_DontAuthFilter]
-        public ActionResult userActivation(string ActiveCode,string User)
+        public ActionResult userActivation(string ActiveCode, string User)
         {
             if (ActiveCode.IsNullOrWhiteSpace() || User.IsNullOrWhiteSpace())
                 return Redirect("/");
@@ -306,7 +306,7 @@ namespace CarProject.Areas.Users.Controllers
             if (userid == null)
                 Redirect("/");
             var model = new CarProject.Models.User.UserInfo(userid.User.UserId);
-               
+
             {//Send Activation Email to User                
                 var nr = new CLS.MailsServers.Mail_noreply();
                 nr.SendUserActivationMail(model, Url, Request);
@@ -320,25 +320,25 @@ namespace CarProject.Areas.Users.Controllers
             var person = dbs.People.FirstOrDefault(p => p.User.Uname == User);
             if (person == null)
                 Redirect("/");
-            
+
             return View(model: person.PersonEmail);
         }
-        [HttpPost,UsersCLS.Users_DontAuthFilter]
-        public ActionResult UserResendUserActivationCodeToNewEmail(string User,FormCollection form)
+        [HttpPost, UsersCLS.Users_DontAuthFilter]
+        public ActionResult UserResendUserActivationCodeToNewEmail(string User, FormCollection form)
         {
             var dbs = new DBSEF.CarAutomationEntities();
             var person = dbs.People.FirstOrDefault(p => p.User.Uname == User);
             if (person == null)
                 Redirect("/");
-           
+
 
             if (!form.AllKeys.Contains("email") || form["email"].IsNullOrWhiteSpace())
                 ModelState.AddModelError("email", "ایمیل وارد نشده است");
-            else if(!form["email"].String_IsEmail())
+            else if (!form["email"].String_IsEmail())
                 ModelState.AddModelError("email", "ایمیل وارد شده صحیح نیست");
 
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {//Send Activation Email to User  
                 person.PersonEmail = form["email"];
                 person.User.ActiveRecoveryCode = Guid.NewGuid().ToString();
@@ -351,7 +351,7 @@ namespace CarProject.Areas.Users.Controllers
 
             return View(model: person.PersonEmail);
         }
-        
+
         [UsersCLS.Users_DontAuthFilter]
         public ActionResult UserPasswordRecovery()
         {
@@ -360,35 +360,43 @@ namespace CarProject.Areas.Users.Controllers
         [HttpPost, UsersCLS.Users_DontAuthFilter]
         public ActionResult UserPasswordRecovery(FormCollection form)
         {
-            var dbs  = new DBSEF.CarAutomationEntities();
-            var email = "";
-            if (form.AllKeys.Contains("email"))
-                email = form["email"];
-
-            if (!form.AllKeys.Contains("email") || form["email"].IsNullOrWhiteSpace())
-                ModelState.AddModelError("email", "ایمیل وارد نشده است");
-            else if (!form["email"].String_IsEmail())
-                ModelState.AddModelError("email", "ایمیل وارد شده صحیح نیست");
-            else if(dbs.People.Count(p => p.PersonEmail.ToLower() == email.ToLower() && p.User.IsActive == true) <= 0)
-                ModelState.AddModelError("email", "کابری با ایمیل وارد شده یافت نشد");
-            
-
-            if (!form.AllKeys.Contains("captcha") || form["captcha"].IsNullOrWhiteSpace())
-                ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
-            else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(form["captcha"]))
-                ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نیست");
-            
-            if (ModelState.IsValid)
+            try
             {
-                var people = dbs.People.FirstOrDefault(p => p.PersonEmail.ToLower() == email.ToLower());
-                people.User.ActiveORecovery = 1;
-                people.User.ActiveRecoveryCode = Guid.NewGuid().ToString();
-                dbs.SaveChanges();
+                var dbs = new DBSEF.CarAutomationEntities();
+                var email = "";
+                if (form.AllKeys.Contains("email"))
+                    email = form["email"];
 
-                CLS.MailsServers.Mail_noreply m = new CLS.MailsServers.Mail_noreply();
-                m.SendUserRecoveryMail(new CarProject.Models.User.UserInfo(people.UserId.Value), Url, Request);
+                if (!form.AllKeys.Contains("email") || form["email"].IsNullOrWhiteSpace())
+                    ModelState.AddModelError("email", "ایمیل وارد نشده است");
+                else if (!form["email"].String_IsEmail())
+                    ModelState.AddModelError("email", "ایمیل وارد شده صحیح نیست");
+                else if (dbs.People.Count(p => p.PersonEmail.ToLower() == email.ToLower() && p.User.IsActive == true) <= 0)
+                    ModelState.AddModelError("email", "کابری با ایمیل وارد شده یافت نشد");
 
-                ModelState.AddModelError("success", "ایمیل بازیابی کلمه عبور با موفقیت ارسال شد");
+
+                if (!form.AllKeys.Contains("captcha") || form["captcha"].IsNullOrWhiteSpace())
+                    ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
+                else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(form["captcha"]))
+                    ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نیست");
+
+                if (ModelState.IsValid)
+                {
+                    var people = dbs.People.FirstOrDefault(p => p.PersonEmail.ToLower() == email.ToLower());
+                    people.User.ActiveORecovery = 1;
+                    people.User.ActiveRecoveryCode = Guid.NewGuid().ToString();
+                    dbs.SaveChanges();
+
+                    CLS.MailsServers.Mail_noreply m = new CLS.MailsServers.Mail_noreply();
+                    m.SendUserRecoveryMail(new CarProject.Models.User.UserInfo(people.UserId.Value), Url, Request);
+
+                    ModelState.AddModelError("success", "ایمیل بازیابی کلمه عبور با موفقیت ارسال شد");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("success", ex.Message);
+                throw;
             }
             return View();
         }
