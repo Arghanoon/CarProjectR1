@@ -374,6 +374,7 @@
     <NavigationProperty Name="ProductCars" Relationship="Self.FK_ProductCars_Cars" FromRole="Cars" ToRole="ProductCars" />
     <NavigationProperty Name="SecuritySystems" Relationship="Self.FK_SecuritySystems_Cars" FromRole="Cars" ToRole="SecuritySystems" />
     <NavigationProperty Name="SteeringSystems" Relationship="Self.FK_SteeringSystem_Cars" FromRole="Cars" ToRole="SteeringSystem" />
+    <NavigationProperty Name="Troubleshootings" Relationship="Self.TroubleShootingCars" FromRole="Cars" ToRole="Troubleshooting" />
   </EntityType>
   <EntityType Name="CarSeatOption">
     <Key>
@@ -1155,6 +1156,7 @@
     <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="TroubleshootinParentId" Type="Int32" />
     <Property Name="Price" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cars" Relationship="Self.TroubleShootingCars" FromRole="Troubleshooting" ToRole="Cars" />
     <NavigationProperty Name="Products" Relationship="Self.TroubleshootingProducts" FromRole="Troubleshooting" ToRole="Product" />
   </EntityType>
   <EntityType Name="User">
@@ -2513,6 +2515,10 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="TroubleShootingCars">
+    <End Role="Cars" Type="Self.Car" Multiplicity="*" />
+    <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
+  </Association>
   <Association Name="TroubleshootingProducts">
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
@@ -3041,6 +3047,10 @@
     <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
       <End Role="UserRole" EntitySet="UserRoles" />
       <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="TroubleShootingCars" Association="Self.TroubleShootingCars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="Troubleshooting" EntitySet="Troubleshootings" />
     </AssociationSet>
     <AssociationSet Name="TroubleshootingProducts" Association="Self.TroubleshootingProducts">
       <End Role="Product" EntitySet="Products" />

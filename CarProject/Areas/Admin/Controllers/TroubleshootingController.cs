@@ -39,6 +39,11 @@ namespace CarProject.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                
+                //foreach (var item in COLLECTION)
+                //{
+                //    model.mCars.Add();
+                //}
                 model.Save();
                 if (InsertType == 1)
                     return RedirectToAction("MakeAQuestion", new { id = model.Troubleshooting.TroubleshootingId });
@@ -144,5 +149,14 @@ namespace CarProject.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+        public ActionResult JsonCarsearch(string search, List<int> notinId)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (notinId == null) { notinId = new List<int>(); }
+
+            var res = dbs.Cars.Where(c => c.CarModel.CarModelName.Contains(search) && !notinId.Contains(c.CarsId)).Select(c => new { id = c.CarsId, num = c.CarsId.ToString(), name = c.CarModel.CarBrand.CarBrandName, cat = c.CarModel.CarModelName }).ToList();
+            return Json(res, JsonRequestBehavior.DenyGet);
+        }
+       
     }
 }

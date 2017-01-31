@@ -273,7 +273,7 @@ namespace CarProject.Areas.Admin.Controllers
             var res = dbs.Products.Where(c => c.ProductName.Contains(search) && !notinId.Contains(c.ProductId)).Select(c => new { id = c.ProductId, num = c.PartNumber.ToString(), name = c.ProductName, cat = c.Category.CategoryName }).ToList();
             return Json(res, JsonRequestBehavior.DenyGet);
         }
-
+        
         public ActionResult ProductComments()
         {
             return View();

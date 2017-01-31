@@ -13,8 +13,11 @@ namespace CarProject.Controllers
 
         public ActionResult Index(int? id)
         {
+           
             return View();
         }
 
+        
+        
     }
 }

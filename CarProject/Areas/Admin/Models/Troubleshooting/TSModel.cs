@@ -1,28 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using CarProject.App_extension;
+using CarProject.DBSEF;
 
 namespace CarProject.Areas.Admin.Models.Troubleshooting
 {
     public class TSModel : IValidatableObject
     {
         public DBSEF.CarAutomationEntities dbs = new DBSEF.CarAutomationEntities();
+       
         public DBSEF.Troubleshooting Troubleshooting { get; set; }
+        public List<DBSEF.Car> Cars { get; set; }
 
         public enum TroubleshootingType { Question = 0, Answer = 1 };
 
         public TroubleshootingType ModelType { get; set; }
 
         public List<int> Products { get; set; }
+        public List<int> mCars { get; set; }
 
+        
         public TSModel()
         {
             Troubleshooting = new DBSEF.Troubleshooting();
             ModelType = TroubleshootingType.Question;
             Products = new List<int>();
+            mCars = new List<int>();
+            
         }
 
         public TSModel(int? id)
@@ -39,6 +47,14 @@ namespace CarProject.Areas.Admin.Models.Troubleshooting
                     Products.Add(item.ProductId);
                 }
             }
+            mCars = new List<int>();
+            if (Troubleshooting.Cars != null)
+            {
+                foreach (var item in Troubleshooting.Cars)
+                {
+                    mCars.Add(item.CarsId);
+                }
+            }
         }
 
         public void Save()
@@ -46,6 +62,10 @@ namespace CarProject.Areas.Admin.Models.Troubleshooting
             foreach (var item in Products)
             {
                 Troubleshooting.Products.Add(dbs.Products.FirstOrDefault(p => p.ProductId == item));
+            }
+            foreach (var item in mCars)
+            {
+                Troubleshooting.Cars.Add(dbs.Cars.FirstOrDefault(p=>p.CarsId ==item));
             }
             Troubleshooting.Type = (byte)this.ModelType;
 
@@ -60,7 +80,10 @@ namespace CarProject.Areas.Admin.Models.Troubleshooting
             {
                 this.Troubleshooting.Products.Add(dbs.Products.FirstOrDefault(p => p.ProductId == item));
             }
-
+            foreach (var item in mCars)
+            {
+                this.Troubleshooting.Cars.Add(dbs.Cars.FirstOrDefault(p => p.CarsId == item));
+            }
             dbs.SaveChanges();
         }
         public static void Delete(DBSEF.CarAutomationEntities dbs, int id)
@@ -69,8 +92,10 @@ namespace CarProject.Areas.Admin.Models.Troubleshooting
             {
                 Delete(dbs, item.TroubleshootingId);
             }
+
             var trouble = dbs.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == id);
             trouble.Products.Clear();
+            trouble.Cars.Clear();
             dbs.Troubleshootings.Remove(trouble);
         }
 

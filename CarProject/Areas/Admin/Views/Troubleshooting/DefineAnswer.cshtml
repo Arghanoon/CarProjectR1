@@ -72,33 +72,36 @@
                         }
                     </tbody>
                 </table>
-
                 <hr />
                 <table class="grid1">
                     <thead>
-                         <tr>
-                            <th colspan="4">جستجو میان محصولات فروشگاه</th>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <section id="serachContianer">
-                                    <input type="text" id="ProductsSearchTextBox" placeholder="جستجو در میان محصولات ..." />
-                                    <button type="button" onclick="retriveProductsBySearch()"><span class="gia-search"></span></button>
-                                </section>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="min_nw">شماره</th>
-                            <th>نام محصول</th>
-                            <th class="min_nw">گروه</th>
-                            <th class="min_nw">حذف</th>
-                        </tr>
+                    <tr>
+                        <th colspan="4">جستجو میان محصولات فروشگاه</th>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <section id="serachContianer">
+                                <input type="text" id="ProductsSearchTextBox" placeholder="جستجو در میان محصولات ..."/>
+                                <button type="button" onclick="retriveProductsBySearch()"><span class="gia-search"></span></button>
+                            </section>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="min_nw">شماره</th>
+                        <th>نام محصول</th>
+                        <th class="min_nw">گروه</th>
+                        <th class="min_nw">حذف</th>
+                    </tr>
                     </thead>
-                   
+
                     <tbody id="searchResultProducts">
 
                     </tbody>
                 </table>
+
+                @*nope*@
+
+
             </div>
 
             <div class="inputAction">
@@ -139,6 +142,7 @@
 @section script
 {
     <script>
+        
         function OnSumbitForm(e) {
             e.preventDefault();
             $('#selectedProduct input[type=hidden]').each(function (indx, elm) {
@@ -160,7 +164,7 @@
                 for (i in res) {
                     tr = document.createElement("tr");
 
-                    tnum = document.createElement("td")
+                    tnum = document.createElement("td");
                     tnum.className = "tcenter min_nw";
                     tnum.innerHTML = "<input type='hidden' value='" + res[i]['id'] + "' /><span>" + res[i]["num"] + "</span>";
                     tr.appendChild(tnum);
@@ -202,7 +206,7 @@
         }
 
         function currentSelectedProducts() {
-            res = [];
+            var res = [];
             $('#selectedProduct input[type=hidden]').each(function (indx, elm) {
                 res.push(elm.value);
             });
@@ -217,5 +221,8 @@
 
             return elm;
         }
+
+        //ssssssssssssssssssssss
+        
     </script>
 }

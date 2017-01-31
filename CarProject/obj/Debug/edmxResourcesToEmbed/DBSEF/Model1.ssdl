@@ -952,6 +952,14 @@
     <Property Name="TroubleshootinParentId" Type="int" />
     <Property Name="Price" Type="nvarchar" MaxLength="255" />
   </EntityType>
+  <EntityType Name="TroubleShootingCars">
+    <Key>
+      <PropertyRef Name="TroubleShootingId" />
+      <PropertyRef Name="CarsId" />
+    </Key>
+    <Property Name="TroubleShootingId" Type="int" Nullable="false" />
+    <Property Name="CarsId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="TroubleshootingProducts">
     <Key>
       <PropertyRef Name="TroubleshootingId" />
@@ -2287,6 +2295,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_TroubleShootingCars_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+    <End Role="TroubleShootingCars" Type="Self.TroubleShootingCars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarsId" />
+      </Principal>
+      <Dependent Role="TroubleShootingCars">
+        <PropertyRef Name="CarsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TroubleShootingCars_Troubleshooting">
+    <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="1" />
+    <End Role="TroubleShootingCars" Type="Self.TroubleShootingCars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Troubleshooting">
+        <PropertyRef Name="TroubleshootingId" />
+      </Principal>
+      <Dependent Role="TroubleShootingCars">
+        <PropertyRef Name="TroubleShootingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TroubleshootingProducts_Product">
     <End Role="Product" Type="Self.Product" Multiplicity="1" />
     <End Role="TroubleshootingProducts" Type="Self.TroubleshootingProducts" Multiplicity="*" />
@@ -2406,6 +2438,7 @@
     <EntitySet Name="TimeOfDay" EntityType="Self.TimeOfDay" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TroubleShootingCars" EntityType="Self.TroubleShootingCars" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TroubleshootingProducts" EntityType="Self.TroubleshootingProducts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
@@ -2844,6 +2877,14 @@
     <AssociationSet Name="FK_TodaysSpecial_Product" Association="Self.FK_TodaysSpecial_Product">
       <End Role="Product" EntitySet="Product" />
       <End Role="TodaysSpecial" EntitySet="TodaysSpecial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TroubleShootingCars_Cars" Association="Self.FK_TroubleShootingCars_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="TroubleShootingCars" EntitySet="TroubleShootingCars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TroubleShootingCars_Troubleshooting" Association="Self.FK_TroubleShootingCars_Troubleshooting">
+      <End Role="Troubleshooting" EntitySet="Troubleshooting" />
+      <End Role="TroubleShootingCars" EntitySet="TroubleShootingCars" />
     </AssociationSet>
     <AssociationSet Name="FK_TroubleshootingProducts_Product" Association="Self.FK_TroubleshootingProducts_Product">
       <End Role="Product" EntitySet="Product" />
