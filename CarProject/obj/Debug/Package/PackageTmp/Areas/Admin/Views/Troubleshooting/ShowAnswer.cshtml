@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "نمایش پاسخ";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var id = 0;
+    if(ViewContext.RouteData.Values["id"] != null)
+    {
+        int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+    }
+
+    var answer = dbs.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == id);
+    if (answer.Type == 0)
+    {Response.Redirect("/Admin/Troubleshooting/Index/" + answer.TroubleshootingId);}
+
+    var answerParent = dbs.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == answer.TroubleshootinParentId);
+}
+
+<div>
+    <div>
+        <a href="/Admin/Troubleshooting/Index/@answerParent.TroubleshootinParentId" class="gia-back">برگشت</a>
+        <a href="/Admin/Troubleshooting/RemoveAnswer/@answer.TroubleshootingId" class="gia-remove">حذف جواب</a>
+        <a href="/Admin/Troubleshooting/UpdateAnswer/@answer.TroubleshootingId" class="gia-edit">ویرایش پاسخ</a>
+    </div>
+
+    <div>
+        <h3>@answer.Subject</h3>
+        <hr />
+        <p>
+            @answer.Describe
+        </p>
+        <small>
+            <strong>هزینه تعمیر:</strong> <span>@answer.Price</span>
+        </small>
+
+        <div>
+            <h3>قطعات معیوب</h3>
+            <hr />
+            <div class="listOfProducts" id="ListofcarsShower">
+                @{
+                    Random rand = new Random();
+                    var products = answer.Products;     
+                    foreach (var item in products)
+                    {
+                        var PicFileUrl = "~/Publics/Gallery/ProductImages/"+ item.ProductId;
+                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+                                
+                        if(finfo.Exists && finfo.GetFiles().Count() > 0)
+                        {
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                                <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                                <section>
+                                    <strong>@item.ProductName</strong><br />
+                                    <small>@item.Category.CategoryName</small><br />
+                                    <small class="price">@if (item.ProductPrices.Any()) {<span>@string.Format("{0:#,###0}", @item.ProductPrices.Last().ProductPrice1)</span>}else {<span>0</span>} تومان</small>
+                                </section>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                                <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
+                                <section>
+                                    <strong>@item.ProductName</strong><br />
+                                    <small>@item.Category.CategoryName</small><br />
+                                    <small class="price">@string.Format("{0:#,###0}", @item.ProductPrices.Last().ProductPrice1) تومان</small>
+                                </section>
+                            </a>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section style
+{
+    <style>
+        .listOfProducts {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;
+            padding: 10px;
+        }
+
+            .listOfProducts .item {
+                border: thin solid #eaeaea;
+                margin: 5px;
+                width: 200px;
+                height: 300px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background: white;
+                overflow: hidden;
+            }
+
+                .listOfProducts .item * {
+                    text-align: center;
+                }
+
+                .listOfProducts .item .price {
+                    color: #fff;
+                    background: #ff4500;
+                    padding: 5px;
+                    border-radius: 5px 5px 0 0;
+                }
+
+                .listOfProducts .item img {
+                    flex: 1;
+                    max-width: 100%;
+                    max-height: 100%;
+                    transition: 0.5s;
+                    -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
+                    filter: grayscale(50%);
+                }
+
+                .listOfProducts .item:hover img {
+                    -webkit-filter: none; /* Safari 6.0 - 9.0 */
+                    filter: none;
+                }
+
+
+    </style>
+}

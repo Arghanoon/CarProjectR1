@@ -1,0 +1,240 @@
+﻿@{
+    ViewBag.Title = "";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    var news = dbs.Contents.OrderByDescending(n => n.ContenstId).Take(3);
+}
+@using CarProject.App_extension
+
+
+
+@section style
+{
+    <meta name="description" content="خودرو کلینیک" />
+    <meta name="keywords" content="فروشگاه،قطعات یدکی، خودرو، کلینیک" />
+    <meta name="author" content="Arghanoon Programming Team">
+    <meta name="robots" content="index, follow">
+    <meta name="revisit-after" content="3 days">
+
+    <link href="~/Publics/Files/ControlsPageTemplates/Home/Index/css.css" rel="stylesheet" />
+    <link href="~/Publics/Files/ControlsPageTemplates/Home/Index/SliderItemShow.css" rel="stylesheet" />
+    <script src="~/Publics/Files/ControlsPageTemplates/Home/Index/SliderItemShow.js"></script>
+}
+
+<div id="indexContainer">
+
+    <div id="section0_news_mainslideshow">
+
+        <div id="section0_news">
+            <div id="newsContainers">
+                <h3 id="newsContainers_title">اخبار خودرو</h3>
+                <div id="section0_news_container">
+                    @foreach (var item in news)
+                    {
+                        var imgsrc = Server.MapPath(item.ContenstId.ToString().BaseRouts_NewsImages());
+                        var imgpath = "";
+                        DirectoryInfo difo = new DirectoryInfo(imgsrc);
+                        if (difo.Exists)
+                        {
+                            var fils = difo.GetFiles();
+                            if (fils.Length > 0)
+                            {
+                                imgpath = Path.Combine(item.ContenstId.ToString().BaseRouts_NewsImages(), fils[0].Name);
+                            }
+                        }
+               
+                        <div class="newsitem">
+                            <a href="/News/NewsShow/@item.ContenstId/@item.ContentsCategory.Name/@item.ContentSubject"><strong>@item.ContentSubject</strong></a>
+                            <div class="newsitem_info">
+                                <img src="@Url.Content(imgpath)" />
+                                <small>@item.ContentDescribe</small>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <a href="/Users/Dashboard/PersonCars" id="mycarStates"><span class="gia-speedometer" style="font-size: 220%;"></span>وضعیت ماشینم را ذخیره کن</a>
+        </div>
+
+        @if(dbs.SlideShows.Any(c => c.Type == 1))
+        {
+            <div id="section0_mainslideshow">
+                @{
+                    var slides = dbs.SlideShows.Where(s => s.Type == 1);
+            
+                }
+                <a id="mainslideshow_bigimageLink" href="#">
+                    <img id="mainslideshow_bigimage" src="@slides.First().Image" />
+                </a>
+                <div id="mainslideshow_titles">
+                    @foreach (var item in slides)
+                    {
+                        <a data-image="@item.Image" data-target="@item.Url" onclick="Mainslideshow_Changeactive($(this).index())">@item.Subject</a>
+                    }
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div id="sloganSection">
+        <a>رضایت شمارا با دنیا عوض نمیکنیم</a>
+        <a class="gia-checked">گارانتی 1 سال خدمات فنی</a>
+        <a class="gia-checked">گارانتی 1 سال قطعات یدکی</a>
+        <a class="gia-checked">تضمین برترین کیفیت</a>
+        <a class="gia-checked">تضمین بهترین قیمت</a>
+        <a class="column">
+            <span>یک با مارا امتحان کنید</span>
+            <span>یک عمر با ما بمانید</span>
+        </a>
+    </div>
+
+    @if(dbs.SlideShows.Any(c => c.Type == 2))
+    {
+        <div id="slideshow2Section">
+            @{
+                var slides2 = dbs.SlideShows.Where(s => s.Type == 2);
+            }
+            <div id="slideshow2Section_navigation">
+                @foreach (var item in slides2)
+                {
+                    <a data-image="@item.Image" data-target="@item.Url" onclick="Mainslideshow2_Changeactive($(this).index())">@item.Subject</a>
+                }
+            </div>
+            <a href="" id="slideshow2Section_target">
+                <img src="@slides2.First().Image" id="slideshow2Section_bigView" />
+            </a>
+        </div>
+    }
+
+    <hr />
+
+    <div id="CarBrandsSection">
+        @{
+            var carbrands = dbs.CarBrands.AsQueryable();
+            foreach (var item in carbrands)
+            {
+                DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Publics/Gallery/Brands"));
+                var f = di.GetFiles(string.Format("{0}.*", item.CarBrandId));
+                if (f.Length > 0)
+                {
+            <a href="#" class="brandItem">
+                <img src="~/Publics/Gallery/Brands/@f[0].Name" alt="@item.CarBrandName" />
+                <span>@item.CarBrandName</span>
+            </a>
+                }
+            }
+        }
+    </div>
+
+
+    <div id="ServicesMaxSell" class="slideterItemShowContianer">
+        <h3 class="title">پرفروش ترین خدمات</h3>
+        <div  class="itemsContainerBack">
+            <div class="itemsContainer">
+                @{
+                    var MaxSellservices = dbs.AutoServices.OrderByDescending(s => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService && bi.Id == s.AutoServiceId)).Take(10);
+                    foreach (var item in MaxSellservices)
+                    {
+                        decimal price = 0;
+                        decimal.TryParse(item.Price, out price);
+                        var PicFileUrl = "~/Publics/Gallery/Services/" + item.AutoServiceId;
+                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+                        var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+
+                        if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                        {
+                            src = Url.Content(PicFileUrl + "/" + finfo.GetFiles()[0].Name);
+                        }
+                
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })" class="item">
+                        <img src="@Url.Content(@src)" />
+                        <span>@item.AutoServiceName</span>
+                    </a>
+                }
+                }
+            </div>
+        </div>
+
+        <span class="rightmove gia-right" onclick="slideterItemShowContianer_rightmove(this.offsetParent)"></span>
+        <span class="leftmove gia-left" onclick="slideterItemShowContianer_leftmove(this.offsetParent)"></span>
+    </div>
+
+
+    <div id="ProductsMaxSell" class="slideterItemShowContianer">
+        <h3 class="title">پرفروش ترین قطعات</h3>
+        <div class="itemsContainerBack">
+            <div class="itemsContainer">
+                @{
+                    var MaxSellProducts = dbs.Products.OrderByDescending(s => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.Product && bi.Id == s.ProductId)).Take(10);
+                    foreach (var item in MaxSellProducts)
+                    {
+                        var PicFileUrl = "~/Publics/Gallery/ProductImages/" + item.ProductId;
+                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+                        var Product_image_src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                        if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                        {
+                            //Product_image_src = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
+                            Product_image_src = PicFileUrl + "/" + finfo.GetFiles()[0].Name;
+                        }
+                
+                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                            <img src="@Url.Content(@Product_image_src)" />
+                            <span>@item.ProductName</span>
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+
+        <span class="rightmove gia-right" onclick="slideterItemShowContianer_rightmove(this.offsetParent)"></span>
+        <span class="leftmove gia-left" onclick="slideterItemShowContianer_leftmove(this.offsetParent)"></span>
+    </div>
+    
+
+    <div id="CarxMaxVisited" class="slideterItemShowContianer">
+        <h3 class="title">پر بازدیدترین خودروها</h3>
+        <div class="itemsContainerBack">
+            <div class="itemsContainer">
+                @{
+                    var MaxVisitedCar = dbs.Cars.OrderByDescending(c => (dbs.CarsToViews.FirstOrDefault() != null) ? dbs.CarsToViews.FirstOrDefault(c2 => c2.CarsId == c.CarsId).View : 0).Take(30);
+                    foreach (var item in MaxVisitedCar)
+                    {
+                        if (item.CarModel == null)
+                        { continue; }
+                        var imgpaht = "~/Publics/Gallery/CarImages/" + item.CarsId.ToString();
+                        var car_image_src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                        var dicinfo = new DirectoryInfo(Server.MapPath(imgpaht));
+                        if (dicinfo.Exists)
+                        {
+                            var imgs = dicinfo.GetFiles();
+                            if (imgs.Length > 0)
+                            {
+                                car_image_src = imgpaht + "/" + imgs[0].Name;
+                            }
+                        }
+                
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
+                        <img src="@Url.Content(@car_image_src)" />
+                        <span>
+                            <strong>@item.CarModel.CarModelName</strong>
+                            <small>@item.CarModel.CarBrand.CarBrandName</small>
+                        </span>
+                    </a>
+                }
+                }
+            </div>
+        </div>
+
+        <span class="rightmove gia-right" onclick="slideterItemShowContianer_rightmove(this.offsetParent)"></span>
+        <span class="leftmove gia-left" onclick="slideterItemShowContianer_leftmove(this.offsetParent)"></span>
+    </div>
+</div>
+
+
+@section script
+{
+    <script src="~/Publics/Files/ControlsPageTemplates/Home/Index/scripts.js"></script>
+}

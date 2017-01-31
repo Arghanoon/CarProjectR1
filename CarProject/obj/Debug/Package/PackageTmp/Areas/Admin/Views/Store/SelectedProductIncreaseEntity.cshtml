@@ -1,0 +1,57 @@
+﻿@model CarProject.DBSEF.Product
+
+@{
+    ViewBag.Title = "افزایش موجودی محصول";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var productStore = dbs.ProductStores.FirstOrDefault(ps => ps.ProductId == Model.ProductId);
+    
+    var currentCunt = 0;
+    if(productStore != null)
+    {
+        currentCunt = productStore.ProductEntity.Value;
+    }
+
+    string IncreaseCount = "";
+    if(Request.Form.AllKeys.Contains("IncreaseCount"))
+    {
+        IncreaseCount = Request.Form["IncreaseCount"];
+    }
+}
+<div>
+    <h3>محصول انتخابی</h3>
+    <hr />
+    <table class="infoTable">
+        <tr>
+            <th>شماره محصول</th>
+            <td>@Model.PartNumber</td>
+        </tr>
+        <tr>
+            <th>نام محصول</th>
+            <td>@Model.ProductName</td>
+        </tr>
+        <tr>
+            <th>گروه محصول</th>
+            <td>@Model.Category.CategoryName</td>
+        </tr>
+        <tr>
+            <th>موجودی فعلی</th>
+            <td>@currentCunt</td>
+        </tr>
+    </table>
+
+    <h3>ثبت افزایش موجودی</h3>
+    <hr />
+    <form method="post">
+        <div class="inputsContainer">
+            <section class="input">
+                <label>مقدار افزایش موجودی</label>
+                <input type="text" name="IncreaseCount" />
+                <span>@Html.ValidationMessage("IncreaseCount")</span>
+            </section>
+        </div>
+        <div class="inputAction">
+            <input type="submit" value="ثبت افزایش" class="button green" />
+        </div>
+    </form>
+</div>

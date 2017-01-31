@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "سرویس ها";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+}
+
+<div class="itemContainer">
+    @foreach (var item in dbs.AutoServices)
+    {
+        <div class="item">
+            <section class="title gia-service">@item.AutoServiceId</section>
+            <section class="table">
+                <table>
+                    <tr>
+                        <th>نام</th>
+                        <td>@item.AutoServiceName</td>
+                    </tr>
+                    <tr>
+                        <th>قیمت</th>
+                        <td>@item.Price</td>
+                    </tr>
+                </table>
+            </section>
+            <section class="action">
+                <a href="@Url.Action("Services_Update", "Store", new { id = item.AutoServiceId })" class="gia-edit"></a>
+                <a href="@Url.Action("Services_Gallery", "Store", new { id = item.AutoServiceId })" class="gia-images"></a>
+            </section>
+        </div>
+    }
+</div>
+
+

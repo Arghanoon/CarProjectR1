@@ -22,7 +22,7 @@ namespace CarProject.CLS.MailsServers
         public Mail_info()
         {
             client = new SmtpClient("mail.khodroclinic.com");
-            client.Credentials = new NetworkCredential("noreply@khodroclinic.com", "_e79G'$)/%wMuSK5");
+            client.Credentials = new NetworkCredential("noreply@khodroclinic.com", "yT9=')FKFxNet!6`");
         }
         public SmtpClient Client
         {
@@ -41,7 +41,7 @@ namespace CarProject.CLS.MailsServers
         public Mail_noreply()
         {
             client = new SmtpClient("mail.khodroclinic.com");
-            client.Credentials = new NetworkCredential("noreply@khodroclinic.com", "_e79G'$)/%wMuSK5");
+            client.Credentials = new NetworkCredential("noreply@khodroclinic.com", "yT9=')FKFxNet!6`");
         }
         public SmtpClient Client
         {
