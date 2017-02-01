@@ -136,3 +136,5 @@ G:\Projects\CarCompleteWebsite\CarProject\CarProject_Git\CarProject\obj\Debug\Ca
 G:\Projects\CarCompleteWebsite\CarProject\CarProject_Git\CarProject\obj\Debug\CarProject.csprojResolveAssemblyReference.cache
 G:\Projects\CarCompleteWebsite\CarProject\CarProject_Git\CarProject\obj\Debug\CarProject.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProject_Git\CarProject\obj\Debug\CarProject.pdb
+G:\Projects\CarCompleteWebsite\CarProject\CarProject_Git\CarProject\bin\Microsoft.QualityTools.Testing.Fakes.dll
+G:\Projects\CarCompleteWebsite\CarProject\CarProject_Git\CarProject\obj\Debug\CarProject.csprojFakesResolveAssemblyReference.cache

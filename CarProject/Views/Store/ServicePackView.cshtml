@@ -94,7 +94,7 @@
 
        
 
-       @if (services.Any())
+       @if(services.Any())
         {
             <div id="CarDetails_CarServices" class="slideterItemShowContianer">
                 <h3 class="title">سرویس های شامل سرویس پک @pack.AutoServicePackName</h3>
@@ -107,8 +107,8 @@
                             {
                                 src = item.AutoServiceImages[0];
                             }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })" class="item">
-                                <img src="@Url.Content(src)" alt />
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })" class="item">
+                                <img src="@Url.Content(src)" alt="" />
                                 <span>@item.AutoServiceName</span>
                             </a>
                         }
@@ -162,19 +162,19 @@
                 <th>قیمت سرویس</th>
                 <td>@pack.PackPrice تومان</td>
             </tr>
-            <tr>
+            @*<tr>
                 <th>سرویس های موجود در این سرویس پک</th>
                 <td>
                     <div id="ServicesLinkContainer">
                         @{
                             foreach (var item in services)
                             {
-                                <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@item. تومان</small></a>
+                                <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@item.Price تومان</small></a>
                             }
                         }
                     </div>
                 </td>
-            </tr>
+            </tr>*@
         </table>
     </div>
 </div>
@@ -224,7 +224,7 @@
 }
 
 
-<div id="UsersOldComments">
+@*<div id="UsersOldComments">
     @CreateCommentSection(null, service.AutoServiceId, dbs)
 </div>
 
@@ -274,17 +274,17 @@
         
         return new MvcHtmlString(res);
     }
-}
+}*@
 
 
 
 
 @section style
 {
-    <meta name="description" content="خدمات خودرو @service.AutoServiceName " />
+    <meta name="description" content="خدمات خودرو @pack.AutoServicePackName " />
     <meta name="ROBOTS" content="INDEX, FOLLOW">
 
-    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = service.AutoServiceId, info1 = "سرویسها", info2 = service.AutoServiceName }, Request.Url.Scheme)" />
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = pack.AutoServicePackId, info1 = "سرویسها پکها" , info2 = pack.AutoServicePackName }, Request.Url.Scheme)" />
 
         <link href="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/css.css" rel="stylesheet" />
         <link href="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/SliderItemShow.css" rel="stylesheet" />

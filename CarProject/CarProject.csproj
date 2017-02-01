@@ -61,6 +61,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -82,6 +83,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -147,6 +149,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Service References\arianpalWebservice\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Content Include="App_Code\EXTS.cs" />
     <Content Include="App_Code\ErrorHandler.cs" />
     <Compile Include="App_extension\StringAddRoutes.cs" />
@@ -800,6 +807,13 @@
     <Content Include="Publics\Scripts\tinymce\tinymce.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.min.js" />
     <Content Include="Publics\Files\Resources\template.css" />
+    <Content Include="Service References\arianpalWebservice\WebService.disco" />
+    <Content Include="Service References\arianpalWebservice\configuration91.svcinfo" />
+    <Content Include="Service References\arianpalWebservice\configuration.svcinfo" />
+    <Content Include="Service References\arianpalWebservice\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
     <Content Include="Views\Store\ProductSitemap.aspx" />
     <Content Include="Views\Store\ProductsRss.aspx" />
     <Content Include="Web.config">
@@ -1051,6 +1065,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Fakes Include="Fakes\Devart.Data.SqlServer.Linq.fakes" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
@@ -1090,6 +1105,13 @@
     <Content Include="Views\News\NewsShow_13951026_0657.cshtml" />
     <Content Include="Views\Store\ServicesList.cshtml" />
     <Content Include="Views\Store\ServicePackView.cshtml" />
+    <Content Include="Service References\arianpalWebservice\WebService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\arianpalWebservice\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
