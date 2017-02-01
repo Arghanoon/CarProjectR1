@@ -644,20 +644,30 @@ namespace CarProject.Controllers
         [HttpPost]
         public int ServicePackView_makePopular(int id)
         {
+            if (Session["LikedCarAutoServicesPackContainerSession"] != null && Session["LikedCarAutoServicesPackContainerSession"] is List<int> && ((List<int>)Session["LikedCarAutoServicesPackContainerSession"]).Contains(id))
+                return -1;
+
             var dbs = new DBSEF.CarAutomationEntities();
             int res = 0;
-
-            var x = dbs.ServicesPackToViews.FirstOrDefault(p => p.ServicesPackId == id);
-            if (x != null)
+            if (dbs.AutoServicePacks.Count(p => p.AutoServicePackId == id) > 0)
             {
-                if (x.Favorite == null || x.Favorite <= 0)
-                { x.Favorite = 1; res = 1; }
-                else
-                { x.Favorite += 1; res = x.Favorite.Value; }
+                var x = dbs.ServicesPackToViews.FirstOrDefault(p => p.ServicesPackId == id);
+                if (x != null)
+                {
+                    if (x.Favorite == null || x.Favorite <= 0)
+                    { x.Favorite = 1; res = 1; }
+                    else
+                    { x.Favorite += 1; res = x.Favorite.Value; }
+                }
             }
 
-
             dbs.SaveChanges();
+
+            if (Session["LikedCarAutoServicesPackContainerSession"] == null && !(Session["LikedCarAutoServicesPackContainerSession"] is List<int>))
+                Session["LikedCarAutoServicesPackContainerSession"] = new List<int>();
+
+            ((List<int>)Session["LikedCarAutoServicesPackContainerSession"]).Add(id);
+
             return res;
         }
 
