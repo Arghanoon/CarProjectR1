@@ -1,0 +1,146 @@
+﻿@using System.Xml
+@{
+    Layout = null;
+    var DBS = new CarProject.DBSEF.CarAutomationEntities();
+    var ContaectUsUnreadMessage = DBS.ContactUsMessages.Count(ms => ms.Seen == null);
+}
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" >
+
+<title>کلینیک خودرو - @ViewBag.Title</title>
+
+    <link href="~/Publics/Styles/fonts/Fonts.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/fonts/GIAdmin.css" rel="stylesheet" />
+
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/default.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/input1.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Files/StyleAndScripts/Default/ItemsShowing.css" rel="stylesheet" />
+
+    <script src="~/Publics/Scripts/jquery-3.0.0.js"></script>
+    <script src="~/Publics/Scripts/tinymce/tinymce.min.js"></script>
+    <link href="~/Publics/Files/Resources/PublicClasses.css" rel="stylesheet" />
+    
+    <link href="~/Publics/Scripts/PersianDateTimePicker/Content/PersianDatePicker.css" rel="stylesheet" />
+    <script src="~/Publics/Scripts/PersianDateTimePicker/Scripts/PersianDatePicker.js"></script>
+
+    @RenderSection("style",false)
+</head>
+
+<body>
+
+	<header>
+    	<div id="headerTitleAndInfo">
+        	<h1 style="font-family:f1;"><a href="#">خودروکلینیک</a></h1>
+            <small>مدیریت وبسایب</small>
+        </div>
+        
+        <a href="javascript: void()" id="header_menuIcon"  class="gia-menuIcon" onClick="TogleClassShow(header_menu,'display');"></a>
+        <form method="post" id="header_menu" action="@Url.Action("topNavPostBack", new { area = "Admin", controller = "Dashboard" })">
+            <nav id="header_menu_nav">
+                @{
+                    XmlDocument xml = new XmlDocument();
+                    xml.Load(Server.MapPath("~/Publics/Files/Settings/TopMenu.xml"));
+                    foreach (XmlNode item in xml["links"].ChildNodes)
+                    {
+                        <a href="@item["url"].InnerText" target="@item["target"].InnerText" class="@item["class"].InnerText">@item["text"].InnerText</a>
+                    }
+                }
+                <button type="submit" name="userLogout"><a href="#" class="gia-logout" onclick="">خروج کاربر</a></button>
+            </nav>
+        </form>
+    </header>
+    
+    
+    <div id="container">
+    
+    	
+        <div id="body">
+        	@RenderBody()
+        </div>
+        
+        <div id="menu">
+        	
+            <nav>
+                <strong class="gia-car1 title">مدیریت خودرو</strong>
+                <a href="@Url.Action("Brands","Cars")" class="gia-brands">مدیریت برندها</a>
+                <a href="@Url.Action("NewCar","Cars")" class="gia-newCar">ثبت خودرو جدید</a>
+                <a href="@Url.Action("Index","Cars")" class="gia-cars">مدیریت خودروها</a>
+                <a href="@Url.Action("CarUserComments","Cars")" class="gia-chat">پیام های کاربران</a>
+                @*<a href="@Url.Action("Car_Forum","Cars")" class="gia-forum">پرسش و پاسخ</a>*@
+            </nav>
+             
+            <nav>
+                <strong class="gia-news title">اخبار و محتوا</strong>
+                <a href="@Url.Action("Categories", "News")" class="gia-category">مدیریت گروها</a>
+                <a href="@Url.Action("News_Publish","News")" class="gia-newsAdd">ثبت خبر</a>
+                <a href="@Url.Action("Index","News")" class="gia-news">مدیریت اخبار</a>
+                <a href="@Url.Action("ContentUserComments","News")" class="gia-news">پیام های کاربران</a>
+            </nav>
+            
+            <nav>
+                <strong class="gia-users title">مدیریت کاربران</strong>
+            	<a href="@Url.Action("NewUser","User")" class="gia-user">ثبت کاربر جدید</a>
+                <a href="@Url.Action("UsersView","User")" class="gia-list">کاربران</a>
+                <a href="@Url.Action("newUsers","User")" class="gia-waitedUser">کاربران جدید</a>
+            </nav>
+            
+            <nav>
+                <strong class="gia-checkEngine title">مدیریت قسمت عیب یابی</strong>
+            	<a href="@Url.Action("Index", "Troubleshooting", new { area = "admin" , id = "" })">عیب یابی</a>
+            </nav>
+            
+            <nav>
+                <strong class="title">تنظیمات سایت</strong>
+                <a href="@Url.Action("CountryManagment","DashBoard")" class="gia-country" >مدیریت کشورها</a>
+                <a href="@Url.Action("CompaniesManagment","DashBoard")" class="gia-companies" >مدیریت شرکتها</a>
+                <a href="@Url.Action("ManufactursManagment","DashBoard")" class="gia-distribution" >مدیریت توزیع کنندگان</a>
+                <hr />
+                <a href="@Url.Action("SlideShower_Insert","DashBoard")" class="gia-newSlide" >اضافه کردن اسلاید</a>
+                <a href="@Url.Action("SlideShower_Slides","DashBoard")" class="gia-slides" >مدیریت اسلایدها</a>
+                <hr />
+                <a href="@Url.Action("AboutMe","DashBoard")" class="gia-information" >درباره ما</a>
+                <a href="@Url.Action("ContactUs","DashBoard")" class="gia-contactUs" >تماس با ما</a>
+                <a href="@Url.Action("ContactUsMessages","DashBoard")" class="gia-message" >پیام های تماس باما @if(@ContaectUsUnreadMessage > 0){ <span class="countShower">@ContaectUsUnreadMessage</span>}</a>
+            </nav>
+
+
+            <nav>
+                <strong class="gia-message title">مدیریت پیامها</strong>
+            	<a href="@Url.Action("MailsMessage_Signup_SendActivationcode", "DashBoard", new { area = "admin" , id = "" })">ثبت محتوای ایمیل فعال سازی حساب کاربری</a>
+                <a href="@Url.Action("MailsMessage_Signup_RecoveryKey", "DashBoard", new { area = "admin" , id = "" })">ثبت محتوای ایمیل بازیابی کلمه عبور</a>
+            </nav> 
+            
+            <nav>
+                <strong class="title">منو صفحه اصلی</strong>
+                <a href="@Url.Action("MainMenu_Insert","DashBoard")" class="">ثبت منو جدید</a>
+                <a href="@Url.Action("MainMenus","DashBoard")" class="">مدیریت منو ها</a>
+            </nav>  
+            
+        </div>
+        
+        
+    </div>
+
+</body>
+
+<script src="~/Areas/Admin/Files/StyleAndScripts/Default/d00.js"></script>
+<script>
+    cn = document.getElementById('container');
+    hw = (document.getElementsByTagName('header')[0].clientHeight + 1);
+    cn.style.marginTop = hw + "px";
+    cn.style.minHeight = (window.innerHeight - hw) + "px";
+
+    function TogleClassShow(el, clname) {
+        if (el.classList.contains(clname))
+            el.classList.remove(clname);
+        else
+            el.classList.add(clname);
+    }
+</script>
+
+    @RenderSection("script", false)
+</html>

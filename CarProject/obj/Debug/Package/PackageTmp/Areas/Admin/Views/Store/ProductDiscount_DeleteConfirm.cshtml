@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "تایید حذف کد تخفیف";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    
+}
+@model CarProject.Areas.Admin.Models.Store.ProductDiscountModel
+
+
+<form method="post">
+    <h3>آیا از حذف کد تخفیف با اطلاعات ذکر شده در زیر اطمینان دارید؟ </h3>
+    <small>درصورت حذف امکان بازگشت اطلاعات وجود نخواهد داشت</small>
+    <div class="inputAction">
+        <a href="/Admin/Store/productDiscounts" class="button green">انصراف</a>
+        <input type="submit" value="حذف کد تخفیف"  class="button red"/>
+    </div>
+</form>
+
+<hr />
+
+<div>
+    <table class="infoTable">
+        <tr>
+            <th>کد تخفیف</th>
+            <td>@Model.Discount.DiscountCode</td>
+        </tr>
+        <tr>
+            <th>درصد تخفیف</th>
+            <td>@Model.Discount.Discount1</td>
+        </tr>
+        <tr>
+            <th>محصولات</th>
+            <td>
+                <table class="grid1">
+                    <thead>
+                        <tr>
+                            <th class="min_nw">شماره کالا</th>
+                            <th>نام کالا</th>
+                            <th class="min_nw">گروه</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Products)
+                        {
+                            var pr = dbs.Products.FirstOrDefault(c => c.ProductId == item);
+                            if (pr == null)
+                            { continue; }
+                            
+                            <tr>
+                                <td class="min_nw tcenter">@pr.PartNumber</td>
+                                <td class="tright">@pr.ProductName</td>
+                                <td class="min_nw tcenter">@pr.Category.CategoryName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+

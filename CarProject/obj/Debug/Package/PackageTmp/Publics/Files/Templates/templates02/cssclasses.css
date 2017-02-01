@@ -1,0 +1,19 @@
+.t2button
+{
+	background:#edbc43;
+	color:#000;
+	padding:5px 5px;
+	border-radius:5px;
+	margin:0 5px;
+	border:none;
+}
+
+.page {
+    background:#bec5fc;
+    padding:5px;
+}
+
+.orange {
+    background:#edc033;
+    color:#000;
+}

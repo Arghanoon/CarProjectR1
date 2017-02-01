@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "اعلام کیلومتر فعلی خودرو";
+}
+@model CarProject.DBSEF.PersonCar
+@using CarProject.App_Code
+
+
+<a href="/Users/Dashboard/PersonCars" class="gia-back">برگشت به قسمت خودروهای کاربر</a>
+<div class="item">
+    <h3>اطلاعات خودرو</h3>
+    <hr />
+    <div>
+        <table class="infoTable">
+            <tr>
+                <th>برند و مدل خودرو</th>
+                <td>@Model.Car.CarModel.CarBrand.CarBrandName - @Model.Car.CarModel.CarModelName</td>
+            </tr>
+            <tr>
+                <th>رنگ</th>
+                <td>@Model.CarColor</td>
+            </tr>
+            <tr>
+                <th>پلاک</th>
+                <td>@Model.CarPlate | @Model.CarPlateCityCode</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="item">
+    <h3>اعلام کیلومتر فعلی خودرو</h3>
+    <hr />
+    <form method="post">
+        <div class="inputsContainer">
+            @Html.input_TextBox(m => m.CarMilage, "کیلومتر فعلی")
+        </div>
+        <div class="inputAction">
+            <input type="submit" class="button green" value="ثبت کیلومتر فعلی" />
+        </div>
+    </form>
+</div>
