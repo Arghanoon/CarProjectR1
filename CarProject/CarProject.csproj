@@ -516,6 +516,10 @@
     <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\SliderItemShow.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\News\NewsShow\SliderItemShow.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\ServicePackView\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\ServicePackView\scirpt.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\ServicePackView\SliderItemShow.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Store\ServicePackView\SliderItemShow.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\Products\SliderItemShow.css" />
@@ -1028,6 +1032,8 @@
     <Content Include="Areas\Admin\Views\News\ContentUserComments_ShowAndReply.cshtml" />
     <Content Include="Areas\Admin\Views\Store\AutoServiceCategoryManagement.cshtml" />
     <Content Include="Areas\Admin\Views\Store\AutoServiceCategoryManagment_Update.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\AutoServicesUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\AutoServicesUserComments_ShowAndReply.cshtml" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -1045,8 +1051,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Store\AutoServicesUserComments.cshtml" />
-    <Content Include="Areas\Admin\Views\Store\AutoServicesUserComments_ShowAndReply.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
@@ -1062,7 +1066,7 @@
     <Content Include="Views\Store\Products.cshtml" />
     <Content Include="Views\Store\ProductsList.cshtml" />
     <Content Include="Views\Store\ServiceView.cshtml" />
-    <Content Include="Views\Store\ServicePackView.cshtml" />
+    <Content Include="Views\Store\ServicePackView_13951112_0659.cshtml" />
     <Content Include="Views\Store\Cart.cshtml" />
     <Content Include="Views\Store\Cart_CartConfirmAddress.cshtml" />
     <Content Include="Views\Store\SelectePaymentType.cshtml" />
@@ -1085,6 +1089,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\News\NewsShow_13951026_0657.cshtml" />
     <Content Include="Views\Store\ServicesList.cshtml" />
+    <Content Include="Views\Store\ServicePackView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
