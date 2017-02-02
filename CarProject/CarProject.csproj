@@ -1068,15 +1068,14 @@
     <Content Include="DBSEF\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-<<<<<<< HEAD
+
     <Content Include="DBSEF\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Fakes Include="Fakes\Devart.Data.SqlServer.Linq.fakes" />
-=======
->>>>>>> refs/remotes/origin/master
+
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
