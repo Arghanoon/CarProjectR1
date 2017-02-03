@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
@@ -25,11 +28,11 @@ namespace CarProject.Controllers
         {
             return View();
         }
-        
+
         #region Cart
         public void AddToCart(int id, Models.Store.CartUsefull.Basket_ItemType type)
         {
-            
+
             if (Session["guestUser"] != null && Session["guestUser"] is DBSEF.User)
             {
                 var dbs = new DBSEF.CarAutomationEntities();
@@ -109,7 +112,7 @@ namespace CarProject.Controllers
 
             }
         }
-        
+
         public ActionResult Cart()
         {
             var us = new Models.Store.CartUsefull();
@@ -156,7 +159,7 @@ namespace CarProject.Controllers
                     int cnt = 1;
                     int.TryParse(form[key], out cnt);
                     item.Count = cnt;
-                    
+
                     item.ProductEachPrice = us.GetPriceOfCartObject(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value);
                     if (item.Type == (byte)CartUsefull.Basket_ItemType.Product && item.PriceFlag == (byte)CartUsefull.BasketImte_PriceFlag.Product_PriceOnly)
                     {
@@ -166,7 +169,7 @@ namespace CarProject.Controllers
                     decimal discountprice = us.GetPriceOfCartObject_withDiscount(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, mdl.Discount);
                     if (item.Type == (byte)CartUsefull.Basket_ItemType.Product && item.PriceFlag == (byte)CartUsefull.BasketImte_PriceFlag.Product_PriceOnly)
                         discountprice = us.GetPriceOfCartObject_withDiscount_WintoutInstallation(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, mdl.Discount);
-                    
+
                     item.ProductEachPaidPrice = discountprice.ToString();
                     item.ToatoalPaidPrice = (discountprice * item.Count).ToString();
 
@@ -213,7 +216,7 @@ namespace CarProject.Controllers
             else
                 return View(mdl);
         }
-        
+
         [HttpPost]
         public ActionResult Cart_remoSelection(FormCollection form)
         {
@@ -229,7 +232,7 @@ namespace CarProject.Controllers
                 }
             }
             us.UpdateBasket(mdl);
-            
+
             return RedirectToAction("Cart");
         }
 
@@ -248,7 +251,7 @@ namespace CarProject.Controllers
         public ActionResult Cart_CartConfirmAddress()
         {
             var model = new Models.Store.CartUsefull().GetCurrentBasket();
-            
+
             var person = Areas.Users.Controllers.profileController.GetCurrentLoginPerson;
             model.ReciverFullname = person.PersonFirtstName + " " + person.PersonLastName;
             model.ReciverMobile = person.PersonMobile;
@@ -275,7 +278,7 @@ namespace CarProject.Controllers
                 ModelState.AddModelError("ReciverTell", "تلفن ثابت وارد نشده است");
             else if (!model.ReciverTell.IsNumber())
                 ModelState.AddModelError("ReciverTell", "مقدار وارد شده صحیح نیست");
-            
+
             if (model.ReciverAddress.IsNullOrWhiteSpace())
                 ModelState.AddModelError("ReciverAddress", "آدرس وارد نشده است");
 
@@ -286,13 +289,13 @@ namespace CarProject.Controllers
             return RedirectToAction("SelectePaymentType");
         }
 
-        
+
         [Areas.Users.UsersCLS.UsersAuthFilter]
         public ActionResult SelectePaymentType()
         {
             return View();
         }
-        [HttpPost,Areas.Users.UsersCLS.UsersAuthFilter]
+        [HttpPost, Areas.Users.UsersCLS.UsersAuthFilter]
         public ActionResult SelectePaymentType(Nullable<Models.Store.CartUsefull.Basket_PaymentType> PaymentType)
         {
             if (PaymentType == null)
@@ -318,7 +321,7 @@ namespace CarProject.Controllers
             }
             return View();
         }
-        
+
         [Areas.Users.UsersCLS.UsersAuthFilter]
         public ActionResult PaymentCart_InLocation()
         {
@@ -358,12 +361,16 @@ namespace CarProject.Controllers
                 decimal.TryParse(item, out tmp);
                 price += tmp;
             }
+           
 
+            
+            var r = ws.RequestPayment(MerchantID, Password, price, "", "", "", "", "",
+                "http://khodroclinic.com/Store/PaymentCart_Online_BackFromBank");
             var rqpm = ws.RequestPayment(MerchantID, Password, price, "کد پرداخت :" + basket.LocalCode,
                 basket.ReciverFullname,
                 basket.User.RelatedPerson.PersonEmail,
                 basket.ReciverMobile,
-                basket.BasketId.ToString(),
+                "00000000",
                 Url.Action("PaymentCart_Online_BackFromBank", "Store", new { }, Request.Url.Scheme));
 
             if (rqpm.ResultStatus == arianpal.ResultValues.Succeed)
@@ -445,7 +452,7 @@ namespace CarProject.Controllers
                 }
                 if (item.Type == (byte)Models.Store.CartUsefull.Basket_ItemType.AutoServicePack)
                 {
-                       
+
                 }
             }
             dbs.SaveChanges();
@@ -471,7 +478,7 @@ namespace CarProject.Controllers
                 });
             }
         }
-        private void InsertPersonServices(DBSEF.CarAutomationEntities dbs,int userid, int serviceid, int count)
+        private void InsertPersonServices(DBSEF.CarAutomationEntities dbs, int userid, int serviceid, int count)
         {
             var x = dbs.PersonServices.FirstOrDefault(ps => ps.ServicesId == serviceid && ps.UserId == userid);
             if (x != null)
@@ -537,7 +544,7 @@ namespace CarProject.Controllers
             if (Areas.Users.Controllers.profileController.GetCurrentLoginedUser == null)
                 return RedirectToAction("Products", new { id = id });
 
-            
+
 
             ViewBag.error = new Dictionary<string, string>();
             if (form.AllKeys.Contains("SendACommentRequest"))
@@ -583,10 +590,10 @@ namespace CarProject.Controllers
                     ViewBag.error["fullname"] = "نام و نام خانوادگی تعیین نشده است";
                 if (form["email"] == "")
                     ViewBag.error["email"] = "ایمیل وارد نشده است";
-                else if(!form["email"].String_IsEmail())
+                else if (!form["email"].String_IsEmail())
                     ViewBag.error["email"] = "ایمیل وارد شده صحیح نیست";
 
-                if(form["comment"] == "")
+                if (form["comment"] == "")
                     ViewBag.error["comment"] = "پیام وارد نشده است";
 
                 if (form["captcha"] == "")
@@ -604,7 +611,7 @@ namespace CarProject.Controllers
             }
             return View(id);
         }
-        
+
         [HttpPost]
         public int Products_makePopular(int id)
         {
@@ -634,7 +641,7 @@ namespace CarProject.Controllers
 
             return res;
         }
-        
+
 
         public ActionResult ProductsList(int? id)
         {
@@ -813,5 +820,5 @@ namespace CarProject.Controllers
         #endregion
     }
 
-   
+
 }

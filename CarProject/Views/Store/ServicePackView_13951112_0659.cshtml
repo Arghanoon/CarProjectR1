@@ -75,7 +75,7 @@
                     </tr>
                     <tr>
                         <th>قیمت بسته</th>
-                        <td>@servicePack.PackPrice ریال</td>
+                        <td>@servicePack.PackPrice تومان</td>
                     </tr>
                     <tr>
                         <th>سرویس های بسته</th>
@@ -97,7 +97,7 @@
                                             if (!pdx2.ContainsKey(ps.CarsId))
                                             { pdx2.Add(ps.CarsId, ps); }
                                         }
-                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@item.Price ریال</small></a>
+                                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@item.Price تومان</small></a>
                                 }
                                 }
                             </div>
@@ -127,7 +127,7 @@
                         <section>
                             <strong>@item.ProductName</strong><br />
                             <small>@item.Category.CategoryName</small><br />
-                            <small class="price">@if(@item.ProductPrices.Count > 0){@item.ProductPrices.Last().ProductPrice1}else{<span>0</span>} ریال</small>
+                            <small class="price">@if(@item.ProductPrices.Count > 0){@item.ProductPrices.Last().ProductPrice1}else{<span>0</span>} تومان</small>
                         </section>
                     </a>
                         }
@@ -138,7 +138,7 @@
                         <section>
                             <strong>@item.ProductName</strong><br />
                             <small>@item.Category.CategoryName</small><br />
-                            <small class="price">@if(@item.ProductPrices.Any()){@item.ProductPrices.Last().ProductPrice1}else{<span>0</span>} ریال</small>
+                            <small class="price">@if(@item.ProductPrices.Any()){@item.ProductPrices.Last().ProductPrice1}else{<span>0</span>} تومان</small>
                         </section>
                     </a>
                         }

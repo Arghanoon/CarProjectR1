@@ -149,10 +149,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Service References\arianpalWebservice\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\arianpal1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\com.arianpal.merchant\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Content Include="App_Code\EXTS.cs" />
     <Content Include="App_Code\ErrorHandler.cs" />
@@ -820,15 +835,41 @@
     <Content Include="Publics\Scripts\tinymce\tinymce.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.min.js" />
     <Content Include="Publics\Files\Resources\template.css" />
-    <Content Include="Service References\arianpalWebservice\WebService.disco" />
-    <Content Include="Service References\arianpalWebservice\configuration91.svcinfo" />
-    <Content Include="Service References\arianpalWebservice\configuration.svcinfo" />
-    <Content Include="Service References\arianpalWebservice\Reference.svcmap">
+    <Content Include="Service References\arianpalWebservice\CarProject.arianpalWebservice.PaymentRequestResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\arianpalWebservice\CarProject.arianpalWebservice.RequestPaymentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\arianpalWebservice\CarProject.arianpalWebservice.verifyPaymentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\arianpalWebservice\CarProject.arianpalWebservice.VerifyPaymentResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\arianpalWebservice\configuration91.svcinfo" />
+    <None Include="Service References\arianpalWebservice\configuration.svcinfo" />
+    <None Include="Service References\arianpalWebservice\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Views\Store\ProductSitemap.aspx" />
     <Content Include="Views\Store\ProductsRss.aspx" />
+    <Content Include="Web References\arianpal1\PaymentRequestResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\arianpal1\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+    </Content>
+    <Content Include="Web References\arianpal1\VerifyPaymentResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Views\Store\PaymentCart_Online_BackFromBank.cshtml" />
+    <None Include="Web References\arianpal1\WebService.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -839,6 +880,18 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Web References\com.arianpal.merchant\PaymentRequestResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\com.arianpal.merchant\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web References\com.arianpal.merchant\VerifyPaymentResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\arianpal1\WebService.wsdl" />
+    <None Include="Web References\com.arianpal.merchant\WebService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1068,14 +1121,12 @@
     <Content Include="DBSEF\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-
     <Content Include="DBSEF\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Fakes Include="Fakes\Devart.Data.SqlServer.Linq.fakes" />
-
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\public\template.cshtml" />
@@ -1115,13 +1166,40 @@
     <Content Include="Views\News\NewsShow_13951026_0657.cshtml" />
     <Content Include="Views\Store\ServicesList.cshtml" />
     <Content Include="Views\Store\ServicePackView.cshtml" />
-    <Content Include="Service References\arianpalWebservice\WebService.wsdl" />
+    <None Include="Service References\arianpalWebservice\WebService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\arianpalWebservice\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://merchant.arianpal.com/WebService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\arianpal1\</RelPath>
+      <UpdateFromURL>http://merchant.arianpal.com/WebService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CarProject_arianpal_WebService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://merchant.arianpal.com/WebService.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\com.arianpal.merchant\</RelPath>
+      <UpdateFromURL>http://merchant.arianpal.com/WebService.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CarProject_com_arianpal_merchant_WebService</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1140,7 +1218,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>7788</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
