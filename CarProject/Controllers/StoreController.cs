@@ -339,6 +339,100 @@ namespace CarProject.Controllers
             var basket = us.GetCurrentBasket();
             return View(basket);
         }
+        [HttpPost, Areas.Users.UsersCLS.UsersAuthFilter, ActionName("PaymentCart_Online")]
+        public ActionResult PaymentCart_Online_sendToBank()
+        {
+            var us = new Models.Store.CartUsefull();
+            var basket = us.GetCurrentBasket();
+            basket.LocalCode = Guid.NewGuid().ToString();
+
+            us.UpdateBasket(basket);
+
+            arianpal.WebService ws = new arianpal.WebService();
+            string MerchantID = "4615602";
+            string Password = "A97ieHLdJ";
+            decimal price = 0;
+            foreach (var item in basket.BasketItems.Select(c => c.ToatoalPaidPrice))
+            {
+                decimal tmp = 0;
+                decimal.TryParse(item, out tmp);
+                price += tmp;
+            }
+
+            var rqpm = ws.RequestPayment(MerchantID, Password, price, "کد پرداخت :" + basket.LocalCode,
+                basket.ReciverFullname,
+                basket.User.RelatedPerson.PersonEmail,
+                basket.ReciverMobile,
+                basket.BasketId.ToString(),
+                Url.Action("PaymentCart_Online_BackFromBank", "Store", new { }, Request.Url.Scheme));
+
+            if (rqpm.ResultStatus == arianpal.ResultValues.Succeed)
+            {
+                Response.Redirect(rqpm.PaymentPath);
+            }
+            else
+            {
+                ModelState.AddModelError("error", "خطا در انجام تراکنش" + rqpm.ResultStatus.ToString());
+            }
+
+            return View(basket);
+        }
+
+
+        [Areas.Users.UsersCLS.UsersAuthFilter]
+        public ActionResult PaymentCart_Online_BackFromBank()
+        {
+            var us = new Models.Store.CartUsefull();
+            var basket = us.GetCurrentBasket();
+
+            var ws = new arianpal.WebService();
+
+            string MerchantID = "4615602";
+            string Password = "A97ieHLdJ";
+            decimal price = 0;
+            foreach (var item in basket.BasketItems.Select(c => c.ToatoalPaidPrice))
+            {
+                decimal tmp = 0;
+                decimal.TryParse(item, out tmp);
+                price += tmp;
+            }
+            string refnum = Request["refnumber"]; // شماره رسید
+            string status = Request["status"]; // وضعیت پرداخت
+
+
+
+            if (status == "100")
+            {
+                var v = ws.verifyPayment(MerchantID, Password, price, refnum);
+
+                if (v.ResultStatus == arianpal.VerifyResult.NotMatchMoney)
+                    ModelState.AddModelError("message", "مبلغ واریزی " + v.PayementedPrice + " با مبلغ درخواستی یکسان نمی باشد ");
+                else if (v.ResultStatus == arianpal.VerifyResult.Verifyed)
+                    ModelState.AddModelError("message", "قبلا پرداخت شده است ");
+                else if (v.ResultStatus == arianpal.VerifyResult.InvalidRef)
+                    ModelState.AddModelError("message", "شماره رسید قابل قبول نیست ");
+                else if (v.ResultStatus == arianpal.VerifyResult.Success)
+                    ModelState.AddModelError("message", "پرداخت انجام شد ");
+                else if (v.ResultStatus == arianpal.VerifyResult.Success) // عملیات تکمیل پرداخت
+                {
+                    ModelState.AddModelError("success", "پرداخت با موفقیت انجام شد");
+                }
+            }
+            else
+            {
+                int res = int.Parse(status);
+                if (res == -99)
+                    ModelState.AddModelError("error", "انصراف از پرداخت ");
+                else if (res == -88)
+                    ModelState.AddModelError("error", "پرداخت ناموفق ");
+                else if (res == -77)
+                    ModelState.AddModelError("error", "منقضی شدن زمان ");
+                else if (res == -66)
+                    ModelState.AddModelError("error", "قبلا پرداخت شده است .");
+            }
+
+            return View(basket);
+        }
 
 
         private void InsertPersonServiceAndServicepacks(DBSEF.CarAutomationEntities dbs, DBSEF.Basket basket)
