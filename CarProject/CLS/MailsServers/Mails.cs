@@ -109,7 +109,7 @@ namespace CarProject.CLS.MailsServers
                 messageBody = string.Format("<html><body>{0}</body></html>", messageBody);
                 message.BodyEncoding = System.Text.Encoding.UTF8;
                 message.Body = messageBody.Replace("\n", "<br />");
-                message.From = new MailAddress("noreply@khodroclinic.com", "خودرو کلینیک");
+                message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
                 message.Subject = "ایمیلی از طرف سایت خودرو کلینیک";
 
                 this.SendMessage(message);
