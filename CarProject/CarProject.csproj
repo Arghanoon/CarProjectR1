@@ -507,7 +507,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Areas\Admin\Files\Images\back.jpg" />
-    <Content Include="Areas\Admin\Files\Images\stamp.png" />
     <Content Include="Areas\Admin\Files\Images\SignupBack.jpg" />
     <Content Include="Areas\Admin\Files\Images\ratingback.png" />
     <Content Include="Areas\Admin\Files\Images\user.png" />
