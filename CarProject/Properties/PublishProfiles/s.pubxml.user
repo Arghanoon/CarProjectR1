@@ -525,10 +525,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 11:43:18</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>02/04/2017 03:13:45</publishTime>
+      <publishTime>02/04/2017 03:48:23</publishTime>
     </File>
     <File Include="bin/CarProject.pdb">
-      <publishTime>02/04/2017 03:13:45</publishTime>
+      <publishTime>02/04/2017 03:48:23</publishTime>
     </File>
     <File Include="bin/Devart.Data.Linq.dll">
       <publishTime>09/22/2016 09:31:20</publishTime>
@@ -1581,7 +1581,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 11:43:03</publishTime>
     </File>
     <File Include="Views/Cars/Index.cshtml">
-      <publishTime>01/17/2017 11:43:03</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Cars/SearchView.cshtml">
       <publishTime>11/12/2016 19:00:29</publishTime>
@@ -1638,22 +1638,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 11:43:03</publishTime>
     </File>
     <File Include="Views/Store/Index.cshtml">
-      <publishTime>01/17/2017 11:43:03</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/integratedSearch.cshtml">
-      <publishTime>01/17/2017 11:43:03</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/PaymentCart.cshtml">
       <publishTime>11/15/2016 11:36:08</publishTime>
     </File>
     <File Include="Views/Store/PaymentCart_InLocation.cshtml">
-      <publishTime>01/17/2017 11:43:03</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/PaymentCart_Online.cshtml">
-      <publishTime>02/04/2017 03:13:37</publishTime>
+      <publishTime>02/04/2017 03:34:26</publishTime>
     </File>
     <File Include="Views/Store/PaymentCart_Online_BackFromBank.cshtml">
-      <publishTime>02/04/2017 00:31:02</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/ProductForum.cshtml">
       <publishTime>01/17/2017 11:43:03</publishTime>
@@ -1668,7 +1668,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 11:43:03</publishTime>
     </File>
     <File Include="Views/Store/ProductsList.cshtml">
-      <publishTime>01/18/2017 19:23:26</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/ProductsRss.aspx">
       <publishTime>01/17/2017 11:43:03</publishTime>
@@ -1683,16 +1683,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/02/2017 00:36:11</publishTime>
     </File>
     <File Include="Views/Store/ServicePackView_13951112_0659.cshtml">
-      <publishTime>02/02/2017 00:36:11</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/ServicesList.cshtml">
-      <publishTime>01/17/2017 17:10:11</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/ServiceView.cshtml">
       <publishTime>02/02/2017 00:36:11</publishTime>
     </File>
     <File Include="Views/Troubleshooting/Index.cshtml">
-      <publishTime>01/30/2017 18:17:31</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>01/17/2017 11:43:03</publishTime>

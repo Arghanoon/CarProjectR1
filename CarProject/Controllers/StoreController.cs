@@ -437,7 +437,12 @@ namespace CarProject.Controllers
                 else if (res == -66)
                     ModelState.AddModelError("error", "قبلا پرداخت شده است .");
             }
-
+            basket.State = (byte)Models.Store.CartUsefull.Basket_State.BuyFinished;
+            basket.LocalCode = Guid.NewGuid().ToString();
+            basket.FinishDate = DateTime.Now;
+            us.UpdateBasket(basket);
+            InsertPersonServiceAndServicepacks(us.dbs, basket);
+            
             return View(basket);
         }
 
