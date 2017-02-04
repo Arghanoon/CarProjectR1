@@ -525,10 +525,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 11:43:18</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>01/31/2017 20:20:31</publishTime>
+      <publishTime>02/04/2017 03:48:23</publishTime>
     </File>
     <File Include="bin/CarProject.pdb">
-      <publishTime>01/31/2017 20:20:30</publishTime>
+      <publishTime>02/04/2017 03:48:23</publishTime>
     </File>
     <File Include="bin/Devart.Data.Linq.dll">
       <publishTime>09/22/2016 09:31:20</publishTime>
@@ -541,6 +541,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
       <publishTime>01/17/2017 11:43:19</publishTime>
+    </File>
+    <File Include="bin/Microsoft.QualityTools.Testing.Fakes.dll">
+      <publishTime>02/02/2017 00:36:10</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>01/17/2017 11:43:23</publishTime>
@@ -591,7 +594,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/16/2017 08:39:10</publishTime>
     </File>
     <File Include="DBSEF/Model1.edmx.diagram">
-      <publishTime>01/30/2017 17:44:36</publishTime>
+      <publishTime>02/02/2017 00:36:10</publishTime>
     </File>
     <File Include="DBSEF/Model1.tt">
       <publishTime>01/16/2017 08:39:10</publishTime>
@@ -658,6 +661,18 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Publics/Files/ControlsPageTemplates/Store/Products/SliderItemShow.js">
       <publishTime>01/17/2017 11:42:59</publishTime>
+    </File>
+    <File Include="Publics/Files/ControlsPageTemplates/Store/ServicePackView/css.css">
+      <publishTime>02/02/2017 00:36:11</publishTime>
+    </File>
+    <File Include="Publics/Files/ControlsPageTemplates/Store/ServicePackView/scirpt.js">
+      <publishTime>02/02/2017 00:36:11</publishTime>
+    </File>
+    <File Include="Publics/Files/ControlsPageTemplates/Store/ServicePackView/SliderItemShow.css">
+      <publishTime>02/02/2017 00:36:11</publishTime>
+    </File>
+    <File Include="Publics/Files/ControlsPageTemplates/Store/ServicePackView/SliderItemShow.js">
+      <publishTime>02/02/2017 00:36:11</publishTime>
     </File>
     <File Include="Publics/Files/ControlsPageTemplates/Store/ServiceView/css.css">
       <publishTime>01/30/2017 05:01:44</publishTime>
@@ -1538,6 +1553,18 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Publics/Styles/fonts/yekan.TTF">
       <publishTime>01/17/2017 11:43:02</publishTime>
     </File>
+    <File Include="Service References/arianpalWebservice/CarProject.arianpalWebservice.PaymentRequestResult.datasource">
+      <publishTime>02/04/2017 01:28:11</publishTime>
+    </File>
+    <File Include="Service References/arianpalWebservice/CarProject.arianpalWebservice.RequestPaymentResponse.datasource">
+      <publishTime>02/04/2017 01:28:11</publishTime>
+    </File>
+    <File Include="Service References/arianpalWebservice/CarProject.arianpalWebservice.verifyPaymentResponse.datasource">
+      <publishTime>02/04/2017 01:28:12</publishTime>
+    </File>
+    <File Include="Service References/arianpalWebservice/CarProject.arianpalWebservice.VerifyPaymentResult.datasource">
+      <publishTime>02/04/2017 01:28:11</publishTime>
+    </File>
     <File Include="Views/Cars/Car.cshtml">
       <publishTime>01/30/2017 04:40:24</publishTime>
     </File>
@@ -1554,7 +1581,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 11:43:03</publishTime>
     </File>
     <File Include="Views/Cars/Index.cshtml">
-      <publishTime>01/17/2017 11:43:03</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Cars/SearchView.cshtml">
       <publishTime>11/12/2016 19:00:29</publishTime>
@@ -1596,7 +1623,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 11:43:03</publishTime>
     </File>
     <File Include="Views/public/template02.cshtml">
-      <publishTime>01/19/2017 14:12:00</publishTime>
+      <publishTime>02/04/2017 03:04:40</publishTime>
     </File>
     <File Include="Views/public/template_News.cshtml">
       <publishTime>11/12/2016 19:00:29</publishTime>
@@ -1611,19 +1638,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 11:43:03</publishTime>
     </File>
     <File Include="Views/Store/Index.cshtml">
-      <publishTime>01/17/2017 11:43:03</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/integratedSearch.cshtml">
-      <publishTime>01/17/2017 11:43:03</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/PaymentCart.cshtml">
       <publishTime>11/15/2016 11:36:08</publishTime>
     </File>
     <File Include="Views/Store/PaymentCart_InLocation.cshtml">
-      <publishTime>01/17/2017 11:43:03</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/PaymentCart_Online.cshtml">
-      <publishTime>01/17/2017 11:43:03</publishTime>
+      <publishTime>02/04/2017 03:34:26</publishTime>
+    </File>
+    <File Include="Views/Store/PaymentCart_Online_BackFromBank.cshtml">
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/ProductForum.cshtml">
       <publishTime>01/17/2017 11:43:03</publishTime>
@@ -1632,13 +1662,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 11:43:03</publishTime>
     </File>
     <File Include="Views/Store/Products.cshtml">
-      <publishTime>01/18/2017 19:33:15</publishTime>
+      <publishTime>02/04/2017 02:03:47</publishTime>
     </File>
     <File Include="Views/Store/ProductSitemap.aspx">
       <publishTime>01/17/2017 11:43:03</publishTime>
     </File>
     <File Include="Views/Store/ProductsList.cshtml">
-      <publishTime>01/18/2017 19:23:26</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/ProductsRss.aspx">
       <publishTime>01/17/2017 11:43:03</publishTime>
@@ -1650,16 +1680,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 11:43:03</publishTime>
     </File>
     <File Include="Views/Store/ServicePackView.cshtml">
-      <publishTime>01/17/2017 11:43:03</publishTime>
+      <publishTime>02/02/2017 00:36:11</publishTime>
+    </File>
+    <File Include="Views/Store/ServicePackView_13951112_0659.cshtml">
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/ServicesList.cshtml">
-      <publishTime>01/17/2017 17:10:11</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Store/ServiceView.cshtml">
-      <publishTime>01/31/2017 19:31:59</publishTime>
+      <publishTime>02/02/2017 00:36:11</publishTime>
     </File>
     <File Include="Views/Troubleshooting/Index.cshtml">
-      <publishTime>01/30/2017 18:17:31</publishTime>
+      <publishTime>02/04/2017 03:21:56</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>01/17/2017 11:43:03</publishTime>
@@ -1667,8 +1700,35 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>01/17/2017 11:43:03</publishTime>
     </File>
+    <File Include="Web References/arianpal/PaymentRequestResult.datasource">
+      <publishTime>02/04/2017 01:29:12</publishTime>
+    </File>
+    <File Include="Web References/arianpal/Reference.map">
+      <publishTime>02/04/2017 01:29:10</publishTime>
+    </File>
+    <File Include="Web References/arianpal/VerifyPaymentResult.datasource">
+      <publishTime>02/04/2017 01:29:12</publishTime>
+    </File>
+    <File Include="Web References/arianpal1/PaymentRequestResult.datasource">
+      <publishTime>02/04/2017 01:29:12</publishTime>
+    </File>
+    <File Include="Web References/arianpal1/Reference.map">
+      <publishTime>02/04/2017 01:29:10</publishTime>
+    </File>
+    <File Include="Web References/arianpal1/VerifyPaymentResult.datasource">
+      <publishTime>02/04/2017 01:29:12</publishTime>
+    </File>
+    <File Include="Web References/com.arianpal.merchant/PaymentRequestResult.datasource">
+      <publishTime>02/04/2017 02:18:55</publishTime>
+    </File>
+    <File Include="Web References/com.arianpal.merchant/Reference.map">
+      <publishTime>02/04/2017 01:28:34</publishTime>
+    </File>
+    <File Include="Web References/com.arianpal.merchant/VerifyPaymentResult.datasource">
+      <publishTime>02/04/2017 02:18:55</publishTime>
+    </File>
     <File Include="Web.config">
-      <publishTime>01/31/2017 18:10:03</publishTime>
+      <publishTime>02/04/2017 01:42:51</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -5,5 +5,8 @@
     <Setting Name="CarProject_arianpal_WebService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://merchant.arianpal.com/WebService.asmx</Value>
     </Setting>
+    <Setting Name="CarProject_com_arianpal_merchant_WebService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://merchant.arianpal.com/WebService.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

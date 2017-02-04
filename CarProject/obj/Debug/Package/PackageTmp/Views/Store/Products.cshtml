@@ -39,9 +39,13 @@
 <div id="top_LocationNavigation_likedislikecount">
     <div id="top_LocationNavigation">
         <a href="/ProductsList">قطعات یدکی</a> <span class="gia-left"></span>
-        <a href="#">@product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName</a> <span class="gia-left"></span>
-        <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = product.ProductCars.First().Car.CarsId, info1 = product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName, info2 = product.ProductCars.First().Car.CarModel.CarModelName })">@product.ProductCars.First().Car.CarModel.CarModelName</a><span class="gia-left"></span>
-        <a href="#">@product.ProductName</a>
+        @if (product.ProductCars.Any())
+        {
+            <a href="#">@product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName</a>
+            <span class="gia-left"></span>
+            <a href="@Url.RouteUrl("infoRoute", new {controller = "Cars", action = "Car", id = product.ProductCars.First().Car.CarsId, info1 = product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName, info2 = product.ProductCars.First().Car.CarModel.CarModelName})">@product.ProductCars.First().Car.CarModel.CarModelName</a>
+            <span class="gia-left"></span>
+        }<a href="#">@product.ProductName</a>
     </div>
 
     <div id="top_likedisklikecount" dir="ltr">
@@ -89,27 +93,37 @@
     </div>
 
     <div id="CarDetials">
-        <div id="CarDetails_NameAndYear" class="orangeback">
-            <section>@product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName @product.ProductCars.First().Car.CarModel.CarModelName @product.ProductName</section>
-        </div>
-
+        @if (product.ProductCars.Any())
+        {
+            <div id="CarDetails_NameAndYear" class="orangeback">
+                <section>@product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName @product.ProductCars.First().Car.CarModel.CarModelName @product.ProductName</section>
+            </div>
+        }
         <div id="CarDetails_usercar_Troubleshooting">
             <table>
                 <tr>
                     <th>قیمت</th>
-                    <td>@if (product.ProductPrices.Any()) { Write(string.Format("{0:#,###}", product.ProductPrices.Last().ProductPrice1)); }
+                    <td>@if (product.ProductPrices.Any())
+                        {
+                            Write(string.Format("{0:#,###}", product.ProductPrices.Last().ProductPrice1));
+                        }
                         else
-                        { <span>0</span>} تومان</td>
+                        {
+                            <span>0</span>} تومان</td>
                 </tr>
                 <tr>
                     <th>هزینه نصب در محل</th>
-                    <td>@if (product.ProductPrices.Any()) { Write(string.Format("{0:#,###}", product.ProductPrices.Last().InstallPrice)); }
+                    <td>@if (product.ProductPrices.Any())
+                        {
+                            Write(string.Format("{0:#,###}", product.ProductPrices.Last().InstallPrice));
+                        }
                         else
-                        { <span>0</span>} تومان</td>
+                        {
+                            <span>0</span>} تومان</td>
                 </tr>
             </table>
 
-            <a onclick="AddToCart2('@product.ProductId','@CarProject.Models.Store.CartUsefull.Basket_ItemType.Product','@CarProject.Models.Store.CartUsefull.BasketImte_PriceFlag.Product_PriceOnly')" id="btnAddToCart">افزودن سبد خرید</a>
+            <a onclick="AddToCart2('@product.ProductId', '@CarProject.Models.Store.CartUsefull.Basket_ItemType.Product', '@CarProject.Models.Store.CartUsefull.BasketImte_PriceFlag.Product_PriceOnly')" id="btnAddToCart">افزودن سبد خرید</a>
         </div>
 
 
@@ -126,8 +140,8 @@
                             {
                                 src = item.CarImages[0];
                             }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
-                                <img src="@Url.Content(src)" alt="" />
+                            <a href="@Url.RouteUrl("infoRoute", new {controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim()})" class="item">
+                                <img src="@Url.Content(src)" alt=""/>
                                 <span>@item.CarModel.CarBrand.CarBrandName  @item.CarModel.CarModelName</span>
                             </a>
                         }
@@ -143,8 +157,10 @@
 </div>
 
 <div id="CarDifention">
-    <h3>بررسی @product.ProductName @product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName @product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName</h3>
-    <p>@Html.Raw(product.ProductReview.ProductReview1)</p>
+    @if (product.ProductCars.Any())
+    {
+        <h3>بررسی @product.ProductName @product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName @product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName</h3>
+    } <p>@Html.Raw(product.ProductReview.ProductReview1)</p>
 </div>
 
  
