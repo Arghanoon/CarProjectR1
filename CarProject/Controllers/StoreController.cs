@@ -762,6 +762,47 @@ namespace CarProject.Controllers
             return View(id);
         }
         [HttpPost]
+        public ActionResult ServicePackView(int id, FormCollection form)
+        {
+            if (Areas.Users.Controllers.profileController.GetCurrentLoginedUser == null)
+                return RedirectToAction("ServiceView", new { id = id });
+
+
+            ViewBag.error = new Dictionary<string, string>();
+            if (form.AllKeys.Contains("SendACommentRequest"))
+            {
+                if (form["comment"] == "")
+                    ViewBag.error["comment"] = "پیام وارد نشده است";
+
+                if (form["g-recaptcha-response"] == "")
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
+                else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))
+                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد شده صحیح نیست";
+
+                if (((Dictionary<string, string>)ViewBag.error).Count == 0)
+                {
+                    var dbs = new DBSEF.CarAutomationEntities();
+                    int rootid = 0;
+                    int.TryParse(form["responsecommentid"], out rootid);
+
+                    dbs.AutoServicePackUserComments.Add(new DBSEF.AutoServicePackUserComment
+                    {
+                        AutoServicePackID = id,
+                        UserId = Areas.Users.Controllers.profileController.GetCurrentLoginedUser.UserId,
+                        Comment = form["comment"],
+                        DateTime = DateTime.Now,
+                        rootAutoServicePackUserCommentsId = ((rootid == 0) ? null : (int?)rootid)
+                    });
+
+                    dbs.SaveChanges();
+                    ViewBag.error["success"] = "پیام شما با موفقیت ثبت شد ";
+                }
+            }
+
+            var model = new Areas.Admin.Models.Cars.CarsModel(id);
+            return View(model);
+        }
+        [HttpPost]
         public int ServicePackView_makePopular(int id)
         {
             if (Session["LikedCarAutoServicesPackContainerSession"] != null && Session["LikedCarAutoServicesPackContainerSession"] is List<int> && ((List<int>)Session["LikedCarAutoServicesPackContainerSession"]).Contains(id))
@@ -769,7 +810,7 @@ namespace CarProject.Controllers
 
             var dbs = new DBSEF.CarAutomationEntities();
             int res = 0;
-            if (dbs.AutoServicePacks.Count(p => p.AutoServicePackId == id) > 0)
+            if (dbs.ServicesPackToViews.Count(p => p.ServicesPackId == id) > 0)
             {
                 var x = dbs.ServicesPackToViews.FirstOrDefault(p => p.ServicesPackId == id);
                 if (x != null)

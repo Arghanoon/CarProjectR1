@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E3200A96-1EF4-4265-9DFF-B90A260DA791}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CarProject</RootNamespace>
@@ -149,78 +149,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\arianpalWebservice\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\arianpal1\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\com.arianpal.merchant\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Content Include="App_Code\EXTS.cs" />
-    <Content Include="App_Code\ErrorHandler.cs" />
-    <Compile Include="App_extension\StringAddRoutes.cs" />
-    <Compile Include="App_GlobalResources\Resource1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource1.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\CarsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
-    <Compile Include="Areas\Admin\Controllers\FileManagerController.cs" />
-    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\StoreController.cs" />
-    <Compile Include="Areas\Admin\Controllers\TroubleshootingController.cs" />
-    <Compile Include="Areas\Admin\Models\Cars\CarsModel.cs" />
-    <Compile Include="Areas\Admin\Models\Dashboard\Country.cs" />
-    <Compile Include="Areas\Admin\Models\Dashboard\DashBoardController.cs" />
-    <Compile Include="Areas\Admin\Models\Dashboard\MailsMessage_Marketing_Model.cs" />
-    <Compile Include="Areas\Admin\Models\News\CategoryModel.cs" />
-    <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
-    <Compile Include="Areas\Admin\Models\Store\AutoServiceCategory.cs" />
-    <Compile Include="Areas\Admin\Models\Store\Category.cs" />
-    <Compile Include="Areas\Admin\Models\Store\DayOfTimeModel.cs" />
-    <Compile Include="Areas\Admin\Models\Store\ProductDiscountModel.cs" />
-    <Compile Include="Areas\Admin\Models\Store\ProductsModel.cs" />
-    <Compile Include="Areas\Admin\Models\Store\ServicePacks.cs" />
-    <Compile Include="Areas\Admin\Models\Store\Services.cs" />
-    <Compile Include="Areas\Admin\Models\Store\StoreMVC.cs" />
-    <Compile Include="Areas\Admin\Models\Troubleshooting\TSModel.cs" />
-    <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
-    <Compile Include="Areas\Users\Models\Dashboard\PersonCarsModel.cs" />
-    <Compile Include="Areas\Users\UsersCLS\Filters.cs" />
-    <Compile Include="Areas\Users\Controllers\profileController.cs" />
-    <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
-    <Compile Include="Areas\Users\UsersCLS\Notifications\UserCarsNotifications.cs" />
-    <Compile Include="CLS\Filters.cs" />
-    <Compile Include="CLS\MailsServers\Mails.cs" />
-    <Compile Include="CLS\SearchClass.cs" />
-    <Compile Include="CLS\SearchEngine\SearchLogic.cs" />
-    <Compile Include="CLS\Searchs\CarsSearchLogic.cs" />
-    <Compile Include="CLS\Searchs\ProductSearchModel.cs" />
-    <Compile Include="CLS\Searchs\SearchModel.cs" />
-    <Compile Include="CLS\TroubleShootModel.cs" />
-    <Compile Include="CLS\Usefulls.cs" />
-    <Compile Include="Controllers\CarsController.cs" />
-    <Compile Include="Controllers\DefaultController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
-    <Compile Include="Controllers\NewsController.cs" />
-    <Compile Include="Controllers\StoreController.cs" />
-    <Compile Include="Controllers\TroubleshootingController.cs" />
     <Compile Include="DBSEF\AirConditioningSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -237,6 +165,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\AutoServicePack.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\AutoServicePackUserComment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\AutoServicesUserComment.cs">
@@ -347,7 +278,6 @@
     <Compile Include="DBSEF\DaysOfWeek.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBSEF\DBSEnums.cs" />
     <Compile Include="DBSEF\DetailedBrakeSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -474,9 +404,6 @@
     <Compile Include="DBSEF\SteeringSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBSEF\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="DBSEF\TimeOfDay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -492,6 +419,79 @@
     <Compile Include="DBSEF\UserRole.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\arianpalWebservice\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\arianpal1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\com.arianpal.merchant\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Content Include="App_Code\EXTS.cs" />
+    <Content Include="App_Code\ErrorHandler.cs" />
+    <Compile Include="App_extension\StringAddRoutes.cs" />
+    <Compile Include="App_GlobalResources\Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CarsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FileManagerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StoreController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TroubleshootingController.cs" />
+    <Compile Include="Areas\Admin\Models\Cars\CarsModel.cs" />
+    <Compile Include="Areas\Admin\Models\Dashboard\Country.cs" />
+    <Compile Include="Areas\Admin\Models\Dashboard\DashBoardController.cs" />
+    <Compile Include="Areas\Admin\Models\Dashboard\MailsMessage_Marketing_Model.cs" />
+    <Compile Include="Areas\Admin\Models\News\CategoryModel.cs" />
+    <Compile Include="Areas\Admin\Models\News\Newsmodel.cs" />
+    <Compile Include="Areas\Admin\Models\Store\AutoServiceCategory.cs" />
+    <Compile Include="Areas\Admin\Models\Store\Category.cs" />
+    <Compile Include="Areas\Admin\Models\Store\DayOfTimeModel.cs" />
+    <Compile Include="Areas\Admin\Models\Store\ProductDiscountModel.cs" />
+    <Compile Include="Areas\Admin\Models\Store\ProductsModel.cs" />
+    <Compile Include="Areas\Admin\Models\Store\ServicePacks.cs" />
+    <Compile Include="Areas\Admin\Models\Store\Services.cs" />
+    <Compile Include="Areas\Admin\Models\Store\StoreMVC.cs" />
+    <Compile Include="Areas\Admin\Models\Troubleshooting\TSModel.cs" />
+    <Compile Include="Areas\Users\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Users\Models\Dashboard\PersonCarsModel.cs" />
+    <Compile Include="Areas\Users\UsersCLS\Filters.cs" />
+    <Compile Include="Areas\Users\Controllers\profileController.cs" />
+    <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
+    <Compile Include="Areas\Users\UsersCLS\Notifications\UserCarsNotifications.cs" />
+    <Compile Include="CLS\Filters.cs" />
+    <Compile Include="CLS\MailsServers\Mails.cs" />
+    <Compile Include="CLS\SearchClass.cs" />
+    <Compile Include="CLS\SearchEngine\SearchLogic.cs" />
+    <Compile Include="CLS\Searchs\CarsSearchLogic.cs" />
+    <Compile Include="CLS\Searchs\ProductSearchModel.cs" />
+    <Compile Include="CLS\Searchs\SearchModel.cs" />
+    <Compile Include="CLS\TroubleShootModel.cs" />
+    <Compile Include="CLS\Usefulls.cs" />
+    <Compile Include="Controllers\CarsController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\TroubleshootingController.cs" />
+    <Compile Include="DBSEF\DBSEnums.cs" />
     <Compile Include="Models\Home\ContactUsMessageModel.cs" />
     <Compile Include="Models\News\ContentCommentModel.cs" />
     <Compile Include="Models\Store\CartUsefull.cs" />
@@ -507,7 +507,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Areas\Admin\Files\Images\back.jpg" />
-    <Content Include="Areas\Admin\Files\Images\stamp.png" />
     <Content Include="Areas\Admin\Files\Images\SignupBack.jpg" />
     <Content Include="Areas\Admin\Files\Images\ratingback.png" />
     <Content Include="Areas\Admin\Files\Images\user.png" />
@@ -526,16 +525,6 @@
     <Content Include="Areas\Users\resources\Styles\Default\Default.css" />
     <Content Include="Areas\Users\resources\Styles\Default\Default2.css" />
     <Content Include="Areas\Users\resources\Styles\Default\Default2.js" />
-    <Content Include="DBSEF\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DBSEF\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\SliderItemShow.css" />
@@ -847,6 +836,25 @@
     <Content Include="Service References\arianpalWebservice\CarProject.arianpalWebservice.VerifyPaymentResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <EntityDeploy Include="DBSEF\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DBSEF\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBSEF\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="DBSEF\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Admin\Views\Store\AutoServicePackUserComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Store\AutoServicePackUserComments_ShowAndReply.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -1114,18 +1122,6 @@
     <Content Include="Areas\Admin\Views\Store\AutoServiceCategoryManagment_Update.cshtml" />
     <Content Include="Areas\Admin\Views\Store\AutoServicesUserComments.cshtml" />
     <Content Include="Areas\Admin\Views\Store\AutoServicesUserComments_ShowAndReply.cshtml" />
-    <EntityDeploy Include="DBSEF\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DBSEF\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
-    <Content Include="DBSEF\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
     <Fakes Include="Fakes\Devart.Data.SqlServer.Linq.fakes" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -1142,7 +1138,6 @@
     <Content Include="Views\Store\Products.cshtml" />
     <Content Include="Views\Store\ProductsList.cshtml" />
     <Content Include="Views\Store\ServiceView.cshtml" />
-    <Content Include="Views\Store\ServicePackView_13951112_0659.cshtml" />
     <Content Include="Views\Store\Cart.cshtml" />
     <Content Include="Views\Store\Cart_CartConfirmAddress.cshtml" />
     <Content Include="Views\Store\SelectePaymentType.cshtml" />

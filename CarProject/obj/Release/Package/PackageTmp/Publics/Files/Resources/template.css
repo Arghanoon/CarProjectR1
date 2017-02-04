@@ -1,0 +1,111 @@
+﻿* {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:yekan;
+    font-size:97%;
+}
+body {
+    direction:rtl;
+}
+
+
+/*---------------------------------Inputs-----------------------------*/
+
+input,select,textarea {
+    border:thin solid #888;
+    background:white;
+    border-radius:2px;
+    padding:0 5px;
+}
+option {
+    padding:0 5px;
+}
+
+input[type=radio], input[type=checkbox] {
+    display: none;
+}
+
+    input[type=radio] + label:before {
+        font-family:giadmin;
+	    display:inline-block;
+	    margin:0 3px;
+	    direction:ltr;
+        content:'\005B';
+    }
+    input[type=radio]:checked + label:before {
+        content: '\005C';
+    }
+
+    input[type=checkbox] + label:before {
+        font-family:giadmin;
+	    display:inline-block;
+	    margin:0 3px;
+	    direction:ltr;
+        content:'\0057';
+    }
+    input[type=checkbox]:checked + label:before {
+        content: '\0058';
+    }
+
+
+a {
+    display: inline-block;
+    color: #777;
+    text-decoration: none;
+    margin:0 3px;
+}
+
+    a:hover {
+        color: #000;
+        text-shadow:0 0 1px #777;
+    }
+    a:active {
+        text-shadow: none;
+    }
+
+
+/*--------------Tables----------------*/
+.infoTable {
+    width:100%;
+    margin:5px;
+    border:thin solid #777;
+    border-collapse:collapse;
+}
+
+    .infoTable th {
+        text-align:right;
+        background:#eaeaea;
+        white-space:nowrap;
+        vertical-align:text-top;
+    }
+
+    .infoTable th, .infoTable td {
+        border:thin solid #aaa;
+        padding:2px 5px;
+    }
+    .infoTable td {
+        width:100%;
+    }
+
+
+.grid1 {
+    width:100%;
+}
+    .grid1 thead th {
+        background:#888;
+        color:#fff;
+        z-index: -1;
+    }
+
+    .grid1 th, .grid1 td {
+        border: thin solid #2f2f2f;
+        text-align: center;
+        padding:0 5px;
+    }
+
+    .grid1 tbody tr:hover td {
+        background: #e0e0e0;
+        border: thin solid #2f2f2f;
+    }

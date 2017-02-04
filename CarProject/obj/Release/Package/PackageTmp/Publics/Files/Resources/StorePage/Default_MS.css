@@ -1,0 +1,30 @@
+#header1 {
+    flex-direction: column-reverse;
+}
+
+#section1part1munuIcon {
+    display: inherit;
+}
+    #header1 #section1 {
+        width: 100%;
+        display:flex;
+        justify-content: space-between;
+        align-items:center;
+    }
+        #header1 #section1 #part1 {
+            position:absolute;
+            background:white;
+            border:thin solid #888;
+            z-index:99999;
+
+            top:100%; right:0;
+            display:none; flex-direction:column;
+            padding:5px;
+        }
+            #header1 #section1 #part1.show {
+                display: flex;
+            }
+        #header1 #section1 #part2 {
+            width: 100% !important;
+        }
+

@@ -1,0 +1,246 @@
+﻿@{
+    ViewBag.Title = "تعریف پرسش جدید";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+}
+@using CarProject.App_Code
+@model CarProject.Areas.Admin.Models.Troubleshooting.TSModel
+
+<div>
+    <h3>تعریف سوال جدید:</h3>
+    <hr />
+
+    <div>
+        <form method="post" onsubmit="submitFunction(event)">
+            <div class="inputsContainer">
+                @Html.HiddenFor(m => m.Troubleshooting.TroubleshootinParentId)
+                @Html.HiddenFor(m => m.ModelType)
+                @Html.HiddenFor(m=>m.Troubleshooting.Cars)
+
+                @if (Model.Troubleshooting.TroubleshootinParentId != null)
+                {
+                    var parrentAnswer = dbs.Troubleshootings.FirstOrDefault(t => t.TroubleshootingId == Model.Troubleshooting.TroubleshootinParentId);
+                    if (parrentAnswer != null)
+                    {
+                        <div class="input">
+                            <label>پرسش قبلی</label>
+                            <section class="inputElement">
+                                @parrentAnswer.Subject
+                            </section>
+                        </div>
+                    }
+                }
+
+                @Html.input_TextBox(m => m.Troubleshooting.Subject, "عنوان پرسش")
+                @Html.input_TextArea(m => m.Troubleshooting.Describe, "توضیحات درباره پرسش")
+
+                <div class="input">
+                    <label>روش انجام فرایند</label>
+                    <section class="inputElement" id="InsertTypes">
+                        <input type="radio" name="InsertType" value="1" id="InsertType1" checked="checked" /><label for="InsertType1">ثبت و اضافه کردن پرسش بعدی به پرسش جاری</label>
+                        <input type="radio" name="InsertType" value="2" id="InsertType2" /><label for="InsertType2">ثبت و اضافه کردن پرسش بعدی به ریشه پرسش جاری</label>
+                        <input type="radio" name="InsertType" value="3" id="InsertType3" /><label for="InsertType3">ثبت و اضافه کردن پاسخ به پرسش جاری</label>
+                    </section>
+                </div>
+            </div>
+            @if (Model.Troubleshooting.TroubleshootinParentId == null)
+            {
+                <table class="grid1">
+                    <thead>
+                        <tr>
+                            <th colspan="4">لیست خودرو ها</th>
+                        </tr>
+                        <tr>
+                            <th>شماره</th>
+                            <th>برند</th>
+                            <th>مدل</th>
+                            <th>حذف</th>
+                        </tr>
+                    </thead>
+                    <tbody id="selectedProduct">
+                        @if (Model.mCars != null)
+                        {
+                            foreach (var item in Model.mCars)
+                            {
+                                var pr = dbs.Cars.FirstOrDefault(p => p.CarsId == item);
+                                if (pr == null)
+                                { continue; }
+                                <tr>
+                                    <td><input type="hidden" value="@item" id="@pr.CarsId" /><span>@pr.CarsId</span></td>
+                                    <td>@pr.CarModel.CarBrand.CarBrandName</td>
+                                    <td>@pr.CarModel.CarModelName</td>
+                                    <td><input type="button" value="del" onclick="removeFromSelectedProduct(event)" /></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+                <hr />
+                <table class="grid1">
+                    <thead>
+                        <tr>
+                            <th colspan="4">جستجو میان خودرو ها </th>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <section id="serachContianer">
+                                    <input type="text" id="ProductsSearchTextBox" placeholder="جستجو در میان خودرو ها ..." />
+                                    <button type="button" onclick="retriveProductsBySearch()"><span class="gia-search"></span></button>
+                                </section>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>شماره</th>
+                            <th>برند</th>
+                            <th>مدل</th>
+                            <th>حذف</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="searchResultProducts"></tbody>
+                </table>
+            }
+            <div class="inputAction">
+                <input type="submit" value="ثبت" class="button green" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section style
+{
+    <style>
+        #InsertTypes label {
+            display: block;
+        }
+
+        #InsertTypes input[type=radio] {
+            display: none;
+        }
+
+            #InsertTypes input[type=radio] + label:before {
+                font-family: giadmin;
+                display: inline-block;
+                margin: 0 3px;
+                direction: ltr;
+                content: '\005B';
+            }
+
+            #InsertTypes input[type=radio]:checked + label:before {
+                content: '\005C';
+            }
+
+        #serachContianer {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            width: 100%;
+            background: white;
+            border: thin solid #d4d4d4;
+        }
+
+            #serachContianer input {
+                border: none;
+                flex: 1;
+                background: none;
+                font-family: yekan;
+                padding: 5px;
+            }
+
+            #serachContianer button {
+                border: none;
+                color: white;
+                background: black;
+            }
+    </style>
+}
+@section script
+{
+    <script>
+        function submitFunction(e) {
+            e.preventDefault();
+
+            $("#selectedProduct input[type=hidden]").each(function(index, element) {
+                $(element).attr('name', 'mCars[' + index + ']');
+            });
+
+            e.target.submit();
+        }
+        function postthis() {
+            
+        }
+        function retriveProductsBySearch() {
+            var txtsearch = document.getElementById("ProductsSearchTextBox").value;
+            var notin = currentSelectedProducts();
+
+
+            $.post('/Admin/Troubleshooting/JsonCarsearch', { "search": txtsearch, "notinId": notin }, function(res) {
+                var cont = document.getElementById("searchResultProducts");
+                cont.innerHTML = "";
+
+                for (i in res) {
+                    tr = document.createElement("tr");
+
+                    tnum = document.createElement("td");
+                    tnum.className = "tcenter min_nw";
+                    tnum.innerHTML = "<input type='hidden' value='" + res[i]['id'] + "' /><span>" + res[i]["num"] + "</span>";
+                    tr.appendChild(tnum);
+
+                    tname = document.createElement("td");
+                    tname.className = "tright";
+                    tname.innerHTML = res[i]["name"];
+                    tr.appendChild(tname);
+
+                    tcat = document.createElement('td');
+                    tcat.className = "tcenter min_nw";
+                    tcat.innerHTML = res[i]["cat"];
+                    tr.appendChild(tcat);
+
+                    tact = document.createElement("td");
+                    inpbtnadd = document.createElement("input");
+                    inpbtnadd.type = "button";
+                    inpbtnadd.value = "+";
+                    inpbtnadd.onclick = function(e) { AddToSelectedProducts(e); };
+                    tact.appendChild(inpbtnadd);
+                    tr.appendChild(tact);
+
+
+                    cont.appendChild(tr);
+
+                }
+            });
+        }
+
+        function AddToSelectedProducts(e) {
+            tr = fountTrFather(e.target);
+            e.target.value = "del";
+            e.target.onclick = function(e) { removeFromSelectedProduct(e); };
+            document.getElementById("selectedProduct").appendChild(tr);
+        }
+
+        function removeFromSelectedProduct(e) {
+            tr = fountTrFather(e.target);
+            e.target.value = "+";
+            e.target.onclick = function(e) { AddToSelectedProducts(e); };
+            document.getElementById("searchResultProducts").appendChild(tr);
+        }
+
+        function currentSelectedProducts() {
+            res = [];
+            $('#selectedProduct input[type=hidden]').each(function(indx, elm) {
+                res.push(elm.value);
+            });
+
+            return res;
+        }
+
+        function fountTrFather(elm) {
+            while (elm.tagName.toLowerCase() != "tr" && elm != null && elm != "undefined") {
+                elm = elm.offsetParent;
+            }
+
+            return elm;
+        }
+    </script>
+}

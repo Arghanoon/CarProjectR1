@@ -1,0 +1,24 @@
+﻿@using CarProject.App_Code
+@{
+    ViewBag.Title = "ویرایش شرکت توزیع کننده";
+}
+@model CarProject.Areas.Admin.Models.Dashboard.ManufactureModel
+
+<div id="CompaniInsertSection">
+    <form method="post">
+        
+        <div class="inputsContainer">
+            @Html.HiddenFor(m => m.Manufacture.ManufactureId)
+            @Html.input_TextBox(m => m.Manufacture.ManufactureName, "نام شرکت")
+            @Html.input_ComboBox( m => m.Manufacture.CountryId, "کشور", Model.dbs.Countries.ToDictionary(c => c.CountryId, c => c.CountryShortName + " - " + c.CountryLongName))
+            @Html.input_TextBox(m => m.Manufacture.ManufacturePhon, "تلفن شرکت")
+            @Html.input_TextArea(m => m.Manufacture.Address, "آدرس شرکت")
+
+        </div>
+
+        <div class="inputAction">
+            <input type="submit" value="ویرایش شرکت"  class="button green"/>
+        </div>
+
+    </form>
+</div>
