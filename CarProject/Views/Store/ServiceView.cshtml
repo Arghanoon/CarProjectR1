@@ -175,7 +175,7 @@
                                             <strong>@item.ProductName</strong><br />
                                             <small>@item.Category.CategoryName</small><br/>
                                             
-                                            <small class="price">@item.ProductPrices.Last().ProductPrice1 تومان</small>
+                                            <small class="price">@if(item.ProductPrices.Any()){@item.ProductPrices.Last().ProductPrice1}else{<span>0</span>} تومان</small>
                                         </section>
                                     </a>
                                 }
@@ -203,7 +203,7 @@
                 <th>قیمت سرویس</th>
                 <td>@service.Price تومان</td>
             </tr>
-            <tr>
+            @*<tr>
                 <th>سرویس پک های شامل این سرویس</th>
                 <td>
                     <div id="ServicesLinkContainer">
@@ -217,8 +217,7 @@
                         }
                     </div>
                 </td>
-            </tr>
-
+            </tr>*@
             <tr>
                 <th colspan="2" style="text-align:center;">
                     <a href="javascript:void();" onclick="AddToCart('@id','@CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService')" class="gia-cart">اضافه کردن سبد خرید</a>

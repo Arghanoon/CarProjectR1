@@ -1,27 +1,26 @@
 ﻿@{
-    ViewBag.Title = "نمایش اطلاعات سرویس";
+    ViewBag.Title = "نمایش اطلاعات سرویس پک";
 
     int id = 0;
     int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
 
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var pack = dbs.AutoServicePacks.FirstOrDefault(s => s.AutoServicePackId == id);
-    var services = pack.AutoServices.Select(s => s.AutoService); ;
-
-    IQueryable<CarProject.DBSEF.AutoServiceCar> cars = null;
-    foreach (var item in pack.AutoServices)
+    var services = pack.AutoServices.Select(c => c.AutoService);
+    IQueryable<CarProject.DBSEF.Car> Car = null;
+    foreach (var item in services)
     {
-        if(cars == null)
-        { cars = item.AutoService.AutoServiceCars.AsQueryable(); }
+        if (Car == null)
+        { Car = item.AutoServiceCars.Select(c => c.Car).AsQueryable(); }
         else
-        { cars = cars.Concat(item.AutoService.AutoServiceCars); }
+        { Car.Concat(item.AutoServiceCars.Select(c => c.Car)); }
     }
-    var Car = cars.First();
+    
 
     var rand = new Random();
 
     var viewservic = dbs.ServicesPackToViews.FirstOrDefault(c => c.ServicesPackId == id);
-    if(viewservic == null)
+    if (viewservic == null)
     {
         viewservic = new CarProject.DBSEF.ServicesPackToView { ServicesPackId = id, Viewd = 1 };
         dbs.ServicesPackToViews.Add(viewservic);
@@ -36,9 +35,8 @@
 
 <div id="top_LocationNavigation_likedislikecount">
     <div id="top_LocationNavigation">
-        <a href="/Store/ServicesList">خدمات</a> <span class="gia-left"></span>
-        <a href="/Cars?CarBrand=@Car.Car.CarModel.CarBrandId">@Car.Car.CarModel.CarBrand.CarBrandName</a> <span class="gia-left"></span>
-        <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Car.Car.CarsId, info1 = Car.Car.CarModel.CarBrand.CarBrandName, info2 = Car.Car.CarModel.CarModelName })">@Car.Car.CarModel.CarModelName</a>
+        <a href="/Store/ServicesList">سرویس ها</a> <span class="gia-left"></span>
+        <a href="#">@pack.AutoServicePackName</a>
     </div>
 
     <div id="top_likedisklikecount" dir="ltr">
@@ -89,15 +87,15 @@
     <div id="CarDetials">
         <div id="CarDetails_NameAndYear" class="orangeback">
             <section>@pack.AutoServicePackName</section>
-            <section>@Car.Car.CarModel.CarBrand.CarBrandName @Car.Car.CarModel.CarModelName</section>
+
         </div>
 
-       
 
-       @if(services.Any())
+
+        @if (services.Any())
         {
             <div id="CarDetails_CarServices" class="slideterItemShowContianer">
-                <h3 class="title">سرویس های شامل سرویس پک @pack.AutoServicePackName</h3>
+                <h3 class="title">سرویس های موجود در بسته <q><small>@pack.AutoServicePackName</small></q></h3>
                 <div class="itemsContainerBack">
                     <div class="itemsContainer">
                         @foreach (var item in services)
@@ -121,13 +119,13 @@
         }
 
 
-        @if (cars.Any())
+        @if (Car != null && Car.Any())
         {
             <div id="CarDetails_CarProducts" class="slideterItemShowContianer">
-                <h3 class="title">خودرهای مرتبط با سرویس @pack.AutoServicePackName</h3>
+                <h3 class="title">خودرهای مرتبط با سرویس <q><small>@pack.AutoServicePackName</small></q></h3>
                 <div class="itemsContainerBack">
                     <div class="itemsContainer">
-                        @foreach (var item in cars.Select(c => c.Car))
+                        @foreach (var item in Car)
                         {
                             var src = "~/Publics/Gallery/ProductImages/NotFound.png";
                             if (item.CarImages.Length > 0)
@@ -147,6 +145,7 @@
             </div>
         }
 
+        
     </div>
 </div>
 
@@ -155,32 +154,25 @@
         <h3>اطلاعات سرویس</h3>
         <table id="tblinfo">
             <tr>
-                <th>نام سرویس پک</th>
+                <th>نام سرویس</th>
                 <td>@pack.AutoServicePackName</td>
             </tr>
             <tr>
                 <th>قیمت سرویس</th>
                 <td>@pack.PackPrice تومان</td>
             </tr>
-            @*<tr>
-                <th>سرویس های موجود در این سرویس پک</th>
-                <td>
-                    <div id="ServicesLinkContainer">
-                        @{
-                            foreach (var item in services)
-                            {
-                                <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@item.Price تومان</small></a>
-                            }
-                        }
-                    </div>
-                </td>
-            </tr>*@
+           
+            <tr>
+                <th colspan="2" style="text-align:center;">
+                    <a href="javascript:void();" class="gia-cart" onclick="AddToCart('@id','@CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoServicePack')">اضافه کردن سبد خرید</a>
+                </th>
+            </tr>
         </table>
     </div>
 </div>
 
 
-@if(CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
+@if (CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
 {
     <div id="usersCommentsSection">
         <h3 style="align-self:flex-start;">نظرات کاربران</h3>
@@ -203,17 +195,21 @@
                     </section>
                     <section class="input">
                         <label> پیام</label>
-                        <textarea  name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
-                        <span>@try
-                              { @ViewBag.error["comment"] }
-                              catch { }</span>
+                        <textarea name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                        <span>
+                            @try
+                            { @ViewBag.error["comment"] }
+                            catch { }
+                        </span>
                     </section>
                 </div>
                 <center>
                     <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
-                    <span style="color:red">@try
-                                            { @ViewBag.error["g-recaptcha-response"] }
-                                            catch { }</span>
+                    <span style="color:red">
+                        @try
+                        { @ViewBag.error["g-recaptcha-response"] }
+                        catch { }
+                    </span>
                 </center>
                 <div class="inputAction">
                     <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
@@ -224,18 +220,18 @@
 }
 
 
-@*<div id="UsersOldComments">
-    @CreateCommentSection(null, service.AutoServiceId, dbs)
+<div id="UsersOldComments">
+    @CreateCommentSection(null, pack.AutoServicePackId, dbs)
 </div>
 
 
 
 @functions{
-    MvcHtmlString CreateCommentSection(int? rootid,int autoserviceid, CarProject.DBSEF.CarAutomationEntities dbs)
+    MvcHtmlString CreateCommentSection(int? rootid, int autoservicPackeid, CarProject.DBSEF.CarAutomationEntities dbs)
     {
         string res = "";
-        
-        foreach (var item in dbs.AutoServicesUserComments.Where(c => c.AutoServicesId == autoserviceid  && c.RootAutoServicesUserCommentsId == rootid))
+
+        foreach (var item in dbs.AutoServicePackUserComments.Where(c => c.AutoServicePackID == autoservicPackeid && c.rootAutoServicePackUserCommentsId == rootid))
         {
             res += string.Format("<div class=\"cmntmessage\">");
             {
@@ -257,7 +253,7 @@
 
                             res += string.Format("<section class=\"commentAction\">");
                             {
-                                res += string.Format("<a class=\"gia-back\" onclick=\"CommentMessageReply('{0}','{1}')\"></a>", item.AutoServicesUserCommentsId, (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+                                res += string.Format("<a class=\"gia-back\" onclick=\"CommentMessageReply('{0}','{1}')\"></a>", item.AutoServicePackUserCommentsId, (item.User == null) ? "خودروکلینیک" : item.User.Uname);
                             }
                             res += "</section>";
                         }
@@ -267,14 +263,14 @@
                 }
                 res += "</div>";
 
-                res += CreateCommentSection(item.AutoServicesUserCommentsId, autoserviceid, dbs);
+                res += CreateCommentSection(item.AutoServicePackUserCommentsId, autoservicPackeid, dbs);
             }
             res += "</div>";
         }
-        
+
         return new MvcHtmlString(res);
     }
-}*@
+}
 
 
 
@@ -286,9 +282,12 @@
 
     <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = pack.AutoServicePackId, info1 = "سرویسها پکها" , info2 = pack.AutoServicePackName }, Request.Url.Scheme)" />
 
-        <link href="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/css.css" rel="stylesheet" />
-        <link href="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/SliderItemShow.css" rel="stylesheet" />
-        <script src="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/SliderItemShow.js"></script>
+    <link href="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/css.css" rel="stylesheet" />
+    <link href="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/SliderItemShow.css" rel="stylesheet" />
+    <script src="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/SliderItemShow.js"></script>
+
+    <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
+    <link href="~/Publics/Files/ControlsPageTemplates/Store/Products/css.css" rel="stylesheet" />
 }
 
 @section script
@@ -298,5 +297,5 @@
 
 @if (Request.Form.AllKeys.Contains("SendACommentRequest"))
 {
-    <script>window.location = "#usersCommentsSection"</script> 
+    <script>window.location = "#usersCommentsSection"</script>
 }
