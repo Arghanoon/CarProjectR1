@@ -72,7 +72,7 @@
         </section>
     </div>
 
-    <form method="post" style="display:flex; flex-direction:row-reverse;" action="http://merchant.arianpal.com/postservice/">
+    <form method="post" style="display:flex; flex-direction:row-reverse;" @*action="http://merchant.arianpal.com/postservice/"*@>
         <input type="text" name="price" value="@TotalPrice"/>
         <input type="hidden" name="ReturnPath" value= "@Url.Action("PaymentCart_Online_BackFromBank", "Store", new { }, Request.Url.Scheme)" />
         <input type="hidden" name="MerchantID" value="4615602" />
@@ -90,19 +90,7 @@
 
 </div>
 
-@section script
-{
-    <script>
-        $(document).bind("contextmenu", function (e) {
-            e.preventDefault();
-        });
-        $(document).keydown(function (e) {
-            if (e.which === 123) {
-                return false;
-            }
-        });
-    </script>
-}
+
 
 @section style
 {

@@ -364,7 +364,7 @@ namespace CarProject.Controllers
            
 
             
-            var r = ws.RequestPayment(MerchantID, Password, price, "", "", "", "", "",
+            var r = ws.RequestPayment(MerchantID, Password, price,"","","","", "00000000",
                 "http://khodroclinic.com/Store/PaymentCart_Online_BackFromBank");
             var rqpm = ws.RequestPayment(MerchantID, Password, price, "کد پرداخت :" + basket.LocalCode,
                 basket.ReciverFullname,
@@ -418,11 +418,12 @@ namespace CarProject.Controllers
                     ModelState.AddModelError("message", "قبلا پرداخت شده است ");
                 else if (v.ResultStatus == arianpal.VerifyResult.InvalidRef)
                     ModelState.AddModelError("message", "شماره رسید قابل قبول نیست ");
-                else if (v.ResultStatus == arianpal.VerifyResult.Success)
-                    ModelState.AddModelError("message", "پرداخت انجام شد ");
+                //else if (v.ResultStatus == arianpal.VerifyResult.Success)
+                //    ModelState.AddModelError("message", "پرداخت انجام شد ");
                 else if (v.ResultStatus == arianpal.VerifyResult.Success) // عملیات تکمیل پرداخت
                 {
                     ModelState.AddModelError("success", "پرداخت با موفقیت انجام شد");
+                    ModelState.AddModelError("success",string.Format("شماره رسید : {0}",refnum));
                 }
             }
             else
@@ -437,12 +438,25 @@ namespace CarProject.Controllers
                 else if (res == -66)
                     ModelState.AddModelError("error", "قبلا پرداخت شده است .");
             }
+            HttpWebRequest wreq = (HttpWebRequest)HttpWebRequest
+.Create("http://merchant.arianpal.com/postservice/?Method=Verify");
+            wreq.Method = "POST";
+            wreq.ContentType = "application/x-www-form-urlencoded";
+            string post = string.Format("MerchantID={0}&Password={1}&Price={2}&RefNum={3}",MerchantID,Password,price, refnum);
+            byte[] bt = UTF8Encoding.UTF8.GetBytes(post);
+            wreq.ContentLength = bt.Length;
+            Stream sr = wreq.GetRequestStream();
+            sr.Write(bt, 0, bt.Length);
+            sr.Close();
+            HttpWebResponse wres = (HttpWebResponse)wreq.GetResponse();
+            string result = new StreamReader(wres.GetResponseStream()).ReadToEnd();
+            Response.Write(result);
             basket.State = (byte)Models.Store.CartUsefull.Basket_State.BuyFinished;
             basket.LocalCode = Guid.NewGuid().ToString();
             basket.FinishDate = DateTime.Now;
             us.UpdateBasket(basket);
             InsertPersonServiceAndServicepacks(us.dbs, basket);
-            
+            ModelState.AddModelError("message",result.ToString());
             return View(basket);
         }
 
