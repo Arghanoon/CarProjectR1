@@ -74,14 +74,14 @@
 
     <form method="post" style="display:flex; flex-direction:row-reverse;" @*action="http://merchant.arianpal.com/postservice/"*@>
         <input type="text" name="price" value="@TotalPrice"/>
-        <input type="hidden" name="ReturnPath" value= "@Url.Action("PaymentCart_Online_BackFromBank", "Store", new { }, Request.Url.Scheme)" />
+        @*<input type="hidden" name="ReturnPath" value= "@Url.Action("PaymentCart_Online_BackFromBank", "Store", new { }, Request.Url.Scheme)" />
         <input type="hidden" name="MerchantID" value="4615602" />
         <input type="hidden" name="Password" value="A97ieHLdJ" />
         <input type="hidden" name="Description" value="افزایش اعتبار کاربری " />
         <input type="hidden" name="Paymenter" value="کاربر " />
         <input type="hidden" name="Email" value="1@1.com" />
         <input type="hidden" name="Mobile" value="000000" />
-        <input type="hidden" name="ResNumber" value="00000000" />
+        <input type="hidden" name="ResNumber" value="00000000" />*@
         <input type="submit" value="تایید و ارسال درخواست به بانک" class="button green" />
         <div style="color:#f00;">
             @Html.ValidationMessage("error")
