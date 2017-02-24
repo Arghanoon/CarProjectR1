@@ -1,0 +1,301 @@
+﻿@{
+    ViewBag.Title = "نمایش اطلاعات سرویس پک";
+
+    int id = 0;
+    int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var pack = dbs.AutoServicePacks.FirstOrDefault(s => s.AutoServicePackId == id);
+    var services = pack.AutoServices.Select(c => c.AutoService);
+    IQueryable<CarProject.DBSEF.Car> Car = null;
+    foreach (var item in services)
+    {
+        if (Car == null)
+        { Car = item.AutoServiceCars.Select(c => c.Car).AsQueryable(); }
+        else
+        { Car.Concat(item.AutoServiceCars.Select(c => c.Car)); }
+    }
+    
+
+    var rand = new Random();
+
+    var viewservic = dbs.ServicesPackToViews.FirstOrDefault(c => c.ServicesPackId == id);
+    if (viewservic == null)
+    {
+        viewservic = new CarProject.DBSEF.ServicesPackToView { ServicesPackId = id, Viewd = 1 };
+        dbs.ServicesPackToViews.Add(viewservic);
+    }
+    else
+    {
+        viewservic.Viewd += 1;
+    }
+    dbs.SaveChanges();
+}
+
+
+<div id="top_LocationNavigation_likedislikecount">
+    <div id="top_LocationNavigation">
+        <a href="/Store/ServicesList">سرویس ها</a> <span class="gia-left"></span>
+        <a href="#">@pack.AutoServicePackName</a>
+    </div>
+
+    <div id="top_likedisklikecount" dir="ltr">
+        <span class="gia-speedometer2" style="font-size:300%;"></span>
+        <div>
+            <a class="gia-like" id="likecountersection" onclick="LikeCurrentCar('@pack.AutoServicePackId')">
+                @if (viewservic.Favorite == null)
+            {<span>0</span>}
+            else
+            {<span>@viewservic.Favorite</span>}
+            </a>
+        </div>
+        <div dir="rtl">
+            <h3>تعداد بازدید</h3>
+            <p>@viewservic.Viewd</p>
+        </div>
+    </div>
+</div>
+
+<div id="CarImagesAndDetailsShowSection">
+    <div id="carImages">
+        @if (pack.AutoServicePackImages.Length > 0)
+        {
+            <div id="carImages_Bigview_Container">
+                <img id="carImages_Bigview" src="@Url.Content(pack.AutoServicePackImages[0])" />
+            </div>
+            <div id="carImages_ImageThumbnails">
+                <a><h3 class="gia-magnifier" style="font-size: 300%;"></h3></a>
+                <div id="carImages_ImageThumbnailscontainer" class="slideterItemShowContianer">
+                    <div class="itemsContainerBack">
+                        <div class="itemsContainer">
+                            @foreach (var item in pack.AutoServicePackImages)
+                            {
+                                <a class="item" onclick="document.getElementById('carImages_Bigview').src = '@Url.Content(item)'">
+                                    <img src="@Url.Content(item)" />
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                    <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                    <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div id="CarDetials">
+        <div id="CarDetails_NameAndYear" class="orangeback">
+            <section>@pack.AutoServicePackName</section>
+
+        </div>
+
+
+
+        @if (services.Any())
+        {
+            <div id="CarDetails_CarServices" class="slideterItemShowContianer">
+                <h3 class="title">سرویس های موجود در بسته <q><small>@pack.AutoServicePackName</small></q></h3>
+                <div class="itemsContainerBack">
+                    <div class="itemsContainer">
+                        @foreach (var item in services)
+                        {
+                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (item.AutoServiceImages.Length > 0)
+                            {
+                                src = item.AutoServiceImages[0];
+                            }
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })" class="item">
+                                <img src="@Url.Content(src)" alt="" />
+                                <span>@item.AutoServiceName</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+            </div>
+        }
+
+
+        @if (Car != null && Car.Any())
+        {
+            <div id="CarDetails_CarProducts" class="slideterItemShowContianer">
+                <h3 class="title">خودرهای مرتبط با سرویس <q><small>@pack.AutoServicePackName</small></q></h3>
+                <div class="itemsContainerBack">
+                    <div class="itemsContainer">
+                        @foreach (var item in Car)
+                        {
+                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (item.CarImages.Length > 0)
+                            {
+                                src = item.CarImages[0];
+                            }
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
+                                <img src="@Url.Content(src)" alt="" />
+                                <span>@item.CarModel.CarBrand.CarBrandName  @item.CarModel.CarModelName</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+            </div>
+        }
+
+        
+    </div>
+</div>
+
+<div id="CarDetailsInformation">
+    <div class="carinfo" data-index="0">
+        <h3>اطلاعات سرویس</h3>
+        <table id="tblinfo">
+            <tr>
+                <th>نام سرویس</th>
+                <td>@pack.AutoServicePackName</td>
+            </tr>
+            <tr>
+                <th>قیمت سرویس</th>
+                <td>@pack.PackPrice تومان</td>
+            </tr>
+           
+            <tr>
+                <th colspan="2" style="text-align:center;">
+                    <a href="javascript:void();" class="gia-cart" onclick="AddToCart('@id','@CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoServicePack')">اضافه کردن سبد خرید</a>
+                </th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+@if (CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
+{
+    <div id="usersCommentsSection">
+        <h3 style="align-self:flex-start;">نظرات کاربران</h3>
+        @try
+        {
+            var msg = ViewBag.error["success"];
+            <section style="color:white; text-shadow:0 0 1px lawngreen; text-align:center;">
+                @msg
+            </section>
+        }
+        catch
+        {
+            <form method="post">
+                <input type="hidden" id="responsecommentid" name="responsecommentid" value="@Request.Form["responsecommentid"]" />
+
+                <div class="inputsContainer">
+                    <section class="input @if (Request.Form.AllKeys.Contains("responsecommentid") && !string.IsNullOrEmpty(Request.Form["responsecommentid"])) { Write("show"); }" id="replayComment">
+                        <label>پاسخ به پیام کاربر</label>
+                        <input type="text" name="usernameCommentReply" id="usernameCommentReply" value="@Request.Form["usernameCommentReply"]" />
+                    </section>
+                    <section class="input">
+                        <label> پیام</label>
+                        <textarea name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                        <span>
+                            @try
+                            { @ViewBag.error["comment"] }
+                            catch { }
+                        </span>
+                    </section>
+                </div>
+                <center>
+                    <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
+                    <span style="color:red">
+                        @try
+                        { @ViewBag.error["g-recaptcha-response"] }
+                        catch { }
+                    </span>
+                </center>
+                <div class="inputAction">
+                    <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
+                </div>
+            </form>
+        }
+    </div>
+}
+
+
+<div id="UsersOldComments">
+    @CreateCommentSection(null, pack.AutoServicePackId, dbs)
+</div>
+
+
+
+@functions{
+    MvcHtmlString CreateCommentSection(int? rootid, int autoservicPackeid, CarProject.DBSEF.CarAutomationEntities dbs)
+    {
+        string res = "";
+
+        foreach (var item in dbs.AutoServicePackUserComments.Where(c => c.AutoServicePackID == autoservicPackeid && c.rootAutoServicePackUserCommentsId == rootid))
+        {
+            res += string.Format("<div class=\"cmntmessage\">");
+            {
+                res += string.Format("<div class=\"messageContent\">");
+                {
+                    res += string.Format("<strong class=\"username\">{0}</strong>", (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+
+                    res += string.Format("<section class=\"commentsection\">");
+                    {
+                        res += string.Format("<section class=\"comment\">{0}</section>", item.Comment);
+
+                        res += string.Format("<section class=\"commentActionAndInfo\">");
+                        {
+                            res += string.Format("<section class=\"commentInfo\">");
+                            {
+                            }
+                            res += "</section>";
+
+
+                            res += string.Format("<section class=\"commentAction\">");
+                            {
+                                res += string.Format("<a class=\"gia-back\" onclick=\"CommentMessageReply('{0}','{1}')\"></a>", item.AutoServicePackUserCommentsId, (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+                            }
+                            res += "</section>";
+                        }
+                        res += "</section>";
+                    }
+                    res += "</section>";
+                }
+                res += "</div>";
+
+                res += CreateCommentSection(item.AutoServicePackUserCommentsId, autoservicPackeid, dbs);
+            }
+            res += "</div>";
+        }
+
+        return new MvcHtmlString(res);
+    }
+}
+
+
+
+
+@section style
+{
+    <meta name="description" content="خدمات خودرو @pack.AutoServicePackName " />
+    <meta name="ROBOTS" content="INDEX, FOLLOW">
+
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = pack.AutoServicePackId, info1 = "سرویسها پکها" , info2 = pack.AutoServicePackName }, Request.Url.Scheme)" />
+
+    <link href="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/css.css" rel="stylesheet" />
+    <link href="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/SliderItemShow.css" rel="stylesheet" />
+    <script src="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/SliderItemShow.js"></script>
+
+    <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
+    <link href="~/Publics/Files/ControlsPageTemplates/Store/Products/css.css" rel="stylesheet" />
+}
+
+@section script
+{
+    <script src="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/scirpt.js"></script>
+}
+
+@if (Request.Form.AllKeys.Contains("SendACommentRequest"))
+{
+    <script>window.location = "#usersCommentsSection"</script>
+}

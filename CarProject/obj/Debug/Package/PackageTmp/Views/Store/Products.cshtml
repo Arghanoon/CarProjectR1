@@ -1,0 +1,371 @@
+﻿@using CarProject.App_Code
+@using CarProject.App_extension
+@using System.IO
+@using System.Net
+@{
+    ViewBag.Title = "نمایش اطلاعات محصول";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var rand = new Random();
+
+    int id = 0;
+    int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out id);
+    //products = products.Where(product => product.IsActive == true);
+    var product = dbs.Products.FirstOrDefault(p => p.ProductId == id);
+
+
+    var producttoviewobj = dbs.ProductToViews.FirstOrDefault(p => p.ProductId == id);
+    if(producttoviewobj == null)
+    {
+        producttoviewobj = dbs.ProductToViews.Add(new CarProject.DBSEF.ProductToView
+        {
+            ProductId = id,
+            Viewd = 1,
+            Favorite = 0
+        });
+
+        dbs.SaveChanges();
+    }
+    else
+    {
+        producttoviewobj.Viewd += 1;
+        dbs.SaveChanges();
+    }
+
+
+}
+
+
+<div id="top_LocationNavigation_likedislikecount">
+    <div id="top_LocationNavigation">
+        <a href="/ProductsList">قطعات یدکی</a> <span class="gia-left"></span>
+        @if (product.ProductCars.Any())
+        {
+            <a href="#">@product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName</a>
+            <span class="gia-left"></span>
+            <a href="@Url.RouteUrl("infoRoute", new {controller = "Cars", action = "Car", id = product.ProductCars.First().Car.CarsId, info1 = product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName, info2 = product.ProductCars.First().Car.CarModel.CarModelName})">@product.ProductCars.First().Car.CarModel.CarModelName</a>
+            <span class="gia-left"></span>
+        }<a href="#">@product.ProductName</a>
+    </div>
+
+    <div id="top_likedisklikecount" dir="ltr">
+        <span class="gia-speedometer2" style="font-size:300%;"></span>
+        <div>
+            <a class="gia-like" id="likecountersection" onclick="LikeCurrentProduct('@product.ProductId')">@if (producttoviewobj.Favorite == null)
+                                      {<span>0</span>}
+                                      else
+                                      {<span>@producttoviewobj.Favorite</span>}</a>
+        </div>
+        <div dir="rtl">
+            <h3>تعداد بازدید</h3>
+            <p>@producttoviewobj.Viewd</p>
+        </div>
+    </div>
+</div>
+
+
+<div id="CarImagesAndDetailsShowSection">
+    <div id="carImages">
+        @if (product.ProductImages.Length > 0)
+        {
+            <div id="carImages_Bigview_Container">
+                <img id="carImages_Bigview" src="@Url.Content(product.ProductImages[0])" />
+            </div>
+            <div id="carImages_ImageThumbnails">
+                <a><h3 class="gia-magnifier" style="font-size: 300%;"></h3></a>
+                <div id="carImages_ImageThumbnailscontainer" class="slideterItemShowContianer">
+                    <div class="itemsContainerBack">
+                        <div class="itemsContainer">
+                            @foreach (var item in product.ProductImages)
+                            {
+                                <a class="item" onclick="document.getElementById('carImages_Bigview').src = '@Url.Content(item)'" >
+                                    <img src="@Url.Content(item)" />
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                    <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                    <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div id="CarDetials">
+        @if (product.ProductCars.Any())
+        {
+            <div id="CarDetails_NameAndYear" class="orangeback">
+                <section>@product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName @product.ProductCars.First().Car.CarModel.CarModelName @product.ProductName</section>
+            </div>
+        }
+        <div id="CarDetails_usercar_Troubleshooting">
+            <table>
+                <tr>
+                    <th>قیمت</th>
+                    <td>@if (product.ProductPrices.Any())
+                        {
+                            Write(string.Format("{0:#,###}", product.ProductPrices.Last().ProductPrice1));
+                        }
+                        else
+                        {
+                            <span>0</span>} تومان</td>
+                </tr>
+                <tr>
+                    <th>هزینه نصب در محل</th>
+                    <td>@if (product.ProductPrices.Any())
+                        {
+                            Write(string.Format("{0:#,###}", product.ProductPrices.Last().InstallPrice));
+                        }
+                        else
+                        {
+                            <span>0</span>} تومان</td>
+                </tr>
+            </table>
+
+            <a onclick="AddToCart2('@product.ProductId', '@CarProject.Models.Store.CartUsefull.Basket_ItemType.Product', '@CarProject.Models.Store.CartUsefull.BasketImte_PriceFlag.Product_PriceOnly')" id="btnAddToCart">افزودن سبد خرید</a>
+        </div>
+
+
+
+        <div id="SameClassCars">
+            <div id="CarDetails_SameClassCars" class="slideterItemShowContianer">
+                <h3 class="title">خودروهای مرتبط</h3>
+                <div class="itemsContainerBack">
+                    <div class="itemsContainer">
+                        @foreach (var item in product.ProductCars.Select(c => c.Car))
+                        {
+                            var src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (item.CarImages.Length > 0)
+                            {
+                                src = item.CarImages[0];
+                            }
+                            <a href="@Url.RouteUrl("infoRoute", new {controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim()})" class="item">
+                                <img src="@Url.Content(src)" alt=""/>
+                                <span>@item.CarModel.CarBrand.CarBrandName  @item.CarModel.CarModelName</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
+                <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="CarDifention">
+    @if (product.ProductCars.Any())
+    {
+        <h3>بررسی @product.ProductName @product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName @product.ProductCars.First().Car.CarModel.CarBrand.CarBrandName</h3>
+    } <p>@Html.Raw(product.ProductReview.ProductReview1)</p>
+</div>
+
+ 
+
+
+<div id="CarDetailsInformation">
+
+    <div class="carinfo">
+        <h3>مشخصات محصول</h3>
+        <table>
+            <tr>
+                <th>شماره محصول</th>
+                <td>@product.PartNumber</td>
+            </tr>
+            <tr>
+                <th>نام محصول</th>
+                <td>@product.ProductName</td>
+            </tr>
+            <tr>
+                <th>دسته بندی محصول</th>
+                <td><a href="#">@product.Category.CategoryName</a></td>
+            </tr>
+            <tr>
+                <th>قیمت محصول</th>
+                <td>@if (product.ProductPrices.Count > 0) { <span>@string.Format("{0:#,###0}", @product.ProductPrices.Last().ProductPrice1)</span> } else { <span>0</span> } <small>تومان</small></td>
+            </tr>
+             <tr>
+                <th>هزینه نصب محصول</th>
+                <td>@if (product.ProductPrices.Count > 0) { <span>@string.Format("{0:#,###0}", @product.ProductPrices.Last().InstallPrice)</span> } else { <span>0</span> } <small>تومان</small></td>
+            </tr>
+            <tr>
+                <th>ارتفاع</th>
+                <td>@product.ProductHeight</td>
+            </tr>
+            <tr>
+                <th>عرض</th>
+                <td>@product.ProductWidth</td>
+            </tr>
+            <tr>
+                <th>وزن</th>
+                <td>@product.ProductWeight</td>
+            </tr>
+            <tr>
+                <th>طول</th>
+                <td>@product.ProductLength</td>
+            </tr>
+            <tr>
+                <th>شرکت سازنده</th>
+                @if(@product.Company != null)
+                {
+                    <td><a href="#">@product.Company.CompanyName</a></td>
+                }
+            </tr>
+            <tr>
+                <th>کشور تولید کننده</th>
+                @if(@product.Country != null)
+                {
+                    <td>@product.Country.CountryLongName</td>
+                }
+            </tr>
+            <tr>
+                <th>شرکت توضیع کننده</th>
+                @if(product.Manufacture != null)
+                {
+                    <td><a href="#">@product.Manufacture.ManufactureName</a></td>
+                }
+            </tr>
+            <tr>
+                <th>تگ محصول</th>
+                <td>@product.MetaTags</td>
+            </tr>
+            <tr>
+                <th>رتبه محصول</th>
+                <td>@product.ProductRating</td>
+            </tr>
+            <tr>
+                <th>توضیحات محصول</th>
+                <td>@product.ProductSecription</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+
+@if(CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser != null)
+{
+    <div id="usersCommentsSection">
+        <h3 style="align-self:flex-start;">نظرات کاربران</h3>
+        @try
+        {
+            var msg = ViewBag.error["success"];
+            <section style="color:white; text-shadow:0 0 1px lawngreen; text-align:center;">
+                @msg
+            </section>
+        }
+        catch
+        {
+            <form method="post">
+                <input type="hidden" id="responsecommentid" name="responsecommentid" value="@Request.Form["responsecommentid"]" />
+
+                <div class="inputsContainer">
+                    <section class="input @if (Request.Form.AllKeys.Contains("responsecommentid") && !string.IsNullOrEmpty(Request.Form["responsecommentid"])) { Write("show"); }" id="replayComment">
+                        <label>پاسخ به پیام کاربر</label>
+                        <input type="text" name="usernameCommentReply" id="usernameCommentReply" value="@Request.Form["usernameCommentReply"]" />
+                    </section>
+                    <section class="input">
+                        <label> پیام</label>
+                        <textarea  name="comment" placeholder="متن پیام">@Request.Form["comment"]</textarea>
+                        <span>@try
+                              { @ViewBag.error["comment"] }
+                              catch { }</span>
+                    </section>
+                </div>
+                <center>
+                    <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
+                    <span style="color:red">@try
+                                            { @ViewBag.error["g-recaptcha-response"] }
+                                            catch { }</span>
+                </center>
+                <div class="inputAction">
+                    <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
+                </div>
+            </form>
+        }
+    </div>
+}
+
+
+<div id="UsersOldComments">
+    @CreateCommentSection(null, product.ProductId, dbs)
+</div>
+
+
+
+@functions{
+    MvcHtmlString CreateCommentSection(int? rootid,int producid, CarProject.DBSEF.CarAutomationEntities dbs)
+    {
+        string res = "";
+        
+        foreach (var item in dbs.ProductUserComments.Where(c => c.ProductId == producid  && c.RootProductUserCommentsId == rootid))
+        {
+            res += string.Format("<div class=\"cmntmessage\">");
+            {
+                res += string.Format("<div class=\"messageContent\">");
+                {
+                    res += string.Format("<strong class=\"username\">{0}</strong>", (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+
+                    res += string.Format("<section class=\"commentsection\">");
+                    {
+                        res += string.Format("<section class=\"comment\">{0}</section>", item.Comment);
+
+                        res += string.Format("<section class=\"commentActionAndInfo\">");
+                        {
+                            res += string.Format("<section class=\"commentInfo\">");
+                            {
+                            }
+                            res += "</section>";
+
+
+                            res += string.Format("<section class=\"commentAction\">");
+                            {
+                                res += string.Format("<a class=\"gia-back\" onclick=\"CommentMessageReply('{0}','{1}')\"></a>", item.ProductUserCommentsId, (item.User == null) ? "خودروکلینیک" : item.User.Uname);
+                            }
+                            res += "</section>";
+                        }
+                        res += "</section>";
+                    }
+                    res += "</section>";
+                }
+                res += "</div>";
+
+                res += CreateCommentSection(item.ProductUserCommentsId, producid, dbs);
+            }
+            res += "</div>";
+        }
+        
+        return new MvcHtmlString(res);
+    }
+}
+
+@section style
+{
+    <meta name="description" content="مشخصات مصحول @product.Category.CategoryName @product.ProductName" />
+    <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+   
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = product.ProductId, info1 = product.Category.CategoryName, info2 = product.ProductName }, Request.Url.Scheme)" />
+    
+    <link href="~/Publics/Files/ControlsPageTemplates/Store/Products/SliderItemShow.css" rel="stylesheet" />
+    <script src="~/Publics/Files/ControlsPageTemplates/Store/Products/SliderItemShow.js"></script>
+
+    <link href="~/Publics/Files/ControlsPageTemplates/Store/Products/css.css" rel="stylesheet" />
+    <link href="~/Publics/Styles/animate.css" rel="stylesheet" />
+
+    
+}
+
+@section script
+{
+    <script src="~/Publics/Files/ControlsPageTemplates/Store/Products/scirpt.js"></script>
+}
+
+
+@if (Request.Form.AllKeys.Contains("SendACommentRequest"))
+{
+    <script>window.location = "#usersCommentsSection"</script> 
+}

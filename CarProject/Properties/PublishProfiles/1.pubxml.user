@@ -8,7 +8,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
     <LastUsedPlatform>Any CPU</LastUsedPlatform>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>E:\KhodroClinic\pub</_PublishTargetUrl>
+    <_PublishTargetUrl>K:\Desktop\publish</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Code/ErrorHandler.cs">

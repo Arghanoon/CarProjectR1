@@ -1,0 +1,185 @@
+﻿@{
+    ViewBag.Title = "جستجو";
+
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var rand = new Random();
+
+    var car = dbs.Cars.AsQueryable();
+    var product = dbs.Products.AsQueryable();
+    var services = dbs.AutoServices.AsQueryable();
+    var servicepacks = dbs.AutoServicePacks.AsQueryable();
+
+    var strsearch = "";
+    if (Request.QueryString.AllKeys.Contains("isearch") && !string.IsNullOrWhiteSpace(Request.QueryString["isearch"]))
+    {
+        strsearch = Request.QueryString["isearch"];
+        car = car.Where(c => c.CarModel.CarModelName.Contains(strsearch) || c.CarModel.CarBrand.CarBrandName.Contains(strsearch));
+        product = product.Where(p => p.ProductName.Contains(strsearch));
+        services = services.Where(s => s.AutoServiceName.Contains(strsearch));
+        servicepacks = servicepacks.Where(sp => sp.AutoServicePackName.Contains(strsearch));
+    }
+
+
+    car = car.Take(30);
+    product = product.Take(30);
+    services = services.Take(30);
+    servicepacks = servicepacks.Take(30);
+
+}
+
+
+@section style
+{
+    <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" />
+}
+
+<div>
+
+    <div class="page">
+        <a href="#carResultShow">خودروها : @car.Count()</a> |
+        <a href="#productResultShow">محصولات : @product.Count()</a> |
+        <a href="#servicesResultShow">سرویس ها : @services.Count()</a> |
+        <a href="#servicePacksResultShow">سرویس پکها : @servicepacks.Count()</a>
+    </div>
+
+    @if (car.Count() > 0)
+    {
+        <div id="carResultShow">
+            <h3>خودروها</h3>
+            <div class="page">
+                <div class="listOfProducts">
+                    @foreach (var item in car)
+                    {
+                        if (item.CarModel == null)
+                        { continue; }
+                        var PicFileUrl = "~/Publics/Gallery/CarImages/" + item.CarsId;
+                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+
+                        var strImgPath = "~/Publics/Gallery/ProductImages/NotFound.png";
+
+                        if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                        {
+                            strImgPath = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
+                        }
+                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName, info2 = item.CarModel.CarModelName })" class="item">
+                            <img src="@Url.Content(strImgPath)" />
+                            <section>
+                                <strong>@item.CarModel.CarModelName</strong><br />
+                                <small>@item.CarModel.CarBrand.CarBrandName</small><br />
+                                @*<small class="price">@item.CarPrices.Last().Price تومان</small>*@
+                            </section>
+                        </a>
+                    }
+                </div>
+                @*                <div dir="ltr">
+                        <small dir="ltr"><a href="javascript:void()" onclick="document.getElementById('sendToCarPageSearch').submit()" class="gia-left">نمایش بیشتر</a></small>
+                    </div>*@
+            </div>
+        </div>
+    }
+
+    @if (product.Count() > 0)
+    {
+        <div id="productResultShow">
+            <h3>محصولات</h3>
+            <div class="page listOfProducts">
+                @foreach (var item in product)
+                {
+                    var PicFileUrl = "~/Publics/Gallery/ProductImages/" + item.ProductId;
+                    var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+
+                    var strImgPath = "~/Publics/Gallery/ProductImages/NotFound.png";
+
+                    if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                    {
+                        strImgPath = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
+                    }
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                        <img src="@Url.Content(strImgPath)" />
+                        <section>
+                            <strong>@item.ProductName</strong><br />
+                            <small>@item.Category.CategoryName</small><br />
+                            <small class="price">
+                                @if (item.ProductPrices.Any())
+                                            {
+                                                Write(string.Format("{0:#,###0}", item.ProductPrices.Last().InstallPrice + item.ProductPrices.Last().ProductPrice1));
+                                            }  تومان
+                                    </small>
+            
+                                </section>
+            
+                                </a>
+                }
+            </div>
+        </div>
+    }
+
+                                    @if (services.Count() > 0)
+    {
+        <div id="servicesResultShow">
+            <h3>سرویس ها</h3>
+            <div class="page listOfProducts">
+                @foreach (var item in services)
+                                {
+                                    var PicFileUrl = "~/Publics/Gallery/Services/" + item.AutoServiceId;
+                                    var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+
+                                    var strImgPath = "~/Publics/Gallery/ProductImages/NotFound.png";
+
+                                    if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                                    {
+                                        strImgPath = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
+                                    }
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })" class="item">
+                        <img src="@Url.Content(strImgPath)" />
+                        <section>
+                            <strong>@item.AutoServiceName</strong><br />
+                            @*<small>@item.Category.CategoryName</small><br />*@
+                            <small class="price">@item.Price تومان</small>
+                        </section>
+                    </a>
+                }
+            </div>
+        </div>
+    }
+
+    @if (servicepacks.Count() > 0)
+    {
+        <div id="servicePacksResultShow">
+            <h3>سرویس پک ها</h3>
+            <div class="page listOfProducts">
+                @foreach (var item in servicepacks)
+                {
+                    var PicFileUrl = "~/Publics/Gallery/ServicePacks/" + item.AutoServicePackId;
+                    var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+
+                    var strImgPath = "~/Publics/Gallery/ProductImages/NotFound.png";
+
+                    if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                    {
+                        strImgPath = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
+                    }
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })" class="item">
+                        <img src="@Url.Content(strImgPath)" />
+                        <section>
+                            <strong>@item.AutoServicePackName</strong><br />
+                            @*<small>@item.Category.CategoryName</small><br />*@
+                            <small class="price">@item.PackPrice تومان</small>
+                        </section>
+                    </a>
+                }
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+@*<form method="get" action="/Cars" id="sendToCarPageSearch">
+        <input type="hidden" name="searchCar" value="@strsearch" />
+    </form>*@
