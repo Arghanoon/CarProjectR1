@@ -146,6 +146,18 @@ namespace CarProject.Controllers
 
             return res;
         }
+
+        public ActionResult Compare(int id)
+        {
+            var model = new Areas.Admin.Models.Cars.CarsModel(id);
+            return View(model);
+        }
+
+        public ActionResult GetCarsModelByBrand(int id)
+        {
+            var res = DBSObj.Cars.Where(c => c.CarModel.CarBrandId == id).Select(c => new { id = c.CarsId, name = c.CarModel.CarModelName });
+            return Json(res,JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region Forum
