@@ -312,5 +312,10 @@ namespace CarProject.Areas.Admin.Models.Cars
             if (Car.CarModel.CarModelName.IsNullOrWhiteSpace())
                 yield return new ValidationResult("مدل تعیین نشده است", new string[] { "Car.CarModel.CarModelName" });
         }
+
+        public bool IsNull
+        {
+            get { return Car == null; }
+        }
     }
 }

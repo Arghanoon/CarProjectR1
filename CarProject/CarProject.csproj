@@ -529,6 +529,8 @@
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\SliderItemShow.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\SliderItemShow.js" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Cars\Compare\css.css" />
+    <Content Include="Publics\Files\ControlsPageTemplates\Cars\Compare\script.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Index\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Home\Index\scripts.js" />
@@ -877,6 +879,7 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
     <Content Include="Views\Store\PaymentCart_Online_BackFromBank.cshtml" />
+    <Content Include="Views\Cars\Compare.cshtml" />
     <None Include="Web References\arianpal1\WebService.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
