@@ -147,7 +147,6 @@ G:\Projects\CarCompleteWebsite\CarProject\CarProjectR2\CarProjectR1\CarProject\b
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR2\CarProjectR1\CarProject\bin\CaptchaMvc.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR2\CarProjectR1\CarProject\bin\EntityFramework.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR2\CarProjectR1\CarProject\bin\EntityFramework.SqlServer.dll
-G:\Projects\CarCompleteWebsite\CarProject\CarProjectR2\CarProjectR1\CarProject\bin\Microsoft.QualityTools.Testing.Fakes.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR2\CarProjectR1\CarProject\bin\Microsoft.Web.Infrastructure.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR2\CarProjectR1\CarProject\bin\Newtonsoft.Json.dll
 G:\Projects\CarCompleteWebsite\CarProject\CarProjectR2\CarProjectR1\CarProject\bin\System.Net.Http.Extensions.dll

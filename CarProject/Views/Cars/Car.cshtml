@@ -36,6 +36,11 @@
         <a href="/Cars">مشخصات خودروها</a> <span class="gia-left"></span>
         <a href="/Cars?CarBrand=@Model.Car.CarModel.CarBrandId">@Model.Car.CarModel.CarBrand.CarBrandName</a> <span class="gia-left"></span>
         <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })">@Model.Car.CarModel.CarModelName</a>
+
+        @*<small>
+            -
+            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Compare", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })">مقایسه خودرو</a>
+        </small>*@
     </div>
 
     <div id="top_likedisklikecount" dir="ltr">
@@ -90,16 +95,19 @@
             <section>@Model.Car.CarYearModel</section>
         </div>
 
+        
+
         <div id="CarDetails_usercar_Troubleshooting">
+            <a class="orangeback" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Compare", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })">مقایسه خودرو</a>
             <a href="/Users/Dashboard/InsertPersonCar/@Model.Car.CarsId" class="orangeback">ثبت به عنوان خودروی کاربر</a>
-            <a href="/Troubleshooting/" class="orangeback" >
+            <a href="/Troubleshooting/" class="orangeback">
                 سامانه عیب یابی <br />
                 @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName
             </a>
         </div>
 
         @if (carAutoServices.Any())
-        {
+            {
             <div id="CarDetails_CarServices" class="slideterItemShowContianer">
                 <h3 class="title">خدمات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
                 <div class="itemsContainerBack">
@@ -126,7 +134,7 @@
 
 
         @if (carProducts.Any())
-        {
+            {
             <div id="CarDetails_CarProducts" class="slideterItemShowContianer">
                 <h3 class="title">قطعات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
                 <div class="itemsContainerBack">
@@ -152,6 +160,7 @@
         }
 
     </div>
+
 </div>
 
 
