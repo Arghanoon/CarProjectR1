@@ -332,7 +332,7 @@ namespace CarProject.Controllers
             basket.FinishDate = DateTime.Now;
             us.UpdateBasket(basket);
             InsertPersonServiceAndServicepacks(us.dbs, basket);
-            return RedirectToAction("Cart"); //View(basket);
+            return View(basket);
         }
 
         [Areas.Users.UsersCLS.UsersAuthFilter]
@@ -442,8 +442,8 @@ namespace CarProject.Controllers
             basket.FinishDate = DateTime.Now;
             us.UpdateBasket(basket);
             InsertPersonServiceAndServicepacks(us.dbs, basket);
-            
-            return RedirectToAction("Cart");// View(basket);
+
+            return View(basket);
         }
 
 
