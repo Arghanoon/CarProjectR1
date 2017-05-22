@@ -442,7 +442,7 @@ namespace CarProject.Controllers
             basket.FinishDate = DateTime.Now;
             us.UpdateBasket(basket);
             InsertPersonServiceAndServicepacks(us.dbs, basket);
-            
+
             return View(basket);
         }
 
