@@ -6,6 +6,15 @@
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     int Carid = 0;
 
+    int? Troubleid = null;
+    if (ViewContext.RouteData.Values["id"] != null)
+    {
+        int tmp = 0;
+        int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out tmp);
+        if (tmp > 0)
+        { Troubleid = tmp; }
+    }
+
     if (Session["CarIdPass"] != null && Session["CarIdPass"].ToString() != "")
     {
         Carid = Convert.ToInt32(Session["CarIdPass"]);
@@ -15,6 +24,8 @@
     {
         troubleshooting.Cars
     })).Distinct();
+
+
 
     int id = 0;
     CarProject.DBSEF.Troubleshooting CurrentTroubleshoting = null;
@@ -40,9 +51,11 @@
     //{
     //    troubleshootings = 
     //}
-    bool IsAnserQuestion = troubleshootings.Count() == 1 && troubleshootings.First().Type == 1;
 
-    troubleshootings = troubleshootings.OrderBy(t => t.Subject);
+    bool IsAnserQuestion = troubleshootings.Count() == 1 && troubleshootings.First().Type == 1;
+    var answertrouble = dbs.Troubleshootings.FirstOrDefault(t => t.TroubleshootinParentId == Troubleid);
+    var questions = dbs.Troubleshootings.Where(tq => tq.TroubleshootinParentId == id);
+    // troubleshootings = troubleshootings.OrderBy(t => t.Subject);
     }
 
 
@@ -57,9 +70,10 @@
     </div>
 }
 
-@if (IsAnserQuestion)
+@if (questions.Count() == 1 && questions.First().Type == 1)
 {
-    var answertrouble = troubleshootings.First();
+    
+   
     <div class="page AnswerShow">
         <h3 class="subject">@answertrouble.Subject</h3>
         <p class="describe">@answertrouble.Describe</p>

@@ -1,0 +1,46 @@
+﻿#carInfoTable {
+    width: 100%;
+}
+
+    #carInfoTable thead th {
+        background: white;
+        text-align: center;
+    }
+
+    #carInfoTable tr th:first-child {
+        white-space: nowrap;
+        width: 0;
+    }
+
+    #carInfoTable th {
+        text-align: right;
+    }
+
+    #carInfoTable th,
+    #carInfoTable td {
+        border: thin solid #fff;
+        padding: 5px;
+        background: rgba(255,255,255,0.6);
+    }
+
+        #carInfoTable th[colspan] {
+            background: none;
+            font-size: 110%;
+        }
+
+
+.checked_True:before {
+    font-family: giadmin;
+    src: url(GIAdmin.woff);
+    content: '\098D';
+    font-size: 200%;
+    color: #42c53b;
+}
+
+.checked_False:before {
+    font-family: giadmin;
+    src: url(GIAdmin.woff);
+    content: '\0991';
+    font-size: 200%;
+    color: #f12121;
+}

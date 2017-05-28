@@ -8,7 +8,7 @@
 @section style
 {
     <link href="~/Publics/Files/Resources/CarsPages/CarsComments.css" rel="stylesheet" />
-    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarsComments", id = Model.Item1.CarsId, info1 = Model.Item1.CarModel.CarBrand.CarBrandName, info2 = Model.Item1.CarModel.CarModelName, info3 = "نظرات کاربران" }, Request.Url.Scheme)" />
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "CarsComments", id = Model.Item1.CarsId, info1 = Model.Item1.CarModel.CarBrand.CarBrandName.Trim().Replace(' ', '-'), info2 = Model.Item1.CarModel.CarModelName.Trim().Replace(' ', '-'), info3 = "نظرات کاربران" }, Request.Url.Scheme)" />
 }
 
 <div class="page">

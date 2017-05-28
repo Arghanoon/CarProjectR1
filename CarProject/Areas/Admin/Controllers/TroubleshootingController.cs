@@ -37,7 +37,7 @@ namespace CarProject.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult MakeAQuestion(int? Id, Models.Troubleshooting.TSModel model, int InsertType)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
                 if (model.mCars != null && model.mCars.Count != 0)
                 {

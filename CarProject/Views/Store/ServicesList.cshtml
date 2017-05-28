@@ -176,225 +176,234 @@
 
 
 <form method="get">
-    <input type="hidden" name="page" id="pageInputContainer" value="@page" />
+<input type="hidden" name="page" id="pageInputContainer" value="@page" />
 
-    <div id="MainContainerOfFilterAndContent">
-        <div>
-            <div id="searchAndFilter">
+<div id="MainContainerOfFilterAndContent">
+<div>
+    <div id="searchAndFilter">
 
 
 
-                <div id="Filter_Category">
-                    <h4 class="title"> دسته بندی ها</h4>
-                    <div class="checkboxContainer">
-                        @foreach (var item in dbs.ServicesCategories.OrderBy(b => b.ServicesCategoryId).Take(5))
-                        {
-                            <section class="checkbox">
-                                <input type="checkbox" name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
-                                <label for="Category_@item.ServicesCategoryId">
-                                    @item.ServicesCategoryName
-                                </label>
-                            </section>
-                        }
+        <div id="Filter_Category">
+            <h4 class="title"> دسته بندی ها</h4>
+            <div class="checkboxContainer">
+                @foreach (var item in dbs.ServicesCategories.OrderBy(b => b.ServicesCategoryId).Take(5))
+                {
+                    <section class="checkbox">
+                        <input type="checkbox" name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
+                        <label for="Category_@item.ServicesCategoryId">
+                            @item.ServicesCategoryName
+                        </label>
+                    </section>
+                }
 
-                        <div id="Filter_Category_more" class="more">
-                            @foreach (var item in dbs.ServicesCategories.OrderBy(b => b.ServicesCategoryId).Skip(5))
-                            {
-                                <section class="checkbox">
-                                    <input type="checkbox" name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
-                                    <label for="Category_@item.ServicesCategoryId">
-                                        @item.ServicesCategoryName
-                                    </label>
-                                </section>
-                            }
-                        </div>
-                        <center><a onclick="$('#Filter_Category_more').toggleClass('show');">بیشتر</a></center>
-                    </div>
+                <div id="Filter_Category_more" class="more">
+                    @foreach (var item in dbs.ServicesCategories.OrderBy(b => b.ServicesCategoryId).Skip(5))
+                    {
+                        <section class="checkbox">
+                            <input type="checkbox" name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
+                            <label for="Category_@item.ServicesCategoryId">
+                                @item.ServicesCategoryName
+                            </label>
+                        </section>
+                    }
                 </div>
-
-
-
-                <div id="Filter_Brand">
-                    <h4 class="title"> برند ها</h4>
-                    <div class="checkboxContainer">
-                        @foreach (var item in se.OrderBy(b => b.CarBrandId).Take(5))
-                        {
-                            <section class="checkbox">
-                                <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="Brand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
-                                <label for="Brand_@item.CarBrandId">
-                                    @item.CarBrandName
-                                </label>
-                            </section>
-                        }
-
-                        <div id="Filter_Brand_more" class="more">
-                            @foreach (var item in se.OrderBy(b => b.CarBrandId).Skip(5))
-                            {
-                                <section class="checkbox">
-                                    <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="Brand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
-                                    <label for="Brand_@item.CarBrandId">
-                                        @item.CarBrandName
-                                    </label>
-                                </section>
-                            }
-                        </div>
-                        <center><a onclick="$('#Filter_Brand_more').toggleClass('show');">بیشتر</a></center>
-                    </div>
-                </div>
-
-                <div id="Filter_Model">
-                    <h4 class="title"> مدل ها </h4>
-                    <div class="checkboxContainer">
-                        @foreach (var item in cars.OrderBy(b => b.CarModelId).Take(5))
-                        {
-                            <section class="checkbox">
-                                <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
-                                <label for="Model_@item.CarModelId">
-                                    @item.CarModelName
-                                </label>
-                            </section>
-                        }
-
-                        <div id="Filter_Model_more" class="more">
-                            @foreach (var item in cars.OrderBy(b => b.CarModelId).Skip(5))
-                            {
-                                <section class="checkbox">
-                                    <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
-                                    <label for="Model_@item.CarModelId">
-                                        @item.CarModelName
-                                    </label>
-                                </section>
-                            }
-                        </div>
-                        <center><a onclick="$('#Filter_Model_more').toggleClass('show');">بیشتر</a></center>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                <center><a onclick="$('#Filter_Category_more').toggleClass('show');">بیشتر</a></center>
             </div>
         </div>
 
-        <div id="ItemsContentContainer">
-            <div id="searchsection">
-                <section id="searchInput">
-                    <input type="text" name="searchtext" value="@searchtext" placeholder="جستجو در میان محصولات" />
-                    @*<button type="submit"><span class="gia-search"></span></button>*@
-                </section>
 
-                <section id="SearchOrderBy">
-                    <span>مرتب سازی بر اساس</span>
-                    <select name="Orderby">
-                        <option value="1" @if (orderby == 1) { Write("selected=\"selected\""); }>تاریخ</option>
-                        <option value="2" @if (orderby == 2) { Write("selected=\"selected\""); }>قیمت</option>
-                        <option value="3" @if (orderby == 3) { Write("selected=\"selected\""); }>محبوبیت</option>
-                        <option value="4" @if (orderby == 4) { Write("selected=\"selected\""); }>بازدید</option>
-                        <option value="5" @if (orderby == 5) { Write("selected=\"selected\""); }>فروش</option>
-                    </select>
-                    به صورت
-                    <select name="OrderDirection">
-                        <option value="ASC" @if (orderbydirection == 1) { Write("selected=\"selected\""); }>کمتر به بیشتر</option>
-                        <option value="DESC" @if (orderbydirection == 2) { Write("selected=\"selected\""); }>بیشتر به کمتر</option>
-                    </select>
-                    @*<input type="radio" name="OrderDirection" value="ASC" @if (orderbydirection == 1) { Write("checked=\"checked\""); } id="OrderDirectionASC" />
+
+        <div id="Filter_Brand">
+            <h4 class="title"> برند ها</h4>
+            <div class="checkboxContainer">
+                @foreach (var item in se.OrderBy(b => b.CarBrandId).Take(5))
+                {
+                    <section class="checkbox">
+                        <input type="checkbox" onclick="$(this).parent('form:first').submit();" name="CarBrand" value="@item.CarBrandId" id="Brand_@item.CarBrandId"  @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                        <label for="Brand_@item.CarBrandId" onclick="$(this).parent('form:first').submit();">
+                            @item.CarBrandName
+                        </label>
+                    </section>
+                }
+
+                <div id="Filter_Brand_more" class="more">
+                    @foreach (var item in se.OrderBy(b => b.CarBrandId).Skip(5))
+                    {
+                        <section class="checkbox">
+                            <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="Brand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                            <label for="Brand_@item.CarBrandId">
+                                @item.CarBrandName
+                            </label>
+                        </section>
+                    }
+                </div>
+                <center><a onclick="$('#Filter_Brand_more').toggleClass('show');">بیشتر</a></center>
+            </div>
+        </div>
+
+        <div id="Filter_Model">
+            <h4 class="title"> مدل ها </h4>
+            <div class="checkboxContainer">
+                @foreach (var item in cars.OrderBy(b => b.CarModelId).Take(5))
+                {
+                    <section class="checkbox">
+                        <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
+                        <label for="Model_@item.CarModelId">
+                            @item.CarModelName
+                        </label>
+                    </section>
+                }
+
+                <div id="Filter_Model_more" class="more">
+                    @foreach (var item in cars.OrderBy(b => b.CarModelId).Skip(5))
+                    {
+                        <section class="checkbox">
+                            <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
+                            <label for="Model_@item.CarModelId">
+                                @item.CarModelName
+                            </label>
+                        </section>
+                    }
+                </div>
+                <center><a onclick="$('#Filter_Model_more').toggleClass('show');">بیشتر</a></center>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+<div id="ItemsContentContainer">
+    <div id="searchsection">
+        <section id="searchInput">
+            <input type="text" name="searchtext" value="@searchtext" placeholder="جستجو در میان محصولات" />
+            @*<button type="submit"><span class="gia-search"></span></button>*@
+        </section>
+
+        <section id="SearchOrderBy">
+            <span>مرتب سازی بر اساس</span>
+            <select name="Orderby">
+                <option value="1" @if (orderby == 1) { Write("selected=\"selected\""); }>تاریخ</option>
+                <option value="2" @if (orderby == 2) { Write("selected=\"selected\""); }>قیمت</option>
+                <option value="3" @if (orderby == 3) { Write("selected=\"selected\""); }>محبوبیت</option>
+                <option value="4" @if (orderby == 4) { Write("selected=\"selected\""); }>بازدید</option>
+                <option value="5" @if (orderby == 5) { Write("selected=\"selected\""); }>فروش</option>
+            </select>
+            به صورت
+            <select name="OrderDirection">
+                <option value="ASC" @if (orderbydirection == 1) { Write("selected=\"selected\""); }>کمتر به بیشتر</option>
+                <option value="DESC" @if (orderbydirection == 2) { Write("selected=\"selected\""); }>بیشتر به کمتر</option>
+            </select>
+            @*<input type="radio" name="OrderDirection" value="ASC" @if (orderbydirection == 1) { Write("checked=\"checked\""); } id="OrderDirectionASC" />
                         <label  for="OrderDirectionASC">صعودی</label>
                         <input type="radio" name="OrderDirection" value="DESC" @if (orderbydirection == 2) { Write("checked=\"checked\""); } id="OrderDirectionDESC"  />
                         <label for="OrderDirectionDESC">نزولی</label>*@
-                </section>
+        </section>
 
-                <input type="submit" value="جستجو/فیلتر" class="t2button" />
-            </div>
-
-            <div class="pagination">
-                @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
-            {
-                if (i == page)
-                {
-                        <span>@{Write(i + 1); }</span>
-                            }
-                            else
-                            {
-                                <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
-        }
-    }
-            </div>
-            <div class="listOfProducts" id="ListofcarsShower">
-                @{
-                    foreach (var item in service)
-                    {
-                        var PicFileUrl = "~/Publics/Gallery/Services/" + item.AutoServiceId;
-                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
-
-                        if (finfo.Exists && finfo.GetFiles().Any())
-                        {
-                            <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
-                                <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)" />
-                                <section>
-                                    <strong>@item.AutoServiceName</strong><br />
-                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br />
-                                    <small class="price">
-                                        @if (item.Price.Any())
-                                        {
-                                            <span>@item.Price.ToString()</span>
-                                        }
-                                        else
-                                        {
-                                            <span>0</span>
-                                        } تومان
-                                    </small>
-                                </section>
-                            </a>
-                        }
-                        else
-                        {
-                            <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
-                                <img src="~/Publics/Gallery/Services/NotFound.png" />
-                                <section>
-                                    <strong>@item.AutoServiceName</strong><br />
-                                    <small>@item.ServicesCategory.ServicesCategoryName</small><br />
-                                    <small class="price">
-                                        @if (@item.Price.Any())
-                                        {
-                                            <span>@item.Price.ToString()</span>
-                                        }
-                                        else
-                                        {
-                                            <span>0</span>
-                                        }
-                                    </small>
-                                </section>
-                            </a>
-                        }
-                    }
-                }
-            </div>
-            <div class="pagination">
-                @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
-            {
-                if (i == page)
-                {
-                        <span>@{Write(i + 1); }</span>
-                            }
-                            else
-                            {
-                                <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
-        }
-    }
-            </div>
-
-        </div>
+        <input type="submit" value="جستجو/فیلتر" class="t2button" />
     </div>
+
+    <div class="pagination">
+        @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
+        {
+            if (i == page)
+            {
+                <span>@{Write(i + 1); }</span>
+            }
+            else
+            {
+                <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
+            }
+        }
+    </div>
+    <div class="listOfProducts" id="ListofcarsShower">
+        @{
+            foreach (var item in service)
+            {
+                var PicFileUrl = "~/Publics/Gallery/Services/" + item.AutoServiceId;
+                var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+                if (finfo.Exists && finfo.GetFiles().Any())
+                {
+                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
+                        <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)" />
+                        <section>
+                            <strong>@item.AutoServiceName</strong><br />
+                            <small>@item.ServicesCategory.ServicesCategoryName</small><br />
+                            <small class="price">
+                                @if (item.Price.Any())
+                                {
+                                    <span>@item.Price.ToString()</span>
+                                }
+                                else
+                                {
+                                    <span>0</span>
+                                } تومان
+                            </small>
+                        </section>
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
+                        <img src="~/Publics/Gallery/Services/NotFound.png" />
+                        <section>
+                            <strong>@item.AutoServiceName</strong><br />
+                            <small>@item.ServicesCategory.ServicesCategoryName</small><br />
+                            <small class="price">
+                                @if (@item.Price.Any())
+                                {
+                                    <span>@item.Price.ToString()</span>
+                                }
+                                else
+                                {
+                                    <span>0</span>
+                                }
+                            </small>
+                        </section>
+                    </a>
+                }
+            }
+        }
+    </div>
+    <div class="pagination">
+        @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
+        {
+            if (i == page)
+            {
+                <span>@{Write(i + 1); }</span>
+            }
+            else
+            {
+                <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
+            }
+        }
+    </div>
+
+</div>
+</div>
 </form>
+        
+@section script
+{
+    <script>
+        $('#checkbox').change(function () {
+            $("#t2button").click();
+        });
+</script>
+}

@@ -148,7 +148,7 @@
                             src = Url.Content(PicFileUrl + "/" + finfo.GetFiles()[0].Name);
                         }
                 
-                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })" class="item">
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName.Trim().Replace(' ','-') })" class="item">
                         <img src="@Url.Content(@src)" />
                         <span>@item.AutoServiceName</span>
                     </a>
@@ -180,7 +180,7 @@
                             Product_image_src = PicFileUrl + "/" + finfo.GetFiles()[0].Name;
                         }
                 
-                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName.Trim().Replace(' ','-'), info2 = item.ProductName.Trim().Replace(' ','-') })" class="item">
                             <img src="@Url.Content(@Product_image_src)" />
                             <span>@item.ProductName</span>
                         </a>

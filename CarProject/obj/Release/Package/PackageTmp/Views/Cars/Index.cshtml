@@ -428,7 +428,7 @@
                     }
 
 
-                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim().Replace(' ','-'), info2 = item.CarModel.CarModelName.Trim().Replace(' ','-') })" class="item">
                         <img src="@Url.Content(imagesrc)" alt="@item.CarModel.CarModelName @item.CarModel.CarBrand.CarBrandName" />
                         <section>
                             <strong>@item.CarModel.CarModelName @item.CarModel.CarBrand.CarBrandName</strong><br />

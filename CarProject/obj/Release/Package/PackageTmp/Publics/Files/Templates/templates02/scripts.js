@@ -18,9 +18,15 @@ function MessageBoxShow(content) {
 
 /*----------------------------------[ Add To CartRequest ]----------------------------------*/
 function AddToCart(id, type) {
-    $.post('/Store/AddToCart', { 'id': id, 'type': type }, function (res) { MessageBoxShow("محصول به سبد خرید اضافه شد"); });
+    $.post('/Store/AddToCart', { 'id': id, 'type': type }, function (res) {
+        MessageBoxShow("محصول به سبد خرید اضافه شد");
+        window.location.replace('/Store/Cart');
+    });
 }
 function AddToCart2(id, type, priceflag) {
-    $.post('/Store/AddToCart_PriceFlag', { 'id': id, 'type': type, 'PriceFlag': priceflag }, function (res) { MessageBoxShow("محصول به سبد خرید اضافه شد"); });
+    $.post('/Store/AddToCart_PriceFlag', { 'id': id, 'type': type, 'PriceFlag': priceflag }, function (res) {
+        MessageBoxShow("محصول به سبد خرید اضافه شد");
+        window.location.replace('/Store/Cart');
+    });
 }
 /*----------------------------------[ END Add To CartRequest ]------------------------------*/
