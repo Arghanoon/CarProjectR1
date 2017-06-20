@@ -54,7 +54,6 @@ namespace CarProject.DBSEF
     
         public int CarsId { get; set; }
         public Nullable<int> CarModelId { get; set; }
-        public Nullable<int> CountryId { get; set; }
         public string CarsClass { get; set; }
         public Nullable<double> CarsUserScore { get; set; }
         public Nullable<double> CarsClinicScore { get; set; }
@@ -67,6 +66,7 @@ namespace CarProject.DBSEF
         public string CarUsage { get; set; }
         public Nullable<int> CarYearModel { get; set; }
         public string CarBodyType { get; set; }
+        public Nullable<int> CountryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AirConditioningSystem> AirConditioningSystems { get; set; }

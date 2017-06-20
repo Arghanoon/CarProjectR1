@@ -341,14 +341,14 @@
                 if (finfo.Exists && finfo.GetFiles().Any())
                 {
                     <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
-                        <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)" />
+                        <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[0])" />
                         <section>
                             <strong>@item.AutoServiceName</strong><br />
                             <small>@item.ServicesCategory.ServicesCategoryName</small><br />
                             <small class="price">
                                 @if (item.Price.Any())
                                 {
-                                    <span>@item.Price.ToString()</span>
+                                    <span>@String.Format("{0:n0}", item.Price.ToString())</span>
                                 }
                                 else
                                 {
@@ -368,12 +368,12 @@
                             <small class="price">
                                 @if (@item.Price.Any())
                                 {
-                                    <span>@item.Price.ToString()</span>
+                                    <span>@String.Format("{0:n0}", item.Price.ToString())</span>
                                 }
                                 else
                                 {
                                     <span>0</span>
-                                }
+                                }تومان
                             </small>
                         </section>
                     </a>

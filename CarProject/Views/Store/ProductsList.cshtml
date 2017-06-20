@@ -116,13 +116,13 @@
     if (ViewContext.RouteData.Values["id"] != null)
     { int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out GroupCategoryFilter); }
 
-    if(GroupCategoryFilter > 0)
+    if (GroupCategoryFilter > 0)
     { products = products.Where(c => c.CategoryId == GroupCategoryFilter); }//first filter category
 
-    if(Request.QueryString.AllKeys.Contains("searchtext"))
+    if (Request.QueryString.AllKeys.Contains("searchtext"))
     { searchtext = Request.QueryString["searchtext"]; }
 
-    if(!string.IsNullOrWhiteSpace(searchtext))
+    if (!string.IsNullOrWhiteSpace(searchtext))
     { products = products.Where(p => p.ProductName.Contains(searchtext)); }//filter base on Search key
 
     if (Request.QueryString.AllKeys.Contains("Orderby") && !string.IsNullOrWhiteSpace(Request.QueryString["Orderby"]))
@@ -220,10 +220,7 @@
                         @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Take(5))
                         {
                             <section class="checkbox">
-                                <input type="checkbox" name="CountryFilter" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString()))
-                                                                                                                           {
-                                                                                                                               Write("checked=\"checked\"");
-                                                                                                                           }/>
+                                <input type="checkbox" name="CountryFilter" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
                                 <label for="Country_@item.CountryId">
                                     @item.CountryShortName
                                 </label>
@@ -234,10 +231,7 @@
                             @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Skip(5))
                             {
                                 <section class="checkbox">
-                                    <input type="checkbox" name="CountryFilter" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString()))
-                                                                                                                               {
-                                                                                                                                   Write("checked=\"checked\"");
-                                                                                                                               }/>
+                                    <input type="checkbox" name="CountryFilter" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
                                     <label for="Country_@item.CountryId">
                                         @item.CountryShortName
                                     </label>
@@ -259,10 +253,7 @@
                         @foreach (var item in dbs.Categories.OrderBy(b => b.CategoryId).Take(5))
                         {
                             <section class="checkbox">
-                                <input type="checkbox" name="CategoryFilter" value="@item.CategoryId" id="Category_@item.CategoryId" @if (Category_filter != null && Category_filter.Contains(item.CategoryId.ToString()))
-                                                                                                                           {
-                                                                                                                               Write("checked=\"checked\"");
-                                                                                                                           }/>
+                                <input type="checkbox" name="CategoryFilter" value="@item.CategoryId" id="Category_@item.CategoryId" @if (Category_filter != null && Category_filter.Contains(item.CategoryId.ToString())) { Write("checked=\"checked\""); } />
                                 <label for="Category_@item.CategoryId">
                                     @item.CategoryName
                                 </label>
@@ -273,10 +264,7 @@
                             @foreach (var item in dbs.Categories.OrderBy(b => b.CategoryId).Skip(5))
                             {
                                 <section class="checkbox">
-                                    <input type="checkbox" name="CategoryFilter" value="@item.CategoryId" id="Category_@item.CategoryId" @if (Category_filter != null && Category_filter.Contains(item.CategoryId.ToString()))
-                                                                                                                               {
-                                                                                                                                   Write("checked=\"checked\"");
-                                                                                                                               }/>
+                                    <input type="checkbox" name="CategoryFilter" value="@item.CategoryId" id="Category_@item.CategoryId" @if (Category_filter != null && Category_filter.Contains(item.CategoryId.ToString())) { Write("checked=\"checked\""); } />
                                     <label for="Category_@item.CategoryId">
                                         @item.CategoryName
                                     </label>
@@ -360,7 +348,7 @@
         <div id="ItemsContentContainer">
             <div id="searchsection">
                 <section id="searchInput">
-                    <input type="text" name="searchtext" value="@searchtext"  placeholder="جستجو در میان محصولات"/>
+                    <input type="text" name="searchtext" value="@searchtext" placeholder="جستجو در میان محصولات" />
                     @*<button type="submit"><span class="gia-search"></span></button>*@
                 </section>
 
@@ -379,42 +367,45 @@
                         <option value="DESC" @if (orderbydirection == 2) { Write("selected=\"selected\""); }>بیشتر به کمتر</option>
                     </select>
                     @*<input type="radio" name="OrderDirection" value="ASC" @if (orderbydirection == 1) { Write("checked=\"checked\""); } id="OrderDirectionASC" />
-                    <label  for="OrderDirectionASC">صعودی</label>
-                    <input type="radio" name="OrderDirection" value="DESC" @if (orderbydirection == 2) { Write("checked=\"checked\""); } id="OrderDirectionDESC"  />
-                    <label for="OrderDirectionDESC">نزولی</label>*@
+                        <label  for="OrderDirectionASC">صعودی</label>
+                        <input type="radio" name="OrderDirection" value="DESC" @if (orderbydirection == 2) { Write("checked=\"checked\""); } id="OrderDirectionDESC"  />
+                        <label for="OrderDirectionDESC">نزولی</label>*@
                 </section>
 
                 <input type="submit" value="جستجو/فیلتر" class="t2button" />
             </div>
 
             <div class="pagination">
-            @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
+                @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
             {
                 if (i == page)
                 {
-                    <span>@{Write(i + 1); }</span>
-                }
-                else
-                {
-                    <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
-                }
-            }
-        </div>
+                        <span>@{Write(i + 1); }</span>
+                            }
+                            else
+                            {
+                                <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
+        }
+    }
+            </div>
             <div class="listOfProducts" id="ListofcarsShower">
-                @{        
+                @{
                     foreach (var item in products)
                     {
-                        var PicFileUrl = "~/Publics/Gallery/ProductImages/"+ item.ProductId;
+                        var PicFileUrl = "~/Publics/Gallery/ProductImages/" + item.ProductId;
                         var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
-                                
-                        if(finfo.Exists && finfo.GetFiles().Count() > 0)
+
+                        if (finfo.Exists && finfo.GetFiles().Count() > 0)
                         {
                             <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
                                 <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
                                 <section>
                                     <strong>@item.ProductName</strong><br />
                                     <small>@item.Category.CategoryName</small><br />
-                                    <small class="price">@if (item.ProductPrices.Any()) {<span>@item.ProductPrices.Last().ProductPrice1</span>}else {<span>0</span>} تومان</small>
+                                    <small class="price">@if (item.ProductPrices.Any())
+                                    {<span>@string.Format("{0:#,###}", item.ProductPrices.Last().ProductPrice1)</span>}
+                                    else
+                                    {<span>0</span>} تومان</small>
                                 </section>
                             </a>
                         }
@@ -425,7 +416,10 @@
                                 <section>
                                     <strong>@item.ProductName</strong><br />
                                     <small>@item.Category.CategoryName</small><br />
-                                    <small class="price">@if(@item.ProductPrices.Any()){<span>@item.ProductPrices.Last().ProductPrice1</span>}else{<span>0</span>}</small>
+                                    <small class="price">@if (@item.ProductPrices.Any())
+                                    {<span>@String.Format("{0:n0}", item.ProductPrices.Last().ProductPrice1)</span>}
+                                    else
+                                    {<span>0</span>} تومان</small>
                                 </section>
                             </a>
                         }
@@ -433,18 +427,18 @@
                 }
             </div>
             <div class="pagination">
-            @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
+                @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
             {
                 if (i == page)
                 {
-                    <span>@{Write(i + 1); }</span>
-                }
-                else
-                {
-                    <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
-                }
-            }
-        </div>
+                        <span>@{Write(i + 1); }</span>
+                            }
+                            else
+                            {
+                                <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
+        }
+    }
+            </div>
 
         </div>
     </div>

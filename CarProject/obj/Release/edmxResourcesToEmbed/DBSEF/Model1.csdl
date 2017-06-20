@@ -30,6 +30,7 @@
     <Property Name="HasProduct" Type="Boolean" />
     <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ServicesCategoryId" Type="Int32" />
+    <Property Name="AutoServiceDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ServicesCategory" Relationship="Self.FK_AutoService_ServicesCategory" FromRole="AutoService" ToRole="ServicesCategory" />
     <NavigationProperty Name="AutoServiceCars" Relationship="Self.FK_AutoServiceCars_AutoService" FromRole="AutoService" ToRole="AutoServiceCars" />
     <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoServices_AutoService" FromRole="AutoService" ToRole="AutoServices" />
@@ -271,7 +272,6 @@
     <Property Name="GearBoxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GearBoxType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GearBoxCanBeManual" Type="Boolean" />
-    <Property Name="GearBoxShifter" Type="Boolean" />
     <Property Name="GearBoxShiftNumber" Type="Int32" />
     <Property Name="GearBoxAxel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="HasTransferCase" Type="Boolean" />
@@ -279,6 +279,7 @@
     <Property Name="GearBoxWdType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GearBoxDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CarsId" Type="Int32" />
+    <Property Name="GearBoxShifter" Type="Boolean" />
     <NavigationProperty Name="Car" Relationship="Self.FK_CarGearBox_Cars" FromRole="CarGearBox" ToRole="Cars" />
   </EntityType>
   <EntityType Name="CarLightingSystem">
@@ -340,7 +341,6 @@
     </Key>
     <Property Name="CarsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CarModelId" Type="Int32" />
-    <Property Name="CountryId" Type="Int32" />
     <Property Name="CarsClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CarsUserScore" Type="Double" />
     <Property Name="CarsClinicScore" Type="Double" />
@@ -353,6 +353,7 @@
     <Property Name="CarUsage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="CarYearModel" Type="Int32" />
     <Property Name="CarBodyType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CountryId" Type="Int32" />
     <NavigationProperty Name="AirConditioningSystems" Relationship="Self.FK_AirConditioningSystem_Cars" FromRole="Cars" ToRole="AirConditioningSystem" />
     <NavigationProperty Name="AirConditioningSystemDetails" Relationship="Self.FK_AirConditioningSystemDetail_Cars" FromRole="Cars" ToRole="AirConditioningSystemDetail" />
     <NavigationProperty Name="AutoServiceCars" Relationship="Self.FK_AutoServiceCars_Cars" FromRole="Cars" ToRole="AutoServiceCars" />
@@ -765,8 +766,8 @@
     <Property Name="PersonCarDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PersonCarId" Type="Int32" />
     <Property Name="LastOilChange" Type="DateTime" Precision="0" />
-    <Property Name="LastOilChangeMilage" Type="Int32" />
     <Property Name="LastOilFiltersChange" Type="DateTime" Precision="0" />
+    <Property Name="LastOilChangeMilage" Type="Int32" />
     <Property Name="LastOilFilterChangeMilage" Type="Int32" />
     <Property Name="LastGearBoxOilChange" Type="DateTime" Precision="0" />
     <Property Name="LastGearBoxOilChangeMilage" Type="Int32" />
@@ -869,7 +870,6 @@
     <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CarId" Type="Int32" />
-    <Property Name="CarBrandId" Type="Int32" />
     <Property Name="CategoryId" Type="Int32" />
     <Property Name="ProductHeight" Type="Double" />
     <Property Name="ProductWidth" Type="Double" />
@@ -886,6 +886,7 @@
     <Property Name="ProductQnAId" Type="Int32" />
     <Property Name="DiscountId" Type="Int32" />
     <Property Name="WithInstall" Type="Boolean" />
+    <Property Name="CarBrandId" Type="Int32" />
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="CarBrand" Relationship="Self.FK_Product_CarBrand" FromRole="Product" ToRole="CarBrand" />
     <NavigationProperty Name="Car" Relationship="Self.FK_Product_Cars" FromRole="Product" ToRole="Cars" />
@@ -1164,10 +1165,10 @@
       <PropertyRef Name="TroubleshootingId" />
     </Key>
     <Property Name="TroubleshootingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Type" Type="Byte" />
     <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="TroubleshootinParentId" Type="Int32" />
+    <Property Name="Type" Type="Byte" />
+    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Price" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Cars" Relationship="Self.TroubleShootingCars" FromRole="Troubleshooting" ToRole="Cars" />
     <NavigationProperty Name="Products" Relationship="Self.TroubleshootingProducts" FromRole="Troubleshooting" ToRole="Product" />
@@ -2561,7 +2562,7 @@
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
     <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoService" />

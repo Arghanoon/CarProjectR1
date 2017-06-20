@@ -46,9 +46,13 @@
                         <div class="newsitem">
                             <a href="/News/NewsShow/@item.ContenstId/@item.ContentsCategory.Name/@item.ContentSubject"><strong>@item.ContentSubject</strong></a>
                             <div class="newsitem_info">
-                                <img src="@Url.Content(imgpath)" />
-                                <small>@item.ContentDescribe</small>
-                            </div>
+                                <a href="/News/NewsShow/@item.ContenstId/@item.ContentsCategory.Name/@item.ContentSubject">
+                                    <img src="@Url.Content(imgpath)" />
+                                </a>
+                                <a href="/News/NewsShow/@item.ContenstId/@item.ContentsCategory.Name/@item.ContentSubject">
+                                    <small>@item.ContentDescribe</small>
+                                </a>
+</div>
                         </div>
                     }
                 </div>

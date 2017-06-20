@@ -369,10 +369,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 17:59:07</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/Services_New.cshtml">
-      <publishTime>05/15/2017 17:59:07</publishTime>
+      <publishTime>05/31/2017 03:01:38</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/Services_Update.cshtml">
-      <publishTime>05/15/2017 17:59:07</publishTime>
+      <publishTime>05/31/2017 03:02:46</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/Services_UserUseRequest.cshtml">
       <publishTime>05/15/2017 17:59:07</publishTime>
@@ -558,10 +558,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 17:59:52</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>05/24/2017 13:03:56</publishTime>
+      <publishTime>06/11/2017 16:38:21</publishTime>
     </File>
     <File Include="bin/CarProject.XmlSerializers.dll">
-      <publishTime>05/24/2017 13:04:00</publishTime>
+      <publishTime>06/11/2017 16:38:34</publishTime>
     </File>
     <File Include="bin/Devart.Data.Linq.dll">
       <publishTime>12/13/2016 00:56:53</publishTime>
@@ -627,7 +627,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/04/2017 18:42:22</publishTime>
     </File>
     <File Include="DBSEF/Model1.edmx.diagram">
-      <publishTime>05/15/2017 17:59:11</publishTime>
+      <publishTime>05/30/2017 16:03:25</publishTime>
     </File>
     <File Include="DBSEF/Model1.tt">
       <publishTime>02/04/2017 18:42:22</publishTime>
@@ -804,7 +804,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 17:59:13</publishTime>
     </File>
     <File Include="Publics/Files/Resources/StorePage/ProductsList.css">
-      <publishTime>05/16/2017 02:59:38</publishTime>
+      <publishTime>05/24/2017 14:42:55</publishTime>
     </File>
     <File Include="Publics/Files/Resources/template.css">
       <publishTime>05/15/2017 17:59:13</publishTime>
@@ -1713,7 +1713,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 17:59:22</publishTime>
     </File>
     <File Include="Views/Store/ProductsList.cshtml">
-      <publishTime>05/15/2017 17:59:22</publishTime>
+      <publishTime>05/31/2017 03:21:41</publishTime>
     </File>
     <File Include="Views/Store/ProductsRss.aspx">
       <publishTime>05/15/2017 17:59:22</publishTime>
@@ -1728,10 +1728,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 17:59:22</publishTime>
     </File>
     <File Include="Views/Store/ServicesList.cshtml">
-      <publishTime>05/15/2017 17:59:22</publishTime>
+      <publishTime>05/31/2017 03:17:48</publishTime>
     </File>
     <File Include="Views/Store/ServiceView.cshtml">
-      <publishTime>05/15/2017 17:59:22</publishTime>
+      <publishTime>05/31/2017 03:00:42</publishTime>
     </File>
     <File Include="Views/Troubleshooting/Index.cshtml">
       <publishTime>05/24/2017 13:55:19</publishTime>

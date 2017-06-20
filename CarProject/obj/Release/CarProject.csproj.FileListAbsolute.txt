@@ -93,3 +93,4 @@ E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.csproj.App.config
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.dll
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.pdb
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.XmlSerializers.dll
+E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.csprojFakesResolveAssemblyReference.cache

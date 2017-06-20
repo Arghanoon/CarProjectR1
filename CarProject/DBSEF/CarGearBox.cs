@@ -18,7 +18,6 @@ namespace CarProject.DBSEF
         public string GearBoxCode { get; set; }
         public string GearBoxType { get; set; }
         public Nullable<bool> GearBoxCanBeManual { get; set; }
-        public Nullable<bool> GearBoxShifter { get; set; }
         public Nullable<int> GearBoxShiftNumber { get; set; }
         public string GearBoxAxel { get; set; }
         public Nullable<bool> HasTransferCase { get; set; }
@@ -26,6 +25,7 @@ namespace CarProject.DBSEF
         public string GearBoxWdType { get; set; }
         public string GearBoxDescription { get; set; }
         public Nullable<int> CarsId { get; set; }
+        public Nullable<bool> GearBoxShifter { get; set; }
     
         public virtual Car Car { get; set; }
     }

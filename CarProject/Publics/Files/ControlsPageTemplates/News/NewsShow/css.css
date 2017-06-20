@@ -42,12 +42,11 @@
     display: flex;
     justify-content: space-around;
     align-items: stretch;
-
     height:500px;
 }
 
     #CarImagesAndDetailsShowSection > div {
-        flex:1;
+        /*flex:1;*/
         margin:5px;
     }
     #CarImagesAndDetailsShowSection > #carImages {

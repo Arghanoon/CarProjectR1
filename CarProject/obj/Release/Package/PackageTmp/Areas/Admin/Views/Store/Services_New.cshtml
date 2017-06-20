@@ -14,6 +14,7 @@
         <div class="inputsContainer">
             @Html.input_TextBox(m => m.Service.AutoServiceName, "نام سرویس")
             @Html.input_TextBox(m => m.Service.Price, "قیمت سرویس")
+            @Html.input_TextArea(m => m.Service.AutoServiceDescription, "توضیحات سرویس ")
             <div class="input">
                 <label for="">دسته بندی محصول</label>
                 <div>
@@ -65,32 +66,35 @@
                         <a href="javascript:void(0)" class="gia-select" onclick="$('#productSelector').toggleClass('show')">انتخاب محصولات</a>
                         <table class="grid1">
                             <thead style="z-index: 1;">
-                                <tr>
-                                    <th>نام محصول</th>
-                                    <th>گروه</th>
-                                </tr>
+                            <tr>
+                                <th>نام محصول</th>
+                                <th>گروه</th>
+                            </tr>
                             </thead>
 
                             <tbody id="selectedProductsTbody">
-                                @foreach (var item in Model.Products)
-                                {
-                                    var proc = dbs.Products.FirstOrDefault(c => c.ProductId == item);
-                                    if (proc == null)
-                                    { continue; }
+                            @foreach (var item in Model.Products)
+                            {
+                                var proc = dbs.Products.FirstOrDefault(c => c.ProductId == item);
+                                if (proc == null)
+                                { continue; }
                         
-                                    <tr onclick="this.remove()">
-                                        <input type="hidden" value="@item" />
-                                        <td>@proc.ProductName</td>
-                                        <td>@if (proc.Category != null) { @proc.Category.CategoryName }</td>
-                                    </tr>
-                                }
+                                <tr onclick="this.remove()">
+                                    <input type="hidden" value="@item" />
+                                    <td>@proc.ProductName</td>
+                                    <td>@if (proc.Category != null) { @proc.Category.CategoryName }</td>
+                                </tr>
+                            }
                             </tbody>
 
                         </table>
                     </section>
                 </div>
+               
+
                 @Html.ValidationMessageFor(m => m.Products)
             </div>
+            
         </div>
 
         <div class="inputAction">

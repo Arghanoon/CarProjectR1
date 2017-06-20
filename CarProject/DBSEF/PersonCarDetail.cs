@@ -17,8 +17,8 @@ namespace CarProject.DBSEF
         public int PersonCarDetailId { get; set; }
         public Nullable<int> PersonCarId { get; set; }
         public Nullable<System.DateTime> LastOilChange { get; set; }
-        public Nullable<int> LastOilChangeMilage { get; set; }
         public Nullable<System.DateTime> LastOilFiltersChange { get; set; }
+        public Nullable<int> LastOilChangeMilage { get; set; }
         public Nullable<int> LastOilFilterChangeMilage { get; set; }
         public Nullable<System.DateTime> LastGearBoxOilChange { get; set; }
         public Nullable<int> LastGearBoxOilChangeMilage { get; set; }
