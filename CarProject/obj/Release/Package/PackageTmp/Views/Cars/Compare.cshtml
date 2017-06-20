@@ -1,0 +1,1665 @@
+﻿@{
+    ViewBag.Title = "مقایسه خودرو";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+    int car2Id = 0, car3Id = 0;
+
+    CarProject.Areas.Admin.Models.Cars.CarsModel car2 = null, car3 = null;
+    
+    if (Request.QueryString.AllKeys.Contains("car2"))
+    { int.TryParse(Request.QueryString["car2"], out car2Id); }
+
+    if (Request.QueryString.AllKeys.Contains("car3"))
+    { int.TryParse(Request.QueryString["car3"], out car3Id); }
+    
+    if(car2Id > 0)
+    {
+        car2 = new CarProject.Areas.Admin.Models.Cars.CarsModel(car2Id); 
+    }
+    
+    if (car3Id > 0)
+    {
+        car3 = new CarProject.Areas.Admin.Models.Cars.CarsModel(car3Id);
+    }
+}
+@model CarProject.Areas.Admin.Models.Cars.CarsModel
+@using CarProject.App_extension
+
+<form method="get">
+    <fieldset>
+        <legend>انتخاب خودرو برای مقایسه</legend>
+
+        <label>
+            <span>خودرو اول</span>
+            <select id="car2Brands" onchange="changeCarBrands(this.value,'car2Models')">
+                <option value="" selected="selected" disabled="disabled">--انتخاب برند--</option>
+                @foreach (var item in dbs.CarBrands)
+                {
+                    <option value="@item.CarBrandId">@item.CarBrandName</option>
+                }
+            </select>
+            <select id="car2Models" name="car2"></select>
+        </label>
+        <label>
+            <span>خودرو اول</span>
+            <select id="car3Brands" onchange="changeCarBrands(this.value,'car3Models')">
+                <option value="" selected="selected" disabled="disabled">--انتخاب برند--</option>
+                 @foreach (var item in dbs.CarBrands)
+                {
+                    <option value="@item.CarBrandId">@item.CarBrandName</option>
+                }
+            </select>
+            <select id="car3Models" name="car3"></select>
+        </label>
+
+        <input type="submit" value="بروزرسانی" />
+    </fieldset>
+</form>
+
+<table id="carInfoTable">
+    <thead>
+        <tr>
+            <th>اطلاعات</th>
+            <th>@Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</th>
+            <th>
+                @if(car2 != null)
+                {<span>@car2.Car.CarModel.CarBrand.CarBrandName @car2.Car.CarModel.CarModelName</span>}
+            </th>
+			
+            <th>
+                @if(car3 != null)
+                {<span>@car3.Car.CarModel.CarBrand.CarBrandName @car3.Car.CarModel.CarModelName</span>}
+            </th>
+        </tr>
+    </thead>
+
+
+    <tr>
+        <th colspan="5">اطلاعات عمومی خودرو</th>
+    </tr>
+    <tr>
+        <th>کلاس</th>
+        <td>@Model.Car.CarsClass</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.Car.CarsClass
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.Car.CarsClass
+                </span>
+            }
+        </td>
+    </tr>
+
+
+    <tr>
+        <th>مدل</th>
+        <td>@Model.Car.CarModel.CarModelName</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.Car.CarModel.CarModelName
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.Car.CarModel.CarModelName
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>قیمت</th>
+        <td>@Model.Car.Price ملیون تومان</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.Car.Price ملیون تومان
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.Car.Price ملیون تومان
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>کابرد</th>
+        <td>@Model.Car.CarUsage</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.Car.CarUsage
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.Car.CarUsage
+                </span>
+            }
+        </td>
+    </tr>
+
+
+    <tr>
+        <th colspan="5">گیربکس</th>
+    </tr>
+
+
+    <tr>
+        <th>نوع</th>
+        <td>@Model.GearBox.GearBoxType</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.GearBox.GearBoxType
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.GearBox.GearBoxType
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>تبدیل به دنده دستی</th>
+        <td><span class="checked_@Model.GearBox.GearBoxCanBeManual.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+               <span class="checked_@car2.GearBox.GearBoxCanBeManual.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+               <span class="checked_@car3.GearBox.GearBoxCanBeManual.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>شیفتر پشت فرمان</th>
+        <td><span class="checked_@Model.GearBox.GearBoxShifter.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.GearBox.GearBoxShifter.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.GearBox.GearBoxShifter.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>تعداد دنده</th>
+        <td>@Model.GearBox.GearBoxShiftNumber</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.GearBox.GearBoxShiftNumber
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.GearBox.GearBoxShiftNumber
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>محور متحرک</th>
+        <td>@Model.GearBox.GearBoxAxel</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.GearBox.GearBoxAxel
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.GearBox.GearBoxAxel
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>کمک گیرباکس</th>
+        <td></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.GearBox.HasTransferCase.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.GearBox.HasTransferCase.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>قفل دیفرانسیل</th>
+        <td><span class="checked_@Model.GearBox.GearBoxDiffrentionalLock.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.GearBox.GearBoxDiffrentionalLock.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.GearBox.GearBoxDiffrentionalLock.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.GearBox.GearBoxDescription</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.GearBox.GearBoxDescription
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.GearBox.GearBoxDescription
+                </span>
+            }
+        </td>
+    </tr>
+
+
+    <tr>
+        <th colspan="5">سیستم امنیتی</th>
+    </tr>
+
+    <tr>
+        <th>ریموت کنترل</th>
+        <td><span class="checked_@Model.SecuritySystem.RemoteControl.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.SecuritySystem.RemoteControl.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.SecuritySystem.RemoteControl.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>دزدگیر</th>
+        <td><span class="checked_@Model.SecuritySystem.BurglarAlarm.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.SecuritySystem.BurglarAlarm.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.SecuritySystem.BurglarAlarm.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>ایمبولایزر</th>
+        <td><span class="checked_@Model.SecuritySystem.Emo.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.SecuritySystem.Emo.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.SecuritySystem.Emo.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>keyless starter</th>
+        <td><span class="checked_@Model.SecuritySystem.KeylessStart.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.SecuritySystem.KeylessStart.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.SecuritySystem.KeylessStart.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+
+    <tr>
+        <th colspan="5">سیستم تهویه هوا</th>
+    </tr>
+
+
+    <tr>
+        <th>نوع تهویه</th>
+        <td>@Model.AirConditioningSystem.AirConditioningType</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.AirConditioningSystem.AirConditioningType
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.AirConditioningSystem.AirConditioningType
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.AirConditioningSystem.Details</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.AirConditioningSystem.Details
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.AirConditioningSystem.Details
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>جزئیات سیستم تهویه هوا</th>
+        <td>
+            @foreach (var item in Model.AirConditioningSystemDetails)
+            {
+                <section>
+                    <b>@item.AirConditioningSystemDetailSubject</b>
+                    <small>@item.AirConditioningSystemDetail1</small>
+                </section>
+            }
+        </td>
+        <td>
+            @if (car2 != null)
+            {
+                foreach (var item in car2.AirConditioningSystemDetails)
+                {
+					<section>
+						<b>@item.AirConditioningSystemDetailSubject</b>
+						<small>@item.AirConditioningSystemDetail1</small>
+					</section>
+                }
+            }
+        </td>
+		<td>
+            @if (car3 != null)
+            {
+                foreach (var item in car3.AirConditioningSystemDetails)
+                {
+					<section>
+						<b>@item.AirConditioningSystemDetailSubject</b>
+						<small>@item.AirConditioningSystemDetail1</small>
+					</section>
+                }
+            }
+        </td>
+    </tr>
+
+
+    <tr>
+        <th colspan="5">صندلی ها</th>
+    </tr>
+
+
+    <tr>
+        <th>تنظیم ارتفاع صندلی</th>
+        <td><span class="checked_@Model.CarSeatOption.LongitudinalDisplacement.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarSeatOption.LongitudinalDisplacement.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarSeatOption.LongitudinalDisplacement.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>تنظیم گودی کمر</th>
+        <td><span class="checked_@Model.CarSeatOption.BezelSet.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarSeatOption.BezelSet.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarSeatOption.BezelSet.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>گرمکن صندلی</th>
+        <td><span class="checked_@Model.CarSeatOption.SeatWarmer.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarSeatOption.SeatWarmer.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarSeatOption.SeatWarmer.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>ماساژور</th>
+        <td><span class="checked_@Model.CarSeatOption.SeatMassage.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarSeatOption.SeatMassage.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarSeatOption.SeatMassage.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>حافظه</th>
+        <td><span class="checked_@Model.CarSeatOption.HasMemory.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarSeatOption.HasMemory.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarSeatOption.HasMemory.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarSeatOption.Details</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarSeatOption.Details
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarSeatOption.Details
+                </span>
+            }
+        </td>
+    </tr>
+
+
+
+    <tr>
+        <th colspan="5">سیستم روشنایی</th>
+    </tr>
+
+
+    <tr>
+        <th>چراغ های جلو</th>
+        <td>@Model.CarLightingSystem.FrontLights</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarLightingSystem.FrontLights
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarLightingSystem.FrontLights
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>دیلایت</th>
+        <td><span class="checked_@Model.CarLightingSystem.DayLight.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarLightingSystem.DayLight.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarLightingSystem.DayLight.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>راهنما روی آینه بقل</th>
+        <td><span class="checked_@Model.CarLightingSystem.SideMirrorLight.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarLightingSystem.SideMirrorLight.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarLightingSystem.SideMirrorLight.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>مه شکن جلو</th>
+        <td><span class="checked_@Model.CarLightingSystem.FonrAntiFog.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarLightingSystem.FonrAntiFog.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarLightingSystem.FonrAntiFog.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>مه شکن عقب</th>
+        <td><span class="checked_@Model.CarLightingSystem.RearAntiFog.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarLightingSystem.RearAntiFog.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarLightingSystem.RearAntiFog.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>چراغ مطالعه</th>
+        <td><span class="checked_@Model"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarLightingSystem.ReadingLamp.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarLightingSystem.ReadingLamp.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarLightingSystem.Deailts</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarLightingSystem.Deailts
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarLightingSystem.Deailts
+                </span>
+            }
+        </td>
+    </tr>
+
+
+    <tr>
+        <th colspan="5">سیستم کیسه های هوا</th>
+    </tr>
+
+    <tr>
+        <th>راننده</th>
+        <td><span class="checked_@Model.CarAirbag.DriverAirBag.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarAirbag.DriverAirBag.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarAirbag.DriverAirBag.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>سرنشین جلو</th>
+        <td><span class="checked_@Model.CarAirbag.FrontAirBag.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarAirbag.FrontAirBag.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarAirbag.FrontAirBag.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>جانبی و پرده ای</th>
+        <td><span class="checked_@Model.CarAirbag.AirBag.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarAirbag.AirBag.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarAirbag.AirBag.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>تعداد کسیه هوا</th>
+        <td>@Model.CarAirbag.AirBagEntity</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarAirbag.AirBagEntity
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarAirbag.AirBagEntity
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarAirbag.Details</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarAirbag.Details
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarAirbag.Details
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="5">موتور</th>
+    </tr>
+
+
+    <tr>
+        <th>نوع موتور</th>
+        <td>@Model.CarEngine.EngineType</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarEngine.EngineType
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarEngine.EngineType
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>قدرت موتور</th>
+        <td>@Model.CarEngine.EnginePowerHpRpm اسب بخار</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarEngine.EnginePowerHpRpm اسب بخار
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarEngine.EnginePowerHpRpm اسب بخار
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>گشتاور</th>
+        <td>@Model.CarEngine.EngineTorque نیوتن متر</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarEngine.EngineTorque نیوتن متر
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarEngine.EngineTorque نیوتن متر
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>حداکثر سرعت</th>
+        <td>@Model.CarEngine.EngineMaxSpeed کیلومتر در ساعت</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarEngine.EngineMaxSpeed کیلومتر در ساعت
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarEngine.EngineMaxSpeed کیلومتر در ساعت
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>0 تا 100</th>
+        <td>@Model.CarEngine.EngineZeroToH ثانیه</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarEngine.EngineZeroToH ثانیه
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarEngine.EngineZeroToH ثانیه
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>حجم موتور</th>
+        <td>@Model.CarEngine.EngineSize cc</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarEngine.EngineSize cc
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarEngine.EngineSize cc
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>تعداد سیلندر</th>
+        <td>@Model.CarEngine.EngineCylinderNumber</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarEngine.EngineCylinderNumber
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarEngine.EngineCylinderNumber
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>سوخت مصرفی</th>
+        <td>@Model.CarEngine.EngineFuel</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarEngine.EngineFuel
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarEngine.EngineFuel
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarEngine.EngineDescription</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarEngine.EngineDescription
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarEngine.EngineDescription
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="5">سیستم سوخت رسانی</th>
+    </tr>
+
+    <tr>
+        <th>مصرف در شهر</th>
+        <td>@Model.FuelConsumption.LphCity <small>لیتر در 100 کیلومتر</small></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.FuelConsumption.LphCity <small>لیتر در 100 کیلومتر</small>
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.FuelConsumption.LphCity <small>لیتر در 100 کیلومتر</small>
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>مصرف در جاده</th>
+        <td>@Model.FuelConsumption.LphRoad <small>لیتر در 100 کیلومتر</small></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.FuelConsumption.LphRoad <small>لیتر در 100 کیلومتر</small>
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.FuelConsumption.LphRoad <small>لیتر در 100 کیلومتر</small>
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>مصرف سوخت ترکیبی</th>
+        <td>@Model.FuelConsumption.LphMix <small>لیتر در 100 کیلومتر</small></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.FuelConsumption.LphMix <small>لیتر در 100 کیلومتر</small>
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.FuelConsumption.LphMix <small>لیتر در 100 کیلومتر</small>
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.FuelConsumption.Details</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.FuelConsumption.Details
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.FuelConsumption.Details
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="5">سیستم فرمان</th>
+    </tr>
+
+    <tr>
+        <th>نوع</th>
+        <td>@Model.SteeringSystem.SteeringSystemType</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.SteeringSystem.SteeringSystemType
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.SteeringSystem.SteeringSystemType
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>امکان تنظیم ارتفاع</th>
+        <td><span class="checked_@Model.SteeringSystem.SteeringHeightAdjustble.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.SteeringSystem.SteeringHeightAdjustble.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.SteeringSystem.SteeringHeightAdjustble.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>دکمه کنترل روی فرمان</th>
+        <td><span class="checked_@Model.SteeringSystem.SteeringControlKey.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.SteeringSystem.SteeringControlKey.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.SteeringSystem.SteeringControlKey.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.SteeringSystem.Details</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.SteeringSystem.Details
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.SteeringSystem.Details
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="5">سیستم صوتی و تصویری</th>
+    </tr>
+    <tr>
+        <th>مانیتور</th>
+        <td><span class="checked_@Model.CarAudioSystem.HasMonitor.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarAudioSystem.HasMonitor.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarAudioSystem.HasMonitor.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>مانیتور صندلی عقب</th>
+        <td><span class="checked_@Model.CarAudioSystem.RearSeatsMonitor.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarAudioSystem.RearSeatsMonitor.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarAudioSystem.RearSeatsMonitor.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>دوربین عقب</th>
+        <td><span class="checked_@Model"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarAudioSystem.RearGearCamera.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarAudioSystem.RearGearCamera.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>دوربین جلو</th>
+        <td><span class="checked_@Model"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarAudioSystem.FrontCamera.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarAudioSystem.FrontCamera.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>سیستم ناوبری</th>
+        <td><span class="checked_@Model.CarAudioSystem.HasGps.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarAudioSystem.HasGps.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarAudioSystem.HasGps.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarAudioSystem.Details</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarAudioSystem.Details
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarAudioSystem.Details
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="5">شیشه و آینه ها</th>
+    </tr>
+    <tr>
+        <th>شیشه های عقب</th>
+        <td>@Model.GlassAndMirror.RearWindscreens</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.GlassAndMirror.RearWindscreens
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.GlassAndMirror.RearWindscreens
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>شیشه های جلو</th>
+        <td>@Model.GlassAndMirror.FrontWindscreens</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.GlassAndMirror.FrontWindscreens
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.GlassAndMirror.FrontWindscreens
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>سانروف</th>
+        <td><span class="checked_@Model.GlassAndMirror.SunRoof.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.GlassAndMirror.SunRoof.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.GlassAndMirror.SunRoof.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>سقف پانورما</th>
+        <td><span class="checked_@Model.GlassAndMirror.PanaromaRoof.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.GlassAndMirror.PanaromaRoof.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.GlassAndMirror.PanaromaRoof.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>گرمکن شیشه عقب</th>
+        <td><span class="checked_@Model.GlassAndMirror.RearGlassWarmer.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.GlassAndMirror.RearGlassWarmer.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.GlassAndMirror.RearGlassWarmer.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>گرمکن شیشه های بقل</th>
+        <td><span class="checked_@Model.GlassAndMirror.WindscreensWarmer.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.GlassAndMirror.WindscreensWarmer.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.GlassAndMirror.WindscreensWarmer.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>گرمکن شیشه جلو</th>
+        <td><span class="checked_@Model.GlassAndMirror.FrontGlassWarmer.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.GlassAndMirror.FrontGlassWarmer.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.GlassAndMirror.FrontGlassWarmer.ToString()"></span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>تنظیم آینه های بقل</th>
+        <td>@Model.GlassAndMirror.SideMirrorSet</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.GlassAndMirror.SideMirrorSet
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.GlassAndMirror.SideMirrorSet
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>جمع شدن آینه های بقل</th>
+        <td>@Model.GlassAndMirror.SideMirrorSystem</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.GlassAndMirror.SideMirrorSystem
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.GlassAndMirror.SideMirrorSystem
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.GlassAndMirror.Details</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.GlassAndMirror.Details
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.GlassAndMirror.Details
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="5">سیستم سنسورهای خودرو</th>
+    </tr>
+    <tr>
+        <th>روشنایی روز</th>
+        <td><span class="checked_@Model.CarSensorsSystem.DayLightSensor.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarSensorsSystem.DayLightSensor.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarSensorsSystem.DayLightSensor.ToString()"></span>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>باران</th>
+        <td><span class="checked_@Model.CarSensorsSystem.RainSensor.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarSensorsSystem.RainSensor.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarSensorsSystem.RainSensor.ToString()"></span>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>دنده عقب</th>
+        <td><span class="checked_@Model.CarSensorsSystem.RearGearSensor.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarSensorsSystem.RearGearSensor.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarSensorsSystem.RearGearSensor.ToString()"></span>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>پارک</th>
+        <td><span class="checked_@Model.CarSensorsSystem.ParkSensor.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarSensorsSystem.ParkSensor.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarSensorsSystem.ParkSensor.ToString()"></span>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>کروز کنترل</th>
+        <td><span class="checked_@Model.CarSensorsSystem.CruiseControl.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarSensorsSystem.CruiseControl.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarSensorsSystem.CruiseControl.ToString()"></span>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarSensorsSystem.Details</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarSensorsSystem.Details
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarSensorsSystem.Details
+                </span>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="5">تایرها</th>
+    </tr>
+    <tr>
+        <th>سایز استادندارد رینگ</th>
+        <td>@Model.CarWheel.RingStandardSize</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarWheel.RingStandardSize
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarWheel.RingStandardSize
+                </span>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>کنترل اتوماتیک باد تایرها</th>
+        <td><span class="checked_@Model.CarWheel.AutoInflated.ToString()"></span></td>
+        <td>
+            @if(car2 != null)
+            {
+                <span class="checked_@car2.CarWheel.AutoInflated.ToString()"></span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span class="checked_@car3.CarWheel.AutoInflated.ToString()"></span>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>توضیحات</th>
+        <td>@Model.CarWheel.Details</td>
+        <td>
+            @if(car2 != null)
+            {
+                <span>
+                    @car2.CarWheel.Details
+                </span>
+            }
+        </td>
+		<td>
+            @if(car3 != null)
+            {
+                <span>
+                    @car3.CarWheel.Details
+                </span>
+            }
+        </td>
+    </tr>
+
+</table>
+
+@section style{
+    <link href="~/Publics/Files/ControlsPageTemplates/Cars/Compare/css.css" rel="stylesheet" />
+}
+
+@section script
+{
+    <script>
+        var URL = "@Url.Action("GetCarsModelByBrand")";
+    </script>
+    <script src="~/Publics/Files/ControlsPageTemplates/Cars/Compare/script.js"></script>
+}

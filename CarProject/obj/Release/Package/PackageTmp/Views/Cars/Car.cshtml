@@ -35,7 +35,12 @@
     <div id="top_LocationNavigation">
         <a href="/Cars">مشخصات خودروها</a> <span class="gia-left"></span>
         <a href="/Cars?CarBrand=@Model.Car.CarModel.CarBrandId">@Model.Car.CarModel.CarBrand.CarBrandName</a> <span class="gia-left"></span>
-        <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })">@Model.Car.CarModel.CarModelName</a>
+        <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName.Trim().Replace(' ', '-'), info2 = Model.Car.CarModel.CarModelName.Trim().Replace(' ', '-') })">@Model.Car.CarModel.CarModelName</a>
+
+        @*<small>
+            -
+            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Compare", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName, info2 = Model.Car.CarModel.CarModelName })">مقایسه خودرو</a>
+        </small>*@
     </div>
 
     <div id="top_likedisklikecount" dir="ltr">
@@ -90,16 +95,19 @@
             <section>@Model.Car.CarYearModel</section>
         </div>
 
+        
+
         <div id="CarDetails_usercar_Troubleshooting">
+            <a class="orangeback" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Compare", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName.Trim().Replace(' ', '-'), info2 = Model.Car.CarModel.CarModelName.Trim().Replace(' ', '-') })">مقایسه خودرو</a>
             <a href="/Users/Dashboard/InsertPersonCar/@Model.Car.CarsId" class="orangeback">ثبت به عنوان خودروی کاربر</a>
-            <a href="/Troubleshooting/" class="orangeback" >
+            <a href="/Troubleshooting/" class="orangeback">
                 سامانه عیب یابی <br />
                 @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName
             </a>
         </div>
 
         @if (carAutoServices.Any())
-        {
+            {
             <div id="CarDetails_CarServices" class="slideterItemShowContianer">
                 <h3 class="title">خدمات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
                 <div class="itemsContainerBack">
@@ -111,7 +119,7 @@
                             {
                                 src = item.AutoServiceImages[0];
                             }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })" class="item">
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName.Trim().Replace(' ', '-') })" class="item">
                                 <img src="@Url.Content(src)" alt />
                                 <span>@item.AutoServiceName</span>
                             </a>
@@ -126,7 +134,7 @@
 
 
         @if (carProducts.Any())
-        {
+            {
             <div id="CarDetails_CarProducts" class="slideterItemShowContianer">
                 <h3 class="title">قطعات @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</h3>
                 <div class="itemsContainerBack">
@@ -138,7 +146,7 @@
                             {
                                 src = item.ProductImages[0];
                             }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName.Trim().Replace(' ', '-'), info2 = item.ProductName.Trim().Replace(' ', '-') })" class="item">
                                 <img src="@Url.Content(src)" alt />
                                 <span>@item.ProductName</span>
                             </a>
@@ -152,6 +160,7 @@
         }
 
     </div>
+
 </div>
 
 
@@ -168,7 +177,7 @@
                     {
                         src = item.CarImages[0];
                     }
-                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim().Replace(' ','-'), info2 = item.CarModel.CarModelName.Trim().Replace(' ','-') })" class="item">
                         <img src="@Url.Content(src)" alt="" />
                         <span>@item.CarModel.CarBrand.CarBrandName  @item.CarModel.CarModelName</span>
                     </a>
@@ -961,7 +970,7 @@
     <meta name="description" content="مشخصات خودرو @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName @Model.Car.CarYearModel" />
     <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
 
-    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName.Trim(), info2 = Model.Car.CarModel.CarModelName.Trim() }, Request.Url.Scheme)" />
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = Model.Car.CarsId, info1 = Model.Car.CarModel.CarBrand.CarBrandName.Trim().Replace(' ','-'), info2 = Model.Car.CarModel.CarModelName.Trim().Replace(' ','-') }, Request.Url.Scheme)" />
 
 
     <link href="~/Publics/Files/ControlsPageTemplates/Cars/Car/SliderItemShow.css" rel="stylesheet" />

@@ -73,8 +73,8 @@ namespace CarProject.Areas.Admin.Controllers
                 if (current != null && !current.IsNullOrWhiteSpace())
                     rtdirel = Path.Combine(rtdirel, current).Replace('\\', '/');
                 var dir = new DirectoryInfo(Server.MapPath(rtdirel));
-
-                Request.Files["file"].SaveAs(Path.Combine(dir.FullName, Request.Files["file"].FileName));
+                var name = Request.Files[0].FileName.Replace("C:\\fakepath\\", "");
+                Request.Files["file"].SaveAs(Path.Combine(dir.FullName, name));
             }
         }
 

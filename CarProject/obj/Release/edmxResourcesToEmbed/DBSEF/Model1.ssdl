@@ -28,6 +28,7 @@
     <Property Name="HasProduct" Type="bit" />
     <Property Name="Price" Type="nvarchar" MaxLength="50" />
     <Property Name="ServicesCategoryId" Type="int" />
+    <Property Name="AutoServiceDescription" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="AutoServiceCars">
     <Key>
@@ -228,7 +229,6 @@
     <Property Name="GearBoxCode" Type="nvarchar" MaxLength="50" />
     <Property Name="GearBoxType" Type="nvarchar" MaxLength="50" />
     <Property Name="GearBoxCanBeManual" Type="bit" />
-    <Property Name="GearBoxShifter" Type="bit" />
     <Property Name="GearBoxShiftNumber" Type="int" />
     <Property Name="GearBoxAxel" Type="nvarchar" MaxLength="50" />
     <Property Name="HasTransferCase" Type="bit" />
@@ -236,6 +236,7 @@
     <Property Name="GearBoxWdType" Type="nvarchar" MaxLength="50" />
     <Property Name="GearBoxDescription" Type="nvarchar(max)" />
     <Property Name="CarsId" Type="int" />
+    <Property Name="GearBoxShifter" Type="bit" />
   </EntityType>
   <EntityType Name="CarLightingSystem">
     <Key>
@@ -291,7 +292,6 @@
     </Key>
     <Property Name="CarsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarModelId" Type="int" />
-    <Property Name="CountryId" Type="int" />
     <Property Name="CarsClass" Type="nvarchar" MaxLength="50" />
     <Property Name="CarsUserScore" Type="float" />
     <Property Name="CarsClinicScore" Type="float" />
@@ -304,6 +304,7 @@
     <Property Name="CarUsage" Type="nvarchar" MaxLength="100" />
     <Property Name="CarYearModel" Type="int" />
     <Property Name="CarBodyType" Type="nvarchar" MaxLength="50" />
+    <Property Name="CountryId" Type="int" />
   </EntityType>
   <EntityType Name="CarSeatOptions">
     <Key>
@@ -630,8 +631,8 @@
     <Property Name="PersonCarDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PersonCarId" Type="int" />
     <Property Name="LastOilChange" Type="date" />
-    <Property Name="LastOilChangeMilage" Type="int" />
     <Property Name="LastOilFiltersChange" Type="date" />
+    <Property Name="LastOilChangeMilage" Type="int" />
     <Property Name="LastOilFilterChangeMilage" Type="int" />
     <Property Name="LastGearBoxOilChange" Type="date" />
     <Property Name="LastGearBoxOilChangeMilage" Type="int" />
@@ -718,7 +719,6 @@
     <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
     <Property Name="CarId" Type="int" />
-    <Property Name="CarBrandId" Type="int" />
     <Property Name="CategoryId" Type="int" />
     <Property Name="ProductHeight" Type="float" />
     <Property Name="ProductWidth" Type="float" />
@@ -735,6 +735,7 @@
     <Property Name="ProductQnAId" Type="int" />
     <Property Name="DiscountId" Type="int" />
     <Property Name="WithInstall" Type="bit" />
+    <Property Name="CarBrandId" Type="int" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="ProductCars">
@@ -956,10 +957,10 @@
       <PropertyRef Name="TroubleshootingId" />
     </Key>
     <Property Name="TroubleshootingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Type" Type="tinyint" />
     <Property Name="Subject" Type="nvarchar(max)" />
-    <Property Name="Describe" Type="ntext" />
     <Property Name="TroubleshootinParentId" Type="int" />
+    <Property Name="Type" Type="tinyint" />
+    <Property Name="Describe" Type="ntext" />
     <Property Name="Price" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="TroubleShootingCars">

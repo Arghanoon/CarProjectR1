@@ -68,7 +68,7 @@
         else
         { str = question.Question; }
     }
-    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car_Forum_Question", id = id, info1 = "Question", info2 = str, info3 = "details" }, Request.Url.Scheme)" />
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car_Forum_Question", id = id, info1 = "Question", info2 = str.Trim().Replace(' ', '-'), info3 = "details" }, Request.Url.Scheme)" />
 
 
     <style>

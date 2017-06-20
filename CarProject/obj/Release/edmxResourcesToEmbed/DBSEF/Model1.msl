@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
+  <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
     <EntitySetMapping Name="AirConditioningSystems">
       <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
         <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -30,6 +30,7 @@
           <ScalarProperty Name="HasProduct" ColumnName="HasProduct" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="ServicesCategoryId" ColumnName="ServicesCategoryId" />
+          <ScalarProperty Name="AutoServiceDescription" ColumnName="AutoServiceDescription" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -245,7 +246,6 @@
           <ScalarProperty Name="GearBoxCode" ColumnName="GearBoxCode" />
           <ScalarProperty Name="GearBoxType" ColumnName="GearBoxType" />
           <ScalarProperty Name="GearBoxCanBeManual" ColumnName="GearBoxCanBeManual" />
-          <ScalarProperty Name="GearBoxShifter" ColumnName="GearBoxShifter" />
           <ScalarProperty Name="GearBoxShiftNumber" ColumnName="GearBoxShiftNumber" />
           <ScalarProperty Name="GearBoxAxel" ColumnName="GearBoxAxel" />
           <ScalarProperty Name="HasTransferCase" ColumnName="HasTransferCase" />
@@ -253,6 +253,7 @@
           <ScalarProperty Name="GearBoxWdType" ColumnName="GearBoxWdType" />
           <ScalarProperty Name="GearBoxDescription" ColumnName="GearBoxDescription" />
           <ScalarProperty Name="CarsId" ColumnName="CarsId" />
+          <ScalarProperty Name="GearBoxShifter" ColumnName="GearBoxShifter" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -313,7 +314,6 @@
         <MappingFragment StoreEntitySet="Cars">
           <ScalarProperty Name="CarsId" ColumnName="CarsId" />
           <ScalarProperty Name="CarModelId" ColumnName="CarModelId" />
-          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
           <ScalarProperty Name="CarsClass" ColumnName="CarsClass" />
           <ScalarProperty Name="CarsUserScore" ColumnName="CarsUserScore" />
           <ScalarProperty Name="CarsClinicScore" ColumnName="CarsClinicScore" />
@@ -326,6 +326,7 @@
           <ScalarProperty Name="CarUsage" ColumnName="CarUsage" />
           <ScalarProperty Name="CarYearModel" ColumnName="CarYearModel" />
           <ScalarProperty Name="CarBodyType" ColumnName="CarBodyType" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -682,8 +683,8 @@
           <ScalarProperty Name="PersonCarDetailId" ColumnName="PersonCarDetailId" />
           <ScalarProperty Name="PersonCarId" ColumnName="PersonCarId" />
           <ScalarProperty Name="LastOilChange" ColumnName="LastOilChange" />
-          <ScalarProperty Name="LastOilChangeMilage" ColumnName="LastOilChangeMilage" />
           <ScalarProperty Name="LastOilFiltersChange" ColumnName="LastOilFiltersChange" />
+          <ScalarProperty Name="LastOilChangeMilage" ColumnName="LastOilChangeMilage" />
           <ScalarProperty Name="LastOilFilterChangeMilage" ColumnName="LastOilFilterChangeMilage" />
           <ScalarProperty Name="LastGearBoxOilChange" ColumnName="LastGearBoxOilChange" />
           <ScalarProperty Name="LastGearBoxOilChangeMilage" ColumnName="LastGearBoxOilChangeMilage" />
@@ -777,7 +778,6 @@
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
-          <ScalarProperty Name="CarBrandId" ColumnName="CarBrandId" />
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="ProductHeight" ColumnName="ProductHeight" />
           <ScalarProperty Name="ProductWidth" ColumnName="ProductWidth" />
@@ -794,6 +794,7 @@
           <ScalarProperty Name="ProductQnAId" ColumnName="ProductQnAId" />
           <ScalarProperty Name="DiscountId" ColumnName="DiscountId" />
           <ScalarProperty Name="WithInstall" ColumnName="WithInstall" />
+          <ScalarProperty Name="CarBrandId" ColumnName="CarBrandId" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -1038,10 +1039,10 @@
       <EntityTypeMapping TypeName="CarAutomationModel.Troubleshooting">
         <MappingFragment StoreEntitySet="Troubleshooting">
           <ScalarProperty Name="TroubleshootingId" ColumnName="TroubleshootingId" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Subject" ColumnName="Subject" />
-          <ScalarProperty Name="Describe" ColumnName="Describe" />
           <ScalarProperty Name="TroubleshootinParentId" ColumnName="TroubleshootinParentId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Describe" ColumnName="Describe" />
           <ScalarProperty Name="Price" ColumnName="Price" />
         </MappingFragment>
       </EntityTypeMapping>

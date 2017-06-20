@@ -16,7 +16,7 @@
 
 <div id="forumHeader">
     <h3>پرسش و پاسخ درباره خودرو</h3> | 
-    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = car.CarsId, info1 = car.CarModel.CarBrand.CarBrandName, info2 = car.CarModel.CarModelName })">@car.CarModel.CarBrand.CarBrandName - @car.CarModel.CarModelName</a>
+    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = car.CarsId, info1 = car.CarModel.CarBrand.CarBrandName.Trim().Replace(' ', '-'), info2 = car.CarModel.CarModelName.Trim().Replace(' ', '-') })">@car.CarModel.CarBrand.CarBrandName - @car.CarModel.CarModelName</a>
 </div>
 
 <div id="ForumMessagesContainer" class="page">
@@ -32,7 +32,7 @@
                 { str = item.Question.Substring(0, 50) ; }
                 else
                 { str = item.Question; }
-                <a href="@Url.RouteUrl("infoRoute", new { area="", controller = "Cars", action = "Car_Forum_Question", id = item.CarsQnAId, info1 = "question", info2 = str, info3 = "details" })">@item.Question</a>
+                <a href="@Url.RouteUrl("infoRoute", new { area="", controller = "Cars", action = "Car_Forum_Question", id = item.CarsQnAId, info1 = "question", info2 = str.Trim().Replace(' ', '-'), info3 = "details" })">@item.Question</a>
             }
         }
     </div>

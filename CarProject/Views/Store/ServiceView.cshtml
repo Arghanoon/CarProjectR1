@@ -201,7 +201,11 @@
             </tr>
             <tr>
                 <th>قیمت سرویس</th>
-                <td>@service.Price تومان</td>
+                <td>@String.Format("{0:n0}", service.Price) تومان</td>
+            </tr>
+            <tr>
+                <th>توضیحات سرویس</th>
+                <td>@service.AutoServiceDescription</td>
             </tr>
             @*<tr>
                 <th>سرویس پک های شامل این سرویس</th>

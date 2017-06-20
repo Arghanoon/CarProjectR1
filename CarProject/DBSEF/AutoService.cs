@@ -33,6 +33,7 @@ namespace CarProject.DBSEF
         public Nullable<bool> HasProduct { get; set; }
         public string Price { get; set; }
         public Nullable<int> ServicesCategoryId { get; set; }
+        public string AutoServiceDescription { get; set; }
     
         public virtual ServicesCategory ServicesCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

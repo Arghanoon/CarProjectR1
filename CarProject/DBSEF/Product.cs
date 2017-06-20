@@ -34,7 +34,6 @@ namespace CarProject.DBSEF
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public Nullable<int> CarId { get; set; }
-        public Nullable<int> CarBrandId { get; set; }
         public Nullable<int> CategoryId { get; set; }
         public Nullable<double> ProductHeight { get; set; }
         public Nullable<double> ProductWidth { get; set; }
@@ -51,6 +50,7 @@ namespace CarProject.DBSEF
         public Nullable<int> ProductQnAId { get; set; }
         public Nullable<int> DiscountId { get; set; }
         public Nullable<bool> WithInstall { get; set; }
+        public Nullable<int> CarBrandId { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
         public virtual CarBrand CarBrand { get; set; }
