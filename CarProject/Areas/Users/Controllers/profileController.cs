@@ -165,10 +165,11 @@ namespace CarProject.Areas.Users.Controllers
         [UsersCLS.Users_DontAuthFilter]
         public ActionResult Signup(CarProject.Models.User.UserInfo model, string captcha)
         {
-            if (captcha.IsNullOrWhiteSpace())
-                ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
-            else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(captcha))
-                ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نست");
+            if (Request.Form["g-recaptcha-response"] == "")
+                ModelState.AddModelError("g-recaptcha-response", "کد امنیتی وارد نشده است");
+            else if (!CarProject.Controllers.DefaultController.ValidationRecaptcha(Request.Form["g-recaptcha-response"]))
+                ModelState.AddModelError("g-recaptcha-response", "کد امنیتی وارد شده صحیح نیست");
+                       
 
             if (ModelState.IsValid)
             {
