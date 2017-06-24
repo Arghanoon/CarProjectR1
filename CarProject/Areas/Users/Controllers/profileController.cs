@@ -165,10 +165,11 @@ namespace CarProject.Areas.Users.Controllers
         [UsersCLS.Users_DontAuthFilter]
         public ActionResult Signup(CarProject.Models.User.UserInfo model, string captcha)
         {
-            if (captcha.IsNullOrWhiteSpace())
-                ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
-            else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(captcha))
-                ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نست");
+            if (Request.Form["g-recaptcha-response"] == "")
+                ModelState.AddModelError("g-recaptcha-response", "کد امنیتی وارد نشده است");
+            else if (!CarProject.Controllers.DefaultController.ValidationRecaptcha(Request.Form["g-recaptcha-response"]))
+                ModelState.AddModelError("g-recaptcha-response", "کد امنیتی وارد شده صحیح نیست");
+                       
 
             if (ModelState.IsValid)
             {
@@ -215,6 +216,17 @@ namespace CarProject.Areas.Users.Controllers
                 var username = form["username"].ToLower();
                 var pass = CLS.Usefulls.MD5Passwords(form["password"]);
                 var user = dbs.Users.FirstOrDefault(u => u.Uname.ToLower() == username && u.Upass == pass && u.UserRoleId == 2);
+                if(user == null)
+                {
+                    try
+                    {
+                        user = dbs.People.FirstOrDefault(p => p.PersonEmail.ToLower() == username || p.PersonMobile.ToLower() == username && p.User.Upass == pass && p.User.UserRoleId == 2).User;
+                    }
+                    catch
+                    {
+                    }
+                }
+
                 if (user != null && user.IsActive == true)
                 {
                     user.ActiveRecoveryCode = null;
@@ -375,10 +387,11 @@ namespace CarProject.Areas.Users.Controllers
                     ModelState.AddModelError("email", "کابری با ایمیل وارد شده یافت نشد");
 
 
-                if (!form.AllKeys.Contains("captcha") || form["captcha"].IsNullOrWhiteSpace())
-                    ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
-                else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(form["captcha"]))
-                    ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نیست");
+                if (Request.Form["g-recaptcha-response"] == "")
+                    ModelState.AddModelError("g-recaptcha-response", "کد امنیتی وارد نشده است");
+                else if (!CarProject.Controllers.DefaultController.ValidationRecaptcha(Request.Form["g-recaptcha-response"]))
+                    ModelState.AddModelError("g-recaptcha-response", "کد امنیتی وارد شده صحیح نیست");
+
 
                 if (ModelState.IsValid)
                 {

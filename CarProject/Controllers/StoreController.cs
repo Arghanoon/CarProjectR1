@@ -127,6 +127,7 @@ namespace CarProject.Controllers
         [HttpPost]
         public ActionResult Cart(FormCollection form)
         {
+            var dbs = new DBSEF.CarAutomationEntities();
             var us = new Models.Store.CartUsefull();
             var mdl = us.GetCurrentBasket();
 
@@ -172,13 +173,36 @@ namespace CarProject.Controllers
                         item.ProductEachPrice = us.GetPriceOfCartObject_int_WitoutInstallation(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value).ToString();
                     }
 
-                    decimal discountprice = us.GetPriceOfCartObject_withDiscount(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, mdl.Discount);
+                    decimal discountprice = us.GetPriceOfCartObject_withDiscount(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, item.Discount);
                     if (item.Type == (byte)CartUsefull.Basket_ItemType.Product && item.PriceFlag == (byte)CartUsefull.BasketImte_PriceFlag.Product_PriceOnly)
-                        discountprice = us.GetPriceOfCartObject_withDiscount_WintoutInstallation(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, mdl.Discount);
+                        discountprice = us.GetPriceOfCartObject_withDiscount_WintoutInstallation(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, item.Discount);
 
                     item.ProductEachPaidPrice = discountprice.ToString();
                     item.ToatoalPaidPrice = (discountprice * item.Count).ToString();
 
+                }
+
+                key = string.Format("Discount[{0}][{1}]", item.Id, item.Type);
+                if(form.AllKeys.Contains(key) && form[key].Trim() != "")
+                {
+                    //check code exist
+                    string keyValue = form[key].Trim();
+                    var discount = dbs.Discounts.FirstOrDefault(di => di.DiscountCode == keyValue);
+                    if (discount != null)
+                    {
+                        if (((CartUsefull.Basket_ItemType)item.Type) == CartUsefull.Basket_ItemType.Product && discount.ProductDiscounts.Count(pd => pd.ProductId == item.Id) > 0)
+                        {
+                            item.DiscountId = discount.DiscountId;
+                        }
+                        else if (((CartUsefull.Basket_ItemType)item.Type) == CartUsefull.Basket_ItemType.AutoService && discount.ProductDiscounts.Count(pd => pd.AutoServiceId == item.Id) > 0)
+                            item.DiscountId = discount.DiscountId;
+                        else if (((CartUsefull.Basket_ItemType)item.Type) == CartUsefull.Basket_ItemType.AutoServicePack && discount.ProductDiscounts.Count(pd => pd.AutoServicePackId == item.Id) > 0)
+                            item.DiscountId = discount.DiscountId;
+                        else
+                            ModelState.AddModelError(key, "کد وارد شده معتبر نمی باشد");
+                    }
+                    else
+                        ModelState.AddModelError(key, "کد وارد شده معتبر نمی باشد");
                 }
             }
 

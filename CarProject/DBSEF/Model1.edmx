@@ -95,6 +95,7 @@
           <Property Name="ProductEachPaidPrice" Type="nvarchar" MaxLength="50" />
           <Property Name="ToatoalPaidPrice" Type="nvarchar" MaxLength="250" />
           <Property Name="PriceFlag" Type="tinyint" />
+          <Property Name="DiscountId" Type="int" />
         </EntityType>
         <EntityType Name="Baskets">
           <Key>
@@ -1168,6 +1169,18 @@
             </Principal>
             <Dependent Role="BasketItems">
               <PropertyRef Name="BasketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BasketItems_Discount">
+          <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+          <End Role="BasketItems" Type="Self.BasketItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="DiscountId" />
+            </Principal>
+            <Dependent Role="BasketItems">
+              <PropertyRef Name="DiscountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2539,6 +2552,10 @@
             <End Role="Baskets" EntitySet="Baskets" />
             <End Role="BasketItems" EntitySet="BasketItems" />
           </AssociationSet>
+          <AssociationSet Name="FK_BasketItems_Discount" Association="Self.FK_BasketItems_Discount">
+            <End Role="Discount" EntitySet="Discount" />
+            <End Role="BasketItems" EntitySet="BasketItems" />
+          </AssociationSet>
           <AssociationSet Name="FK_Baskets_Baskets" Association="Self.FK_Baskets_Baskets">
             <End Role="ProductsOrServicesDeliveryTypes" EntitySet="ProductsOrServicesDeliveryTypes" />
             <End Role="Baskets" EntitySet="Baskets" />
@@ -3071,7 +3088,9 @@
           <Property Name="ProductEachPaidPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ToatoalPaidPrice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="PriceFlag" Type="Byte" />
+          <Property Name="DiscountId" Type="Int32" />
           <NavigationProperty Name="Basket" Relationship="Self.FK_BasketItems_Baskets" FromRole="BasketItems" ToRole="Baskets" />
+          <NavigationProperty Name="Discount" Relationship="Self.FK_BasketItems_Discount" FromRole="BasketItems" ToRole="Discount" />
         </EntityType>
         <EntityType Name="Basket">
           <Key>
@@ -3620,6 +3639,7 @@
           <Property Name="DiscountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DiscountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Discount1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BasketItems" Relationship="Self.FK_BasketItems_Discount" FromRole="Discount" ToRole="BasketItems" />
           <NavigationProperty Name="Baskets" Relationship="Self.FK_Baskets_Discount" FromRole="Discount" ToRole="Baskets" />
           <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_Discount" FromRole="Discount" ToRole="ProductDiscount" />
         </EntityType>
@@ -4424,6 +4444,18 @@
             </Principal>
             <Dependent Role="BasketItems">
               <PropertyRef Name="BasketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BasketItems_Discount">
+          <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+          <End Role="BasketItems" Type="Self.BasketItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="DiscountId" />
+            </Principal>
+            <Dependent Role="BasketItems">
+              <PropertyRef Name="DiscountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5515,7 +5547,7 @@
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
           <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
           <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
@@ -5687,6 +5719,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_BasketItems_Baskets" Association="Self.FK_BasketItems_Baskets">
             <End Role="Baskets" EntitySet="Baskets" />
+            <End Role="BasketItems" EntitySet="BasketItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BasketItems_Discount" Association="Self.FK_BasketItems_Discount">
+            <End Role="Discount" EntitySet="Discounts" />
             <End Role="BasketItems" EntitySet="BasketItems" />
           </AssociationSet>
           <AssociationSet Name="FK_Baskets_Baskets" Association="Self.FK_Baskets_Baskets">
@@ -6063,7 +6099,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="CarAutomationModelStoreContainer" CdmEntityContainer="CarAutomationEntities">
           <EntitySetMapping Name="AirConditioningSystems">
             <EntityTypeMapping TypeName="CarAutomationModel.AirConditioningSystem">
               <MappingFragment StoreEntitySet="AirConditioningSystem">
@@ -6161,6 +6197,7 @@
                 <ScalarProperty Name="ProductEachPaidPrice" ColumnName="ProductEachPaidPrice" />
                 <ScalarProperty Name="ToatoalPaidPrice" ColumnName="ToatoalPaidPrice" />
                 <ScalarProperty Name="PriceFlag" ColumnName="PriceFlag" />
+                <ScalarProperty Name="DiscountId" ColumnName="DiscountId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

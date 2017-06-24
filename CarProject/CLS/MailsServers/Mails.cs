@@ -72,7 +72,7 @@ namespace CarProject.CLS.MailsServers
                 messageBody = messageBody.Replace("[password]", model.Password);
 
                 messageBody = string.Format("<html><body>{0}</body></html>", messageBody);
-                message.Subject = "ایمیلی از طرف سایت خودرو کلینیک";
+                message.Subject = "خودرو کلینیک | فعال سازی حساب کاربری";
                     
                 message.Body = messageBody.Replace("\n", "<br />");
                 message.From = new MailAddress("noreply@khodroclinic.com", "خودرو کلینیک");
@@ -110,7 +110,7 @@ namespace CarProject.CLS.MailsServers
                 message.BodyEncoding = System.Text.Encoding.UTF8;
                 message.Body = messageBody.Replace("\n", "<br />");
                 message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
-                message.Subject = "ایمیلی از طرف سایت خودرو کلینیک";
+                message.Subject = "خودرو کلینیک | بازیابی کلمه عبور";
 
                 this.SendMessage(message);
 
