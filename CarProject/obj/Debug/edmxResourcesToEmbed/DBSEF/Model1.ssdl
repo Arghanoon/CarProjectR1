@@ -90,6 +90,7 @@
     <Property Name="ProductEachPaidPrice" Type="nvarchar" MaxLength="50" />
     <Property Name="ToatoalPaidPrice" Type="nvarchar" MaxLength="250" />
     <Property Name="PriceFlag" Type="tinyint" />
+    <Property Name="DiscountId" Type="int" />
   </EntityType>
   <EntityType Name="Baskets">
     <Key>
@@ -1163,6 +1164,18 @@
       </Principal>
       <Dependent Role="BasketItems">
         <PropertyRef Name="BasketId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BasketItems_Discount">
+    <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+    <End Role="BasketItems" Type="Self.BasketItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discount">
+        <PropertyRef Name="DiscountId" />
+      </Principal>
+      <Dependent Role="BasketItems">
+        <PropertyRef Name="DiscountId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2532,6 +2545,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_BasketItems_Baskets" Association="Self.FK_BasketItems_Baskets">
       <End Role="Baskets" EntitySet="Baskets" />
+      <End Role="BasketItems" EntitySet="BasketItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BasketItems_Discount" Association="Self.FK_BasketItems_Discount">
+      <End Role="Discount" EntitySet="Discount" />
       <End Role="BasketItems" EntitySet="BasketItems" />
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_Baskets" Association="Self.FK_Baskets_Baskets">
