@@ -30,15 +30,43 @@ namespace CarProject.Controllers
                     var dbs = new DBSEF.CarAutomationEntities();
 
 
-                    var pass =   Usefulls.MD5Passwords(form["password"]);
+                    var pass = Usefulls.MD5Passwords(form["password"]);
 
                     // var pshash = System.Text.Encoding.UTF8.GetString(md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(form["password"])));
 
                     var username = form["username"].ToLower().ToString();
 
+                    var usr1 = dbs.People.FirstOrDefault(u => u.PersonEmail.ToLower() == username);
+                    var usr2 = dbs.People.FirstOrDefault(u => u.PersonMobile == username);
+                    int? usr1Pass = 0;
+                    int? usr2Pass = 0;
+                    if (usr1 != null)
+                    {
+                        usr1Pass = usr1.UserId;
+                    }
+                    if (usr2 != null)
+                    {
+                        usr2Pass = usr2.UserId;
+                    }
+
+
 
 
                     var usr = dbs.Users.FirstOrDefault(u => u.Uname.ToLower() == username && u.Upass == pass.ToLower() && u.IsActive == true);
+                    if (usr == null)
+                    {
+                        if (usr1Pass != null)
+                        {
+                            usr = dbs.Users.FirstOrDefault(
+                                u => u.UserId == usr1Pass && u.Upass == pass.ToLower() && u.IsActive == true);
+                        }
+                        else if (usr2Pass != null)
+                        {
+                            usr = dbs.Users.FirstOrDefault(
+                                u => u.UserId == usr2Pass && u.Upass == pass.ToLower() && u.IsActive == true);
+
+                        }
+                    }
                     if (usr != null)
                     {
                         Session["user"] = usr;
@@ -47,7 +75,7 @@ namespace CarProject.Controllers
                             return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                         else
                             return RedirectToAction("Index", "Dashboard", new { area = "Users" });
-                        
+
                     }
                     else
                         ViewBag.error = "نام کاربری و یا کلمه عبور صحیح نیست";
@@ -70,7 +98,7 @@ namespace CarProject.Controllers
         }
         [HttpPost]
         public ActionResult Signup(Models.User.UserInfo user)
-        {       
+        {
             ViewBag.error = new MvcHtmlString("");
             if (ViewData.ModelState.IsValid)
             {
