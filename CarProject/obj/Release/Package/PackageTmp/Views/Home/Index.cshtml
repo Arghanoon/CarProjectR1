@@ -42,12 +42,16 @@
                                 imgpath = Path.Combine(item.ContenstId.ToString().BaseRouts_NewsImages(), fils[0].Name);
                             }
                         }
-               
+
                         <div class="newsitem">
                             <a href="/News/NewsShow/@item.ContenstId/@item.ContentsCategory.Name/@item.ContentSubject"><strong>@item.ContentSubject</strong></a>
                             <div class="newsitem_info">
-                                <img src="@Url.Content(imgpath)" />
-                                <small>@item.ContentDescribe</small>
+                                <a href="/News/NewsShow/@item.ContenstId/@item.ContentsCategory.Name/@item.ContentSubject">
+                                    <img src="@Url.Content(imgpath)" />
+                                </a>
+                                <a href="/News/NewsShow/@item.ContenstId/@item.ContentsCategory.Name/@item.ContentSubject">
+                                    <small>@item.ContentDescribe</small>
+                                </a>
                             </div>
                         </div>
                     }
@@ -57,12 +61,12 @@
             <a href="/Users/Dashboard/PersonCars" id="mycarStates"><span class="gia-speedometer" style="font-size: 220%;"></span>وضعیت ماشینم را ذخیره کن</a>
         </div>
 
-        @if(dbs.SlideShows.Any(c => c.Type == 1))
+        @if (dbs.SlideShows.Any(c => c.Type == 1))
         {
             <div id="section0_mainslideshow">
                 @{
                     var slides = dbs.SlideShows.Where(s => s.Type == 1);
-            
+
                 }
                 <a id="mainslideshow_bigimageLink" href="#">
                     <img id="mainslideshow_bigimage" src="@slides.First().Image" />
@@ -74,7 +78,7 @@
                     }
                 </div>
             </div>
-        }
+                    }
 
     </div>
 
@@ -90,7 +94,7 @@
         </a>
     </div>
 
-    @if(dbs.SlideShows.Any(c => c.Type == 2))
+    @if (dbs.SlideShows.Any(c => c.Type == 2))
     {
         <div id="slideshow2Section">
             @{
@@ -106,7 +110,7 @@
                 <img src="@slides2.First().Image" id="slideshow2Section_bigView" />
             </a>
         </div>
-    }
+                }
 
     <hr />
 
@@ -119,10 +123,10 @@
                 var f = di.GetFiles(string.Format("{0}.*", item.CarBrandId));
                 if (f.Length > 0)
                 {
-            <a href="#" class="brandItem">
-                <img src="~/Publics/Gallery/Brands/@f[0].Name" alt="@item.CarBrandName" />
-                <span>@item.CarBrandName</span>
-            </a>
+                    <a href="#" class="brandItem">
+                        <img src="~/Publics/Gallery/Brands/@f[0].Name" alt="@item.CarBrandName" />
+                        <span>@item.CarBrandName</span>
+                    </a>
                 }
             }
         }
@@ -131,7 +135,7 @@
 
     <div id="ServicesMaxSell" class="slideterItemShowContianer">
         <h3 class="title">پرفروش ترین خدمات</h3>
-        <div  class="itemsContainerBack">
+        <div class="itemsContainerBack">
             <div class="itemsContainer">
                 @{
                     var MaxSellservices = dbs.AutoServices.OrderByDescending(s => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.AutoService && bi.Id == s.AutoServiceId)).Take(10);
@@ -147,12 +151,12 @@
                         {
                             src = Url.Content(PicFileUrl + "/" + finfo.GetFiles()[0].Name);
                         }
-                
-                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName.Trim().Replace(' ','-') })" class="item">
-                        <img src="@Url.Content(@src)" />
-                        <span>@item.AutoServiceName</span>
-                    </a>
-                }
+
+                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName.Trim().Replace(' ','-') })" class="item">
+                            <img src="@Url.Content(@src)" />
+                            <span>@item.AutoServiceName</span>
+                        </a>
+                    }
                 }
             </div>
         </div>
@@ -179,7 +183,7 @@
                             //Product_image_src = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
                             Product_image_src = PicFileUrl + "/" + finfo.GetFiles()[0].Name;
                         }
-                
+
                         <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName.Trim().Replace(' ','-'), info2 = item.ProductName.Trim().Replace(' ','-') })" class="item">
                             <img src="@Url.Content(@Product_image_src)" />
                             <span>@item.ProductName</span>
@@ -192,7 +196,7 @@
         <span class="rightmove gia-right" onclick="slideterItemShowContianer_rightmove(this.offsetParent)"></span>
         <span class="leftmove gia-left" onclick="slideterItemShowContianer_leftmove(this.offsetParent)"></span>
     </div>
-    
+
 
     <div id="CarxMaxVisited" class="slideterItemShowContianer">
         <h3 class="title">پر بازدیدترین خودروها</h3>
@@ -215,15 +219,15 @@
                                 car_image_src = imgpaht + "/" + imgs[0].Name;
                             }
                         }
-                
-                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
-                        <img src="@Url.Content(@car_image_src)" />
-                        <span>
-                            <strong>@item.CarModel.CarModelName</strong>
-                            <small>@item.CarModel.CarBrand.CarBrandName</small>
-                        </span>
-                    </a>
-                }
+
+                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
+                            <img src="@Url.Content(@car_image_src)" />
+                            <span>
+                                <strong>@item.CarModel.CarModelName</strong>
+                                <small>@item.CarModel.CarBrand.CarBrandName</small>
+                            </span>
+                        </a>
+                    }
                 }
             </div>
         </div>

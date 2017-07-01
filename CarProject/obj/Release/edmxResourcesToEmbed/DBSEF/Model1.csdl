@@ -118,7 +118,9 @@
     <Property Name="ProductEachPaidPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ToatoalPaidPrice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="PriceFlag" Type="Byte" />
+    <Property Name="DiscountId" Type="Int32" />
     <NavigationProperty Name="Basket" Relationship="Self.FK_BasketItems_Baskets" FromRole="BasketItems" ToRole="Baskets" />
+    <NavigationProperty Name="Discount" Relationship="Self.FK_BasketItems_Discount" FromRole="BasketItems" ToRole="Discount" />
   </EntityType>
   <EntityType Name="Basket">
     <Key>
@@ -667,6 +669,7 @@
     <Property Name="DiscountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DiscountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Discount1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BasketItems" Relationship="Self.FK_BasketItems_Discount" FromRole="Discount" ToRole="BasketItems" />
     <NavigationProperty Name="Baskets" Relationship="Self.FK_Baskets_Discount" FromRole="Discount" ToRole="Baskets" />
     <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_Discount" FromRole="Discount" ToRole="ProductDiscount" />
   </EntityType>
@@ -1471,6 +1474,18 @@
       </Principal>
       <Dependent Role="BasketItems">
         <PropertyRef Name="BasketId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BasketItems_Discount">
+    <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+    <End Role="BasketItems" Type="Self.BasketItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discount">
+        <PropertyRef Name="DiscountId" />
+      </Principal>
+      <Dependent Role="BasketItems">
+        <PropertyRef Name="DiscountId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2562,7 +2577,7 @@
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <End Role="Troubleshooting" Type="Self.Troubleshooting" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CarAutomationEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AirConditioningSystems" EntityType="Self.AirConditioningSystem" />
     <EntitySet Name="AirConditioningSystemDetails" EntityType="Self.AirConditioningSystemDetail" />
     <EntitySet Name="AutoServices" EntityType="Self.AutoService" />
@@ -2734,6 +2749,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_BasketItems_Baskets" Association="Self.FK_BasketItems_Baskets">
       <End Role="Baskets" EntitySet="Baskets" />
+      <End Role="BasketItems" EntitySet="BasketItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BasketItems_Discount" Association="Self.FK_BasketItems_Discount">
+      <End Role="Discount" EntitySet="Discounts" />
       <End Role="BasketItems" EntitySet="BasketItems" />
     </AssociationSet>
     <AssociationSet Name="FK_Baskets_Baskets" Association="Self.FK_Baskets_Baskets">

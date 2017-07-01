@@ -14,7 +14,25 @@ namespace CarProject.Controllers
     {
         //
         // GET: /Default/
+        [Route("robots.txt", Name = "GetRobotsText"), OutputCache(Duration = 86400)]
+        public ContentResult RobotsText()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
 
+            stringBuilder.AppendLine("user-agent: *");
+            stringBuilder.AppendLine("disallow: /error/");
+            stringBuilder.AppendLine("allow: /error/foo");
+            stringBuilder.Append("sitemap: ");
+            stringBuilder.AppendLine(this.Url.RouteUrl("GetSitemapXml", null, this.Request.Url.Scheme).TrimEnd('/'));
+
+            return this.Content(stringBuilder.ToString(), "text/plain", Encoding.UTF8);
+        }
+
+        //[Route("sitemap.xml", Name = "GetSitemapXml"), OutputCache(Duration = 86400)]
+        //public ContentResult SitemapXml()
+        //{
+        //    // I'll talk about this in a later blog post.
+        //}
         public static string CaptchaStringSession { get { return (System.Web.HttpContext.Current.Session["CRNTCAPTCHA"] != null) ? System.Web.HttpContext.Current.Session["CRNTCAPTCHA"].ToString() : ""; } set { System.Web.HttpContext.Current.Session["CRNTCAPTCHA"] = value; } }
         public static bool ValidationCaptcha(string inputCaptcha) { return CaptchaStringSession == inputCaptcha; }
         public static bool ValidationRecaptcha(string response)

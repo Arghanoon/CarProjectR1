@@ -20,6 +20,7 @@
 }
 
 .listOfProducts .item * {
+    font-size: 12px;
     text-align: center;
 }
 
@@ -32,10 +33,10 @@
 
 .listOfProducts .item img {
     flex: 1;
-    max-width: 50%;
-    max-height: 50%;
+    /*max-width: 75%;*/
+    max-height: 85%;
     transition: 0.5s;
-    width: 175px;
+    width: 100%;
     -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
     filter: grayscale(50%);
 }
@@ -63,7 +64,8 @@
 #searchAndFilter {
     width: 20vw;
     margin-top: 15px;
-    font-size: 80%;
+    font-size: 92%;
+    font-family: b nazanin;
 }
 
 #searchAndFilter .title {

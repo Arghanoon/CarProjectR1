@@ -26,20 +26,7 @@
     <form method="post" id="CartForm">
         <h3>سبد خرید کاربر</h3>
         <hr />
-        <div class="inputsContainer">
-            <section class="input">
-                <label>کد تفخیف</label>
-                <input type="text" name="InputDiscountCod" placeholder="کد تخفیف" value="@discountstr" />
-                @Html.HiddenFor(m => m.DiscountId)
-                <span>@Html.ValidationMessage("InputDiscountCod")</span>
-            </section>
-        </div>
-
-
-        @if (DiscountObject != null)
-        {
-            <section>کد تخفیف شما شامل <q>@DiscountObject.Discount1</q> درصد تخفیف میباشد.</section>
-        }
+       
 
         <div>
             <table id="cartTable">
@@ -48,6 +35,7 @@
                         <th class="fix">حذف</th>
                         <th class="fix">شماره</th>
                         <th>نام</th>
+                        <th>کد تخفیف</th>
                         <th class="fix">نوع</th>
                         <th class="fix">قیمت</th>
                         <th class="fix">قیمت + تخفیف</th>
@@ -58,32 +46,38 @@
                 <tbody>
                     @{ 
                         int i = 1;
-                        decimal TotalPrice = 0;
-                     }
+        decimal TotalPrice = 0;
+    }
                     @foreach (var item in Model.BasketItems)
                     {
-                        
-                        var discountprice = usfull.GetPriceOfCartObject_withDiscount(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, DiscountObject);
-                        var discountprice_WI = usfull.GetPriceOfCartObject_withDiscount_WintoutInstallation(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, DiscountObject);
+
+                        //current item discount
+                        CarProject.DBSEF.Discount itemDiscount = null;
+                        if (item.DiscountId != null)
+                        { itemDiscount = dbs.Discounts.FirstOrDefault(dis => dis.DiscountId == item.DiscountId); }
+
+
+                        var discountprice = usfull.GetPriceOfCartObject_withDiscount(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, itemDiscount);
+                        var discountprice_WI = usfull.GetPriceOfCartObject_withDiscount_WintoutInstallation(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, itemDiscount);
                         var CurrentCalcuationPrice = discountprice;
-                        
+
                         decimal ttpic = 0;
                         int pric = usfull.GetPriceOfCartObject_int(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value);
                         int pric_i = usfull.GetPriceOfCartObject_int_WitoutInstallation(item.Id.Value, (CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type.Value);
-                        
+
                         if (item.Type == (byte)CartUsefull.Basket_ItemType.Product && item.PriceFlag == (byte)CartUsefull.BasketImte_PriceFlag.Product_PriceOnly)
-                        { 
+                        {
                             ttpic = discountprice_WI * item.Count.GetValueOrDefault(0);
                             CurrentCalcuationPrice = discountprice_WI;
                         }
                         else
-                        { 
+                        {
                             ttpic = discountprice * item.Count.GetValueOrDefault(0);
                         }
-                        
+
                         TotalPrice += ttpic;
-                        
-                        
+
+
 
                         <tr>
                             <td class="fix center   ">
@@ -97,7 +91,7 @@
                                 {
                                     if (item.PriceFlag == null || item.PriceFlag == (byte)CartUsefull.BasketImte_PriceFlag.UnKnown)
                                     { item.PriceFlag = (byte)CartUsefull.BasketImte_PriceFlag.Product_PricePlusInstallation; }
-                                    
+
                                     <hr />
                                     <label>
                                         <input type="checkbox" name="WithInstallation[@item.Id][@item.Type]" @if (item.PriceFlag == (byte)CartUsefull.BasketImte_PriceFlag.Product_PricePlusInstallation) { Write("checked=\"checked\""); } data-itemprice="@discountprice" data-itemprice-wi="@discountprice_WI" onchange="ChangeInstallationTypeFunction(event);" />
@@ -105,9 +99,25 @@
                                     </label>
                                 }
                             </td>
+
+                            <td class="fix center">
+                               <input type="text" name="Discount[@item.Id][@item.Type]" value="@{ Write((itemDiscount != null)? itemDiscount.DiscountCode : ""); }" />
+                                <br />
+                                <small style="color: red">
+                                    @Html.ValidationMessage(string.Format("Discount[{0}][{1}]",item.Id,item.Type))
+                                </small>
+                                @if (itemDiscount != null)
+                                {
+                                    <small style="font-size:70%; color:blue;">
+                                        درصد تخفیف : @{ Write((itemDiscount != null) ? itemDiscount.Discount1 : "0"); } %
+                                    </small>
+                                }
+                            </td>
+
                             <td class="fix center">
                                 @usfull.GetNameofCartType((CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type)
                             </td>
+
                             <td class="fix center">
                                     @if (item.Type == (byte)CartUsefull.Basket_ItemType.Product)
                                     {
@@ -149,17 +159,18 @@
 
 
                     <tr>
-                        <th colspan="8">تعیین روز و زمان تحویل</th>
+                        <th colspan="9">تعیین روز و زمان تحویل</th>
                     </tr>
                     <tr>
-                        <td colspan="8">
+                        <td colspan="9">
                             <div id="DiveryDateAndTimeContainer">
                                 @{
-                                    var DaysOfWeeks = dbs.DaysOfWeeks.Where(d => d.Date >= DateTime.Today);
-                                    if(DaysOfWeeks.Any())
-                                    {
-                                    var maxcount = DaysOfWeeks.Max(d => d.TimeOfDays.Count);
-                                    
+        var DaysOfWeeks = dbs.DaysOfWeeks.Where(d => d.Date >= DateTime.Today);
+        if(DaysOfWeeks.Any())
+        {
+            var maxcount = DaysOfWeeks.Max(d => d.TimeOfDays.Count);
+
+
                                     <table id="DeliverytimmingTable">
                                         @foreach (var item in DaysOfWeeks)
                                         {
@@ -179,7 +190,7 @@
                                     </table>
                                     <span style="color:red;">@Html.ValidationMessage("timmingErrors")</span>
                                     }
-                                }
+    }
                             </div>
                         </td>
                     </tr>
@@ -191,7 +202,7 @@
                                 <select name="DelivaryTypeId" onchange="PlanComboBoxOnChange(this)">
                                     @{
                                         var xDeliveryTypes = dbs.ProductsOrServicesDeliveryTypes.AsQueryable();
-                                        int DLTYP = 0;
+    int DLTYP = 0;
                                         if (Model.ProductsOrServicesDeliveryType == null && xDeliveryTypes.Count() > 0)
                                         {
                                             int.TryParse(xDeliveryTypes.First().Price, out DLTYP);
@@ -218,7 +229,7 @@
                         </td>
                     </tr>*@
                     <tr>
-                        <td colspan="7">مجموع مبلغ قابل پرداخت</td>
+                        <td colspan="8">مجموع مبلغ قابل پرداخت</td>
                         <td>
                             <span id="SumOfAllPrices">
                                 @TotalPrice
@@ -229,7 +240,8 @@
             </table>
         </div>
         <hr />
-        
+
+
         <div class="formAction" dir="ltr">
             <input type="submit" class="button green" value="ادامه و تکمیل فرایند خرید" name="ContinueShoping" />
             <input type="button" class="button red" value="پاک کردن سبد خرید" onclick="document.getElementById('removeBasketCompletly').submit();"/>
@@ -245,16 +257,16 @@
 
 
 @section style
-{
+    {
     <style>
         #cartTable {
             width:100%;
-            padding:5px;
-            margin:5px;
-        }
-            #cartTable td,
-            #cartTable th {
-                padding:1px 5px;
+        padding:5px;
+        margin:5px;
+    }
+#cartTable td,
+#cartTable th {
+    padding:1px 5px;
                 border:thin solid #888;
             }
 
@@ -294,7 +306,7 @@
 }
 
 @section script
-{
+    {
     <script>
         function FormSumbitFunction(e) {
             //e.preventDefault();
@@ -309,15 +321,15 @@
 
         function ChangeTotalPriceValue(e) {
             tr = $(e.target).parent().parent().parent();
-            
+
             exh = $(e.target).attr('data-itemprice');
             $('.totalprice', tr).html((exh * parseInt(e.target.value)));
-           
+
             sumofall = 0;
             $("#cartTable tbody tr .totalprice").each(function (index, element) {
                 sumofall += parseInt($(element).html());
             });
-            
+
             document.getElementById("SumOfAllPrices").innerHTML = sumofall;
         }
 
@@ -344,7 +356,7 @@
             frm.method = "Post";
             frm.action = "@Url.Action("Cart_remoSelection")";
             document.body.appendChild(frm);
-            
+
 
             inp = document.createElement("input");
             inp.type = "hidden";
@@ -368,15 +380,15 @@
         function ChangeInstallationTypeFunction(e) {
             tr = $(e.target).parent().parent().parent();
             CountInput = $(".CountInput", tr);
-            
+
             if (e.target.checked) {
                 $(CountInput).attr('data-itemprice', $(e.target).attr('data-itemprice'));
-            }
+                }
             else {
                 $(CountInput).attr('data-itemprice', $(e.target).attr('data-itemprice-wi'));
-            }
+                }
 
             $(CountInput).change();
-        }
+                }
     </script>
 }

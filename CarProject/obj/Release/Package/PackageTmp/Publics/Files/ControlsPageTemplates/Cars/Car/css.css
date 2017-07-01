@@ -95,7 +95,8 @@
             }
 
         #CarImagesAndDetailsShowSection > #CarDetials > #CarDetails_NameAndYear {
-            font-size:150%;
+            font-size:110%;
+            font-family: b nazanin;
             font-weight:bold;
             display:flex;
             justify-content:space-between;

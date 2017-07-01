@@ -149,6 +149,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CLS\Sitemap.cs" />
+    <Compile Include="CLS\SitemapNode.cs" />
     <Compile Include="DBSEF\AirConditioningSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -867,6 +869,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="SiteMap.xml" />
     <Content Include="Views\Store\ProductSitemap.aspx" />
     <Content Include="Views\Store\ProductsRss.aspx" />
     <Content Include="Web References\arianpal1\PaymentRequestResult.datasource">
@@ -914,6 +917,7 @@
     <Folder Include="Publics\Gallery\NewsImages\" />
     <Folder Include="Publics\Scripts\Ajax\" />
     <Folder Include="Publics\Styles\PagesStyle\" />
+    <Folder Include="Views\RobotsTxt\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

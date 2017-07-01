@@ -102,8 +102,9 @@
             <a href="/Users/Dashboard/InsertPersonCar/@Model.Car.CarsId" class="orangeback">ثبت به عنوان خودروی کاربر</a>
             <a href="/Troubleshooting/" class="orangeback">
                 سامانه عیب یابی <br />
-                @Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName
+                @*@Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName*@
             </a>
+            <a href="@Url.RouteUrl("infoRoute",new{Controller=""})" class="orangeback" >کالا های مرتبط</a>
         </div>
 
         @if (carAutoServices.Any())
@@ -211,6 +212,7 @@
                     </tr>
 
                 }
+                
                 @if (!Model.Car.CarModel.CarModelName.IsNullOrWhiteSpace())
                 {
                     <tr>
