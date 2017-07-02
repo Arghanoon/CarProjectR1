@@ -136,7 +136,8 @@ namespace CarProject.Models.Store
         {
             if (Context.Session["guestUser"] != null && Context.Session["guestUser"] is DBSEF.User)
             {
-                var user = Context.Session["guestUser"] as DBSEF.User;                
+                var user = Context.Session["guestUser"] as DBSEF.User;
+                var us = new Models.Store.CartUsefull();
                 var cart = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)Models.Store.CartUsefull.Basket_State.Openned);
 
                 if (basket.BasketItems != null)
@@ -173,6 +174,32 @@ namespace CarProject.Models.Store
                 if (basket.TimeOfDayId != null)
                     cart.TimeOfDayId = basket.TimeOfDayId;
 
+                foreach (var item in basket.BasketItems)
+                {
+                    if (item.DiscountId != null && UserUseCode(item.DiscountId.GetValueOrDefault()))
+                    {
+                        item.DiscountId = null;
+                        item.Discount = null;
+                    }
+
+                    DBSEF.Discount itemDiscount = null;
+                    if (item.DiscountId != null)
+                        itemDiscount = dbs.Discounts.FirstOrDefault(dis => dis.DiscountId == item.DiscountId);
+
+                    item.ProductEachPrice = us.GetPriceOfCartObject(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value);
+                    if (item.Type == (byte)CartUsefull.Basket_ItemType.Product && item.PriceFlag == (byte)CartUsefull.BasketImte_PriceFlag.Product_PriceOnly)
+                    {
+                        item.ProductEachPrice = us.GetPriceOfCartObject_int_WitoutInstallation(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value).ToString();
+                    }
+
+                    decimal discountprice = us.GetPriceOfCartObject_withDiscount(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, itemDiscount);
+                    if (item.Type == (byte)CartUsefull.Basket_ItemType.Product && item.PriceFlag == (byte)CartUsefull.BasketImte_PriceFlag.Product_PriceOnly)
+                        discountprice = us.GetPriceOfCartObject_withDiscount_WintoutInstallation(item.Id.Value, (Models.Store.CartUsefull.Basket_ItemType)item.Type.Value, itemDiscount);
+
+                    item.ProductEachPaidPrice = discountprice.ToString();
+                    item.ToatoalPaidPrice = (discountprice * item.Count).ToString();
+                }
+
                 dbs.SaveChanges();
 
                 dbs.BasketItems.RemoveRange(dbs.BasketItems.Where(c => c.BasketId == null));
@@ -190,6 +217,12 @@ namespace CarProject.Models.Store
             }
         }
 
+        public bool UserUseCode(int discountCode)
+        {
+            var user = Context.Session["guestUser"] as DBSEF.User;
+            var disocuts = dbs.BasketItems.Count(bi => bi.Basket.UserId == user.UserId && bi.DiscountId == discountCode && bi.Basket.State > 1);
+            return disocuts > 0;
+        }
 
         public string GetNameOfCartObject(int id, Basket_ItemType typeofcart)
         {
