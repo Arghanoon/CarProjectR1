@@ -564,6 +564,7 @@
     <Content Include="Publics\Files\ControlsPageTemplates\Store\ServiceView\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\ServiceView\SliderItemShow.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\ServiceView\SliderItemShow.js" />
+    <Content Include="Publics\Files\Images\hands.png" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
     <Content Include="Publics\Files\Resources\CarsPages\CarsComments.css" />
@@ -857,6 +858,7 @@
     <Content Include="DBSEF\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Users\Views\profile\Login13960413.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
