@@ -564,13 +564,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 17:59:52</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>07/01/2017 22:46:07</publishTime>
+      <publishTime>07/02/2017 19:34:38</publishTime>
     </File>
     <File Include="bin/CarProject.pdb">
-      <publishTime>07/01/2017 22:46:07</publishTime>
+      <publishTime>07/02/2017 19:34:38</publishTime>
     </File>
     <File Include="bin/CarProject.XmlSerializers.dll">
-      <publishTime>07/01/2017 22:46:12</publishTime>
+      <publishTime>07/02/2017 19:34:45</publishTime>
     </File>
     <File Include="bin/Devart.Data.Linq.dll">
       <publishTime>12/13/2016 00:56:53</publishTime>
@@ -643,6 +643,60 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Global.asax">
       <publishTime>05/15/2017 17:59:11</publishTime>
+    </File>
+    <File Include="LandingPage/fonts/IRANSansWeb.eot">
+      <publishTime>01/23/2016 12:26:22</publishTime>
+    </File>
+    <File Include="LandingPage/fonts/IRANSansWeb.ttf">
+      <publishTime>01/23/2016 12:26:22</publishTime>
+    </File>
+    <File Include="LandingPage/fonts/IRANSansWeb.woff">
+      <publishTime>01/23/2016 12:26:22</publishTime>
+    </File>
+    <File Include="LandingPage/fonts/IRANSansWeb.woff2">
+      <publishTime>01/23/2016 12:26:22</publishTime>
+    </File>
+    <File Include="LandingPage/fonts/IRANSansWebB.eot">
+      <publishTime>01/23/2016 12:26:22</publishTime>
+    </File>
+    <File Include="LandingPage/fonts/IRANSansWebB.ttf">
+      <publishTime>01/23/2016 12:26:22</publishTime>
+    </File>
+    <File Include="LandingPage/fonts/IRANSansWebB.woff">
+      <publishTime>01/23/2016 12:26:22</publishTime>
+    </File>
+    <File Include="LandingPage/fonts/IRANSansWebB.woff2">
+      <publishTime>01/23/2016 12:26:22</publishTime>
+    </File>
+    <File Include="LandingPage/images/bg.jpg">
+      <publishTime>06/25/2017 11:47:04</publishTime>
+    </File>
+    <File Include="LandingPage/images/call.png">
+      <publishTime>06/25/2017 11:47:04</publishTime>
+    </File>
+    <File Include="LandingPage/images/checked.png">
+      <publishTime>06/25/2017 11:47:04</publishTime>
+    </File>
+    <File Include="LandingPage/images/cta.png">
+      <publishTime>06/25/2017 11:47:04</publishTime>
+    </File>
+    <File Include="LandingPage/images/discount.png">
+      <publishTime>06/26/2017 12:03:18</publishTime>
+    </File>
+    <File Include="LandingPage/images/logo.png">
+      <publishTime>06/25/2017 11:47:04</publishTime>
+    </File>
+    <File Include="LandingPage/images/shape.png">
+      <publishTime>06/25/2017 11:47:04</publishTime>
+    </File>
+    <File Include="LandingPage/index.html">
+      <publishTime>07/02/2017 19:34:29</publishTime>
+    </File>
+    <File Include="LandingPage/js/main.js">
+      <publishTime>06/27/2017 13:06:15</publishTime>
+    </File>
+    <File Include="LandingPage/style.css">
+      <publishTime>06/27/2017 13:07:36</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>05/15/2017 17:59:52</publishTime>
@@ -1659,7 +1713,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 17:59:21</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>06/24/2017 22:39:40</publishTime>
+      <publishTime>07/02/2017 19:28:16</publishTime>
     </File>
     <File Include="Views/Home/Search.cshtml">
       <publishTime>05/15/2017 17:59:21</publishTime>

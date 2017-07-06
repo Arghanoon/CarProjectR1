@@ -84,6 +84,10 @@ namespace CarProject.Models.User
             return false;
         }
 
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [Display(Name = "حاصل جمع")]
+        public string Captcha { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (string.IsNullOrWhiteSpace(Person.PersonFirtstName))

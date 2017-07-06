@@ -47,8 +47,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
-      <HintPath>..\packages\CaptchaMvc.Mvc4.1.5.0\lib\net40-full\CaptchaMvc.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
     </Reference>
     <Reference Include="Devart.Data.Linq, Version=4.5.1080.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
     <Reference Include="Devart.Data.SqlServer.Linq, Version=4.5.1080.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
@@ -65,6 +64,9 @@
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Recaptcha.Web, Version=2.1.0.0, Culture=neutral, PublicKeyToken=171a6ec5fa4b1644, processorArchitecture=MSIL">
+      <HintPath>..\packages\RecaptchaNet.2.1.0\lib\net45\Recaptcha.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -149,8 +151,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Users\Controllers\CaptchaController.cs" />
     <Compile Include="CLS\Sitemap.cs" />
     <Compile Include="CLS\SitemapNode.cs" />
+    <Compile Include="Controllers\CaptchaController.cs" />
     <Compile Include="DBSEF\AirConditioningSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -532,11 +536,22 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="DBSEF\Model1.edmx.sql" />
     <Content Include="DBSEF\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="LandingPage\images\bg.jpg" />
+    <Content Include="LandingPage\images\call.png" />
+    <Content Include="LandingPage\images\checked.png" />
+    <Content Include="LandingPage\images\cta.png" />
+    <Content Include="LandingPage\images\discount.png" />
+    <Content Include="LandingPage\images\logo.png" />
+    <Content Include="LandingPage\images\shape.png" />
+    <Content Include="LandingPage\index.html" />
+    <Content Include="LandingPage\js\main.js" />
+    <Content Include="LandingPage\style.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\css.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Cars\Car\SliderItemShow.css" />
@@ -838,6 +853,7 @@
     <Content Include="Publics\Scripts\tinymce\tinymce.js" />
     <Content Include="Publics\Scripts\tinymce\tinymce.min.js" />
     <Content Include="Publics\Files\Resources\template.css" />
+    <Content Include="RecaptchaNet.Readme.txt" />
     <Content Include="Service References\arianpalWebservice\CarProject.arianpalWebservice.PaymentRequestResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -852,6 +868,14 @@
     </Content>
     <Content Include="Areas\Admin\Views\Store\AutoServicePackUserComments.cshtml" />
     <Content Include="Areas\Admin\Views\Store\AutoServicePackUserComments_ShowAndReply.cshtml" />
+    <Content Include="LandingPage\fonts\IRANSansWeb.eot" />
+    <Content Include="LandingPage\fonts\IRANSansWeb.ttf" />
+    <Content Include="LandingPage\fonts\IRANSansWeb.woff" />
+    <Content Include="LandingPage\fonts\IRANSansWeb.woff2" />
+    <Content Include="LandingPage\fonts\IRANSansWebB.eot" />
+    <Content Include="LandingPage\fonts\IRANSansWebB.ttf" />
+    <Content Include="LandingPage\fonts\IRANSansWebB.woff" />
+    <Content Include="LandingPage\fonts\IRANSansWebB.woff2" />
     <EntityDeploy Include="DBSEF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -910,6 +934,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Users\Views\Captcha\" />
     <Folder Include="Publics\Filemanager\" />
     <Folder Include="Publics\Gallery\Brands\" />
     <Folder Include="Publics\Gallery\CarImages\" />
@@ -917,6 +942,7 @@
     <Folder Include="Publics\Gallery\NewsImages\" />
     <Folder Include="Publics\Scripts\Ajax\" />
     <Folder Include="Publics\Styles\PagesStyle\" />
+    <Folder Include="Views\Captcha\" />
     <Folder Include="Views\RobotsTxt\" />
   </ItemGroup>
   <ItemGroup>
