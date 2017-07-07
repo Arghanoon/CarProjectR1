@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "فرم ورود کاربران";
+}
+
+<div class="page" id="pagecontent">
+    
+    <div id="logindiv">
+        <form method="post" class="page">
+
+            <h3>ورود کاربر</h3>
+            <small>برای ورود به حساب کاربری خود از فرم زیر استفاده کنید
+            </small>
+            <hr />
+            <div id="loginSectionform" class="inputsContainer">
+                <section class="input">
+                    <label for="username">نام کاربری</label>
+                    <input type="text" placeholder="نام کاربری" name="username" id="username" />
+                    <span></span>
+                </section>
+                <section class="input">
+                    <label for="password">کلمه عبور</label>
+                    <input type="password" placeholder="کلمه عبور" name="password" id="password" />
+                    <span></span>
+                </section>
+            </div>
+            @try
+            {
+                <ul style="font-size:80%">
+                    <li><a href="/Users/profile/UserPasswordRecovery">فراموشی کلمه عبور</a></li>
+                </ul>
+                <ul style="color: red; font-size: 80%;">
+                    @foreach (var item in ViewBag.loginerror)
+                    {
+                        <li>@Html.Raw(item)</li>
+                }
+                </ul>
+            }
+            catch
+            {
+            }
+            <div class="inputAction">
+                <input type="submit" value="ورود کاربر" class="button green" />
+            </div>
+        </form>
+    </div>
+
+    <div id="info">
+        <center>
+            <h1>ثبت نام کاربر جدید</h1>
+            <a href="@Url.Action("Signup")" class="gia-newUser">ورود به قسمت ثبت نام در سایت خودروکلینیک</a>
+        </center>
+    </div>
+
+</div>
+
+@section Style
+{
+    <style>
+        #loginSectionform input {
+            text-align: center;
+        }
+
+        #pagecontent {
+            display:flex;
+            justify-content:space-between;
+        }
+        #logindiv {
+            min-width:300px;
+            width:40%;
+            border-left:thin solid #888;
+        }
+        #info {
+            width:100%;
+            flex:1;
+
+            display:flex; justify-content:center; align-items:center;
+        }
+
+        @@media (max-width:700px) {
+            #pagecontent {
+                flex-direction:column;
+            }
+
+            #logindiv {
+                border-left:none;
+                border-bottom:thin solid #888;
+                width:auto;
+            }
+        }
+    </style>
+}

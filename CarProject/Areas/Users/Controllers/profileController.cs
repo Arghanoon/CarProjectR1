@@ -221,103 +221,186 @@ namespace CarProject.Areas.Users.Controllers
         [UsersCLS.Users_DontAuthFilter]
         public ActionResult Login(FormCollection form)
         {
-            var error = new List<string>();
-
-            if (form["username"].IsNullOrWhiteSpace())
-                error.Add("نام کاربری تعیین نشده است");
-            if (form["password"].IsNullOrWhiteSpace())
-                error.Add("کمله عبور تعیین نشده است");
-
-            if (error.Count == 0)
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (form.AllKeys.Contains("login_sumbit"))
             {
-                var dbs = new DBSEF.CarAutomationEntities();
-                var username = form["username"].ToLower();
-                var pass = CLS.Usefulls.MD5Passwords(form["password"]);
-                var user = dbs.Users.FirstOrDefault(u => u.Uname.ToLower() == username && u.Upass == pass && u.UserRoleId == 2);
-                if(user == null)
+                List<string> loginError = new List<string>();
+
+                try
                 {
-                    try
-                    {
-                        user = dbs.People.FirstOrDefault(p => p.PersonEmail.ToLower() == username || p.PersonMobile.ToLower() == username && p.User.Upass == pass && p.User.UserRoleId == 2).User;
-                    }
-                    catch
-                    {
-                    }
-                }
+                    if (form["login_username"].IsNullOrWhiteSpace())
+                        loginError.Add("ایمیل وارد نشده است");
+                    if (form["login_password"].IsNullOrWhiteSpace())
+                        loginError.Add("گذرواژه وارد نشده است");
 
-                if (user != null && user.IsActive == true)
-                {
-                    user.ActiveRecoveryCode = null;
-                    user.ActiveORecovery = null;
-                    dbs.SaveChanges();
-
-                    Session["guestUser"] = user;
-
-                    //cart redirect
-                    try
+                    if (loginError.Count <= 0)
                     {
-                        if (Request.Cookies["Basket"] != null && !Request.Cookies["Basket"].Value.IsNullOrWhiteSpace())
+                        var pass = CLS.Usefulls.MD5Passwords(form["login_password"]);
+                        var UName = form["login_username"].ToLower();
+                        var people = dbs.People.FirstOrDefault(p => (p.PersonEmail.ToLower() == UName ||
+                        p.PersonMobile == UName ||
+                        p.User.Uname == UName) && p.User.Upass == pass && p.User.UserRoleId == 2);
+
+                        var user = people.User;
+
+                        if (user != null && user.IsActive == true)
                         {
-                            var basket = JsonConvert.DeserializeObject<DBSEF.Basket>(Request.Cookies["Basket"].Value);
-                            if (basket != null)
-                            {
-                                var userbasket = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)CarProject.Models.Store.CartUsefull.Basket_State.Openned);
-                                if (userbasket == null)
-                                {
-                                    basket.UserId = user.UserId;
-                                    basket.ProductsOrServicesDeliveryType = null;
-                                    basket.State = (byte)CarProject.Models.Store.CartUsefull.Basket_State.Openned;
-                                    dbs.Baskets.Add(basket);
-                                }
-                                else
-                                {
-                                    userbasket.DelivaryTypeId = basket.DelivaryTypeId;
-                                    foreach (var item in basket.BasketItems)
-                                    {
-                                        var itm = userbasket.BasketItems.FirstOrDefault(c => c.Id == item.Id && c.Type == item.Type);
-                                        if (itm == null)
-                                            userbasket.BasketItems.Add(item);
-                                        else
-                                            itm.Count = item.Count;
-                                    }
-                                }
-                            }
-
+                            user.ActiveRecoveryCode = null;
+                            user.ActiveORecovery = null;
                             dbs.SaveChanges();
 
+                            Session["guestUser"] = user;
 
-                            Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(-1);
+                            //cart redirect
+                            try
+                            {
+                                if (Request.Cookies["Basket"] != null && !Request.Cookies["Basket"].Value.IsNullOrWhiteSpace())
+                                {
+                                    var basket = JsonConvert.DeserializeObject<DBSEF.Basket>(Request.Cookies["Basket"].Value);
+                                    if (basket != null)
+                                    {
+                                        var userbasket = dbs.Baskets.FirstOrDefault(c => c.UserId == user.UserId && c.State == (byte)CarProject.Models.Store.CartUsefull.Basket_State.Openned);
+                                        if (userbasket == null)
+                                        {
+                                            basket.UserId = user.UserId;
+                                            basket.ProductsOrServicesDeliveryType = null;
+                                            basket.State = (byte)CarProject.Models.Store.CartUsefull.Basket_State.Openned;
+                                            dbs.Baskets.Add(basket);
+                                        }
+                                        else
+                                        {
+                                            userbasket.DelivaryTypeId = basket.DelivaryTypeId;
+                                            foreach (var item in basket.BasketItems)
+                                            {
+                                                var itm = userbasket.BasketItems.FirstOrDefault(c => c.Id == item.Id && c.Type == item.Type);
+                                                if (itm == null)
+                                                    userbasket.BasketItems.Add(item);
+                                                else
+                                                    itm.Count = item.Count;
+                                            }
+                                        }
+                                    }
+
+                                    dbs.SaveChanges();
+
+
+                                    Response.Cookies["Basket"].Expires = DateTime.Now.AddMonths(-1);
+                                }
+                            }
+                            catch { }
+                            //end redirect cart
+
+
+                            if (Session["guestRedirect"] != null && Session["guestRedirect"] is System.Web.Routing.RouteData)
+                            {
+                                var x = ((System.Web.Routing.RouteData)Session["guestRedirect"]);
+                                if (x.DataTokens.Keys.Contains("area"))
+                                    x.Values.Add("area", x.DataTokens["area"]);
+                                else
+                                    x.Values.Add("area", "");
+                                return RedirectToRoute(x.Values);
+                            }
+                            else
+                                return RedirectToRoute(new { area = "", controller = "Home", action = "Index" });
+                        }
+                        else if (user != null && user.IsActive == null)
+                        {
+                            var userperson = dbs.People.FirstOrDefault(p => p.UserId == user.UserId);
+                            loginError.Add(string.Format("نام کاربری شما هنوز فعال نشده است. <br /><a href='/users/profile/UserResendUserActivationCode?User={0}'>ارسال مجدد ایمیل فعالسازی به {1}</a><br /> <a href=\"/users/profile/UserResendUserActivationCodeToNewEmail?User={0}\">ویرایش ایمیل و ارسال مجدد ایمیل فعال سازی</a>", user.Uname, userperson.PersonEmail));
+                        }
+                        else
+                        {
+                            loginError.Add("کاربری با مشخصات وارد شده یافت نشد");
                         }
                     }
-                    catch { }
-                    //end redirect cart
 
+                }
+                catch
+                {
+                    loginError.Add("درخواست کامل نیست");
+                }
 
-                    if (Session["guestRedirect"] != null && Session["guestRedirect"] is System.Web.Routing.RouteData)
-                    {
-                        var x = ((System.Web.Routing.RouteData)Session["guestRedirect"]);
-                        if (x.DataTokens.Keys.Contains("area"))
-                            x.Values.Add("area", x.DataTokens["area"]);
-                        else
-                            x.Values.Add("area", "");
-                        return RedirectToRoute(x.Values);
-                    }
-                    else
-                        return RedirectToRoute(new { area = "", controller = "Home", action = "Index" });
-                }
-                else if (user != null && user.IsActive == null)
-                {
-                    var userperson = dbs.People.FirstOrDefault(p => p.UserId == user.UserId);
-                    error.Add(string.Format("نام کاربری شما هنوز فعال نشده است. <br /><a href='/users/profile/UserResendUserActivationCode?User={0}'>ارسال مجدد ایمیل فعالسازی به {1}</a><br /> <a href=\"/users/profile/UserResendUserActivationCodeToNewEmail?User={0}\">ویرایش ایمیل و ارسال مجدد ایمیل فعال سازی</a>", user.Uname, userperson.PersonEmail));
-                }
-                else
-                {
-                    error.Add("کاربری با مشخصات وارد شده یافت نشد");
-                }
+                ViewBag.loginError = loginError;
             }
 
 
-            ViewBag.loginerror = error;
+            else if (form.AllKeys.Contains("signup_sumbit"))
+            {
+                List<string> signupError = new List<string>();
+                try
+                {
+                    if (form["signup_firstname"].IsNullOrWhiteSpace())
+                        signupError.Add("نام تعیین نشده است");
+                    if (form["signup_lastname"].IsNullOrWhiteSpace())
+                        signupError.Add("نام خانوادگی تعیین نشده است");
+
+                    if (form["signup_mobile"].IsNullOrWhiteSpace())
+                        signupError.Add("شماره تماس وارد نشده است");
+                    else if (!form["signup_mobile"].IsNumber())
+                        signupError.Add("شماره تماس فقط شامل عدد میتواند باشد");
+
+                    string email = form["signup_email"];
+                    if (form["signup_email"].IsNullOrWhiteSpace())
+                        signupError.Add("ایمل وارد نشده است");
+                    else if (!form["signup_email"].String_IsEmail())
+                        signupError.Add("ایمیل وارد شده صحیح نیست");
+                    else if (dbs.People.Count(p => p.PersonEmail.ToLower() == email) > 0)
+                        signupError.Add("ایمیل وارد شده تکراری است");
+
+
+                    if (form["signup_password"].IsNullOrWhiteSpace())
+                        signupError.Add("گذرواژه وارد نشده است");
+                    if (form["signup_password2"].IsNullOrWhiteSpace())
+                        signupError.Add("تکرار گذرواژه وارد نشده است");
+
+                    if (!form["signup_password"].IsNullOrWhiteSpace() && !form["signup_password2"].IsNullOrWhiteSpace()
+                        && form["signup_password"] != form["signup_password2"])
+                        signupError.Add("گذارواژه و تکرار آن برابر نیست");
+
+                    if (!form.AllKeys.Contains("contract"))
+                        signupError.Add("قوانین سایت مورد موافقت قرار نگرفته است");
+
+
+                    if (signupError.Count <= 0)
+                    {
+                        DBSEF.Person prs = new DBSEF.Person();
+                        prs.PersonFirtstName = form["signup_firstname"];
+                        prs.PersonLastName = form["signup_lastname"];
+                        prs.PersonMobile = form["signup_mobile"];
+                        prs.PersonEmail = form["signup_email"];
+
+                        prs.User = new DBSEF.User();
+                        prs.User.Uname = form["signup_email"];
+                        prs.User.Upass = CLS.Usefulls.MD5Passwords(form["signup_password"]);
+
+
+                        //model.Person.User.IsActive = true;
+                        prs.User.ActiveRecoveryCode = Guid.NewGuid().ToString();
+                        prs.User.ActiveORecovery = (byte)DBSEF.User.Enum_ActiveORecoveryEnum.Activation;
+
+                        prs.User.UserRoleId = 2;
+
+                        dbs.People.Add(prs);
+                        dbs.SaveChanges();
+
+                        CarProject.Models.User.UserInfo mdl = new CarProject.Models.User.UserInfo(prs.UserId.Value);
+                        {//Send Activation Email to User
+                            var nr = new CLS.MailsServers.Mail_noreply();
+                            nr.SendUserActivationMail(mdl, Url, Request);
+                        }
+
+
+                        ModelState.AddModelError("successSignUp", "ثبت نام با موفقیت انجام پذیرفت");
+                    }
+                }
+                catch
+                {
+                    signupError.Add("درخواست کامل نیست");
+                } 
+
+                ViewBag.signupError = signupError;
+            }
+            
             return View();
         }
 
