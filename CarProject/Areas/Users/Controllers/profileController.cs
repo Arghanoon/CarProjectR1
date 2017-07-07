@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 using System.Net.Mail;
 using System.IO;
+using CarProject.Areas.Users.Models.Dashboard;
 
 namespace CarProject.Areas.Users.Controllers
 {
@@ -33,9 +34,21 @@ namespace CarProject.Areas.Users.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult UserChangePassword(PersonCarsModel model)
+        {
+            if (Session["Captcha"] == null || Session["Captcha"].ToString() != model.Captcha)
+            {
+                ModelState.AddModelError("Captcha", "مجموع اشتباه است");
+            }
+            return View();
+        }
+
         [HttpPost]
         public ActionResult UserChangePassword(FormCollection form)
         {
+            
             var dbs = new DBSEF.CarAutomationEntities();
             var user = GetCurrentLoginedUser;
             var userfromDb = dbs.Users.FirstOrDefault(c => c.UserId == user.UserId);
@@ -165,11 +178,16 @@ namespace CarProject.Areas.Users.Controllers
         [UsersCLS.Users_DontAuthFilter]
         public ActionResult Signup(CarProject.Models.User.UserInfo model, string captcha)
         {
-            if (Request.Form["g-recaptcha-response"] == "")
-                ModelState.AddModelError("g-recaptcha-response", "کد امنیتی وارد نشده است");
-            else if (!CarProject.Controllers.DefaultController.ValidationRecaptcha(Request.Form["g-recaptcha-response"]))
-                ModelState.AddModelError("g-recaptcha-response", "کد امنیتی وارد شده صحیح نیست");
-                       
+            //if (Request.Form["g-recaptcha-response"] == "")
+            //    ModelState.AddModelError("g-recaptcha-response", "کد امنیتی وارد نشده است");
+            //else if (!CarProject.Controllers.DefaultController.ValidationRecaptcha(Request.Form["g-recaptcha-response"]))
+            //    ModelState.AddModelError("g-recaptcha-response", "کد امنیتی وارد شده صحیح نیست");
+
+
+            if (captcha.IsNullOrWhiteSpace())
+                ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
+                       else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(captcha))
+                ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نست");
 
             if (ModelState.IsValid)
             {

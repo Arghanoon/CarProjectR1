@@ -24,11 +24,17 @@ namespace CarProject.Controllers
             return View();
         }
 
+        public ActionResult CarBaseProducts(int id)
+        {
+
+            return View();
+        }
         public ActionResult integratedSearch()
         {
             return View();
         }
 
+       
         #region Cart
         public void AddToCart(int id, Models.Store.CartUsefull.Basket_ItemType type)
         {

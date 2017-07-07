@@ -216,10 +216,11 @@
                     </section>
                 </div>
                 <center>
-                    <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
-                    <span style="color:red">@try
-                                            { @ViewBag.error["g-recaptcha-response"] }
-                                            catch { }</span>
+                    <div style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                        <a href="javascript:void()" onclick="ReloadCaptcha('captcha')"><img id="captcha" src="/default/index" /></a>
+                        <small>برای تغییر کد روی تصویر کلیک کنید</small>
+                        <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
+                    </div>
                 </center>
                 <div class="inputAction">
                     <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
