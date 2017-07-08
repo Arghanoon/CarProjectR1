@@ -144,7 +144,7 @@
 
 @section style
 {
-    <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" />
+    <link href="~/Publics/Files/Resources/StorePage/ProductsList2.css" rel="stylesheet" />
     <link href="~/Publics/Files/ControlsPageTemplates/Cars/Index/css.css" rel="stylesheet" />
 }
 
@@ -171,7 +171,7 @@
                             @foreach (var item in dbs.CarBrands.OrderBy(b => b.CarBrandId).Skip(5))
                             {
                                 <section class="checkbox">
-                                    <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                                    <input type="checkbox" class="toggle"  name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
                                     <label for="CarBrand_@item.CarBrandId">
                                         @item.CarBrandName
                                     </label>
@@ -189,7 +189,7 @@
                         @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Take(5))
                         {
                             <section class="checkbox">
-                                <input type="checkbox" name="Country" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
+                                <input type="checkbox" name="Country" class="toggle"  value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
                                 <label for="Country_@item.CountryId">
                                     @item.CountryShortName
                                 </label>
@@ -200,7 +200,7 @@
                             @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Skip(5))
                             {
                                 <section class="checkbox">
-                                    <input type="checkbox" name="Country" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
+                                    <input type="checkbox" name="Country" class="toggle"  value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
                                     <label for="Country_@item.CountryId">
                                         @item.CountryShortName
                                     </label>
@@ -256,7 +256,7 @@
                             if (item == null)
                             { continue; }
                             <section class="checkbox">
-                                <input type="checkbox" name="CarClass" value="@item" id="CarClass_@ind" @if (CarClass != null && CarClass.Contains(item)) { Write("checked=\"checked\""); } />
+                                <input type="checkbox" name="CarClass" class="toggle"  value="@item" id="CarClass_@ind" @if (CarClass != null && CarClass.Contains(item)) { Write("checked=\"checked\""); } />
                                 <label for="CarClass_@ind">
                                     @item
                                 </label>
@@ -270,7 +270,7 @@
                                 if (item == null)
                                 { continue; }
                                 <section class="checkbox">
-                                    <input type="checkbox" name="CarClass" value="@item" id="CarClass_@ind" @if (CarClass != null && CarClass.Contains(item)) { Write("checked=\"checked\""); } />
+                                    <input type="checkbox" name="CarClass" class="toggle"  value="@item" id="CarClass_@ind" @if (CarClass != null && CarClass.Contains(item)) { Write("checked=\"checked\""); } />
                                     <label for="CarClass_@ind">
                                         @item
                                     </label>
@@ -291,7 +291,7 @@
                             if (item == null)
                             { continue; }
                             <section class="checkbox">
-                                <input type="checkbox" name="CarUsage" value="@item" id="CarUsage_@ind" @if (CarUsage != null && CarUsage.Contains(item)) { Write("checked=\"checked\""); } />
+                                <input type="checkbox" name="CarUsage" class="toggle"  value="@item" id="CarUsage_@ind" @if (CarUsage != null && CarUsage.Contains(item)) { Write("checked=\"checked\""); } />
                                 <label for="CarUsage_@ind">
                                     @item
                                 </label>
@@ -329,7 +329,7 @@
                             if (item == null)
                             { continue; }
                             <section class="checkbox">
-                                <input type="checkbox" name="CarGearBoxType" value="@item" id="CarGearBoxType_@ind" @if (CarGearBoxType != null && CarGearBoxType.Contains(item)) { Write("checked=\"checked\""); } />
+                                <input type="checkbox" name="CarGearBoxType" class="toggle"  value="@item" id="CarGearBoxType_@ind" @if (CarGearBoxType != null && CarGearBoxType.Contains(item)) { Write("checked=\"checked\""); } />
                                 <label for="CarGearBoxType_@ind">
                                     @item
                                 </label>
@@ -348,7 +348,7 @@
                             if (item == null)
                             { continue; }
                             <section class="checkbox">
-                                <input type="checkbox" name="CarGearBoxAxel" value="@item" id="CarGearBoxAxel_@ind" @if (CarGearBoxAxel != null && CarGearBoxAxel.Contains(item)) { Write("checked=\"checked\""); } />
+                                <input type="checkbox" name="CarGearBoxAxel" class="toggle"  value="@item" id="CarGearBoxAxel_@ind" @if (CarGearBoxAxel != null && CarGearBoxAxel.Contains(item)) { Write("checked=\"checked\""); } />
                                 <label for="CarGearBoxAxel_@ind">
                                     @item
                                 </label>

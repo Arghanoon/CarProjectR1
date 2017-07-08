@@ -2,90 +2,150 @@
     ViewBag.Title = "فرم ورود کاربران";
 }
 
-<div class="page" id="pagecontent">
-    
-    <div id="logindiv">
-        <form method="post" class="page">
+<div id="main-login-signup-container">
+    <div id="login-container">
+        <img src="~/Publics/Files/Templates/templates02/Images/Final-Logo-Khodroclinic.png" width="100px" />
+        <div>
+            <small class="blueText">قبلا ثبت نام کرده اید؟ وارد شوید</small>
+            <h1 class="blueText">ورود به خودرو کلینیک</h1>
+        </div>
 
-            <h3>ورود کاربر</h3>
-            <small>برای ورود به حساب کاربری خود از فرم زیر استفاده کنید
-            </small>
-            <hr />
-            <div id="loginSectionform" class="inputsContainer">
-                <section class="input">
-                    <label for="username">نام کاربری</label>
-                    <input type="text" placeholder="نام کاربری" name="username" id="username" />
-                    <span></span>
-                </section>
-                <section class="input">
-                    <label for="password">کلمه عبور</label>
-                    <input type="password" placeholder="کلمه عبور" name="password" id="password" />
-                    <span></span>
-                </section>
-            </div>
+        <form method="post" class="controlsContainer">
+            <input type="text" name="login_username" placeholder="ایمیل" />
+            <input type="password" name="login_password" placeholder="گذرواژه" />
+
+            <input type="submit" name="login_sumbit" value="ورود" class="orangeButton" />
+            <label>
+                <input type="checkbox" name="login_rememberMe" />
+                <section>مرا به خاطر بسپار</section>
+            </label>
+            <a href="/Users/profile/UserPasswordRecovery">گذرواژه را فراموشی کردید؟</a>
+        </form>
+
+        <ul style="color: red; font-size: 80%; flex:1; width:100%;">
             @try
             {
-                <ul style="font-size:80%">
-                    <li><a href="/Users/profile/UserPasswordRecovery">فراموشی کلمه عبور</a></li>
-                </ul>
-                <ul style="color: red; font-size: 80%;">
-                    @foreach (var item in ViewBag.loginerror)
-                    {
-                        <li>@Html.Raw(item)</li>
+                foreach (var item in ViewBag.loginError)
+                {
+                    <li>@Html.Raw(item)</li>
                 }
-                </ul>
             }
-            catch
-            {
-            }
-            <div class="inputAction">
-                <input type="submit" value="ورود کاربر" class="button green" />
-            </div>
+            catch { }
+        </ul>
+    </div>
+
+    <div id="hand-between-container" style="margin:10px;">
+        <img src="~/Publics/Files/Images/hands.png" width="150px" />
+    </div>
+
+    <div id="signup-container">
+        <img src="~/Publics/Files/Templates/templates02/Images/Final-Logo-Khodroclinic.png" width="100px" />
+        <div>
+            <h1 class="blueText">ثبت نام خودرو کلینیک</h1>
+        </div>
+
+        <form method="post" class="controlsContainer">
+            <input type="text" name="signup_firstname" placeholder="نام" 
+                   value="@Request.Form["signup_firstname"]"/>
+            <input type="text" name="signup_lastname" placeholder="نام خانوادگی"
+                   value="@Request.Form["signup_lastname"]" />
+            <input type="text" name="signup_mobile" placeholder="شماره تماس"
+                   value="@Request.Form["signup_mobile"]" />
+            <input type="text" name="signup_email" placeholder="ایمیل"
+                   value="@Request.Form["signup_email"]" />
+            <input type="password" name="signup_password" placeholder="گذرواژه" />
+            <input type="password" name="signup_password2" placeholder="تکرار گذرواژه" />
+
+            <label>
+                <input type="checkbox" name="contract" />
+                <a href="#">حریم خصوصی و شرایط و قوانین استفاده از از خودروکلینیک را مطالعه نموده و با همه آنها موافق هستم</a>
+            </label>
+            <label>
+                <input type="checkbox" checked="checked" name="login_rememberMe" />
+                <section>مایل به دریافت خبرنامه خودروکلینیک به همراه پیشنهادهای ویژه می باشم</section>
+            </label>
+
+            <input type="submit" name="signup_sumbit" value="ثبت نام" class="blueButton" />
         </form>
+        @if (ViewData.ModelState.ContainsKey("successSignUp"))
+        {
+            <h4 style="color:lawngreen">ثبت نام شما با موفقیت انجام شد و ایمیل فعالسازی برای شما ارسال شد</h4>
+        }
+        <ul style="color: red; font-size: 80%; flex:1; width:100%;">
+            @try
+            {
+                foreach (var item in ViewBag.signupError)
+                {
+                    <li>@Html.Raw(item)</li>
+                }
+            }
+            catch { }
+        </ul>
     </div>
-
-    <div id="info">
-        <center>
-            <h1>ثبت نام کاربر جدید</h1>
-            <a href="@Url.Action("Signup")" class="gia-newUser">ورود به قسمت ثبت نام در سایت خودروکلینیک</a>
-        </center>
-    </div>
-
 </div>
 
-@section Style
-{
+<div style="color:red;">
+    @Html.ValidationSummary()
+</div>
+
+
+@section style{
     <style>
-        #loginSectionform input {
-            text-align: center;
-        }
-
-        #pagecontent {
+        #main-login-signup-container{
             display:flex;
-            justify-content:space-between;
+            justify-content:center;
+            align-items:stretch;
+            margin:10px;
         }
-        #logindiv {
-            min-width:300px;
-            width:40%;
-            border-left:thin solid #888;
-        }
-        #info {
-            width:100%;
+        #login-container{
+            display:flex;
             flex:1;
-
-            display:flex; justify-content:center; align-items:center;
+            flex-direction:column;
+            align-items:center;
+            margin:5px;
+        }
+         #signup-container{
+            display:flex;
+            flex:1;
+            flex-direction:column;
+            align-items:center;
+            margin:5px;
+        }
+        .blueText {color:#061fa0;
         }
 
-        @@media (max-width:700px) {
-            #pagecontent {
-                flex-direction:column;
-            }
+        .controlsContainer{
+            width:100%;
+            display:flex;
+            flex-direction:column;
+            align-content:stretch;
+        }
 
-            #logindiv {
-                border-left:none;
-                border-bottom:thin solid #888;
-                width:auto;
-            }
+        .controlsContainer input{
+            font-family:inherit;
+            margin:5px 2px;
+            border:none;
+            background:#fff;
+            text-align:center;
+            padding:3px;
+            border-radius:2px;
+        }
+        .controlsContainer input[type=text],
+        .controlsContainer input[type=password]{
+            margin:5px 15px;
+        }
+        .controlsContainer label{
+            display:flex;
+            margin:5px 15px;
+        }
+
+        .orangeButton{
+            background:#ed9913 !important;
+            color:#fff;
+        }
+        .blueButton{
+            background:#384297 !important;
+            color:#fff;
         }
     </style>
-}
+    } 
