@@ -6,45 +6,45 @@
     padding: 10px;
 }
 
-.listOfProducts .item {
-    border: thin solid #eaeaea;
-    margin: 5px;
-    width: 250px;
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: white;
-    overflow: hidden;
-}
+    .listOfProducts .item {
+        border: thin solid #eaeaea;
+        margin: 5px;
+        width: 250px;
+        height: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: white;
+        overflow: hidden;
+    }
 
-.listOfProducts .item * {
-    font-size: 12px;
-    text-align: center;
-}
+        .listOfProducts .item * {
+            font-size: 12px;
+            text-align: center;
+        }
 
-.listOfProducts .item .price {
-    color: #fff;
-    background: #ff4500;
-    padding: 5px;
-    border-radius: 5px 5px 0 0;
-}
+        .listOfProducts .item .price {
+            color: #fff;
+            background: #ff4500;
+            padding: 5px;
+            border-radius: 5px 5px 0 0;
+        }
 
-.listOfProducts .item img {
-    flex: 1;
-    /*max-width: 75%;*/
-    max-height: 85%;
-    transition: 0.5s;
-    width: 100%;
-    -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
-    filter: grayscale(50%);
-}
+        .listOfProducts .item img {
+            flex: 1;
+            /*max-width: 75%;*/
+            max-height: 74%;
+            transition: 0.5s;
+            width: 100%;
+            -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(50%);
+        }
 
-.listOfProducts .item:hover img {
-    -webkit-filter: none; /* Safari 6.0 - 9.0 */
-    filter: none;
-}
+        .listOfProducts .item:hover img {
+            -webkit-filter: none; /* Safari 6.0 - 9.0 */
+            filter: none;
+        }
 
 
 
@@ -68,13 +68,13 @@
     font-family: b nazanin;
 }
 
-#searchAndFilter .title {
-    background: #fed97e;
-    border-bottom: thin solid #888;
-    padding: 0 5px;
-    font-size: 120%;
-    border-radius: 5px 5px 0 0;
-}
+    #searchAndFilter .title {
+        background: #fed97e;
+        border-bottom: thin solid #888;
+        padding: 0 5px;
+        font-size: 120%;
+        border-radius: 5px 5px 0 0;
+    }
 
 .checkboxContainer {
     display: flex;
@@ -85,58 +85,58 @@
     margin-bottom: 5px;
 }
 
-.checkboxContainer .more {
-    display: none;
-    flex-direction: column;
-}
+    .checkboxContainer .more {
+        display: none;
+        flex-direction: column;
+    }
 
-.checkboxContainer .more.show {
-    display: flex;
-}
+        .checkboxContainer .more.show {
+            display: flex;
+        }
 
-.checkboxContainer .checkbox {
-    display: flex;
-    align-items: center;
-}
+    .checkboxContainer .checkbox {
+        display: flex;
+        align-items: center;
+    }
 
-.checkboxContainer .checkbox:hover {
-    text-shadow: 0 0 1px #6cb7ff;
-}
+        .checkboxContainer .checkbox:hover {
+            text-shadow: 0 0 1px #6cb7ff;
+        }
 
-.checkboxContainer input[type=checkbox] {
-    display: none;
-}
+    .checkboxContainer input[type=checkbox] {
+        display: none;
+    }
 
-.checkboxContainer input[type=checkbox] + label {
-    padding-right: 20px;
-}
+        .checkboxContainer input[type=checkbox] + label {
+            padding-right: 20px;
+        }
 
-.checkboxContainer input[type=checkbox] + label:before {
-    position: absolute;
-    right: 0;
-    top: 0px;
-    bottom: 0px;
-    width: 15px;
-    height: 15px;
-    margin: auto;
-    font-family: giadmin;
-    display: inline-block;
-    color: white;
-    background: blue;
-    margin: 0 3px;
-    direction: ltr;
-    display: flex;
-    justify-content: center;
-    align-items: cetner;
-    border-radius: 5px;
-    /*content:'\0057';*/
-    content: ' ';
-}
+            .checkboxContainer input[type=checkbox] + label:before {
+                position: absolute;
+                right: 0;
+                top: 0px;
+                bottom: 0px;
+                width: 15px;
+                height: 15px;
+                margin: auto;
+                font-family: giadmin;
+                display: inline-block;
+                color: white;
+                background: blue;
+                margin: 0 3px;
+                direction: ltr;
+                display: flex;
+                justify-content: center;
+                align-items: cetner;
+                border-radius: 5px;
+                /*content:'\0057';*/
+                content: ' ';
+            }
 
-.checkboxContainer input[type=checkbox]:checked + label:before {
-    /*content:'\0058';*/
-    content: '\098D';
-}
+        .checkboxContainer input[type=checkbox]:checked + label:before {
+            /*content:'\0058';*/
+            content: '\098D';
+        }
 
 
 #searchAndFilter .checkboxContainer {
@@ -162,9 +162,9 @@
     margin: auto;
 }
 
-#searchsection > * {
-    margin: 0 5px;
-}
+    #searchsection > * {
+        margin: 0 5px;
+    }
 
 #searchInput {
     flex: 1;
@@ -173,18 +173,18 @@
     align-items: stretch;
 }
 
-#searchInput input {
-    border: thin solid #888;
-    flex: 1;
-    font-family: yekan;
-    padding: 1px 5px;
-}
+    #searchInput input {
+        border: thin solid #888;
+        flex: 1;
+        font-family: yekan;
+        padding: 1px 5px;
+    }
 
-#searchInput button {
-    border: thin solid #888;
-    color: white;
-    background: #888;
-}
+    #searchInput button {
+        border: thin solid #888;
+        color: white;
+        background: #888;
+    }
 
 
 
@@ -195,9 +195,9 @@
     font-family: yekan;
 }
 
-#searchsection select option {
-    padding: 1px 5px;
-}
+    #searchsection select option {
+        padding: 1px 5px;
+    }
 
 #SearchOrderBy {
     font-size: 80%;
@@ -210,24 +210,24 @@
     flex-direction: row-reverse;
 }
 
-.pagination > * {
-    margin: 2px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: yekan;
-    font-size: 100%;
-    border-radius: 3px;
-}
+    .pagination > * {
+        margin: 2px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: yekan;
+        font-size: 100%;
+        border-radius: 3px;
+    }
 
-.pagination > span {
-    border: thin solid #888;
-    background: #d4d4d4;
-}
+    .pagination > span {
+        border: thin solid #888;
+        background: #d4d4d4;
+    }
 
-.pagination > input {
-    border: thin solid #888;
-    background: #fff;
-}
+    .pagination > input {
+        border: thin solid #888;
+        background: #fff;
+    }

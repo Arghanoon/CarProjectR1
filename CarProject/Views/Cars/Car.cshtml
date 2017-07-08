@@ -26,6 +26,7 @@
     var carstoviewobject = dbs.CarsToViews.FirstOrDefault(c => c.CarsId == Model.Car.CarsId);
     var carAutoServices = dbs.AutoServices.Where(c => c.AutoServiceCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
     var carProducts = dbs.Products.Where(c => c.ProductCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
+    carProducts = carProducts.Where(c => c.IsActive == true);
     var SameClassCars = dbs.Cars.Where(c => c.CarsClass == Model.Car.CarsClass && c.CarsId != Model.Car.CarsId).OrderBy(c => c.CarsId);
 }
 
@@ -66,7 +67,7 @@
         @if (Model.Car.CarImages.Length > 0)
         {
             <div id="carImages_Bigview_Container">
-                <img id="carImages_Bigview" src="@Url.Content(Model.Car.CarImages[0])" />
+                <img id="carImages_Bigview" src="@Url.Content(Model.Car.CarImages[0])" alt="@Model.Car.CarModel.CarModelName" />
             </div>
             <div id="carImages_ImageThumbnails">
                 <a><h3 class="gia-magnifier" style="font-size: 300%;"></h3></a>
@@ -124,10 +125,11 @@
                                 <img src="@Url.Content(src)" alt />
                                 <span>@item.AutoServiceName</span>
                             </a>
+                           
                         }
                     </div>
                 </div>
-
+                <h4 style="position: center"><a href="~/Store/ServicesList?page=0&CarID=@Model.Car.CarsId">بیشتر</a></h4>
                 <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
                 <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
             </div>
@@ -152,9 +154,19 @@
                                 <span>@item.ProductName</span>
                             </a>
                         }
+                        <br />
+                        <small>
+                            
+                            @*<a href="../Store/ProductsList?page=0&CarID=@Model.Car.CarsId">بیشتر</a>*@
+                        </small>
+                        @*@{
+                            TempData["CarId"] = Model.Car.CarsId;
+                        }
+                        <a href="../Store/ProductsList.cshtml">بیشتر</a>*@
                     </div>
+                   
                 </div>
-
+                <h4 style="position: center"><a href="~/Store/ProductsList?page=0&CarID=@Model.Car.CarsId">بیشتر</a></h4>
                 <a onclick="slideterItemShowContianer_leftmove(this.offsetParent)" class="leftmove gia-left"></a>
                 <a onclick="slideterItemShowContianer_rightmove(this.offsetParent)" class="rightmove gia-right"></a>
             </div>

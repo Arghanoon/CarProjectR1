@@ -54,7 +54,7 @@
                                 <section>
                                     <strong>@item.ProductName</strong><br />
                                     <small>@item.Category.CategoryName</small><br />
-                                    <small class="price">@if (item.ProductPrices.Any()) {<span>@string.Format("{0:#,###0}", @item.ProductPrices.Last().ProductPrice1)</span>}else {<span>0</span>} تومان</small>
+                                    <small class="price">@if (item.ProductPrices.Any()) {<span>@string.Format("{0:0,0}", @item.ProductPrices.Last().ProductPrice1)</span>}else {<span>0</span>} تومان</small>
                                 </section>
                             </a>
                         }
@@ -65,7 +65,7 @@
                                 <section>
                                     <strong>@item.ProductName</strong><br />
                                     <small>@item.Category.CategoryName</small><br />
-                                    <small class="price">@string.Format("{0:#,###0}", @item.ProductPrices.Last().ProductPrice1) تومان</small>
+                                    <small class="price">@string.Format("{0:0,0}", @item.ProductPrices.Last().ProductPrice1) تومان</small>
                                 </section>
                             </a>
                         }

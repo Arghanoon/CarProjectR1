@@ -97,7 +97,7 @@
                             {
                                 src = item.AutoServicePackImages[0];
                             }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })" class="item">
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName.Trim().Replace(' ','-') })" class="item">
                                 <img src="@Url.Content(src)" alt />
                                 <span>@item.AutoServicePackName</span>
                             </a>
@@ -124,7 +124,7 @@
                             {
                                 src = item.CarImages[0];
                             }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim().Replace(' ','-'), info2 = item.CarModel.CarModelName.Trim().Replace(' ', '-') })" class="item">
                                 <img src="@Url.Content(src)" alt="" />
                                 <span>@item.CarModel.CarBrand.CarBrandName  @item.CarModel.CarModelName</span>
                             </a>
@@ -151,7 +151,7 @@
 
                                 if (finfo.Exists && finfo.GetFiles().Count() > 0)
                                 {
-                                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName})" class="item">
+                                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName.Trim().Replace(' ','-'), info2 = item.ProductName.Trim().Replace(' ','-')})" class="item">
                                         <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name)" alt="@item.Category.CategoryName @item.ProductName" />
                                         <section>
                                             @*<strong>@item.ProductName</strong><br />
@@ -169,7 +169,7 @@
                                 }
                                 else
                                 {
-                                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName})" class="item">
+                                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName.Trim().Replace(' ','-'), info2 = item.ProductName.Trim().Replace(' ','-')})" class="item">
                                         <img src="~/Publics/Gallery/ProductImages/NotFound.png" alt="@item.Category.CategoryName @item.ProductName" />
                                         <section>
                                             <strong>@item.ProductName</strong><br />
@@ -201,7 +201,7 @@
             </tr>
             <tr>
                 <th>قیمت سرویس</th>
-                <td>@String.Format("{0:n0}", service.Price) تومان</td>
+                <td>@String.Format("{0:#,###}", service.Price) تومان</td>
             </tr>
             <tr>
                 <th>توضیحات سرویس</th>
@@ -339,7 +339,7 @@
     <meta name="description" content="خدمات خودرو @service.AutoServiceName " />
     <meta name="ROBOTS" content="INDEX, FOLLOW">
 
-    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = service.AutoServiceId, info1 = "سرویسها", info2 = service.AutoServiceName }, Request.Url.Scheme)" />
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = service.AutoServiceId, info1 = "سرویسها", info2 = service.AutoServiceName.Trim().Replace(' ','-') }, Request.Url.Scheme)" />
 
     @*<link href="~/Publics/Files/ControlsPageTemplates/Store/ServiceView/css.css" rel="stylesheet" />*@
     <link href="~/Publics/Files/ControlsPageTemplates/Store/ServiceView/SliderItemShow.css" rel="stylesheet" />

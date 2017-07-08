@@ -49,8 +49,6 @@
     <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
       <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
     </Reference>
-    <Reference Include="Devart.Data.Linq, Version=4.5.1080.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
-    <Reference Include="Devart.Data.SqlServer.Linq, Version=4.5.1080.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -593,6 +591,7 @@
     <Content Include="Publics\Files\Resources\StorePage\index.css" />
     <Content Include="Publics\Files\Resources\StorePage\Products.css" />
     <Content Include="Publics\Files\Resources\StorePage\Products.js" />
+    <Content Include="Publics\Files\Resources\StorePage\ProductsList2.css" />
     <Content Include="Publics\Files\Resources\StorePage\ProductsList.css" />
     <Content Include="Publics\Files\Images\back.jpg" />
     <Content Include="Publics\Files\Resources\HomePage\News\template_News.css" />

@@ -120,11 +120,11 @@
             </tr>
             <tr>
                 <th>قیمت محصول</th>
-                <td>@if (product.ProductPrices.Count > 0) { <span>@string.Format("{0:#,###0}", @product.ProductPrices.Last().ProductPrice1)</span> } else { <span>0</span> } <small>تومان</small></td>
+                <td>@if (product.ProductPrices.Count > 0) { <span>@string.Format("{0:0,0}", @product.ProductPrices.Last().ProductPrice1)</span> } else { <span>0</span> } <small>تومان</small></td>
             </tr>
              <tr>
                 <th>هزینه نصب محصول</th>
-                <td>@if (product.ProductPrices.Count > 0) { <span>@string.Format("{0:#,###0}", @product.ProductPrices.Last().InstallPrice)</span> } else { <span>0</span> } <small>تومان</small></td>
+                <td>@if (product.ProductPrices.Count > 0) { <span>@string.Format("{0:0,0}", @product.ProductPrices.Last().InstallPrice)</span> } else { <span>0</span> } <small>تومان</small></td>
             </tr>
             <tr>
                 <th>ارتفاع</th>
@@ -190,8 +190,8 @@
                 }
             }
             <section>
-                <section>قیمت محصول : <strong>@string.Format("{0:#,###0}", @lpp)</strong> <small>تومان</small></section>
-                <section>قیمت محصول + هزینه نصب : <strong>@string.Format("{0:#,###0}", @lppInstall)</strong> <small>تومان</small></section>
+                <section>قیمت محصول : <strong>@string.Format("{0:0,0}", @lpp)</strong> <small>تومان</small></section>
+                <section>قیمت محصول + هزینه نصب : <strong>@string.Format("{0:0,0}", @lppInstall)</strong> <small>تومان</small></section>
             </section>
         </div>
 

@@ -1,7 +1,9 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "نمایش قطعات";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var rand = new Random();
+   
 
     string searchtext = "";
     int orderby = 1;
@@ -17,7 +19,12 @@
 
 
     var products = dbs.Products.AsQueryable();
+
+
+
     products = products.Where(product => product.IsActive == true);
+
+
     var cars = dbs.ProductCars.Select(c => new
     {
         c.Car.CarModel.CarModelName,
@@ -44,12 +51,26 @@
 
     //var carProducts = dbs.Products.Where(c => c.ProductCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
 
+    var CarId_filter = Request.QueryString.GetValues("CarID");
     var brandFilters = Request.QueryString.GetValues("CarBrand");
     var CountryFilter = Request.QueryString.GetValues("CountryFilter");
     var Company_filter = Request.QueryString.GetValues("CompanyFilter");
     var Category_filter = Request.QueryString.GetValues("CategoryFilter");
     var Car_filter = Request.QueryString.GetValues("CarFilter");
 
+    if (CarId_filter != null && CarId_filter.Length > 0)
+    {
+        int x = Convert.ToInt32(CarId_filter[0]);
+        var GetCarListID = new List<String>();
+        GetCarListID.Add(x.ToString());
+        var GetAutoSeviceCarLInqID = getAutoServiceId.Where(c => GetCarListID.Contains(c.CarsId.ToString()));
+        var GetAutoServiceCarListID = new List<String>();
+        foreach (var item in GetAutoSeviceCarLInqID)
+        {
+            GetAutoServiceCarListID.Add(item.ProductId.ToString());
+        }
+        products = products.Where(c => GetAutoServiceCarListID.Contains(c.ProductId.ToString()));
+    }
     if (CountryFilter != null && CountryFilter.Length > 0)
     {
         products = products.Where(c => CountryFilter.Contains(c.CountryId.ToString()));
@@ -180,266 +201,283 @@
 
 
 <form method="get">
-    <input type="hidden" name="page" id="pageInputContainer" value="@page" />
+<input type="hidden" name="page" id="pageInputContainer" value="@page" />
 
-    <div id="MainContainerOfFilterAndContent">
-        <div>
-            <div id="searchAndFilter">
-                <div id="filter_brands">
-                    <h4 class="title"> برندها</h4>
-                    <div class="checkboxContainer">
-                        @foreach (var item in se.OrderBy(b => b.CarBrandId).Take(5))
-                        {
-                            <section class="checkbox">
-                                <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
-                                <label for="CarBrand_@item.CarBrandId">
-                                    @item.CarBrandName
-                                </label>
-                            </section>
-                        }
+<div id="MainContainerOfFilterAndContent">
+<div>
+    <div id="searchAndFilter">
+        <div id="filter_brands">
+            <h4 class="title"> برندها</h4>
+            <div class="checkboxContainer">
+                @foreach (var item in se.OrderBy(b => b.CarBrandId).Take(5))
+                {
+                    <section class="checkbox">
+                        <input type="checkbox" name="CarBrand" class="toggle" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                        <label for="CarBrand_@item.CarBrandId">
+                            @item.CarBrandName
+                        </label>
+                    </section>
+                }
 
-                        <div id="filter_brands_more" class="more">
-                            @foreach (var item in se.OrderBy(b => b.CarBrandId).Skip(5))
-                            {
-                                <section class="checkbox">
-                                    <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
-                                    <label for="CarBrand_@item.CarBrandId">
-                                        @item.CarBrandName
-                                    </label>
-                                </section>
-                            }
-                        </div>
-                        <center><a onclick="$('#filter_brands_more').toggleClass('show');">بیشتر</a></center>
-                    </div>
+                <div id="filter_brands_more" class="more">
+                    @foreach (var item in se.OrderBy(b => b.CarBrandId).Skip(5))
+                    {
+                        <section class="checkbox">
+                            <input type="checkbox" name="CarBrand" class="toggle" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                            <label for="CarBrand_@item.CarBrandId">
+                                @item.CarBrandName
+                            </label>
+                        </section>
+                    }
                 </div>
-
-
-                <div id="Filter_Countries">
-                    <h4 class="title"> کشور ها</h4>
-                    <div class="checkboxContainer">
-                        @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Take(5))
-                        {
-                            <section class="checkbox">
-                                <input type="checkbox" name="CountryFilter" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
-                                <label for="Country_@item.CountryId">
-                                    @item.CountryShortName
-                                </label>
-                            </section>
-                        }
-
-                        <div id="Filter_Countries_more" class="more">
-                            @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Skip(5))
-                            {
-                                <section class="checkbox">
-                                    <input type="checkbox" name="CountryFilter" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
-                                    <label for="Country_@item.CountryId">
-                                        @item.CountryShortName
-                                    </label>
-                                </section>
-                            }
-                        </div>
-                        <center><a onclick="$('#Filter_Countries_more').toggleClass('show');">بیشتر</a></center>
-                    </div>
-                </div>
-
-
-
-
-
-
-                <div id="Filter_Category">
-                    <h4 class="title"> دسته بندی ها</h4>
-                    <div class="checkboxContainer">
-                        @foreach (var item in dbs.Categories.OrderBy(b => b.CategoryId).Take(5))
-                        {
-                            <section class="checkbox">
-                                <input type="checkbox" name="CategoryFilter" value="@item.CategoryId" id="Category_@item.CategoryId" @if (Category_filter != null && Category_filter.Contains(item.CategoryId.ToString())) { Write("checked=\"checked\""); } />
-                                <label for="Category_@item.CategoryId">
-                                    @item.CategoryName
-                                </label>
-                            </section>
-                        }
-
-                        <div id="Filter_Category_more" class="more">
-                            @foreach (var item in dbs.Categories.OrderBy(b => b.CategoryId).Skip(5))
-                            {
-                                <section class="checkbox">
-                                    <input type="checkbox" name="CategoryFilter" value="@item.CategoryId" id="Category_@item.CategoryId" @if (Category_filter != null && Category_filter.Contains(item.CategoryId.ToString())) { Write("checked=\"checked\""); } />
-                                    <label for="Category_@item.CategoryId">
-                                        @item.CategoryName
-                                    </label>
-                                </section>
-                            }
-                        </div>
-                        <center><a onclick="$('#Filter_Category_more').toggleClass('show');">بیشتر</a></center>
-                    </div>
-                </div>
-
-
-
-
-
-                <div id="Filter_Companies">
-                    <h4 class="title"> شرکت سازنده</h4>
-                    <div class="checkboxContainer">
-                        @foreach (var item in dbs.Companies.OrderBy(b => b.CompanyId).Take(5))
-                        {
-                            <section class="checkbox">
-                                <input type="checkbox" name="CompanyFilter" value="@item.CompanyId" id="Company_@item.CompanyId" @if (Company_filter != null && Company_filter.Contains(item.CompanyId.ToString())) { Write("checked=\"checked\""); } />
-                                <label for="Company_@item.CompanyId">
-                                    @item.CompanyName
-                                </label>
-                            </section>
-                        }
-
-                        <div id="Filter_Companies_more" class="more">
-                            @foreach (var item in dbs.Companies.OrderBy(b => b.CompanyId).Skip(5))
-                            {
-                                <section class="checkbox">
-                                    <input type="checkbox" name="CompanyFilter" value="@item.CompanyId" id="Company_@item.CompanyId" @if (Company_filter != null && Company_filter.Contains(item.CompanyId.ToString())) { Write("checked=\"checked\""); } />
-                                    <label for="Company_@item.CompanyId">
-                                        @item.CompanyName
-                                    </label>
-                                </section>
-                            }
-                        </div>
-                        <center><a onclick="$('#Filter_Companies_more').toggleClass('show');">بیشتر</a></center>
-                    </div>
-                </div>
-
-
-                <div id="Filter_Cars">
-                    <h4 class="title"> خودرو مرتبط</h4>
-                    <div class="checkboxContainer">
-                        @foreach (var item in cars.OrderBy(b => b.CarModelId).Take(5))
-                        {
-                            <section class="checkbox">
-                                <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Car_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
-                                <label for="Car_@item.CarModelId">
-                                    @item.CarModelName
-                                </label>
-                            </section>
-                        }
-
-                        <div id="Filter_Cars_more" class="more">
-                            @foreach (var item in cars.OrderBy(b => b.CarModelId).Skip(5))
-                            {
-                                <section class="checkbox">
-                                    <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Car_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
-                                    <label for="Car_@item.CarModelId">
-                                        @item.CarModelName
-                                    </label>
-                                </section>
-                            }
-                        </div>
-                        <center><a onclick="$('#Filter_Cars_more').toggleClass('show');">بیشتر</a></center>
-                    </div>
-                </div>
-
-
-
-
-
-
-
+                <center><a onclick="$('#filter_brands_more').toggleClass('show');">بیشتر</a></center>
             </div>
         </div>
 
-        <div id="ItemsContentContainer">
-            <div id="searchsection">
-                <section id="searchInput">
-                    <input type="text" name="searchtext" value="@searchtext" placeholder="جستجو در میان محصولات" />
-                    @*<button type="submit"><span class="gia-search"></span></button>*@
-                </section>
 
-                <section id="SearchOrderBy">
-                    <span>مرتب سازی بر اساس</span>
-                    <select name="Orderby">
-                        <option value="1" @if (orderby == 1) { Write("selected=\"selected\""); }>تاریخ</option>
-                        <option value="2" @if (orderby == 2) { Write("selected=\"selected\""); }>قیمت</option>
-                        <option value="3" @if (orderby == 3) { Write("selected=\"selected\""); }>محبوبیت</option>
-                        <option value="4" @if (orderby == 4) { Write("selected=\"selected\""); }>بازدید</option>
-                        <option value="5" @if (orderby == 5) { Write("selected=\"selected\""); }>فروش</option>
-                    </select>
-                    به صورت
-                    <select name="OrderDirection">
-                        <option value="ASC" @if (orderbydirection == 1) { Write("selected=\"selected\""); }>کمتر به بیشتر</option>
-                        <option value="DESC" @if (orderbydirection == 2) { Write("selected=\"selected\""); }>بیشتر به کمتر</option>
-                    </select>
-                    @*<input type="radio" name="OrderDirection" value="ASC" @if (orderbydirection == 1) { Write("checked=\"checked\""); } id="OrderDirectionASC" />
+        <div id="Filter_Countries">
+            <h4 class="title"> کشور ها</h4>
+            <div class="checkboxContainer">
+                @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Take(5))
+                {
+                    <section class="checkbox">
+                        <input type="checkbox" name="CountryFilter" class="toggle" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
+                        <label for="Country_@item.CountryId">
+                            @item.CountryShortName
+                        </label>
+                    </section>
+                }
+
+                <div id="Filter_Countries_more" class="more">
+                    @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Skip(5))
+                    {
+                        <section class="checkbox">
+                            <input type="checkbox" name="CountryFilter" class="toggle" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
+                            <label for="Country_@item.CountryId">
+                                @item.CountryShortName
+                            </label>
+                        </section>
+                    }
+                </div>
+                <center><a onclick="$('#Filter_Countries_more').toggleClass('show');">بیشتر</a></center>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div id="Filter_Category">
+            <h4 class="title"> دسته بندی ها</h4>
+            <div class="checkboxContainer">
+                @foreach (var item in dbs.Categories.OrderBy(b => b.CategoryId).Take(5))
+                {
+                    <section class="checkbox">
+                        <input type="checkbox" name="CategoryFilter" class="toggle" value="@item.CategoryId" id="Category_@item.CategoryId" @if (Category_filter != null && Category_filter.Contains(item.CategoryId.ToString())) { Write("checked=\"checked\""); } />
+                        <label for="Category_@item.CategoryId">
+                            @item.CategoryName
+                        </label>
+                    </section>
+                }
+
+                <div id="Filter_Category_more" class="more">
+                    @foreach (var item in dbs.Categories.OrderBy(b => b.CategoryId).Skip(5))
+                    {
+                        <section class="checkbox">
+                            <input type="checkbox" name="CategoryFilter" class="toggle" value="@item.CategoryId" id="Category_@item.CategoryId" @if (Category_filter != null && Category_filter.Contains(item.CategoryId.ToString())) { Write("checked=\"checked\""); } />
+                            <label for="Category_@item.CategoryId">
+                                @item.CategoryName
+                            </label>
+                        </section>
+                    }
+                </div>
+                <center><a onclick="$('#Filter_Category_more').toggleClass('show');">بیشتر</a></center>
+            </div>
+        </div>
+
+
+
+
+
+        <div id="Filter_Companies">
+            <h4 class="title"> شرکت سازنده</h4>
+            <div class="checkboxContainer">
+                @foreach (var item in dbs.Companies.OrderBy(b => b.CompanyId).Take(5))
+                {
+                    <section class="checkbox">
+                        <input type="checkbox" name="CompanyFilter" class="toggle" value="@item.CompanyId" id="Company_@item.CompanyId" @if (Company_filter != null && Company_filter.Contains(item.CompanyId.ToString())) { Write("checked=\"checked\""); } />
+                        <label for="Company_@item.CompanyId">
+                            @item.CompanyName
+                        </label>
+                    </section>
+                }
+
+                <div id="Filter_Companies_more" class="more">
+                    @foreach (var item in dbs.Companies.OrderBy(b => b.CompanyId).Skip(5))
+                    {
+                        <section class="checkbox">
+                            <input type="checkbox" name="CompanyFilter" class="toggle" value="@item.CompanyId" id="Company_@item.CompanyId" @if (Company_filter != null && Company_filter.Contains(item.CompanyId.ToString())) { Write("checked=\"checked\""); } />
+                            <label for="Company_@item.CompanyId">
+                                @item.CompanyName
+                            </label>
+                        </section>
+                    }
+                </div>
+                <center><a onclick="$('#Filter_Companies_more').toggleClass('show');">بیشتر</a></center>
+            </div>
+        </div>
+
+
+        <div id="Filter_Cars">
+            <h4 class="title"> خودرو مرتبط</h4>
+            <div class="checkboxContainer">
+                @foreach (var item in cars.OrderBy(b => b.CarModelId).Take(5))
+                {
+                    <section class="checkbox">
+                        <input type="checkbox" name="CarFilter" class="toggle" value="@item.CarModelId" id="Car_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
+                        <label for="Car_@item.CarModelId">
+                            @item.CarModelName
+                        </label>
+                    </section>
+                }
+
+                <div id="Filter_Cars_more" class="more">
+                    @foreach (var item in cars.OrderBy(b => b.CarModelId).Skip(5))
+                    {
+                        <section class="checkbox">
+                            <input type="checkbox" name="CarFilter" class="toggle" value="@item.CarModelId" id="Car_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
+                            <label for="Car_@item.CarModelId">
+                                @item.CarModelName
+                            </label>
+                        </section>
+                    }
+                </div>
+                <center><a onclick="$('#Filter_Cars_more').toggleClass('show');">بیشتر</a></center>
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+</div>
+
+<div id="ItemsContentContainer">
+    <div id="searchsection">
+        <section id="searchInput">
+            <input type="text" name="searchtext" value="@searchtext" placeholder="جستجو در میان محصولات" />
+            @*<button type="submit"><span class="gia-search"></span></button>*@
+        </section>
+
+        <section id="SearchOrderBy">
+            <span>مرتب سازی بر اساس</span>
+            <select name="Orderby">
+                <option value="1" @if (orderby == 1) { Write("selected=\"selected\""); }>تاریخ</option>
+                <option value="2" @if (orderby == 2) { Write("selected=\"selected\""); }>قیمت</option>
+                <option value="3" @if (orderby == 3) { Write("selected=\"selected\""); }>محبوبیت</option>
+                <option value="4" @if (orderby == 4) { Write("selected=\"selected\""); }>بازدید</option>
+                <option value="5" @if (orderby == 5) { Write("selected=\"selected\""); }>فروش</option>
+            </select>
+            به صورت
+            <select name="OrderDirection">
+                <option value="ASC" @if (orderbydirection == 1) { Write("selected=\"selected\""); }>کمتر به بیشتر</option>
+                <option value="DESC" @if (orderbydirection == 2) { Write("selected=\"selected\""); }>بیشتر به کمتر</option>
+            </select>
+            @*<input type="radio" name="OrderDirection" value="ASC" @if (orderbydirection == 1) { Write("checked=\"checked\""); } id="OrderDirectionASC" />
                         <label  for="OrderDirectionASC">صعودی</label>
                         <input type="radio" name="OrderDirection" value="DESC" @if (orderbydirection == 2) { Write("checked=\"checked\""); } id="OrderDirectionDESC"  />
                         <label for="OrderDirectionDESC">نزولی</label>*@
-                </section>
+        </section>
 
-                <input type="submit" value="جستجو/فیلتر" class="t2button" />
-            </div>
-
-            <div class="pagination">
-                @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
-            {
-                if (i == page)
-                {
-                        <span>@{Write(i + 1); }</span>
-                            }
-                            else
-                            {
-                                <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
-        }
-    }
-            </div>
-            <div class="listOfProducts" id="ListofcarsShower">
-                @{
-                    foreach (var item in products)
-                    {
-                        var PicFileUrl = "~/Publics/Gallery/ProductImages/" + item.ProductId;
-                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
-
-                        if (finfo.Exists && finfo.GetFiles().Count() > 0)
-                        {
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
-                                <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
-                                <section>
-                                    <strong>@item.ProductName</strong><br />
-                                    <small>@item.Category.CategoryName</small><br />
-                                    <small class="price">@if (item.ProductPrices.Any())
-                                    {<span>@string.Format("{0:#,###}", item.ProductPrices.Last().ProductPrice1)</span>}
-                                    else
-                                    {<span>0</span>} تومان</small>
-                                </section>
-                            </a>
-                        }
-                        else
-                        {
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName, info2 = item.ProductName })" class="item">
-                                <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
-                                <section>
-                                    <strong>@item.ProductName</strong><br />
-                                    <small>@item.Category.CategoryName</small><br />
-                                    <small class="price">@if (@item.ProductPrices.Any())
-                                    {<span>@String.Format("{0:n0}", item.ProductPrices.Last().ProductPrice1)</span>}
-                                    else
-                                    {<span>0</span>} تومان</small>
-                                </section>
-                            </a>
-                        }
-                    }
-                }
-            </div>
-            <div class="pagination">
-                @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
-            {
-                if (i == page)
-                {
-                        <span>@{Write(i + 1); }</span>
-                            }
-                            else
-                            {
-                                <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
-        }
-    }
-            </div>
-
-        </div>
+        <input type="submit" value="جستجو/فیلتر" class="t2button" />
     </div>
+
+    <div class="pagination">
+        @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
+        {
+            if (i == page)
+            {
+                <span>@{Write(i + 1); }</span>
+            }
+            else
+            {
+                <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
+            }
+        }
+    </div>
+    <div class="listOfProducts" id="ListofcarsShower">
+        @{
+            foreach (var item in products)
+            {
+                var PicFileUrl = "~/Publics/Gallery/ProductImages/" + item.ProductId;
+                var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
+
+                if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                {
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName.Trim().Replace(' ','-') , info2 = item.ProductName.Trim().Replace(' ','-')  })" class="item">
+                        <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0,finfo.GetFiles().Length)].Name)" />
+                        <section>
+                            <strong>@item.ProductName</strong><br />
+                            <small>@item.Category.CategoryName</small><br />
+                            <small class="price">
+                                @if (item.ProductPrices.Any())
+                                {<span>@string.Format("{0:#,###}", item.ProductPrices.Last().ProductPrice1)</span>}
+                                else
+                                {<span>0</span>} تومان
+                            </small>
+                        </section>
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName.Trim().Replace(' ','-') , info2 = item.ProductName.Trim().Replace(' ','-')  })" class="item">
+                        <img src="~/Publics/Gallery/ProductImages/NotFound.png" />
+                        <section>
+                            <strong>@item.ProductName</strong><br />
+                            <small>@item.Category.CategoryName</small><br />
+                            <small class="price">
+                                @if (@item.ProductPrices.Any())
+                                {<span>@string.Format("{0:#,###}", item.ProductPrices.Last().ProductPrice1)</span>}
+                                else
+                                {<span>0</span>} تومان
+                            </small>
+                        </section>
+                    </a>
+                }
+            }
+        }
+    </div>
+    <div class="pagination">
+        @for (int i = 0; i < Math.Ceiling((double)(totalitems / showinpage)); i++)
+        {
+            if (i == page)
+            {
+                <span>@{Write(i + 1); }</span>
+            }
+            else
+            {
+                <input type="button" onclick="document.getElementById('pageInputContainer').value = '@i'; this.form.submit();" value="@{Write(i + 1);}" />
+            }
+        }
+    </div>
+
+</div>
+</div>
 </form>
+        
+
+@section script{
+    <script>
+        $(function () {
+            $('.toggle').change(function () {
+                // the value of the checkbox changed => refresh the page:
+                document.getElementById('BtnClick').click();
+                //location.reload();
+            });
+        });
+    </script>
+}

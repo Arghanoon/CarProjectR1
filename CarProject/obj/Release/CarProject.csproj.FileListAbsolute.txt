@@ -95,3 +95,4 @@ E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.pdb
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.XmlSerializers.dll
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.csprojFakesResolveAssemblyReference.cache
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.csprojResolveAssemblyReference.cache
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Recaptcha.Web.dll

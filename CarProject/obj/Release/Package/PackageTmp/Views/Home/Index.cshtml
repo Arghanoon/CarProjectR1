@@ -123,7 +123,7 @@
                 var f = di.GetFiles(string.Format("{0}.*", item.CarBrandId));
                 if (f.Length > 0)
                 {
-                    <a href="#" class="brandItem">
+                    <a href="../Cars?page=0&CarBrand=@item.CarBrandId" class="brandItem">
                         <img src="~/Publics/Gallery/Brands/@f[0].Name" alt="@item.CarBrandName" />
                         <span>@item.CarBrandName</span>
                     </a>}
