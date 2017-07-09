@@ -105,7 +105,7 @@
                             {
                                 src = item.AutoServiceImages[0];
                             }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName })" class="item">
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها", info2 = item.AutoServiceName.Trim().Replace(' ','-') })" class="item">
                                 <img src="@Url.Content(src)" alt="" />
                                 <span>@item.AutoServiceName</span>
                             </a>
@@ -132,7 +132,7 @@
                             {
                                 src = item.CarImages[0];
                             }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim(), info2 = item.CarModel.CarModelName.Trim() })" class="item">
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Cars", action = "Car", id = item.CarsId, info1 = item.CarModel.CarBrand.CarBrandName.Trim().Replace(' ','-'), info2 = item.CarModel.CarModelName.Trim().Replace(' ', '-') })" class="item">
                                 <img src="@Url.Content(src)" alt="" />
                                 <span>@item.CarModel.CarBrand.CarBrandName  @item.CarModel.CarModelName</span>
                             </a>
@@ -159,7 +159,7 @@
             </tr>
             <tr>
                 <th>قیمت سرویس</th>
-                <td>@pack.PackPrice تومان</td>
+                <td>@string.Format("{0:#,###}",pack.PackPrice) تومان</td>
             </tr>
            
             <tr>
@@ -204,12 +204,11 @@
                     </section>
                 </div>
                 <center>
-                    <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
-                    <span style="color:red">
-                        @try
-                        { @ViewBag.error["g-recaptcha-response"] }
-                        catch { }
-                    </span>
+                    <div style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                        <a href="javascript:void()" onclick="ReloadCaptcha('captcha')"><img id="captcha" src="/default/index" /></a>
+                        <small>برای تغییر کد روی تصویر کلیک کنید</small>
+                        <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
+                    </div>
                 </center>
                 <div class="inputAction">
                     <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />
@@ -280,7 +279,7 @@
     <meta name="description" content="خدمات خودرو @pack.AutoServicePackName " />
     <meta name="ROBOTS" content="INDEX, FOLLOW">
 
-    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = pack.AutoServicePackId, info1 = "سرویسها پکها" , info2 = pack.AutoServicePackName }, Request.Url.Scheme)" />
+    <link rel="canonical" href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = pack.AutoServicePackId, info1 = "سرویسها پکها" , info2 = pack.AutoServicePackName.Trim().Replace(' ','-') }, Request.Url.Scheme)" />
 
     <link href="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/css.css" rel="stylesheet" />
     <link href="~/Publics/Files/ControlsPageTemplates/Store/ServicePackView/SliderItemShow.css" rel="stylesheet" />

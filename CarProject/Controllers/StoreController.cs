@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 
 using CarProject.App_extension;
+using CarProject.DBSEF;
 using CarProject.Models.Store;
 
 namespace CarProject.Controllers
@@ -24,11 +25,17 @@ namespace CarProject.Controllers
             return View();
         }
 
+        public ActionResult CarBaseProducts(int id)
+        {
+
+            return View();
+        }
         public ActionResult integratedSearch()
         {
             return View();
         }
 
+       
         #region Cart
         public void AddToCart(int id, Models.Store.CartUsefull.Basket_ItemType type)
         {
@@ -677,6 +684,11 @@ namespace CarProject.Controllers
             return View(id);
         }
 
+        //public ActionResult ProductsList(int? id,string pos)
+        //{
+        //    var model = new Areas.Admin.Models.Cars.CarsModel(id);
+        //    return View(model);
+        //}
         public ActionResult ProductsRss(int? id)
         {
             return View();

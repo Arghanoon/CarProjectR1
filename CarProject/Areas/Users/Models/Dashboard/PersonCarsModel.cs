@@ -10,6 +10,13 @@ namespace CarProject.Areas.Users.Models.Dashboard
 {
     public class PersonCarsModel : IValidatableObject
     {
+
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [Display(Name = "حاصل جمع")]
+        public string Captcha { get; set; }
+
+
+
         public DBSEF.CarAutomationEntities dbs = new DBSEF.CarAutomationEntities();
 
         public DBSEF.Person Person { get; set; }

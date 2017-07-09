@@ -33,6 +33,8 @@
 @using CarProject.App_extension
 @using CarProject.App_Code
 @using System.IO
+@using System.Text.RegularExpressions
+@using System.Web.UI.HtmlControls
 
 
 <div id="top_LocationNavigation_likedislikecount">
@@ -85,7 +87,21 @@
             </div>
         }
     </div>
-
+    <div id="CarVideo">
+        @if (news.VideoUrl.Length > 0)
+        {
+            const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
+            const string replacement = "http://www.youtube.com/embed/$1";
+            var rgx = new Regex(pattern);
+            var result = rgx.Replace(@news.VideoUrl, replacement);
+            <iframe width="600"
+                    height="400"
+                    src="@result"
+                    frameborder="0"
+                    
+                    ></iframe>
+        }
+    </div>
   <div id="CarDetials">
         @*<div id="CarDetails_NameAndYear" class="orangeback">
             <section>@Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</section>
@@ -200,10 +216,11 @@
                     </section>
                 </div>
                 <center>
-                    <div class="g-recaptcha" data-sitekey="6Lff2xAUAAAAAAghivCssCwhTGRPX9PyIiCmSTzQ"></div> <br />
-                    <span style="color:red">@try
-                                            { @ViewBag.error["g-recaptcha-response"] }
-                                            catch { }</span>
+                    <div style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                        <a href="javascript:void()" onclick="ReloadCaptcha('captcha')"><img id="captcha" src="/default/index" /></a>
+                        <small>برای تغییر کد روی تصویر کلیک کنید</small>
+                        <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
+                    </div>
                 </center>
                 <div class="inputAction">
                     <input type="submit" value="ثبت" name="SendACommentRequest" class="button green" />

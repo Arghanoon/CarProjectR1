@@ -96,7 +96,7 @@
                 {
                     <tr>
                         <th>قیمت</th>
-                        <td>@string.Format("{0:#,###0}", @Model.Car.Price) ملیون تومان</td>
+                        <td>@string.Format("{0:0,0}", @Model.Car.Price) ملیون تومان</td>
                     </tr>
                 }
                                     @if (!Model.Car.CarsVideoURL.IsNullOrWhiteSpace())
@@ -1387,7 +1387,7 @@
                                 if (!paks.ContainsKey(packitem.AutoServicePackId))
                                 { paks.Add(packitem.AutoServicePackId, packitem); }
                             }
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@string.Format("{0:#,###0}", @item.Price) تومان</small></a>
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = "سرویسها" , info2 = item.AutoServiceName })">@item.AutoServiceName - <small>@string.Format("{0:0,0}", @item.Price) تومان</small></a>
                         }
                     </div>
                 </div>
@@ -1402,7 +1402,7 @@
                     <div class="listviewoflinks">
                         @foreach (var item in paks.Values)
                                     {
-                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>string.Format("{0:#,###0}",@item.PackPrice) تومان</small></a>
+                            <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "ServicePackView", id = item.AutoServicePackId, info1 = "سرویسها پکها" , info2 = item.AutoServicePackName })">@item.AutoServicePackName - <small>string.Format("{0:0,0}",@item.PackPrice) تومان</small></a>
                         }
                     </div>
                 </div>

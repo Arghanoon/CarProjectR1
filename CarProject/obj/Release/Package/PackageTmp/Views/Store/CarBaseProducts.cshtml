@@ -1,0 +1,189 @@
+﻿@{
+    ViewBag.Title = "نمایش قطعات";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+    var rand = new Random();
+
+    int Carid = 0;
+    string searchtext = "";
+    int orderby = 1;
+    int orderbydirection = 1;
+        
+    int page = 0;
+    if (Request.QueryString.AllKeys.Contains("page"))
+    {
+        int.TryParse(Request.QueryString["page"], out page);
+    }
+    int totalitems = 0;
+    int showinpage = 20;
+
+    var services = dbs.AutoServices.AsQueryable();
+        
+
+    var products = dbs.Products.AsQueryable();
+    products = products.Where(product => product.IsActive == true);
+    var cars = dbs.ProductCars.Select(c => new
+    {
+        c.Car.CarModel.CarModelName,
+        c.Car.CarModel.CarModelId,
+        c.Car.CarModel.CarBrandId
+    }).Distinct();
+    var se = (dbs.ProductCars.Select(c => new
+    {
+        c.Car.CarModel.CarBrand.CarBrandName,
+        c.Car.CarModel.CarBrand.CarBrandId,
+
+    })).Distinct();
+    var getcarsId = (dbs.ProductCars.Select(c => new
+    {
+        c.Car.CarsId
+    })).Distinct();
+    var getAutoServiceId = (dbs.ProductCars.Select(c => new
+    {
+        c.ProductCarsId,
+        c.CarsId,
+        c.ProductId
+    })).Distinct();
+
+
+    //var carProducts = dbs.Products.Where(c => c.ProductCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
+
+    var brandFilters = Request.QueryString.GetValues("CarBrand");
+    var CountryFilter = Request.QueryString.GetValues("CountryFilter");
+    var Company_filter = Request.QueryString.GetValues("CompanyFilter");
+    var Category_filter = Request.QueryString.GetValues("CategoryFilter");
+    var Car_filter = Request.QueryString.GetValues("CarFilter");
+
+    if (CountryFilter != null && CountryFilter.Length > 0)
+    {
+        products = products.Where(c => CountryFilter.Contains(c.CountryId.ToString()));
+    }
+    if (brandFilters != null && brandFilters.Length > 0)
+    {
+        var xar = cars.Where(c => brandFilters.Contains(c.CarBrandId.ToString()));
+        var es = new List<string>();
+        foreach (var item in xar)
+        {
+            es.Add(item.CarModelId.ToString());
+        }
+        var getCarLinqId = getcarsId.Where(c => es.Contains(c.CarsId.ToString()));
+        var GetCarListID = new List<String>();
+        foreach (var item in getCarLinqId)
+        {
+            GetCarListID.Add(item.CarsId.ToString());
+        }
+        var GetAutoSeviceCarLInqID = getAutoServiceId.Where(c => GetCarListID.Contains(c.CarsId.ToString()));
+        var GetAutoServiceCarListID = new List<String>();
+        foreach (var item in GetAutoSeviceCarLInqID)
+        {
+            GetAutoServiceCarListID.Add(item.ProductId.ToString());
+        }
+        products = products.Where(c => GetAutoServiceCarListID.Contains(c.ProductId.ToString()));
+    }
+    if (Company_filter != null && Company_filter.Length > 0)
+    {
+        products = products.Where(c => Company_filter.Contains(c.CompanyId.ToString()));
+    }
+    if (Category_filter != null && Category_filter.Length > 0)
+    {
+        products = products.Where(c => Category_filter.Contains(c.CategoryId.ToString()));
+    }
+    if (Car_filter != null && Car_filter.Length > 0)
+    {
+        var xar = cars.Where(c => Car_filter.Contains(c.CarModelId.ToString()));
+        var es = new List<string>();
+        foreach (var item in xar)
+        {
+            es.Add(item.CarModelId.ToString());
+        }
+        var getCarLinqId = getcarsId.Where(c => es.Contains(c.CarsId.ToString()));
+        var GetCarListID = new List<String>();
+        foreach (var item in getCarLinqId)
+        {
+            GetCarListID.Add(item.CarsId.ToString());
+        }
+        var GetAutoSeviceCarLInqID = getAutoServiceId.Where(c => GetCarListID.Contains(c.CarsId.ToString()));
+        var GetAutoServiceCarListID = new List<String>();
+        foreach (var item in GetAutoSeviceCarLInqID)
+        {
+            GetAutoServiceCarListID.Add(item.ProductId.ToString());
+        }
+        products = products.Where(c => GetAutoServiceCarListID.Contains(c.ProductId.ToString()));
+    }
+
+
+
+
+
+
+    int GroupCategoryFilter = 0;
+    if (ViewContext.RouteData.Values["id"] != null)
+    { int.TryParse(ViewContext.RouteData.Values["id"].ToString(), out GroupCategoryFilter); }
+
+    if (GroupCategoryFilter > 0)
+    { products = products.Where(c => c.CategoryId == GroupCategoryFilter); }//first filter category
+
+    if (Request.QueryString.AllKeys.Contains("searchtext"))
+    { searchtext = Request.QueryString["searchtext"]; }
+
+    if (!string.IsNullOrWhiteSpace(searchtext))
+    { products = products.Where(p => p.ProductName.Contains(searchtext)); }//filter base on Search key
+
+    if (Request.QueryString.AllKeys.Contains("Orderby") && !string.IsNullOrWhiteSpace(Request.QueryString["Orderby"]))
+    { int.TryParse(Request.QueryString["Orderby"], out orderby); }
+
+    if (Request.QueryString.AllKeys.Contains("OrderDirection") && Request.QueryString["OrderDirection"] == "DESC")
+    { orderbydirection = 2; }
+
+    switch (orderby)
+    {
+        case 2:
+        {
+            if (orderbydirection == 2) { products = products.OrderByDescending(c => (c.ProductPrices.OrderByDescending(p => p.ProductPriceId).FirstOrDefault() != null) ? c.ProductPrices.OrderByDescending(p => p.ProductPriceId).FirstOrDefault().ProductPrice1 : 1); }
+            else { products = products.OrderBy(c => (c.ProductPrices.OrderByDescending(p => p.ProductPriceId).FirstOrDefault() != null) ? c.ProductPrices.OrderByDescending(p => p.ProductPriceId).FirstOrDefault().ProductPrice1 : 1); }
+        }
+            break;
+        case 3:
+        {
+            if (orderbydirection == 2) { products = products.OrderByDescending(c => (c.ProductToViews.Any() && c.ProductToViews.FirstOrDefault().Favorite != null) ? c.ProductToViews.FirstOrDefault().Favorite : 0); }
+            else { products = products.OrderBy(c => (c.ProductToViews.Any() && c.ProductToViews.FirstOrDefault().Favorite != null) ? c.ProductToViews.FirstOrDefault().Favorite : 0); }
+        }
+            break;
+        case 4:
+        {
+            if (orderbydirection == 2) { products = products.OrderByDescending(c => (c.ProductToViews.Any() && c.ProductToViews.FirstOrDefault().Viewd != null) ? c.ProductToViews.FirstOrDefault().Viewd : 0); }
+            else { products = products.OrderBy(c => (c.ProductToViews.Any() && c.ProductToViews.FirstOrDefault().Viewd != null) ? c.ProductToViews.FirstOrDefault().Viewd : 0); }
+        }
+            break;
+        case 5:
+        {
+            if (orderbydirection == 2) { products = products.OrderByDescending(c => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.Product && bi.Id == c.ProductId)); }
+            else { products = products.OrderBy(c => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.Product && bi.Id == c.ProductId)); }
+        }
+            break;
+        case 1:
+        default:
+        {
+            if (orderbydirection == 2) { products = products.OrderByDescending(c => c.ProductId); }
+            else { products = products.OrderBy(c => c.ProductId); }
+        }
+            break;
+    }
+
+
+
+    totalitems = products.Count();
+    products = products.Skip(page * showinpage).Take(showinpage);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CarBaseProducts</title>
+</head>
+<body>
+    <div> 
+    </div>
+</body>
+</html>

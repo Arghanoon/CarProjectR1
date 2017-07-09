@@ -104,7 +104,7 @@
                             <small class="price">
                                 @if (item.ProductPrices.Any())
                                             {
-                                                Write(string.Format("{0:#,###0}", item.ProductPrices.Last().InstallPrice + item.ProductPrices.Last().ProductPrice1));
+                                                Write(string.Format("{0:0,0}", item.ProductPrices.Last().InstallPrice + item.ProductPrices.Last().ProductPrice1));
                                             }  تومان
                                     </small>
             

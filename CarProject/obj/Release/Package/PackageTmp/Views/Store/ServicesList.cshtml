@@ -45,6 +45,7 @@
 
 
     //var carProducts = dbs.Products.Where(c => c.ProductCars.Select(c2 => c2.CarsId).Contains(Model.Car.CarsId));
+    var CarId_filter = Request.QueryString.GetValues("CarID");
 
     var brandFilters = Request.QueryString.GetValues("CarBrand");
     //var CountryFilter = Request.QueryString.GetValues("CountryFilter");
@@ -56,6 +57,19 @@
     //{
     //    products = products.Where(c => CountryFilter.Contains(c.CountryId.ToString()));
     //}
+    if (CarId_filter != null && CarId_filter.Length > 0)
+    {
+        int x = Convert.ToInt32(CarId_filter[0]);
+        var GetCarListID = new List<String>();
+        GetCarListID.Add(x.ToString());
+        var GetAutoSeviceCarLInqID = getAutoServiceId.Where(c => GetCarListID.Contains(c.CarsId.ToString()));
+        var GetAutoServiceCarListID = new List<String>();
+        foreach (var item in GetAutoSeviceCarLInqID)
+        {
+            GetAutoServiceCarListID.Add(item.AutoServiceId.ToString());
+        }
+        service = service.Where(c => GetAutoServiceCarListID.Contains(c.AutoServiceId.ToString()));
+    }
     if (brandFilters != null && brandFilters.Length > 0)
     {
         var xar = cars.Where(c => brandFilters.Contains(c.CarBrandId.ToString()));
@@ -190,7 +204,7 @@
                 @foreach (var item in dbs.ServicesCategories.OrderBy(b => b.ServicesCategoryId).Take(5))
                 {
                     <section class="checkbox">
-                        <input type="checkbox" name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
+                        <input type="checkbox" class="toggle"  name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
                         <label for="Category_@item.ServicesCategoryId">
                             @item.ServicesCategoryName
                         </label>
@@ -201,7 +215,7 @@
                     @foreach (var item in dbs.ServicesCategories.OrderBy(b => b.ServicesCategoryId).Skip(5))
                     {
                         <section class="checkbox">
-                            <input type="checkbox" name="CategoryFilter" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
+                            <input type="checkbox" name="CategoryFilter" class="toggle" value="@item.ServicesCategoryId" id="Category_@item.ServicesCategoryId" @if (Category_filter != null && Category_filter.Contains(item.ServicesCategoryId.ToString())) { Write("checked=\"checked\""); } />
                             <label for="Category_@item.ServicesCategoryId">
                                 @item.ServicesCategoryName
                             </label>
@@ -220,7 +234,7 @@
                 @foreach (var item in se.OrderBy(b => b.CarBrandId).Take(5))
                 {
                     <section class="checkbox">
-                        <input type="checkbox" onclick="$(this).parent('form:first').submit();" name="CarBrand" value="@item.CarBrandId" id="Brand_@item.CarBrandId"  @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                        <input type="checkbox" class="toggle" onclick="$(this).parent('form:first').submit();" name="CarBrand" value="@item.CarBrandId" id="Brand_@item.CarBrandId"  @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
                         <label for="Brand_@item.CarBrandId" onclick="$(this).parent('form:first').submit();">
                             @item.CarBrandName
                         </label>
@@ -231,7 +245,7 @@
                     @foreach (var item in se.OrderBy(b => b.CarBrandId).Skip(5))
                     {
                         <section class="checkbox">
-                            <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="Brand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                            <input type="checkbox" name="CarBrand" class="toggle" value="@item.CarBrandId" id="Brand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
                             <label for="Brand_@item.CarBrandId">
                                 @item.CarBrandName
                             </label>
@@ -248,7 +262,7 @@
                 @foreach (var item in cars.OrderBy(b => b.CarModelId).Take(5))
                 {
                     <section class="checkbox">
-                        <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
+                        <input type="checkbox" name="CarFilter" class="toggle" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
                         <label for="Model_@item.CarModelId">
                             @item.CarModelName
                         </label>
@@ -259,7 +273,7 @@
                     @foreach (var item in cars.OrderBy(b => b.CarModelId).Skip(5))
                     {
                         <section class="checkbox">
-                            <input type="checkbox" name="CarFilter" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
+                            <input type="checkbox" name="CarFilter" class="toggle" value="@item.CarModelId" id="Model_@item.CarModelId" @if (Car_filter != null && Car_filter.Contains(item.CarModelId.ToString())) { Write("checked=\"checked\""); } />
                             <label for="Model_@item.CarModelId">
                                 @item.CarModelName
                             </label>
@@ -340,7 +354,7 @@
 
                 if (finfo.Exists && finfo.GetFiles().Any())
                 {
-                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
+                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName.Trim().Replace(' ','-'), info2 = item.AutoServiceName.Trim().Replace(' ','-') })" class="item">
                         <img src="@Url.Content(PicFileUrl + "/" + finfo.GetFiles()[0])" />
                         <section>
                             <strong>@item.AutoServiceName</strong><br />
@@ -348,7 +362,7 @@
                             <small class="price">
                                 @if (item.Price.Any())
                                 {
-                                    <span>@String.Format("{0:n0}", item.Price.ToString())</span>
+                                    <span>@string.Format("{0:#,###}", item.Price.ToString())</span>
                                 }
                                 else
                                 {
@@ -360,7 +374,7 @@
                 }
                 else
                 {
-                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName, info2 = item.AutoServiceName})" class="item">
+                    <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "ServiceView", id = item.AutoServiceId, info1 = item.ServicesCategory.ServicesCategoryName.Trim().Replace(' ','-'), info2 = item.AutoServiceName.Trim().Replace(' ','-') })" class="item">
                         <img src="~/Publics/Gallery/Services/NotFound.png" />
                         <section>
                             <strong>@item.AutoServiceName</strong><br />
@@ -368,7 +382,7 @@
                             <small class="price">
                                 @if (@item.Price.Any())
                                 {
-                                    <span>@String.Format("{0:n0}", item.Price.ToString())</span>
+                                    <span>@string.Format("{0:#,###}", item.Price.ToString())</span>
                                 }
                                 else
                                 {
@@ -404,6 +418,13 @@
     <script>
         $('#checkbox').change(function () {
             $("#t2button").click();
+        });
+        $(function() {
+            $('.toggle').change(function() {
+                // the value of the checkbox changed => refresh the page:
+                document.getElementById('BtnClick').click();
+                //location.reload();
+            });
         });
 </script>
 }

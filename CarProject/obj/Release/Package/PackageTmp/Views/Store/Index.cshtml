@@ -177,7 +177,7 @@
                                             <strong>@item.ProductName</strong><br />
                                             <small>@item.Category.CategoryName</small><br />
                                             <small class="price">@if (item.ProductPrices.Any())
-                                            {<span>@string.Format("{0:#,###0}",@item.ProductPrices.Last().ProductPrice1)</span>}
+                                            {<span>@string.Format("{0:0,0}",@item.ProductPrices.Last().ProductPrice1)</span>}
                                             else
                                             {<span>0</span>} تومان</small>
                                         </section>
@@ -218,7 +218,7 @@
                                     <section>
                                         <strong>@item.AutoServiceName</strong><br />
                                         @*<small>@item.Category.CategoryName</small><br />*@
-                                        <small class="price">@string.Format("{0:#,###0}",price) تومان</small>
+                                        <small class="price">@string.Format("{0:0,0}",price) تومان</small>
                                     </section>
                                 </a>
 
@@ -257,7 +257,7 @@
                                     <img src="@Url.Content(src)" alt="@item.AutoServicePackName" />
                                     <section>
                                         <strong>@item.AutoServicePackName</strong><br />
-                                        <small class="price">@string.Format("{0:#,###0}", @price) تومان</small>
+                                        <small class="price">@string.Format("{0:0,0}", @price) تومان</small>
                                     </section>
                                 </a>
 

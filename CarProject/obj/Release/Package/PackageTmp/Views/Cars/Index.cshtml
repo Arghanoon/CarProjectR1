@@ -79,47 +79,53 @@
     {
         case 1:
             if (orderbydirection == 2)
+            { ListOfCars = ListOfCars.OrderByDescending(c => c.CarModel.CarModelName); }
+            else
+            { ListOfCars = ListOfCars.OrderBy(c => c.CarModel.CarModelName); }
+            break;
+        case 2:
+            if (orderbydirection == 2)
             { ListOfCars = ListOfCars.OrderByDescending(c => c.Price); }
             else
             { ListOfCars = ListOfCars.OrderBy(c => c.Price); }
             break;
-        case 2:
+        case 3:
             if (orderbydirection == 2)
             { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineSize : 1); }
             else
             { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineSize : 1); }
             break;
-        case 3:
+        case 4:
             if (orderbydirection == 2)
             { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EnginePowerHpRpm : 1); }
             else
             { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EnginePowerHpRpm : 1); }
             break;
-        case 4:
+        case 5:
             if (orderbydirection == 2)
             { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineTorque : 1); }
             else
             { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineTorque : 1); }
             break;
-        case 5:
+        case 6:
             if (orderbydirection == 2)
             { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EnginePowerHpTon : 1); }
             else
             { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EnginePowerHpTon : 1); }
             break;
-        case 6:
+        case 7:
             if (orderbydirection == 2)
             { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineMaxSpeed : 1); }
             else
             { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineMaxSpeed : 1); }
             break;
-        case 7:
+        case 8:
             if (orderbydirection == 2)
             { ListOfCars = ListOfCars.OrderByDescending(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineZeroToH : 1); }
             else
             { ListOfCars = ListOfCars.OrderBy(c => (c.CarEngines.FirstOrDefault() != null) ? c.CarEngines.FirstOrDefault().EngineZeroToH : 1); }
             break;
-        case 8:
+        case 9:
             if (orderbydirection == 2)
             { ListOfCars = ListOfCars.OrderByDescending(c => (c.FuelConsumptions.FirstOrDefault() != null) ? c.FuelConsumptions.FirstOrDefault().LphMix : 1); }
             else
@@ -138,7 +144,7 @@
 
 @section style
 {
-    <link href="~/Publics/Files/Resources/StorePage/ProductsList.css" rel="stylesheet" />
+    <link href="~/Publics/Files/Resources/StorePage/ProductsList2.css" rel="stylesheet" />
     <link href="~/Publics/Files/ControlsPageTemplates/Cars/Index/css.css" rel="stylesheet" />
 }
 
@@ -154,7 +160,7 @@
                         @foreach (var item in dbs.CarBrands.OrderBy(b => b.CarBrandId).Take(5))
                         {
                             <section class="checkbox">
-                                <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                                <input type="checkbox" class="toggle" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
                                 <label for="CarBrand_@item.CarBrandId">
                                     @item.CarBrandName
                                 </label>
@@ -165,7 +171,7 @@
                             @foreach (var item in dbs.CarBrands.OrderBy(b => b.CarBrandId).Skip(5))
                             {
                                 <section class="checkbox">
-                                    <input type="checkbox" name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
+                                    <input type="checkbox" class="toggle"  name="CarBrand" value="@item.CarBrandId" id="CarBrand_@item.CarBrandId" @if (brandFilters != null && brandFilters.Contains(item.CarBrandId.ToString())) { Write("checked=\"checked\""); } />
                                     <label for="CarBrand_@item.CarBrandId">
                                         @item.CarBrandName
                                     </label>
@@ -183,7 +189,7 @@
                         @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Take(5))
                         {
                             <section class="checkbox">
-                                <input type="checkbox" name="Country" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
+                                <input type="checkbox" name="Country" class="toggle"  value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
                                 <label for="Country_@item.CountryId">
                                     @item.CountryShortName
                                 </label>
@@ -194,7 +200,7 @@
                             @foreach (var item in dbs.Countries.OrderBy(b => b.CountryId).Skip(5))
                             {
                                 <section class="checkbox">
-                                    <input type="checkbox" name="Country" value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
+                                    <input type="checkbox" name="Country" class="toggle"  value="@item.CountryId" id="Country_@item.CountryId" @if (CountryFilter != null && CountryFilter.Contains(item.CountryId.ToString())) { Write("checked=\"checked\""); } />
                                     <label for="Country_@item.CountryId">
                                         @item.CountryShortName
                                     </label>
@@ -250,7 +256,7 @@
                             if (item == null)
                             { continue; }
                             <section class="checkbox">
-                                <input type="checkbox" name="CarClass" value="@item" id="CarClass_@ind" @if (CarClass != null && CarClass.Contains(item)) { Write("checked=\"checked\""); } />
+                                <input type="checkbox" name="CarClass" class="toggle"  value="@item" id="CarClass_@ind" @if (CarClass != null && CarClass.Contains(item)) { Write("checked=\"checked\""); } />
                                 <label for="CarClass_@ind">
                                     @item
                                 </label>
@@ -264,7 +270,7 @@
                                 if (item == null)
                                 { continue; }
                                 <section class="checkbox">
-                                    <input type="checkbox" name="CarClass" value="@item" id="CarClass_@ind" @if (CarClass != null && CarClass.Contains(item)) { Write("checked=\"checked\""); } />
+                                    <input type="checkbox" name="CarClass" class="toggle"  value="@item" id="CarClass_@ind" @if (CarClass != null && CarClass.Contains(item)) { Write("checked=\"checked\""); } />
                                     <label for="CarClass_@ind">
                                         @item
                                     </label>
@@ -285,7 +291,7 @@
                             if (item == null)
                             { continue; }
                             <section class="checkbox">
-                                <input type="checkbox" name="CarUsage" value="@item" id="CarUsage_@ind" @if (CarUsage != null && CarUsage.Contains(item)) { Write("checked=\"checked\""); } />
+                                <input type="checkbox" name="CarUsage" class="toggle"  value="@item" id="CarUsage_@ind" @if (CarUsage != null && CarUsage.Contains(item)) { Write("checked=\"checked\""); } />
                                 <label for="CarUsage_@ind">
                                     @item
                                 </label>
@@ -323,7 +329,7 @@
                             if (item == null)
                             { continue; }
                             <section class="checkbox">
-                                <input type="checkbox" name="CarGearBoxType" value="@item" id="CarGearBoxType_@ind" @if (CarGearBoxType != null && CarGearBoxType.Contains(item)) { Write("checked=\"checked\""); } />
+                                <input type="checkbox" name="CarGearBoxType" class="toggle"  value="@item" id="CarGearBoxType_@ind" @if (CarGearBoxType != null && CarGearBoxType.Contains(item)) { Write("checked=\"checked\""); } />
                                 <label for="CarGearBoxType_@ind">
                                     @item
                                 </label>
@@ -342,7 +348,7 @@
                             if (item == null)
                             { continue; }
                             <section class="checkbox">
-                                <input type="checkbox" name="CarGearBoxAxel" value="@item" id="CarGearBoxAxel_@ind" @if (CarGearBoxAxel != null && CarGearBoxAxel.Contains(item)) { Write("checked=\"checked\""); } />
+                                <input type="checkbox" name="CarGearBoxAxel" class="toggle"  value="@item" id="CarGearBoxAxel_@ind" @if (CarGearBoxAxel != null && CarGearBoxAxel.Contains(item)) { Write("checked=\"checked\""); } />
                                 <label for="CarGearBoxAxel_@ind">
                                     @item
                                 </label>
@@ -370,14 +376,42 @@
                 <section id="SearchOrderBy">
                     <span>مرتب سازی بر اساس</span>
                     <select name="Orderby">
-                        <option value="1" @if (orderby == 1) { Write("selected=\"selected\""); }>قیمت</option>
-                        <option value="2" @if (orderby == 2) { Write("selected=\"selected\""); }>حجم موتور</option>
-                        <option value="3" @if (orderby == 3) { Write("selected=\"selected\""); }>قدرت</option>
-                        <option value="4" @if (orderby == 4) { Write("selected=\"selected\""); }>گشتاور</option>
-                        <option value="5" @if (orderby == 5) { Write("selected=\"selected\""); }>توان وزنی</option>
-                        <option value="6" @if (orderby == 6) { Write("selected=\"selected\""); }>حداکثر سرعت</option>
-                        <option value="7" @if (orderby == 7) { Write("selected=\"selected\""); }>0 تا 100</option>
-                        <option value="8" @if (orderby == 8) { Write("selected=\"selected\""); }>مصرف ترکیبی</option>
+                        <option value="1" @if (orderby == 2)
+                                          {
+                                              Write("selected=\"selected\"");
+                                          }>نام خودرو</option>
+                        <option value="2" @if (orderby == 2)
+                                          {
+                                              Write("selected=\"selected\"");
+                                          }>قیمت</option>
+                        <option value="3" @if (orderby == 3)
+                                          {
+                                              Write("selected=\"selected\"");
+                                          }>حجم موتور</option>
+                        <option value="4" @if (orderby == 4)
+                                          {
+                                              Write("selected=\"selected\"");
+                                          }>قدرت</option>
+                        <option value="5" @if (orderby == 5)
+                                          {
+                                              Write("selected=\"selected\"");
+                                          }>گشتاور</option>
+                        <option value="6" @if (orderby == 6)
+                                          {
+                                              Write("selected=\"selected\"");
+                                          }>توان وزنی</option>
+                        <option value="7" @if (orderby == 7)
+                                          {
+                                              Write("selected=\"selected\"");
+                                          }>حداکثر سرعت</option>
+                        <option value="8" @if (orderby == 8)
+                                          {
+                                              Write("selected=\"selected\"");
+                                          }>0 تا 100</option>
+                        <option value="9" @if (orderby == 9)
+                                          {
+                                              Write("selected=\"selected\"");
+                                          }>مصرف ترکیبی</option>
                     </select>
                     به صورت
                     <select name="OrderDirection">
@@ -390,7 +424,7 @@
                         <label for="OrderDirectionDESC">نزولی</label>*@
                 </section>
 
-                <input type="submit" value="جستجو/فیلتر" class="t2button" />
+                <input type="submit" value="جستجو/فیلتر" class="t2button" id="BtnClick" />
             </div>
 
 
@@ -456,3 +490,15 @@
 
     </div>
 </form>
+
+@section script{
+    <script>
+        $(function() {
+            $('.toggle').change(function() {
+                // the value of the checkbox changed => refresh the page:
+                document.getElementById('BtnClick').click();
+                //location.reload();
+            });
+        });
+    </script>
+}
