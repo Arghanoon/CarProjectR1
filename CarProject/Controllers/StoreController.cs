@@ -698,6 +698,11 @@ namespace CarProject.Controllers
         {
             return View();
         }
+
+        public ActionResult ProductComparator(int? id, FormCollection form)
+        {
+            return View();
+        }
         #endregion
 
         #region Services
