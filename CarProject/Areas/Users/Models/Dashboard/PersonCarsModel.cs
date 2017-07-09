@@ -11,9 +11,9 @@ namespace CarProject.Areas.Users.Models.Dashboard
     public class PersonCarsModel : IValidatableObject
     {
 
-        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        [Display(Name = "حاصل جمع")]
-        public string Captcha { get; set; }
+        //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        //[Display(Name = "حاصل جمع")]
+        //public string Captcha { get; set; }
 
 
 
@@ -85,9 +85,54 @@ namespace CarProject.Areas.Users.Models.Dashboard
             }
         }
 
+        public PersonCarsModel(int userid, int? carid)
+           : this()
+        {
+            var user = dbs.Users.FirstOrDefault(u => u.UserId == userid);
+            Car = dbs.PersonCars.FirstOrDefault(c => c.UserId == user.UserId && c.CarId == carid);
+            if (Car != null && Car.CarId != null)
+            {
+                var carplates = Car.CarPlate.Split('|');
+                if (carplates.Length == 3)
+                {
+                    Carplate_part1 = carplates[0];
+                    Carplate_part2 = carplates[1];
+                    Carplate_part3 = carplates[2];
+                }
+
+                Detail = dbs.PersonCarDetails.FirstOrDefault(c => c.PersonCarId == Car.PersonCarsId);
+                if (Detail == null)
+                    Detail = new DBSEF.PersonCarDetail();
+                else
+                {
+                    LastOilChange = Detail.LastOilChange.Date_Persian();
+                    LastOilFiltersChange = Detail.LastOilFiltersChange.Date_Persian();
+                    LastAirFilterChange = Detail.LastAirFilterChange.Date_Persian();
+                    LastGearBoxOilChange = Detail.LastGearBoxOilChange.Date_Persian();
+                    LastTiresChange = Detail.LastTiresChange.Date_Persian();
+                    LastTimingbeltChange = Detail.LastTimingbeltChange.Date_Persian();
+                    LastOtherBeltsChange = Detail.LastOtherBeltsChange.Date_Persian();
+                    LastFrontBrakePadsChange = Detail.LastFrontBrakePadsChange.Date_Persian();
+                    LastRearBreakePadsChange = Detail.LastRearBreakePadsChange.Date_Persian();
+                }
+            }
+            else
+            {
+                Car = new DBSEF.PersonCar();
+                Car.CarId = carid;
+            }
+        }
+
         public PersonCarsModel(int? carid, int? detaild)
         {
             this.Car = dbs.PersonCars .FirstOrDefault(c => c.PersonCarsId == carid);
+            this.Detail = dbs.PersonCarDetails.FirstOrDefault(c => c.PersonCarDetailId == detaild);
+        }
+
+        public PersonCarsModel(int userid, int? carid, int? detaild)
+        {
+            this.Car = dbs.PersonCars.FirstOrDefault(c => c.PersonCarsId == carid);
+            Car.UserId = userid;
             this.Detail = dbs.PersonCarDetails.FirstOrDefault(c => c.PersonCarDetailId == detaild);
         }
 
@@ -112,7 +157,8 @@ namespace CarProject.Areas.Users.Models.Dashboard
             if (LastRearBreakePadsChange.IsPersianDateTime())
             { Detail.LastRearBreakePadsChange = LastRearBreakePadsChange.Persian_ToDateTime(); }
 
-            Car.UserId = Controllers.profileController.GetCurrentLoginedUser.UserId;
+            if (Car.UserId == null)
+                Car.UserId = Controllers.profileController.GetCurrentLoginedUser.UserId;
             //Car.CarPlate = string.Format("{0}|{1}|{2}", Carplate_part1, Carplate_part2, Carplate_part3);
             Car.CarPlate = "";
             dbs.PersonCars.Add(Car);

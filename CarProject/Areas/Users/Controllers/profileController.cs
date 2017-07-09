@@ -38,10 +38,10 @@ namespace CarProject.Areas.Users.Controllers
         [HttpPost]
         public ActionResult UserChangePassword(PersonCarsModel model)
         {
-            if (Session["Captcha"] == null || Session["Captcha"].ToString() != model.Captcha)
-            {
-                ModelState.AddModelError("Captcha", "مجموع اشتباه است");
-            }
+            //if (Session["Captcha"] == null || Session["Captcha"].ToString() != model.Captcha)
+            //{
+            //    ModelState.AddModelError("Captcha", "مجموع اشتباه است");
+            //}
             return View();
         }
 

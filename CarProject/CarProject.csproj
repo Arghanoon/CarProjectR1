@@ -884,6 +884,10 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Users\Views\profile\Login13960413.cshtml" />
+    <Content Include="Areas\Admin\Views\User\InsertPersonCar.cshtml" />
+    <Content Include="Areas\Admin\Views\User\PersonCarCurrentMillage.cshtml" />
+    <Content Include="Areas\Admin\Views\User\PersonCars.cshtml" />
+    <Content Include="Areas\Admin\Views\User\PersonCarsDeleteConfirm.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
