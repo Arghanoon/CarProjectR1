@@ -909,6 +909,7 @@
     <Content Include="Views\Store\PaymentCart_Online_BackFromBank.cshtml" />
     <Content Include="Views\Cars\Compare.cshtml" />
     <Content Include="Views\Store\CarBaseProducts.cshtml" />
+    <Content Include="Views\Store\ProductComparator.cshtml" />
     <None Include="Web References\arianpal1\WebService.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
