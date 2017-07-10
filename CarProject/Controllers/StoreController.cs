@@ -585,8 +585,13 @@ namespace CarProject.Controllers
             ViewBag.error = new Dictionary<string, string>();
             if (form.AllKeys.Contains("SendACommentRequest"))
             {
+
                 if (form["comment"] == "")
                     ViewBag.error["comment"] = "پیام وارد نشده است";
+                if (!form.AllKeys.Contains("captcha") || form["captcha"].IsNullOrWhiteSpace())
+                    ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
+                else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(form["captcha"]))
+                    ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نیست");
 
                 if (form["g-recaptcha-response"] == "")
                     ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
@@ -718,7 +723,10 @@ namespace CarProject.Controllers
             {
                 if (form["comment"] == "")
                     ViewBag.error["comment"] = "پیام وارد نشده است";
-
+                if (!form.AllKeys.Contains("captcha") || form["captcha"].IsNullOrWhiteSpace())
+                    ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
+                else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(form["captcha"]))
+                    ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نیست");
                 if (form["g-recaptcha-response"] == "")
                     ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
                 else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))
@@ -795,7 +803,10 @@ namespace CarProject.Controllers
             {
                 if (form["comment"] == "")
                     ViewBag.error["comment"] = "پیام وارد نشده است";
-
+                if (!form.AllKeys.Contains("captcha") || form["captcha"].IsNullOrWhiteSpace())
+                    ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
+                else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(form["captcha"]))
+                    ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نیست");
                 if (form["g-recaptcha-response"] == "")
                     ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
                 else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))

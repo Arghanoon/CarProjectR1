@@ -14,11 +14,15 @@ namespace CarProject.Areas.Admin.Models.Store
 
         public DBSEF.Discount Discount { get; set; }
         public List<int> Products { get; set; }
+        public List<int> Services { get; set; }
+        public List<int> ServicesPack { get; set; }
 
         public ProductDiscountModel()
         {
             Discount = new DBSEF.Discount();
             Products = new List<int>();
+            Services = new List<int>();
+            ServicesPack = new List<int>();
         }
 
         public ProductDiscountModel(int? DiscountId)
@@ -27,17 +31,57 @@ namespace CarProject.Areas.Admin.Models.Store
             Products = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId).Select(pd => pd.ProductId.Value).ToList();
             if (Products == null)
                 Products = new List<int>();
+
+            Services = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
+                .Select(pd => pd.AutoServiceId.Value)
+                .ToList();
+            if(Services ==null)
+                Services = new List<int>();
+
+            ServicesPack = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
+                .Select(pd => pd.AutoServicePackId.Value)
+                .ToList();
+            if (ServicesPack == null)
+                ServicesPack = new List<int>();
         }
 
         public void Save()
         {
             dbs.Discounts.Add(this.Discount);
 
-            foreach (var item in Products)
+            if (Products != null)
             {
-                var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
-                if (pr != null)
-                    dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { Product = pr, Discount = this.Discount });
+                foreach (var item in Products)
+                {
+                    var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
+                    if (pr != null)
+                        dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount {Product = pr, Discount = this.Discount});
+                }
+            }
+            if (Services != null)
+            {
+                foreach (var item in Services)
+                {
+                    var pr = dbs.AutoServices.FirstOrDefault(p => p.AutoServiceId == item);
+                    if (pr != null)
+                    {
+                        dbs.ProductDiscounts.Add(
+                            new DBSEF.ProductDiscount {AutoService = pr, Discount = this.Discount});
+                    }
+                }
+            }
+
+            if (ServicesPack != null)
+            {
+                foreach (var item in ServicesPack)
+                {
+                    var pr = dbs.AutoServicePacks.FirstOrDefault(p => p.AutoServicePackId == item);
+                    if (pr != null)
+                    {
+                        dbs.ProductDiscounts.Add(
+                            new DBSEF.ProductDiscount { AutoServicePack = pr, Discount = this.Discount });
+                    }
+                }
             }
 
             dbs.SaveChanges();
@@ -66,7 +110,7 @@ namespace CarProject.Areas.Admin.Models.Store
             var res = new List<ValidationResult>();
             if (Discount.DiscountCode.IsNullOrWhiteSpace())
                 res.Add(new ValidationResult("کد تخفیف وارد نشد است", new string[] { "Discount.DiscountCode" }));
-            else if(dbs.Discounts.Count(dis => dis.DiscountCode == this.Discount.DiscountCode) > 0)
+            else if (dbs.Discounts.Count(dis => dis.DiscountCode == this.Discount.DiscountCode) > 0)
                 res.Add(new ValidationResult("کد تخفیف وارد شده تکراری است", new string[] { "Discount.DiscountCode" }));
 
             if (Discount.Discount1.IsNullOrWhiteSpace())
