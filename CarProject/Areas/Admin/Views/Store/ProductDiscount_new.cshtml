@@ -29,27 +29,44 @@
                 <div id="productDicountCountainer">
                     <table class="grid1">
                         <thead>
-                            <tr>
-                                <th class="min_nw tcenter">کد</th>
-                                <th>نام محصول</th>
-                                <th class="min_nw tcenter">عملیات</th>
-                            </tr>
+                        <tr>
+                            <th class="min_nw tcenter">کد</th>
+                            <th>نام محصول</th>
+                            <th class="min_nw tcenter">عملیات</th>
+                        </tr>
                         </thead>
                         <tbody id="selectedProductContainer">
-                            @foreach (var item in Model.Products)
-                            {
-                                var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
-                                if (pr == null)
-                                { continue; }
-                                <tr>
-                                    <td class="min_nw tcenter">@pr.PartNumber <input type="hidden" name="ProuductsId" value="@item" /></td>
-                                    <td class="tright">@pr.ProductName</td>
-                                    <td class="min_nw tcenter">
-                                        <input type="button" class="button red" value="Del" onclick="RemoveFromSelect(event)" />
-                                    </td>
-                                </tr>
-                            }
+                        @foreach (var item in Model.Products)
+                        {
+                            var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
+                            if (pr == null)
+                            { continue; }
+                            <tr>
+                                <td class="min_nw tcenter">@pr.PartNumber <input type="hidden" name="ProuductsId" value="@item" /></td>
+                                <td class="tright">@pr.ProductName</td>
+                                <td class="min_nw tcenter">
+                                    <input type="button" class="button red" value="Del" onclick="RemoveFromSelect(event)" />
+                                </td>
+                            </tr>
+                        }
                         </tbody>
+                        
+                        <tbody id="selectedProductContainer">
+                        @foreach (var item in Model.Services)
+                        {
+                            var pr = dbs.AutoServices.FirstOrDefault(p => p.AutoServiceId == item);
+                            if (pr == null)
+                            { continue; }
+                            <tr>
+                                <td class="min_nw tcenter">@pr.AutoServiceName <input type="hidden" name="AutoServiceId" value="@item" /></td>
+                                <td class="tright">@pr.AutoServiceName</td>
+                                <td class="min_nw tcenter">
+                                    <input type="button" class="button red" value="Del" onclick="RemoveFromSelect(event)" />
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+
                     </table>
                 </div>
                 <p style="color:red;">
@@ -68,20 +85,44 @@
             <div id="searchTexboxContainer">
                 <input type="search" id="searchForProducttextbox" placeholder="جستجوی برای محصول" />
                 <button type="button" onclick="retriveProductsBaseOnSearch()"><span class="gia-search"></span></button>
+                @*<button type="button" onclick="retriveProductsBaseOnSearch1()"><span class="gia-search"></span></button>*@
             </div>
             <div id="productDicountSearchContainer">
                 <table class="grid1">
-                        <thead>
-                            <tr>
-                                <th class="min_nw tcenter">کد</th>
-                                <th>نام محصول</th>
-                                <th class="min_nw tcenter">عملیات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="SearchProductContainer">
+                    <thead>
+                    <tr>
+                        <th class="min_nw tcenter">کد</th>
+                        <th>نام محصول</th>
+                        <th class="min_nw tcenter">عملیات</th>
+                    </tr>
+                    </thead>
+                    <tbody id="SearchProductContainer">
 
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div id="ServiceDicountSearch">
+            <h3>جستجو در میان سرویس ها</h3>
+            <hr />
+            <div id="searchTexboxContainer">
+                <input type="search" id="searchForServicestextbox" placeholder="جستجوی برای محصول" />
+                <button type="button" onclick="retriveServicesBaseOnSearch()"><span class="gia-search"></span></button>
+            </div>
+            <div id="ServicesDicountSearchContainer">
+                <table class="grid1">
+                    <thead>
+                    <tr>
+                        <th class="min_nw tcenter">کد</th>
+                        <th>نام محصول</th>
+                        <th class="min_nw tcenter">عملیات</th>
+                    </tr>
+                    </thead>
+                    <tbody id="SearchServiceContainer">
+
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -103,16 +144,16 @@
             border-radius:3px;
             overflow:hidden;
         }
-            #searchTexboxContainer input {
-                font-family:yekan;
-                background:none;
-                border:none;
-                padding:1px 3px;
-            }
-            #searchTexboxContainer button {
-                border:none;
-                background:#d4d4d4;
-            }
+        #searchTexboxContainer input {
+            font-family:yekan;
+            background:none;
+            border:none;
+            padding:1px 3px;
+        }
+        #searchTexboxContainer button {
+            border:none;
+            background:#d4d4d4;
+        }
 
         #randomGeneratorContainer {
             display:flex;
@@ -128,51 +169,113 @@
 {
     <script>
         function retriveProductsBaseOnSearch() {
-            search = document.getElementById('searchForProducttextbox').value;
-            var current = [];
-            $("#selectedProductContainer input[name='ProuductsId']").each(function (index, element) {
-                current.push(element.value);
-            });
+            var x = document.getElementById('productDicountSearchContainer');
+            if (x.style.display === 'none') {
+                x.style.display = 'block';
+                search = document.getElementById('searchForProducttextbox').value;
+                var current = [];
+                $("#selectedProductContainer input[name='ProuductsId']").each(function(index, element) {
+                    current.push(element.value);
+                });
 
-            
-           
-            document.getElementById('SearchProductContainer').innerHTML = "";
-            $.post('/Admin/Store/JsonProductsSearch2', { 'search': search, 'notinId': current }, function (res) {
-                for (i in res) {
-                    tr = document.createElement("tr");
 
-                    
+                document.getElementById('SearchProductContainer').innerHTML = "";
+                $.post('/Admin/Store/JsonProductsSearch2',
+                    { 'search': search, 'notinId': current },
+                    function(res) {
+                        for (i in res) {
+                            tr = document.createElement("tr");
 
-                    tnum = document.createElement("td");
-                    tnum.className = "min_nw tcenter";
-                    tnum.innerHTML = res[i].num;
 
-                    inp = document.createElement("input");
-                    inp.type = "hidden";
-                    inp.name = "ProuductsId";
-                    inp.value = res[i].id;
-                    tnum.appendChild(inp);
-                    tr.appendChild(tnum);
+                            tnum = document.createElement("td");
+                            tnum.className = "min_nw tcenter";
+                            tnum.innerHTML = res[i].num;
 
-                    tname = document.createElement("td");
-                    tname.className = "tright";
-                    tname.innerHTML = res[i].name;
-                    tr.appendChild(tname);
+                            inp = document.createElement("input");
+                            inp.type = "hidden";
+                            inp.name = "ProuductsId";
+                            inp.value = res[i].id;
+                            tnum.appendChild(inp);
+                            tr.appendChild(tnum);
 
-                    tact = document.createElement("td");
-                    {
-                        inp_btn_add = document.createElement("input");
-                        inp_btn_add.type = "button";
-                        inp_btn_add.className = "button green";
-                        inp_btn_add.value = "+";
-                        inp_btn_add.onclick = function (e) { AddToSelect(e); }
-                        tact.appendChild(inp_btn_add);
-                    }
-                    tr.appendChild(tact);
+                            tname = document.createElement("td");
+                            tname.className = "tright";
+                            tname.innerHTML = res[i].name;
+                            tr.appendChild(tname);
 
-                    document.getElementById('SearchProductContainer').appendChild(tr);
-                }
-            });
+                            tact = document.createElement("td");
+                            {
+                                inp_btn_add = document.createElement("input");
+                                inp_btn_add.type = "button";
+                                inp_btn_add.className = "button green";
+                                inp_btn_add.value = "+";
+                                inp_btn_add.onclick = function(e) { AddToSelect(e); }
+                                tact.appendChild(inp_btn_add);
+                            }
+                            tr.appendChild(tact);
+
+                            document.getElementById('SearchProductContainer').appendChild(tr);
+                        }
+                    });
+            }
+            else {
+                x.style.display = 'none';
+            }
+        }
+
+        function retriveServicesBaseOnSearch() {
+            var x = document.getElementById('ServicesDicountSearchContainer');
+            if (x.style.display === 'none') {
+                x.style.display = 'block';
+                search = document.getElementById('searchForServicestextbox').value;
+                var current = [];
+                $("#selectedProductContainer input[name='ServicesId']").each(function(index, element) {
+                    current.push(element.value);
+                });
+
+
+                document.getElementById('SearchProductContainer').innerHTML = "";
+                $.post('/Admin/Store/JsonServiceSearch2',
+                    { 'search': search, 'notinId': current },
+                    function(res) {
+                        for (i in res) {
+                            tr = document.createElement("tr");
+
+
+                            tnum = document.createElement("td");
+                            tnum.className = "min_nw tcenter";
+                            tnum.innerHTML = res[i].num;
+
+                            inp = document.createElement("input");
+                            inp.type = "hidden";
+                            inp.name = "ServicesId";
+                            inp.value = res[i].id;
+                            tnum.appendChild(inp);
+                            tr.appendChild(tnum);
+
+                            tname = document.createElement("td");
+                            tname.className = "tright";
+                            tname.innerHTML = res[i].name;
+                            tr.appendChild(tname);
+
+                            tact = document.createElement("td");
+                            {
+                                inp_btn_add = document.createElement("input");
+                                inp_btn_add.type = "button";
+                                inp_btn_add.className = "button green";
+                                inp_btn_add.value = "+";
+                                inp_btn_add.onclick = function(e) { AddToSelect(e); }
+                                tact.appendChild(inp_btn_add);
+                            }
+                            tr.appendChild(tact);
+
+                            document.getElementById('SearchServiceContainer').appendChild(tr);
+                        }
+                    });
+            }
+            else {
+                x.style.display = 'none';
+            }
         }
 
         function AddToSelect(e) {
@@ -181,29 +284,31 @@
 
             e.target.className = "button red";
             e.target.value = "Del";
-            e.target.onclick = function (e) { RemoveFromSelect(e); }
+            e.target.onclick = function(e) { RemoveFromSelect(e); }
         }
+
         function RemoveFromSelect(e) {
             mytr = FindParent(e.target, "TR");
             document.getElementById('SearchProductContainer').appendChild(mytr);
 
             e.target.className = "button green";
             e.target.value = "+";
-            e.target.onclick = function (e) { AddToSelect(e); }
+            e.target.onclick = function(e) { AddToSelect(e); }
         }
-        function FindParent(el,prtag) {
+
+        function FindParent(el, prtag) {
             p = el.offsetParent;
-            while (p !== null && p.tagName.toLowerCase() != prtag.toLowerCase())
-            {
+            while (p !== null && p.tagName.toLowerCase() != prtag.toLowerCase()) {
                 p = p.offsetParent;
             }
             return p;
         }
 
         function RandomCodeGenerate() {
-            
+
             incoun = parseInt(document.getElementById('randomLengthInput').value);
-            $.get('/Default/CodeGenerator/' + incoun, function (res) { document.getElementById('@Html.IdFor(m => m.Discount.DiscountCode)').value = res;});
+            $.get('/Default/CodeGenerator/' + incoun,
+                function(res) { document.getElementById('@Html.IdFor(m => m.Discount.DiscountCode)').value = res; });
         }
     </script>
 }
