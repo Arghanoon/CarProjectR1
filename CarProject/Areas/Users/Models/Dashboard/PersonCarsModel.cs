@@ -88,8 +88,7 @@ namespace CarProject.Areas.Users.Models.Dashboard
         public PersonCarsModel(int userid, int? carid)
            : this()
         {
-            var user = dbs.Users.FirstOrDefault(u => u.UserId == userid);
-            Car = dbs.PersonCars.FirstOrDefault(c => c.UserId == user.UserId && c.CarId == carid);
+            Car = dbs.PersonCars.FirstOrDefault(c => c.UserId == userid && c.CarId == carid);
             if (Car != null && Car.CarId != null)
             {
                 var carplates = Car.CarPlate.Split('|');
