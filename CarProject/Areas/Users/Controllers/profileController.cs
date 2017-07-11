@@ -488,6 +488,11 @@ namespace CarProject.Areas.Users.Controllers
                     ModelState.AddModelError("email", "کابری با ایمیل وارد شده یافت نشد");
 
 
+                if (!form.AllKeys.Contains("captcha") || form["captcha"].IsNullOrWhiteSpace())
+                    ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
+                               else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(form["captcha"]))
+                   ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نیست");
+
                 if (Request.Form["g-recaptcha-response"] == "")
                     ModelState.AddModelError("g-recaptcha-response", "کد امنیتی وارد نشده است");
                 else if (!CarProject.Controllers.DefaultController.ValidationRecaptcha(Request.Form["g-recaptcha-response"]))

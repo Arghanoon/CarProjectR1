@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
-
+using System.Net.Cache;
 using CarProject.App_extension;
 
 namespace CarProject.Areas.Admin.Controllers
@@ -273,7 +273,18 @@ namespace CarProject.Areas.Admin.Controllers
             var res = dbs.Products.Where(c => c.ProductName.Contains(search) && !notinId.Contains(c.ProductId)).Select(c => new { id = c.ProductId, num = c.PartNumber.ToString(), name = c.ProductName, cat = c.Category.CategoryName }).ToList();
             return Json(res, JsonRequestBehavior.DenyGet);
         }
-        
+
+       
+        [HttpPost]
+        public ActionResult JsonServiceSearch2(string search, List<int> notinId)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (notinId == null) { notinId = new List<int>(); }
+
+            var res = dbs.AutoServices.Where(c => c.AutoServiceName.Contains(search) && !notinId.Contains(c.AutoServiceId)).Select(c => new { id = c.AutoServiceId, num = c.AutoServiceName.ToString(), name = c.AutoServiceName }).ToList();
+            return Json(res, JsonRequestBehavior.DenyGet);
+        }
+
         public ActionResult ProductComments()
         {
             return View();
@@ -382,8 +393,31 @@ namespace CarProject.Areas.Admin.Controllers
                         model.Products.Add(x);
                 }
             }
+            var serItems = Request.Form.GetValues("ServicesId");
+            if (serItems != null)
+            {
+                foreach (var item in serItems)
+                {
+                    int x = 0;
+                    int.TryParse(item, out x);
+                    if (x > 0)
+                        model.Services.Add(x);
+                }
+            }
 
-            if (model.Products.Count == 0)
+            var servItems = Request.Form.GetValues("ServicesPackId");
+            if (servItems != null)
+            {
+                foreach (var item in servItems)
+                {
+                    int x = 0;
+                    int.TryParse(item, out x);
+                    if (x > 0)
+                        model.Services.Add(x);
+                }
+            }
+
+            if (model.Products.Count == 0 && model.Services.Count ==0 && model.ServicesPack.Count ==0)
                 ModelState.AddModelError("Products", "محصولات شامل تخفیف تعیین نشده اند");
 
             if (ModelState.IsValid)
