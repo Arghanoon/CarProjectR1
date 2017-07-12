@@ -38,8 +38,8 @@ namespace CarProject.Areas.Admin.Models.Store
                 if (Products == null)
                     Products = new List<int>();
             }
-            var x = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId);
-            if (x.Any())
+            var x = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId && pd.AutoServiceId != null);
+            if (x != null)
             {
                 Services = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
                     .Select(pd => pd.AutoServiceId.Value)
@@ -47,7 +47,8 @@ namespace CarProject.Areas.Admin.Models.Store
                 if (Services == null)
                     Services = new List<int>();
             }
-            if (dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId).Select(pd => pd.AutoServicePackId.Value) != null)
+            var y = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId && pd.AutoServicePackId != null);
+            if (y != null)
             {
                 ServicesPack = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
                     .Select(pd => pd.AutoServicePackId.Value)
