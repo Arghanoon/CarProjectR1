@@ -149,6 +149,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\Controllers\NamingController.cs" />
+    <Compile Include="Areas\Admin\Models\Dashboard\Naming.cs" />
     <Compile Include="Areas\Users\Controllers\CaptchaController.cs" />
     <Compile Include="CLS\Sitemap.cs" />
     <Compile Include="CLS\SitemapNode.cs" />
@@ -317,6 +319,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\NameOfValue.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\NewLatterEmail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -579,7 +584,6 @@
     <Content Include="Publics\Files\ControlsPageTemplates\Store\ServiceView\scirpt.js" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\ServiceView\SliderItemShow.css" />
     <Content Include="Publics\Files\ControlsPageTemplates\Store\ServiceView\SliderItemShow.js" />
-    <Content Include="Publics\Files\ControlsPageTemplates\Users\Profile\Index\css.css" />
     <Content Include="Publics\Files\Images\hands.png" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.css" />
     <Content Include="Publics\Files\Resources\CarsPages\Car.js" />
@@ -885,10 +889,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Users\Views\profile\Login13960413.cshtml" />
-    <Content Include="Areas\Admin\Views\User\InsertPersonCar.cshtml" />
-    <Content Include="Areas\Admin\Views\User\PersonCarCurrentMillage.cshtml" />
-    <Content Include="Areas\Admin\Views\User\PersonCars.cshtml" />
-    <Content Include="Areas\Admin\Views\User\PersonCarsDeleteConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\Naming\NewNaming.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

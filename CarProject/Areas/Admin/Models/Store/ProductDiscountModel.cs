@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 
 using CarProject.App_extension;
+using Microsoft.Ajax.Utilities;
 
 namespace CarProject.Areas.Admin.Models.Store
 {
@@ -28,21 +29,33 @@ namespace CarProject.Areas.Admin.Models.Store
         public ProductDiscountModel(int? DiscountId)
         {
             Discount = dbs.Discounts.FirstOrDefault(c => c.DiscountId == DiscountId);
-            Products = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId).Select(pd => pd.ProductId.Value).ToList();
-            if (Products == null)
-                Products = new List<int>();
-
-            Services = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
-                .Select(pd => pd.AutoServiceId.Value)
-                .ToList();
-            if(Services ==null)
-                Services = new List<int>();
-
-            ServicesPack = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
-                .Select(pd => pd.AutoServicePackId.Value)
-                .ToList();
-            if (ServicesPack == null)
-                ServicesPack = new List<int>();
+            if (dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId).Select(pd => pd.AutoServiceId.Value) !=
+                null)
+            {
+                Products = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
+                    .Select(pd => pd.ProductId.Value)
+                    .ToList();
+                if (Products == null)
+                    Products = new List<int>();
+            }
+            var x = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId && pd.AutoServiceId != null);
+            if (x != null)
+            {
+                Services = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
+                    .Select(pd => pd.AutoServiceId.Value)
+                    .ToList();
+                if (Services == null)
+                    Services = new List<int>();
+            }
+            var y = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId && pd.AutoServicePackId != null);
+            if (y != null)
+            {
+                ServicesPack = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
+                    .Select(pd => pd.AutoServicePackId.Value)
+                    .ToList();
+                if (ServicesPack == null)
+                    ServicesPack = new List<int>();
+            }
         }
 
         public void Save()
@@ -89,8 +102,10 @@ namespace CarProject.Areas.Admin.Models.Store
 
         public void Update()
         {
-            var todelete = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId && !Products.Contains(pdis.ProductId.Value));
+            var todelete = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId && (!Products.Contains(pdis.ProductId.Value) || !Products.Contains(pdis.AutoServiceId.Value) || !Products.Contains(pdis.AutoServicePackId.Value)));
             dbs.ProductDiscounts.RemoveRange(todelete);
+
+
 
             var listOftProductInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.ProductId.Value).ToList();
             var insertIds = Products.Where(p => !listOftProductInDatabase.Contains(p));
@@ -102,18 +117,38 @@ namespace CarProject.Areas.Admin.Models.Store
                     dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { Product = pr, Discount = this.Discount });
             }
 
+            var listOftServoceInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.AutoServiceId.Value).ToList();
+            var insertSIds = Services.Where(p => !listOftServoceInDatabase.Contains(p));
+
+            foreach (var item in insertSIds)
+            {
+                var pr = dbs.AutoServices.FirstOrDefault(p => p.AutoServiceId == item);
+                if (pr != null)
+                    dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { AutoService = pr, Discount = this.Discount });
+            }
+
+            var listOftServicePackInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.AutoServicePackId.Value).ToList();
+            var insertSPIds = ServicesPack.Where(p => !listOftServicePackInDatabase.Contains(p));
+
+            foreach (var item in insertSPIds)
+            {
+                var pr = dbs.AutoServicePacks.FirstOrDefault(p => p.AutoServicePackId == item);
+                if (pr != null)
+                    dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { AutoServicePack = pr, Discount = this.Discount });
+            }
+
             dbs.SaveChanges();
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var res = new List<ValidationResult>();
-            if (Discount.DiscountCode.IsNullOrWhiteSpace())
+            if (StringAddRoutes.IsNullOrWhiteSpace(Discount.DiscountCode))
                 res.Add(new ValidationResult("کد تخفیف وارد نشد است", new string[] { "Discount.DiscountCode" }));
             else if (dbs.Discounts.Count(dis => dis.DiscountCode == this.Discount.DiscountCode) > 0)
                 res.Add(new ValidationResult("کد تخفیف وارد شده تکراری است", new string[] { "Discount.DiscountCode" }));
 
-            if (Discount.Discount1.IsNullOrWhiteSpace())
+            if (StringAddRoutes.IsNullOrWhiteSpace(Discount.Discount1))
                 res.Add(new ValidationResult("درصد تخفیف وارد نشده است", new string[] { "Discount.Discount1" }));
             else if (!Discount.Discount1.IsFloat())
                 res.Add(new ValidationResult("مقدار وارد شده صحیح نیست", new string[] { "Discount.Discount1" }));

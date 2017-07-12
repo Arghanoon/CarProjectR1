@@ -17,26 +17,26 @@
                 <input type="number" id="randomLengthInput" value="10" style="text-align:center;" />
                 <input type="button" onclick="RandomCodeGenerate()" value="تولید کد رندم" />
             </section>
-            
+
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.Discount.DiscountCode, "کد تخفیف")
                 @Html.input_TextBox(m => m.Discount.Discount1, "درصد تخفیف")
             </div>
 
-            <div id="productDicount" >
+            <div id="productDicount">
                 <h3>محصولات شامل تخفیف</h3>
                 <hr />
                 <div id="productDicountCountainer">
                     <table class="grid1">
                         <thead>
-                        <tr>
-                            <th class="min_nw tcenter">کد</th>
-                            <th>نام محصول</th>
-                            <th class="min_nw tcenter">عملیات</th>
-                        </tr>
+                            <tr>
+                                <th class="min_nw tcenter">کد</th>
+                                <th>نام محصول</th>
+                                <th class="min_nw tcenter">عملیات</th>
+                            </tr>
                         </thead>
                         <tbody id="selectedProductContainer">
-                        @foreach (var item in Model.Products)
+                            @foreach (var item in Model.Products)
                         {
                             var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
                             if (pr == null)
@@ -50,9 +50,9 @@
                             </tr>
                         }
                         </tbody>
-                        
+
                         <tbody id="selectedProductContainer">
-                        @foreach (var item in Model.Services)
+                            @foreach (var item in Model.Services)
                         {
                             var pr = dbs.AutoServices.FirstOrDefault(p => p.AutoServiceId == item);
                             if (pr == null)
@@ -90,42 +90,59 @@
             <div id="productDicountSearchContainer">
                 <table class="grid1">
                     <thead>
-                    <tr>
-                        <th class="min_nw tcenter">کد</th>
-                        <th>نام محصول</th>
-                        <th class="min_nw tcenter">عملیات</th>
-                    </tr>
+                        <tr>
+                            <th class="min_nw tcenter">کد</th>
+                            <th>نام محصول</th>
+                            <th class="min_nw tcenter">عملیات</th>
+                        </tr>
                     </thead>
-                    <tbody id="SearchProductContainer">
-
-                    </tbody>
+                    <tbody id="SearchProductContainer"></tbody>
                 </table>
             </div>
-        </div>
-        
-        <div id="ServiceDicountSearch">
-            <h3>جستجو در میان سرویس ها</h3>
-            <hr />
-            <div id="searchTexboxContainer">
-                <input type="search" id="searchForServicestextbox" placeholder="جستجوی برای محصول" />
-                <button type="button" onclick="retriveServicesBaseOnSearch()"><span class="gia-search"></span></button>
-            </div>
-            <div id="ServicesDicountSearchContainer">
-                <table class="grid1">
-                    <thead>
-                    <tr>
-                        <th class="min_nw tcenter">کد</th>
-                        <th>نام محصول</th>
-                        <th class="min_nw tcenter">عملیات</th>
-                    </tr>
-                    </thead>
-                    <tbody id="SearchServiceContainer">
 
-                    </tbody>
-                </table>
+
+            <div id="ServiceDicountSearch">
+                <h3>جستجو در میان سرویس ها</h3>
+                <hr />
+                <div id="searchTexboxContainer">
+                    <input type="search" id="searchForServicestextbox" placeholder="جستجوی برای محصول" />
+                    <button type="button" onclick="retriveServicesBaseOnSearch()"><span class="gia-search"></span></button>
+                </div>
+                <div id="ServicesDicountSearchContainer">
+                    <table class="grid1">
+                        <thead>
+                            <tr>
+                                <th class="min_nw tcenter">کد</th>
+                                <th>نام محصول</th>
+                                <th class="min_nw tcenter">عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="SearchServiceContainer"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="ServicePackDicountSearch">
+                <h3>جستجو در میان سرویس پک ها</h3>
+                <hr />
+                <div id="searchTexboxContainer">
+                    <input type="search" id="searchForServicesPacktextbox" placeholder="جستجوی برای محصول" />
+                    <button type="button" onclick="retriveServicesPackBaseOnSearch()"><span class="gia-search"></span></button>
+                </div>
+                <div id="ServicesPackDicountSearchContainer">
+                    <table class="grid1">
+                        <thead>
+                            <tr>
+                                <th class="min_nw tcenter">کد</th>
+                                <th>نام محصول</th>
+                                <th class="min_nw tcenter">عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="SearchServicePackContainer"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
-
     </div>
 
 </div>
@@ -136,31 +153,32 @@
 {
     <style>
         #searchTexboxContainer {
-            display:flex;
-            justify-content:space-between;
-            align-items:stretch;
-            border:thin solid #888;
-            margin:5px;
-            border-radius:3px;
-            overflow:hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            border: thin solid #888;
+            margin: 5px;
+            border-radius: 3px;
+            overflow: hidden;
         }
-        #searchTexboxContainer input {
-            font-family:yekan;
-            background:none;
-            border:none;
-            padding:1px 3px;
-        }
-        #searchTexboxContainer button {
-            border:none;
-            background:#d4d4d4;
-        }
+
+            #searchTexboxContainer input {
+                font-family: yekan;
+                background: none;
+                border: none;
+                padding: 1px 3px;
+            }
+
+            #searchTexboxContainer button {
+                border: none;
+                background: #d4d4d4;
+            }
 
         #randomGeneratorContainer {
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-
-            max-width:130px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 130px;
         }
     </style>
 }
@@ -234,7 +252,7 @@
                 });
 
 
-                document.getElementById('SearchProductContainer').innerHTML = "";
+                document.getElementById('SearchServiceContainer').innerHTML = "";
                 $.post('/Admin/Store/JsonServiceSearch2',
                     { 'search': search, 'notinId': current },
                     function(res) {
@@ -270,6 +288,61 @@
                             tr.appendChild(tact);
 
                             document.getElementById('SearchServiceContainer').appendChild(tr);
+                        }
+                    });
+            }
+            else {
+                x.style.display = 'none';
+            }
+        }
+
+        function retriveServicesPackBaseOnSearch() {
+            var x = document.getElementById('ServicesPackDicountSearchContainer');
+            if (x.style.display === 'none') {
+                x.style.display = 'block';
+                search = document.getElementById('searchForServicesPacktextbox').value;
+                var current = [];
+                $("#selectedProductContainer input[name='ServicesPackId']").each(function (index, element) {
+                    current.push(element.value);
+                });
+
+
+                document.getElementById('searchForServicesPacktextbox').innerHTML = "";
+                $.post('/Admin/Store/JsonServicePackSearch2',
+                    { 'search': search, 'notinId': current },
+                    function (res) {
+                        for (i in res) {
+                            tr = document.createElement("tr");
+
+
+                            tnum = document.createElement("td");
+                            tnum.className = "min_nw tcenter";
+                            tnum.innerHTML = res[i].num;
+
+                            inp = document.createElement("input");
+                            inp.type = "hidden";
+                            inp.name = "ServicesPackId";
+                            inp.value = res[i].id;
+                            tnum.appendChild(inp);
+                            tr.appendChild(tnum);
+
+                            tname = document.createElement("td");
+                            tname.className = "tright";
+                            tname.innerHTML = res[i].name;
+                            tr.appendChild(tname);
+
+                            tact = document.createElement("td");
+                            {
+                                inp_btn_add = document.createElement("input");
+                                inp_btn_add.type = "button";
+                                inp_btn_add.className = "button green";
+                                inp_btn_add.value = "+";
+                                inp_btn_add.onclick = function (e) { AddToSelect(e); }
+                                tact.appendChild(inp_btn_add);
+                            }
+                            tr.appendChild(tact);
+
+                            document.getElementById('SearchServicePackContainer').appendChild(tr);
                         }
                     });
             }

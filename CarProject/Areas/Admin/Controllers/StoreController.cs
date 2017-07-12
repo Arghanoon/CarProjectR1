@@ -285,6 +285,16 @@ namespace CarProject.Areas.Admin.Controllers
             return Json(res, JsonRequestBehavior.DenyGet);
         }
 
+        [HttpPost]
+        public ActionResult JsonServicePackSearch2(string search, List<int> notinId)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            if (notinId == null) { notinId = new List<int>(); }
+
+            var res = dbs.AutoServicePacks.Where(c => c.AutoServicePackName.Contains(search) && !notinId.Contains(c.AutoServicePackId)).Select(c => new { id = c.AutoServicePackId, num = c.AutoServicePackName.ToString(), name = c.AutoServicePackName }).ToList();
+            return Json(res, JsonRequestBehavior.DenyGet);
+        }
+
         public ActionResult ProductComments()
         {
             return View();

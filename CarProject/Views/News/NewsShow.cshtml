@@ -88,7 +88,7 @@
         }
     </div>
     <div id="CarVideo">
-        @if (news.VideoUrl.Length > 0)
+        @if (news.VideoUrl != null)
         {
             const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
             const string replacement = "http://www.youtube.com/embed/$1";

@@ -593,10 +593,10 @@ namespace CarProject.Controllers
                 else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(form["captcha"]))
                     ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نیست");
 
-                if (form["g-recaptcha-response"] == "")
-                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
-                else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))
-                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد شده صحیح نیست";
+                //if (form["g-recaptcha-response"] == "")
+                //    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
+                //else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))
+                //    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد شده صحیح نیست";
 
                 if (((Dictionary<string, string>)ViewBag.error).Count == 0)
                 {

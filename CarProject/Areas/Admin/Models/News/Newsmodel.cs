@@ -13,6 +13,8 @@ namespace CarProject.Areas.Admin.Models.News
     {
         DBSEF.CarAutomationEntities DBS = new db.CarAutomationEntities();
         public db.Content Content { get; set; }
+        public db.ContentPresentation ContentPresentation { get; set; }
+        public db.ContentsCategory ContentsCategory { get; set; }
         public db.ContentsCategory Category { get { return DBS.ContentsCategories.FirstOrDefault(cc => cc.ContentsCategoryId == Content.ContentsCategoryId); } }
 
         [AllowHtml]
@@ -25,11 +27,14 @@ namespace CarProject.Areas.Admin.Models.News
         public Newsmodel()
         {
             Content = new db.Content();
+            ContentsCategory = new db.ContentsCategory();
+            ContentPresentation = new db.ContentPresentation();
         }
 
         public Newsmodel(int? contentsId)
         {
             this.Content = DBS.Contents.FirstOrDefault(c => c.ContenstId == contentsId);
+            this.ContentPresentation = DBS.ContentPresentations.FirstOrDefault(c => c.ContentId == contentsId);
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
