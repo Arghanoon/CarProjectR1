@@ -3123,5 +3123,176 @@
       <End Role="Product" EntitySet="Products" />
       <End Role="Troubleshooting" EntitySet="Troubleshootings" />
     </AssociationSet>
+    <EntitySet Name="NameOfValues" EntityType="CarAutomationModel.NameOfValue" />
   </EntityContainer>
+  <EntityType Name="NameOfValue">
+    <Key>
+      <PropertyRef Name="NameOfvaluesId" />
+    </Key>
+    <Property Name="NameOfvaluesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AirConditioningType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AirConditioningTypeDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AirConditioningSystemDetailSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AirConditioningSystemDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FrontBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RearBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OtherSystem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HandBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BrakeDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DriverAirBag" Type="Boolean" />
+    <Property Name="FrontAirBag" Type="Boolean" />
+    <Property Name="AirBag" Type="Boolean" />
+    <Property Name="AirBagEntity" Type="Int32" />
+    <Property Name="AirBagDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AudioSystemType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AudioSystemBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HasMonitor" Type="Boolean" />
+    <Property Name="RearSeatsMonitor" Type="Boolean" />
+    <Property Name="RearGearCamera" Type="Boolean" />
+    <Property Name="FrontCamera" Type="Boolean" />
+    <Property Name="RearStereo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FrontStereo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Subwoofer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Amplifire" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HasGps" Type="Boolean" />
+    <Property Name="CarAudioSystemDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CarBrandName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="CarBrandHistory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OilChangeDate" Type="Int32" />
+    <Property Name="OilChangeMilage" Type="Int32" />
+    <Property Name="OilFiltersChangeDate" Type="Int32" />
+    <Property Name="OilFilterChangeMilage" Type="Int32" />
+    <Property Name="GearBoxOilChangeDate" Type="Int32" />
+    <Property Name="GearBoxOilChangeMilage" Type="Int32" />
+    <Property Name="AirFilterChangeDate" Type="Int32" />
+    <Property Name="AirFilterChangeMilage" Type="Int32" />
+    <Property Name="TiresChangeDate" Type="Int32" />
+    <Property Name="TiresChangeMilage" Type="Int32" />
+    <Property Name="TimingbeltChangeDate" Type="Int32" />
+    <Property Name="TimingbeltChangeMilage" Type="Int32" />
+    <Property Name="OtherBeltsChangeDate" Type="Int32" />
+    <Property Name="OtherBeltsChangeMilage" Type="Int32" />
+    <Property Name="FrontBrakePadsChangeDate" Type="Int32" />
+    <Property Name="FrontBrakePadsChangeMilage" Type="Int32" />
+    <Property Name="RearBreakePadsChangeDate" Type="Int32" />
+    <Property Name="RearBrakePadsChangeMilage" Type="Int32" />
+    <Property Name="EngineType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EngineCylinderNumber" Type="Int32" />
+    <Property Name="EnginePowerHpRpm" Type="Int32" />
+    <Property Name="EngineTorque" Type="Int32" />
+    <Property Name="EnginePowerHpTon" Type="Int32" />
+    <Property Name="EnginePowerHpLitr" Type="Int32" />
+    <Property Name="EngineMaxSpeed" Type="Int32" />
+    <Property Name="EngineZeroToH" Type="Double" />
+    <Property Name="EngineDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EngineSize" Type="Int32" />
+    <Property Name="EngineFuel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GearBoxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GearBoxType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GearBoxCanBeManual" Type="Boolean" />
+    <Property Name="GearBoxShiftNumber" Type="Int32" />
+    <Property Name="GearBoxAxel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HasTransferCase" Type="Boolean" />
+    <Property Name="GearBoxDiffrentionalLock" Type="Boolean" />
+    <Property Name="GearBoxWdType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GearBoxDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GearBoxShifter" Type="Boolean" />
+    <Property Name="FrontLights" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RearLights" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DayLight" Type="Boolean" />
+    <Property Name="SideMirrorLight" Type="Boolean" />
+    <Property Name="FonrAntiFog" Type="Boolean" />
+    <Property Name="RearAntiFog" Type="Boolean" />
+    <Property Name="ReadingLamp" Type="Boolean" />
+    <Property Name="LightsDeailts" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ThirdLightStop" Type="Boolean" />
+    <Property Name="CarModelName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="CarLength" Type="Int32" />
+    <Property Name="Carwidth" Type="Int32" />
+    <Property Name="CarHeight" Type="Int32" />
+    <Property Name="CarTrack" Type="Int32" />
+    <Property Name="CarWheelBase" Type="Int32" />
+    <Property Name="CarPureWeight" Type="Int32" />
+    <Property Name="CarTankSize" Type="Int32" />
+    <Property Name="CarPhysicalDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="CarsClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CarsUserScore" Type="Double" />
+    <Property Name="CarsClinicScore" Type="Double" />
+    <Property Name="CarsVideoURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CarsDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CarClassType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CarCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CarUsage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CarYearModel" Type="Int32" />
+    <Property Name="CarBodyType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LongitudinalDisplacement" Type="Boolean" />
+    <Property Name="BezelSet" Type="Boolean" />
+    <Property Name="SeatWarmer" Type="Boolean" />
+    <Property Name="SeatMassage" Type="Boolean" />
+    <Property Name="HasMemory" Type="Boolean" />
+    <Property Name="CarSeatDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DayLightSensor" Type="Boolean" />
+    <Property Name="RainSensor" Type="Boolean" />
+    <Property Name="RearGearSensor" Type="Boolean" />
+    <Property Name="ParkSensor" Type="Boolean" />
+    <Property Name="NavigateSensor" Type="Boolean" />
+    <Property Name="CruiseControl" Type="Boolean" />
+    <Property Name="SensorDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CarsProOrCro" Type="Boolean" />
+    <Property Name="CarProCro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QuestionType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Review" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CarScore" Type="Double" />
+    <Property Name="Beauty" Type="Double" />
+    <Property Name="WorthBuying" Type="Double" />
+    <Property Name="Quality" Type="Double" />
+    <Property Name="Services" Type="Double" />
+    <Property Name="CarsReviewSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CarsReview" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TireType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RingStandardSize" Type="Int32" />
+    <Property Name="TireSpec" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RingModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AutoInflated" Type="Boolean" />
+    <Property Name="CarTireDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CountryShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CountryLongName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DetailedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HaveDetailed" Type="Boolean" />
+    <Property Name="LphCity" Type="Double" />
+    <Property Name="LphRoad" Type="Double" />
+    <Property Name="LphMix" Type="Double" />
+    <Property Name="FuelDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ReservedOne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReservedTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReservedThree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FrontWindscreens" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RearWindscreens" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SunRoof" Type="Boolean" />
+    <Property Name="PanaromaRoof" Type="Boolean" />
+    <Property Name="RearGlassWarmer" Type="Boolean" />
+    <Property Name="WindscreensWarmer" Type="Boolean" />
+    <Property Name="FrontGlassWarmer" Type="Boolean" />
+    <Property Name="SideMirrorSet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SideMirrorSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MirrorsDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ManufactureName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ManufacturePhon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RemoteControl" Type="Boolean" />
+    <Property Name="BurglarAlarm" Type="Boolean" />
+    <Property Name="Alarm" Type="Boolean" />
+    <Property Name="Emo" Type="Boolean" />
+    <Property Name="KeylessDoor" Type="Boolean" />
+    <Property Name="KeylessStart" Type="Boolean" />
+    <Property Name="SecurityDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SteeringSystemType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SteeringType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SteeringHeightAdjustble" Type="Boolean" />
+    <Property Name="SteeringControlKey" Type="Boolean" />
+    <Property Name="SteeringDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

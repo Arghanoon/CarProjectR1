@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CarAutomationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CarAutomationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AirConditioningSystem">
           <Key>
             <PropertyRef Name="AirConditioningSystemId" />
@@ -608,6 +608,178 @@
           <Property Name="Subject" Type="nvarchar" MaxLength="255" />
           <Property Name="Body" Type="ntext" />
           <Property Name="DateTime" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NameOfValues">
+          <Key>
+            <PropertyRef Name="NameOfvaluesId" />
+          </Key>
+          <Property Name="NameOfvaluesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AirConditioningType" Type="nvarchar" MaxLength="50" />
+          <Property Name="AirConditioningTypeDetails" Type="nvarchar(max)" />
+          <Property Name="AirConditioningSystemDetailSubject" Type="nvarchar" MaxLength="50" />
+          <Property Name="AirConditioningSystemDetail" Type="nvarchar(max)" />
+          <Property Name="FrontBrakeSystem" Type="nvarchar" MaxLength="50" />
+          <Property Name="RearBrakeSystem" Type="nvarchar" MaxLength="50" />
+          <Property Name="OtherSystem" Type="nvarchar(max)" />
+          <Property Name="HandBrakeSystem" Type="nvarchar" MaxLength="50" />
+          <Property Name="BrakeDetails" Type="nvarchar(max)" />
+          <Property Name="DriverAirBag" Type="bit" />
+          <Property Name="FrontAirBag" Type="bit" />
+          <Property Name="AirBag" Type="bit" />
+          <Property Name="AirBagEntity" Type="int" />
+          <Property Name="AirBagDetails" Type="nvarchar(max)" />
+          <Property Name="AudioSystemType" Type="nvarchar" MaxLength="50" />
+          <Property Name="AudioSystemBrand" Type="nvarchar" MaxLength="50" />
+          <Property Name="HasMonitor" Type="bit" />
+          <Property Name="RearSeatsMonitor" Type="bit" />
+          <Property Name="RearGearCamera" Type="bit" />
+          <Property Name="FrontCamera" Type="bit" />
+          <Property Name="RearStereo" Type="nvarchar" MaxLength="50" />
+          <Property Name="FrontStereo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Subwoofer" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amplifire" Type="nvarchar" MaxLength="50" />
+          <Property Name="HasGps" Type="bit" />
+          <Property Name="CarAudioSystemDetails" Type="nvarchar(max)" />
+          <Property Name="CarBrandName" Type="nvarchar" MaxLength="150" />
+          <Property Name="CarBrandHistory" Type="nvarchar(max)" />
+          <Property Name="OilChangeDate" Type="int" />
+          <Property Name="OilChangeMilage" Type="int" />
+          <Property Name="OilFiltersChangeDate" Type="int" />
+          <Property Name="OilFilterChangeMilage" Type="int" />
+          <Property Name="GearBoxOilChangeDate" Type="int" />
+          <Property Name="GearBoxOilChangeMilage" Type="int" />
+          <Property Name="AirFilterChangeDate" Type="int" />
+          <Property Name="AirFilterChangeMilage" Type="int" />
+          <Property Name="TiresChangeDate" Type="int" />
+          <Property Name="TiresChangeMilage" Type="int" />
+          <Property Name="TimingbeltChangeDate" Type="int" />
+          <Property Name="TimingbeltChangeMilage" Type="int" />
+          <Property Name="OtherBeltsChangeDate" Type="int" />
+          <Property Name="OtherBeltsChangeMilage" Type="int" />
+          <Property Name="FrontBrakePadsChangeDate" Type="int" />
+          <Property Name="FrontBrakePadsChangeMilage" Type="int" />
+          <Property Name="RearBreakePadsChangeDate" Type="int" />
+          <Property Name="RearBrakePadsChangeMilage" Type="int" />
+          <Property Name="EngineType" Type="nvarchar" MaxLength="50" />
+          <Property Name="EngineCylinderNumber" Type="int" />
+          <Property Name="EnginePowerHpRpm" Type="int" />
+          <Property Name="EngineTorque" Type="int" />
+          <Property Name="EnginePowerHpTon" Type="int" />
+          <Property Name="EnginePowerHpLitr" Type="int" />
+          <Property Name="EngineMaxSpeed" Type="int" />
+          <Property Name="EngineZeroToH" Type="float" />
+          <Property Name="EngineDescription" Type="nvarchar(max)" />
+          <Property Name="EngineSize" Type="int" />
+          <Property Name="EngineFuel" Type="nvarchar" MaxLength="50" />
+          <Property Name="GearBoxCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="GearBoxType" Type="nvarchar" MaxLength="50" />
+          <Property Name="GearBoxCanBeManual" Type="bit" />
+          <Property Name="GearBoxShiftNumber" Type="int" />
+          <Property Name="GearBoxAxel" Type="nvarchar" MaxLength="50" />
+          <Property Name="HasTransferCase" Type="bit" />
+          <Property Name="GearBoxDiffrentionalLock" Type="bit" />
+          <Property Name="GearBoxWdType" Type="nvarchar" MaxLength="50" />
+          <Property Name="GearBoxDescription" Type="nvarchar(max)" />
+          <Property Name="GearBoxShifter" Type="bit" />
+          <Property Name="FrontLights" Type="nvarchar" MaxLength="50" />
+          <Property Name="RearLights" Type="nvarchar" MaxLength="50" />
+          <Property Name="DayLight" Type="bit" />
+          <Property Name="SideMirrorLight" Type="bit" />
+          <Property Name="FonrAntiFog" Type="bit" />
+          <Property Name="RearAntiFog" Type="bit" />
+          <Property Name="ReadingLamp" Type="bit" />
+          <Property Name="LightsDeailts" Type="nvarchar(max)" />
+          <Property Name="ThirdLightStop" Type="bit" />
+          <Property Name="CarModelName" Type="nvarchar" MaxLength="150" />
+          <Property Name="CarLength" Type="int" />
+          <Property Name="Carwidth" Type="int" />
+          <Property Name="CarHeight" Type="int" />
+          <Property Name="CarTrack" Type="int" />
+          <Property Name="CarWheelBase" Type="int" />
+          <Property Name="CarPureWeight" Type="int" />
+          <Property Name="CarTankSize" Type="int" />
+          <Property Name="CarPhysicalDetails" Type="nvarchar(max)" />
+          <Property Name="Price" Type="float" />
+          <Property Name="CarsClass" Type="nvarchar" MaxLength="50" />
+          <Property Name="CarsUserScore" Type="float" />
+          <Property Name="CarsClinicScore" Type="float" />
+          <Property Name="CarsVideoURL" Type="nvarchar" MaxLength="50" />
+          <Property Name="CarsDescription" Type="nvarchar(max)" />
+          <Property Name="CarClassType" Type="nvarchar" MaxLength="50" />
+          <Property Name="CarCategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="CarUsage" Type="nvarchar" MaxLength="100" />
+          <Property Name="CarYearModel" Type="int" />
+          <Property Name="CarBodyType" Type="nvarchar" MaxLength="50" />
+          <Property Name="LongitudinalDisplacement" Type="bit" />
+          <Property Name="BezelSet" Type="bit" />
+          <Property Name="SeatWarmer" Type="bit" />
+          <Property Name="SeatMassage" Type="bit" />
+          <Property Name="HasMemory" Type="bit" />
+          <Property Name="CarSeatDetails" Type="nvarchar(max)" />
+          <Property Name="DayLightSensor" Type="bit" />
+          <Property Name="RainSensor" Type="bit" />
+          <Property Name="RearGearSensor" Type="bit" />
+          <Property Name="ParkSensor" Type="bit" />
+          <Property Name="NavigateSensor" Type="bit" />
+          <Property Name="CruiseControl" Type="bit" />
+          <Property Name="SensorDetails" Type="nvarchar(max)" />
+          <Property Name="CarsProOrCro" Type="bit" />
+          <Property Name="CarProCro" Type="nvarchar" MaxLength="50" />
+          <Property Name="QuestionType" Type="nvarchar" MaxLength="150" />
+          <Property Name="Question" Type="ntext" />
+          <Property Name="Review" Type="nvarchar(max)" />
+          <Property Name="CarScore" Type="float" />
+          <Property Name="Beauty" Type="float" />
+          <Property Name="WorthBuying" Type="float" />
+          <Property Name="Quality" Type="float" />
+          <Property Name="Services" Type="float" />
+          <Property Name="CarsReviewSubject" Type="nvarchar" MaxLength="50" />
+          <Property Name="CarsReview" Type="nvarchar(max)" />
+          <Property Name="TireType" Type="nvarchar" MaxLength="50" />
+          <Property Name="RingStandardSize" Type="int" />
+          <Property Name="TireSpec" Type="nvarchar" MaxLength="50" />
+          <Property Name="RingType" Type="nvarchar" MaxLength="50" />
+          <Property Name="RingModel" Type="nvarchar" MaxLength="50" />
+          <Property Name="AutoInflated" Type="bit" />
+          <Property Name="CarTireDetails" Type="nvarchar(max)" />
+          <Property Name="CountryShortName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryLongName" Type="nvarchar(max)" />
+          <Property Name="DetailedName" Type="nvarchar" MaxLength="50" />
+          <Property Name="HaveDetailed" Type="bit" />
+          <Property Name="LphCity" Type="float" />
+          <Property Name="LphRoad" Type="float" />
+          <Property Name="LphMix" Type="float" />
+          <Property Name="FuelDetails" Type="nvarchar(max)" />
+          <Property Name="ReservedOne" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReservedTwo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReservedThree" Type="nvarchar" MaxLength="50" />
+          <Property Name="FrontWindscreens" Type="nvarchar" MaxLength="50" />
+          <Property Name="RearWindscreens" Type="nvarchar" MaxLength="50" />
+          <Property Name="SunRoof" Type="bit" />
+          <Property Name="PanaromaRoof" Type="bit" />
+          <Property Name="RearGlassWarmer" Type="bit" />
+          <Property Name="WindscreensWarmer" Type="bit" />
+          <Property Name="FrontGlassWarmer" Type="bit" />
+          <Property Name="SideMirrorSet" Type="nvarchar" MaxLength="50" />
+          <Property Name="SideMirrorSystem" Type="nvarchar" MaxLength="50" />
+          <Property Name="MirrorsDetails" Type="nvarchar(max)" />
+          <Property Name="ManufactureName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="ManufacturePhon" Type="nvarchar" MaxLength="50" />
+          <Property Name="RemoteControl" Type="bit" />
+          <Property Name="BurglarAlarm" Type="bit" />
+          <Property Name="Alarm" Type="bit" />
+          <Property Name="Emo" Type="bit" />
+          <Property Name="KeylessDoor" Type="bit" />
+          <Property Name="KeylessStart" Type="bit" />
+          <Property Name="SecurityDetails" Type="nvarchar(max)" />
+          <Property Name="SteeringSystemType" Type="nvarchar" MaxLength="50" />
+          <Property Name="SteeringType" Type="nvarchar" MaxLength="50" />
+          <Property Name="SteeringHeightAdjustble" Type="bit" />
+          <Property Name="SteeringControlKey" Type="bit" />
+          <Property Name="SteeringDetails" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="NewLatterEmails">
           <Key>
@@ -2496,6 +2668,175 @@
           <EntitySet Name="TroubleshootingProducts" EntityType="Self.TroubleshootingProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NameOfValues" EntityType="Self.NameOfValues" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [NameOfValues].[NameOfvaluesId] AS [NameOfvaluesId], 
+    [NameOfValues].[AirConditioningType] AS [AirConditioningType], 
+    [NameOfValues].[AirConditioningTypeDetails] AS [AirConditioningTypeDetails], 
+    [NameOfValues].[AirConditioningSystemDetailSubject] AS [AirConditioningSystemDetailSubject], 
+    [NameOfValues].[AirConditioningSystemDetail] AS [AirConditioningSystemDetail], 
+    [NameOfValues].[FrontBrakeSystem] AS [FrontBrakeSystem], 
+    [NameOfValues].[RearBrakeSystem] AS [RearBrakeSystem], 
+    [NameOfValues].[OtherSystem] AS [OtherSystem], 
+    [NameOfValues].[HandBrakeSystem] AS [HandBrakeSystem], 
+    [NameOfValues].[BrakeDetails] AS [BrakeDetails], 
+    [NameOfValues].[DriverAirBag] AS [DriverAirBag], 
+    [NameOfValues].[FrontAirBag] AS [FrontAirBag], 
+    [NameOfValues].[AirBag] AS [AirBag], 
+    [NameOfValues].[AirBagEntity] AS [AirBagEntity], 
+    [NameOfValues].[AirBagDetails] AS [AirBagDetails], 
+    [NameOfValues].[AudioSystemType] AS [AudioSystemType], 
+    [NameOfValues].[AudioSystemBrand] AS [AudioSystemBrand], 
+    [NameOfValues].[HasMonitor] AS [HasMonitor], 
+    [NameOfValues].[RearSeatsMonitor] AS [RearSeatsMonitor], 
+    [NameOfValues].[RearGearCamera] AS [RearGearCamera], 
+    [NameOfValues].[FrontCamera] AS [FrontCamera], 
+    [NameOfValues].[RearStereo] AS [RearStereo], 
+    [NameOfValues].[FrontStereo] AS [FrontStereo], 
+    [NameOfValues].[Subwoofer] AS [Subwoofer], 
+    [NameOfValues].[Amplifire] AS [Amplifire], 
+    [NameOfValues].[HasGps] AS [HasGps], 
+    [NameOfValues].[CarAudioSystemDetails] AS [CarAudioSystemDetails], 
+    [NameOfValues].[CarBrandName] AS [CarBrandName], 
+    [NameOfValues].[CarBrandHistory] AS [CarBrandHistory], 
+    [NameOfValues].[OilChangeDate] AS [OilChangeDate], 
+    [NameOfValues].[OilChangeMilage] AS [OilChangeMilage], 
+    [NameOfValues].[OilFiltersChangeDate] AS [OilFiltersChangeDate], 
+    [NameOfValues].[OilFilterChangeMilage] AS [OilFilterChangeMilage], 
+    [NameOfValues].[GearBoxOilChangeDate] AS [GearBoxOilChangeDate], 
+    [NameOfValues].[GearBoxOilChangeMilage] AS [GearBoxOilChangeMilage], 
+    [NameOfValues].[AirFilterChangeDate] AS [AirFilterChangeDate], 
+    [NameOfValues].[AirFilterChangeMilage] AS [AirFilterChangeMilage], 
+    [NameOfValues].[TiresChangeDate] AS [TiresChangeDate], 
+    [NameOfValues].[TiresChangeMilage] AS [TiresChangeMilage], 
+    [NameOfValues].[TimingbeltChangeDate] AS [TimingbeltChangeDate], 
+    [NameOfValues].[TimingbeltChangeMilage] AS [TimingbeltChangeMilage], 
+    [NameOfValues].[OtherBeltsChangeDate] AS [OtherBeltsChangeDate], 
+    [NameOfValues].[OtherBeltsChangeMilage] AS [OtherBeltsChangeMilage], 
+    [NameOfValues].[FrontBrakePadsChangeDate] AS [FrontBrakePadsChangeDate], 
+    [NameOfValues].[FrontBrakePadsChangeMilage] AS [FrontBrakePadsChangeMilage], 
+    [NameOfValues].[RearBreakePadsChangeDate] AS [RearBreakePadsChangeDate], 
+    [NameOfValues].[RearBrakePadsChangeMilage] AS [RearBrakePadsChangeMilage], 
+    [NameOfValues].[EngineType] AS [EngineType], 
+    [NameOfValues].[EngineCylinderNumber] AS [EngineCylinderNumber], 
+    [NameOfValues].[EnginePowerHpRpm] AS [EnginePowerHpRpm], 
+    [NameOfValues].[EngineTorque] AS [EngineTorque], 
+    [NameOfValues].[EnginePowerHpTon] AS [EnginePowerHpTon], 
+    [NameOfValues].[EnginePowerHpLitr] AS [EnginePowerHpLitr], 
+    [NameOfValues].[EngineMaxSpeed] AS [EngineMaxSpeed], 
+    [NameOfValues].[EngineZeroToH] AS [EngineZeroToH], 
+    [NameOfValues].[EngineDescription] AS [EngineDescription], 
+    [NameOfValues].[EngineSize] AS [EngineSize], 
+    [NameOfValues].[EngineFuel] AS [EngineFuel], 
+    [NameOfValues].[GearBoxCode] AS [GearBoxCode], 
+    [NameOfValues].[GearBoxType] AS [GearBoxType], 
+    [NameOfValues].[GearBoxCanBeManual] AS [GearBoxCanBeManual], 
+    [NameOfValues].[GearBoxShiftNumber] AS [GearBoxShiftNumber], 
+    [NameOfValues].[GearBoxAxel] AS [GearBoxAxel], 
+    [NameOfValues].[HasTransferCase] AS [HasTransferCase], 
+    [NameOfValues].[GearBoxDiffrentionalLock] AS [GearBoxDiffrentionalLock], 
+    [NameOfValues].[GearBoxWdType] AS [GearBoxWdType], 
+    [NameOfValues].[GearBoxDescription] AS [GearBoxDescription], 
+    [NameOfValues].[GearBoxShifter] AS [GearBoxShifter], 
+    [NameOfValues].[FrontLights] AS [FrontLights], 
+    [NameOfValues].[RearLights] AS [RearLights], 
+    [NameOfValues].[DayLight] AS [DayLight], 
+    [NameOfValues].[SideMirrorLight] AS [SideMirrorLight], 
+    [NameOfValues].[FonrAntiFog] AS [FonrAntiFog], 
+    [NameOfValues].[RearAntiFog] AS [RearAntiFog], 
+    [NameOfValues].[ReadingLamp] AS [ReadingLamp], 
+    [NameOfValues].[LightsDeailts] AS [LightsDeailts], 
+    [NameOfValues].[ThirdLightStop] AS [ThirdLightStop], 
+    [NameOfValues].[CarModelName] AS [CarModelName], 
+    [NameOfValues].[CarLength] AS [CarLength], 
+    [NameOfValues].[Carwidth] AS [Carwidth], 
+    [NameOfValues].[CarHeight] AS [CarHeight], 
+    [NameOfValues].[CarTrack] AS [CarTrack], 
+    [NameOfValues].[CarWheelBase] AS [CarWheelBase], 
+    [NameOfValues].[CarPureWeight] AS [CarPureWeight], 
+    [NameOfValues].[CarTankSize] AS [CarTankSize], 
+    [NameOfValues].[CarPhysicalDetails] AS [CarPhysicalDetails], 
+    [NameOfValues].[Price] AS [Price], 
+    [NameOfValues].[CarsClass] AS [CarsClass], 
+    [NameOfValues].[CarsUserScore] AS [CarsUserScore], 
+    [NameOfValues].[CarsClinicScore] AS [CarsClinicScore], 
+    [NameOfValues].[CarsVideoURL] AS [CarsVideoURL], 
+    [NameOfValues].[CarsDescription] AS [CarsDescription], 
+    [NameOfValues].[CarClassType] AS [CarClassType], 
+    [NameOfValues].[CarCategory] AS [CarCategory], 
+    [NameOfValues].[CarUsage] AS [CarUsage], 
+    [NameOfValues].[CarYearModel] AS [CarYearModel], 
+    [NameOfValues].[CarBodyType] AS [CarBodyType], 
+    [NameOfValues].[LongitudinalDisplacement] AS [LongitudinalDisplacement], 
+    [NameOfValues].[BezelSet] AS [BezelSet], 
+    [NameOfValues].[SeatWarmer] AS [SeatWarmer], 
+    [NameOfValues].[SeatMassage] AS [SeatMassage], 
+    [NameOfValues].[HasMemory] AS [HasMemory], 
+    [NameOfValues].[CarSeatDetails] AS [CarSeatDetails], 
+    [NameOfValues].[DayLightSensor] AS [DayLightSensor], 
+    [NameOfValues].[RainSensor] AS [RainSensor], 
+    [NameOfValues].[RearGearSensor] AS [RearGearSensor], 
+    [NameOfValues].[ParkSensor] AS [ParkSensor], 
+    [NameOfValues].[NavigateSensor] AS [NavigateSensor], 
+    [NameOfValues].[CruiseControl] AS [CruiseControl], 
+    [NameOfValues].[SensorDetails] AS [SensorDetails], 
+    [NameOfValues].[CarsProOrCro] AS [CarsProOrCro], 
+    [NameOfValues].[CarProCro] AS [CarProCro], 
+    [NameOfValues].[QuestionType] AS [QuestionType], 
+    [NameOfValues].[Question] AS [Question], 
+    [NameOfValues].[Review] AS [Review], 
+    [NameOfValues].[CarScore] AS [CarScore], 
+    [NameOfValues].[Beauty] AS [Beauty], 
+    [NameOfValues].[WorthBuying] AS [WorthBuying], 
+    [NameOfValues].[Quality] AS [Quality], 
+    [NameOfValues].[Services] AS [Services], 
+    [NameOfValues].[CarsReviewSubject] AS [CarsReviewSubject], 
+    [NameOfValues].[CarsReview] AS [CarsReview], 
+    [NameOfValues].[TireType] AS [TireType], 
+    [NameOfValues].[RingStandardSize] AS [RingStandardSize], 
+    [NameOfValues].[TireSpec] AS [TireSpec], 
+    [NameOfValues].[RingType] AS [RingType], 
+    [NameOfValues].[RingModel] AS [RingModel], 
+    [NameOfValues].[AutoInflated] AS [AutoInflated], 
+    [NameOfValues].[CarTireDetails] AS [CarTireDetails], 
+    [NameOfValues].[CountryShortName] AS [CountryShortName], 
+    [NameOfValues].[CountryLongName] AS [CountryLongName], 
+    [NameOfValues].[DetailedName] AS [DetailedName], 
+    [NameOfValues].[HaveDetailed] AS [HaveDetailed], 
+    [NameOfValues].[LphCity] AS [LphCity], 
+    [NameOfValues].[LphRoad] AS [LphRoad], 
+    [NameOfValues].[LphMix] AS [LphMix], 
+    [NameOfValues].[FuelDetails] AS [FuelDetails], 
+    [NameOfValues].[ReservedOne] AS [ReservedOne], 
+    [NameOfValues].[ReservedTwo] AS [ReservedTwo], 
+    [NameOfValues].[ReservedThree] AS [ReservedThree], 
+    [NameOfValues].[FrontWindscreens] AS [FrontWindscreens], 
+    [NameOfValues].[RearWindscreens] AS [RearWindscreens], 
+    [NameOfValues].[SunRoof] AS [SunRoof], 
+    [NameOfValues].[PanaromaRoof] AS [PanaromaRoof], 
+    [NameOfValues].[RearGlassWarmer] AS [RearGlassWarmer], 
+    [NameOfValues].[WindscreensWarmer] AS [WindscreensWarmer], 
+    [NameOfValues].[FrontGlassWarmer] AS [FrontGlassWarmer], 
+    [NameOfValues].[SideMirrorSet] AS [SideMirrorSet], 
+    [NameOfValues].[SideMirrorSystem] AS [SideMirrorSystem], 
+    [NameOfValues].[MirrorsDetails] AS [MirrorsDetails], 
+    [NameOfValues].[ManufactureName] AS [ManufactureName], 
+    [NameOfValues].[Address] AS [Address], 
+    [NameOfValues].[ManufacturePhon] AS [ManufacturePhon], 
+    [NameOfValues].[RemoteControl] AS [RemoteControl], 
+    [NameOfValues].[BurglarAlarm] AS [BurglarAlarm], 
+    [NameOfValues].[Alarm] AS [Alarm], 
+    [NameOfValues].[Emo] AS [Emo], 
+    [NameOfValues].[KeylessDoor] AS [KeylessDoor], 
+    [NameOfValues].[KeylessStart] AS [KeylessStart], 
+    [NameOfValues].[SecurityDetails] AS [SecurityDetails], 
+    [NameOfValues].[SteeringSystemType] AS [SteeringSystemType], 
+    [NameOfValues].[SteeringType] AS [SteeringType], 
+    [NameOfValues].[SteeringHeightAdjustble] AS [SteeringHeightAdjustble], 
+    [NameOfValues].[SteeringControlKey] AS [SteeringControlKey], 
+    [NameOfValues].[SteeringDetails] AS [SteeringDetails]
+    FROM [dbo].[NameOfValues] AS [NameOfValues]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_AirConditioningSystem_Cars" Association="Self.FK_AirConditioningSystem_Cars">
             <End Role="Cars" EntitySet="Cars" />
             <End Role="AirConditioningSystem" EntitySet="AirConditioningSystem" />
@@ -2965,8 +3306,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CarAutomationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -6093,7 +6433,178 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="Troubleshooting" EntitySet="Troubleshootings" />
           </AssociationSet>
+          <EntitySet Name="NameOfValues" EntityType="CarAutomationModel.NameOfValue" />
         </EntityContainer>
+        <EntityType Name="NameOfValue">
+          <Key>
+            <PropertyRef Name="NameOfvaluesId" />
+          </Key>
+          <Property Name="NameOfvaluesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AirConditioningType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AirConditioningTypeDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AirConditioningSystemDetailSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AirConditioningSystemDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FrontBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RearBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OtherSystem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HandBrakeSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BrakeDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DriverAirBag" Type="Boolean" />
+          <Property Name="FrontAirBag" Type="Boolean" />
+          <Property Name="AirBag" Type="Boolean" />
+          <Property Name="AirBagEntity" Type="Int32" />
+          <Property Name="AirBagDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AudioSystemType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AudioSystemBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HasMonitor" Type="Boolean" />
+          <Property Name="RearSeatsMonitor" Type="Boolean" />
+          <Property Name="RearGearCamera" Type="Boolean" />
+          <Property Name="FrontCamera" Type="Boolean" />
+          <Property Name="RearStereo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FrontStereo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Subwoofer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amplifire" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HasGps" Type="Boolean" />
+          <Property Name="CarAudioSystemDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarBrandName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CarBrandHistory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OilChangeDate" Type="Int32" />
+          <Property Name="OilChangeMilage" Type="Int32" />
+          <Property Name="OilFiltersChangeDate" Type="Int32" />
+          <Property Name="OilFilterChangeMilage" Type="Int32" />
+          <Property Name="GearBoxOilChangeDate" Type="Int32" />
+          <Property Name="GearBoxOilChangeMilage" Type="Int32" />
+          <Property Name="AirFilterChangeDate" Type="Int32" />
+          <Property Name="AirFilterChangeMilage" Type="Int32" />
+          <Property Name="TiresChangeDate" Type="Int32" />
+          <Property Name="TiresChangeMilage" Type="Int32" />
+          <Property Name="TimingbeltChangeDate" Type="Int32" />
+          <Property Name="TimingbeltChangeMilage" Type="Int32" />
+          <Property Name="OtherBeltsChangeDate" Type="Int32" />
+          <Property Name="OtherBeltsChangeMilage" Type="Int32" />
+          <Property Name="FrontBrakePadsChangeDate" Type="Int32" />
+          <Property Name="FrontBrakePadsChangeMilage" Type="Int32" />
+          <Property Name="RearBreakePadsChangeDate" Type="Int32" />
+          <Property Name="RearBrakePadsChangeMilage" Type="Int32" />
+          <Property Name="EngineType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EngineCylinderNumber" Type="Int32" />
+          <Property Name="EnginePowerHpRpm" Type="Int32" />
+          <Property Name="EngineTorque" Type="Int32" />
+          <Property Name="EnginePowerHpTon" Type="Int32" />
+          <Property Name="EnginePowerHpLitr" Type="Int32" />
+          <Property Name="EngineMaxSpeed" Type="Int32" />
+          <Property Name="EngineZeroToH" Type="Double" />
+          <Property Name="EngineDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EngineSize" Type="Int32" />
+          <Property Name="EngineFuel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GearBoxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GearBoxType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GearBoxCanBeManual" Type="Boolean" />
+          <Property Name="GearBoxShiftNumber" Type="Int32" />
+          <Property Name="GearBoxAxel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HasTransferCase" Type="Boolean" />
+          <Property Name="GearBoxDiffrentionalLock" Type="Boolean" />
+          <Property Name="GearBoxWdType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GearBoxDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GearBoxShifter" Type="Boolean" />
+          <Property Name="FrontLights" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RearLights" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DayLight" Type="Boolean" />
+          <Property Name="SideMirrorLight" Type="Boolean" />
+          <Property Name="FonrAntiFog" Type="Boolean" />
+          <Property Name="RearAntiFog" Type="Boolean" />
+          <Property Name="ReadingLamp" Type="Boolean" />
+          <Property Name="LightsDeailts" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdLightStop" Type="Boolean" />
+          <Property Name="CarModelName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CarLength" Type="Int32" />
+          <Property Name="Carwidth" Type="Int32" />
+          <Property Name="CarHeight" Type="Int32" />
+          <Property Name="CarTrack" Type="Int32" />
+          <Property Name="CarWheelBase" Type="Int32" />
+          <Property Name="CarPureWeight" Type="Int32" />
+          <Property Name="CarTankSize" Type="Int32" />
+          <Property Name="CarPhysicalDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="CarsClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CarsUserScore" Type="Double" />
+          <Property Name="CarsClinicScore" Type="Double" />
+          <Property Name="CarsVideoURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CarsDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarClassType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CarCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CarUsage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CarYearModel" Type="Int32" />
+          <Property Name="CarBodyType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LongitudinalDisplacement" Type="Boolean" />
+          <Property Name="BezelSet" Type="Boolean" />
+          <Property Name="SeatWarmer" Type="Boolean" />
+          <Property Name="SeatMassage" Type="Boolean" />
+          <Property Name="HasMemory" Type="Boolean" />
+          <Property Name="CarSeatDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DayLightSensor" Type="Boolean" />
+          <Property Name="RainSensor" Type="Boolean" />
+          <Property Name="RearGearSensor" Type="Boolean" />
+          <Property Name="ParkSensor" Type="Boolean" />
+          <Property Name="NavigateSensor" Type="Boolean" />
+          <Property Name="CruiseControl" Type="Boolean" />
+          <Property Name="SensorDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarsProOrCro" Type="Boolean" />
+          <Property Name="CarProCro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Review" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarScore" Type="Double" />
+          <Property Name="Beauty" Type="Double" />
+          <Property Name="WorthBuying" Type="Double" />
+          <Property Name="Quality" Type="Double" />
+          <Property Name="Services" Type="Double" />
+          <Property Name="CarsReviewSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CarsReview" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TireType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RingStandardSize" Type="Int32" />
+          <Property Name="TireSpec" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RingModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AutoInflated" Type="Boolean" />
+          <Property Name="CarTireDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CountryShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryLongName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DetailedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HaveDetailed" Type="Boolean" />
+          <Property Name="LphCity" Type="Double" />
+          <Property Name="LphRoad" Type="Double" />
+          <Property Name="LphMix" Type="Double" />
+          <Property Name="FuelDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedOne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReservedThree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FrontWindscreens" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RearWindscreens" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SunRoof" Type="Boolean" />
+          <Property Name="PanaromaRoof" Type="Boolean" />
+          <Property Name="RearGlassWarmer" Type="Boolean" />
+          <Property Name="WindscreensWarmer" Type="Boolean" />
+          <Property Name="FrontGlassWarmer" Type="Boolean" />
+          <Property Name="SideMirrorSet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SideMirrorSystem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MirrorsDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ManufactureName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturePhon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RemoteControl" Type="Boolean" />
+          <Property Name="BurglarAlarm" Type="Boolean" />
+          <Property Name="Alarm" Type="Boolean" />
+          <Property Name="Emo" Type="Boolean" />
+          <Property Name="KeylessDoor" Type="Boolean" />
+          <Property Name="KeylessStart" Type="Boolean" />
+          <Property Name="SecurityDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SteeringSystemType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SteeringType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SteeringHeightAdjustble" Type="Boolean" />
+          <Property Name="SteeringControlKey" Type="Boolean" />
+          <Property Name="SteeringDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7184,6 +7695,177 @@
               <ScalarProperty Name="TroubleshootingId" ColumnName="TroubleshootingId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="NameOfValues">
+            <EntityTypeMapping TypeName="CarAutomationModel.NameOfValue">
+              <MappingFragment StoreEntitySet="NameOfValues">
+                <ScalarProperty Name="SteeringDetails" ColumnName="SteeringDetails" />
+                <ScalarProperty Name="SteeringControlKey" ColumnName="SteeringControlKey" />
+                <ScalarProperty Name="SteeringHeightAdjustble" ColumnName="SteeringHeightAdjustble" />
+                <ScalarProperty Name="SteeringType" ColumnName="SteeringType" />
+                <ScalarProperty Name="SteeringSystemType" ColumnName="SteeringSystemType" />
+                <ScalarProperty Name="SecurityDetails" ColumnName="SecurityDetails" />
+                <ScalarProperty Name="KeylessStart" ColumnName="KeylessStart" />
+                <ScalarProperty Name="KeylessDoor" ColumnName="KeylessDoor" />
+                <ScalarProperty Name="Emo" ColumnName="Emo" />
+                <ScalarProperty Name="Alarm" ColumnName="Alarm" />
+                <ScalarProperty Name="BurglarAlarm" ColumnName="BurglarAlarm" />
+                <ScalarProperty Name="RemoteControl" ColumnName="RemoteControl" />
+                <ScalarProperty Name="ManufacturePhon" ColumnName="ManufacturePhon" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ManufactureName" ColumnName="ManufactureName" />
+                <ScalarProperty Name="MirrorsDetails" ColumnName="MirrorsDetails" />
+                <ScalarProperty Name="SideMirrorSystem" ColumnName="SideMirrorSystem" />
+                <ScalarProperty Name="SideMirrorSet" ColumnName="SideMirrorSet" />
+                <ScalarProperty Name="FrontGlassWarmer" ColumnName="FrontGlassWarmer" />
+                <ScalarProperty Name="WindscreensWarmer" ColumnName="WindscreensWarmer" />
+                <ScalarProperty Name="RearGlassWarmer" ColumnName="RearGlassWarmer" />
+                <ScalarProperty Name="PanaromaRoof" ColumnName="PanaromaRoof" />
+                <ScalarProperty Name="SunRoof" ColumnName="SunRoof" />
+                <ScalarProperty Name="RearWindscreens" ColumnName="RearWindscreens" />
+                <ScalarProperty Name="FrontWindscreens" ColumnName="FrontWindscreens" />
+                <ScalarProperty Name="ReservedThree" ColumnName="ReservedThree" />
+                <ScalarProperty Name="ReservedTwo" ColumnName="ReservedTwo" />
+                <ScalarProperty Name="ReservedOne" ColumnName="ReservedOne" />
+                <ScalarProperty Name="FuelDetails" ColumnName="FuelDetails" />
+                <ScalarProperty Name="LphMix" ColumnName="LphMix" />
+                <ScalarProperty Name="LphRoad" ColumnName="LphRoad" />
+                <ScalarProperty Name="LphCity" ColumnName="LphCity" />
+                <ScalarProperty Name="HaveDetailed" ColumnName="HaveDetailed" />
+                <ScalarProperty Name="DetailedName" ColumnName="DetailedName" />
+                <ScalarProperty Name="CountryLongName" ColumnName="CountryLongName" />
+                <ScalarProperty Name="CountryShortName" ColumnName="CountryShortName" />
+                <ScalarProperty Name="CarTireDetails" ColumnName="CarTireDetails" />
+                <ScalarProperty Name="AutoInflated" ColumnName="AutoInflated" />
+                <ScalarProperty Name="RingModel" ColumnName="RingModel" />
+                <ScalarProperty Name="RingType" ColumnName="RingType" />
+                <ScalarProperty Name="TireSpec" ColumnName="TireSpec" />
+                <ScalarProperty Name="RingStandardSize" ColumnName="RingStandardSize" />
+                <ScalarProperty Name="TireType" ColumnName="TireType" />
+                <ScalarProperty Name="CarsReview" ColumnName="CarsReview" />
+                <ScalarProperty Name="CarsReviewSubject" ColumnName="CarsReviewSubject" />
+                <ScalarProperty Name="Services" ColumnName="Services" />
+                <ScalarProperty Name="Quality" ColumnName="Quality" />
+                <ScalarProperty Name="WorthBuying" ColumnName="WorthBuying" />
+                <ScalarProperty Name="Beauty" ColumnName="Beauty" />
+                <ScalarProperty Name="CarScore" ColumnName="CarScore" />
+                <ScalarProperty Name="Review" ColumnName="Review" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="CarProCro" ColumnName="CarProCro" />
+                <ScalarProperty Name="CarsProOrCro" ColumnName="CarsProOrCro" />
+                <ScalarProperty Name="SensorDetails" ColumnName="SensorDetails" />
+                <ScalarProperty Name="CruiseControl" ColumnName="CruiseControl" />
+                <ScalarProperty Name="NavigateSensor" ColumnName="NavigateSensor" />
+                <ScalarProperty Name="ParkSensor" ColumnName="ParkSensor" />
+                <ScalarProperty Name="RearGearSensor" ColumnName="RearGearSensor" />
+                <ScalarProperty Name="RainSensor" ColumnName="RainSensor" />
+                <ScalarProperty Name="DayLightSensor" ColumnName="DayLightSensor" />
+                <ScalarProperty Name="CarSeatDetails" ColumnName="CarSeatDetails" />
+                <ScalarProperty Name="HasMemory" ColumnName="HasMemory" />
+                <ScalarProperty Name="SeatMassage" ColumnName="SeatMassage" />
+                <ScalarProperty Name="SeatWarmer" ColumnName="SeatWarmer" />
+                <ScalarProperty Name="BezelSet" ColumnName="BezelSet" />
+                <ScalarProperty Name="LongitudinalDisplacement" ColumnName="LongitudinalDisplacement" />
+                <ScalarProperty Name="CarBodyType" ColumnName="CarBodyType" />
+                <ScalarProperty Name="CarYearModel" ColumnName="CarYearModel" />
+                <ScalarProperty Name="CarUsage" ColumnName="CarUsage" />
+                <ScalarProperty Name="CarCategory" ColumnName="CarCategory" />
+                <ScalarProperty Name="CarClassType" ColumnName="CarClassType" />
+                <ScalarProperty Name="CarsDescription" ColumnName="CarsDescription" />
+                <ScalarProperty Name="CarsVideoURL" ColumnName="CarsVideoURL" />
+                <ScalarProperty Name="CarsClinicScore" ColumnName="CarsClinicScore" />
+                <ScalarProperty Name="CarsUserScore" ColumnName="CarsUserScore" />
+                <ScalarProperty Name="CarsClass" ColumnName="CarsClass" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CarPhysicalDetails" ColumnName="CarPhysicalDetails" />
+                <ScalarProperty Name="CarTankSize" ColumnName="CarTankSize" />
+                <ScalarProperty Name="CarPureWeight" ColumnName="CarPureWeight" />
+                <ScalarProperty Name="CarWheelBase" ColumnName="CarWheelBase" />
+                <ScalarProperty Name="CarTrack" ColumnName="CarTrack" />
+                <ScalarProperty Name="CarHeight" ColumnName="CarHeight" />
+                <ScalarProperty Name="Carwidth" ColumnName="Carwidth" />
+                <ScalarProperty Name="CarLength" ColumnName="CarLength" />
+                <ScalarProperty Name="CarModelName" ColumnName="CarModelName" />
+                <ScalarProperty Name="ThirdLightStop" ColumnName="ThirdLightStop" />
+                <ScalarProperty Name="LightsDeailts" ColumnName="LightsDeailts" />
+                <ScalarProperty Name="ReadingLamp" ColumnName="ReadingLamp" />
+                <ScalarProperty Name="RearAntiFog" ColumnName="RearAntiFog" />
+                <ScalarProperty Name="FonrAntiFog" ColumnName="FonrAntiFog" />
+                <ScalarProperty Name="SideMirrorLight" ColumnName="SideMirrorLight" />
+                <ScalarProperty Name="DayLight" ColumnName="DayLight" />
+                <ScalarProperty Name="RearLights" ColumnName="RearLights" />
+                <ScalarProperty Name="FrontLights" ColumnName="FrontLights" />
+                <ScalarProperty Name="GearBoxShifter" ColumnName="GearBoxShifter" />
+                <ScalarProperty Name="GearBoxDescription" ColumnName="GearBoxDescription" />
+                <ScalarProperty Name="GearBoxWdType" ColumnName="GearBoxWdType" />
+                <ScalarProperty Name="GearBoxDiffrentionalLock" ColumnName="GearBoxDiffrentionalLock" />
+                <ScalarProperty Name="HasTransferCase" ColumnName="HasTransferCase" />
+                <ScalarProperty Name="GearBoxAxel" ColumnName="GearBoxAxel" />
+                <ScalarProperty Name="GearBoxShiftNumber" ColumnName="GearBoxShiftNumber" />
+                <ScalarProperty Name="GearBoxCanBeManual" ColumnName="GearBoxCanBeManual" />
+                <ScalarProperty Name="GearBoxType" ColumnName="GearBoxType" />
+                <ScalarProperty Name="GearBoxCode" ColumnName="GearBoxCode" />
+                <ScalarProperty Name="EngineFuel" ColumnName="EngineFuel" />
+                <ScalarProperty Name="EngineSize" ColumnName="EngineSize" />
+                <ScalarProperty Name="EngineDescription" ColumnName="EngineDescription" />
+                <ScalarProperty Name="EngineZeroToH" ColumnName="EngineZeroToH" />
+                <ScalarProperty Name="EngineMaxSpeed" ColumnName="EngineMaxSpeed" />
+                <ScalarProperty Name="EnginePowerHpLitr" ColumnName="EnginePowerHpLitr" />
+                <ScalarProperty Name="EnginePowerHpTon" ColumnName="EnginePowerHpTon" />
+                <ScalarProperty Name="EngineTorque" ColumnName="EngineTorque" />
+                <ScalarProperty Name="EnginePowerHpRpm" ColumnName="EnginePowerHpRpm" />
+                <ScalarProperty Name="EngineCylinderNumber" ColumnName="EngineCylinderNumber" />
+                <ScalarProperty Name="EngineType" ColumnName="EngineType" />
+                <ScalarProperty Name="RearBrakePadsChangeMilage" ColumnName="RearBrakePadsChangeMilage" />
+                <ScalarProperty Name="RearBreakePadsChangeDate" ColumnName="RearBreakePadsChangeDate" />
+                <ScalarProperty Name="FrontBrakePadsChangeMilage" ColumnName="FrontBrakePadsChangeMilage" />
+                <ScalarProperty Name="FrontBrakePadsChangeDate" ColumnName="FrontBrakePadsChangeDate" />
+                <ScalarProperty Name="OtherBeltsChangeMilage" ColumnName="OtherBeltsChangeMilage" />
+                <ScalarProperty Name="OtherBeltsChangeDate" ColumnName="OtherBeltsChangeDate" />
+                <ScalarProperty Name="TimingbeltChangeMilage" ColumnName="TimingbeltChangeMilage" />
+                <ScalarProperty Name="TimingbeltChangeDate" ColumnName="TimingbeltChangeDate" />
+                <ScalarProperty Name="TiresChangeMilage" ColumnName="TiresChangeMilage" />
+                <ScalarProperty Name="TiresChangeDate" ColumnName="TiresChangeDate" />
+                <ScalarProperty Name="AirFilterChangeMilage" ColumnName="AirFilterChangeMilage" />
+                <ScalarProperty Name="AirFilterChangeDate" ColumnName="AirFilterChangeDate" />
+                <ScalarProperty Name="GearBoxOilChangeMilage" ColumnName="GearBoxOilChangeMilage" />
+                <ScalarProperty Name="GearBoxOilChangeDate" ColumnName="GearBoxOilChangeDate" />
+                <ScalarProperty Name="OilFilterChangeMilage" ColumnName="OilFilterChangeMilage" />
+                <ScalarProperty Name="OilFiltersChangeDate" ColumnName="OilFiltersChangeDate" />
+                <ScalarProperty Name="OilChangeMilage" ColumnName="OilChangeMilage" />
+                <ScalarProperty Name="OilChangeDate" ColumnName="OilChangeDate" />
+                <ScalarProperty Name="CarBrandHistory" ColumnName="CarBrandHistory" />
+                <ScalarProperty Name="CarBrandName" ColumnName="CarBrandName" />
+                <ScalarProperty Name="CarAudioSystemDetails" ColumnName="CarAudioSystemDetails" />
+                <ScalarProperty Name="HasGps" ColumnName="HasGps" />
+                <ScalarProperty Name="Amplifire" ColumnName="Amplifire" />
+                <ScalarProperty Name="Subwoofer" ColumnName="Subwoofer" />
+                <ScalarProperty Name="FrontStereo" ColumnName="FrontStereo" />
+                <ScalarProperty Name="RearStereo" ColumnName="RearStereo" />
+                <ScalarProperty Name="FrontCamera" ColumnName="FrontCamera" />
+                <ScalarProperty Name="RearGearCamera" ColumnName="RearGearCamera" />
+                <ScalarProperty Name="RearSeatsMonitor" ColumnName="RearSeatsMonitor" />
+                <ScalarProperty Name="HasMonitor" ColumnName="HasMonitor" />
+                <ScalarProperty Name="AudioSystemBrand" ColumnName="AudioSystemBrand" />
+                <ScalarProperty Name="AudioSystemType" ColumnName="AudioSystemType" />
+                <ScalarProperty Name="AirBagDetails" ColumnName="AirBagDetails" />
+                <ScalarProperty Name="AirBagEntity" ColumnName="AirBagEntity" />
+                <ScalarProperty Name="AirBag" ColumnName="AirBag" />
+                <ScalarProperty Name="FrontAirBag" ColumnName="FrontAirBag" />
+                <ScalarProperty Name="DriverAirBag" ColumnName="DriverAirBag" />
+                <ScalarProperty Name="BrakeDetails" ColumnName="BrakeDetails" />
+                <ScalarProperty Name="HandBrakeSystem" ColumnName="HandBrakeSystem" />
+                <ScalarProperty Name="OtherSystem" ColumnName="OtherSystem" />
+                <ScalarProperty Name="RearBrakeSystem" ColumnName="RearBrakeSystem" />
+                <ScalarProperty Name="FrontBrakeSystem" ColumnName="FrontBrakeSystem" />
+                <ScalarProperty Name="AirConditioningSystemDetail" ColumnName="AirConditioningSystemDetail" />
+                <ScalarProperty Name="AirConditioningSystemDetailSubject" ColumnName="AirConditioningSystemDetailSubject" />
+                <ScalarProperty Name="AirConditioningTypeDetails" ColumnName="AirConditioningTypeDetails" />
+                <ScalarProperty Name="AirConditioningType" ColumnName="AirConditioningType" />
+                <ScalarProperty Name="NameOfvaluesId" ColumnName="NameOfvaluesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

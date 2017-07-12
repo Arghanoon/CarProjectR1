@@ -26,7 +26,7 @@ namespace CarProject.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult NewsShow(int? id, FormCollection form)
+        public ActionResult NewsShow(int? id, FormCollection form,string captcha)
         {
             if (Areas.Users.Controllers.profileController.GetCurrentLoginedUser == null)
                 return RedirectToAction("NewsShow", new { id = id });
@@ -37,10 +37,15 @@ namespace CarProject.Controllers
                 if (form["comment"] == "")
                     ViewBag.error["comment"] = "پیام وارد نشده است";
 
-                if (form["g-recaptcha-response"] == "")
-                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
-                else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))
-                    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد شده صحیح نیست";
+                //if (form["g-recaptcha-response"] == "")
+                //    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد نشده است";
+                //else if (!DefaultController.ValidationRecaptcha(form["g-recaptcha-response"]))
+                //    ViewBag.error["g-recaptcha-response"] = "کد امنیتی وارد شده صحیح نیست";
+
+                if (!form.AllKeys.Contains("captcha") || form["captcha"].IsNullOrWhiteSpace())
+                    ModelState.AddModelError("captcha", "کد امنیتی وارد نشده است");
+                else if (!CarProject.Controllers.DefaultController.ValidationCaptcha(form["captcha"]))
+                    ModelState.AddModelError("captcha", "کد امنیتی وارد شده صحیح نیست");
 
                 if (((Dictionary<string, string>)ViewBag.error).Count == 0)
                 {
