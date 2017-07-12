@@ -34,6 +34,17 @@ namespace CarProject.Areas.Users.Controllers
             return View(model);
         }
 
+        public ActionResult mailing_BasketDetails(int? id)
+        {
+            var User = profileController.GetCurrentLoginedUser;
+            var dbs = new CarProject.DBSEF.CarAutomationEntities();
+            var model = dbs.Baskets.FirstOrDefault(c => c.BasketId == id && c.UserId == User.UserId);
+            if (model == null)
+                return RedirectToAction("ShoppingHistory");
+
+            return View(model);
+        }
+
         public ActionResult Services()
         {
             return View();

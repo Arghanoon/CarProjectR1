@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using CarProject.App_extension;
 using CarProject.DBSEF;
 using CarProject.Models.Store;
+using System.Net.Mail;
 
 namespace CarProject.Controllers
 {
@@ -454,6 +455,57 @@ namespace CarProject.Controllers
                 else if (v.ResultStatus == arianpal.VerifyResult.Success) // عملیات تکمیل پرداخت
                 {
                     ModelState.AddModelError("success", "پرداخت با موفقیت انجام شد");
+
+
+                    //read view
+                    string view = "BasketDetails";
+                    var routeDate = new System.Web.Routing.RouteData();
+                    routeDate.Values.Add("controller", "Dashboard");
+                    routeDate.Values.Add("area", "Users");
+                    routeDate.Values.Add("action", view);
+                    routeDate.Values.Add("id", basket.BasketId);
+
+                    ControllerContext cc = new ControllerContext(HttpContext, RouteData, this);
+                    ViewEngineResult res = ViewEngines.Engines.FindView(cc, view, null);
+
+                    string content = null;
+                    if (res.View != null)
+                    {
+                        using (System.IO.StringWriter output = new System.IO.StringWriter())
+                        {
+                            ViewContext vc = new ViewContext(cc, res.View, new ViewDataDictionary(), TempData, output);
+                            var User = basket.User;
+                            var dbs = new CarProject.DBSEF.CarAutomationEntities();
+                            vc.ViewData.Model = basket;
+                            vc.View.Render(vc, output);
+                            res.ViewEngine.ReleaseView(cc, vc.View);
+                            content = output.ToString();
+                        }
+                    }
+
+
+                    //send email
+                    try
+                    {
+                        MailMessage message = new MailMessage();
+                        message.To.Add(new MailAddress(basket.User.RelatedPerson.PersonEmail));
+                        message.IsBodyHtml = true;
+                        message.Subject = "خودرو کلینیک | فعال سازی حساب کاربری";
+
+                        message.Body = content.Replace("\n", "<br />");
+                        message.From = new MailAddress("noreply@khodroclinic.com", "خودرو کلینیک");
+
+                        message.BodyEncoding = System.Text.Encoding.UTF8;
+
+                        CLS.MailsServers.Mail_noreply mailserver = new CLS.MailsServers.Mail_noreply();
+                        mailserver.SendMessage(message);
+                    }
+                    catch (Exception)
+                    {
+
+                        
+                    }
+
                 }
             }
             else

@@ -890,6 +890,7 @@
     </Content>
     <Content Include="Areas\Users\Views\profile\Login13960413.cshtml" />
     <Content Include="Areas\Admin\Views\Naming\NewNaming.cshtml" />
+    <Content Include="Areas\Users\Views\Dashboard\mailing_BasketDetails.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
