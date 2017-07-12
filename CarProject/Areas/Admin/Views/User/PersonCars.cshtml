@@ -1,9 +1,10 @@
-﻿@{
+﻿@model int?
+@{
     ViewBag.Title = "خودروهای کاربر";
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
     var user = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser;
     
-    var UserCars = dbs.PersonCars.Where(c => c.UserId == user.UserId);
+    var UserCars = dbs.PersonCars.Where(c => c.UserId == Model);
 }
 
 <div class="page">
@@ -36,9 +37,9 @@
                     </tr>
                 </table>
                 <section class="action">
-                    <a href="/Users/Dashboard/InsertPersonCar/@item.CarId">ویرایش</a> |
-                    <a href="/Users/Dashboard/PersonCarCurrentMillage/@item.PersonCarsId"  >اعلام کیلومتر فعلی</a> |
-                    <a href="/Users/Dashboard/PersonCarsDeleteConfirm/@item.PersonCarsId"  >حذف</a>
+                    <a href="/Admin/user/InsertPersonCar/@Model?carid=@item.CarId">ویرایش</a> |
+                    <a href="/Admin/user/PersonCarCurrentMillage/@Model?carid=@item.PersonCarsId"  >اعلام کیلومتر فعلی</a> |
+                    <a href="/Admin/user/PersonCarsDeleteConfirm/@Model?carid=@item.PersonCarsId"  >حذف</a>
                 </section>
             </div>
         }
@@ -80,7 +81,7 @@
 {
     <script>
         function RetriveCarModels(vl) {
-            $.post('/Users/Dashboard/RetriveCarByBrands', { "id": vl }, function (res) {
+            $.post('/Admin/user/RetriveCarByBrands', { "id": vl }, function (res) {
                 var sl = document.getElementById('CarBrandModels');
                 sl.innerHTML = "";
 
@@ -97,7 +98,7 @@
             vl = document.getElementById('CarBrandModels').value;
             
             if (vl != "" && !isNaN(vl))
-                window.location.replace('/Users/Dashboard/InsertPersonCar/' + vl);
+                window.location.replace('/Admin/user/InsertPersonCar/@Model?carId=' + vl);
             else
                 alert('خودرو انتخاب نشده است');
         }

@@ -173,5 +173,101 @@ namespace CarProject.Areas.Admin.Controllers
                 res = res.Where(p => p.User.UserRoleId == Role);
             return View(res);
         }
+
+
+
+
+        DBSEF.CarAutomationEntities DBSObject = new DBSEF.CarAutomationEntities();
+        #region PersonCars
+        public ActionResult PersonCars(int? id)
+        {
+            return View(model: id);
+        }
+
+        public ActionResult PersonCarsDeleteConfirm(int? id, int? carId)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var personcar = dbs.PersonCars.FirstOrDefault(pc => pc.PersonCarsId == carId);
+            if (personcar == null)
+                return RedirectToAction("PersonCars", new { id = id });
+            return View(personcar);
+        }
+        [HttpPost]
+        public ActionResult PersonCarsDeleteConfirm(DBSEF.PersonCar model, int? id)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var personcar = dbs.PersonCars.FirstOrDefault(pc => pc.PersonCarsId == model.PersonCarsId);
+
+            dbs.PersonCarDetails.RemoveRange(dbs.PersonCarDetails.Where(pcd => pcd.PersonCarId == model.PersonCarsId));
+            dbs.PersonCars.Remove(personcar);
+            dbs.SaveChanges();
+
+            return RedirectToAction("PersonCars", new { id = id });
+        }
+
+        public ActionResult PersonCarCurrentMillage(int? id, int? carId)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var PersonCar = dbs.PersonCars.FirstOrDefault(c => c.PersonCarsId == carId);
+
+            return View(PersonCar);
+        }
+        [HttpPost]
+        public ActionResult PersonCarCurrentMillage(int? id, int? carId, DBSEF.PersonCar model)
+        {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var PersonCar = dbs.PersonCars.FirstOrDefault(c => c.PersonCarsId == carId);
+
+
+            if (model.CarMilage == null)
+                ModelState.AddModelError("CarMilage", "کیلوتر تعیین نشده است");
+            else
+                PersonCar.CarMilage = model.CarMilage;
+
+            if (ModelState.IsValid)
+            {
+                dbs.SaveChanges();
+                return RedirectToAction("PersonCars", new { id = id });
+            }
+
+            return View(PersonCar);
+        }
+
+        public ActionResult InsertPersonCar(int? id,int? carId)
+        {
+            var m = new CarProject.Areas.Users.Models.Dashboard.PersonCarsModel(userid: id.Value, carid: carId);
+            return View(m);
+        }
+        [HttpPost]
+        public ActionResult InsertPersonCar(int?id ,CarProject.Areas.Users.Models.Dashboard.PersonCarsModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //update
+
+                if (model.Car.PersonCarsId > 0 && model.Detail.PersonCarDetailId > 0)
+                {
+                    var mdl = new CarProject.Areas.Users.Models.Dashboard.PersonCarsModel(userid: id.Value, carid: model.Car.PersonCarsId, detaild: model.Detail.PersonCarDetailId);
+                    TryUpdateModel(mdl);
+                    mdl.Update();
+                }
+                else
+                {
+                    model.Car.UserId = id;
+                    model.Save();
+                }
+                ModelState.AddModelError("Success", "اطلاعات خودروی شما با موفقیت ثبت شد");
+                return RedirectToAction("PersonCars", new { id = id });
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult RetriveCarByBrands(int? id)
+        {
+            var xres = DBSObject.Cars.Where(c => c.CarModel.CarBrandId == id).Select(c => new { id = c.CarsId, name = c.CarModel.CarModelName });
+            return Json(xres, JsonRequestBehavior.DenyGet);
+        }
+        #endregion
     }
 }
