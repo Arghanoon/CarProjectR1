@@ -29,28 +29,25 @@ namespace CarProject.Areas.Admin.Models.Store
         public ProductDiscountModel(int? DiscountId)
         {
             Discount = dbs.Discounts.FirstOrDefault(c => c.DiscountId == DiscountId);
-            if (dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId).Select(pd => pd.AutoServiceId.Value) !=
-                null)
+            if (dbs.ProductDiscounts.FirstOrDefault(pd => pd.DiscountId == DiscountId && pd.ProductId != null) != null)
             {
-                Products = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
+                Products = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId && pd.ProductId != null)
                     .Select(pd => pd.ProductId.Value)
                     .ToList();
                 if (Products == null)
                     Products = new List<int>();
             }
-            var x = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId && pd.AutoServiceId != null);
-            if (x != null)
+            if (dbs.ProductDiscounts.FirstOrDefault(pd => pd.DiscountId == DiscountId && pd.AutoServiceId != null) != null)
             {
-                Services = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
+                Services = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId && pd.AutoServiceId != null)
                     .Select(pd => pd.AutoServiceId.Value)
                     .ToList();
                 if (Services == null)
                     Services = new List<int>();
             }
-            var y = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId && pd.AutoServicePackId != null);
-            if (y != null)
+            if (dbs.ProductDiscounts.FirstOrDefault(pd => pd.DiscountId == DiscountId && pd.AutoServicePackId != null) != null)
             {
-                ServicesPack = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId)
+                ServicesPack = dbs.ProductDiscounts.Where(pd => pd.DiscountId == DiscountId && pd.AutoServicePackId != null)
                     .Select(pd => pd.AutoServicePackId.Value)
                     .ToList();
                 if (ServicesPack == null)
