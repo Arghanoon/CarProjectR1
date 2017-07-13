@@ -36,18 +36,59 @@
                             </tr>
                         </thead>
                         <tbody id="selectedProductContainer">
-                            @foreach (var item in Model.Products)
+                            @if (Model.Products != null)
                             {
-                                var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
-                                if (pr == null)
-                                { continue; }
-                                <tr>
-                                    <td class="min_nw tcenter">@pr.PartNumber <input type="hidden" name="ProuductsId" value="@item" /></td>
-                                    <td class="tright">@pr.ProductName</td>
-                                    <td class="min_nw tcenter">
-                                        <input type="button" class="button red" value="Del" onclick="RemoveFromSelect(event)" />
-                                    </td>
-                                </tr>
+                                foreach (var item in Model.Products)
+                                {
+                                    var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
+                                    if (pr == null)
+                                    {
+                                        continue;
+                                    }
+                                    <tr>
+                                        <td class="min_nw tcenter">@pr.PartNumber <input type="hidden" name="ProuductsId" value="@item"/></td>
+                                        <td class="tright">@pr.ProductName</td>
+                                        <td class="min_nw tcenter">
+                                            <input type="button" class="button red" value="Del" onclick="RemoveFromSelect(event)"/>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            @if (Model.Services != null)
+                            {
+                                foreach (var item in Model.Services)
+                                 {
+                                     var pr = dbs.AutoServices.FirstOrDefault(p => p.AutoServiceId == item);
+                                     if (pr == null)
+                                     {
+                                         continue;
+                                     }
+                                     <tr>
+                                         <td class="min_nw tcenter">@pr.AutoServiceId <input type="hidden" name="AutoServiceId" value="@item"/></td>
+                                         <td class="tright">@pr.AutoServiceName</td>
+                                         <td class="min_nw tcenter">
+                                             <input type="button" class="button red" value="Del" onclick="RemoveFromSelect(event)"/>
+                                         </td>
+                                     </tr>
+                                 }
+                            }
+                            @if (Model.ServicesPack != null)
+                            {
+                                foreach (var item in Model.ServicesPack)
+                                {
+                                    var pr = dbs.AutoServicePacks.FirstOrDefault(p => p.AutoServicePackId == item);
+                                    if (pr == null)
+                                    {
+                                        continue;
+                                    }
+                                    <tr>
+                                        <td class="min_nw tcenter">@pr.AutoServicePackId <input type="hidden" name="AutoServicePackId" value="@item"/></td>
+                                        <td class="tright">@pr.AutoServicePackName</td>
+                                        <td class="min_nw tcenter">
+                                            <input type="button" class="button red" value="Del" onclick="RemoveFromSelect(event)"/>
+                                        </td>
+                                    </tr>
+                                }
                             }
                         </tbody>
                     </table>
