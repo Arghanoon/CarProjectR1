@@ -458,9 +458,9 @@ namespace CarProject.Controllers
 
 
                     //read view
-                    string view = "BasketDetails";
+                    string view = "mailing_BasketDetails";
                     var routeDate = new System.Web.Routing.RouteData();
-                    routeDate.Values.Add("controller", "Dashboard");
+                    routeDate.Values.Add("controller", "Store");
                     routeDate.Values.Add("area", "Users");
                     routeDate.Values.Add("action", view);
                     routeDate.Values.Add("id", basket.BasketId);
@@ -529,6 +529,51 @@ namespace CarProject.Controllers
             return View(basket);
         }
 
+        public string paymentCheckTest()
+        {
+
+            //read view
+            string view = "mailing_BasketDetails";
+            var routeDate = new System.Web.Routing.RouteData();
+            routeDate.Values.Add("controller", "Store");
+            routeDate.Values.Add("area", "Users");
+            routeDate.Values.Add("action", view);
+            routeDate.Values.Add("id", 1);
+
+            ControllerContext cc = new ControllerContext(HttpContext, RouteData, this);
+            ViewEngineResult res = ViewEngines.Engines.FindView(cc, view, null);
+
+            string content = null;
+            if (res.View != null)
+            {
+                using (System.IO.StringWriter output = new System.IO.StringWriter())
+                {
+                    ViewContext vc = new ViewContext(cc, res.View, new ViewDataDictionary(), TempData, output);
+                   
+                    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+                    vc.ViewData.Model = dbs.Baskets.FirstOrDefault();
+                    vc.View.Render(vc, output);
+                    res.ViewEngine.ReleaseView(cc, vc.View);
+                    content = output.ToString();
+                }
+            }
+
+
+            return content;
+        }
+
+
+
+        public ActionResult mailing_BasketDetails(int? id)
+        {
+            var User = CarProject.Areas.Users.Controllers.profileController.GetCurrentLoginedUser;
+            var dbs = new CarProject.DBSEF.CarAutomationEntities();
+            var model = dbs.Baskets.FirstOrDefault(c => c.BasketId == id && c.UserId == User.UserId);
+            if (model == null)
+                return RedirectToAction("ShoppingHistory");
+
+            return View(model);
+        }
 
         private void InsertPersonServiceAndServicepacks(DBSEF.CarAutomationEntities dbs, DBSEF.Basket basket)
         {
