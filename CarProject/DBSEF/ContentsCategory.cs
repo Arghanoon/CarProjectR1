@@ -25,6 +25,7 @@ namespace CarProject.DBSEF
         public string Name { get; set; }
         public string Describe { get; set; }
         public Nullable<int> ParentId { get; set; }
+        public string EnglishName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Content> Contents { get; set; }

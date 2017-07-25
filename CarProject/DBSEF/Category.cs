@@ -25,6 +25,7 @@ namespace CarProject.DBSEF
         public string CategoryName { get; set; }
         public Nullable<int> ParentCategoryId { get; set; }
         public string Description { get; set; }
+        public string CategoryEnglishName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Category1 { get; set; }

@@ -248,7 +248,29 @@ namespace CarProject.Areas.Users.Controllers
                             user.ActiveRecoveryCode = null;
                             user.ActiveORecovery = null;
                             dbs.SaveChanges();
+                            //if (dbs.PersonCars.FirstOrDefault(c => c.UserId == people.User.UserId) != null)
+                            //{
+                            //    var PersonCar = dbs.PersonCars.Where(c => c.UserId == people.User.UserId).ToList();
+                            //    foreach (var item in PersonCar)
+                            //    {
+                            //        if (dbs.PersonCarDetails.FirstOrDefault(
+                            //                o => o.PersonCarId == item.PersonCarsId && o.DateSubmited != null) != null)
+                            //        {
+                            //            var sx = dbs.PersonCarDetails.Where(x => x.PersonCarId == item.PersonCarsId)
+                            //                .ToList();
+                            //           var dt = new DateTime();
+                            //            //foreach (var personCarDetail in sx)
+                            //            //{
+                            //            //    if(personCarDetail.LastAirFilterChange + dt.AddMonths(2)) == DateTime.Today)
+                            //            //    {
+                                                
+                            //            //    }
+                            //            //}
+                            //        }
 
+                            //    }
+
+                            //}
                             Session["guestUser"] = user;
 
                             //cart redirect

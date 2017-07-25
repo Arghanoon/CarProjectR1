@@ -77,7 +77,7 @@
 
             <div class="actinSection">
                 <a href="@Url.Action("UpdateUser","User")/@item.UserId" class="gia-edit button blue">ویرایش</a>
-                
+                <a href="@Url.Action("PersonCars","User")/@item.UserId" class="gia-edit button blue">خودرو کاربر</a>
                 @if(((CarProject.DBSEF.User)Session["user"]).UserId != @item.UserId)
                 {
                     <a href="javascript:void()" onclick="deletebuttonclick('@item.UserId')" class="gia-remove button red">حذف</a>

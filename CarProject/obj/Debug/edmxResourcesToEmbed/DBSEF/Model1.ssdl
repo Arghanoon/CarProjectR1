@@ -29,6 +29,7 @@
     <Property Name="Price" Type="nvarchar" MaxLength="50" />
     <Property Name="ServicesCategoryId" Type="int" />
     <Property Name="AutoServiceDescription" Type="nvarchar(max)" />
+    <Property Name="AutoServiceEnglishName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="AutoServiceCars">
     <Key>
@@ -46,6 +47,7 @@
     <Property Name="AutoServicePackName" Type="nvarchar" MaxLength="50" />
     <Property Name="PackPrice" Type="nvarchar" MaxLength="50" />
     <Property Name="Details" Type="nvarchar(max)" />
+    <Property Name="AutoServicePackEnglishName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="AutoServicePackUserComments">
     <Key>
@@ -163,6 +165,7 @@
     <Property Name="CarBrandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarBrandName" Type="nvarchar" MaxLength="150" />
     <Property Name="CarBrandHistory" Type="ntext" />
+    <Property Name="CarBrandEnglishName" Type="nvarchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="CarComments">
     <Key>
@@ -262,6 +265,7 @@
     <Property Name="CarModelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarModelName" Type="nvarchar" MaxLength="150" />
     <Property Name="CarBrandId" Type="int" />
+    <Property Name="CarModelEnglishName" Type="nvarchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="CarPhysicalDetails">
     <Key>
@@ -432,6 +436,7 @@
     <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
     <Property Name="ParentCategoryId" Type="int" />
     <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="CategoryEnglishName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Company">
     <Key>
@@ -476,6 +481,7 @@
     <Property Name="tags" Type="nvarchar" MaxLength="350" />
     <Property Name="Date" Type="datetime" />
     <Property Name="LastUpdateDate" Type="datetime" />
+    <Property Name="ContentEnglishSubject" Type="nvarchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="ContentsCategory">
     <Key>
@@ -485,6 +491,7 @@
     <Property Name="Name" Type="nvarchar" MaxLength="255" />
     <Property Name="Describe" Type="nvarchar(max)" />
     <Property Name="ParentId" Type="int" />
+    <Property Name="EnglishName" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="ContentUserComments">
     <Key>
@@ -802,6 +809,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
       <PropertyRef Name="PersonCarDetailId" />
     </Key>
     <Property Name="PersonCarDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateSubmited" Type="date" />
     <Property Name="PersonCarId" Type="int" />
     <Property Name="LastOilChange" Type="date" />
     <Property Name="LastOilFiltersChange" Type="date" />
@@ -910,6 +918,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
     <Property Name="WithInstall" Type="bit" />
     <Property Name="CarBrandId" Type="int" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="ProductEnglishName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="ProductCars">
     <Key>
@@ -1065,6 +1074,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
     <Property Name="ServicesCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ServicesCategoryName" Type="nvarchar" MaxLength="50" />
     <Property Name="ServicesParentCategoryId" Type="int" />
+    <Property Name="ServicesCategoryEnglishName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="ServicesPackToView">
     <Key>

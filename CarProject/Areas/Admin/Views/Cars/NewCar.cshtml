@@ -40,7 +40,7 @@
             <div class="inputsContainer">
                 @Html.input_ComboBox(m => m.Car.CarModel.CarBrandId, "برند", dbs.CarBrands.ToDictionary(b => b.CarBrandId, b => b.CarBrandName))
                 @Html.input_TextBox(m => m.Car.CarModel.CarModelName, "مدل")
-
+                @Html.input_TextBox(m => m.Car.CarModel.CarModelEnglishName, "نام مدل به انگلیسی")
                 @Html.input_ComboBox(m => m.Car.CarsClass, "کلاس خودرو", Model.List_CarClass)
                 @Html.input_Rating(m => m.Car.CarsClinicScore, "امتیاز کلینیک")
                 @Html.input_TextBox(m => m.Car.Price, "قیمت اولیه")

@@ -33,6 +33,7 @@ namespace CarProject.Areas.Users.Models.Dashboard
         public string LastFrontBrakePadsChange { get; set; }
         public string LastRearBreakePadsChange { get; set; }
 
+        //public 
         public string Carplate_part1 { get; set; }
         public string Carplate_part2 { get; set; }
         public string Carplate_part3 { get; set; }
@@ -67,6 +68,7 @@ namespace CarProject.Areas.Users.Models.Dashboard
                     Detail = new DBSEF.PersonCarDetail();
                 else
                 {
+
                     LastOilChange = Detail.LastOilChange.Date_Persian();
                     LastOilFiltersChange = Detail.LastOilFiltersChange.Date_Persian();
                     LastAirFilterChange = Detail.LastAirFilterChange.Date_Persian();
@@ -156,6 +158,8 @@ namespace CarProject.Areas.Users.Models.Dashboard
             if (LastRearBreakePadsChange.IsPersianDateTime())
             { Detail.LastRearBreakePadsChange = LastRearBreakePadsChange.Persian_ToDateTime(); }
 
+            Detail.DateSubmited = DateTime.Now.Date;
+
             if (Car.UserId == null)
                 Car.UserId = Controllers.profileController.GetCurrentLoginedUser.UserId;
             //Car.CarPlate = string.Format("{0}|{1}|{2}", Carplate_part1, Carplate_part2, Carplate_part3);
@@ -187,7 +191,8 @@ namespace CarProject.Areas.Users.Models.Dashboard
             { Detail.LastFrontBrakePadsChange = LastFrontBrakePadsChange.Persian_ToDateTime(); }
             if (LastRearBreakePadsChange.IsPersianDateTime())
             { Detail.LastRearBreakePadsChange = LastRearBreakePadsChange.Persian_ToDateTime(); }
-            
+            //Detail.DateSubmited = DateTime.Now.Date;
+
             //Car.CarPlate = string.Format("{0}|{1}|{2}", Carplate_part1, Carplate_part2, Carplate_part3);
             dbs.SaveChanges();
         }

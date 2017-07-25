@@ -10,13 +10,12 @@ namespace CarProject.Areas.Admin.Controllers
     {
         // GET: Admin/Naming
 
-        [HttpPost]
         public ActionResult NewNaming()
         {
             var model = new Models.Dashboard.NamingModel();
             return View(model);
         }
-        [HttpPost]
+        
         public ActionResult NewNaming(Models.Dashboard.NamingModel model)
         {
             if (ModelState.IsValid)
@@ -24,6 +23,13 @@ namespace CarProject.Areas.Admin.Controllers
                 model.Save();
             }
 
+            return View(model);
+        }
+        
+        public ActionResult UpdateNaming(int? Id)
+        {
+            var model = new Models.Dashboard.NamingModel(Id);
+            Session["NamingUpdate"] = model;
             return View(model);
         }
     }

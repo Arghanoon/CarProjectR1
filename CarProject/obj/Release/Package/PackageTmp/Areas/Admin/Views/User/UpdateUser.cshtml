@@ -29,7 +29,13 @@
         @Html.input_Password(m => m.PasswordConfirm, "تایید کلمه عبور")
 
         @Html.input_ComboBox(m => m.Person.User.UserRoleId, "نوع کاربر", dbs.UserRoles.AsEnumerable().ToDictionary(r => r.UserRoleId, r => r.UserRole1))
-
+        <section style="display:flex; justify-content:center; align-items:center;">
+            <div style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                <a href="javascript:void()" onclick="ReloadCaptcha('captcha')"><img id="captcha" src="/default/index" /></a>
+                <small>برای تغییر کد روی تصویر کلیک کنید</small>
+                <input type="text" placeholder="کد بالا را اینجا وارد کنید" name="captcha" />
+            </div>
+        </section>
     </div>
     <div style="display:flex; justify-content:center;" >
         <a href="@Url.Action("Users", "User")" class="button red">انصراف</a>

@@ -96,3 +96,12 @@ E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.XmlSerializers.dl
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.csprojFakesResolveAssemblyReference.cache
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Release\CarProject.csprojResolveAssemblyReference.cache
 E:\KhodroClinic\CarProjectR1\CarProject\bin\Recaptcha.Web.dll
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.Core.dll
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.dll
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Quartz.dll
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.pdb
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.xml
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.Core.pdb
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.Core.xml
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Quartz.pdb
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Quartz.xml

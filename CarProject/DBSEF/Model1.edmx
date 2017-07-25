@@ -34,6 +34,7 @@
           <Property Name="Price" Type="nvarchar" MaxLength="50" />
           <Property Name="ServicesCategoryId" Type="int" />
           <Property Name="AutoServiceDescription" Type="nvarchar(max)" />
+          <Property Name="AutoServiceEnglishName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="AutoServiceCars">
           <Key>
@@ -51,6 +52,7 @@
           <Property Name="AutoServicePackName" Type="nvarchar" MaxLength="50" />
           <Property Name="PackPrice" Type="nvarchar" MaxLength="50" />
           <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="AutoServicePackEnglishName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="AutoServicePackUserComments">
           <Key>
@@ -168,6 +170,7 @@
           <Property Name="CarBrandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CarBrandName" Type="nvarchar" MaxLength="150" />
           <Property Name="CarBrandHistory" Type="ntext" />
+          <Property Name="CarBrandEnglishName" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="CarComments">
           <Key>
@@ -267,6 +270,7 @@
           <Property Name="CarModelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CarModelName" Type="nvarchar" MaxLength="150" />
           <Property Name="CarBrandId" Type="int" />
+          <Property Name="CarModelEnglishName" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="CarPhysicalDetails">
           <Key>
@@ -437,6 +441,7 @@
           <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
           <Property Name="ParentCategoryId" Type="int" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="CategoryEnglishName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -481,6 +486,7 @@
           <Property Name="tags" Type="nvarchar" MaxLength="350" />
           <Property Name="Date" Type="datetime" />
           <Property Name="LastUpdateDate" Type="datetime" />
+          <Property Name="ContentEnglishSubject" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="ContentsCategory">
           <Key>
@@ -490,6 +496,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="255" />
           <Property Name="Describe" Type="nvarchar(max)" />
           <Property Name="ParentId" Type="int" />
+          <Property Name="EnglishName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="ContentUserComments">
           <Key>
@@ -807,6 +814,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
             <PropertyRef Name="PersonCarDetailId" />
           </Key>
           <Property Name="PersonCarDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateSubmited" Type="date" />
           <Property Name="PersonCarId" Type="int" />
           <Property Name="LastOilChange" Type="date" />
           <Property Name="LastOilFiltersChange" Type="date" />
@@ -915,6 +923,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <Property Name="WithInstall" Type="bit" />
           <Property Name="CarBrandId" Type="int" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="ProductEnglishName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ProductCars">
           <Key>
@@ -1070,6 +1079,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <Property Name="ServicesCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ServicesCategoryName" Type="nvarchar" MaxLength="50" />
           <Property Name="ServicesParentCategoryId" Type="int" />
+          <Property Name="ServicesCategoryEnglishName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ServicesPackToView">
           <Key>
@@ -3350,6 +3360,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_AutoService" FromRole="AutoService" ToRole="ProductDiscount" />
           <NavigationProperty Name="ProductInServices" Relationship="Self.FK_ProductInService_AutoService" FromRole="AutoService" ToRole="ProductInService" />
           <NavigationProperty Name="ServiceToViews" Relationship="Self.FK_ServiceToView_AutoService" FromRole="AutoService" ToRole="ServiceToView" />
+          <Property Name="AutoServiceEnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AutoServiceCar">
           <Key>
@@ -3374,6 +3385,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <NavigationProperty Name="PersonServicesPacks" Relationship="Self.FK_PersonServicesPack_AutoServicePack" FromRole="AutoServicePack" ToRole="PersonServicesPack" />
           <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_AutoServicePack" FromRole="AutoServicePack" ToRole="ProductDiscount" />
           <NavigationProperty Name="ServicesPackToViews" Relationship="Self.FK_ServicesPackToView_AutoServicePack" FromRole="AutoServicePack" ToRole="ServicesPackToView" />
+          <Property Name="AutoServicePackEnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AutoServicePackUserComment">
           <Key>
@@ -3513,6 +3525,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <Property Name="CarBrandHistory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CarModels" Relationship="Self.FK_CarModel_CarBrand" FromRole="CarBrand" ToRole="CarModel" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_CarBrand" FromRole="CarBrand" ToRole="Product" />
+          <Property Name="CarBrandEnglishName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="CarComment">
           <Key>
@@ -3620,6 +3633,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <Property Name="CarBrandId" Type="Int32" />
           <NavigationProperty Name="CarBrand" Relationship="Self.FK_CarModel_CarBrand" FromRole="CarModel" ToRole="CarBrand" />
           <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_CarModel" FromRole="CarModel" ToRole="Cars" />
+          <Property Name="CarModelEnglishName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="CarPhysicalDetail">
           <Key>
@@ -3848,6 +3862,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <NavigationProperty Name="Category1" Relationship="Self.FK_Category_Category" FromRole="Category" ToRole="Category1" />
           <NavigationProperty Name="Category2" Relationship="Self.FK_Category_Category" FromRole="Category1" ToRole="Category" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
+          <Property Name="CategoryEnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -3899,6 +3914,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <NavigationProperty Name="ContentUserComments" Relationship="Self.FK_ContentUserComments_Contents" FromRole="Contents" ToRole="ContentUserComments" />
           <NavigationProperty Name="ContetComments" Relationship="Self.FK_ContetComments_Contents" FromRole="Contents" ToRole="ContetComments" />
           <NavigationProperty Name="RootCarUserComments" Relationship="Self.FK_RootCarUserComments_Contents" FromRole="Contents" ToRole="RootCarUserComments" />
+          <Property Name="ContentEnglishSubject" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ContentsCategory">
           <Key>
@@ -3911,6 +3927,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <NavigationProperty Name="Contents" Relationship="Self.FK_Contents_ContentsCategory" FromRole="ContentsCategory" ToRole="Contents" />
           <NavigationProperty Name="ContentsCategory1" Relationship="Self.FK_ContentsCategory_ContentsCategory" FromRole="ContentsCategory" ToRole="ContentsCategory1" />
           <NavigationProperty Name="ContentsCategory2" Relationship="Self.FK_ContentsCategory_ContentsCategory" FromRole="ContentsCategory1" ToRole="ContentsCategory" />
+          <Property Name="EnglishName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ContentUserComment">
           <Key>
@@ -4097,6 +4114,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <Property Name="LastRearBreakePadsChange" Type="DateTime" Precision="0" />
           <Property Name="LastRearBrakePadsChangeMilage" Type="Int32" />
           <NavigationProperty Name="PersonCar" Relationship="Self.FK_PersonCarDetail_PersonCars" FromRole="PersonCarDetail" ToRole="PersonCars" />
+          <Property Name="DateSubmited" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="PersonCar">
           <Key>
@@ -4220,6 +4238,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <NavigationProperty Name="ProductUserComments" Relationship="Self.FK_ProductUserComments_Product" FromRole="Product" ToRole="ProductUserComments" />
           <NavigationProperty Name="TodaysSpecials" Relationship="Self.FK_TodaysSpecial_Product" FromRole="Product" ToRole="TodaysSpecial" />
           <NavigationProperty Name="Troubleshootings" Relationship="Self.TroubleshootingProducts" FromRole="Product" ToRole="Troubleshooting" />
+          <Property Name="ProductEnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ProductCar">
           <Key>
@@ -4407,6 +4426,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoService_ServicesCategory" FromRole="ServicesCategory" ToRole="AutoService" />
           <NavigationProperty Name="ServicesCategory1" Relationship="Self.FK_ServicesCategory_ServicesCategory" FromRole="ServicesCategory" ToRole="ServicesCategory1" />
           <NavigationProperty Name="ServicesCategory2" Relationship="Self.FK_ServicesCategory_ServicesCategory" FromRole="ServicesCategory1" ToRole="ServicesCategory" />
+          <Property Name="ServicesCategoryEnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ServicesPackToView">
           <Key>
@@ -6634,6 +6654,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <EntitySetMapping Name="AutoServices">
             <EntityTypeMapping TypeName="CarAutomationModel.AutoService">
               <MappingFragment StoreEntitySet="AutoService">
+                <ScalarProperty Name="AutoServiceEnglishName" ColumnName="AutoServiceEnglishName" />
                 <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
                 <ScalarProperty Name="AutoServiceName" ColumnName="AutoServiceName" />
                 <ScalarProperty Name="HasCarId" ColumnName="HasCarId" />
@@ -6656,6 +6677,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <EntitySetMapping Name="AutoServicePacks">
             <EntityTypeMapping TypeName="CarAutomationModel.AutoServicePack">
               <MappingFragment StoreEntitySet="AutoServicePack">
+                <ScalarProperty Name="AutoServicePackEnglishName" ColumnName="AutoServicePackEnglishName" />
                 <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
                 <ScalarProperty Name="AutoServicePackName" ColumnName="AutoServicePackName" />
                 <ScalarProperty Name="PackPrice" ColumnName="PackPrice" />
@@ -6783,6 +6805,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <EntitySetMapping Name="CarBrands">
             <EntityTypeMapping TypeName="CarAutomationModel.CarBrand">
               <MappingFragment StoreEntitySet="CarBrand">
+                <ScalarProperty Name="CarBrandEnglishName" ColumnName="CarBrandEnglishName" />
                 <ScalarProperty Name="CarBrandId" ColumnName="CarBrandId" />
                 <ScalarProperty Name="CarBrandName" ColumnName="CarBrandName" />
                 <ScalarProperty Name="CarBrandHistory" ColumnName="CarBrandHistory" />
@@ -6888,6 +6911,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <EntitySetMapping Name="CarModels">
             <EntityTypeMapping TypeName="CarAutomationModel.CarModel">
               <MappingFragment StoreEntitySet="CarModel">
+                <ScalarProperty Name="CarModelEnglishName" ColumnName="CarModelEnglishName" />
                 <ScalarProperty Name="CarModelId" ColumnName="CarModelId" />
                 <ScalarProperty Name="CarModelName" ColumnName="CarModelName" />
                 <ScalarProperty Name="CarBrandId" ColumnName="CarBrandId" />
@@ -7071,6 +7095,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="CarAutomationModel.Category">
               <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryEnglishName" ColumnName="CategoryEnglishName" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
@@ -7113,6 +7138,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <EntitySetMapping Name="Contents">
             <EntityTypeMapping TypeName="CarAutomationModel.Content">
               <MappingFragment StoreEntitySet="Contents">
+                <ScalarProperty Name="ContentEnglishSubject" ColumnName="ContentEnglishSubject" />
                 <ScalarProperty Name="ContenstId" ColumnName="ContenstId" />
                 <ScalarProperty Name="ContentsCategoryId" ColumnName="ContentsCategoryId" />
                 <ScalarProperty Name="ContentSubject" ColumnName="ContentSubject" />
@@ -7129,6 +7155,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <EntitySetMapping Name="ContentsCategories">
             <EntityTypeMapping TypeName="CarAutomationModel.ContentsCategory">
               <MappingFragment StoreEntitySet="ContentsCategory">
+                <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
                 <ScalarProperty Name="ContentsCategoryId" ColumnName="ContentsCategoryId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
@@ -7291,6 +7318,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <EntitySetMapping Name="PersonCarDetails">
             <EntityTypeMapping TypeName="CarAutomationModel.PersonCarDetail">
               <MappingFragment StoreEntitySet="PersonCarDetail">
+                <ScalarProperty Name="DateSubmited" ColumnName="DateSubmited" />
                 <ScalarProperty Name="PersonCarDetailId" ColumnName="PersonCarDetailId" />
                 <ScalarProperty Name="PersonCarId" ColumnName="PersonCarId" />
                 <ScalarProperty Name="LastOilChange" ColumnName="LastOilChange" />
@@ -7386,6 +7414,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="CarAutomationModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductEnglishName" ColumnName="ProductEnglishName" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="CarId" ColumnName="CarId" />
@@ -7575,6 +7604,7 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
           <EntitySetMapping Name="ServicesCategories">
             <EntityTypeMapping TypeName="CarAutomationModel.ServicesCategory">
               <MappingFragment StoreEntitySet="ServicesCategory">
+                <ScalarProperty Name="ServicesCategoryEnglishName" ColumnName="ServicesCategoryEnglishName" />
                 <ScalarProperty Name="ServicesCategoryId" ColumnName="ServicesCategoryId" />
                 <ScalarProperty Name="ServicesCategoryName" ColumnName="ServicesCategoryName" />
                 <ScalarProperty Name="ServicesParentCategoryId" ColumnName="ServicesParentCategoryId" />

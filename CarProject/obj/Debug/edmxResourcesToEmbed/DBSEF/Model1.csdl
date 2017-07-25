@@ -40,6 +40,7 @@
     <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_AutoService" FromRole="AutoService" ToRole="ProductDiscount" />
     <NavigationProperty Name="ProductInServices" Relationship="Self.FK_ProductInService_AutoService" FromRole="AutoService" ToRole="ProductInService" />
     <NavigationProperty Name="ServiceToViews" Relationship="Self.FK_ServiceToView_AutoService" FromRole="AutoService" ToRole="ServiceToView" />
+    <Property Name="AutoServiceEnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="AutoServiceCar">
     <Key>
@@ -64,6 +65,7 @@
     <NavigationProperty Name="PersonServicesPacks" Relationship="Self.FK_PersonServicesPack_AutoServicePack" FromRole="AutoServicePack" ToRole="PersonServicesPack" />
     <NavigationProperty Name="ProductDiscounts" Relationship="Self.FK_ProductDiscount_AutoServicePack" FromRole="AutoServicePack" ToRole="ProductDiscount" />
     <NavigationProperty Name="ServicesPackToViews" Relationship="Self.FK_ServicesPackToView_AutoServicePack" FromRole="AutoServicePack" ToRole="ServicesPackToView" />
+    <Property Name="AutoServicePackEnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="AutoServicePackUserComment">
     <Key>
@@ -203,6 +205,7 @@
     <Property Name="CarBrandHistory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="CarModels" Relationship="Self.FK_CarModel_CarBrand" FromRole="CarBrand" ToRole="CarModel" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Product_CarBrand" FromRole="CarBrand" ToRole="Product" />
+    <Property Name="CarBrandEnglishName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="CarComment">
     <Key>
@@ -310,6 +313,7 @@
     <Property Name="CarBrandId" Type="Int32" />
     <NavigationProperty Name="CarBrand" Relationship="Self.FK_CarModel_CarBrand" FromRole="CarModel" ToRole="CarBrand" />
     <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_CarModel" FromRole="CarModel" ToRole="Cars" />
+    <Property Name="CarModelEnglishName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="CarPhysicalDetail">
     <Key>
@@ -538,6 +542,7 @@
     <NavigationProperty Name="Category1" Relationship="Self.FK_Category_Category" FromRole="Category" ToRole="Category1" />
     <NavigationProperty Name="Category2" Relationship="Self.FK_Category_Category" FromRole="Category1" ToRole="Category" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
+    <Property Name="CategoryEnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Company">
     <Key>
@@ -589,6 +594,7 @@
     <NavigationProperty Name="ContentUserComments" Relationship="Self.FK_ContentUserComments_Contents" FromRole="Contents" ToRole="ContentUserComments" />
     <NavigationProperty Name="ContetComments" Relationship="Self.FK_ContetComments_Contents" FromRole="Contents" ToRole="ContetComments" />
     <NavigationProperty Name="RootCarUserComments" Relationship="Self.FK_RootCarUserComments_Contents" FromRole="Contents" ToRole="RootCarUserComments" />
+    <Property Name="ContentEnglishSubject" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ContentsCategory">
     <Key>
@@ -601,6 +607,7 @@
     <NavigationProperty Name="Contents" Relationship="Self.FK_Contents_ContentsCategory" FromRole="ContentsCategory" ToRole="Contents" />
     <NavigationProperty Name="ContentsCategory1" Relationship="Self.FK_ContentsCategory_ContentsCategory" FromRole="ContentsCategory" ToRole="ContentsCategory1" />
     <NavigationProperty Name="ContentsCategory2" Relationship="Self.FK_ContentsCategory_ContentsCategory" FromRole="ContentsCategory1" ToRole="ContentsCategory" />
+    <Property Name="EnglishName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ContentUserComment">
     <Key>
@@ -787,6 +794,7 @@
     <Property Name="LastRearBreakePadsChange" Type="DateTime" Precision="0" />
     <Property Name="LastRearBrakePadsChangeMilage" Type="Int32" />
     <NavigationProperty Name="PersonCar" Relationship="Self.FK_PersonCarDetail_PersonCars" FromRole="PersonCarDetail" ToRole="PersonCars" />
+    <Property Name="DateSubmited" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="PersonCar">
     <Key>
@@ -910,6 +918,7 @@
     <NavigationProperty Name="ProductUserComments" Relationship="Self.FK_ProductUserComments_Product" FromRole="Product" ToRole="ProductUserComments" />
     <NavigationProperty Name="TodaysSpecials" Relationship="Self.FK_TodaysSpecial_Product" FromRole="Product" ToRole="TodaysSpecial" />
     <NavigationProperty Name="Troubleshootings" Relationship="Self.TroubleshootingProducts" FromRole="Product" ToRole="Troubleshooting" />
+    <Property Name="ProductEnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ProductCar">
     <Key>
@@ -1097,6 +1106,7 @@
     <NavigationProperty Name="AutoServices" Relationship="Self.FK_AutoService_ServicesCategory" FromRole="ServicesCategory" ToRole="AutoService" />
     <NavigationProperty Name="ServicesCategory1" Relationship="Self.FK_ServicesCategory_ServicesCategory" FromRole="ServicesCategory" ToRole="ServicesCategory1" />
     <NavigationProperty Name="ServicesCategory2" Relationship="Self.FK_ServicesCategory_ServicesCategory" FromRole="ServicesCategory1" ToRole="ServicesCategory" />
+    <Property Name="ServicesCategoryEnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ServicesPackToView">
     <Key>
