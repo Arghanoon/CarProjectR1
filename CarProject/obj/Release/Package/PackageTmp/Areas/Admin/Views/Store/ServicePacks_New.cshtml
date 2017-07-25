@@ -13,6 +13,7 @@
     <form method="post" onsubmit="submitFunction(event)">
         <div class="inputsContainer">
             @Html.input_TextBox(m => m.ServicePack.AutoServicePackName, "نام")
+            @Html.input_TextBox(m => m.ServicePack.AutoServicePackEnglishName, " نام به انگلیسی")
             @Html.input_TextBox(m => m.ServicePack.PackPrice, "قیمت")
 
             <div class="input">

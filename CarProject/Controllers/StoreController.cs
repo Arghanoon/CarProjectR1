@@ -23,7 +23,7 @@ namespace CarProject.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View("ProductsList");
         }
 
         public ActionResult CarBaseProducts(int id)

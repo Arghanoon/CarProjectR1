@@ -24,6 +24,7 @@
     <EntitySetMapping Name="AutoServices">
       <EntityTypeMapping TypeName="CarAutomationModel.AutoService">
         <MappingFragment StoreEntitySet="AutoService">
+          <ScalarProperty Name="AutoServiceEnglishName" ColumnName="AutoServiceEnglishName" />
           <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
           <ScalarProperty Name="AutoServiceName" ColumnName="AutoServiceName" />
           <ScalarProperty Name="HasCarId" ColumnName="HasCarId" />
@@ -46,6 +47,7 @@
     <EntitySetMapping Name="AutoServicePacks">
       <EntityTypeMapping TypeName="CarAutomationModel.AutoServicePack">
         <MappingFragment StoreEntitySet="AutoServicePack">
+          <ScalarProperty Name="AutoServicePackEnglishName" ColumnName="AutoServicePackEnglishName" />
           <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
           <ScalarProperty Name="AutoServicePackName" ColumnName="AutoServicePackName" />
           <ScalarProperty Name="PackPrice" ColumnName="PackPrice" />
@@ -173,6 +175,7 @@
     <EntitySetMapping Name="CarBrands">
       <EntityTypeMapping TypeName="CarAutomationModel.CarBrand">
         <MappingFragment StoreEntitySet="CarBrand">
+          <ScalarProperty Name="CarBrandEnglishName" ColumnName="CarBrandEnglishName" />
           <ScalarProperty Name="CarBrandId" ColumnName="CarBrandId" />
           <ScalarProperty Name="CarBrandName" ColumnName="CarBrandName" />
           <ScalarProperty Name="CarBrandHistory" ColumnName="CarBrandHistory" />
@@ -278,6 +281,7 @@
     <EntitySetMapping Name="CarModels">
       <EntityTypeMapping TypeName="CarAutomationModel.CarModel">
         <MappingFragment StoreEntitySet="CarModel">
+          <ScalarProperty Name="CarModelEnglishName" ColumnName="CarModelEnglishName" />
           <ScalarProperty Name="CarModelId" ColumnName="CarModelId" />
           <ScalarProperty Name="CarModelName" ColumnName="CarModelName" />
           <ScalarProperty Name="CarBrandId" ColumnName="CarBrandId" />
@@ -461,6 +465,7 @@
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="CarAutomationModel.Category">
         <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="CategoryEnglishName" ColumnName="CategoryEnglishName" />
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
           <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
@@ -503,6 +508,7 @@
     <EntitySetMapping Name="Contents">
       <EntityTypeMapping TypeName="CarAutomationModel.Content">
         <MappingFragment StoreEntitySet="Contents">
+          <ScalarProperty Name="ContentEnglishSubject" ColumnName="ContentEnglishSubject" />
           <ScalarProperty Name="ContenstId" ColumnName="ContenstId" />
           <ScalarProperty Name="ContentsCategoryId" ColumnName="ContentsCategoryId" />
           <ScalarProperty Name="ContentSubject" ColumnName="ContentSubject" />
@@ -519,6 +525,7 @@
     <EntitySetMapping Name="ContentsCategories">
       <EntityTypeMapping TypeName="CarAutomationModel.ContentsCategory">
         <MappingFragment StoreEntitySet="ContentsCategory">
+          <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
           <ScalarProperty Name="ContentsCategoryId" ColumnName="ContentsCategoryId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Describe" ColumnName="Describe" />
@@ -681,6 +688,7 @@
     <EntitySetMapping Name="PersonCarDetails">
       <EntityTypeMapping TypeName="CarAutomationModel.PersonCarDetail">
         <MappingFragment StoreEntitySet="PersonCarDetail">
+          <ScalarProperty Name="DateSubmited" ColumnName="DateSubmited" />
           <ScalarProperty Name="PersonCarDetailId" ColumnName="PersonCarDetailId" />
           <ScalarProperty Name="PersonCarId" ColumnName="PersonCarId" />
           <ScalarProperty Name="LastOilChange" ColumnName="LastOilChange" />
@@ -776,6 +784,7 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="CarAutomationModel.Product">
         <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="ProductEnglishName" ColumnName="ProductEnglishName" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
@@ -965,6 +974,7 @@
     <EntitySetMapping Name="ServicesCategories">
       <EntityTypeMapping TypeName="CarAutomationModel.ServicesCategory">
         <MappingFragment StoreEntitySet="ServicesCategory">
+          <ScalarProperty Name="ServicesCategoryEnglishName" ColumnName="ServicesCategoryEnglishName" />
           <ScalarProperty Name="ServicesCategoryId" ColumnName="ServicesCategoryId" />
           <ScalarProperty Name="ServicesCategoryName" ColumnName="ServicesCategoryName" />
           <ScalarProperty Name="ServicesParentCategoryId" ColumnName="ServicesParentCategoryId" />
@@ -1085,5 +1095,176 @@
         <ScalarProperty Name="TroubleshootingId" ColumnName="TroubleshootingId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="NameOfValues">
+      <EntityTypeMapping TypeName="CarAutomationModel.NameOfValue">
+        <MappingFragment StoreEntitySet="NameOfValues">
+          <ScalarProperty Name="SteeringDetails" ColumnName="SteeringDetails" />
+          <ScalarProperty Name="SteeringControlKey" ColumnName="SteeringControlKey" />
+          <ScalarProperty Name="SteeringHeightAdjustble" ColumnName="SteeringHeightAdjustble" />
+          <ScalarProperty Name="SteeringType" ColumnName="SteeringType" />
+          <ScalarProperty Name="SteeringSystemType" ColumnName="SteeringSystemType" />
+          <ScalarProperty Name="SecurityDetails" ColumnName="SecurityDetails" />
+          <ScalarProperty Name="KeylessStart" ColumnName="KeylessStart" />
+          <ScalarProperty Name="KeylessDoor" ColumnName="KeylessDoor" />
+          <ScalarProperty Name="Emo" ColumnName="Emo" />
+          <ScalarProperty Name="Alarm" ColumnName="Alarm" />
+          <ScalarProperty Name="BurglarAlarm" ColumnName="BurglarAlarm" />
+          <ScalarProperty Name="RemoteControl" ColumnName="RemoteControl" />
+          <ScalarProperty Name="ManufacturePhon" ColumnName="ManufacturePhon" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ManufactureName" ColumnName="ManufactureName" />
+          <ScalarProperty Name="MirrorsDetails" ColumnName="MirrorsDetails" />
+          <ScalarProperty Name="SideMirrorSystem" ColumnName="SideMirrorSystem" />
+          <ScalarProperty Name="SideMirrorSet" ColumnName="SideMirrorSet" />
+          <ScalarProperty Name="FrontGlassWarmer" ColumnName="FrontGlassWarmer" />
+          <ScalarProperty Name="WindscreensWarmer" ColumnName="WindscreensWarmer" />
+          <ScalarProperty Name="RearGlassWarmer" ColumnName="RearGlassWarmer" />
+          <ScalarProperty Name="PanaromaRoof" ColumnName="PanaromaRoof" />
+          <ScalarProperty Name="SunRoof" ColumnName="SunRoof" />
+          <ScalarProperty Name="RearWindscreens" ColumnName="RearWindscreens" />
+          <ScalarProperty Name="FrontWindscreens" ColumnName="FrontWindscreens" />
+          <ScalarProperty Name="ReservedThree" ColumnName="ReservedThree" />
+          <ScalarProperty Name="ReservedTwo" ColumnName="ReservedTwo" />
+          <ScalarProperty Name="ReservedOne" ColumnName="ReservedOne" />
+          <ScalarProperty Name="FuelDetails" ColumnName="FuelDetails" />
+          <ScalarProperty Name="LphMix" ColumnName="LphMix" />
+          <ScalarProperty Name="LphRoad" ColumnName="LphRoad" />
+          <ScalarProperty Name="LphCity" ColumnName="LphCity" />
+          <ScalarProperty Name="HaveDetailed" ColumnName="HaveDetailed" />
+          <ScalarProperty Name="DetailedName" ColumnName="DetailedName" />
+          <ScalarProperty Name="CountryLongName" ColumnName="CountryLongName" />
+          <ScalarProperty Name="CountryShortName" ColumnName="CountryShortName" />
+          <ScalarProperty Name="CarTireDetails" ColumnName="CarTireDetails" />
+          <ScalarProperty Name="AutoInflated" ColumnName="AutoInflated" />
+          <ScalarProperty Name="RingModel" ColumnName="RingModel" />
+          <ScalarProperty Name="RingType" ColumnName="RingType" />
+          <ScalarProperty Name="TireSpec" ColumnName="TireSpec" />
+          <ScalarProperty Name="RingStandardSize" ColumnName="RingStandardSize" />
+          <ScalarProperty Name="TireType" ColumnName="TireType" />
+          <ScalarProperty Name="CarsReview" ColumnName="CarsReview" />
+          <ScalarProperty Name="CarsReviewSubject" ColumnName="CarsReviewSubject" />
+          <ScalarProperty Name="Services" ColumnName="Services" />
+          <ScalarProperty Name="Quality" ColumnName="Quality" />
+          <ScalarProperty Name="WorthBuying" ColumnName="WorthBuying" />
+          <ScalarProperty Name="Beauty" ColumnName="Beauty" />
+          <ScalarProperty Name="CarScore" ColumnName="CarScore" />
+          <ScalarProperty Name="Review" ColumnName="Review" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+          <ScalarProperty Name="CarProCro" ColumnName="CarProCro" />
+          <ScalarProperty Name="CarsProOrCro" ColumnName="CarsProOrCro" />
+          <ScalarProperty Name="SensorDetails" ColumnName="SensorDetails" />
+          <ScalarProperty Name="CruiseControl" ColumnName="CruiseControl" />
+          <ScalarProperty Name="NavigateSensor" ColumnName="NavigateSensor" />
+          <ScalarProperty Name="ParkSensor" ColumnName="ParkSensor" />
+          <ScalarProperty Name="RearGearSensor" ColumnName="RearGearSensor" />
+          <ScalarProperty Name="RainSensor" ColumnName="RainSensor" />
+          <ScalarProperty Name="DayLightSensor" ColumnName="DayLightSensor" />
+          <ScalarProperty Name="CarSeatDetails" ColumnName="CarSeatDetails" />
+          <ScalarProperty Name="HasMemory" ColumnName="HasMemory" />
+          <ScalarProperty Name="SeatMassage" ColumnName="SeatMassage" />
+          <ScalarProperty Name="SeatWarmer" ColumnName="SeatWarmer" />
+          <ScalarProperty Name="BezelSet" ColumnName="BezelSet" />
+          <ScalarProperty Name="LongitudinalDisplacement" ColumnName="LongitudinalDisplacement" />
+          <ScalarProperty Name="CarBodyType" ColumnName="CarBodyType" />
+          <ScalarProperty Name="CarYearModel" ColumnName="CarYearModel" />
+          <ScalarProperty Name="CarUsage" ColumnName="CarUsage" />
+          <ScalarProperty Name="CarCategory" ColumnName="CarCategory" />
+          <ScalarProperty Name="CarClassType" ColumnName="CarClassType" />
+          <ScalarProperty Name="CarsDescription" ColumnName="CarsDescription" />
+          <ScalarProperty Name="CarsVideoURL" ColumnName="CarsVideoURL" />
+          <ScalarProperty Name="CarsClinicScore" ColumnName="CarsClinicScore" />
+          <ScalarProperty Name="CarsUserScore" ColumnName="CarsUserScore" />
+          <ScalarProperty Name="CarsClass" ColumnName="CarsClass" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="CarPhysicalDetails" ColumnName="CarPhysicalDetails" />
+          <ScalarProperty Name="CarTankSize" ColumnName="CarTankSize" />
+          <ScalarProperty Name="CarPureWeight" ColumnName="CarPureWeight" />
+          <ScalarProperty Name="CarWheelBase" ColumnName="CarWheelBase" />
+          <ScalarProperty Name="CarTrack" ColumnName="CarTrack" />
+          <ScalarProperty Name="CarHeight" ColumnName="CarHeight" />
+          <ScalarProperty Name="Carwidth" ColumnName="Carwidth" />
+          <ScalarProperty Name="CarLength" ColumnName="CarLength" />
+          <ScalarProperty Name="CarModelName" ColumnName="CarModelName" />
+          <ScalarProperty Name="ThirdLightStop" ColumnName="ThirdLightStop" />
+          <ScalarProperty Name="LightsDeailts" ColumnName="LightsDeailts" />
+          <ScalarProperty Name="ReadingLamp" ColumnName="ReadingLamp" />
+          <ScalarProperty Name="RearAntiFog" ColumnName="RearAntiFog" />
+          <ScalarProperty Name="FonrAntiFog" ColumnName="FonrAntiFog" />
+          <ScalarProperty Name="SideMirrorLight" ColumnName="SideMirrorLight" />
+          <ScalarProperty Name="DayLight" ColumnName="DayLight" />
+          <ScalarProperty Name="RearLights" ColumnName="RearLights" />
+          <ScalarProperty Name="FrontLights" ColumnName="FrontLights" />
+          <ScalarProperty Name="GearBoxShifter" ColumnName="GearBoxShifter" />
+          <ScalarProperty Name="GearBoxDescription" ColumnName="GearBoxDescription" />
+          <ScalarProperty Name="GearBoxWdType" ColumnName="GearBoxWdType" />
+          <ScalarProperty Name="GearBoxDiffrentionalLock" ColumnName="GearBoxDiffrentionalLock" />
+          <ScalarProperty Name="HasTransferCase" ColumnName="HasTransferCase" />
+          <ScalarProperty Name="GearBoxAxel" ColumnName="GearBoxAxel" />
+          <ScalarProperty Name="GearBoxShiftNumber" ColumnName="GearBoxShiftNumber" />
+          <ScalarProperty Name="GearBoxCanBeManual" ColumnName="GearBoxCanBeManual" />
+          <ScalarProperty Name="GearBoxType" ColumnName="GearBoxType" />
+          <ScalarProperty Name="GearBoxCode" ColumnName="GearBoxCode" />
+          <ScalarProperty Name="EngineFuel" ColumnName="EngineFuel" />
+          <ScalarProperty Name="EngineSize" ColumnName="EngineSize" />
+          <ScalarProperty Name="EngineDescription" ColumnName="EngineDescription" />
+          <ScalarProperty Name="EngineZeroToH" ColumnName="EngineZeroToH" />
+          <ScalarProperty Name="EngineMaxSpeed" ColumnName="EngineMaxSpeed" />
+          <ScalarProperty Name="EnginePowerHpLitr" ColumnName="EnginePowerHpLitr" />
+          <ScalarProperty Name="EnginePowerHpTon" ColumnName="EnginePowerHpTon" />
+          <ScalarProperty Name="EngineTorque" ColumnName="EngineTorque" />
+          <ScalarProperty Name="EnginePowerHpRpm" ColumnName="EnginePowerHpRpm" />
+          <ScalarProperty Name="EngineCylinderNumber" ColumnName="EngineCylinderNumber" />
+          <ScalarProperty Name="EngineType" ColumnName="EngineType" />
+          <ScalarProperty Name="RearBrakePadsChangeMilage" ColumnName="RearBrakePadsChangeMilage" />
+          <ScalarProperty Name="RearBreakePadsChangeDate" ColumnName="RearBreakePadsChangeDate" />
+          <ScalarProperty Name="FrontBrakePadsChangeMilage" ColumnName="FrontBrakePadsChangeMilage" />
+          <ScalarProperty Name="FrontBrakePadsChangeDate" ColumnName="FrontBrakePadsChangeDate" />
+          <ScalarProperty Name="OtherBeltsChangeMilage" ColumnName="OtherBeltsChangeMilage" />
+          <ScalarProperty Name="OtherBeltsChangeDate" ColumnName="OtherBeltsChangeDate" />
+          <ScalarProperty Name="TimingbeltChangeMilage" ColumnName="TimingbeltChangeMilage" />
+          <ScalarProperty Name="TimingbeltChangeDate" ColumnName="TimingbeltChangeDate" />
+          <ScalarProperty Name="TiresChangeMilage" ColumnName="TiresChangeMilage" />
+          <ScalarProperty Name="TiresChangeDate" ColumnName="TiresChangeDate" />
+          <ScalarProperty Name="AirFilterChangeMilage" ColumnName="AirFilterChangeMilage" />
+          <ScalarProperty Name="AirFilterChangeDate" ColumnName="AirFilterChangeDate" />
+          <ScalarProperty Name="GearBoxOilChangeMilage" ColumnName="GearBoxOilChangeMilage" />
+          <ScalarProperty Name="GearBoxOilChangeDate" ColumnName="GearBoxOilChangeDate" />
+          <ScalarProperty Name="OilFilterChangeMilage" ColumnName="OilFilterChangeMilage" />
+          <ScalarProperty Name="OilFiltersChangeDate" ColumnName="OilFiltersChangeDate" />
+          <ScalarProperty Name="OilChangeMilage" ColumnName="OilChangeMilage" />
+          <ScalarProperty Name="OilChangeDate" ColumnName="OilChangeDate" />
+          <ScalarProperty Name="CarBrandHistory" ColumnName="CarBrandHistory" />
+          <ScalarProperty Name="CarBrandName" ColumnName="CarBrandName" />
+          <ScalarProperty Name="CarAudioSystemDetails" ColumnName="CarAudioSystemDetails" />
+          <ScalarProperty Name="HasGps" ColumnName="HasGps" />
+          <ScalarProperty Name="Amplifire" ColumnName="Amplifire" />
+          <ScalarProperty Name="Subwoofer" ColumnName="Subwoofer" />
+          <ScalarProperty Name="FrontStereo" ColumnName="FrontStereo" />
+          <ScalarProperty Name="RearStereo" ColumnName="RearStereo" />
+          <ScalarProperty Name="FrontCamera" ColumnName="FrontCamera" />
+          <ScalarProperty Name="RearGearCamera" ColumnName="RearGearCamera" />
+          <ScalarProperty Name="RearSeatsMonitor" ColumnName="RearSeatsMonitor" />
+          <ScalarProperty Name="HasMonitor" ColumnName="HasMonitor" />
+          <ScalarProperty Name="AudioSystemBrand" ColumnName="AudioSystemBrand" />
+          <ScalarProperty Name="AudioSystemType" ColumnName="AudioSystemType" />
+          <ScalarProperty Name="AirBagDetails" ColumnName="AirBagDetails" />
+          <ScalarProperty Name="AirBagEntity" ColumnName="AirBagEntity" />
+          <ScalarProperty Name="AirBag" ColumnName="AirBag" />
+          <ScalarProperty Name="FrontAirBag" ColumnName="FrontAirBag" />
+          <ScalarProperty Name="DriverAirBag" ColumnName="DriverAirBag" />
+          <ScalarProperty Name="BrakeDetails" ColumnName="BrakeDetails" />
+          <ScalarProperty Name="HandBrakeSystem" ColumnName="HandBrakeSystem" />
+          <ScalarProperty Name="OtherSystem" ColumnName="OtherSystem" />
+          <ScalarProperty Name="RearBrakeSystem" ColumnName="RearBrakeSystem" />
+          <ScalarProperty Name="FrontBrakeSystem" ColumnName="FrontBrakeSystem" />
+          <ScalarProperty Name="AirConditioningSystemDetail" ColumnName="AirConditioningSystemDetail" />
+          <ScalarProperty Name="AirConditioningSystemDetailSubject" ColumnName="AirConditioningSystemDetailSubject" />
+          <ScalarProperty Name="AirConditioningTypeDetails" ColumnName="AirConditioningTypeDetails" />
+          <ScalarProperty Name="AirConditioningType" ColumnName="AirConditioningType" />
+          <ScalarProperty Name="NameOfvaluesId" ColumnName="NameOfvaluesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

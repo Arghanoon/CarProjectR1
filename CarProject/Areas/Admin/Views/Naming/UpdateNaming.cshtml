@@ -1,0 +1,242 @@
+﻿@model CarProject.Areas.Admin.Models.Dashboard.NamingModel
+@using CarProject.App_Code
+@using db = CarProject.DBSEF
+@{
+    ViewBag.Title = "ویرایش اطلاعات";
+    var dbs = new db.CarAutomationEntities();
+
+    //Layout = null;
+}
+
+<form method="post" id="form1">
+    <input type="hidden" name="IsForUpdate" value="false" />
+    <div class="wizardContainer">
+        <div class="wizardNav">
+            <a href="#w1">ویرایش اطلاعات</a>
+        </div>
+        <div class="wizardPage" id="w1">
+            <div class="inputsContainer">
+                @Html.input_TextBox(m => m.NameOfValueModels.AirConditioningType, "نوع تهویه")
+                @Html.input_TextBox(m => m.NameOfValueModels.AirConditioningTypeDetails, "جزئیات  نوع تهویه")
+                @Html.input_TextBox(m => m.NameOfValueModels.AirConditioningSystemDetailSubject, "موضوع سیستم جزئیات تهویه")
+                @Html.input_TextBox(m => m.NameOfValueModels.AirConditioningSystemDetail, "جزئیات سیستم تهویه")
+                @Html.input_TextBox(m => m.NameOfValueModels.FrontBrakeSystem, "سیستم ترمز جلو")
+                @Html.input_TextBox(m => m.NameOfValueModels.RearBrakeSystem, "سیستم ترمز عقب")
+                @Html.input_TextBox(m => m.NameOfValueModels.OtherSystem, "دیگر سیستم های ترمز")
+                @Html.input_TextBox(m => m.NameOfValueModels.HandBrakeSystem, "ترمز دستی")
+                @Html.input_TextBox(m => m.NameOfValueModels.BrakeDetails, "جزئیات سیستم ترمز")
+                @Html.input_TextBox(m => m.NameOfValueModels.DriverAirBag, "ایربگ راننده")
+                @Html.input_TextBox(m => m.NameOfValueModels.FrontAirBag, "ایربگ شاگرد")
+                @Html.input_TextBox(m => m.NameOfValueModels.AirBag, "ایربگ")
+                @Html.input_TextBox(m => m.NameOfValueModels.AirBagEntity, "تعداد ایربگ")
+                @Html.input_TextBox(m => m.NameOfValueModels.AirBagDetails, "جرئیات سیستم ایربگ")
+                @Html.input_TextBox(m => m.NameOfValueModels.AudioSystemType, "نوع سیستم صوتی")
+                @Html.input_TextBox(m => m.NameOfValueModels.AudioSystemBrand, "برند سیستم صوتی")
+                @Html.input_TextBox(m => m.NameOfValueModels.HasMonitor, "سوال مانیتور سیستم صوتی")
+                @Html.input_TextBox(m => m.NameOfValueModels.RearSeatsMonitor, "مانیتور صندلی عقب")
+                @Html.input_TextBox(m => m.NameOfValueModels.RearGearCamera, "دوربین دنده عقب")
+                @Html.input_TextBox(m => m.NameOfValueModels.FrontCamera, "دوربین جلو")
+                @Html.input_TextBox(m => m.NameOfValueModels.RearStereo, "سیستم صوتی عقب")
+                @Html.input_TextBox(m => m.NameOfValueModels.FrontStereo, "سیستم صوتی جلو")
+                @Html.input_TextBox(m => m.NameOfValueModels.Subwoofer, "ساب ووفر")
+                @Html.input_TextBox(m => m.NameOfValueModels.Amplifire, "آمپلی فایر")
+                @Html.input_TextBox(m => m.NameOfValueModels.HasGps, "سوال جی پی اس")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarAudioSystemDetails, "جزئیات سیستم صوتی")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarBrandName, "برند خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarBrandHistory, "تاریخچه برند")
+                @Html.input_TextBox(m => m.NameOfValueModels.OilChangeDate, "تاریخ تعویض روغن")
+                @Html.input_TextBox(m => m.NameOfValueModels.OilChangeMilage, "کلیومتر تعویض روغن")
+                @Html.input_TextBox(m => m.NameOfValueModels.OilFiltersChangeDate, "تاریخ تعویض فیلتر روغن")
+                @Html.input_TextBox(m => m.NameOfValueModels.OilFilterChangeMilage, "کیلومتر تعویض فیلتر روغن")
+                @Html.input_TextBox(m => m.NameOfValueModels.GearBoxOilChangeDate, "تاریخ تعویض روغن گیربکس")
+                @Html.input_TextBox(m => m.NameOfValueModels.GearBoxOilChangeMilage, "کیلومتر تعویض روغن گیربکس")
+                @Html.input_TextBox(m => m.NameOfValueModels.AirFilterChangeDate, "تاریخ تعویض فیتلر هوا")
+                @Html.input_TextBox(m => m.NameOfValueModels.AirFilterChangeMilage, "کیلومتر تعویض فیلتر هوا")
+                @Html.input_TextBox(m => m.NameOfValueModels.TiresChangeDate, "تاریخ تعویض تایر ها")
+                @Html.input_TextBox(m => m.NameOfValueModels.TiresChangeMilage, "کیلومتر تعویض تایر ها")
+                @Html.input_TextBox(m => m.NameOfValueModels.TimingbeltChangeDate, "تاریخ تعویض تسمه تایم")
+                @Html.input_TextBox(m => m.NameOfValueModels.TimingbeltChangeMilage, "کیلومتر تعویض تسمه تایم")
+                @Html.input_TextBox(m => m.NameOfValueModels.OtherBeltsChangeDate, "تاریخ تعویض تسمه ها")
+                @Html.input_TextBox(m => m.NameOfValueModels.OtherBeltsChangeMilage, "کیلومتر تعویض تسمه ها")
+                @Html.input_TextBox(m => m.NameOfValueModels.FrontBrakePadsChangeDate, "تاریخ تعویض لنت جلو")
+                @Html.input_TextBox(m => m.NameOfValueModels.FrontBrakePadsChangeMilage, "کیلومتر تعویض لنت جلو")
+                @Html.input_TextBox(m => m.NameOfValueModels.RearBreakePadsChangeDate, "تاریخ تعویض لنت عقب")
+                @Html.input_TextBox(m => m.NameOfValueModels.RearBrakePadsChangeMilage, "کیلومتر تعویض لنت عقب")
+                @Html.input_TextBox(m => m.NameOfValueModels.EngineType, "نوع موتور")
+                @Html.input_TextBox(m => m.NameOfValueModels.EngineCylinderNumber, "تعداد سیلندر")
+                @Html.input_TextBox(m => m.NameOfValueModels.EnginePowerHpRpm, "نسبت قدرت به دور موتور")
+                @Html.input_TextBox(m => m.NameOfValueModels.EngineTorque, "تورک موتور")
+                @Html.input_TextBox(m => m.NameOfValueModels.EnginePowerHpTon, "نسبت قدرت به وزن")
+                @Html.input_TextBox(m => m.NameOfValueModels.EnginePowerHpLitr, "نسبت قدرت به لیتر")
+                @Html.input_TextBox(m => m.NameOfValueModels.EngineMaxSpeed, "نهایت سرعت")
+                @Html.input_TextBox(m => m.NameOfValueModels.EngineZeroToH, "صفر تا 100")
+                @Html.input_TextBox(m => m.NameOfValueModels.EngineDescription, "توضیحات موتور")
+                @Html.input_TextBox(m => m.NameOfValueModels.EngineSize, "سایز موتور")
+                @Html.input_TextBox(m => m.NameOfValueModels.EngineFuel, "سوخت موتور")
+                @Html.input_TextBox(m => m.NameOfValueModels.GearBoxCode, "کد گیر بکس")
+                @Html.input_TextBox(m => m.NameOfValueModels.GearBoxType, "نوع گیربکس")
+                @Html.input_TextBox(m => m.NameOfValueModels.GearBoxCanBeManual, "سوال دستی شدن گیربکس")
+                @Html.input_TextBox(m => m.NameOfValueModels.GearBoxShiftNumber, "تعداد دنده")
+                @Html.input_TextBox(m => m.NameOfValueModels.GearBoxAxel, "اکسل گیربکس")
+                @Html.input_TextBox(m => m.NameOfValueModels.HasTransferCase, "سوال دارا بودن کمک")
+                @Html.input_TextBox(m => m.NameOfValueModels.GearBoxDiffrentionalLock, "قفل دیفرانسیل")
+                @Html.input_TextBox(m => m.NameOfValueModels.GearBoxWdType, "نوع چهارچرخ شدن گیربکس")
+                @Html.input_TextBox(m => m.NameOfValueModels.GearBoxDescription, "توضیحات گیربکس")
+                @Html.input_TextBox(m => m.NameOfValueModels.GearBoxShifter, "نوع شیفتر گیربکس")
+                @Html.input_TextBox(m => m.NameOfValueModels.FrontLights, "چراغ های جلو")
+                @Html.input_TextBox(m => m.NameOfValueModels.RearLights, "چراغ های عقب")
+                @Html.input_TextBox(m => m.NameOfValueModels.DayLight, "سوال دیلایت ")
+                @Html.input_TextBox(m => m.NameOfValueModels.SideMirrorLight, "چراغ آینه بفل")
+                @Html.input_TextBox(m => m.NameOfValueModels.FonrAntiFog, "آنتی مه جلو")
+                @Html.input_TextBox(m => m.NameOfValueModels.RearAntiFog, "آنتی مه عقب")
+                @Html.input_TextBox(m => m.NameOfValueModels.ReadingLamp, "چراغ مطالعه")
+                @Html.input_TextBox(m => m.NameOfValueModels.LightsDeailts, "توضیحات چراغ ها")
+                @Html.input_TextBox(m => m.NameOfValueModels.ThirdLightStop, "چراغ سوم ترمز")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarModelName, "مدل خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarLength, "طول خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.Carwidth, "عرض خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarHeight, "ارتفاع خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarTrack, "فاصله محور خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarWheelBase, "فاصله چرخ تا چرخ خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarPureWeight, "عرض خالص خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarTankSize, "سایز باک خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarPhysicalDetails, "جزئیات فیزیکی خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.Price, "قیمت")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarsClass, "کلاس خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarsUserScore, "امتیاز کاربر")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarsClinicScore, "امتیاز کلینیک")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarsVideoURL, "آدرس ویدئو خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarsDescription, "توصیحات خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarClassType, "نوع کلاس خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarCategory, "دسته بندی خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarUsage, "موارد استفاده خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarYearModel, "مدل خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarBodyType, "نوع بدنه خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.LongitudinalDisplacement, "فاصله صندلی خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.BezelSet, "جنس صندلی")
+                @Html.input_TextBox(m => m.NameOfValueModels.SeatWarmer, "گرمکن صندلی")
+                @Html.input_TextBox(m => m.NameOfValueModels.SeatMassage, "ماساژور صندلی")
+                @Html.input_TextBox(m => m.NameOfValueModels.HasMemory, "مموری صندلی")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarSeatDetails, "جزئیات صندلی ها")
+                @Html.input_TextBox(m => m.NameOfValueModels.DayLightSensor, "سنسور روشنایی")
+                @Html.input_TextBox(m => m.NameOfValueModels.RainSensor, "سنسور باران")
+                @Html.input_TextBox(m => m.NameOfValueModels.RearGearSensor, "سنسور دنده عقب")
+                @Html.input_TextBox(m => m.NameOfValueModels.ParkSensor, "سنسور پارک")
+                @Html.input_TextBox(m => m.NameOfValueModels.NavigateSensor, "سنسور مسیر یابی")
+                @Html.input_TextBox(m => m.NameOfValueModels.CruiseControl, "کروز کنترل")
+                @Html.input_TextBox(m => m.NameOfValueModels.SensorDetails, "جزئیات سنسور ها")
+                @*@Html.input_TextBox(m => m.NameOfValueModels.CarsProOrCro, "")*@
+                @Html.input_TextBox(m => m.NameOfValueModels.CarProCro, "معایب مزایای خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.QuestionType, "نوع سوال")
+                @Html.input_TextBox(m => m.NameOfValueModels.Question, "سوال")
+                @Html.input_TextBox(m => m.NameOfValueModels.Review, "بررسی")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarScore, "امتیاز خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.Beauty, "زیبایی")
+                @Html.input_TextBox(m => m.NameOfValueModels.WorthBuying, "ارزش خرید")
+                @Html.input_TextBox(m => m.NameOfValueModels.Quality, "کیفیت")
+                @Html.input_TextBox(m => m.NameOfValueModels.Services, "سرویس ها")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarsReviewSubject, "موضوع بررسی")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarsReview, "بررسی خودرو")
+                @Html.input_TextBox(m => m.NameOfValueModels.TireType, "نوع تایر")
+                @Html.input_TextBox(m => m.NameOfValueModels.RingStandardSize, "سایز استاندارد رینگ")
+                @Html.input_TextBox(m => m.NameOfValueModels.TireSpec, "اطلاعات تایر")
+                @Html.input_TextBox(m => m.NameOfValueModels.RingType, "نوع رینگ")
+                @Html.input_TextBox(m => m.NameOfValueModels.RingModel, "مدل رینگ")
+                @Html.input_TextBox(m => m.NameOfValueModels.AutoInflated, "بادکردن خودکار")
+                @Html.input_TextBox(m => m.NameOfValueModels.CarTireDetails, "جزئیات تایر ها")
+                @Html.input_TextBox(m => m.NameOfValueModels.CountryShortName, "نام کوچیک کشور")
+                @Html.input_TextBox(m => m.NameOfValueModels.CountryLongName, "نام کامل کشور")
+                @*@Html.input_TextBox(m => m.NameOfValueModels.DetailedName, "")
+                @Html.input_TextBox(m => m.NameOfValueModels.HaveDetailed, "")*@
+                @Html.input_TextBox(m => m.NameOfValueModels.LphCity, "مصرف سوخت شهر")
+                @Html.input_TextBox(m => m.NameOfValueModels.LphRoad, "مصرف سوخت جاده")
+                @Html.input_TextBox(m => m.NameOfValueModels.LphMix, "مصرف سوخت ترکیبی")
+                @Html.input_TextBox(m => m.NameOfValueModels.FuelDetails, "جزئیات صوخت")
+                @*@Html.input_TextBox(m => m.NameOfValueModels.ReservedOne, "")
+                @Html.input_TextBox(m => m.NameOfValueModels.ReservedTwo, "")
+                @Html.input_TextBox(m => m.NameOfValueModels.ReservedThree, "")*@
+                @Html.input_TextBox(m => m.NameOfValueModels.FrontWindscreens, "شیشه جلو")
+                @Html.input_TextBox(m => m.NameOfValueModels.RearWindscreens, "شیشه عقب")
+                @Html.input_TextBox(m => m.NameOfValueModels.SunRoof, "سان روف")
+                @Html.input_TextBox(m => m.NameOfValueModels.PanaromaRoof, "سقف پاناروما")
+                @Html.input_TextBox(m => m.NameOfValueModels.RearGlassWarmer, "گرمکن شیشه عقب")
+                @Html.input_TextBox(m => m.NameOfValueModels.WindscreensWarmer, "گرمکن شیشه بقل")
+                @Html.input_TextBox(m => m.NameOfValueModels.FrontGlassWarmer, "گرمکن شیشه جلو")
+                @Html.input_TextBox(m => m.NameOfValueModels.SideMirrorSet, "آینه های بقل")
+                @Html.input_TextBox(m => m.NameOfValueModels.SideMirrorSystem, "سیستم آینه های بقل")
+                @Html.input_TextBox(m => m.NameOfValueModels.MirrorsDetails, "جزئیات آینه های بقل")
+                @Html.input_TextBox(m => m.NameOfValueModels.ManufactureName, "نام کارخانه")
+                @Html.input_TextBox(m => m.NameOfValueModels.Address, "آدرس کارخانه")
+                @Html.input_TextBox(m => m.NameOfValueModels.ManufacturePhon, "تلفن کارخانه")
+                @Html.input_TextBox(m => m.NameOfValueModels.RemoteControl, "ریموت کنترل")
+                @Html.input_TextBox(m => m.NameOfValueModels.BurglarAlarm, "سیستم دزدگیر")
+                @Html.input_TextBox(m => m.NameOfValueModels.Alarm, "نوع آلارم")
+                @Html.input_TextBox(m => m.NameOfValueModels.Emo, "اموبلایزر")
+                @Html.input_TextBox(m => m.NameOfValueModels.KeylessDoor, "در بدون ققل")
+                @Html.input_TextBox(m => m.NameOfValueModels.KeylessStart, "استارت بدون سوییچ")
+                @Html.input_TextBox(m => m.NameOfValueModels.SecurityDetails, "سیستم امنیتی جزئیات")
+                @Html.input_TextBox(m => m.NameOfValueModels.SteeringSystemType, "سیستم فرمان")
+                @Html.input_TextBox(m => m.NameOfValueModels.SteeringType, "نوع فرمان")
+                @Html.input_TextBox(m => m.NameOfValueModels.SteeringHeightAdjustble, "تنظیم ارتفاع فرمان")
+                @Html.input_TextBox(m => m.NameOfValueModels.SteeringControlKey, "کلید روی فرمان")
+                @Html.input_TextBox(m => m.NameOfValueModels.SteeringDetails, "جزئیات فرمان")
+
+            </div>
+        </div>
+        <div id="formAction">
+            <input type="submit" class="button green" value="ثبت اطلاعات خودرو" />
+        </div>
+    </div>
+</form>
+
+
+
+@section style
+{
+    <style>
+        .detailsContainer {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .detailsContainer .controls {
+            position: relative;
+            flex: 1;
+        }
+
+        .detailsContainer .controls > * {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .controls2 {
+            border: thin solid #888;
+            margin: 5px;
+            padding: 3px;
+            border-radius: 3px;
+        }
+
+        .controls2 > * {
+            display: flex;
+            flex: 1;
+        }
+
+        .controls2 > *:nth-child(1) {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .underline {
+            border-bottom: thin solid #888;
+        }
+
+        #formAction {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px;
+        }
+    </style>
+}

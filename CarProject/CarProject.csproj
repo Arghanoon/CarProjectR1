@@ -49,6 +49,12 @@
     <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
       <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -62,6 +68,9 @@
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Quartz, Version=2.5.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.2.5.0\lib\net40\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="Recaptcha.Web, Version=2.1.0.0, Culture=neutral, PublicKeyToken=171a6ec5fa4b1644, processorArchitecture=MSIL">
       <HintPath>..\packages\RecaptchaNet.2.1.0\lib\net45\Recaptcha.Web.dll</HintPath>
@@ -152,6 +161,8 @@
     <Compile Include="Areas\Admin\Controllers\NamingController.cs" />
     <Compile Include="Areas\Admin\Models\Dashboard\Naming.cs" />
     <Compile Include="Areas\Users\Controllers\CaptchaController.cs" />
+    <Compile Include="CLS\MailsServers\SMS.cs" />
+    <Compile Include="CLS\MailsServers\UserCarChecker.cs" />
     <Compile Include="CLS\Sitemap.cs" />
     <Compile Include="CLS\SitemapNode.cs" />
     <Compile Include="Controllers\CaptchaController.cs" />
@@ -320,6 +331,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\Model11.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\NameOfValue.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -438,12 +454,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\smsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Web References\arianpal1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\com.arianpal.merchant\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\sms_ws\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -543,7 +569,7 @@
     <Content Include="DBSEF\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <LastGenOutput>Model11.cs</LastGenOutput>
     </Content>
     <Content Include="LandingPage\images\bg.jpg" />
     <Content Include="LandingPage\images\call.png" />
@@ -890,6 +916,102 @@
     </Content>
     <Content Include="Areas\Users\Views\profile\Login13960413.cshtml" />
     <Content Include="Areas\Admin\Views\Naming\NewNaming.cshtml" />
+    <Content Include="Service References\smsService\CarProject.smsService.add_userResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.admin_allow_number_newResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.array_cat_list.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.array_number.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.array_number_in_cat.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.array_number_state.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.array_receive.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.array_tree.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.convert_jalali_to_unixtimestampResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.convert_unixtime_to_jalaliResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.get_numberResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.is_number_in_blacklistResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.number_queryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.return_array_user_info.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.send_smsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.sms_add_numberResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.sms_count_bank_genderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.sms_count_bulk_genderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.sms_creditResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.sms_deliverResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.sms_get_cat_listResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.sms_get_number_in_catResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.sms_receiveResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.sms_receive_change_readResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.sms_send_bulk_genderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.sms_user_infoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\smsService\CarProject.smsService.user_add_catResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Areas\Admin\Views\Store\NewNaming.cshtml" />
+    <Content Include="Areas\Admin\Views\Naming\UpdateNaming.cshtml" />
+    <Content Include="Areas\Admin\Views\User\InsertPersonCar.cshtml" />
+    <Content Include="Areas\Admin\Views\User\PersonCarCurrentMillage.cshtml" />
+    <Content Include="Areas\Admin\Views\User\PersonCars.cshtml" />
+    <Content Include="Areas\Admin\Views\User\PersonCarsDeleteConfirm.cshtml" />
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\smsService\configuration91.svcinfo" />
+    <None Include="Service References\smsService\configuration.svcinfo" />
+    <None Include="Service References\smsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Views\Store\mailing_BasketDetails.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -917,6 +1039,7 @@
     <Content Include="Views\Cars\Compare.cshtml" />
     <Content Include="Views\Store\CarBaseProducts.cshtml" />
     <Content Include="Views\Store\ProductComparator.cshtml" />
+    <None Include="Service References\smsService\smsService.wsdl" />
     <None Include="Web References\arianpal1\WebService.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -940,6 +1063,32 @@
     </Content>
     <None Include="Web References\arianpal1\WebService.wsdl" />
     <None Include="Web References\com.arianpal.merchant\WebService.wsdl" />
+    <Content Include="Web References\sms_ws\array_cat_list.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\sms_ws\array_number.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\sms_ws\array_number_in_cat.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\sms_ws\array_number_state.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\sms_ws\array_receive.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\sms_ws\array_tree.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\sms_ws\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\sms_ws\return_array_user_info.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\sms_ws\smsService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1211,6 +1360,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\arianpalWebservice\" />
+    <WCFMetadataStorage Include="Service References\smsService\" />
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
@@ -1237,6 +1387,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>CarProject_com_arianpal_merchant_WebService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://www.5m5.ir/webservice/soap/smsService.php%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\sms_ws\</RelPath>
+      <UpdateFromURL>http://www.5m5.ir/webservice/soap/smsService.php%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CarProject_sms_ws_SmsPanelWebservice</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>

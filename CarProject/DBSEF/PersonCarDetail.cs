@@ -34,6 +34,7 @@ namespace CarProject.DBSEF
         public Nullable<int> LastFrontBrakePadsChangeMilage { get; set; }
         public Nullable<System.DateTime> LastRearBreakePadsChange { get; set; }
         public Nullable<int> LastRearBrakePadsChangeMilage { get; set; }
+        public Nullable<System.DateTime> DateSubmited { get; set; }
     
         public virtual PersonCar PersonCar { get; set; }
     }

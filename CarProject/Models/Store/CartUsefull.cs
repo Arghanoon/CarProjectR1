@@ -5,6 +5,7 @@ using System.Web;
 
 using CarProject.Controllers;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
 using CarProject.App_extension;
 using Newtonsoft.Json;
 
@@ -410,27 +411,51 @@ namespace CarProject.Models.Store
                     }
                 case Basket_ItemType.AutoService:
                     {
+                        decimal res = 0;
                         var x = dbs.AutoServices.FirstOrDefault(c => c.AutoServiceId == id);
-                        if (x != null)
+                        if (x != null && Convert.ToInt32(x.Price) > 0)
                         {
-                            int r = 0;
-                            int.TryParse(x.Price, out r);
-                            return r;
+                            var lastpric = Convert.ToInt32(x.Price);
+                            res = lastpric;
+
+                            if (discount != null)
+                            {
+                                decimal rate = 0;
+                                decimal.TryParse(discount.Discount1, out rate);
+                                decimal discountprice = decimal.Ceiling((res * rate) / 100);
+                                res = res - discountprice;
+                            }
                         }
-                        else
-                            return 0;
+
+                        return res;
+                        //if (x != null)
+                        //{
+                        //    int r = 0;
+                        //    int.TryParse(x.Price, out r);
+                        //    return r;
+                        //}
+                        //else
+                        //    return 0;
                     }
                 case Basket_ItemType.AutoServicePack:
                     {
+                        decimal res = 0;
                         var x = dbs.AutoServicePacks.FirstOrDefault(c => c.AutoServicePackId == id);
                         if (x != null)
                         {
-                            int r = 0;
-                            int.TryParse(x.PackPrice, out r);
-                            return r;
+                            res = Convert.ToDecimal(x.PackPrice);
+
+                            if (discount != null)
+                            {
+                                decimal rate = 0;
+                                decimal.TryParse(discount.Discount1, out rate);
+                                decimal discountprice = decimal.Ceiling((res * rate) / 100);
+                                res = res - discountprice;
+                            }
                         }
-                        else
-                            return 0;
+
+                        return res;
+                        
                     }
                 default:
                     return 0;

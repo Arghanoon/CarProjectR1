@@ -88,7 +88,7 @@
         }
     </div>
     <div id="CarVideo">
-        @if (news.VideoUrl.Length > 0)
+        @if (news.VideoUrl != null)
         {
             const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
             const string replacement = "http://www.youtube.com/embed/$1";
@@ -102,7 +102,7 @@
                     ></iframe>
         }
     </div>
-  <div id="CarDetials">
+  @*<div id="CarDetials">
         @*<div id="CarDetails_NameAndYear" class="orangeback">
             <section>@Model.Car.CarModel.CarBrand.CarBrandName @Model.Car.CarModel.CarModelName</section>
             <section>@Model.Car.CarYearModel</section>
@@ -169,7 +169,7 @@
             </div>
         }*@
 
-    </div>
+   
 </div>
 
 

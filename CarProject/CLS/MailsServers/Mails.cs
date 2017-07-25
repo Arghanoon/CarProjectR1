@@ -31,7 +31,15 @@ namespace CarProject.CLS.MailsServers
 
         public void SendMessage(MailMessage message)
         {
-            client.Send(message);
+            try
+            {
+                client.Send(message);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            
         }
     }
 
@@ -111,6 +119,42 @@ namespace CarProject.CLS.MailsServers
                 message.Body = messageBody.Replace("\n", "<br />");
                 message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
                 message.Subject = "خودرو کلینیک | بازیابی کلمه عبور";
+
+                this.SendMessage(message);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void SendPersoncarDetailMail(Models.User.UserInfo model,string Subject)
+        {
+            try
+            {
+
+                MailMessage message = new MailMessage();
+                message.To.Add(new MailAddress(model.Person.PersonEmail));
+                message.IsBodyHtml = true;
+
+                //var ActivationEmailContent = new Areas.Admin.Models.Dashboard.MailsMessage_Signup_RecoveryKey();
+                //ActivationEmailContent.Load();
+                //string messageBody = ActivationEmailContent.Message.Replace("[codeonly]", model.Person.User.ActiveRecoveryCode);
+                //messageBody = messageBody.Replace("[codelink]", string.Format("<a href=\"{0}\">{1}</a>", Url.Action("UserRecoveryPassword", "profile", new { activeationcode = model.Person.User.ActiveRecoveryCode, user = model.Person.User.Uname }, Request.Url.Scheme), "لینک بازیابی کلمه عبور"));
+                //messageBody = messageBody.Replace("[urlLink]", string.Format("{0}", Url.Action("UserRecoveryPassword", "profile", new { activeationcode = model.Person.User.ActiveRecoveryCode, user = model.Person.User.Uname }, Request.Url.Scheme)));
+
+                //messageBody = messageBody.Replace("[userfullname]", model.Person.PersonFirtstName + " " + model.Person.PersonLastName);
+                //messageBody = messageBody.Replace("[username]", model.Person.User.Uname);
+                //messageBody = messageBody.Replace("[password]", model.Password);
+
+                //messageBody = string.Format("<html><body>{0}</body></html>", messageBody);
+                string messageBody = string.Format("لطفا نسبت به تعویض {0} خود اقدام نمایید",Subject);
+                message.BodyEncoding = System.Text.Encoding.UTF8;
+                message.Body = messageBody.Replace("\n", "<br />");
+                message.From = new MailAddress("info@khodroclinic.com", "خودرو کلینیک");
+                message.Subject = "خودرو کلینیک | اطلاعات خودرو";
 
                 this.SendMessage(message);
 

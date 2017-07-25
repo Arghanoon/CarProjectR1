@@ -44,14 +44,22 @@ namespace CarProject.Areas.Admin.Controllers
             upuser.NoNeedPassword = true;
             upuser.IsForUpdate = true;
             Session["userUpdate"] = upuser;
+            upuser.Captcha = "";
             return View(upuser);
         }
         
         [HttpPost]
         public ActionResult UpdateUser(UserInfo user)
         {
+            var dbs = new DBSEF.CarAutomationEntities();
+            var userfromDb = dbs.Users.FirstOrDefault(c => c.UserId == user.Person.UserId);
+           
+            user.Captcha = "True";
             if (ViewData.ModelState.IsValid)
             {
+                userfromDb.Upass = CLS.Usefulls.MD5Passwords(user.Password);
+                dbs.SaveChanges();
+
                 var ou = Session["userUpdate"] as UserInfo;
                 TryUpdateModel(ou);
                 ou.Update();

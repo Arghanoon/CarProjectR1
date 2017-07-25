@@ -20,6 +20,8 @@
         <div class="inputsContainer">
             @Html.HiddenFor(m => m.Service.AutoServiceId)
             @Html.input_TextBox(m => m.Service.AutoServiceName, "نام سرویس")
+            @Html.input_TextBox(m => m.Service.AutoServiceEnglishName, " نام سرویس انگلیسی")
+
             @Html.input_TextBox(m => m.Service.Price, "قیمت سرویس")
             @Html.input_TextArea(m => m.Service.AutoServiceDescription, "توضیحات سرویس ")
             <div class="input">

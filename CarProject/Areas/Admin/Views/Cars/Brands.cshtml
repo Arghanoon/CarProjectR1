@@ -27,6 +27,7 @@
             @Html.HiddenFor( m => m.CarBrandId)
             <div class="inputsContainer">
                 @Html.input_TextBox(m => m.CarBrandName, "نام برند")
+                @Html.input_TextBox(m => m.CarBrandEnglishName, "نام برند به انگلیسی")
                 @Html.input_TextArea(m => m.CarBrandHistory, "تاریخچه")
                 <section class="input">
                     <section>تصویر برند:</section>
@@ -60,6 +61,7 @@
             <tr>
                 <th>شناسه</th>
                 <th>نام برند</th>
+                <th> نام برند به انگلیسی</th>
                 <th>تصویر</th>
                 <th>عملیات</th>
             </tr>
@@ -71,6 +73,7 @@
                 <tr>
                     <td>@item.CarBrandId</td>
                     <td>@item.CarBrandName</td>
+                    <td>@item.CarBrandEnglishName</td>
                     <td class="brandItems">
                        <img src="@GetBrandImage(item.CarBrandId)" alt="" height="100" />
                     </td>

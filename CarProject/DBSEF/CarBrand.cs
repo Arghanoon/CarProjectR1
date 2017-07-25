@@ -24,6 +24,7 @@ namespace CarProject.DBSEF
         public int CarBrandId { get; set; }
         public string CarBrandName { get; set; }
         public string CarBrandHistory { get; set; }
+        public string CarBrandEnglishName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarModel> CarModels { get; set; }

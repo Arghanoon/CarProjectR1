@@ -28,6 +28,7 @@ namespace CarProject.DBSEF
         public string AutoServicePackName { get; set; }
         public string PackPrice { get; set; }
         public string Details { get; set; }
+        public string AutoServicePackEnglishName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AutoServicePackUserComment> AutoServicePackUserComments { get; set; }
