@@ -29,6 +29,8 @@
             <div class="inputsContainer">
                 @Html.HiddenFor( m => m.Category.ContentsCategoryId)
                 @Html.input_TextBox(m => m.Category.Name , "نام گروه")
+                @Html.input_TextBox(m => m.Category.EnglishName, "نام گروه انگلیسی")
+
                 @Html.input_TextArea(m => m.Category.Describe, "توضیحات")
                 @Html.HiddenFor(m => m.Category.ParentId)
 

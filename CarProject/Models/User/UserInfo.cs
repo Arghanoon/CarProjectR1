@@ -20,6 +20,7 @@ namespace CarProject.Models.User
         public string Password { get; set; }
         public string PasswordConfirm { get; set; }
         public bool NoNeedPassword { get; set; }
+        
 
         public bool IsForUpdate { get; set; }
 

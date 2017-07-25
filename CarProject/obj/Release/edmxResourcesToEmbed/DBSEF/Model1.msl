@@ -24,6 +24,7 @@
     <EntitySetMapping Name="AutoServices">
       <EntityTypeMapping TypeName="CarAutomationModel.AutoService">
         <MappingFragment StoreEntitySet="AutoService">
+          <ScalarProperty Name="AutoServiceEnglishName" ColumnName="AutoServiceEnglishName" />
           <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
           <ScalarProperty Name="AutoServiceName" ColumnName="AutoServiceName" />
           <ScalarProperty Name="HasCarId" ColumnName="HasCarId" />
@@ -46,6 +47,7 @@
     <EntitySetMapping Name="AutoServicePacks">
       <EntityTypeMapping TypeName="CarAutomationModel.AutoServicePack">
         <MappingFragment StoreEntitySet="AutoServicePack">
+          <ScalarProperty Name="AutoServicePackEnglishName" ColumnName="AutoServicePackEnglishName" />
           <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
           <ScalarProperty Name="AutoServicePackName" ColumnName="AutoServicePackName" />
           <ScalarProperty Name="PackPrice" ColumnName="PackPrice" />
@@ -173,6 +175,7 @@
     <EntitySetMapping Name="CarBrands">
       <EntityTypeMapping TypeName="CarAutomationModel.CarBrand">
         <MappingFragment StoreEntitySet="CarBrand">
+          <ScalarProperty Name="CarBrandEnglishName" ColumnName="CarBrandEnglishName" />
           <ScalarProperty Name="CarBrandId" ColumnName="CarBrandId" />
           <ScalarProperty Name="CarBrandName" ColumnName="CarBrandName" />
           <ScalarProperty Name="CarBrandHistory" ColumnName="CarBrandHistory" />
@@ -278,6 +281,7 @@
     <EntitySetMapping Name="CarModels">
       <EntityTypeMapping TypeName="CarAutomationModel.CarModel">
         <MappingFragment StoreEntitySet="CarModel">
+          <ScalarProperty Name="CarModelEnglishName" ColumnName="CarModelEnglishName" />
           <ScalarProperty Name="CarModelId" ColumnName="CarModelId" />
           <ScalarProperty Name="CarModelName" ColumnName="CarModelName" />
           <ScalarProperty Name="CarBrandId" ColumnName="CarBrandId" />
@@ -461,6 +465,7 @@
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="CarAutomationModel.Category">
         <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="CategoryEnglishName" ColumnName="CategoryEnglishName" />
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
           <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
@@ -503,6 +508,7 @@
     <EntitySetMapping Name="Contents">
       <EntityTypeMapping TypeName="CarAutomationModel.Content">
         <MappingFragment StoreEntitySet="Contents">
+          <ScalarProperty Name="ContentEnglishSubject" ColumnName="ContentEnglishSubject" />
           <ScalarProperty Name="ContenstId" ColumnName="ContenstId" />
           <ScalarProperty Name="ContentsCategoryId" ColumnName="ContentsCategoryId" />
           <ScalarProperty Name="ContentSubject" ColumnName="ContentSubject" />
@@ -519,6 +525,7 @@
     <EntitySetMapping Name="ContentsCategories">
       <EntityTypeMapping TypeName="CarAutomationModel.ContentsCategory">
         <MappingFragment StoreEntitySet="ContentsCategory">
+          <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
           <ScalarProperty Name="ContentsCategoryId" ColumnName="ContentsCategoryId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Describe" ColumnName="Describe" />
@@ -681,6 +688,7 @@
     <EntitySetMapping Name="PersonCarDetails">
       <EntityTypeMapping TypeName="CarAutomationModel.PersonCarDetail">
         <MappingFragment StoreEntitySet="PersonCarDetail">
+          <ScalarProperty Name="DateSubmited" ColumnName="DateSubmited" />
           <ScalarProperty Name="PersonCarDetailId" ColumnName="PersonCarDetailId" />
           <ScalarProperty Name="PersonCarId" ColumnName="PersonCarId" />
           <ScalarProperty Name="LastOilChange" ColumnName="LastOilChange" />
@@ -776,6 +784,7 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="CarAutomationModel.Product">
         <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="ProductEnglishName" ColumnName="ProductEnglishName" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
@@ -965,6 +974,7 @@
     <EntitySetMapping Name="ServicesCategories">
       <EntityTypeMapping TypeName="CarAutomationModel.ServicesCategory">
         <MappingFragment StoreEntitySet="ServicesCategory">
+          <ScalarProperty Name="ServicesCategoryEnglishName" ColumnName="ServicesCategoryEnglishName" />
           <ScalarProperty Name="ServicesCategoryId" ColumnName="ServicesCategoryId" />
           <ScalarProperty Name="ServicesCategoryName" ColumnName="ServicesCategoryName" />
           <ScalarProperty Name="ServicesParentCategoryId" ColumnName="ServicesParentCategoryId" />

@@ -4,9 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CarProject.DBSEF;
-
+using Quartz;
+using Quartz.Impl;
 using System.Net;
 using System.Net.Mail;
+using CarProject.CLS.MailsServers;
+using TimeOfDay = Quartz.TimeOfDay;
 
 
 namespace CarProject.Controllers
@@ -17,7 +20,7 @@ namespace CarProject.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
-            
+
             //DBSEF.CarAutomationEntities ca = new DBSEF.CarAutomationEntities();
             //if (!ca.Database.Exists())
             //{
@@ -34,6 +37,21 @@ namespace CarProject.Controllers
 
             //}
             //return RedirectToAction("Index", "Store");
+            IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
+            scheduler.Start();
+
+            IJobDetail job = JobBuilder.Create<UserCarChecker>().Build();
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithDailyTimeIntervalSchedule
+                (s =>
+                    s.WithIntervalInHours(24)
+                        .OnEveryDay()
+                        .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0))
+                )
+                .Build();
+
+            scheduler.ScheduleJob(job, trigger);
+            // CLS.MailsServers.UserCarChecker.UserCarCheck();
             return View();
         }
 

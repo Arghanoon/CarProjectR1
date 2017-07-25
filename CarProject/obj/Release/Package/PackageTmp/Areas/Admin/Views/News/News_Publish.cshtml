@@ -12,6 +12,7 @@
     <form method="post">
         <div class="inputsContainer">
             @Html.input_TextBox(m => m.Content.ContentSubject, "موضوع")
+            @Html.input_TextBox(m => m.Content.ContentEnglishSubject, "موضوع به انگلیسی")
             <div class="input">
                 <label style="white-space:nowrap;">گروه <small><a href="javascript:void()" onclick="$('#GroupsShowBox').toggleClass('show');">انتخاب گروه</a></small></label>
                 <section>

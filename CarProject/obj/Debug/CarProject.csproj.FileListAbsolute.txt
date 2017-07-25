@@ -188,3 +188,12 @@ E:\KhodroClinic\CarProjectR1\CarProject\obj\Debug\CarProject.csproj.App.config
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Debug\CarProject.csprojResolveAssemblyReference.cache
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Debug\CarProject.dll
 E:\KhodroClinic\CarProjectR1\CarProject\obj\Debug\CarProject.pdb
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.Core.dll
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.dll
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Quartz.dll
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.pdb
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.xml
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.Core.pdb
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Common.Logging.Core.xml
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Quartz.pdb
+E:\KhodroClinic\CarProjectR1\CarProject\bin\Quartz.xml
