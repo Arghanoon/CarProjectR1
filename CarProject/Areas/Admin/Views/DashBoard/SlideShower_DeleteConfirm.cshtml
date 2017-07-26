@@ -1,0 +1,31 @@
+﻿@model CarProject.Areas.Admin.Models.Dashboard.SlideShowModel
+@using CarProject.App_Code
+
+@{
+    ViewBag.Title = "حذف اسلاید شو";
+    var dbs = new CarProject.DBSEF.CarAutomationEntities();
+
+}
+
+<form method="post">
+    <h3>آیا از حذف  اسلاید با اطلاعات ذکر شده در زیر اطمینان دارید؟ </h3>
+    <small>درصورت حذف امکان بازگشت اطلاعات وجود نخواهد داشت</small>
+    <div class="inputAction">
+        <a href="/Admin/Dashbord/SlideShower_Slides" class="button green">انصراف</a>
+        <input type="submit" value="حذف اسلاید" class="button red" />
+    </div>
+</form>
+<div>
+    <table class="infoTable">
+        <tr>
+            <th>عنوان</th>
+            <td>@Model.SlideShow.Subject</td>
+        </tr>
+        <tr>
+            <th>توضیحات</th>
+            <td>@Model.SlideShow.Describe</td>
+        </tr>
+       
+    </table>
+</div>
+

@@ -17,6 +17,7 @@ namespace CarProject.Areas.Admin.Controllers
     {
         //
         // GET: /Admin/DashBoard/
+        DBSEF.CarAutomationEntities dbsObject = new DBSEF.CarAutomationEntities();
 
         Models.Dashboard.MySerializer mserilize = new Models.Dashboard.MySerializer();
         CarProject.DBSEF.CarAutomationEntities dbsobject = new DBSEF.CarAutomationEntities();
@@ -168,7 +169,21 @@ namespace CarProject.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult SlideShower_DeleteConfirm(int? id)
+        {
+            if (id == null)
+                return RedirectToAction("SlideShower_Slides");
 
+            var model = new Models.Dashboard.SlideShowModel(id);
+            return View(model);
+        }
+        [HttpPost, ActionName("SlideShower_DeleteConfirm")]
+        public ActionResult SlideShower_DeleteConfirmed(int? id)
+        {
+            dbsObject.SlideShows.RemoveRange(dbsObject.SlideShows.Where(pdis => pdis.SlideShowId == id));
+            dbsObject.SaveChanges();
+            return RedirectToAction("SlideShower_Slides");
+        }
         public ActionResult SlideShower_Insert()
         {
             var model = new Models.Dashboard.SlideShowModel();
@@ -205,6 +220,7 @@ namespace CarProject.Areas.Admin.Controllers
             }
             return View(model);
         }
+
         #endregion
 
         #region Countries and Companies and manufactures

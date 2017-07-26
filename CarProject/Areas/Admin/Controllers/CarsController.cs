@@ -210,8 +210,13 @@ namespace CarProject.Areas.Admin.Controllers
                     {
                         var f = Request.Files["brandLogo"];
                         var p = Server.MapPath((model.CarBrandId.ToString() + f.FileName.Substring(f.FileName.LastIndexOf("."))).BaseRouts_CarBrands());
-                        if (System.IO.File.Exists(p))
-                            System.IO.File.Delete(p);
+
+                        var oldfiles = System.IO.Directory.GetFiles(Server.MapPath("".BaseRouts_CarBrands()), model.CarBrandId.ToString() + ".*");
+                        foreach (var item in oldfiles)
+                        {
+                            System.IO.File.Delete(item);
+                        }
+
                         f.SaveAs(p);
                     }
                     return RedirectToAction("Brands", new { id = "" });

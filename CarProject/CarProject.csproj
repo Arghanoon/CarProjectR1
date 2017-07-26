@@ -1003,6 +1003,7 @@
     <Content Include="Areas\Admin\Views\User\PersonCarCurrentMillage.cshtml" />
     <Content Include="Areas\Admin\Views\User\PersonCars.cshtml" />
     <Content Include="Areas\Admin\Views\User\PersonCarsDeleteConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\SlideShower_DeleteConfirm.cshtml" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>

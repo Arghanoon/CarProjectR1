@@ -270,7 +270,7 @@
                 x.style.display = 'block';
                 search = document.getElementById('searchForServicestextbox').value;
                 var current = [];
-                $("#selectedProductContainer input[name='ServicesId']").each(function(index, element) {
+                $("#selectedProductContainer input[name='AutoServiceId']").each(function(index, element) {
                     current.push(element.value);
                 });
 
@@ -289,7 +289,7 @@
 
                             inp = document.createElement("input");
                             inp.type = "hidden";
-                            inp.name = "ServicesId";
+                            inp.name = "AutoServiceId";
                             inp.value = res[i].id;
                             tnum.appendChild(inp);
                             tr.appendChild(tnum);

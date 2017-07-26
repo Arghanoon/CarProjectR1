@@ -201,7 +201,7 @@ namespace CarProject.Areas.Admin.Models.Dashboard
             SlideShow = new DBSEF.SlideShow();
         }
 
-        public SlideShowModel(int Id)
+        public SlideShowModel(int? Id)
         {
             SlideShow = DBS.SlideShows.FirstOrDefault(m => m.SlideShowId == Id);
         }

@@ -490,7 +490,21 @@ namespace CarProject.Areas.Admin.Controllers
                 return RedirectToAction("productDiscounts");
             var md2 = new Models.Store.ProductDiscountModel(id);
             TryUpdateModel(md2);
-            md2.Products.Clear();
+            if (md2.Products == null)
+            {
+                md2.Products = new List<int>();
+            }
+            if (md2.Services == null)
+            {
+                md2.Services = new List<int>();
+            }
+            if (md2.ServicesPack == null)
+            {
+                md2.ServicesPack = new List<int>();
+            }
+            md2.Products?.Clear();
+            md2.Services?.Clear();
+            md2.ServicesPack?.Clear();
 
             var xitems = Request.Form.GetValues("ProuductsId");
             if (xitems != null)
@@ -503,10 +517,34 @@ namespace CarProject.Areas.Admin.Controllers
                         md2.Products.Add(x);
                 }
             }
+            var serItems = Request.Form.GetValues("AutoServiceId");
+            if (serItems != null)
+            {
+                foreach (var item in serItems)
+                {
+                    int x = 0;
+                    int.TryParse(item, out x);
+                    if (x > 0)
+                        md2.Services.Add(x);
+                }
+            }
 
-            if (md2.Products.Count == 0)
+            var servItems = Request.Form.GetValues("ServicesPackId");
+            if (servItems != null)
+            {
+                foreach (var item in servItems)
+                {
+                    int x = 0;
+                    int.TryParse(item, out x);
+                    if (x > 0)
+                        md2.Services.Add(x);
+                }
+            }
+
+
+            if (md2.Products == null && md2.Services == null && md2.ServicesPack == null)
                 ModelState.AddModelError("Products", "محصولات شامل تخفیف تعیین نشده اند");
-
+            ModelState["Discount.DiscountCode"].Errors.Clear();
             if (ModelState.IsValid)
             {
                 md2.Update();
