@@ -33,6 +33,7 @@ namespace CarProject.DBSEF
             this.ProductComments = new HashSet<ProductComment>();
             this.ProductUserComments = new HashSet<ProductUserComment>();
             this.RootCarUserComments = new HashSet<RootCarUserComment>();
+            this.UserAutoServices = new HashSet<UserAutoService>();
         }
     
         public int UserId { get; set; }
@@ -76,5 +77,7 @@ namespace CarProject.DBSEF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RootCarUserComment> RootCarUserComments { get; set; }
         public virtual UserRole UserRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserAutoService> UserAutoServices { get; set; }
     }
 }

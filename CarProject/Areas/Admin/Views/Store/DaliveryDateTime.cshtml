@@ -4,7 +4,7 @@
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
 
 
-    var daysofweek = dbs.DaysOfWeeks.OrderByDescending(d => d.DayOfWeek).AsQueryable();
+    var daysofweek = dbs.DaysOfWeeks.OrderByDescending(d => d.DaysOfWeekId).AsQueryable();
 
     int page = 0;
     int showInPage = 10;

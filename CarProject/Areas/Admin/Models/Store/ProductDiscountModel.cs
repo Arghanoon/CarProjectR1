@@ -65,7 +65,7 @@ namespace CarProject.Areas.Admin.Models.Store
                 {
                     var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
                     if (pr != null)
-                        dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount {Product = pr, Discount = this.Discount});
+                        dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { Product = pr, Discount = this.Discount });
                 }
             }
             if (Services != null)
@@ -76,7 +76,7 @@ namespace CarProject.Areas.Admin.Models.Store
                     if (pr != null)
                     {
                         dbs.ProductDiscounts.Add(
-                            new DBSEF.ProductDiscount {AutoService = pr, Discount = this.Discount});
+                            new DBSEF.ProductDiscount { AutoService = pr, Discount = this.Discount });
                     }
                 }
             }
@@ -99,40 +99,127 @@ namespace CarProject.Areas.Admin.Models.Store
 
         public void Update()
         {
-            var todelete = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId && (!Products.Contains(pdis.ProductId.Value) || !Products.Contains(pdis.AutoServiceId.Value) || !Products.Contains(pdis.AutoServicePackId.Value)));
-            dbs.ProductDiscounts.RemoveRange(todelete);
-
-
-
-            var listOftProductInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.ProductId.Value).ToList();
-            var insertIds = Products.Where(p => !listOftProductInDatabase.Contains(p));
-
-            foreach (var item in insertIds)
+            if (dbs.ProductDiscounts
+                .Any(pdis => pdis.DiscountId == this.Discount.DiscountId &&
+                                                   (!Products.Contains(pdis.ProductId.Value))))
             {
-                var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
-                if (pr != null)
-                    dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { Product = pr, Discount = this.Discount });
+                var todeleteproduct =
+                    dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId &&
+                                                       (!Products.Contains(pdis.ProductId.Value)));
+                if (todeleteproduct.Any())
+                    dbs.ProductDiscounts.RemoveRange(todeleteproduct);
+            }
+            if (dbs.ProductDiscounts
+                .Any(pdis => pdis.DiscountId == this.Discount.DiscountId &&
+                                                   (!Services.Contains(pdis.AutoServiceId.Value))))
+            {
+                var todeleteServices =
+                    dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId &&
+                                                       (!Services.Contains(pdis.AutoServiceId.Value)));
+                if (todeleteServices.Any())
+                    dbs.ProductDiscounts.RemoveRange(todeleteServices);
+            }
+            if (dbs.ProductDiscounts
+                .Any(pdis => pdis.DiscountId == this.Discount.DiscountId &&
+                                                   (!Services.Contains(pdis.AutoServiceId.Value))))
+            {
+                var todeleteServicesPack =
+                    dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId &&
+                                                       (!ServicesPack.Contains(pdis.AutoServicePackId.Value)));
+                if (todeleteServicesPack.Any())
+                    dbs.ProductDiscounts.RemoveRange(todeleteServicesPack);
+
             }
 
-            var listOftServoceInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.AutoServiceId.Value).ToList();
-            var insertSIds = Services.Where(p => !listOftServoceInDatabase.Contains(p));
+            //var todelete = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId && (!Products.Contains(pdis.ProductId.Value) || !Services.Contains(pdis.AutoServiceId.Value) || !ServicesPack.Contains(pdis.AutoServicePackId.Value)));
+            // todelete.
 
-            foreach (var item in insertSIds)
+
+
+            if (dbs.ProductDiscounts.Any(p => p.DiscountId == this.Discount.DiscountId && p.ProductId != null))
             {
-                var pr = dbs.AutoServices.FirstOrDefault(p => p.AutoServiceId == item);
-                if (pr != null)
-                    dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { AutoService = pr, Discount = this.Discount });
+                var listOftProductInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.ProductId.Value).ToList();
+
+            }
+            if (dbs.ProductDiscounts.Any(p => p.DiscountId == this.Discount.DiscountId && p.AutoServiceId != null))
+            {
+                var listOftServoceInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.AutoServiceId.Value).ToList();
+
+            }
+            if (dbs.ProductDiscounts.Any(p => p.DiscountId == this.Discount.DiscountId && p.AutoServicePackId != null))
+            {
+                var listOftServicePackInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.AutoServicePackId.Value).ToList();
+
             }
 
-            var listOftServicePackInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.AutoServicePackId.Value).ToList();
-            var insertSPIds = ServicesPack.Where(p => !listOftServicePackInDatabase.Contains(p));
-
-            foreach (var item in insertSPIds)
+            if (Products != null && Products.Count > 0)
             {
-                var pr = dbs.AutoServicePacks.FirstOrDefault(p => p.AutoServicePackId == item);
-                if (pr != null)
-                    dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { AutoServicePack = pr, Discount = this.Discount });
+                foreach (var item in Products)
+                {
+                    var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
+                    if (pr != null)
+                        dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { Product = pr, Discount = this.Discount });
+                }
             }
+            if (Services != null && Services.Count > 0)
+            {
+                foreach (var item in Services)
+                {
+                    var pr = dbs.AutoServices.FirstOrDefault(p => p.AutoServiceId == item);
+                    if (pr != null)
+                        dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { AutoService = pr, Discount = this.Discount });
+                }
+            }
+            if (ServicesPack != null && ServicesPack.Count > 0)
+            {
+                foreach (var item in ServicesPack)
+                {
+                    var pr = dbs.AutoServicePacks.FirstOrDefault(p => p.AutoServicePackId == item);
+                    if (pr != null)
+                        dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { AutoServicePack = pr, Discount = this.Discount });
+                }
+            }
+
+            if (dbs.ProductDiscounts.Any(p => p.DiscountId == this.Discount.DiscountId && p.ProductId != null))
+            {
+                var listOftProductInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.ProductId.Value).ToList();
+                var insertIds = Products.Where(p => !listOftProductInDatabase.Contains(p));
+
+                foreach (var item in insertIds)
+                {
+                    var pr = dbs.Products.FirstOrDefault(p => p.ProductId == item);
+                    if (pr != null)
+                        dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { Product = pr, Discount = this.Discount });
+                }
+            }
+
+            if (dbs.ProductDiscounts.Any(p => p.DiscountId == this.Discount.DiscountId && p.AutoServiceId != null))
+            {
+                var listOftServoceInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.AutoServiceId.Value).ToList();
+                var insertSIds = Services.Where(p => !listOftServoceInDatabase.Contains(p));
+
+                foreach (var item in insertSIds)
+                {
+                    var pr = dbs.AutoServices.FirstOrDefault(p => p.AutoServiceId == item);
+                    if (pr != null)
+                        dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { AutoService = pr, Discount = this.Discount });
+                }
+            }
+
+            if (dbs.ProductDiscounts.Any(p => p.DiscountId == this.Discount.DiscountId && p.AutoServicePackId != null))
+
+            {
+                var listOftServicePackInDatabase = dbs.ProductDiscounts.Where(pdis => pdis.DiscountId == this.Discount.DiscountId).Select(pdis => pdis.AutoServicePackId.Value).ToList();
+                var insertSPIds = ServicesPack.Where(p => !listOftServicePackInDatabase.Contains(p));
+
+                foreach (var item in insertSPIds)
+                {
+                    var pr = dbs.AutoServicePacks.FirstOrDefault(p => p.AutoServicePackId == item);
+                    if (pr != null)
+                        dbs.ProductDiscounts.Add(new DBSEF.ProductDiscount { AutoServicePack = pr, Discount = this.Discount });
+                }
+            }
+            
 
             dbs.SaveChanges();
         }

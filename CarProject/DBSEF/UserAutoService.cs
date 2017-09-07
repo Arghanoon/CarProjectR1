@@ -12,14 +12,16 @@ namespace CarProject.DBSEF
     using System;
     using System.Collections.Generic;
     
-    public partial class AutoService1
+    public partial class UserAutoService
     {
-        public int AutoServicesId { get; set; }
+        public int UserAutoServiceId { get; set; }
         public Nullable<int> AutoServiceId { get; set; }
-        public Nullable<int> AutoServicePackId { get; set; }
-        public Nullable<int> AutoServiceIdentity { get; set; }
+        public Nullable<System.DateTime> AutoServiceAddedDate { get; set; }
+        public Nullable<bool> AutoServiceUsed { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<System.DateTime> AutoServiceUsedDate { get; set; }
     
         public virtual AutoService AutoService { get; set; }
-        public virtual AutoServicePack AutoServicePack { get; set; }
+        public virtual User User { get; set; }
     }
 }

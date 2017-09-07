@@ -25,6 +25,7 @@ namespace CarProject.DBSEF
             this.ProductDiscounts = new HashSet<ProductDiscount>();
             this.ProductInServices = new HashSet<ProductInService>();
             this.ServiceToViews = new HashSet<ServiceToView>();
+            this.UserAutoServices = new HashSet<UserAutoService>();
         }
     
         public int AutoServiceId { get; set; }
@@ -53,5 +54,7 @@ namespace CarProject.DBSEF
         public virtual ICollection<ProductInService> ProductInServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceToView> ServiceToViews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserAutoService> UserAutoServices { get; set; }
     }
 }

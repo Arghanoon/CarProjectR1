@@ -129,6 +129,7 @@ namespace CarProject.Controllers
         [HttpPost]
         public ActionResult Cart(FormCollection form)
         {
+            var isdateneed = false;
             var dbs = new DBSEF.CarAutomationEntities();
             var us = new Models.Store.CartUsefull();
             var mdl = us.GetCurrentBasket();
@@ -155,13 +156,37 @@ namespace CarProject.Controllers
 
                 if (item.Type == (byte)Models.Store.CartUsefull.Basket_ItemType.Product)
                 {
+                    item.IsInUser = false;
                     key = string.Format("WithInstallation[{0}][{1}]", item.Id, item.Type);
                     if (form.AllKeys.Contains(key))
                         item.PriceFlag = (byte)Models.Store.CartUsefull.BasketImte_PriceFlag.Product_PricePlusInstallation;
                     else
                         item.PriceFlag = (byte)Models.Store.CartUsefull.BasketImte_PriceFlag.Product_PriceOnly;
-                }
 
+                    isdateneed = true;
+                }
+                if (item.Type == (byte) Models.Store.CartUsefull.Basket_ItemType.AutoService)
+                {
+                    key = string.Format("ForUser[{0}][{1}]", item.Id, item.Type);
+                    if (form.AllKeys.Contains(key))
+                        item.IsInUser = true;
+                    else
+                    {
+                        item.IsInUser = false;
+                        isdateneed = true;
+                    }
+                }
+                if (item.Type == (byte) Models.Store.CartUsefull.Basket_ItemType.AutoServicePack)
+                {
+                    key = string.Format("ForUser[{0}][{1}]", item.Id, item.Type);
+                    if (form.AllKeys.Contains(key))
+                        item.IsInUser = true;
+                    else
+                    {
+                        item.IsInUser = false;
+                        isdateneed = true;
+                    }
+                }
                 key = string.Format("Count[{0}][{1}]", item.Id, item.Type);
                 if (form.AllKeys.Contains(key))
                 {
@@ -221,23 +246,26 @@ namespace CarProject.Controllers
             }
 
 
-            //timming
-            if (!form.AllKeys.Contains("radioTimming"))
-                ModelState.AddModelError("timmingErrors", "روز و زمان تحویل کالا تعیین نشده است");
-            else
+            if (isdateneed == true)
             {
-                int timeofdayid = 0;
-                int.TryParse(form["radioTimming"], out timeofdayid);
-                if (timeofdayid > 0)
-                {
-                    var timming = us.dbs.TimeOfDays.FirstOrDefault(t => t.TimeOfDayId == timeofdayid);
-                    if (timming == null || timming.DaysOfWeek.Date < DateTime.Today)
-                        ModelState.AddModelError("timmingErrors", "روز و زمان تحویل کالا تعیین نشده است");
-                    else
-                        mdl.TimeOfDayId = timeofdayid;
-                }
-                else
+                //timming
+                if (!form.AllKeys.Contains("radioTimming"))
                     ModelState.AddModelError("timmingErrors", "روز و زمان تحویل کالا تعیین نشده است");
+                else
+                {
+                    int timeofdayid = 0;
+                    int.TryParse(form["radioTimming"], out timeofdayid);
+                    if (timeofdayid > 0)
+                    {
+                        var timming = us.dbs.TimeOfDays.FirstOrDefault(t => t.TimeOfDayId == timeofdayid);
+                        if (timming == null || timming.DaysOfWeek.Date < DateTime.Today)
+                            ModelState.AddModelError("timmingErrors", "روز و زمان تحویل کالا تعیین نشده است");
+                        else
+                            mdl.TimeOfDayId = timeofdayid;
+                    }
+                    else
+                        ModelState.AddModelError("timmingErrors", "روز و زمان تحویل کالا تعیین نشده است");
+                }
             }
 
 
