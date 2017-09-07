@@ -37,20 +37,7 @@ namespace CarProject.Controllers
 
             //}
             //return RedirectToAction("Index", "Store");
-            IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
-            scheduler.Start();
-
-            IJobDetail job = JobBuilder.Create<UserCarChecker>().Build();
-            ITrigger trigger = TriggerBuilder.Create()
-                .WithDailyTimeIntervalSchedule
-                (s =>
-                    s.WithIntervalInHours(24)
-                        .OnEveryDay()
-                        .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0))
-                )
-                .Build();
-
-            scheduler.ScheduleJob(job, trigger);
+           
             // CLS.MailsServers.UserCarChecker.UserCarCheck();
             return View();
         }

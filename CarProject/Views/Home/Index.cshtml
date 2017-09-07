@@ -175,23 +175,26 @@
         <div class="itemsContainerBack">
             <div class="itemsContainer">
                 @{
-                    var MaxSellProducts = dbs.Products.OrderByDescending(s => dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.Product && bi.Id == s.ProductId)).Take(10);
+                    var MaxSellProducts = dbs.Products.OrderByDescending(s=> dbs.BasketItems.Count(bi => bi.Type == (byte)CarProject.Models.Store.CartUsefull.Basket_ItemType.Product && bi.Id == s.ProductId)).Take(10);
                     foreach (var item in MaxSellProducts)
                     {
-                        var PicFileUrl = "~/Publics/Gallery/ProductImages/" + item.ProductId;
-                        var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
-
-                        var Product_image_src = "~/Publics/Gallery/ProductImages/NotFound.png";
-                        if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                        if (item.IsActive == true)
                         {
-                            //Product_image_src = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
-                            Product_image_src = PicFileUrl + "/" + finfo.GetFiles()[0].Name;
-                        }
+                            var PicFileUrl = "~/Publics/Gallery/ProductImages/" + item.ProductId;
+                            var finfo = new System.IO.DirectoryInfo(Server.MapPath(PicFileUrl));
 
-                        <a href="@Url.RouteUrl("infoRoute", new { controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName.Trim().Replace(' ','-'), info2 = item.ProductName.Trim().Replace(' ','-') })" class="item">
-                            <img src="@Url.Content(@Product_image_src)" />
-                            <span>@item.ProductName</span>
-                        </a>
+                            var Product_image_src = "~/Publics/Gallery/ProductImages/NotFound.png";
+                            if (finfo.Exists && finfo.GetFiles().Count() > 0)
+                            {
+                                //Product_image_src = PicFileUrl + "/" + finfo.GetFiles()[rand.Next(0, finfo.GetFiles().Length)].Name;
+                                Product_image_src = PicFileUrl + "/" + finfo.GetFiles()[0].Name;
+                            }
+
+                            <a href="@Url.RouteUrl("infoRoute", new {controller = "Store", action = "Products", id = item.ProductId, info1 = item.Category.CategoryName.Trim().Replace(' ', '-'), info2 = item.ProductName.Trim().Replace(' ', '-')})" class="item">
+                                <img src="@Url.Content(@Product_image_src)"/>
+                                <span>@item.ProductName</span>
+                            </a>
+                        }
                     }
                 }
             </div>

@@ -206,6 +206,10 @@
         <AssociationConnector Association="CarAutomationModel.TroubleShootingCars" ManuallyRouted="false" />
         <AssociationConnector Association="CarAutomationModel.TroubleshootingProducts" ManuallyRouted="false" />
         <EntityTypeShape EntityType="CarAutomationModel.NameOfValue" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="CarAutomationModel.UserAutoService" Width="1.5" PointX="11.25" PointY="88.75" />
+        <AssociationConnector Association="CarAutomationModel.FK_UserAutoService_AutoService" />
+        <AssociationConnector Association="CarAutomationModel.FK_UserAutoService_User" />
+        <EntityTypeShape EntityType="CarAutomationModel.sysdiagram" Width="1.5" PointX="5.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

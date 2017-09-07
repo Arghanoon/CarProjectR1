@@ -6,6 +6,10 @@ using System.Web.Mvc;
 using System.IO;
 
 using CarProject.App_extension;
+using CarProject.CLS.MailsServers;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Impl.Calendar;
 
 namespace CarProject.Areas.Admin.Controllers
 {
@@ -32,12 +36,25 @@ namespace CarProject.Areas.Admin.Controllers
 
         public ActionResult NewCar()
         {
+            IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
+            scheduler.Start();
+            var onsunday = DailyTimeIntervalScheduleBuilder.Create()
+                .OnDaysOfTheWeek(new DayOfWeek[] { DayOfWeek.Sunday });
+
+            IJobDetail job = JobBuilder.Create<UserCarChecker>().Build();
+            ITrigger trigger = TriggerBuilder.Create()
+                .StartAt(DateTimeOffset.Now)
+                .WithSchedule(onsunday)
+                .Build();
+
+            scheduler.ScheduleJob(job, trigger);
             var model = new Models.Cars.CarsModel();
             return View(model);
         }
         [HttpPost]
         public ActionResult NewCar(Models.Cars.CarsModel model)
         {
+
             if (ModelState.IsValid)
             {
                 model.Save();

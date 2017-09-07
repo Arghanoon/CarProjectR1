@@ -429,6 +429,9 @@
     <Compile Include="DBSEF\SteeringSystem.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBSEF\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSEF\TimeOfDay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -439,6 +442,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBSEF\UserAutoService.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DBSEF\UserRole.cs">
@@ -1004,6 +1010,7 @@
     <Content Include="Areas\Admin\Views\User\PersonCars.cshtml" />
     <Content Include="Areas\Admin\Views\User\PersonCarsDeleteConfirm.cshtml" />
     <Content Include="Areas\Admin\Views\DashBoard\SlideShower_DeleteConfirm.cshtml" />
+    <Content Include="Areas\Users\Views\profile\UserServices.cshtml" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>

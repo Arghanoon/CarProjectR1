@@ -591,13 +591,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 17:59:52</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>07/26/2017 15:36:50</publishTime>
+      <publishTime>08/04/2017 03:26:31</publishTime>
     </File>
     <File Include="bin/CarProject.pdb">
-      <publishTime>07/26/2017 15:36:50</publishTime>
+      <publishTime>08/04/2017 03:26:31</publishTime>
     </File>
     <File Include="bin/CarProject.XmlSerializers.dll">
-      <publishTime>07/26/2017 15:36:56</publishTime>
+      <publishTime>08/04/2017 03:26:33</publishTime>
     </File>
     <File Include="bin/Common.Logging.Core.dll">
       <publishTime>11/14/2015 13:35:30</publishTime>

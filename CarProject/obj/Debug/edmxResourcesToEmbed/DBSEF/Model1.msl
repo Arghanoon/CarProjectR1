@@ -70,6 +70,7 @@
     <EntitySetMapping Name="AutoServices1">
       <EntityTypeMapping TypeName="CarAutomationModel.AutoService1">
         <MappingFragment StoreEntitySet="AutoServices">
+          <ScalarProperty Name="AutoServiceIdentity" ColumnName="AutoServiceIdentity" />
           <ScalarProperty Name="AutoServicesId" ColumnName="AutoServicesId" />
           <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
           <ScalarProperty Name="AutoServicePackId" ColumnName="AutoServicePackId" />
@@ -91,6 +92,7 @@
     <EntitySetMapping Name="BasketItems">
       <EntityTypeMapping TypeName="CarAutomationModel.BasketItem">
         <MappingFragment StoreEntitySet="BasketItems">
+          <ScalarProperty Name="IsInUser" ColumnName="IsInUser" />
           <ScalarProperty Name="BasketItemId" ColumnName="BasketItemId" />
           <ScalarProperty Name="BasketId" ColumnName="BasketId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1263,6 +1265,29 @@
           <ScalarProperty Name="AirConditioningTypeDetails" ColumnName="AirConditioningTypeDetails" />
           <ScalarProperty Name="AirConditioningType" ColumnName="AirConditioningType" />
           <ScalarProperty Name="NameOfvaluesId" ColumnName="NameOfvaluesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAutoServices">
+      <EntityTypeMapping TypeName="CarAutomationModel.UserAutoService">
+        <MappingFragment StoreEntitySet="UserAutoService">
+          <ScalarProperty Name="AutoServiceUsedDate" ColumnName="AutoServiceUsedDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="AutoServiceUsed" ColumnName="AutoServiceUsed" />
+          <ScalarProperty Name="AutoServiceAddedDate" ColumnName="AutoServiceAddedDate" />
+          <ScalarProperty Name="AutoServiceId" ColumnName="AutoServiceId" />
+          <ScalarProperty Name="UserAutoServiceId" ColumnName="UserAutoServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CarAutomationModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

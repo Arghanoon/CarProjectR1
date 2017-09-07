@@ -111,5 +111,7 @@ namespace CarProject.DBSEF
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<NameOfValue> NameOfValues { get; set; }
+        public virtual DbSet<UserAutoService> UserAutoServices { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

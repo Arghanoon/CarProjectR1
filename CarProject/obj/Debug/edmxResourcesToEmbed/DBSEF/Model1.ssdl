@@ -67,6 +67,7 @@
     <Property Name="AutoServicesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AutoServiceId" Type="int" />
     <Property Name="AutoServicePackId" Type="int" />
+    <Property Name="AutoServiceIdentity" Type="int" />
   </EntityType>
   <EntityType Name="AutoServicesUserComments">
     <Key>
@@ -93,6 +94,7 @@
     <Property Name="ToatoalPaidPrice" Type="nvarchar" MaxLength="250" />
     <Property Name="PriceFlag" Type="tinyint" />
     <Property Name="DiscountId" Type="int" />
+    <Property Name="IsInUser" Type="bit" />
   </EntityType>
   <EntityType Name="Baskets">
     <Key>
@@ -1117,6 +1119,16 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
     <Property Name="Details" Type="nvarchar(max)" />
     <Property Name="CarId" Type="int" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="TimeOfDay">
     <Key>
       <PropertyRef Name="TimeOfDayId" />
@@ -1173,6 +1185,17 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
     <Property Name="IsActive" Type="bit" />
     <Property Name="ActiveRecoveryCode" Type="nvarchar" MaxLength="50" />
     <Property Name="ActiveORecovery" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="UserAutoService">
+    <Key>
+      <PropertyRef Name="UserAutoServiceId" />
+    </Key>
+    <Property Name="UserAutoServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AutoServiceId" Type="int" />
+    <Property Name="AutoServiceAddedDate" Type="datetime" />
+    <Property Name="AutoServiceUsed" Type="bit" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="AutoServiceUsedDate" Type="datetime" />
   </EntityType>
   <EntityType Name="UserRole">
     <Key>
@@ -2585,6 +2608,30 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UserAutoService_AutoService">
+    <End Role="AutoService" Type="Self.AutoService" Multiplicity="0..1" />
+    <End Role="UserAutoService" Type="Self.UserAutoService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Principal>
+      <Dependent Role="UserAutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAutoService_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserAutoService" Type="Self.UserAutoService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserAutoService">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="CarAutomationModelStoreContainer">
     <EntitySet Name="AirConditioningSystem" EntityType="Self.AirConditioningSystem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AirConditioningSystemDetail" EntityType="Self.AirConditioningSystemDetail" Schema="dbo" store:Type="Tables" />
@@ -2666,12 +2713,14 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
     <EntitySet Name="ServiceToView" EntityType="Self.ServiceToView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SlideShows" EntityType="Self.SlideShows" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SteeringSystem" EntityType="Self.SteeringSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TimeOfDay" EntityType="Self.TimeOfDay" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TodaysSpecial" EntityType="Self.TodaysSpecial" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Troubleshooting" EntityType="Self.Troubleshooting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TroubleShootingCars" EntityType="Self.TroubleShootingCars" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TroubleshootingProducts" EntityType="Self.TroubleshootingProducts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserAutoService" EntityType="Self.UserAutoService" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NameOfValues" EntityType="Self.NameOfValues" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -3309,6 +3358,14 @@ warning 6002: The table/view 'CarAutomation.dbo.NameOfValues' does not have a pr
     <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
       <End Role="UserRole" EntitySet="UserRole" />
       <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAutoService_AutoService" Association="Self.FK_UserAutoService_AutoService">
+      <End Role="AutoService" EntitySet="AutoService" />
+      <End Role="UserAutoService" EntitySet="UserAutoService" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAutoService_User" Association="Self.FK_UserAutoService_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserAutoService" EntitySet="UserAutoService" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
