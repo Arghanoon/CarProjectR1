@@ -5,13 +5,13 @@
     var dbs = new CarProject.DBSEF.CarAutomationEntities();
 
     var usfull = new CarProject.Models.Store.CartUsefull();
-
+    bool typeofPro = false;
     var discountstr = "";
     CarProject.DBSEF.Discount DiscountObject = null;
     if (Model.DiscountId != null)
     {
         DiscountObject = dbs.Discounts.FirstOrDefault(dis => dis.DiscountId == Model.DiscountId);
-        if(DiscountObject != null)
+        if (DiscountObject != null)
         {
             discountstr = DiscountObject.DiscountCode;
         }
@@ -26,7 +26,7 @@
     <form method="post" id="CartForm">
         <h3>سبد خرید کاربر</h3>
         <hr />
-       
+
 
         <div>
             <table id="cartTable">
@@ -44,10 +44,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @{ 
+                    @{
                         int i = 1;
-        decimal TotalPrice = 0;
-    }
+                        decimal TotalPrice = 0;
+                    }
                     @foreach (var item in Model.BasketItems)
                     {
 
@@ -98,36 +98,58 @@
                                         <span>نصب در محل</span>
                                     </label>
                                 }
+                                @if (item.Type == (byte)CartUsefull.Basket_ItemType.AutoService)
+                                {
+                                    <hr />
+                                    <label>
+                                        <input type="checkbox" name="ForUser[@item.Id][@item.Type]" />
+                                        <span>ارسال به سامانه اشتراک</span>
+                                    </label>
+                                }
+                                @if (item.Type == (byte)CartUsefull.Basket_ItemType.AutoServicePack)
+                                {
+                                    <hr />
+                                    <label>
+                                        <input type="checkbox" name="ForUser[@item.Id][@item.Type]" />
+                                        <span>ارسال به سامانه اشتراک</span>
+                                    </label>
+                                }
                             </td>
 
                             <td class="fix center">
-                               <input type="text" name="Discount[@item.Id][@item.Type]" value="@{ Write((itemDiscount != null)? itemDiscount.DiscountCode : ""); }" />
+                                <input type="text" name="Discount[@item.Id][@item.Type]" value="@{ Write((itemDiscount != null)? itemDiscount.DiscountCode : ""); }" />
                                 <br />
                                 <small style="color: red">
-                                    @Html.ValidationMessage(string.Format("Discount[{0}][{1}]",item.Id,item.Type))
+                                    @Html.ValidationMessage(string.Format("Discount[{0}][{1}]", item.Id, item.Type))
                                 </small>
                                 @if (itemDiscount != null)
                                 {
                                     <small style="font-size:70%; color:blue;">
                                         درصد تخفیف : @{ Write((itemDiscount != null) ? itemDiscount.Discount1 : "0"); } %
                                     </small>
+                                            }
+                            </td>
+
+                            <td class="fix center">
+                                @{
+                                    usfull.GetNameofCartType((CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type);
+                                    if (usfull.GetNameofCartType((CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type) != "محصولات")
+                                    {
+                                        typeofPro = true;
+                                    }
                                 }
                             </td>
 
                             <td class="fix center">
-                                @usfull.GetNameofCartType((CarProject.Models.Store.CartUsefull.Basket_ItemType)item.Type)
-                            </td>
-
-                            <td class="fix center">
-                                    @if (item.Type == (byte)CartUsefull.Basket_ItemType.Product)
-                                    {
-                                        <section>@pric_i</section>
-                                        <small>+ هزینه نصب = @pric</small>
-                                    }
-                                    else
-                                    {
-                                        @pric
-                                    }
+                                @if (item.Type == (byte)CartUsefull.Basket_ItemType.Product)
+                                {
+                                    <section>@pric_i</section>
+                                    <small>+ هزینه نصب = @pric</small>
+                                }
+                                else
+                                {
+                                    @pric
+                                }
                             </td>
                             <td class="fix center">
                                 @if (item.Type == (byte)CartUsefull.Basket_ItemType.Product)
@@ -142,22 +164,21 @@
                             </td>
                             <td class="fix center">
                                 <div class="input">
-                                    <input type="text" name="Count[@item.Id][@item.Type]" value="@item.Count" class="center CountInput" data-itemprice="@CurrentCalcuationPrice"   onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
+                                    <input type="text" name="Count[@item.Id][@item.Type]" value="@item.Count" class="center CountInput" data-itemprice="@CurrentCalcuationPrice" onkeydown="return IntInputOnly(event)" onchange="ChangeTotalPriceValue(event)" />
                                 </div>
                             </td>
                             <td class="fix center">
                                 <span class="totalprice">
                                     @{
-                                           @ttpic
+                                        @ttpic
                                     }
                                 </span>
                             </td>
                         </tr>
+
+                                            i += 1;
+                                        }
                     
-                    i += 1;
-                }
-
-
                     <tr>
                         <th colspan="9">تعیین روز و زمان تحویل</th>
                     </tr>
@@ -165,69 +186,69 @@
                         <td colspan="9">
                             <div id="DiveryDateAndTimeContainer">
                                 @{
-        var DaysOfWeeks = dbs.DaysOfWeeks.Where(d => d.Date >= DateTime.Today);
-        if(DaysOfWeeks.Any())
-        {
-            var maxcount = DaysOfWeeks.Max(d => d.TimeOfDays.Count);
+                                    var DaysOfWeeks = dbs.DaysOfWeeks.Where(d => d.Date >= DateTime.Today);
+                                    if (DaysOfWeeks.Any())
+                                    {
+                                        var maxcount = DaysOfWeeks.Max(d => d.TimeOfDays.Count);
 
 
-                                    <table id="DeliverytimmingTable">
-                                        @foreach (var item in DaysOfWeeks)
-                                        {
-                                            <tr>
-                                                <td>@item.Date.NameOfDaysInWeek() - @item.Date.Date_Persian()</td>
-                                                @for (int ioftim = 0; ioftim < maxcount; ioftim++)
-                                                {
-                                                    <td>
-                                                        @if (ioftim < item.TimeOfDays.Count)
-                                                        {
-                                                            <label><input type="radio" name="radioTimming" value="@item.TimeOfDays.ElementAt(ioftim).TimeOfDayId" @if (@item.TimeOfDays.ElementAt(ioftim).TimeOfDayId == Model.TimeOfDayId) { Write("checked=\"checked\""); } /> @item.TimeOfDays.ElementAt(ioftim).TimePeriod</label>
-                                                        }
-                                                    </td>
-                                                }
-                                            </tr>
-                                        }
-                                    </table>
-                                    <span style="color:red;">@Html.ValidationMessage("timmingErrors")</span>
+                                        <table id="DeliverytimmingTable">
+                                            @foreach (var item in DaysOfWeeks)
+                                            {
+                                                <tr>
+                                                    <td>@item.Date.NameOfDaysInWeek() - @item.Date.Date_Persian()</td>
+                                                    @for (int ioftim = 0; ioftim < maxcount; ioftim++)
+                                                    {
+                                                        <td>
+                                                            @if (ioftim < item.TimeOfDays.Count)
+                                                            {
+                                                                <label><input type="radio" name="radioTimming" value="@item.TimeOfDays.ElementAt(ioftim).TimeOfDayId" @if (@item.TimeOfDays.ElementAt(ioftim).TimeOfDayId == Model.TimeOfDayId) { Write("checked=\"checked\""); } /> @item.TimeOfDays.ElementAt(ioftim).TimePeriod</label>
+                                                            }
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            }
+                                        </table>
+                                        <span style="color:red;">@Html.ValidationMessage("timmingErrors")</span>
                                     }
-    }
+                                }
                             </div>
                         </td>
                     </tr>
 
                     @*<tr style="background:#a7d4ff;">
-                        <td colspan="5">پلن تحویل کالا / انجام خدمات</td>
-                        <td colspan="2">
-                            <div class="input">
-                                <select name="DelivaryTypeId" onchange="PlanComboBoxOnChange(this)">
-                                    @{
-                                        var xDeliveryTypes = dbs.ProductsOrServicesDeliveryTypes.AsQueryable();
-    int DLTYP = 0;
-                                        if (Model.ProductsOrServicesDeliveryType == null && xDeliveryTypes.Count() > 0)
-                                        {
-                                            int.TryParse(xDeliveryTypes.First().Price, out DLTYP);
-                                        }
-                                        else
-                                        {
-                                            int.TryParse(Model.ProductsOrServicesDeliveryType.Price, out DLTYP);
-                                        }
+                                            <td colspan="5">پلن تحویل کالا / انجام خدمات</td>
+                                            <td colspan="2">
+                                                <div class="input">
+                                                    <select name="DelivaryTypeId" onchange="PlanComboBoxOnChange(this)">
+                                                        @{
+                                                            var xDeliveryTypes = dbs.ProductsOrServicesDeliveryTypes.AsQueryable();
+                        int DLTYP = 0;
+                                                            if (Model.ProductsOrServicesDeliveryType == null && xDeliveryTypes.Count() > 0)
+                                                            {
+                                                                int.TryParse(xDeliveryTypes.First().Price, out DLTYP);
+                                                            }
+                                                            else
+                                                            {
+                                                                int.TryParse(Model.ProductsOrServicesDeliveryType.Price, out DLTYP);
+                                                            }
 
-                                        TotalPrice += DLTYP;
+                                                            TotalPrice += DLTYP;
 
-                                        int? selectedid = (Model.DelivaryTypeId == null) ? xDeliveryTypes.First().DeliverTypeID : Model.DelivaryTypeId;
+                                                            int? selectedid = (Model.DelivaryTypeId == null) ? xDeliveryTypes.First().DeliverTypeID : Model.DelivaryTypeId;
 
-                                        foreach (var item in xDeliveryTypes)
-                                        {
-                                        <option @if (selectedid == item.DeliverTypeID) { Write("selected=\"selected\""); } value="@item.DeliverTypeID" data-price="@item.Price">@item.Name</option>
-                                    }
-                                    }
-                                </select>
-                            </div>
-                        </td>
-                        <td>
-                            <section id="Plan_Selected_Price" class="center">@DLTYP</section>
-                        </td>
-                    </tr>*@
+                                                            foreach (var item in xDeliveryTypes)
+                                                            {
+                                                            <option @if (selectedid == item.DeliverTypeID) { Write("selected=\"selected\""); } value="@item.DeliverTypeID" data-price="@item.Price">@item.Name</option>
+                                                        }
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <section id="Plan_Selected_Price" class="center">@DLTYP</section>
+                                            </td>
+                                        </tr>*@
                     <tr>
                         <td colspan="8">مجموع مبلغ قابل پرداخت</td>
                         <td>
@@ -244,13 +265,13 @@
 
         <div class="formAction" dir="ltr">
             <input type="submit" class="button green" value="ادامه و تکمیل فرایند خرید" name="ContinueShoping" />
-            <input type="button" class="button red" value="پاک کردن سبد خرید" onclick="document.getElementById('removeBasketCompletly').submit();"/>
+            <input type="button" class="button red" value="پاک کردن سبد خرید" onclick="document.getElementById('removeBasketCompletly').submit();" />
             @*<input type="button" class="button red" value="حذف موارد انتخابی" onclick="RemoveSelectedItemRequest()" />*@
         </div>
 
     </form>
 
-    
+
     <form method="post" action="@Url.Action("Cart_RemoveCopletly")" id="removeBasketCompletly"></form>
 
 </div>
@@ -260,48 +281,52 @@
     {
     <style>
         #cartTable {
-            width:100%;
-        padding:5px;
-        margin:5px;
-    }
-#cartTable td,
-#cartTable th {
-    padding:1px 5px;
-                border:thin solid #888;
+            width: 100%;
+            padding: 5px;
+            margin: 5px;
+        }
+
+            #cartTable td,
+            #cartTable th {
+                padding: 1px 5px;
+                border: thin solid #888;
             }
 
             #cartTable th {
-                background:#bbb;
+                background: #bbb;
             }
 
 
             #cartTable .fix {
-                width:0; 
-                white-space:nowrap;
+                width: 0;
+                white-space: nowrap;
             }
+
             #cartTable .center {
                 text-align: center;
             }
 
 
         #DeliverytimmingTable {
-            width:100%;
+            width: 100%;
         }
+
             #DeliverytimmingTable tr:nth-child(2n+1) {
-                background:#d8d8ff;
+                background: #d8d8ff;
             }
+
             #DeliverytimmingTable tr:nth-child(2n+2) {
-                background:#f2edfb;
+                background: #f2edfb;
             }
+
             #DeliverytimmingTable td,
             #DeliverytimmingTable th {
                 border: none;
             }
 
                 #DeliverytimmingTable td:nth-child(n + 2) {
-                    text-align:center;
+                    text-align: center;
                 }
-                
     </style>
 }
 

@@ -161,11 +161,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/Admin/Views/DashBoard/ManufactursManagment_Update.cshtml">
       <publishTime>05/15/2017 17:59:05</publishTime>
     </File>
+    <File Include="Areas/Admin/Views/DashBoard/SlideShower_DeleteConfirm.cshtml">
+      <publishTime>07/26/2017 15:28:58</publishTime>
+    </File>
     <File Include="Areas/Admin/Views/DashBoard/SlideShower_Insert.cshtml">
       <publishTime>05/15/2017 17:59:05</publishTime>
     </File>
     <File Include="Areas/Admin/Views/DashBoard/SlideShower_Slides.cshtml">
-      <publishTime>05/15/2017 17:59:05</publishTime>
+      <publishTime>07/26/2017 15:34:42</publishTime>
     </File>
     <File Include="Areas/Admin/Views/DashBoard/SlideShower_Update.cshtml">
       <publishTime>05/15/2017 17:59:05</publishTime>
@@ -312,13 +315,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 17:59:07</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/ProductDiscount_DeleteConfirm.cshtml">
-      <publishTime>05/15/2017 17:59:06</publishTime>
+      <publishTime>07/26/2017 13:02:16</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/ProductDiscount_new.cshtml">
       <publishTime>07/12/2017 18:32:09</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/ProductDiscount_update.cshtml">
-      <publishTime>07/13/2017 16:33:04</publishTime>
+      <publishTime>07/26/2017 13:41:04</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Store/Products.cshtml">
       <publishTime>07/18/2017 02:54:00</publishTime>
@@ -588,13 +591,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 17:59:52</publishTime>
     </File>
     <File Include="bin/CarProject.dll">
-      <publishTime>07/24/2017 14:37:23</publishTime>
+      <publishTime>08/04/2017 03:26:31</publishTime>
     </File>
     <File Include="bin/CarProject.pdb">
-      <publishTime>07/24/2017 14:37:23</publishTime>
+      <publishTime>08/04/2017 03:26:31</publishTime>
     </File>
     <File Include="bin/CarProject.XmlSerializers.dll">
-      <publishTime>07/24/2017 14:37:33</publishTime>
+      <publishTime>08/04/2017 03:26:33</publishTime>
     </File>
     <File Include="bin/Common.Logging.Core.dll">
       <publishTime>11/14/2015 13:35:30</publishTime>

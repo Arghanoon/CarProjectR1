@@ -41,6 +41,7 @@
     <NavigationProperty Name="ProductInServices" Relationship="Self.FK_ProductInService_AutoService" FromRole="AutoService" ToRole="ProductInService" />
     <NavigationProperty Name="ServiceToViews" Relationship="Self.FK_ServiceToView_AutoService" FromRole="AutoService" ToRole="ServiceToView" />
     <Property Name="AutoServiceEnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserAutoServices" Relationship="CarAutomationModel.FK_UserAutoService_AutoService" FromRole="AutoService" ToRole="UserAutoService" />
   </EntityType>
   <EntityType Name="AutoServiceCar">
     <Key>
@@ -91,6 +92,7 @@
     <Property Name="AutoServicePackId" Type="Int32" />
     <NavigationProperty Name="AutoService" Relationship="Self.FK_AutoServices_AutoService" FromRole="AutoServices" ToRole="AutoService" />
     <NavigationProperty Name="AutoServicePack" Relationship="Self.FK_AutoServices_AutoServicePack" FromRole="AutoServices" ToRole="AutoServicePack" />
+    <Property Name="AutoServiceIdentity" Type="Int32" />
   </EntityType>
   <EntityType Name="AutoServicesUserComment">
     <Key>
@@ -123,6 +125,7 @@
     <Property Name="DiscountId" Type="Int32" />
     <NavigationProperty Name="Basket" Relationship="Self.FK_BasketItems_Baskets" FromRole="BasketItems" ToRole="Baskets" />
     <NavigationProperty Name="Discount" Relationship="Self.FK_BasketItems_Discount" FromRole="BasketItems" ToRole="Discount" />
+    <Property Name="IsInUser" Type="Boolean" />
   </EntityType>
   <EntityType Name="Basket">
     <Key>
@@ -1214,6 +1217,7 @@
     <NavigationProperty Name="ProductUserComments" Relationship="Self.FK_ProductUserComments_User" FromRole="User" ToRole="ProductUserComments" />
     <NavigationProperty Name="RootCarUserComments" Relationship="Self.FK_RootCarUserComments_User" FromRole="User" ToRole="RootCarUserComments" />
     <NavigationProperty Name="UserRole" Relationship="Self.FK_User_UserRole" FromRole="User" ToRole="UserRole" />
+    <NavigationProperty Name="UserAutoServices" Relationship="CarAutomationModel.FK_UserAutoService_User" FromRole="User" ToRole="UserAutoService" />
   </EntityType>
   <EntityType Name="UserRole">
     <Key>
@@ -3134,6 +3138,16 @@
       <End Role="Troubleshooting" EntitySet="Troubleshootings" />
     </AssociationSet>
     <EntitySet Name="NameOfValues" EntityType="CarAutomationModel.NameOfValue" />
+    <EntitySet Name="UserAutoServices" EntityType="CarAutomationModel.UserAutoService" />
+    <AssociationSet Name="FK_UserAutoService_AutoService" Association="CarAutomationModel.FK_UserAutoService_AutoService">
+      <End Role="AutoService" EntitySet="AutoServices" />
+      <End Role="UserAutoService" EntitySet="UserAutoServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAutoService_User" Association="CarAutomationModel.FK_UserAutoService_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserAutoService" EntitySet="UserAutoServices" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="CarAutomationModel.sysdiagram" />
   </EntityContainer>
   <EntityType Name="NameOfValue">
     <Key>
@@ -3304,5 +3318,52 @@
     <Property Name="SteeringHeightAdjustble" Type="Boolean" />
     <Property Name="SteeringControlKey" Type="Boolean" />
     <Property Name="SteeringDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UserAutoService">
+    <Key>
+      <PropertyRef Name="UserAutoServiceId" />
+    </Key>
+    <Property Name="UserAutoServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AutoServiceId" Type="Int32" />
+    <Property Name="AutoServiceAddedDate" Type="DateTime" Precision="3" />
+    <Property Name="AutoServiceUsed" Type="Boolean" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="AutoServiceUsedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AutoService" Relationship="CarAutomationModel.FK_UserAutoService_AutoService" FromRole="UserAutoService" ToRole="AutoService" />
+    <NavigationProperty Name="User" Relationship="CarAutomationModel.FK_UserAutoService_User" FromRole="UserAutoService" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_UserAutoService_AutoService">
+    <End Type="CarAutomationModel.AutoService" Role="AutoService" Multiplicity="0..1" />
+    <End Type="CarAutomationModel.UserAutoService" Role="UserAutoService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Principal>
+      <Dependent Role="UserAutoService">
+        <PropertyRef Name="AutoServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAutoService_User">
+    <End Type="CarAutomationModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="CarAutomationModel.UserAutoService" Role="UserAutoService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserAutoService">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
 </Schema>

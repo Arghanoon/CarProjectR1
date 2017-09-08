@@ -24,6 +24,7 @@ namespace CarProject.DBSEF
         public string ToatoalPaidPrice { get; set; }
         public Nullable<byte> PriceFlag { get; set; }
         public Nullable<int> DiscountId { get; set; }
+        public Nullable<bool> IsInUser { get; set; }
     
         public virtual Basket Basket { get; set; }
         public virtual Discount Discount { get; set; }
